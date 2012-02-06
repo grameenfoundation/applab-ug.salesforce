@@ -1,0 +1,35 @@
+<apex:page controller="MetricDetailController" title="MetricDetail" sidebar="false">
+
+    <apex:pageBlock title="Metric District Breakdown">
+        <apex:outputText value="{!label}"/>
+        <apex:pageBlockTable value="{!singleMetricData}" var="item">
+            <apex:column value="{!item.district}" headerValue="District" width="100px"/>
+            <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+            <apex:column width="70px">
+                <apex:facet name="header">Actual</apex:facet>
+                <div style="width:100%;height:100%;background-color:{!item.colour}">
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        &nbsp;<apex:param value="{!item.currentValue}"/>
+                    </apex:outputText>
+                </div>
+            </apex:column>
+            <apex:column width="70px" rendered="{!showPreviousQuarter}">
+                <apex:facet name="header">Prev. Actual</apex:facet>
+                <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                    <apex:param value="{!item.previousValue}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column width="70px" value="{!item.cumulativeValue}" headerValue="Cumulative" rendered="{!showCumulative}"/>
+            <apex:column value="{!item.currentQuarter.Comment__c}" headerValue="Comment"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <apex:pageBlock >
+        <apex:pageBlockSection title="Metric Distribution" columns="1">
+            <apex:pageBlockSectionItem >
+                <iframe title="Click to enlarge" src="{!$Page.MetricMap}?mapObject=METRICS&quarter={!quarter}&startLat=1.75&metrics={!metricName}" width="500px" height="500px" scrolling="no" style="border:1px solid #A8B8CF;"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+</apex:page>

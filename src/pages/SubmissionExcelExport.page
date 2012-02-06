@@ -1,0 +1,5 @@
+<apex:page cache="true" contentType="application/vnd.ms-excel#{!fileName}.xls" language="en-US" controller="SubmissionDownloadController" action="{!getData}">
+    <apex:pageBlock title="Submissions">
+        {!excelData}
+    </apex:pageBlock>
+</apex:page>
