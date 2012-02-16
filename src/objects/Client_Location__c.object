@@ -50,6 +50,15 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Description__c</fullName>
+        <description>The description of the location</description>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
         <fullName>Display_Name__c</fullName>
         <description>The name that will be displayed on a map of this location</description>
         <externalId>false</externalId>
@@ -75,8 +84,10 @@
         <description>Must include if this is to show up on a map</description>
         <externalId>false</externalId>
         <label>Latitude</label>
+        <length>25</length>
         <required>false</required>
-        <type>TextArea</type>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Longitude__c</fullName>
@@ -104,12 +115,20 @@
         <type>Picklist</type>
     </fields>
     <label>Client Location</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>CL-{0000000000}</displayFormat>
         <label>Client Location Name</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Client Locations</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Display_Name__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Display_Name__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
 </CustomObject>
