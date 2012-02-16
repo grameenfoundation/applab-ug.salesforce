@@ -1,29 +1,5 @@
-global class UpdateKeywords {
-    
-    global class JsonRequest {
-        webservice String Imei; 
-        webservice List<String> MenuIds; 
-        webservice String LastUpdatedDate;
-    }
-    
-    global class LocalMenu {
-        String Name; 
-        String Id;
-    }
-    
-    global class LocalMenuItem {
-        String Name;
-        String Id; 
-        String MenuId; 
-        String PId; 
-        String Content; 
-        Integer Position;
-    }        
-    
-    global class ObjectId {
-        String Id;
-    }    
-
+global class UpdateKeywords {   
+   
     /** Returns an Array of 5 Strings of Json.
       * Array[0] = Allowed Menus
       * Array[1] = Updated MenuItems
@@ -66,13 +42,11 @@ global class UpdateKeywords {
                                                        WHERE mg.Group__c IN 
                                                            (SELECT pg.Group__c FROM Person_Group_Association__c pg
                                                             WHERE  pg.Person__r.Handset__r.IMEI__c = :request.Imei) ];
-        // Generate LocalMenus from menuAssocs
+        // generate LocalMenus from menuAssocs
         List<LocalMenu> menus = new List<LocalMenu>();
         for (Menu_Group_Association__c menuAssoc : menusAssocs) {
-             LocalMenu item = new LocalMenu();
-             item.Id = menuAssoc.Menu__r.Id;
-             item.Name = menuAssoc.Menu__r.Label__c;
-             menus.add(item);    
+             menus.add(new LocalMenu(Id = menuAssoc.Menu__r.Id,
+                                     Name = menuAssoc.Menu__r.Label__c));    
         }
         return menus;
     }
@@ -83,7 +57,7 @@ global class UpdateKeywords {
         List<String> allowedMenuIds = new List<String>();
         List<String> updatedMenuIds = new List<String>();
         List<String> newMenuIds = new List<String>();
-        // Loop through Local Menu to get Menu Ids
+        // loop through Local Menu to get Menu Ids
         for (LocalMenu menu : menus) {          
             allowedMenuIds.add(menu.Id);
         }
@@ -106,25 +80,21 @@ global class UpdateKeywords {
         }              
         
         if (updatedMenuIds.size() > 0) {
-            for (Menu_Item__c menuItem : [SELECT m.Id, m.Label__c, m.Parent_Item__c, m.Menu__c, m.IsDeleted 
-                                          FROM   Menu_Item__c m 
-                                          WHERE  m.Menu__c IN :updatedMenuIds 
-                                          AND m.LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {
+            for (Menu_Item__c menuItem : [SELECT Id, Label__c, Parent_Item__c, Menu__c, IsDeleted 
+                                          FROM   Menu_Item__c  
+                                          WHERE  Menu__c IN :updatedMenuIds 
+                                          AND LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {
             
                 // Loop many times for each menu item to mimic production scenario
                 for (Integer index = 0; index < 1; index++) {
                     if (menuItem.IsDeleted) {
-                        ObjectId item = new ObjectId();
-                        item.Id = menuItem.Id;
-                        deletedMenuItems.add(item);
+                        deletedMenuItems.add(new ObjectId(Id = menuItem.Id));
                     }
                     else {
-                        LocalMenuItem item = new LocalMenuItem();
-                        item.Id = menuItem.Id;
-                        item.Name = menuItem.Label__c;
-                        item.PId = menuItem.Parent_Item__c;
-                        item.MenuId = menuItem.Menu__c;                    
-                        items.add(item);
+                        items.add(new LocalMenuItem(Id = menuItem.Id, 
+                                                    Name = menuItem.Label__c, 
+                                                    PId = menuItem.Parent_Item__c,
+                                                    MenuId = menuItem.Menu__c));                        
                     }                 
                 }
             }
@@ -132,19 +102,16 @@ global class UpdateKeywords {
         
         if (newMenuIds.size() > 0) {
             
-            for (Menu_Item__c menuItem : [SELECT m.Id, m.Label__c, m.Parent_Item__c, m.Menu__c, m.IsDeleted 
-                                          FROM   Menu_Item__c m 
-                                          WHERE  m.Menu__c IN :newMenuIds 
-                                          AND m.LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {
+            for (Menu_Item__c menuItem : [SELECT Id, Label__c, Parent_Item__c, Menu__c
+                                          FROM   Menu_Item__c  
+                                          WHERE  Menu__c IN :newMenuIds]) {
                 
                  // loop many times to mimic production
                  for (Integer index = 0; index < 1; index++) {
-                     LocalMenuItem item = new LocalMenuItem();
-                     item.Id = menuItem.Id;
-                     item.Name = menuItem.Label__c;
-                     item.PId = menuItem.Parent_Item__c;
-                     item.MenuId = menuItem.Menu__c;                    
-                     items.add(item);
+                     items.add(new LocalMenuItem(Id = menuItem.Id, 
+                                                 Name = menuItem.Label__c, 
+                                                 PId = menuItem.Parent_Item__c,
+                                                 MenuId = menuItem.Menu__c));
                  }                                          
             }           
         }   
@@ -163,21 +130,44 @@ global class UpdateKeywords {
         for (ObjectId deletedMenuId : deletedMenuIds) {
             menuItemIds.add(deletedMenuId.Id);
         }
-        
-        for (Attachment attachment : [SELECT a.Id, a.IsDeleted
-                                      FROM   Attachment a
-                                      WHERE  a.parentId IN :menuItemIds
-                                      AND LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {
-                                        
-            ObjectId obj = new ObjectId();
-            obj.Id = attachment.Id;          
+        // TODO: add code to filter for the added menu items without lastmodified date
+        for (Attachment attachment : [SELECT Id, IsDeleted
+                                      FROM   Attachment 
+                                      WHERE  ParentId IN :menuItemIds
+                                      AND LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {                    
           
             if (attachment.IsDeleted) {
-                deletedImages.add(obj);
+                deletedImages.add(new ObjectId(Id = attachment.Id));
             }
             else {
-                updatedImages.add(obj);         
+                updatedImages.add(new ObjectId(Id = attachment.Id));         
             }           
         }    
-    }  
+    }
+    
+    // Helper classes
+     global class JsonRequest {
+        webservice String Imei; 
+        webservice List<String> MenuIds; 
+        webservice String LastUpdatedDate;
+    }
+    
+     global class LocalMenu {
+        String Name; 
+        String Id;
+    }
+    
+    global class LocalMenuItem {
+        String Name;
+        String Id; 
+        String MenuId; 
+        String PId; 
+        String Content; 
+        Integer Position;
+    }        
+    
+    global class ObjectId {
+        String Id;
+    }   
+      
 }
