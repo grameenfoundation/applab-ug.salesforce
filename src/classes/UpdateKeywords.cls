@@ -22,9 +22,9 @@ global class UpdateKeywords {
         // get new, deleted and update Menu Items linked to the person's allowed menus
         getNewUpdatedAndDeletedMenuItems(menus, menuItems, deletedMenuItems, request);
         
-        // get updated and deleted images
-        //*** Current assumption is that when an attachment is "updated", even the menu item is "updated"
-        getUpdatedAndDeletedImages(menuItems, deletedMenuItems, updatedImages, deletedImages, request);
+        // get new, updated and deleted images
+        // *** Current assumption is that when an attachment is "updated", even the menu item is "updated"
+        getNewUpdatedAndDeletedImages(menuItems, deletedMenuItems, updatedImages, deletedImages, request);
         
         // serialize return values to Json
         returnValues[0] = JSON.serialize(menus);
@@ -36,7 +36,7 @@ global class UpdateKeywords {
     }
     
     private static List<LocalMenu> getMenus(JsonRequest request) {
-        // Get relevant Person Group and Menu Group Assciations
+        // get relevant Person Group and Menu Group Assciations
         List<Menu_Group_Association__c> menusAssocs = [SELECT mg.Menu__r.Id, mg.Menu__r.Label__c 
                                                        FROM   Menu_Group_Association__c mg
                                                        WHERE mg.Group__c IN 
@@ -56,6 +56,8 @@ global class UpdateKeywords {
         List<String> allowedMenuIds = new List<String>();
         List<String> updatedMenuIds = new List<String>();
         List<String> newMenuIds = new List<String>();
+        Map<String, String> itemToArticleMap = new Map<String, String>();
+        
         // loop through Local Menu to get Menu Ids
         for (LocalMenu menu : menus) {          
             allowedMenuIds.add(menu.Id);
@@ -67,7 +69,7 @@ global class UpdateKeywords {
         else {
             Set<String> allMenus = new Set<String>(request.MenuIds);           
         
-            // Sort the allowed menus into (-those for update) & (-entirely new ones)
+            // sort the allowed menus into (-those for update) & (-entirely new ones)
             for (String Id : allowedMenuIds) {
                 if (allMenus.contains(Id)) {
                     updatedMenuIds.add(Id);
@@ -79,19 +81,22 @@ global class UpdateKeywords {
         }              
         
         if (updatedMenuIds.size() > 0) {
-            for (Menu_Item__c menuItem : [SELECT Id, Label__c, Parent_Item__c, Menu__c, IsDeleted 
+            for (Menu_Item__c menuItem : [SELECT Id, Label__c, Parent_Item__c, Menu__c, Article_Id__c, Position__c, IsDeleted 
                                           FROM   Menu_Item__c  
                                           WHERE  Menu__c IN :updatedMenuIds 
-                                          AND LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {
+                                          AND Last_Modified_Date__c > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {
             
-                // Loop many times for each menu item to mimic production scenario
+                // loop many times for each menu item to mimic production scenario
                 for (Integer index = 0; index < 1; index++) {
                     if (menuItem.IsDeleted) {
                         deletedMenuItems.add(new ObjectId(menuItem.Id));
                     }
                     else {
+                    	if (menuItem.Article_Id__c != null) {
+                    		itemToArticleMap.put(menuItem.Article_Id__c, menuItem.Id);
+                    	}
                         items.add(new LocalMenuItem(menuItem.Label__c, menuItem.Id, 
-                                                    menuItem.Parent_Item__c, menuItem.Menu__c, null, null));                        
+                                                    menuItem.Parent_Item__c, menuItem.Menu__c, menuItem.Position__c));                        
                     }                 
                 }
             }
@@ -99,20 +104,42 @@ global class UpdateKeywords {
         
         if (newMenuIds.size() > 0) {
             
-            for (Menu_Item__c menuItem : [SELECT Id, Label__c, Parent_Item__c, Menu__c
+            for (Menu_Item__c menuItem : [SELECT Id, Label__c, Parent_Item__c, Menu__c, Article_Id__c, Position__c
                                           FROM   Menu_Item__c  
                                           WHERE  Menu__c IN :newMenuIds]) {
                 
                  // loop many times to mimic production
                  for (Integer index = 0; index < 1; index++) {
+                 	
+                     if (menuItem.Article_Id__c != null) {
+                         itemToArticleMap.put(menuItem.Article_Id__c, menuItem.Id);  	
+                   	 }
                      items.add(new LocalMenuItem(menuItem.Label__c, menuItem.Id,  
-                                                    menuItem.Parent_Item__c, menuItem.Menu__c, null, null)); 
+                                                    menuItem.Parent_Item__c, menuItem.Menu__c, menuItem.Position__c)); 
                  }                                          
             }           
-        }   
+        }  
+        buildSearchContentInMenuItems(items, itemToArticleMap);
     }
     
-    private static void getUpdatedAndDeletedImages(List<LocalMenuItem> menuItems, List<ObjectId> deletedMenuIds,
+    // loads content into menu items
+    private static void buildSearchContentInMenuItems(List<LocalMenuItem> items, Map<String, String> itemToArticleMap) {
+    	
+    	for (KnowledgeArticleVersion article : [SELECT Id, CKW_Search_Content__c
+    	                                        FROM   KnowledgeArticleVersion
+    	                                        WHERE  Id IN :itemToArticleMap.values()
+    	                                        AND    PublishStatus = 'Online']) {
+    	    
+    	    LocalMenuItem item = itemToArticleMap.get(article.Id);
+    	    item.Content = 'Last Modified: '             +
+    	                   DateTime.Now()                +
+    	                   '\n Content: '                +
+    	                   article.CKW_Search_Content__c;
+    	}
+        
+    }
+    
+    private static void getNewUpdatedAndDeletedImages(List<LocalMenuItem> menuItems, List<ObjectId> deletedMenuIds,
                                                    List<ObjectId> updatedImages, List<ObjectId> deletedImages, 
                                                    JsonRequest request) {
         
@@ -125,20 +152,22 @@ global class UpdateKeywords {
         for (ObjectId deletedMenuId : deletedMenuIds) {
             menuItemIds.add(deletedMenuId.Id);
         }
-        // TODO: add code to filter for the added menu items without lastmodified date
+        // this will work for both updated and new menus items (and their attachements)
+        // since LastModifiedDate is set to CreatedDate on creation of attachment
         for (Attachment attachment : [SELECT Id, IsDeleted
                                       FROM   Attachment 
                                       WHERE  ParentId IN :menuItemIds
-                                      AND LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {                    
+                                      AND    LastModifiedDate > :DateTime.parse(request.LastUpdatedDate)
+                                      AND    Name LIKE '%.jp%g' ALL ROWS]) {                    
           
             if (attachment.IsDeleted) {
-                deletedImages.add(new ObjectId(attachment.Id));
+                deletedImages.add(new ObjectId(attachment.Id)); 
             }
             else {
                 updatedImages.add(new ObjectId(attachment.Id));         
             }           
         }    
-    }
+    }   
     
     // Helper classes
      global class JsonRequest {
@@ -165,13 +194,13 @@ global class UpdateKeywords {
         String Content; 
         Integer Position;
         
+        // constructor excludes content as this is generated differently
         LocalMenuItem(String name, String id, String pId, 
-                      String menuId, String content, Integer position) {
+                      String menuId, Integer position) {
             Name = name;
             Id = id;
             MenuId = menuId;
             PId = pId;
-            Content = content;
             Position = position;        
         }
     }        
