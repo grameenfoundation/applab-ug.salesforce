@@ -25,6 +25,5 @@ trigger UpdateMenuItemTrigger on Menu_Item__c (before insert, before update) {
                 newItem.Last_Modified_Date__c = DateTime.Now(); 
             }
         }        
-    }
-       
+    }       
 }
