@@ -45,8 +45,7 @@ global class UpdateKeywords {
         // generate LocalMenus from menuAssocs
         List<LocalMenu> menus = new List<LocalMenu>();
         for (Menu_Group_Association__c menuAssoc : menusAssocs) {
-             menus.add(new LocalMenu(Id = menuAssoc.Menu__r.Id,
-                                     Name = menuAssoc.Menu__r.Label__c));    
+             menus.add(new LocalMenu(menuAssoc.Menu__r.Id, menuAssoc.Menu__r.Label__c));    
         }
         return menus;
     }
@@ -88,13 +87,11 @@ global class UpdateKeywords {
                 // Loop many times for each menu item to mimic production scenario
                 for (Integer index = 0; index < 1; index++) {
                     if (menuItem.IsDeleted) {
-                        deletedMenuItems.add(new ObjectId(Id = menuItem.Id));
+                        deletedMenuItems.add(new ObjectId(menuItem.Id));
                     }
                     else {
-                        items.add(new LocalMenuItem(Id = menuItem.Id, 
-                                                    Name = menuItem.Label__c, 
-                                                    PId = menuItem.Parent_Item__c,
-                                                    MenuId = menuItem.Menu__c));                        
+                        items.add(new LocalMenuItem(menuItem.Label__c, menuItem.Id, 
+                                                    menuItem.Parent_Item__c, menuItem.Menu__c, null, null));                        
                     }                 
                 }
             }
@@ -108,10 +105,8 @@ global class UpdateKeywords {
                 
                  // loop many times to mimic production
                  for (Integer index = 0; index < 1; index++) {
-                     items.add(new LocalMenuItem(Id = menuItem.Id, 
-                                                 Name = menuItem.Label__c, 
-                                                 PId = menuItem.Parent_Item__c,
-                                                 MenuId = menuItem.Menu__c));
+                     items.add(new LocalMenuItem(menuItem.Label__c, menuItem.Id,  
+                                                    menuItem.Parent_Item__c, menuItem.Menu__c, null, null)); 
                  }                                          
             }           
         }   
@@ -137,10 +132,10 @@ global class UpdateKeywords {
                                       AND LastModifiedDate > :DateTime.parse(request.LastUpdatedDate) ALL ROWS]) {                    
           
             if (attachment.IsDeleted) {
-                deletedImages.add(new ObjectId(Id = attachment.Id));
+                deletedImages.add(new ObjectId(attachment.Id));
             }
             else {
-                updatedImages.add(new ObjectId(Id = attachment.Id));         
+                updatedImages.add(new ObjectId(attachment.Id));         
             }           
         }    
     }
@@ -155,6 +150,11 @@ global class UpdateKeywords {
      global class LocalMenu {
         String Name; 
         String Id;
+        
+        LocalMenu(String menuId, String name) {
+            Id = menuId;
+            Name = name;
+        }
     }
     
     global class LocalMenuItem {
@@ -164,10 +164,24 @@ global class UpdateKeywords {
         String PId; 
         String Content; 
         Integer Position;
+        
+        LocalMenuItem(String name, String id, String pId, 
+                      String menuId, String content, Integer position) {
+            Name = name;
+            Id = id;
+            MenuId = menuId;
+            PId = pId;
+            Content = content;
+            Position = position;        
+        }
     }        
     
     global class ObjectId {
         String Id;
+        
+        ObjectId(String objectId) {
+            Id = objectId;
+        }
     }   
       
 }
