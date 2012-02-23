@@ -1,21 +1,23 @@
 global class UpdateKeywords {   
    
-    /** Returns an Array of 5 Strings of Json.
-      * Array[0] = Allowed Menus
-      * Array[1] = Updated MenuItems
-      * Array[2] = Deleted MenuItems
-      * Array[3] = Updated Images
-      * Array[4] = Deleted Images
+    /** Returns an Array of 6 Strings of Json & plain text Total
+      * Array[0] = Total
+      * Array[1] = Allowed Menus
+      * Array[2] = Updated MenuItems
+      * Array[3] = Deleted MenuItems
+      * Array[4] = Updated Images
+      * Array[5] = Deleted Images
     */
     webservice static String[] getKeywords(JsonRequest request) {
         // required variables
-        String[] returnValues = new String[5]; 
+        String[] returnValues = new String[6];
+        Integer total = 0;
         List<LocalMenu> menus = new List<localMenu>();        
         List<LocalMenuItem> menuItems = new List<LocalMenuItem>();      
         List<ObjectId> deletedMenuItems = new List<ObjectId>();
         List<ObjectId> updatedImages = new List<ObjectId>();
         List<ObjectId> deletedImages = new List<ObjectId>();              
- 
+        
         // get permitted Menus basing on Person Group | Menu Group associations
         menus = getMenus(request);
                 
@@ -26,12 +28,17 @@ global class UpdateKeywords {
         // *** Current assumption is that when an attachment is "updated", even the menu item is "updated"
         getNewUpdatedAndDeletedImages(menuItems, deletedMenuItems, updatedImages, deletedImages, request);
         
+        // compute totals
+        total = menus.size() + menuItems.size() + deletedMenuItems.size() + updatedImages.size() + deletedImages.size(); 
+                
         // serialize return values to Json
-        returnValues[0] = JSON.serialize(menus);
-        returnValues[1] = JSON.serialize(menuItems);
-        returnValues[2] = JSON.serialize(deletedMenuItems);
-        returnValues[3] = JSON.serialize(updatedImages);
-        returnValues[4] = JSON.serialize(deletedImages);
+        returnValues[0] = String.valueOf(total);
+        returnValues[1] = JSON.serialize(menus);
+        returnValues[2] = JSON.serialize(menuItems);
+        returnValues[3] = JSON.serialize(deletedMenuItems);
+        returnValues[4] = JSON.serialize(updatedImages);
+        returnValues[5] = JSON.serialize(deletedImages);
+        
         return returnValues;
     }
     
@@ -57,6 +64,7 @@ global class UpdateKeywords {
         List<String> updatedMenuIds = new List<String>();
         List<String> newMenuIds = new List<String>();
         Map<String, String> itemToArticleMap = new Map<String, String>();
+        Map<String, LocalMenuItem> idToItemMap = new Map<String, LocalMenuItem>();
         
         // loop through Local Menu to get Menu Ids
         for (LocalMenu menu : menus) {          
@@ -92,11 +100,15 @@ global class UpdateKeywords {
                         deletedMenuItems.add(new ObjectId(menuItem.Id));
                     }
                     else {
-                    	if (menuItem.Article_Id__c != null) {
-                    		itemToArticleMap.put(menuItem.Article_Id__c, menuItem.Id);
-                    	}
-                        items.add(new LocalMenuItem(menuItem.Label__c, menuItem.Id, 
-                                                    menuItem.Parent_Item__c, menuItem.Menu__c, menuItem.Position__c));                        
+                        if (menuItem.Article_Id__c != null) {
+                            itemToArticleMap.put(menuItem.Article_Id__c, menuItem.Id);
+                        }
+                      
+                        LocalMenuItem mItem = new LocalMenuItem(menuItem.Label__c, menuItem.Id, 
+                                                                menuItem.Parent_Item__c, menuItem.Menu__c,
+                                                                menuItem.Position__c);
+                        items.add(mItem );
+                        idToItemMap.put(menuItem.Id, mItem);                        
                     }                 
                 }
             }
@@ -110,32 +122,36 @@ global class UpdateKeywords {
                 
                  // loop many times to mimic production
                  for (Integer index = 0; index < 1; index++) {
-                 	
+                    
                      if (menuItem.Article_Id__c != null) {
-                         itemToArticleMap.put(menuItem.Article_Id__c, menuItem.Id);  	
-                   	 }
-                     items.add(new LocalMenuItem(menuItem.Label__c, menuItem.Id,  
-                                                    menuItem.Parent_Item__c, menuItem.Menu__c, menuItem.Position__c)); 
+                         itemToArticleMap.put(menuItem.Article_Id__c, menuItem.Id);   
+                     }
+                     
+                     LocalMenuItem mItem = new LocalMenuItem(menuItem.Label__c, menuItem.Id, 
+                                                                menuItem.Parent_Item__c, menuItem.Menu__c,
+                                                                menuItem.Position__c);
+                     items.add(mItem );
+                     idToItemMap.put(menuItem.Id, mItem);  
                  }                                          
             }           
         }  
-        buildSearchContentInMenuItems(items, itemToArticleMap);
+        buildSearchContentInMenuItems(idToItemMap, itemToArticleMap);
     }
     
     // loads content into menu items
-    private static void buildSearchContentInMenuItems(List<LocalMenuItem> items, Map<String, String> itemToArticleMap) {
-    	
-    	for (KnowledgeArticleVersion article : [SELECT Id, CKW_Search_Content__c
-    	                                        FROM   KnowledgeArticleVersion
-    	                                        WHERE  Id IN :itemToArticleMap.values()
-    	                                        AND    PublishStatus = 'Online']) {
-    	    
-    	    LocalMenuItem item = itemToArticleMap.get(article.Id);
-    	    item.Content = 'Last Modified: '             +
-    	                   DateTime.Now()                +
-    	                   '\n Content: '                +
-    	                   article.CKW_Search_Content__c;
-    	}
+    private static void buildSearchContentInMenuItems(Map<String, LocalMenuItem> idToItemMap, Map<String, String> itemToArticleMap) {
+       
+        for (Mobile_Article__kav article : [SELECT Id, CKW_Search_Content__c
+                                                FROM   Mobile_Article__kav
+                                                WHERE  Id IN :itemToArticleMap.values()
+                                                AND    PublishStatus = 'Online']) {
+            
+            LocalMenuItem item = idToItemMap.get(itemToArticleMap.get(article.Id));
+            item.Content = 'Last Modified: '             +
+                           DateTime.Now()                +
+                           '\n Content: '                +
+                           article.CKW_Search_Content__c;
+        }
         
     }
     
@@ -177,40 +193,39 @@ global class UpdateKeywords {
     }
     
      global class LocalMenu {
-        String Name; 
-        String Id;
+        String label; 
+        String id;
         
         LocalMenu(String menuId, String name) {
-            Id = menuId;
-            Name = name;
+            this.id = menuId;
+            this.label= name;
         }
     }
     
     global class LocalMenuItem {
-        String Name;
-        String Id; 
-        String MenuId; 
-        String PId; 
-        String Content; 
-        Integer Position;
+        String label;
+        String id; 
+        String menu_id; 
+        String parent_id; 
+        String content; 
+        Decimal position;
         
         // constructor excludes content as this is generated differently
         LocalMenuItem(String name, String id, String pId, 
-                      String menuId, Integer position) {
-            Name = name;
-            Id = id;
-            MenuId = menuId;
-            PId = pId;
-            Position = position;        
+                      String menuId, Decimal position) {
+            this.label = name;
+            this.id = id;
+            this.menu_id = menuId;
+            this.parent_id = pId;
+            this.position = position;        
         }
     }        
     
     global class ObjectId {
-        String Id;
+        String id;
         
         ObjectId(String objectId) {
-            Id = objectId;
+            this.id = objectId;
         }
-    }   
-      
+    }         
 }
