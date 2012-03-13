@@ -176,7 +176,7 @@ public with sharing class Message {
                     } else {
                         scheduledMessage.Send_Via_Pulse__c = false;
                     }
-                    
+
                     if (sendViaSms) {
                         scheduledMessage.Send_Via_Sms__c = true;
                     }
@@ -201,64 +201,80 @@ public with sharing class Message {
         // who are in more than one group
         this.recipientMap = new Map<String, String>();
 
+        List<String> personRecipientList = new List<String>();
+        List<String> groupRecipientList = new List<String>();
         for (Recipient messageRecipient : this.recipients) {
             if (messageRecipient.getRecipientType() == Recipient.RecipientType.DistributionGroup) {
-                if (sendViaPulse) {
-                     for (Person_Group_Association__c[] personAssociations : [SELECT 
-                                                                                                          Person__c, 
-                                                                                                          Person__r.Mobile_Number__c 
-                                                                                                        FROM
-                                                                                                          Person_Group_Association__c
-                                                                                                        WHERE 
-                                                                                                        Group__c = :messageRecipient.getRecipientId()]) { 
-                                for (Person_Group_Association__c personAssociation : personAssociations) {
-                                     recipientMap.put(personAssociation.Person__c, personAssociation.Person__r.Mobile_Number__c);
-                                }
-                      }
-                            
-                } else if (sendviaSms) {
-                     for (Person_Group_Association__c[]  personAssociations : [SELECT 
-                                                                                                          Person__c, 
-                                                                                                          Person__r.Mobile_Number__c 
-                                                                                                        FROM
-                                                                                                          Person_Group_Association__c
-                                                                                                        WHERE Group__c = :messageRecipient.getRecipientId()  
-                                                                                                        AND
-                                                                                                           Person__r.Mobile_Number__c != null]) { 
-                             for (Person_Group_Association__c personAssociation : personAssociations) {
-                                     recipientMap.put(personAssociation.Person__c, personAssociation.Person__r.Mobile_Number__c);
-                             }
-                     }
-                }
-            } else if (messageRecipient.getRecipientType() == Recipient.RecipientType.Person && 
-                !recipientMap.containsKey(messageRecipient.getRecipientId())) {
-                // looking for a single person, but may be zero length
-                if (sendViaSms) {
-                    for (Person__c[] people : [SELECT 
-                                                            id, 
-                                                            Mobile_Number__c 
-                                                        FROM 
-                                                            Person__c
-                                                        WHERE 
-                                                            id = :messageRecipient.getRecipientId() 
-                                                        AND 
-                                                            Mobile_Number__c != null]) { 
-                                for (Person__c person : people) {
-                                    recipientMap.put(person.id, person.Mobile_Number__c);
-                                }
+                groupRecipientList.add(messageRecipient.getRecipientId());
+            }
+            else {
+                personRecipientList.add(messageRecipient.getRecipientId());
+            }
+        }
+        if (sendViaPulse) {
+            if (groupRecipientList.size() > 0) {
+                for (Person_Group_Association__c[] personAssociations : [SELECT
+                                                                            Person__c,
+                                                                            Person__r.Mobile_Number__c
+                                                                        FROM
+                                                                            Person_Group_Association__c
+                                                                        WHERE
+                                                                            Group__c
+                                                                        IN 
+                                                                            :groupRecipientList]) {
+                    for (Person_Group_Association__c personAssociation : personAssociations) {
+                        recipientMap.put(personAssociation.Person__c, personAssociation.Person__r.Mobile_Number__c);
                     }
                 }
-                else {
-                    for (Person__c[] people : [SELECT 
-                                                           id, 
-                                                           Mobile_Number__c 
-                                                       FROM 
-                                                           Person__c 
-                                                       WHERE 
-                                                           id = :messageRecipient.getRecipientId()]) {
-                            for (Person__c person : people) {
-                                recipientMap.put(person.id, person.Mobile_Number__c);
-                            }
+            }
+            if (personRecipientList.size() > 0) {
+                for (Person__c[] people : [SELECT
+                                              Id,
+                                              Mobile_Number__c
+                                           FROM
+                                              Person__c
+                                           WHERE
+                                              Id
+                                           IN 
+                                            :personRecipientList]) {
+                    for (Person__c person : people) {
+                        recipientMap.put(person.id, person.Mobile_Number__c);
+                    }
+                }
+            }
+        }
+        if (sendViaSMS) {
+            if (groupRecipientList.size() > 0) {
+                for (Person_Group_Association__c[] personAssociations : [SELECT
+                                                                            Person__c,
+                                                                            Person__r.Mobile_Number__c
+                                                                        FROM
+                                                                            Person_Group_Association__c
+                                                                        WHERE
+                                                                            Group__c
+                                                                        IN 
+                                                                            :groupRecipientList
+                                                                        AND
+                                                                            Person__r.Mobile_Number__c != null]) {
+                    for (Person_Group_Association__c personAssociation : personAssociations) {
+                        recipientMap.put(personAssociation.Person__c, personAssociation.Person__r.Mobile_Number__c);
+                    }
+                }
+            }
+            if (personRecipientList.size() > 0) {
+                for (Person__c[] people : [SELECT
+                                                Id,
+                                                Mobile_Number__c
+                                            FROM
+                                                Person__c
+                                            WHERE
+                                                Id
+                                            IN
+                                                :personRecipientList
+                                            AND
+                                                Mobile_Number__c != null]) {
+                    for (Person__c person : people) {
+                        recipientMap.put(person.id, person.Mobile_Number__c);
                     }
                 }
             }
