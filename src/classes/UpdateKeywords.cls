@@ -217,7 +217,8 @@ global class UpdateKeywords {
             this.id = id;
             this.menu_id = menuId;
             this.parent_id = pId;
-            this.position = position;        
+            this.position = position; 
+            this.content = 'No Content';       
         }
     }        
     

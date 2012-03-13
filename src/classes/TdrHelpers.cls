@@ -1206,13 +1206,16 @@ public with sharing class TdrHelpers {
     }
 
     private static String getBackgroundColour() {
-        return 'background-color:#FFC600;';
+        return 'background-color:#FFFFFF;';
+    }
+    private static String getTableBackgroundColour() {
+        return 'background-color:#FFCC33;';
     }
     private static String getLargeFont() {
         return 'font-size:30pt;';
     }
     private static String getMediumFont() {
-        return 'font-size:15pt;';
+        return 'font-weight:bold;';
     }
     private static String getSmallFont() {
         return 'font-size:10pt;';
@@ -1229,6 +1232,12 @@ public with sharing class TdrHelpers {
     private static String getCenter() {
         return 'vertical-align: center;';
     }
+    private static String getTdNameWidth() {
+        return 'width:25%; padding-left:5px;';
+    }
+    private static String getTdOtherWidth() {
+        return 'width:15%; padding-left:5px;;';
+    }
     private static String getFullWidth() {
         return 'width:100%;';
     }
@@ -1236,13 +1245,28 @@ public with sharing class TdrHelpers {
         return 'width:600px;';
     }
     private static String getSumaryWidth() {
-        return 'width:80%;';
+        return 'width:96%;';
     }
     private static String getCellAlignment() {
         return 'align="center" valign="middle"';
     }
     private static String getSummaryPadding() {
-        return 'padding:10px 10% 10px 10%;';
+        return 'padding:0% 2% 2% 2%;';
+    }
+    private static String getTitleStyle() {
+        return 'font-size:20pt; font-family: \'Trebuchet MS\', sans-serif; font-weight: bold; padding-bottom: 5px; '+ 
+        'text-shadow: 0 0 1px rgba(0, 0, 0, 0.3); -webkit-font-smoothing: subpixel-antialiased; font-smooth: always;';
+    }
+    private static String getTableStyle(){
+    	return 'table-layout: fixed; background-color:#FFCC33; width:100%; alignment-adjust:auto;';
+    }
+    private static String getTableHeaderStyle(){
+    	return 'font-size:12px; font-family: \'Trebuchet MS\', sans-serif; word-wrap: break-word; background-color:#FFC600;' +
+        'font-weight:bold; text-shadow: 0 0 1px rgba(0, 0, 0, 0.1); -webkit-font-smoothing: antialiased; font-smooth: always;';
+    }
+    private static String getTableBodyStyle() {
+    	return 'white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space:-o-pre-wrap; white-space: pre-wrap; word-wrap: break-word;'+
+    	'font-size:13px; font-family: arial, sans-serif; background-color:#FFFFFF; -webkit-font-smoothing: antialiased; font-smooth: always;';
     }
 
     /**
@@ -1257,49 +1281,53 @@ public with sharing class TdrHelpers {
      */
     private static String getSummaryHtml(Map<String, String> parameters, Boolean allowAll, Boolean incSummary) {
 
-        // Create the summary table if needed
+      // Create the summary table if needed
         String summaryHtml = '<div style="' + getBackgroundColour() + getFullWidth() + '">';
         if (incSummary) {
             summaryHtml = '<div style="' + getBackgroundColour() +
-                 getSumaryWidth() +
-                 getSummaryPadding() +
-                 '">' +
-                '<div style="' + getLargeFont() + '">' +
+                getSumaryWidth() +
+                getSummaryPadding() +
+                '">' +
+                '<div style="' + getTitleStyle() + '">' +
                     'Summary' +
                 '</div>' +
-                '<table style="' + getBackgroundColour() + '">' +
-                '<tr style="' + getMediumFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '>' +
-                    '<td>Sales Rep Name</td>'      +
-                    '<td>Hours worked</td>'        +
-                    '<td>Sales vs Activities</td>' +
-                    '<td>Total Targets</td>'       +
-                    '<td>Difference</td>'          +
-                    '<td>Other Activities</td>'    +
-                '</tr>';
+                '<table style="' + getTableStyle() + '" cellpadding="3" >' +
+                    '<thead style="'+ getTableHeaderStyle() + '">' +
+                        '<tr align="left" valign="middle" >' +
+                            '<td style="' + getTdNameWidth() + '">'  + 'Sales Rep Name</td>'      +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Hours worked</td>'        +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Sales vs Activities</td>' +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Total Targets</td>'       +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Difference</td>'          +
+                            '<td style="'+ getTableHeaderStyle() + getTdOtherWidth() + '">' + 'Other Activities</td>'    +
+                        '</tr> </thead> <tbody style ="'+ getTableBodyStyle()                     + 
+                        '" cellpadding="4" align="left" valign="middle">';
         }
 
         // Create the start of the main table
         String mainHtml = '<div style="' + getBackgroundColour() + getFullWidth() + '">' +
-            '<div style="' + getLargeFont() + '">' +
+            '<div style="' + getTitleStyle() + '">' +
                 'Detailed' +
             '</div>' +
-            '<table style="' + getBackgroundColour() + '">' +
-            '<tr style="' + getMediumFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '">' +
-                '<td>Sales Rep Name</td>'          +
-                '<td>Day Start</td>'               +
-                '<td>Day End</td>'                 +
-                '<td>MM Full Report</td>'          +
-                '<td>Target</td>'                  +
-                '<td>MM Short Report</td>'         +
-                '<td>Target</td>'                  +
-                '<td>Corporate Sales Calls</td>'   +
-                '<td>Target</td>'                  +
-                '<td>School Sales Calls</td>'      +
-                '<td>Target</td>'                  +
-                '<td>Customer Support</td>'        +
-                '<td>Marketing Event</td>'         +
-                '<td>Other Activities</td>'        +
-            '</tr>';
+            '<table style="' + getTableStyle() + '" cellpadding="3" >'   +
+            '<thead style="'+ getTableHeaderStyle() +'">' 			     + 
+                '<tr align="left" valign="middle" >' 					 +
+                    '<td style="width: 13%">Sales Rep Name</td>'         +
+                    '<td style="width: 10%">Day Start</td>'              +
+                    '<td style="width: 10%">Day End</td>'                +
+                    '<td style="width: 7%">MM Full Report</td>'          +
+                    '<td style="width: 4%">Target</td>'                  +
+                    '<td style="width: 7%">MM Short Report</td>'         +
+                    '<td style="width: 4%">Target</td>'                  +
+                    '<td style="width: 7%">Corporate Sales Calls</td>'   +
+                    '<td style="width: 4%">Target</td>'                  +
+                    '<td style="width: 7%">School Sales Calls</td>'      +
+                    '<td style="width: 4%">Target</td>'                  +
+                    '<td style="width: 7%">Customer Support</td>'        +
+                    '<td style="width: 8%">Marketing Event</td>'         +
+                    '<td style="width: 8%">Other Activities</td>'        +
+                '</tr></thead> <tbody style ="'+ getTableBodyStyle()     + 
+                '" cellpadding="4" align="left" valign="middle">';
         Boolean hasData = false;
         String tdrCurrentName = '';
         String currentRegion = '';
@@ -1314,17 +1342,19 @@ public with sharing class TdrHelpers {
 
                 // If this is a new region the add the row to the table
                 if (!summary.Person__r.Region__r.Display_Name__c.equals(currentRegion)) {
-                    mainHtml += '<tr><td colspan="14" style="' + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td></tr>';
+                    mainHtml += '<tr><td colspan="1" style="' + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td>'+ 
+                        '<td colspan="13"style="' + getTableStyle() + '"></td></tr>';
                     if (incSummary) {
-                        summaryHtml += '<tr><td colspan="5" style="' + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td></tr>';
+                        summaryHtml += '<tr><td colspan="1" style="' + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td>'+
+                        '<td colspan = "5" style="' + getTableStyle() + '"></td></tr>';
                     }
                     currentRegion = summary.Person__r.Region__r.Display_Name__c;
                 }
 
                 hasData = true;
-                mainHtml += '<tr style="' + getSmallFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '>';
+                mainHtml += '<tr>';
                 if (incSummary) {
-                    summaryHtml += '<tr style="' + getSmallFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '>';
+                    summaryHtml += '<tr>';
                 }
                 if (!generateTdrName(
                         summary.Person__r.First_Name__c,
@@ -1386,7 +1416,7 @@ public with sharing class TdrHelpers {
                     }
                     Decimal difference = (totalReports + totalSales) - totalTarget;
                     summaryHtml += '<td>' + hoursDifferent.intValue() + ' ' + minutes + '</td>' +
-                        '<td>' + totalSales.intValue() + '/' + totalReports.intValue() + '</td>' +
+                        '<td>' + totalReports.intValue() + '/' + totalSales.intValue() + '</td>' +
                         '<td>' + totalTarget.intValue() + '</td>' +
                         '<td>' + difference.intValue() + '</td>' +
                         '<td>' + totalOther.intValue() + '</td>' +
@@ -1402,18 +1432,18 @@ public with sharing class TdrHelpers {
             return html;
         }
         if (incSummary) {
-            html = summaryHtml + '</table></div><br /><br />' + mainHtml;
+            html = summaryHtml + '</tbody></table></div></div><br /><br />' + mainHtml;
         }
         else {
             html = mainHtml;
         }
-        html += '</table></div>';
+        html += '</tbody></table></div>';
         html += '<br />';
         html += createLinkToDashboard(parameters);
         html += '</div>';
         return html;
     }
-
+    
     /**
      *  Generate an HTML table for all the TDR_Activity__c for a given time period
      *
