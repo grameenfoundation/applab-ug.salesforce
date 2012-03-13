@@ -1258,10 +1258,10 @@ public with sharing class TdrHelpers {
         'text-shadow: 0 0 1px rgba(0, 0, 0, 0.3); -webkit-font-smoothing: subpixel-antialiased; font-smooth: always;';
     }
     private static String getTableStyle(){
-    	return 'table-layout: fixed; background-color:#FFCC33; width:100%; alignment-adjust:auto;';
+        return 'table-layout: fixed; background-color:#FFCC33; width:100%; alignment-adjust:auto;';
     }
     private static String getTableHeaderStyle(){
-    	return 'font-size:12px; font-family: \'Trebuchet MS\', sans-serif; word-wrap: break-word; background-color:#FFC600;' +
+        return 'font-size:12px; font-family: \'Trebuchet MS\', sans-serif; word-wrap: break-word; background-color:#FFC600;' +
         'font-weight:bold; text-shadow: 0 0 1px rgba(0, 0, 0, 0.1); -webkit-font-smoothing: antialiased; font-smooth: always;';
     }
     private static String getTableBodyStyle() {
