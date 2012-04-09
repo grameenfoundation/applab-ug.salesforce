@@ -89,6 +89,15 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Is_Lickert__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Is this metric part of a lickert scale</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if this metric is part of a lickert scale. Format for lickert scale Name is &lt;param name&gt;_&lt;lickert order number&gt; e.g. Do_You_Like_Bread_1</inlineHelpText>
+        <label>Is Lickert</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Label__c</fullName>
         <description>The label for this metric. Will be displayed on the dashboard.</description>
         <externalId>false</externalId>
@@ -156,6 +165,7 @@
     </fields>
     <fields>
         <fullName>Organisation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Organisation</label>
         <referenceTo>Account</referenceTo>

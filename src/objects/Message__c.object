@@ -59,6 +59,7 @@
     </fields>
     <fields>
         <fullName>From__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The Salesforce user who sent the message</description>
         <externalId>false</externalId>
         <label>From</label>
@@ -69,6 +70,7 @@
     </fields>
     <fields>
         <fullName>Recipient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The recipient of the message</description>
         <externalId>false</externalId>
         <label>Recipient</label>

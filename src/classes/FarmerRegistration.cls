@@ -151,7 +151,7 @@ global class FarmerRegistration {
 
         // Done so update the metric
         if (!farmerRegistration.isUpdate) {
-            MetricHelpers.updateMetric('total_farmers_reached', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+            MetricHelpers.updateMetric('total_farmers_reached', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getQuarterAsString(0)), false);
         }
 
         // Add to the CKW who registered the farmer performance review
@@ -165,10 +165,17 @@ global class FarmerRegistration {
 
     private static Person__c addPersonBioDetails(Person__c person, AddFarmerRegistration farmerRegistration, Person__c linkedPerson) {
 
+        Double age = farmerRegistration.age;
+		
+		//Calculate year of bith from age
+		String yearOfBirth = String.valueOf((Date.today().year()) - Integer.valueOf(age));
+        
         person.First_Name__c = farmerRegistration.firstName;
         person.Last_Name__c = farmerRegistration.lastName;
         person.Fathers_Name__c = farmerRegistration.fathersName;
-        person.Age__c = farmerRegistration.age;
+        
+        // Set date of birth to 1 Jan
+        person.Date_of_Birth__c = date.parse('1/1/' + yearOfBirth);
         if (farmerRegistration.mobileNumber != null && farmerRegistration.mobileNumber.length() < 20) {
             person.Raw_Mobile_Number__c = farmerRegistration.mobileNumber;
         }

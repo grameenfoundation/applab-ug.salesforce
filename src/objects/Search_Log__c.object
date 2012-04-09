@@ -82,6 +82,7 @@
     </fields>
     <fields>
         <fullName>Group__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The group to which the interviewer/CKW is associated</description>
         <externalId>false</externalId>
         <inlineHelpText>The group to which the interviewer/CKW is associated</inlineHelpText>
@@ -116,6 +117,7 @@
     </fields>
     <fields>
         <fullName>Interviewee__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The person who requests information</description>
         <externalId>false</externalId>
         <label>Interviewee</label>
@@ -140,6 +142,7 @@
     </fields>
     <fields>
         <fullName>Interviewer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The CKW/Interviewer as obtained from Salesforce using handset id</description>
         <externalId>false</externalId>
         <label>Interviewer</label>

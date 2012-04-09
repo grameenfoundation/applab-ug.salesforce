@@ -1,0 +1,119 @@
+<apex:page controller="SearchKeywordsController">
+	<head>
+<script type="text/javascript">
+	function openLookup(baseURL, width, modified, searchParam) {
+		var originalbaseURL = baseURL;
+		var originalwidth = width;
+		var originalmodified = modified;
+		var originalsearchParam = searchParam;
+
+		var lookupType = baseURL.substr(baseURL.length - 3, 3);
+		if (modified == '1')
+			baseURL = baseURL + searchParam;
+
+		var isCustomLookup = false;
+
+		// Following "001" is the lookup type for Account object so change this as per your standard or custom object
+		if (lookupType == "001") {
+
+			var urlArr = baseURL.split("&");
+			var txtId = '';
+			if (urlArr.length > 2) {
+				urlArr = urlArr[1].split('=');
+				txtId = urlArr[1];
+			}
+
+			// Following is the url of Custom Lookup page. You need to change that accordingly
+			baseURL = "/apex/CustomAccountLookup?txt=" + txtId;
+
+			// Following is the id of apex:form control "myForm". You need to change that accordingly
+			baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.myForm}");
+			if (modified == '1') {
+				baseURL = baseURL + "&lksearch=" + searchParam;
+			}
+
+			// Following is the ID of inputField that is the lookup to be customized as custom lookup
+			if (txtId.indexOf('Account') > -1) {
+				isCustomLookup = true;
+			}
+		}
+
+		if (isCustomLookup == true) {
+			openPopup(
+					baseURL,
+					"lookup",
+					350,
+					480,
+					"width="
+							+ width
+							+ ",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no",
+					true);
+		} else {
+			if (modified == '1')
+				originalbaseURL = originalbaseURL + originalsearchParam;
+			openPopup(
+					originalbaseURL,
+					"lookup",
+					350,
+					480,
+					"width="
+							+ originalwidth
+							+ ",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no",
+					true);
+		}
+	}
+</script>
+	</head>
+	<apex:form>
+		<apex:pageBlock mode="edit" id="block" title="Manage Search Content">
+			<apex:pageBlockSection title="Menus" id="menulist" columns="1">
+				<apex:pageBlockTable value="{!menus}" var="m" cellpadding="4"
+					border="1">
+					<apex:column headerValue="Menu Label">
+						<apex:commandLink action="{!getTopMenuItems}">
+                            {!m.Label__c}
+                            <apex:param name="mId" value="{!m.Id}" />
+						</apex:commandLink>
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Menu Items" id="menuitemlist"
+				columns="1" rendered="{!NOT(ISNULL(currentMenu))}">
+				<apex:outputLabel for="menulabel">Current Menu  : {!currentMenu.Label__c}</apex:outputLabel>
+				<apex:outputLabel for="menulabel">Current Keyword  : {!keyword}</apex:outputLabel>
+				<apex:commandButton value="Previous MenuItem" action="{!moveBack}" />
+
+				<apex:pageBlockTable value="{!menuItems}" var="mi" cellpadding="4"
+					border="1" rendered="{!hasMenuItems}">
+					<apex:column headerValue="Menu Item Label">
+						<apex:commandLink action="{!getChildMenuItems}"
+							reRender="menuitemlist">
+                            {!mi.Label__c}
+                            <apex:param name="miId" value="{!mi.Id}" />
+						</apex:commandLink>
+					</apex:column>
+					<apex:column headerValue="Article Number">
+						<apex:inputField value="{!mi.Article_Id__c}" />
+					</apex:column>
+					<apex:column headerValue="Save Changes">
+						<apex:commandButton value="Save!" action="{!saveChanges}" />
+					</apex:column>
+					<apex:column headerValue="Delete Menu Item">
+						<apex:commandButton value="Delete!" action="{!deleteMenuItem}">
+							<apex:param name="delId" value="{!mi.Id}" />
+						</apex:commandButton>
+					</apex:column>
+				</apex:pageBlockTable>
+				<apex:outputLabel>Add Menu Item</apex:outputLabel>
+				<br />
+				<apex:outputLabel>Item Label : </apex:outputLabel>
+				<apex:inputText value="{!label}" />
+				<br />
+				<apex:outputLabel for="menulabel">Article Number: </apex:outputLabel>
+				<apex:inputText value="{!articleId}" />
+				<br />
+				<apex:commandButton value="Add Item!" action="{!addMenuItem}" />
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

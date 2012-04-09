@@ -43,6 +43,7 @@ Note that a Topic must be tied to a Group, which is what the person actually sub
     <enableReports>true</enableReports>
     <fields>
         <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Account</label>
         <referenceTo>Account</referenceTo>

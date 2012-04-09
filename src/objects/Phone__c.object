@@ -41,6 +41,7 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Batch__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Batch</label>
         <referenceTo>Batch__c</referenceTo>
@@ -97,6 +98,10 @@
             </picklistValues>
             <picklistValues>
                 <fullName>HTC TATOO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Samsung Galaxy Tab</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -219,6 +224,7 @@
     </fields>
     <fields>
         <fullName>SIM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The SIM Card assigned to this phone</description>
         <externalId>false</externalId>
         <inlineHelpText>The SIM Card assigned to this phone</inlineHelpText>

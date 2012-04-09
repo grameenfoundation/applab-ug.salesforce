@@ -41,6 +41,7 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The account that ordered to run the survey</description>
         <externalId>false</externalId>
         <inlineHelpText>Select the customer who ordered to run the survey</inlineHelpText>
@@ -104,6 +105,35 @@
         <scale>0</scale>
         <trackHistory>true</trackHistory>
         <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Export_Type__c</fullName>
+        <description>What format should the submissions get bounced to another survey as</description>
+        <externalId>false</externalId>
+        <label>Export Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>XML</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>JSON</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Export_URL__c</fullName>
+        <defaultValue>&quot;NONE&quot;</defaultValue>
+        <description>The URL to export a survey too</description>
+        <externalId>false</externalId>
+        <label>Export URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Url</type>
     </fields>
     <fields>
         <fullName>Form_Data__c</fullName>
@@ -226,6 +256,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
     </fields>
     <fields>
         <fullName>Product__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Product</label>
         <referenceTo>Product2</referenceTo>

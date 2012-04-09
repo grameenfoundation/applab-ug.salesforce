@@ -41,6 +41,7 @@
     <enableReports>false</enableReports>
     <fields>
         <fullName>Application_Version__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Application Version</label>
         <referenceTo>Application_Version__c</referenceTo>
@@ -51,6 +52,7 @@
     </fields>
     <fields>
         <fullName>Handset__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Handset</label>
         <referenceTo>Phone__c</referenceTo>

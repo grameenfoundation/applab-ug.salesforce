@@ -59,7 +59,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Last_Modified_Date__c</fullName>
+        <description>Last Modified Date for relevant fields only i.e not metadata</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last Modified date</inlineHelpText>
+        <label>Last Modified Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
         <fullName>Menu__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Menu</label>
         <referenceTo>Menu__c</referenceTo>
@@ -71,6 +82,7 @@
     </fields>
     <fields>
         <fullName>Parent_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Parent Item</label>
         <referenceTo>Menu_Item__c</referenceTo>
@@ -78,6 +90,18 @@
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Position__c</fullName>
+        <description>The display position (ascending) of the menu item. This is for client display</description>
+        <externalId>false</externalId>
+        <label>Position</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <label>Menu Item</label>
     <nameField>
