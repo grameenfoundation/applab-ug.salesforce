@@ -60,7 +60,6 @@ public class CkwRegistration {
         Date dob = calculateDob(answers.get('dob_0').Answer__c);
         if (dob != null) {
             person.Date_of_Birth__c = dob;
-            person.Age__c = calculateAge(dob);
         }
 
         // Set a rollback point
@@ -323,7 +322,6 @@ public class CkwRegistration {
             Date dob = calculateDob(answers.get('dob_0').Answer__c);
             if (dob != null) {
                 personToUpdate.Date_of_Birth__c = dob;
-                personToUpdate.Age__c = calculateAge(dob);
             }
         }
         if (answers.containsKey('gps_0') && !answers.get('gps_0').Answer__c.equals('null')) {
@@ -573,7 +571,7 @@ public class CkwRegistration {
         Account org2 = Utils.createTestOrganisation('TestOrg2');
         database.insert(org2);
 
-        District__c district = [SELECT Name FROM District__c WHERE Name = 'Gulu'];
+        District__c district = [SELECT Name FROM District__c WHERE Name = 'Oyam'];
 
         Subcounty__c subcounty = Utils.createTestSubcounty('There', district.Id);
         database.insert(subcounty);
