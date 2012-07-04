@@ -1,0 +1,19 @@
+<apex:page standardController="Survey__c" extensions="SurveyDesignController">
+   <apex:pageBlock title="Design Form for: {!Survey__c.Survey_Name__c}">
+      <apex:pageBlockSection >
+              <h1 style="color:red; font-size:120%" id="browserAlert"> </h1>
+       </apex:pageBlockSection>
+       <apex:pageBlockSection >
+               <a href="/{!Survey__c.id}">Go Back to Survey</a>
+       </apex:pageBlockSection>
+       <apex:iframe src="http://ckwapps.applab.org:8888/zebra/FormDesigner/FormDesigner.html?surveyId={!Survey__c.Name}&status={!Survey__c.Survey_Status__c}&surveyName={!Survey__c.Survey_Name__c}&formIdName=surveyId&formDisplayName={!Survey__c.Survey_Name__c}&language={!language}&rand={!random}" scrolling="true" id="theIframe"/>
+   </apex:pageBlock>
+   
+   <script type="text/javascript">
+   
+       if (navigator.userAgent.toLowerCase().indexOf("firefox") == -1 && navigator.userAgent.toLowerCase().indexOf('chrome') == -1 ) {
+            var elem = document.getElementById("browserAlert");
+            elem.innerHTML = 'This browser is not supported. Use <a href="http://www.mozilla.org/en-US/firefox/new/" targert="_blank"> Firefox </a> or <a href="http://www.google.com/chrome?&brand=CHMA&utm_campaign=en&utm_source=en-ha-na-row-bk&utm_medium=ha" targert="_blank"> Chrome </a> ';
+       }
+   </script>
+</apex:page>

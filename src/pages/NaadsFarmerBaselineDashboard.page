@@ -1,0 +1,325 @@
+<apex:page controller="DashboardController" title="Dashboard" sidebar="false">
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+    <style>
+        body .pbBody table.list tr.dataRow .htmlDetailElementTable td {
+            border:none; !important
+        }
+    </style>
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <script>
+        function openEditWindow(recordId, quarter) {
+             popup = window.open("{!$Page.MetricEdit}?quarter=" + quarter + "&sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
+             popup.focus(); 
+        };
+
+        function openBreakDown(metricName, quarter) {
+             popup = window.open("{!$Page.MetricDetailPage}?quarter=" + quarter + "&metricName=" + metricName + "&orgName='NAADS'", "lookup");
+             popup.focus(); 
+        };
+
+        function openGraph(recordId) {
+             popup = window.open("{!$Page.MetricGraph}?metricId=" + recordId,"lookup","width=710,height=310");
+             popup.focus(); 
+        };
+
+        function closeEditPopup() {
+            if(null != popup) {
+                popup.close()
+                popup = null;
+                window.location.reload();
+            }
+        };
+
+        function injectOnclickJs(iframe, quarter, type, nameVar) {
+            iframe.contentWindow.document.body.onclick=function() { openMap(quarter, type, nameVar, null, null, null, null, null, null, null); }
+        }
+
+        // objectType must be present. The rest can be null
+        function openMap(quarter, objectType, type, ckws, farmers, incFarmers, incSearches, incSearchLocations, keyword, surveyName, orgName) {
+
+             if (objectType == null) {
+                 return false;
+             }
+             var url = "{!$Page.MetricMap}?mapObject=" + objectType + "&quarter=" + quarter;
+             if (type != null) {
+                 url = url + "&colourType=" + type;
+             }
+             if (ckws != null) {
+                 url = url + "&ckws=" + ckws;
+             }
+             if (farmers != null) {
+                 url = url + "&farmers=" + farmers;
+             }
+             if (incFarmers != null) {
+                 url = url + "&incFarmers=" + incFarmers;
+             }
+             if (incSearches != null) {
+                 url = url + "&incSearches=" + incSearches;
+             }
+             if (incSearchLocations != null) {
+                 url = url + "&incSeachSubLoc=" + incSearchLocations;
+             }
+             if (keyword != null) {
+                 url = url + "&keyword=" + keyword;
+             }
+             if (surveyName != null) {
+                 url = url + "&surveyName='" + surveyName + "'";
+             }
+             if (orgName != null) {
+                 url = url + "&orgName=" + orgName;
+             }
+
+             popup = window.open(url,"lookup");
+             popup.focus(); 
+        };
+
+        function toggleDisable(bool) {
+
+            var elem = document.getElementById('{!$Component.theForm.thePageBlock.quarter}');
+            if (elem != null) {
+                elem.disabled = bool;
+            }
+            var elem = document.getElementById('{!$Component.theForm.thePageBlock.district}');
+            if (elem != null) {
+                elem.disabled = bool;
+            }
+        }
+
+        function submitForm() {
+
+            toggleDisable(true);
+            loadNewMetrics(
+                getSingleSelectValue(document.getElementById('{!$Component.theForm.thePageBlock.quarter}')),
+                getSingleSelectValue(document.getElementById('{!$Component.theForm.thePageBlock.district}'))
+            );
+        }
+    </script>
+
+    <apex:form id="theForm">
+        <apex:actionFunction name="loadNewMetrics" action="{!loadPage}" rerender="thePageBlock, map, scale, impact, technology, services" oncomplete="toggleDisable(false)">
+            <apex:param name="quarterParam" value=""/>
+            <apex:param name="districtParam" value=""/>
+        </apex:actionFunction>
+        <apex:pageblock id="thePageBlock">
+            <div id="infoRow" class="tableRow" style="display:none">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                    <apex:actionStatus id="listStatus" startStyleClass="startAjax" styleClass="center" startText="fetching new values. Please wait"
+                        stopText="" onstart="toggleDisplay(document.getElementById('info'), 'block')" onstop="toggleDisplay(document.getElementById('info'), 'none')"/>
+                </div>
+                <div id="errorMsg" class="errorMessage" style="width:500px">
+                </div>
+            </div>
+            <div class="tableRow">
+            <apex:selectList value="{!quarter}" multiselect="false" size="1" id="quarter">
+                <apex:selectOptions value="{!quarters}"></apex:selectOptions>
+            </apex:selectList>
+            <apex:selectList value="{!district}" multiselect="false" size="1" id="district">
+                <apex:selectOptions value="{!districtList}"></apex:selectOptions>
+            </apex:selectList>
+            <button id="submit" class="submit" type="button" onclick="submitForm()">Go</button>
+            <div style="display:inline;padding-left:10px;visibility:{!IF(((isUpdateable == 'true') && (isEditMode == 'false') && ($Profile.Name != 'Ckw Public Dashboard Profile')),'visible','hidden')}">
+                 <a href='{!$Page.NaadsFarmerBaselineDashboard}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=true'>Update Metrics</a>
+            </div>
+            <div style="display:inline;padding-left:10px;visibility:{!IF(isEditMode == 'true','visible','hidden')}">
+                You are currently in Update Mode: <a href='{!$Page.NaadsFarmerBaselineDashboard}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=false'>Leave Update Mode</a>
+            </div>
+            <apex:outputText rendered="{!isCurrentQuarter}" ></apex:outputText>
+            </div>
+        </apex:pageblock>
+        <apex:pageBlock id="map">
+            <apex:pageBlockSection title="Maps" columns="3">
+                <apex:pageBlockSectionItem >
+                    <iframe title="Click to enlarge" src="{!$Page.MetricMap}?mapObject=CKW&quarter={!quarter}&colourType=Gender&orgName=NAADS&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, '{!quarter}', 'CKW', null);" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <iframe title="Click to enlarge" src="{!$Page.MetricMap}?mapObject=SURVEYS&quarter={!quarter}&surveyName='2011060136'&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, '{!quarter}', 'SURVEYS', null);" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <iframe title="Click to enlarge" src="{!$Page.MetricMap}?mapObject=SURVEYS&quarter={!quarter}&surveyName='2011060138'&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, '{!quarter}','SURVEYS', null);" scrolling="no"  style="border:1px solid #A8B8CF;"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="3">
+                <apex:pageBlockSectionItem >
+                    <strong>CKW distribution by Gender</strong><br />Blue = Male, Pink = Female<br />
+                    <a href="javascript:openMap('{!quarter}', 'CKW', 'Gender', null, null, null, null, null, null, null, 'NAADS');">Click for detailed map</a>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <strong>CKW baseline submissions</strong><br />
+                    <a href="javascript:openMap('{!quarter}', 'SURVEYS', null, null, null, null, null, null, null, '2011060136', 'NAADS');">Click for detailed map</a>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <strong>Subcounty submissions</strong><br />
+                    <a href="javascript:openMap('{!quarter}', 'SURVEYS', null, null, null, null, null, null, null, '2011060138', 'NAADS');">Click for detailed map</a>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Scale" id="scale">
+            Strengthening and Scaling the National Agricultural Advisory Services
+            <br/><br/>
+            <apex:pageBlockTable value="{!scaleData}" var="item">
+                <apex:column headerValue="Component & Sub-Component" width="50px">
+                    <apex:outputText escape="false">
+                        {!item.subArea}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual</apex:facet>
+                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.currentValue}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px" value="{!item.cumulativeValue}" headerValue="Cumulative"/>
+                <apex:column value="{!item.comment}" headerValue="Comment"/>
+                <apex:column width="50px">
+                    <apex:facet name="header">Show Break Down</apex:facet>
+                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                            Break Down
+                        </a>
+                    </div>
+                </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                        Update
+                    </a>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Technology" id="technology">
+            Technology Promotions
+            <br/><br/>
+            <apex:pageBlockTable value="{!technologyData}" var="item">
+                <apex:column headerValue="Component & Sub-Component" width="50px">
+                    <apex:outputText escape="false">
+                        {!item.subArea}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual</apex:facet>
+                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.currentValue}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px" value="{!item.cumulativeValue}" headerValue="Cumulative"/>
+                <apex:column value="{!item.comment}" headerValue="Comment"/>
+                <apex:column width="50px">
+                    <apex:facet name="header">Show Break Down</apex:facet>
+                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                            Break Down
+                        </a>
+                    </div>
+                </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                        Update
+                    </a>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Services" id="services">
+            Agro-Business Development Services
+            <br/><br/>
+            <apex:pageBlockTable value="{!servicesData}" var="item">
+                <apex:column headerValue="Component & Sub-Component" width="50px">
+                    <apex:outputText escape="false">
+                        {!item.subArea}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual</apex:facet>
+                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.currentValue}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px" value="{!item.cumulativeValue}" headerValue="Cumulative"/>
+                <apex:column value="{!item.comment}" headerValue="Comment"/>
+                <apex:column width="50px">
+                    <apex:facet name="header">Show Break Down</apex:facet>
+                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                            Break Down
+                        </a>
+                    </div>
+                </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                        Update
+                    </a>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Impact" id="impact">
+            Achieving Impact through Adoption of  Promoted Technologies, Practices and Linkage to Opportunities for SmallHolder Farmers
+            <br/><br/>
+            <apex:pageBlockTable value="{!impactData}" var="item">
+                <apex:column headerValue="Component & Sub-Component" width="50px">
+                    <apex:outputText escape="false">
+                        {!item.subArea}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual</apex:facet>
+                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.currentValue}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px" value="{!item.cumulativeValue}" headerValue="Cumulative"/>
+                <apex:column value="{!item.comment}" headerValue="Comment"/>
+                <apex:column width="50px">
+                    <apex:facet name="header">Show Break Down</apex:facet>
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                            <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                                Break Down
+                            </a>
+                        </div>
+                </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                        Update
+                    </a>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

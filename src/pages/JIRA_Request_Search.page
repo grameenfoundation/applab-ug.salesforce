@@ -1,0 +1,22 @@
+<apex:page standardController="Case">
+<h1>JIRA Search</h1><br/>
+These are the JIRA issues which are associated to the Case Number of <b>{!case.ID}</b>
+<br/><br/>
+
+<input type="hidden" id="id" value="{!case.ID}"/>
+
+<script>
+var counter = 0;
+function searchUrl() {
+if(counter == 0) {
+var id18 = document.getElementById('id').value;
+var id15 = id18.substring(0,15);
+document.getElementById('jiraSearch').src="http://pmo.applab.org/plugins/servlet/crmSearch?salesforce-case=" + id15;
+
+counter = 1;
+}
+}
+</script>
+
+<iframe id="jiraSearch" onLoad="searchUrl();" src="" scrolling="yes" height="600px" width="100%" frameborder="0"></iframe>
+</apex:page>
