@@ -20,6 +20,21 @@ public class MetricDataWrapper {
     public String colour;
     public String target;
     public Boolean isHeader { get; set; }
+    public String getFurtherText() {
+
+        if (this.currentQuarter.M_E_Metric__r.Further_Link_Text__c != null) {
+            return this.currentQuarter.M_E_Metric__r.Further_Link_Text__c;
+        }
+        return '';
+    }
+
+    public String getFurtherUrl() {
+
+        if (this.currentQuarter.M_E_Metric__r.Further_Link_Url__c != null) {
+            return URL.getSalesforceBaseUrl().toExternalForm() + '/' + this.currentQuarter.M_E_Metric__r.Further_Link_Url__c;
+        }
+        return '';
+    }
 
     public String getColour() {
 

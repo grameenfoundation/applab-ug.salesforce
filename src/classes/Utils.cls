@@ -911,7 +911,9 @@ public class Utils {
     ) {
 
         M_E_Metric_Data__c metricData = new M_E_Metric_Data__c();
-        metricData.District__c = district.Id;
+        if (district != null) {
+            metricData.District__c = district.Id;
+        }
         metricData.M_E_Metric__c = metric.Id;
         metricData.Actual_Value__c = actualValue;
         metricData.Manual_Value__c = manualValue;

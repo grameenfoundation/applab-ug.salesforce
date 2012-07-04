@@ -136,4 +136,7 @@ function toggleCheckBox(id) {
     else {
         elem.checked = true;
     }
-        }
+}
+
+// Remove conflict for jQuery
+var j$ = jQuery.noConflict();

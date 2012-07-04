@@ -24,6 +24,7 @@ global class ProcessSurveySubmission {
 
         webservice String errorMessage;
         webservice Boolean success;
+        webservice String returnVale;
 
         Transient Map<String, Id> parentIdMap;
     }
@@ -31,11 +32,13 @@ global class ProcessSurveySubmission {
     webservice static SurveySubmission processSurveySubmission(SurveySubmission surveySubmission) {
 
         surveySubmission.success = true;
+        surveySubmission.returnVale = '1';
 
         // Load the survey
         Survey__c survey = Utils.loadSurvey(surveySubmission.surveyId);
         if (survey == null) {
             surveySubmission.success = false;
+            surveySubmission.returnVale = '0';
             surveySubmission.errorMessage = 'Survey with id ' + surveySubmission.surveyId + ' does not exist on our system';
             return surveySubmission;
         }
@@ -44,6 +47,7 @@ global class ProcessSurveySubmission {
         Person__c interviewer = Utils.loadPersonImei(surveySubmission.imei);
         if (interviewer == null) {
             surveySubmission.success = false;
+            surveySubmission.returnVale = '0';
             surveySubmission.errorMessage = 'CKW with the imei: ' + surveySubmission.imei + ' does not exist on our system';
             return surveySubmission;
         }
@@ -55,6 +59,7 @@ global class ProcessSurveySubmission {
             Farmer__c[] farmers = Utils.loadFarmerFromId(surveySubmission.farmerId);
             if (farmers.size() > 1) {
                 surveySubmission.success = false;
+                surveySubmission.returnVale = '0';
                 surveySubmission.errorMessage = 'More than one farmer with id ' + surveySubmission.farmerId + ' exists on our system. There are actually ' + farmers.size();
                 return surveySubmission;
             }
@@ -78,12 +83,17 @@ global class ProcessSurveySubmission {
             // Parse the results
             String messageSubject;
             String messageBody;
+            surveySubmission.returnVale = results.get(0);
             if (results.get(0).equals('0')) {
                 messageSubject = survey.Survey_Name__c + ' failed to submit';
                 surveySubmission.success = false;
             }
             else if (results.get(0).equals('2')) {
                 messageSubject = survey.Survey_Name__c + ' failed to submit';
+                surveySubmission.success = true;
+            }
+            else if (results.get(0).equals('3')) {
+                messageSubject = survey.Survey_Name__c + ' failed validation';
                 surveySubmission.success = true;
             }
             else {
@@ -187,6 +197,7 @@ global class ProcessSurveySubmission {
             }
             else {
                 surveySubmission.success = false;
+                surveySubmission.returnVale = '0';
                 surveySubmission.errorMessage = 'Failed to save submissionMetaData object: ' + submissionMetaDataResult.getErrors()[0].getMessage();
             }
             return surveySubmission;
@@ -213,6 +224,7 @@ global class ProcessSurveySubmission {
         if (submissionAnswersLists.get(1).size() > 0) {
             hasChildren = true;
         }
+
         // First save all the answers that do not have parents.
         for (Submission_Answer__c submissionAnswer : submissionAnswersLists.get(0)) {
             if (!surveySubmission.success) {
@@ -272,6 +284,8 @@ global class ProcessSurveySubmission {
             System.debug(LoggingLevel.INFO, errorMsg);
             database.delete(submissionMetaData);
             surveySubmission.errorMessage = errorMsg;
+            surveySubmission.returnVale = '0';
+            surveySubmission.success = false;
             return surveySubmission;
         }
 
@@ -285,6 +299,7 @@ global class ProcessSurveySubmission {
 
         // Survey is fully saved so return a success message.
         surveySubmission.success = true;
+        surveySubmission.returnVale = '1';
         surveySubmission.errorMessage = 'Submission for IMEI: ' + surveySubmission.imei + ' of survey: ' + surveySubmission.surveyId + ' saved to salesforce';
         return surveySubmission;
     }
@@ -503,7 +518,7 @@ global class ProcessSurveySubmission {
      *  @param intervieweeId    - The Id for the interviewee. Can be null if no interviewee required
      *
      *  @return - A tuple list of Strings with the following format
-     *              element 1 - Binary indicator of success (0 = fail, 1 = success, 2 = treat as success but failed)
+     *              element 1 - Binary indicator of success (0 = fail, 1 = success, 2 = treat as success but failed, 3 = mark as flagged in middletier)
      *              element 2 - Error message if required
      *              element 3 - Error message to be sent to the submitter
      */
@@ -539,6 +554,12 @@ global class ProcessSurveySubmission {
             }
             else if (survey.Post_Processing_Method__c.equals('TDR_AGENT_VISIT')) {
                 return TdrHelpers.processAgentVisitSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE')) {
+                return UDoMSurveyProcessing.processDailyRainGauge(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE_REG')) {
+                return UDoMSurveyProcessing.registerRainGauge(surveySubmission, answers, interviewer);
             }
         }
         catch (Exception e) {
