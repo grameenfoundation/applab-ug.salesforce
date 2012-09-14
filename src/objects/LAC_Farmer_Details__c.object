@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom fields for LAC farmers</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>LAC Farmer Details</relationshipLabel>
+        <relationshipName>LAC_Farmer_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Employment_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Employment Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Empleado en una empresa por horas o tiempo parcial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asalariado en una empresa por tiempo completo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Independiente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jornalero</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Desempleado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ethnicity__c</fullName>
+        <externalId>false</externalId>
+        <label>Ethnicity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mestizo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AfroColombiano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indigena</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blanco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Gender__c</fullName>
+        <externalId>false</externalId>
+        <label>Gender</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hombre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mujer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Health_Care_System__c</fullName>
+        <description>Health care systems (current values are specific to Colombia)</description>
+        <externalId>false</externalId>
+        <label>Health Care System</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sisben</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EPS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prepagada</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Household_Head_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Household Head Name</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Household_Head__c</fullName>
+        <externalId>false</externalId>
+        <label>Household Head</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LAC_Farmer_Id_Temp__c</fullName>
+        <externalId>false</externalId>
+        <label>LAC Farmer Id Temp</label>
+        <length>15</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LAC_Household__c</fullName>
+        <externalId>false</externalId>
+        <label>LAC Household</label>
+        <referenceTo>LAC_Household__c</referenceTo>
+        <relationshipLabel>LAC Farmer Details</relationshipLabel>
+        <relationshipName>LAC_Farmer_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Marginalized_Type__c</fullName>
+        <description>Type of population in which a person might be classified</description>
+        <externalId>false</externalId>
+        <label>Marginalized Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Desplazado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Persona con discapacidad</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mujer cabeza de hogar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adulto mayor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recibe subsidios gubernamentales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>LAC Farmer Details</relationshipLabel>
+        <relationshipName>LAC_Farmer_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone_Brand__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone Brand</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Alcatel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alvo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blackberry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Huawei</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lg</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Motorola</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nokia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Samsung</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sony Ericsson</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Phone_Model__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone Model</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Registration_Location__c</fullName>
+        <description>Where was the registration done?</description>
+        <externalId>false</externalId>
+        <label>Registration Location</label>
+        <picklist>
+            <picklistValues>
+                <fullName>La Finca (Zona de Cultivo)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La Vivienda o casa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ambos debido que la vivienda se encuentra dentro de la finca</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro lugar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>LAC Farmer Details</label>
+    <nameField>
+        <label>LAC Farmer Details Record Id</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>LAC Farmer Details</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

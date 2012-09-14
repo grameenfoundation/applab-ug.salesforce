@@ -1,0 +1,117 @@
+<apex:component controller="MetricComponentController">
+    <apex:includeScript value="{!$Resource.metricSectionJs}"/>
+
+    <apex:attribute name="sectionKey"
+        type="String"
+        assignTo="{!sectionKey}"
+        required="true"
+        description="The key given to the section component so it can be easily identified what is in a section"
+    />
+    <apex:attribute name="key"
+        type="String"
+        assignTo="{!key}"
+        required="true"
+        description="The key given to this component so the parent can easily get access to it"
+    />
+    <apex:attribute name="pageController"
+        type="ParentComponentBase"
+        assignTo="{!parentComponentController}"
+        required="true"
+        description="The controller for the parent controller"
+    />
+    <apex:attribute name="metricSection"
+        type="sobject"
+        description="Unique identifier for the metric"
+        required="true"
+        assignTo="{!sObjectRecord}"
+    />
+
+    <script type="text/javascript">
+        addSectionRefreshStore("{!sectionKey}", "{!key}");
+        updateIds.push("{!key}");
+    </script>
+
+    <apex:actionFunction action="{!refreshData}" name="{!key}" rerender="metricSection"/>
+    <apex:actionFunction action="{!refreshData}" name="{!key}_Table" rerender="metricTable" oncomplete="enableEditMode(true);closeGenericModal();return false"/>
+    <apex:outputPanel id="metricSection">
+
+        <apex:repeat value="{!metricIds}" var="id">
+            <script type="text/javascript">
+                updateMetricIds.push('{!id}');
+            </script>
+        </apex:repeat>
+        <apex:pageBlock title="{!title}">
+            <apex:outputPanel >
+                <apex:outputText value="{!description}" escape="false"/>
+                <a id="{!key}_update" href="javascript:void(0)" onclick="enableEditMode(false)"  style="visibility:{!IF((allowUpdate),'visible','hidden')}">
+                    Enter Update Mode 
+                </a>
+            </apex:outputPanel>
+            <br/><br/>
+
+            <apex:outputPanel id="metricTable">
+                <apex:pageBlockTable value="{!metricDatas}" var="metricData">
+                    <apex:column headerValue="Indicator">
+                        <apex:outputText value="{!metricData.label}" escape="false"/>
+                    </apex:column>
+                    <apex:column width="70px" headerValue="Target" rendered="{!showTargets}">
+                            <apex:outputText rendered="{!NOT(metricData.isHeader)}">
+                                {!metricData.target}
+                            </apex:outputText>
+                    </apex:column>
+                    <apex:column width="70px" headerValue="Actual">
+                        <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
+                            <div style="width:100%;height:100%;background-color:{!metricData.colour}">
+                                <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                                    &nbsp;<apex:param value="{!metricData.currentValue}"/>
+                                </apex:outputText>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:column>
+                     <apex:column width="70px" headerValue="Prev. Actual" rendered="{!showPreviousQuarter}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}" rendered="{!NOT(metricData.isHeader)}">
+                            <apex:param value="{!metricData.previousValue}"/>
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="Comment" rendered="{!ShowComments}">
+                        <apex:outputText rendered="{!NOT(metricData.isHeader)}" value="{!metricData.comment}" escape="false"/>
+                    </apex:column>
+                    <apex:column width="50px" rendered="{!showSparkLine}">
+                        <apex:facet name="header">Trend</apex:facet>
+                        <a href="javascript:void(0)" onclick="openGraph('{!metricData.currentQuarter.M_E_Metric__r.Id}');return false;">
+                            <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!metricData.sparkUrl}"></apex:image>
+                        </a>
+                    </apex:column>
+                    <apex:column headerValue="Show Break Down" rendered="{!showBreakDown}" width="50px">
+                        <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
+                            <div style="display:inline;padding-left:2px;visibility:{!IF((metricData.hasCurrent == 'true'),'visible','hidden')}">
+                                <a href="javascript:void(0)" onclick="openBreakDown('{!$Page.MetricBreakDown}', '{!metricData.currentQuarter.M_E_Metric__c}', '{!currentDate}', '{!district}', '{!person}', '{!sectionId}', '{!selectorId}')">
+                                    Break Down
+                                </a>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="Further Info" rendered="{!showFurtherLink}" width="50px">
+                        <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
+                            <a href="javascript:void(0)" onclick="openNewWindow('{!metricData.furtherUrl}');return false;">
+                                {!metricData.furtherText}
+                            </a>
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="Update" rendered="{!allowUpdate}" width="50px">
+                        <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
+                            <a id="{!metricData.currentQuarter.Id}" style="visibility:hidden" href="javascript:void(0)" onclick="openEditWindow('{!metricData.currentQuarter.Id}', '{!key}', '{!updateType}');return false;">
+                                Update
+                            </a>
+                        </apex:outputPanel>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:outputPanel>
+        </apex:pageBlock>
+        <script type="text/javascript">
+            if ({!isRefresh}) {
+                closeGenericModal();
+            }
+        </script>
+    </apex:outputPanel>
+</apex:component>

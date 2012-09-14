@@ -1,0 +1,12 @@
+<apex:page controller="StevenDashboardController" sidebar="false">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <c:UpdateMetricComponent />
+    <c:GenericModal />
+    <c:ErrorMessage />
+    <script type="text/javascript">
+        assignUpdateModalFunctions();
+    </script>
+    <c:DashboardSection dashboardSection="{!section0}"/>
+    <c:DashboardSection dashboardSection="{!section1}"/>
+</apex:page>

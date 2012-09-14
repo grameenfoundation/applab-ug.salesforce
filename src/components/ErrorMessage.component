@@ -1,0 +1,46 @@
+<apex:component controller="ErrorMessageController">
+
+    <script type="text/javascript">
+        var errorMessages = [];
+
+        function addError(msg) {
+            errorMessages.push(msg);
+        }
+
+        function addErrorViaSF() {
+
+            var msg = ''
+            if (errorMessages.length == 0) {
+                return;
+            }
+            for (i = 0; i < errorMessages.length; i++) {
+                msg += errorMessages[i];
+                if (i < errorMessages.length - 1) {
+                    msg += '_splitter_';
+                }
+            }
+            submitError(
+                msg
+            );
+        }
+
+        function clearErrorsFromPage() {
+
+            errorMessages = [];
+            clearPageErrors();
+        }
+    </script>
+    <apex:form id="errorForm">
+        <apex:actionFunction name="submitError" action="{!addError}" rerender="pageErrors, pageReset">
+            <apex:param name="errorParam" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="clearPageErrors" action="{!clearErrors}" rerender="pageErrors, pageReset">
+        </apex:actionFunction>
+        <apex:pageMessages id="pageErrors"></apex:pageMessages>
+        <apex:outputPanel id="pageReset">
+            <script type="text/javascript">
+                errorMessages = [];
+            </script>
+        </apex:outputPanel>
+    </apex:form>
+</apex:component>

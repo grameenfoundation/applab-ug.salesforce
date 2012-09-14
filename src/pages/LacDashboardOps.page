@@ -1,0 +1,10 @@
+<apex:page sidebar="false" controller="LacPublicDashboardController">
+    <apex:pageBlock title="Operational">
+        <apex:pageBlockTable value="{!opsData}" var="item">
+            <apex:column headerValue="Metric" width="400px" value="{!item.name}"/>
+            <apex:column headerValue="Target" width="70px" value="{!item.value1}"/>
+            <apex:column headerValue="Actual" width="70px" value="{!item.value2}"/>
+            <apex:column headerValue="Previous Quarter" width="70px" value="{!item.value3}"/>
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
+</apex:page>

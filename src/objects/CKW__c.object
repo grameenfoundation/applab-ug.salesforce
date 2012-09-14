@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Profile of CKWs</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Active_Date__c</fullName>
+        <description>The date that the ckw passed their training</description>
+        <externalId>false</externalId>
+        <label>Active Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Alternative_Contact_Number__c</fullName>
+        <description>A phone number that is not the CKW phone</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please add a number that we can use to contact the CKW if they lose their CKW provided phone</inlineHelpText>
+        <label>Alternative Contact Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Assigned_On__c</fullName>
+        <description>The date charger was assigned to the CKW</description>
+        <externalId>false</externalId>
+        <label>Assigned On</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Attitude__c</fullName>
+        <description>CKW attitude during training</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CKW attitude during training</inlineHelpText>
+        <label>Attitude</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Spectator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Critic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Player</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CKW_Rank__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Set skill level of CKW</inlineHelpText>
+        <label>CKW Rank</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Super CKW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CKW_Type__c</fullName>
+        <description>Does this CKW object represent an active CKW (which will show up in reports), or a &apos;fake&apos; account, of whick there are a few types (CKW-in-training, demo accounts, data collection personnel, and GF Staff)</description>
+        <externalId>false</externalId>
+        <label>CKW Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CKW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Data Validator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Developer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GF/Applab Staff</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trainee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Demo Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Charging_Solution__c</fullName>
+        <description>Components availed to the CKW to charge phones</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Components availed to the CKW to charge phones</inlineHelpText>
+        <label>Charging Solution Components</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Battery</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solar charger</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Charging Pins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mains power charger (UMEME)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comprehension__c</fullName>
+        <description>Comprehension of Training Material</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comprehension of Training Material</inlineHelpText>
+        <label>Comprehension</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Excellent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very good</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Good</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fair</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Needs more support</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Content_Absorption__c</fullName>
+        <description>Training content absorption</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Training content absorption</inlineHelpText>
+        <label>Content Absorption</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Excellent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very good</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Good</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fair</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Needs more support</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Signed__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select Yes if contract has been signed, or select No if contract has not been signed</inlineHelpText>
+        <label>Contract Signed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Current_Performance_Review__c</fullName>
+        <description>The CKW&apos;s current performance review. Used to generate the message that appears in Pulse&apos;s performance tab.</description>
+        <externalId>false</externalId>
+        <label>Current Performance</label>
+        <referenceTo>CKW_Performance_Review__c</referenceTo>
+        <relationshipLabel>CKWs</relationshipLabel>
+        <relationshipName>CKWs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>General_Notes__c</fullName>
+        <description>Any other relevant info regarding the CKW during training</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Any other relevant info regarding the CKW during training</inlineHelpText>
+        <label>General Notes</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Group_Dynamics__c</fullName>
+        <description>CKW behaviour during training</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CKW behaviour during training</inlineHelpText>
+        <label>Group Dynamics</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Social</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reserved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Does better</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Has_CKW_paid_the_commitment_fee__c</fullName>
+        <description>Has CKW paid the commitment fee?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select Yes if CKW has paid the commitment fee, and No if the CKW has not paid</inlineHelpText>
+        <label>Commitment fee paid?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Mobile_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Mobile_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Mobile Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>My_Profile__c</fullName>
+        <description>Text shown in the &quot;Profile&quot; tab of Pulse</description>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Person__r.Country__r.Language__c , &quot;Spanish&quot;) ,
+&quot;Identificación: &quot; &amp;  Name  &amp;  BR() &amp;
+
+&quot;Nombre: &quot; &amp;  Person__r.First_Name__c &amp; &quot; &quot; &amp;  Person__r.Last_Name__c &amp;  BR() &amp;
+
+&quot;Ubicación: &quot; &amp;  Person__r.Subcounty__r.Name &amp; &quot; , &quot; &amp;  Person__r.Parish__c  &amp; &quot; &quot;&amp;  Person__r.Village__c &amp; &quot; .&quot; &amp; BR() &amp; 
+BR()&amp;
+&quot;ID del teléfono: &quot; &amp;  Person__r.Handset__r.IMEI__c &amp; BR() &amp;
+
+&quot;Número telefónico: &quot; &amp;  Person__r.Handset__r.SIM__r.Name &amp; BR()&amp;
+BR()&amp;
+
+&quot;ATENCION: Si su nombre o número telefónico no son correctos, por favor comuníquese con su líder productor. Adicionalmente puede reportar este problema utilizando la pestaña Soporte. Sus actividades no seran registradas en el sistema si la información es incorrecta.&quot; &amp; BR()
+,
+&quot;Your ID: &quot; &amp;  Name  &amp;  BR() &amp;
+
+&quot;Your Name: &quot; &amp;  Person__r.First_Name__c &amp; &quot; &quot; &amp;  Person__r.Last_Name__c &amp;  BR() &amp;
+
+&quot;Location: &quot; &amp;  Person__r.Subcounty__r.Name &amp; &quot; , &quot; &amp;  Person__r.Parish__c  &amp; &quot; &quot;&amp;  Person__r.Village__c &amp; &quot; .&quot; &amp; BR() &amp; 
+BR()&amp;
+&quot;Phone ID: &quot; &amp;  Person__r.Handset__r.IMEI__c &amp; BR() &amp;
+
+&quot;Phone Number: &quot; &amp;  Person__r.Handset__r.SIM__r.Name &amp; BR()&amp;
+BR()&amp;
+
+&quot;VERY IMPORTANT: If your name or phone number are not listed correctly, please advise your field co-coordinator or field officer as soon as possible. Alternatively you can report this problem via the Support tab. Your activities will not be recorded in the system if the above information is incorrect.&quot; &amp; BR()
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This field is obsolete due to new translation support. The content for this field is now handled using the custom label called Pulse_Profile_Tab_Content</inlineHelpText>
+        <label>Pulse Profile (Obsolete)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes_Charging_Solution__c</fullName>
+        <description>Notes-Charging Solution</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Notes-Charging Solution</inlineHelpText>
+        <label>Notes-Charging Solution</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>CKWs</relationshipLabel>
+        <relationshipName>CKWs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <description>Parent object with core person details</description>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>CKW Details</relationshipLabel>
+        <relationshipName>CKW_Details</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Poverty_Status__c</fullName>
+        <description>CKW Poverty Status</description>
+        <externalId>false</externalId>
+        <label>Poverty Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Poor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Poor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Previous_Performance_Review__c</fullName>
+        <description>A link to last month&apos;s performance review. This is used to generate the payment message that appears in Pulse for the first few days of the month.</description>
+        <externalId>false</externalId>
+        <label>Previous Month&apos;s Performance</label>
+        <referenceTo>CKW_Performance_Review__c</referenceTo>
+        <relationshipLabel>CKW (Previous Month&apos;s Performance)</relationshipLabel>
+        <relationshipName>CKW_Previous_Month</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Recruiter__c</fullName>
+        <description>Partner or organization who has assigned the CKW</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select a partner account who has assigned the CKW</inlineHelpText>
+        <label>Recruiter</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>CKWs</relationshipLabel>
+        <relationshipName>CKWs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Recruiter__c</fullName>
+        <description>(optional) Secondary recruiting partner for the CKW, e.g. KACOFA</description>
+        <externalId>false</externalId>
+        <label>Secondary Recruiter</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>CKWs (Secondary Recruiter)</relationshipLabel>
+        <relationshipName>CKW_Recruits_as_secondary</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Serial_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Serial Number</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Special_Needs__c</fullName>
+        <description>Does the CKW have any special needs?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the CKW have any special needs?</inlineHelpText>
+        <label>Special Needs</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Status of CKW</description>
+        <externalId>false</externalId>
+        <label>CKW Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hired</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Training</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Suspended</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On vacation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dropped</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <label>CKW</label>
+    <listViews>
+        <fullName>All_CKWs</fullName>
+        <columns>NAME</columns>
+        <columns>Mobile_Number__c</columns>
+        <columns>Status__c</columns>
+        <columns>Active_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All CKWs</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CKW-{YY}-{000000}</displayFormat>
+        <label>CKW ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CKWs</pluralLabel>
+    <searchLayouts>
+        <listViewButtons>Mass_Update</listViewButtons>
+        <listViewButtons>Mass_Edit</listViewButtons>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Mass_Edit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Edit</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassEditCKW</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateCKW</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+</CustomObject>

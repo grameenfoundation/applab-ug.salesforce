@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>These are created from Market Link application. They are optionally linked to existing farmer incase the farmer exists and to market link transactions</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Farmer_Name__c</fullName>
+        <description>Farmer&apos;s Name</description>
+        <externalId>false</externalId>
+        <label>Farmer Name</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmer__c</fullName>
+        <description>Farmer associated with this Market Farmer</description>
+        <externalId>false</externalId>
+        <label>Farmer</label>
+        <referenceTo>Farmer__c</referenceTo>
+        <relationshipName>MarketLinkFarmers</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <label>Market Link Farmer</label>
+    <nameField>
+        <displayFormat>MLF{00000000}</displayFormat>
+        <label>Farmer Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Market Link Farmers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

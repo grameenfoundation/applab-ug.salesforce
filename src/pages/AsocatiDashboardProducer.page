@@ -1,0 +1,20 @@
+<apex:page controller="AsocatiDashboardProducerController">
+<apex:form >
+	<div align="right">
+    	<apex:inputText value="{!farmerId}" />
+        	<apex:commandButton action="{!onTestSearchButton}" value="Search"></apex:commandButton>
+     </div>
+     <div align="left" style="color: green;">
+     	<apex:outputLabel value="{!farmerName}"/>
+     </div>
+     <div></div>
+     <apex:pageBlock title="Producción">
+     	<apex:outputLabel value="Producción total por hectarea"/>
+     	<apex:outputLabel value="100 Kilos"/>
+     	<div></div>
+     	<apex:outputLabel value="Número de plantas productivas por hectárea"/>
+     	<apex:outputLabel value="1000"/>
+
+     </apex:pageBlock>
+</apex:form>
+</apex:page>

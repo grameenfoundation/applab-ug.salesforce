@@ -1,0 +1,35 @@
+<apex:component controller="DashboardSectionController">
+    <apex:includeScript value="{!$Resource.DashboardSectionJs}"/>
+    <apex:styleSheet value="{!$Resource.selectorComponenetCss}"/>
+    <apex:attribute name="dashboardSection"
+        type="Dashboard_Section__c"
+        assignTo="{!dashboardSection}"
+        required="true"
+        description="The key given to this component so the parent can easily get access to it"
+    />
+
+    <apex:pageBlock >
+        <apex:pageBlockSection title="{!dashboardSection.Title__c}" columns="1">
+            <apex:form >
+                 <apex:outputPanel rendered="{!dashboardSection.Has_Selector__c}">
+                    <c:DashboardSelector sectionKey="{!dashboardSection.Id}" key="DashboardSelector{!dashboardSection.Id}" pageController="{!this}" accountName="{!accountName}" selector="{!selector}"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!dashboardSection.Has_Maps__c}" >
+                    <apex:repeat value="{!maps}" var="map">
+                        <c:MapComponent sectionKey="{!dashboardSection.Id}" key="{!map.Id}" pageController="{!this}" map="{!map}"/>
+                    </apex:repeat>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!dashboardSection.Has_Graphs__c}">
+                    <apex:repeat value="{!graphs}" var="graph">
+                        <c:GraphComponent sectionKey="{!dashboardSection.Id}" key="{!graph.Id}" pageController="{!this}" graph="{!graph}"/>
+                    </apex:repeat>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!dashboardSection.Has_Metrics__c}">
+                    <apex:repeat value="{!metrics}" var="metric">
+                        <c:MetricComponent sectionKey="{!dashboardSection.Id}" key="{!metric.Id}" pageController="{!this}" metricSection="{!metric}"/>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:form>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:component>

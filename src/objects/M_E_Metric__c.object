@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>M &amp; E Metrics</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Automated__c</fullName>
+        <description>Is this value automated or not? This will determine whether it is editable on the Metric Admin page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is this value automated or not? This will determine whether it is editable on the Metric Admin page.</inlineHelpText>
+        <label>Automated</label>
+        <picklist>
+            <picklistValues>
+                <fullName>False</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>True</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Calculation_Type__c</fullName>
+        <description>The type of calcualtion that this metric is</description>
+        <externalId>false</externalId>
+        <label>Calculation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Average</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cumulative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Further_Link_Text__c</fullName>
+        <description>The text that is displayed on the link</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Put something meaningful and human readable</inlineHelpText>
+        <label>Further Link Text</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Further_Link_Url__c</fullName>
+        <description>The link to a VF page that will open when the link is pressed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only needs to be the file extensions. Will assume that it is on the same server</inlineHelpText>
+        <label>Further Link Url</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Is_Header__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This metric is a header. This means that it is a dummy metric that is used to have a header for another set of metrics below it. Will have no values other than a Label, area and order</description>
+        <externalId>false</externalId>
+        <label>Is Header</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Lickert__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Is this metric part of a lickert scale</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if this metric is part of a lickert scale. Format for lickert scale Name is &lt;param name&gt;_&lt;lickert order number&gt; e.g. Do_You_Like_Bread_1</inlineHelpText>
+        <label>Is Lickert</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_On_Fly__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if this metrics value should be calculated on the fly</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only check this if you know what you are doing</inlineHelpText>
+        <label>Is On Fly</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <description>The label for this metric. Will be displayed on the dashboard.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The label for this metric. Will be displayed on the dashboard.</inlineHelpText>
+        <label>Label</label>
+        <length>32000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>M_E_Area__c</fullName>
+        <description>Under what M&amp;E area does this metric fall? This helps with organisation on the dashboard.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Under what M&amp;E area does this metric fall? This helps with organisation on the dashboard.</inlineHelpText>
+        <label>M&amp;E Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Impact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quality</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Scale</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sustainability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Technology</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Metric_Section__c</fullName>
+        <description>The section that the metric belongs to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave blank if this metric is in the old style dashboard</inlineHelpText>
+        <label>Metric Section</label>
+        <referenceTo>Metric_Section__c</referenceTo>
+        <relationshipLabel>M&amp;E Metrics</relationshipLabel>
+        <relationshipName>M_E_Metrics</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Not_For_Public__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Should the metric be on the public dashboards</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select true if this metric should not be shown on the public dashboard</inlineHelpText>
+        <label>Not For Public</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>On_The_Fly_Calculation_Type__c</fullName>
+        <description>The type of on the fly calculation that this metric requires</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose one of these if the metric is to be calculated on the fly</inlineHelpText>
+        <label>On The Fly Calculation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Average</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Count</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Percentage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sum</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Ordering in list</description>
+        <externalId>false</externalId>
+        <label>Order</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Organisation__c</fullName>
+        <externalId>false</externalId>
+        <label>Organisation</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>M&amp;E Metrics</relationshipLabel>
+        <relationshipName>M_E_Metrics</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Value__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The projected value for this metric for the given quarter. Should be entered manually.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The projected value for this metric for the given quarter. Should be entered manually</inlineHelpText>
+        <label>Projected Value</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Propagate_Targets__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Should the a target propagate up the hierarchy when it is changed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave this alone unless you are told to change it</inlineHelpText>
+        <label>Propagate Targets</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reverse_Comparison__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If checked that means that the actual value should be below the target value</description>
+        <externalId>false</externalId>
+        <label>Reverse Comparison</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Scorecard__c</fullName>
+        <description>Under what area of the balanced scorecard does this metric fall?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Under what area of the balanced scorecard does this metric fall?</inlineHelpText>
+        <label>Scorecard Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>People</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Process</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sub_Area__c</fullName>
+        <description>Add an extra label to the metric</description>
+        <externalId>false</externalId>
+        <label>Sub Area</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sub_Divide__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this to allow this metric to be divided in to smaller sub metrics</description>
+        <externalId>false</externalId>
+        <label>Sub Divide</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Subdivider__c</fullName>
+        <description>The item that subdivides these metrics</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select what the metrics are to be subdivided by</inlineHelpText>
+        <label>Subdivider</label>
+        <picklist>
+            <picklistValues>
+                <fullName>District</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Person</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcounty</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Update_Period__c</fullName>
+        <description>How often is this metric updated</description>
+        <externalId>false</externalId>
+        <label>Update Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>TBC</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ticker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biannually</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>M&amp;E Metric</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Label__c</columns>
+        <columns>NAME</columns>
+        <columns>M_E_Area__c</columns>
+        <columns>Scorecard__c</columns>
+        <columns>Projected_Value__c</columns>
+        <columns>Order__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>M&amp;E Metric Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>M&amp;E Metrics</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

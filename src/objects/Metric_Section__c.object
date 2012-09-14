@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>A section that holds metrics to be shown on a dashboard</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Allow_Update__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Allow the users of this section to update the metrics if their user has permission to do so</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if users should be allowed to update the metrics</inlineHelpText>
+        <label>Allow Update</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Dashboard_Section__c</fullName>
+        <description>The section of a dashboard that this metric section belongs to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select the section of the dashboard that the metrics will be displayed in</inlineHelpText>
+        <label>Dashboard Section</label>
+        <referenceTo>Dashboard_Section__c</referenceTo>
+        <relationshipLabel>Metric Sections</relationshipLabel>
+        <relationshipName>Metric_Sections</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <description>Blurb that is shown just below the title in the page block section</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the description that will be displayed for this metric sectiom</inlineHelpText>
+        <label>Description</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Is the section still active to be displayed on a dashboard</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Uncheck this to indicate that the metric section should be displayed</inlineHelpText>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RollOver_Time__c</fullName>
+        <description>The time period that each metric data lasts for</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select how often you want the metrics to change</inlineHelpText>
+        <label>RollOver Time</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Biannually</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Show_Break_Down__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Allows the link to break down of metrics. Can be overriden if the user does not have permission to see this link</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if the section should show the break down link</inlineHelpText>
+        <label>Show Break Down</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Comments__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Display the comments that are on the individual metrics</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to allow comments to be displayed in the section</inlineHelpText>
+        <label>Show Comments</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Further_Link__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show link that allows click through to other VF page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if a link to a further VF page needs to be added. Will only display if M E Metric records in this section have a value for Further Link url</inlineHelpText>
+        <label>Show Further Link</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Previous_Quarter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the previous quarters values</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if you want to see the previous quarters value</inlineHelpText>
+        <label>Show Previous Quarter</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_RollOver_Selector__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show an individual time frame selector for this section. Allows a section to be refreshed on its own</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to have individual time selector for this section</inlineHelpText>
+        <label>Show RollOver Selector</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Selector_On_Break_Down__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the selector on the break down page for the metric</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if the selector should be shown on the break down page</inlineHelpText>
+        <label>Show Selector On Break Down</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Spark_Line__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if the metrics should show a spark line</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if a spark line should be shown</inlineHelpText>
+        <label>Show Spark Line</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Targets__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Allow the targets to be displayed in the section</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if the targets for the metric period should be shown</inlineHelpText>
+        <label>Show Targets</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>The date that data started being collected for this dashboard. Will be the earliest option that shows up in the date selector for the selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set to the date that data collection started. Should be the start of the time period i.e. if collection started 02/02/2012 and the roll over period is quarterly then the start date is 01/01/2012</inlineHelpText>
+        <label>Start Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <description>The title for the metric section</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter a title for this section</inlineHelpText>
+        <label>Title</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <label>Metric Section</label>
+    <nameField>
+        <displayFormat>MS{0000000000}</displayFormat>
+        <label>Metric Section Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Metric Sections</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

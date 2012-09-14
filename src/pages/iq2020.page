@@ -1,0 +1,26 @@
+<apex:page id="iq2020" name="iq2020" sidebar="false"  showHeader="false">
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>IQ2020</title>
+
+</head>
+<body>
+
+<form  id="frm1" name="frm1" method="POST" action="https://salesforce.iq2020.com/Login/SelectProject.aspx?SalesforceSessionId={!$Api.Session_ID}&SalesforceWsUrl={!$Api.Partner_Server_URL_160}&SalesforceUrl={!$CurrentPage.URL}&SalesforceUsername={!$User.Username}&OrganizationName={!$Organization.Name}&OrganizationId={!$Organization.Id}" > 
+    <input type="hidden" name="h" id="h" />
+    <input type="hidden" name="w" id="w" />
+</form>
+
+
+<script>
+   
+     document.getElementById("w").value=document.documentElement.clientWidth;
+    document.getElementById("h").value=document.documentElement.clientHeight;     
+
+    document.forms["frm1"].submit();
+
+</script>
+</body>
+</html>
+</apex:page>
