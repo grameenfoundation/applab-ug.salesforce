@@ -1,0 +1,163 @@
+<apex:page controller="gfsurveys.SurveyResultController" sidebar="false" tabstyle="SurveyManager__tab" readOnly="true">
+    <apex:sectionHeader title="Survey Results" subtitle="{!actualSurveyName}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}"/>
+
+    <style>
+        #tableData {width:auto;margin-top: 18px; !important}
+        #dataSubmissions{border-collapse: collapse;}
+        .surveySelect{float:right;margin-right:15px;}
+        #tableContainer{margin-top:15px;}
+        .surveySelectDiv{float:right;font-size:14px;}
+        .toprowleft{float:left;}
+        #loadingDiv{margin-top:4px}
+        #loadingDiv>img{margin-left:20px}
+        #loadingDiv>span{vertical-align:top}
+    </style>
+
+        <div id="tableContainer">
+            <div class="ExportCsvFormDiv toprowleft">
+            <form id="exportCsvForm" action="/apex/downloadCsv" method="post" target="_self" onsubmit="return IsSelectedCheckbox()">
+                <input type="hidden" id="selectedSurveysAnswerId" name="selectedSurveysAnswerId" value=""/>
+                <input type="submit" name="ExportCsv" value="Export selected answers to CSV" class="btn"/>
+            </form>
+            </div>
+            <div id="loadingDiv" class="toprowleft">
+                <img src="/img/loading32.gif" height="16px" width="16px"/>
+                <span>Loading...</span>
+            </div>
+            <apex:form >
+            <div class="surveySelectDiv">
+            <apex:outputLabel value="Jump to another survey:"/>
+            <apex:selectList multiselect="false" value="{!actualSurveyId}" onchange="changeSurveyJs()" id="listOfSurveys" styleClass="surveySelect" size="1">
+                    <apex:selectOptions value="{!surveyItems}"/>
+                </apex:selectList>
+             </div>
+            </apex:form>
+
+            <br/>
+            <apex:pageBlock id="tableData">
+            <apex:form prependId="false">
+                <table class="list" id="dataSubmissions">
+                    <thead class="rich-table-thead">
+                    <tr class="headerRow">
+                        <td><input type="checkbox" id="selectAllCheckboxes" /></td>
+                        <apex:repeat value="{!columnHeaders}" var="q" id="theRepeat">
+                            <td class="headerRow" scope="col" colspan="1">
+                                <b>{!q.caption}</b>
+                            </td>
+                        </apex:repeat>
+                    </tr>
+                    </thead>
+
+                    <tbody id="resultsTableBody">
+
+                    </tbody>
+                </table>
+                <apex:actionStatus id="fetchStatus" onstop="loadMoreRows()"/>
+
+                <!-- Rows are placed here, and then javascript-moved to the table. More rows will appear later -->
+                <apex:outputPanel id="newRowsPanel" style="display:none">
+                    <div id="newRows">
+                    <apex:repeat value="{!submissionRows}" var="row" id="repeatRows">
+                        <tr class="dataRow">
+                            <td class="dataCell" colspan="1">
+                                <input type="checkbox" id="{!row.submissionId }" class="checkSurveyAns"/>
+                            </td>
+                            <apex:repeat value="{!row.cells}" var="cell">
+                                <td class="dataCell" colspan="1">
+                                    <apex:outputText value="{0, date, short}" rendered="{!cell.valueType=='DATE'}" >
+                                        <apex:param value="{!cell.dateValue}" />
+                                    </apex:outputText>
+                                    <apex:outputText value="{!cell.datetimeValue}" rendered="{!cell.valueType=='DATETIME'}"/>
+                                    <apex:outputText value="{!cell.stringValue}" rendered="{!cell.valueType=='STRING'}"/>
+                                    <apex:outputText value="{!cell.numericValue}" rendered="{!cell.valueType=='NUMERIC'}"/>
+                                    <apex:outputText value="{!cell.extraContent}" escape="false"/>
+                                </td>
+                            </apex:repeat>
+                        </tr>
+                    </apex:repeat>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputText id="hasMoreRows" value="{!moreRows}" style="display:none"/>
+                
+                <apex:actionFunction name="fetchMoreRows" action="{!fetchMoreRows}" rerender="hasMoreRows,newRowsPanel" status="fetchStatus">
+                    <apex:param name="skipn" value="" />
+                </apex:actionFunction>
+
+            </apex:form>
+        </apex:pageBlock>
+    </div>
+
+
+    <script language="javascript" type="text/javascript">
+
+        // Fetch more rows and put them in the table
+        var tbody = $('#resultsTableBody');
+        $("tbody>tr.dataRow").live("hover",function(){ $(this).toggleClass("highlight"); });
+        
+        function loadMoreRows(){
+            $('#newRows tr').remove().appendTo(tbody);
+
+            if( $('[id$=hasMoreRows]').text() == 'true'){
+                var skipn = tbody.find('tr').size();
+                $('#loadingDiv span').text('Loading... ' + skipn + ' rows retrieved.');
+                fetchMoreRows( skipn );
+            }else{
+                $('#loadingDiv').remove();
+                $("tbody>tr.dataRow:even").addClass("even");
+                $("tbody>tr.dataRow:odd").addClass("odd");
+                $("tbody>tr.dataRow:first").addClass("first");
+                $("tbody>tr.dataRow:last").addClass("last");
+            }
+        }
+
+        fetchMoreRows(0);
+
+
+        $("tbody>tr.dataRow:even").addClass("even");
+        $("tbody>tr.dataRow:odd").addClass("odd");
+        $("tbody>tr.dataRow:first").addClass("first");
+        $("tbody>tr.dataRow:last").addClass("last");
+        $("tbody>tr.dataRow").hover( function(){ $(this).toggleClass("highlight"); } );
+
+        function changeSurveyJs(){
+            window.location = "{!$Page.gfsurveys__SurveyResult}?id=" + $(".surveySelect").val();
+        }
+
+        function changeAllCheckboxes(){
+            var checked = $("#selectAllCheckboxes").is(':checked');
+            $('.checkSurveyAns').attr('checked', checked);
+        }
+
+        function sendSurveysJs(){
+            var mySurveyIds = '';
+            $('.checkSurveyAns:checked').each(function(){
+                mySurveyIds += (mySurveyIds == '' ? '' : ',') + $(this).attr('id');
+            });
+            return mySurveyIds;
+        }
+
+        function IsSelectedCheckbox() {
+            var submissionsId = sendSurveysJs();
+            if (submissionsId != ''){
+                return true;
+            } else {
+                alert('At least one answer must be selected for Export')
+                return false;
+            }
+        }
+
+        $(document).ready(function() {
+            $('#exportCsvForm').submit(function(){
+                $('#selectedSurveysAnswerId').val(sendSurveysJs());
+            });
+            $('#selectAllCheckboxes').change(function(){
+                changeAllCheckboxes();
+            });
+            $('.checkSurveyAns').change(function(){
+                $('#selectAllCheckboxes')[0].checked = this.checked && $('.checkSurveyAns:checked').size() == $('.checkSurveyAns').size();
+            });
+        });
+    </script>
+
+</apex:page>

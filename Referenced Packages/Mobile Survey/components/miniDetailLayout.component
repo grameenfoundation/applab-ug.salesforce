@@ -1,0 +1,10 @@
+<apex:component >
+    <apex:attribute name="subject" type="Id" description="Id of the related object."/>
+    <div id="lookup{!subject}"
+            onmouseover="LookupHoverDetail.getHover('lookup{!subject}','/{!subject}/m?isAjaxRequest=1').show();"
+            onmouseout="LookupHoverDetail.getHover('lookup{!subject}').hide();"
+            onfocus="LookupHoverDetail.getHover('lookup{!subject}','/{!subject}/m?&isAjaxRequest=1').show();"
+            onblur="LookupHoverDetail.getHover('lookup{!subject}').hide();">
+        <apex:componentBody />
+    </div>
+</apex:component>

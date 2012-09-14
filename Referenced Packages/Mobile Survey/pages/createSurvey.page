@@ -1,0 +1,167 @@
+<apex:page sidebar="false" tabStyle="SurveyManager__tab" id="page" controller="gfsurveys.SurveyControllerExtension" action="{!init}">
+    <apex:sectionHeader title="Survey" subtitle="Create new survey"/>
+    <form name="formNewSurvey" id="formNewSurvey" method="post" action="{!$Page.surveySetting}">
+
+    <style type="text/css">
+        .aliasField.empty{color:gray;}
+        .select{width:215px; color:black;}
+        div.checkBox{width:200px;}
+        .selectRow{display:inline-block; vertical-align:top; margin-right:20px;}
+        #checkCloneAssignments{margin:10px 5px 0pt 0px;}
+        .errorMsg{margin-bottom:2px;border-left:2px solid IndianRed;}
+        .bPageBlock .detailList tr td,.bPageBlock .detailList tr th,.hoverDetail .bPageBlock .detailList tr td,.hoverDetail .bPageBlock .detailList tr th
+            {border:none;}
+        textarea{resize:none;}
+    </style>
+    <!-- Following two scripts are needed to run SOQL from javascript -->
+    <script type="text/javascript">
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+    </script>
+    <script src="/soap/ajax/25.0/connection.js" type="text/javascript"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery_validate}" />
+
+    <script type="text/javascript">
+
+        $(document).ready(loadSelectOptions);
+
+        // Request the surveys from the server and load the select options
+        function loadSelectOptions(){
+            // Get the list of surveys
+            var surveys = sforce.connection.query(
+                "SELECT Name, Id  " +
+                "FROM {!$ObjectType.gfsurveys__Survey__c.Name} " +
+                ({!isPPIEnabled} ? "" : "WHERE {!$ObjectType.gfsurveys__Survey__c.Fields['IsPPI__c'].Name} != true ") +
+                "ORDER BY Name").records;
+            var options = '';
+
+            // Create the options
+            if (typeof surveys != 'undefined') {
+                if (typeof surveys.length != 'undefined') {
+                    for (var i = 0; i < surveys.length; i++) {
+                        options += '<option Id="' + surveys[i].Id + '">' + surveys[i].Name + '</option>';
+                    }
+                }
+                else {
+                    options += '<option Id="' + surveys.Id + '">' + surveys.Name + '</option>';
+                }
+            }
+
+            // Add all options to the select
+            $('#baseSurvey').append(options);
+
+            // Load the select options for the available libraries
+            var libs = sforce.connection.query(
+                "SELECT Name, Id " +
+                "FROM {!$ObjectType.gfsurveys__SurveyLibrary__c.Name} " +
+                "WHERE {!$ObjectType.gfsurveys__SurveyLibrary__c.Fields['Active__c'].Name} = true " +
+                "ORDER BY Name").records;
+            var libOptions = '<option id="selectOne" value="default"> {!$Label.CREATESURVEY_LABEL_NOLIBRARY} </option>';
+
+            // Generate the options for the libraries.
+            if (typeof libs != 'undefined') {
+                libOptions = '<option id="selectOne" value="default"> {!$Label.CREATESURVEY_LABEL_SELECTLIBRARY} </option>';
+                if (typeof libs.length != 'undefined') {
+                    for (var i = 0; i < libs.length; i++) {
+                        libOptions += '<option Id="' + libs[i].id + '">' + libs[i].Name + '</option>';
+                    }
+                }
+                else {
+                    libOptions += '<option Id="' + libs.id + '">' + libs.Name + '</option>';
+                }
+            }
+
+            // Add the options to the library select
+            $('#libList').append(libOptions);
+        }
+
+        function setDisabledSelectOption(){
+             var clone_survey = $('#opClone').is(':checked');
+             var ppi_survey = $('#opPPI').is(':checked');
+             var blank_survey = $('#opBlank').is(':checked');
+             var template_survey = $('#opTemplate').is(':checked');
+
+             $('#baseSurvey').prop('disabled', !clone_survey );
+             $('#checkCloneAssignments').prop('disabled', !clone_survey );
+             $('#libList').prop('disabled', !template_survey );
+
+             if(!clone_survey){
+                $('#baseSurvey').removeClass('error errorMsg');
+             }
+             if(!template_survey){
+                $('#libList').removeClass('error errorMsg');
+             }
+             $('.errorMsg').remove();
+        }
+
+        $.validator.addMethod("valueNotEquals", function(value, element, arg){
+            $(element).toggleClass('error', arg == value);
+            return arg != value;
+        }, "Value must not equal to default");
+
+        $("#formNewSurvey").validate({
+            rules: {
+                baseSurvey: { valueNotEquals: "default" },
+                libList : { valueNotEquals: "default" }
+            },
+            errorElement: "div",
+            errorClass: "errorMsg",
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parent("div"));
+            },
+            messages: {
+                baseSurvey: {
+                    valueNotEquals: "<strong>Error:</strong> Please select a Survey to Clone"
+                },
+                libList: {
+                    valueNotEquals: "<strong>{!$Label.GENERAL_ERR_ERROR}</strong> {!$Label.CREATESURVEY_ERR_NOLIBRARYSELECTED}"
+                }
+            }
+        });
+    </script>
+        <apex:messages />
+        <apex:pageBlock id="startWith">
+            <apex:pageBlockSection title="Start with" collapsible="false" id="blockSectionStartWith" columns="1">
+                <apex:pageBlockSectionItem >
+                    <input id="opBlank" type="radio" name="group1" value="blankSurvey" onclick="setDisabledSelectOption()" checked="true"><label for="opBlank">Blank survey</label></input>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="inptBlockSectionPPISurvey" rendered="{!isPPIEnabled}">
+                    <input id="opPPI" type="radio" name="group1" value="ppiSurvey" onclick="setDisabledSelectOption()">PPI Survey</input>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="inptBlockSectionBaseSurvey">
+                    <div class="checkBox selectRow">
+                        <input id="opClone" type="radio" name="group1" onclick="setDisabledSelectOption()" value="existingSurvey"><label for="opClone">Clone existing survey</label></input>
+                    </div>
+                    <div class="clone selectRow">
+                        <div class="select">
+                            <select id="baseSurvey" class="select" name="baseSurvey" size="1" disabled="true" >
+                                    <option id="selectOne" value="default"> --Select one-- </option>
+                            </select>
+                        </div>
+                        <div class="checkCloneAssignments">
+                            <input type="checkBox" id="checkCloneAssignments" name="checkBox" value="cloneAssignments" disabled="true"><label for="checkCloneAssignments">Clone Group Assignments</label></input>
+                        </div>
+                    </div>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="inptBlockSectionItemTemplate">
+                    <div class="checkBox selectRow">
+                        <input id="opTemplate" type="radio" name="group1" onclick="setDisabledSelectOption()" value="templateSurvey"><label for="opTemplate">{!$Label.CREATESURVEY_LABEL_LIBRARY}</label></input>
+                    </div>
+                    <div class="lib selectRow">
+                        <select id="libList" class="select" name="libList" size="1" disabled="true">
+                        </select>
+                    </div>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <div align="right">
+            <c:SimpleCancelLink targetURL="{!$Page.gfsurveys__SurveyManager}"/>&nbsp;&nbsp;
+            <button value="Save and Continue" action="{submit}" id="btnSaveContinue">Save and Continue</button>
+        </div>
+    </form>
+</apex:page>

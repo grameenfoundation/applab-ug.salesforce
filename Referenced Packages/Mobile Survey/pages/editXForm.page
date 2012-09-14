@@ -1,0 +1,119 @@
+<apex:page controller="gfsurveys.XFormEditor" action="{!editXForm}" tabstyle="SurveyManager__tab" sidebar="false"  >
+
+<apex:includeScript value="{!URLFOR($Resource.gfsurveys__edit_area, '/editarea_0_8_2/edit_area/edit_area_full.js')}"/>
+<apex:includeScript value="{!$Resource.gfsurveys__jquery}"/>
+<apex:includeScript value="{!$Resource.gfsurveys__shortcuts}"/>
+
+<c:blockOverlay label="Saving..."/>
+
+<style type="text/css">
+    span.survey-name{font-weight:bold;}
+    td[title="Action"] img{width:24px;}
+
+</style>
+
+
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function(){
+
+        // binds the ctrl+s hotkey to quicksave within the document
+        shortcut.add("Ctrl+S",function() {
+            load_data_js('quicksave');
+        });
+    });
+
+
+    // executed when the editArea loads. binds the ctrl+s hotkey to quicksave inside the editarea
+    function initLoadCallback (){
+
+        shortcut.add("Ctrl+S",function() {
+            load_data_js('quicksave');
+        },{
+            'target':$('iframe').get(0).contentWindow.document
+        });
+
+    }
+
+    editAreaLoader.init({
+        id : "textarea_1"       // textarea id
+        ,syntax: "xml"			// set language
+        ,start_highlight: true	// to display with highlight mode on start-up
+        ,allow_toggle: false	// do not show the button in the bottom to toggle between editor and textarea
+        ,toolbar: "search, go_to_line, fullscreen, |, undo, redo, |, select_font,|, change_smooth_selection, reset_highlight, word_wrap, |, help"	// defines the toolbar
+        ,word_wrap: true
+        ,EA_load_callback: 'initLoadCallback'	// this function binds the ctrl+s hotkey inside the editArea
+    });
+
+    function getContent(){
+       return editAreaLoader.getValue("textarea_1");
+    }
+
+    function load_data_js(save_type){
+        disableButtons();
+        data_decoded = getContent();
+        load_data(data_decoded, save_type);
+    }
+
+    function disableButtons(){
+
+        blockPage();
+        $('.buttons').children().attr('disabled', 'disabled');
+        $('.buttons').children().addClass('btnDisabled');
+    }
+
+    function enableButtons(){
+
+        unblockPage();
+        $('.buttons').children().removeAttr('disabled');
+        $('.buttons').children().removeClass('btnDisabled');
+    }
+
+</script>
+
+
+    <apex:form >
+
+        <apex:sectionHeader title="Survey" subtitle="{!survey.Name}"/>
+
+        <div class="pbHeader">
+
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 30px; margin-top: 30px;">
+                <tbody>
+                    <tr>
+                        <td class="pbTitle">
+
+                            <h2 style="color: black; font-size: 1.2em;">XForm</h2>
+                        </td>
+                        <td class="pbButton">
+                            <div class="buttons">
+                                <apex:commandButton rerender="workArea" action="javascript: load_data_js('save');" styleClass="btn" value="Save" id="saveXFormButton" rendered="{!!hasErrors && isEditable}"/>
+                                <apex:commandButton rerender="workArea" action="javascript: load_data_js('quicksave');" styleClass="btn" value="Quick Save" id="quicksaveXFormButton" rendered="{!!hasErrors && isEditable}"/>
+                                <apex:commandButton rerender="workArea" action="{!cancel}" value="Cancel" styleClass="btn" immediate="true" id="cancel" rendered="{!!hasErrors}"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <apex:messages rendered="{!hasErrors}"/>
+        <apex:commandLink value="Go back to Survey Manager" action="{!cancel}" rendered="{!hasErrors}"/>
+
+
+        <apex:pageBlock id="workArea" rendered="{!!hasErrors && isEditable}">
+
+            <apex:actionFunction action="{!save}" name="load_data" rerender="editor" oncomplete="enableButtons();">
+                   <apex:param id="body_actual_doc" name="body_actual_doc" assignTo="{!body_actual_doc_val}" value="" />
+                   <apex:param id="save_type" name="save_type" assignTo="{!save_type}" value="" />
+            </apex:actionFunction>
+
+            <textarea name="textarea_1" cols="200" rows="30" style="margin-top:25px;" id="textarea_1" >{!Message}</textarea>
+        </apex:pageBlock>
+
+        <apex:pageBlock id="viewArea" rendered="{!!hasErrors && !isEditable}">
+            <textarea name="textarea_2" cols="200" rows="30" style="margin-top:25px;" id="textarea_2" readonly="readonly">{!Message}</textarea>
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

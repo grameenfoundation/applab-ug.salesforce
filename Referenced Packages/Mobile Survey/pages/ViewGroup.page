@@ -1,0 +1,4 @@
+<apex:page standardController="gfsurveys__ContactGroup__c" tabStyle="ContactGroups__tab" >
+  <apex:sectionHeader title="Group" subtitle="{!gfsurveys__ContactGroup__c.Name}"/>
+  <apex:detail subject="{!gfsurveys__ContactGroup__c}" title="false" relatedList="true" />
+</apex:page>

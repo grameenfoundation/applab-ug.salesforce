@@ -1,0 +1,358 @@
+<apex:page sidebar="false" tabStyle="SurveyManager__tab" standardController="gfsurveys__Survey__c" action="{!checkLicense}"
+    extensions="gfsurveys.SurveyFieldMappingController">
+
+    <apex:sectionHeader title="{!gfsurveys__Survey__c.Name}"
+    subtitle="{!gfsurveys__Survey__c.gfsurveys__Alias__c}" />
+    <apex:outputPanel rendered="{!readOnly}">
+        <c:createSurveyPreviewHeader styleClassHeader="tertiaryPalette"
+        selected="FIELDMAPPING" backgroundUnSelected="white" isPPI="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}" />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(readOnly)}">
+        <c:createSurveyHeader styleClassHeader="tertiaryPalette"
+        selected="FIELDMAPPING" backgroundUnSelected="white" isPPI="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}" saveFunction="if(!Errors){blockPage();Save();}else{alert('{!$Label.SURVEYMAPPING_ERR_PAGEERRORS}');}"/>
+    </apex:outputPanel>
+
+    <c:blockOverlay label="Loading..."/>
+    <apex:includeScript value="{!$Resource.gfsurveys__json2min}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery_validate}" />
+    <style type="text/css">
+        .warningM5{
+            font-size:12px;
+            width:123px;
+            margin-left: 4px;
+        }
+        .SelectedField{
+            font-size:12px;
+        }
+        #questionArea table{
+            padding: 10px;
+            width:100%
+        }
+        .scores{
+            width: 35px;
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-right-style: solid;
+            border-right-width: 1px;
+
+        }
+        #questionArea input{
+            width:30px;
+        }
+        .section{
+            color:black;
+            height:37px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            padding: 8 px;
+            padding-left: 18px;
+            height:37px;
+        }
+        .dropdown{
+            width:140px;
+            margin-left: 3px;
+            margin-right: 3px;
+        }
+        .question,.section{
+            padding:8px;
+            height:37px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            padding-left:0px!important;
+        }
+        #buttons {margin:20px 2px;float:right;}
+
+        .question{
+            color:gray; !important;
+            background-color:gainsboro; !important;
+            height:37px;
+            color:#777;
+        }
+        .HeadColumns{
+            text-align:right;
+            overflow:hidden
+        }
+        .errorMsg{
+            font-size: 12px;
+            width: 140px;
+            padding-left: 4px;
+        }
+        p{
+            margin-top:2px;
+        }
+        .removeLink{
+            color:blue!Important;
+            cursor:pointer;
+            margin-left:8px;
+        }
+        .questionAndSections{
+            vertical-align:top;
+        }
+        .questionAndSections td{
+            padding:8px;
+        }
+        tr>td:first-child{width:1px;}
+        td.caption{min-width:200px}
+        td.questionAutoNumber{color:#6d6d6d;padding-left:10px;padding-right:10px;}
+    </style>
+    <apex:pageBlock title="Field Mapping" rendered="{!NOT(readOnly)}">
+        <span class="description"> Map your survey fields (or questions) with object's field of your salesforce account to allow automatic create/insert or update record operation into the mapped object's field.</span>
+        <br/>
+        <br/>
+        <br/>
+    </apex:pageBlock>
+
+    <div id="questionArea">
+        <apex:pageBlock title="{!IF(readOnly,'Field Mapping','Select Objects and Fields')}" >
+            <apex:outputPanel id="blockError" >
+            <apex:pageMessages />
+            <script>var ServerErrors = {!hasApexMessage}; </script>
+            </apex:outputPanel>
+            <apex:form id="MainForm">
+                <script>
+                    var isReadOnly = {!readOnly};
+                    var Errors = false;
+                    var requiredFields = {!requiredFields};
+                    $(document).ready(function(){
+                        $('.objectSelection').change(function(){
+                            var index = $(this).parent().find('.ColIndex').text();
+                            $('[id$=":SelectedColumnIndex"]').val(index);
+                            GetFields();
+                            blockPage();
+                        });
+                        $('.MatchingFieldSelect').change(function(){
+                            var selectedVal = $(this).val();
+                            $(this).parent().find('.MatchingFieldInput').find('input').val(selectedVal);
+                        });
+                        $('.FieldSelection').change(function(){
+                            var Indx = $(this).parent().find('.qIndex').text();
+                            var SelectedFields = $('.FieldSelection');
+                            var SelectedValue = $(this).val();
+                            //-------------------------------------Validations-------------------------------
+                            ValidateAllSelectFields();
+
+                            //-------------------------------------End Validations-------------------------------
+                            var Columns = $('#HeadColumns').find('.ColIndex');
+                            for(var i = 0;i<Columns.length;i++){
+                                if($(Columns[i]).text() == Indx){
+                                    $(Columns[i]).parent().find('.MatchingFieldSelect').html('<option value="">-</option>');
+                                }
+                            }
+                            for(var e = 0;e<SelectedFields.length;e++){
+                                if($(SelectedFields[e]).parent().find('.qIndex').text() == Indx ){
+                                    for(var i = 0; i< Columns.length; i++){
+                                        if($(Columns[i]).text() == Indx && !$(SelectedFields[e]).hasClass('ErrorSelect') && $(SelectedFields[e]).val() != ""){
+                                            $(Columns[i]).parent().find('.MatchingFieldSelect').append($(SelectedFields[e]).parent().find('option:selected').clone());
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            for(var i = 0;i<Columns.length;i++){
+                                if($(Columns[i]).text() == Indx){
+                                    $(Columns[i]).parent().find('.MatchingFieldSelect').find('option')[0].selected = true;
+                                }
+                            }
+                            OrderMatchingDropDown(Indx);
+                            LoadSelectedMappingField();
+                            if(SelectedValue != '' && isRequiredField(Indx,SelectedValue)){
+                                $(this).parent().append('<p class="message warningM5">This field is required. Question will be required as well.</p>');
+                            }else{
+                                $(this).parent().find('.message').remove();
+                            }
+                        });
+                        $('a:.removeLink').click(function(){
+                            if(confirm('Are you sure you want to remove this column?')){
+								var index = $(this).parent().parent().find('.ColIndex').text();
+                                $('[id$=":SelectedColumnIndex"]').val(index);
+                                removeColumn();
+                                hasUnsavedChanges = true;
+                                blockPage();
+                            }
+                        });
+
+                        OrderAllDropDowns();
+                        ValidateAllSelectFields();
+                        $('.FieldSelection').change();
+                        LoadSelectedMappingField();
+                        selectUnsavedChanges();
+                        setQuestionAutoNumber();
+                        //If the page is read only, this will replace all the dorp down lists of fields, with a div tag containin the saved selected field.
+                        if(isReadOnly){
+                            $('.dropdown> :selected').each(function(){
+                                $(this).parent().replaceWith('<div class="readOnly SelectedField">'+ $(this).text()+ '<div>');
+                            });
+                        }
+                    });
+                    function isRequiredField(Index,SelectedValue){
+                        var fieldsrequired = requiredFields[Index];
+                        for(var i=0;i<fieldsrequired.length;i++){
+                            if(fieldsrequired[i] == SelectedValue)
+                            return true;
+                        }
+                        return false;
+                    }
+                    function selectUnsavedChanges(){
+                        $('select').change(function(){
+                            hasUnsavedChanges = true;
+                        });
+                    }
+                     // removes all existing autonumbers, and adds new ones based on the order of the questions
+                    function setQuestionAutoNumber(){
+                         var i = 1;
+                         var e = 1;
+                         $('tr.question>td.questionAutoNumber').each(function(){ $(this).text( 'Q' + i++ ); });
+                         $('tr.section>td.questionAutoNumber').each(function(){ $(this).text( 'S' + e++ ); });
+                    }
+                    function LoadSelectedMappingField(){
+                        var MatchingFieldDropdowns =$('.MatchingFieldSelect');
+                        for(var i=0;i<MatchingFieldDropdowns.length;i++){
+                            var selectedoption = $(MatchingFieldDropdowns[i]).parent().find('.MatchingFieldInput input').val();
+                            $(MatchingFieldDropdowns[i]).val(selectedoption);
+                        }
+                    }
+                    function validateSelectField(Select){
+                        $(Select).removeClass('error');
+                        $(Select).parent().find('.errorMsg').remove();
+                        var Indx = $(Select).parent().find('.qIndex').text();
+                        var SelectedFields = $('.FieldSelection');
+                        var SelectedVal = Select;
+                        if($(Select).val() == "")
+                            return true;
+                        for(var i = 0;i<SelectedFields.length;i++){
+                            if($(SelectedVal).val() == $(SelectedFields[i]).val() && SelectedVal != SelectedFields[i] && $(SelectedFields[i]).parent().find('.qIndex').text() == Indx){
+                                $(SelectedVal).parent().find('.FieldSelection').after('<p class="errorMsg">The Field '+ $(SelectedVal).find('option:selected').text() + ' is already selected for '+ $(SelectedFields[i]).parent().parent().parent().find('.questionAutoNumber').text() +'</p>');
+                                $(SelectedVal).addClass('error');
+                                Errors = true;
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                    function ValidateAllSelectFields(){
+                        Errors = false;
+                        var SelectedFields = $('.FieldSelection');
+                        for(var e = 0;e<SelectedFields.length;e++){
+                            validateSelectField(SelectedFields[e]);
+                        }
+                    }
+                    function OrderAllDropDowns(){
+                        var allDropdowns = $("select[class*=dropdown]");
+                        for(var i = 0; i < allDropdowns.length;i++){
+                            var currentVal = $(allDropdowns[i]).val();
+                            $(allDropdowns[i]).html($(allDropdowns[i]).find('option').sort(
+                                function (a, b) {
+                                    return a.text == b.text ? 0: a.text < b.text ? -1 : 1
+                                }
+                            ))
+                            allDropdowns[i][0].selected = true;
+                            $(allDropdowns[i]).val(currentVal);
+                        }
+
+                    }
+                    function OrderMatchingDropDown(index){
+                        var MatchingSelect = $('#HeadColumns').find('.ColIndex:contains(' + index + ')').parent().find('.MatchingFieldSelect');
+                        $(MatchingSelect).find('option').sort(
+                            function (a, b) {
+                                return a.text == b.text ? 0: a.text < b.text ? -1 : 1
+                            }
+                        );
+                    }
+
+                    var errors;
+                    function afterPostSave(){
+                    /*Check if a Apex Error message has been set in the page*/
+                        if (ServerErrors){
+                            hasUnsavedChanges =true;
+                        }else{
+                            hasUnsavedChanges =false;
+                        }
+                       if(popupSave) doRedirect();
+                       unblockPage();
+
+                    }
+
+                </script>
+                <table style="border-spacing:0px 2px;">
+                    <tbody class="questionAndSections">
+                        <tr id="HeadColumns" class="headerColumns">
+                            <td width="1px">
+                            </td>
+                            <td width="100%">
+                            </td>
+                            <td>
+                            <div style="width: 55px;{!IF(readOnly,'','margin-top: 6px;')}"><label class="labelCol">Object:</label></div>
+                            <div style="width: 55px;{!IF(readOnly,'','margin-top: 7px;')}"><label class="labelCol">Id Field:</label></div>
+                            </td>
+                            <apex:repeat var="Column" value="{!headerColumns}" >
+                                <td>
+                                    <apex:outputPanel rendered="{!NOT(Column.isDeleted)}" styleclass="dropdown" style=";float:left">
+                                        <span class="ColIndex" style="display:none">{!Column.Index}</span>
+                                        <apex:selectList value="{!Column.ObjectName}"  styleclass="dropdown objectSelection" size="1">
+                                              <apex:selectOptions value="{!objectOptions}"/>
+                                        </apex:selectList>
+                                        <span class="MatchingFieldInput"><apex:inputHidden value="{!Column.MatchingField}"/></span>
+                                        <select class="MatchingFieldSelect dropdown">
+                                            <option value="" label="-"/>
+                                        </select>
+                                        <apex:outputPanel rendered="{!NOT(readOnly)}">
+                                           <a class="removeLink">Remove this column</a>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </td>
+                            </apex:repeat>
+                            <td style="width:20px">
+                                <apex:commandButton rendered="{!AND(showAdd,NOT(readOnly))}" oncomplete="unblockPage()" onclick="blockPage()" value="Add" action="{!AddHeadColumn}" rerender="MainForm"/>
+                            </td>
+                        </tr>
+                        <apex:repeat var="Question" value="{!Questions}">
+                            <tr class='{!IF(Question.Question.Type__c == "Section","tertiaryPalette readonly section","question")}'>
+                                <td class="questionAutoNumber">&nbsp;</td>
+                                <td class='{!IF(Question.Question.Type__c == "Section","tertiaryPalette readonly section","question")} caption'>
+                                    <span class="caption">{!Question.Caption}</span>
+                                    <br/>
+                                    <apex:outputPanel rendered="{!AND(Question.Question.gfsurveys__Type__c == 'static-content',NOT(readOnly))}">
+                                        <span style="font-size: 13px;color: gray;">Field Mapping is not allow for Static Content questions</span>
+                                    </apex:outputPanel>
+                                </td>
+                                <td >
+
+                                </td>
+                                <apex:repeat var="column" value="{!Question.Columns}">
+                                    <td>
+                                        <apex:outputPanel rendered="{!NOT(column.isDeleted)}">
+                                            <span class="qIndex" style="display:none">{!column.Index}</span>
+                                            <apex:selectList size="1"  styleclass="dropdown FieldSelection" value="{!column.SelectedField}" multiselect="false">
+                                                <apex:selectOptions value="{!column.FieldList}"/>
+                                            </apex:selectList>
+                                        </apex:outputPanel>
+                                    </td>
+                                </apex:repeat>
+                                <apex:repeat rendered="{!ISBLANK(Question.Columns)}" var="eachcolumn" value="{!headerColumns}" >
+                                    <td>
+                                    </td>
+                                </apex:repeat>
+                                <td>
+                                </td>
+                            </tr>
+                            </apex:repeat>
+                        </tbody>
+                </table>
+                <apex:actionfunction onComplete="afterPostSave()" name="Save" action="{!Save}" rerender="blockError"/>
+                <apex:actionfunction name="SaveandNext" action="{!SaveandNext}"/>
+                <apex:actionFunction oncomplete="unblockPage()" Name="GetFields" action="{!changeObject}" rerender="MainForm"/>
+                <apex:inputHidden id="SelectedColumnIndex" value="{!Index}"/>
+                <apex:actionFunction Name="removeColumn" action="{!removeHeadColumn}" rerender="MainForm" onComplete="unblockPage()"/>
+            </apex:form>
+        </apex:pageBlock>
+    </div>
+    <apex:form rendered="{!NOT(readOnly)}">
+        <div id="buttons">
+            <c:SimpleCancelLink targetURL="{!$Page.gfsurveys__SurveyManager}" />&nbsp;&nbsp;
+            <button id="btnSave" type="button" onclick="if(!Errors){blockPage();Save();}else{alert('{!$Label.SURVEYMAPPING_ERR_PAGEERRORS}');}" >Save</button>
+            <button id="btnSaveContinue" type="button" onclick="if(!Errors){blockPage();SaveandNext();}else{alert('{!$Label.SURVEYMAPPING_ERR_PAGEERRORS}');}">Save and Continue</button>
+        </div>
+    </apex:form>
+</apex:page>

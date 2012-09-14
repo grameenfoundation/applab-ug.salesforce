@@ -1,0 +1,2124 @@
+<apex:page tabStyle="SurveyManager__tab" standardController="gfsurveys__Survey__c" action="{!init}"
+    sidebar="false" extensions="gfsurveys.SurveyQuestionController">
+    <apex:sectionHeader title="{!gfsurveys__Survey__c.Name}"
+        subtitle="{!gfsurveys__Survey__c.gfsurveys__Alias__c}" />
+    <c:createSurveyHeader styleClassHeader="tertiaryPalette"
+        selected="QUESTIONSECTION" backgroundUnSelected="white" isPPI="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}" saveFunction="quickSave()"/>
+    <c:blockOverlay label="Loading..." callback="setQuestionAutoNumber();"/>
+    <script type="text/javascript">
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+    </script>
+    <script type="text/javascript" src="/jslibrary/1331837151000/sfdc/main.js"/>
+    <script src="/soap/ajax/25.0/connection.js" type="text/javascript"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__json2min}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery_validate}" />
+
+<style type="text/css">
+    .qhint{
+        margin-left: -8px;
+    }
+    .hint{
+        padding-left: 10px;
+        font-size: 90%;
+        width: 80%;
+        text-align: justify;
+    }
+
+    .long_input, .short_input{
+        width: 80%;
+        background-color: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #000;
+    }
+
+    .long_input{height: 100px;}
+
+    .short_input{height: 30px;}
+
+
+    .number_input{
+        height:20px;
+        border:2px solid black;
+        width:65%;
+    }
+
+    .short_input_before, .short_input_after{position:relative;}
+    .short_input_before{float:left;}
+    .short_input_after{float:right;}
+
+    .container{
+        height:40px;
+    }
+
+    .day{padding-left: 10px;width: 40px;}
+    .month_year{padding-left: 8px; width: 60px;}
+    .hour_mins{padding-left: 10px;width: 50px;}
+
+    .blankSpace{
+        width: 1%;
+        height: 30px;
+        background-color: WhiteSmoke;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+    #sectionName{
+    width:200px;
+    }
+
+    .colon{
+        height: 30px;
+        background-color: WhiteSmoke;
+        font-weight: bold;
+        padding-top: 7px;
+    }
+    textarea{
+        vertical-align: top;
+        margin-left: 11px;
+    }
+    .Qerrors {
+        width: 100%;
+        background-color: #FFCC99;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        padding: 8px;
+        display: none;
+        color: #000;
+        font-weight: bold;
+    }
+    .cursor {
+        cursor: pointer;
+    }
+    .questions{
+        min-height:20px;
+    }
+    .dragSec{
+        background:#EEEEEE;
+    }
+    #content {width: 100%;}
+
+    #left {
+        width:150px;
+        vertical-align:top;
+    }
+    .minDivIE{
+        width:150px;
+    }
+    .options{
+        margin-top: 9px;
+    }
+    .optionsWrapper{
+        width: 690px;
+        margin-left: 55px;
+        margin-top: 9px;
+    }
+    .uniqueoption{
+        width: 63%;
+    }
+    #floatMenu {
+        position: fixed;
+        text-align: center;
+        display: block;
+        width: 140px;
+        padding: 1px 0;
+    }
+
+    #floatMenu>h3 {
+        margin: 1px 2px -2px 2px;
+        padding: 4px 2px;
+        border: 1px solid white;
+        width: 130px;
+        display: block;
+    }
+
+    #floatMenu div.field-types {
+        background-color: WhiteSmoke;
+        margin-bottom: 0px;
+        list-style: none;
+        margin: 2px;
+        text-align: center;
+    }
+
+    #floatMenu div.field-types>div {
+        margin: 0;
+        padding: 5px 5px 2px 5px;
+        border: 1px solid white;
+    }
+
+    #floatMenu div.field-types>div:hover {
+        background: LightGray;
+    }
+
+    #floatMenu div.field-types>div:hout {
+        background: WhiteSmoke;
+    }
+
+    #buttons {margin:20px 2px;float:right;}
+    .message{margin:4px;}
+    .field-types div {cursor: pointer;}
+    .buttonType {cursor: pointer;}
+    textarea{
+        resize:none;
+        vertical-align: top;
+        margin-left: 10px;
+    }
+
+    input {margin:2px;}
+    .input textarea{
+        width:64%;
+    }
+    div.optionsClass>div{margin-bottom:10px;}
+    div.optionsClass>div>input{display:inline-block;width:400px;height:20px;border:2px solid black;margin-right:10px;}
+    div.optionsClass>div>div{display:inline-block;margin-left:4px;}
+
+    .option_caption{display:inline-block;margin:0px 10px 10px 4px;width: 15%;text-align:right;}
+    .option_input{
+        display:inline-block;
+        background-color: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #000;
+        width: 62%;
+        height: 25px;}
+
+    .single-multi_select{margin:0px 0px 5px 4px;}
+
+    #floatMenu div.disabled {display:none}
+
+    div.header div.actions{width:auto;float:right;font-size: 12px;}
+    div.header div.sectionFooter{width:auto;float:right;}
+    div.header div.actions>a{padding:0 4px;}
+    div.section div.editable form{position:relative;}
+    div.section div.editable form div.actions{position: absolute; top:0; right:0;}
+
+    div.editable div.footer{margin:10px 10px 0; text-align:right;}
+
+    div.number div.body div{display: inline-block;}
+    div.number div.body input{width:80px}
+    div.number.editable div.body{padding:10px 0 0 100px;}
+    div.number.editable div.body>div{display:inline-block;width:114px;vertical-align:top;}
+    div.number.editable div.body>div>label{display:block;text-align:left;padding-left:10px;min-width:90px;}
+
+    #questionArea {margin:0 auto;background:#eee;min-width:770px;min-height:150px;}
+    #questionArea>p {font-size:10pt;}
+
+    div.section {margin-bottom:-16px;padding:2px;}
+    div.section>div.header{margin:12px;padding:10px 10px 0px 20px;overflow:hidden;}
+    div.section>div.header .caption, div.section>div.header input[name=caption]{font-size:large; width:350px;}
+
+    div.handle{
+        float:left;margin-top:-10px;width:15px;opacity:0.6;
+        cursor:url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
+    }
+    div.question>div.handle{margin-left:-10px;}
+    div.section>div.header>div.handle{padding-bottom:10px;margin-left:-20px;}
+    div.section>div.header:hover>div.handle, div.question:hover>div.handle {
+        background-image:url('{!URLFOR($Resource.gfsurveys__Handler, 'handler.png')}');
+        background-position:center center;
+        background-repeat:no-repeat;}
+    div.handle:hover{background-color:white;}
+    div.handle.cursorGrabbing{cursor:url(https://mail.google.com/mail/images/2/closedhand.cur), default !important;}
+
+    div.section>div.header.editable{padding-bottom:10px;}
+    div.section div.tags{color: #666; position: absolute; right: 39px;}
+
+    div.question {margin:12px;padding:10px;}
+    div.question input, div.question select{margin-left:10px;margin-right:10px;}
+
+    div.question.editable{background:#fff;border:3px solid gray;}
+    div.question.editable div.header{position:relative;}
+
+    div.question.editable div.header input[type=text]{width:64%}
+    div.question.editable div.header div.required{margin-left:100px}
+    div.question.editable div.header div.currentTime{margin:0 100px}
+    div.question.editable div.header div{margin: 2px 0px;}
+    div.question.editable div.type label,
+    div.question.editable div.input label{width:100px;display:inline-block;text-align:right;}
+    div.question.editable div.type label.error,
+    div.question.editable div.option label.error,
+    div.question.editable div.input label.error{font-family:sans-serif;color:red;text-align:left;margin-left:10px;width:115px;}
+    div.question.editable.number div.body label.error{margin-left:0;}
+    div.question.editable div.option{margin:2px 0;}
+    div.question.readonly {background:#ddd;}
+    div.question.readonly div.body {position:relative;padding:5px 0 0 30px;}
+    div.question.readonly div.body ul{padding-left:20px;}
+    div.question.readonly .caption{font-size:large;}
+    div.question.readonly.text div.option label{min-width:100px;display:inline-block;text-align:right;}
+    div.question.readonly div.tags{position:absolute;right:4px;bottom:0;color:#666;}
+    div.question.readonly div.tags span{display: block;text-align:right;}
+    div.question.readonly div.header {margin-left: 50px;}
+    div.question.readonly div.header div.name {margin-left: -8px;}
+
+    div.question.cut{background: none repeat scroll 0 0 #FFFFFF;border: 2px dashed gray;}
+    div.question.editable.text div.options{padding-left:160px;}
+    div.question.editable.radio div.options{padding-left:67px;}
+    div.question.editable.checkbox div.options{padding-left:67px;}
+    div.question.editable.radio input[name="addOption"],
+    div.question.editable.checkbox input[name="addOption"]{margin-left:43px;}
+
+    label.questionAutoNumber{margin-right:10px; margin-left:-40px; color:#6d6d6d;}
+    label.sectionAutoNumber{ margin-right:10px; margin-left:2 0px; color:#6d6d6d;}
+    .placeholderQuest {opacity:0.4;margin:12px;padding:10px;}
+    .placeholderSec {opacity:0.4;margin-bottom:-16px;padding:2px;}
+    body .btn{width:97%;height:100%;}
+    #button{display: block; padding: 4px 0;; text-decoration: none;}
+    #addbutton{height: 14px;
+        margin-bottom: 13px;
+        margin-left: 1px;
+        width: 99%;
+    }
+    .field-types .placeholderQuest{display:none;}
+    #secbutton .placeholderSec{background:transparent;width:100%;}
+    .sectionNameLabel {float:left; padding-left:5px; padding-right:5px; line-height:210%;}
+    label.error{font-family:sans-serif;color:red;text-align:left;}
+
+    .sectionInputContainer {
+        float: left;
+        margin-left: 2px;
+        width: 450px;
+    }
+
+    .sectionNameLabel {
+        float: left;
+        padding-left: 5px;
+        padding-right: 5px;
+        line-height: 210%;
+    }
+    .infoMessage{bacground:yellow;}
+</style>
+        <apex:pageMessages id="errorMessage" />
+        <table id="content">
+            <tr>
+                <apex:outputPanel id="errorMessages">
+                    <apex:outputText styleClass="errorMessage" value="{!error}"/>
+                </apex:outputPanel>
+            </tr>
+            <tr>
+                <td id="left">
+                    <div class="minDivIE">
+                        <div id="floatMenu"  class="tertiaryPalette">
+                           <div id="secbutton"><div id="addbutton"><a href="#" id="button" class="btn" onclick="addSection(null);">Add Section</a></div></div>
+                            <h3>Questions</h3>
+                            <div class="field-types">
+                                <div id='radio' class='addQuestion disableSort' onclick="addQuestion('radio');">Single Select</div>
+                                <div id='checkbox' class='addQuestion disableSort' onclick="addQuestion('checkbox');">Multi Select</div>
+                                <div id='text-short' class='addQuestion disableSort' onclick="addQuestion('text-short');">Free Text</div>
+                                <div id='number' class='addQuestion disableSort' onclick="addQuestion('number');">Number</div>
+                                <div id='date-time' class='addQuestion disableSort' onclick="addQuestion('date-date');">Date Time</div>
+                                <div id='static-content' class='addQuestion disableSort' onclick="addQuestion('static-content');">Static content</div>
+                                <div class="disabled">File Upload</div>
+                                <div class="disabled">Capture</div>
+                                <div class="disabled">Play Media</div>
+                            </div>
+                             <button type="button" class="btn" onClick="quickSave()">Save</button>
+                        </div>
+                    </div>
+                </td>
+                <td id="right">
+                    <div id="questionArea" class="questionAreaClass"></div>
+                </td>
+            </tr>
+        </table>
+
+    <apex:form >
+        <span id="existing-questions" style="display:none">{!questions}</span>
+
+        <div id="buttons">
+            <c:SimpleCancelLink targetURL="{!$Page.gfsurveys__SurveyManager}" />&nbsp;&nbsp;
+            <button id="btnSave" type="button" onClick="quickSave()">Save</button>&nbsp;&nbsp;
+            <button id="btnSaveContinue" type="button" onClick="quickSave(true)">Save and Continue</button>
+        </div>
+
+        <apex:actionFunction name="postAddQuestion"
+            action="{!addQuestionController}"
+            oncomplete="afterPostAddQuestion()"
+            reRender="errorMessages">
+            <apex:param name="question" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="postEditQuestion"
+            action="{!editQuestionController}"
+            oncomplete="afterPostEditQuestion()"
+            reRender="errorMessages">
+            <apex:param name="question" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="postRemoveQuestion"
+            action="{!removeQuestionController}"
+            oncomplete="afterPostRemoveQuestion()"
+            reRender="errorMessages">
+            <apex:param name="qId" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="postMoveQuestion"
+            action="{!moveQuestionController}"
+            oncomplete="afterPostMoveQuestion()"
+            reRender="errorMessages">
+            <apex:param name="originId" value="" />
+            <apex:param name="destinationId" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="postQuickSave" action="{!quickSave}"
+            oncomplete="afterPostQuickSave()" reRender="saveSurveyError" >
+            <apex:param name="questions" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="postSaveContinue" action="{!saveContinue}"
+            reRender="saveSurveyError" oncomplete="afterPostQuickSave()" >
+            <apex:param name="questions" value="" />
+        </apex:actionFunction>
+
+       <apex:outputPanel id="saveSurveyError"  styleClass="hidden" >
+            <input class="thereIsError" value="{!error}" />
+       </apex:outputPanel>
+    </apex:form>
+
+    <script type="text/javascript">
+
+        // QUESTION TYPES
+        TYPE_SECTION = 'section';
+        TYPE_TEXT    = 'text';
+        TYPE_TEXT_SHORT = 'text-short'
+        TYPE_TEXT_LONG  = 'text-long'
+        TYPE_NUMBER  = 'number';
+        TYPE_NUMBER_INTEGER = 'number-integer';
+        TYPE_NUMBER_DECIMAL = 'number-decimal';
+        TYPE_DATE    = 'date';
+        TYPE_DATE_DATE     = 'date-date';
+        TYPE_DATE_DATETIME = 'date-datetime';
+        TYPE_RADIO    = 'radio';
+        TYPE_CHECKBOX = 'checkbox';
+        TYPE_STATIC = 'static-content';
+        FIRST_SECTION = '1';// Constant to move the section to first place in page
+        ALREADY_PUBLISHED_SURVEY = '{!SurveyAlreadyPublished}';
+        function isType(question, type){ return question.type.indexOf(type) == 0; }
+        function isTypes(question, types){
+            for(i in types)
+                if (isType(question, types[i]))
+                    return true;
+            return false;
+        }
+
+        var questions = new Array(); // Questions Array
+        var isEditing = false; // Flag, limit the menu usage when a question is in edit or is new yet.
+
+        var AFFECTED_CONDITIONS_MESSAGE_MOVE = 'Moving this question will make some conditions invalid and will be deleted. \nAre you sure?';
+        var AFFECTED_CONDITIONS_MESSAGE_DELETE = 'Deleting this question will make some conditions invalid and will be deleted as well. \nAre you sure?';
+        var QUESTION_HAS_SCORING_MESSAGE_DELETE = 'Deleting this question will make some options scores invalid and will be deleted as well. \n';
+        var OPTION_HAS_SCORING_MESSAGE = 'This option has at least one score value previously assigned. Deleting the option will erase its score value(s) also. \nAre you sure?';
+        var OPTION_HAS_SKIP_LOGIC_MESSAGE = 'This option has at least one skip logic previously assigned. Deleting the option will erase its skip logic(s) also. \nAre you sure?';
+        var OPTION_HAS_SKIP_AND_SCORE_MESSAGE = 'This option has at least one score value and one skip logic previously assigned. Deleting the option will erase its score values(s) and its skip logic(s) also. \nAre you sure?';
+
+        // GENERAL PURPOSE HELPER METHODS
+        function newId(){ return new Date().getTime().toString(36); }
+
+        // removes all existing autonumbers, and adds new ones based on the order of the questions
+        function setQuestionAutoNumber(){
+            var i = 1;
+            var s = 1;
+            $('.question .questionAutoNumber').remove();
+            $('.question.readonly').each(function(){
+                $(this).find('.caption').prepend('<label class="questionAutoNumber">Q' + i + '</label>');
+                i++;
+            });
+            $('.sectionHeader .sectionAutoNumber').remove();
+            $('.sectionHeader').each(function(){
+                $(this).find('.sectionCaption').prepend('<label class="sectionAutoNumber">S' + s + '</label>');
+                s++;
+            });
+        }
+
+        // JQUERY VALIDATION ADDONS
+        function isEmpty(value){ return value == null || value == ''; }
+        function isInteger(value){ return (value == parseInt(value, 10)) }
+        function isDecimal(value){return(value == parseFloat(value))}
+
+        $.validator.addMethod('validate', function(value, element, param) {
+            var questionId = $(element).parents('.question').attr('id');
+            var questionType = $('#'+questionId).attr('class');
+            if (questionType.match('decimal')){
+                return isEmpty(value) || isDecimal(value);
+            }else{
+                return isEmpty(value) || isInteger(value);
+            }
+        }, 'Please enter a valid value!');
+
+        $.validator.addMethod('greaterOrEqual', function(value, element, param) {
+            var other = $(param).val();
+            var questionId = $(element).parents('.question').attr('id');
+            var questionType = $('#'+questionId).attr('class');
+            if(value == '' && other =='' || value != '' && other == '' || value == '' && other != ''){
+                return true;
+            }else{
+                if (questionType.match('decimal')){
+                    return(parseFloat(value)> parseFloat(other));
+                }else{
+                    return(parseInt(value,10) > parseInt(other,10));
+                }
+            }
+        }, 'Must be greater or equal than {0}.' );
+
+        $.validator.addMethod('uniqueoption', function(value, element, param){
+            var options = $(element).parents('div.options');
+            var timeRepeated = 0;
+            options.find($('.uniqueoption')).each(function () {
+                if ($(this).val() === value) {
+                    timeRepeated++;
+                }
+            });
+            return timeRepeated === 1 || timeRepeated === 0;
+        }, 'Options must not be repeated.');
+        $.validator.addClassRules('uniqueoption',{"uniqueoption": true });
+
+        $.validator.addMethod('uniquequestion', function(value, element, param){
+            var questions = $('#questionArea');
+            var timeRepeated = 0;
+
+            // if any of the other question names match this one, timeRepeated will be increased
+            questions.find('.name').each(function() {
+                if ($(this).text().toLowerCase() == value.toLowerCase()) {
+                    timeRepeated++;
+                }
+            });
+            return timeRepeated == 0;
+        }, 'Question names must not be repeated.');
+
+        $.validator.addMethod('validquestionname', function(value, element, param){
+
+            //tests the content of the name. if it is not valid, the error message is displayed
+            var nameExpression = /^[A-Za-z][\w]*$/;
+            return nameExpression.test(value);
+        }, 'Invalid name. It must start with a letter, and contain only letters, numbers and underscores.');
+
+
+        //-------------------
+        // READ-ONLY QUESTIONS
+        //-------------------
+
+        function getReadonlyDiv(question, div){
+            if (div == null) div = $('<div id= "' +question.id+ '"></div>');
+            var header  = getReadonlyHeader(question);
+            var body    = getReadonlyBody(question);
+            var handler = $('<div class="handle"/>');
+
+
+            $(div).html('')
+                .removeClass().addClass('question readonly ' + question.type.replace('-',' '))
+                .append(handler,header, body);
+           var height = $(div).height();
+
+           //Draw drag and drop handler when add a new question
+           if(height>0){
+               handler.height(height+20);//Matching handler height with question height
+               prepareDragHandle(handler);
+           }
+           return div;
+        };
+
+        function getReadonlyHeader(question){
+            dragndrop();
+            var actions = $('<div class="actions"/>');
+            actions.append('<a href="#" onclick="editQuestion(\'' + question.id + '\');return false;">Edit</a>');
+            actions.append('<a href="#" onclick="removeQuestion(\'' + question.id + '\');return false;">Delete</a>');
+            actions.append('<a href="#" class="paste" style="display:none" onclick="paste(\'' + question.id + '\');return false;">After this one</a>');
+
+            var div = $('<div/>').addClass('header');
+            var caption = $('<div/>',{"class":'caption',"text":question.caption}).append(actions);
+            div.append(caption);
+            div.append( $('<div/>',{"class":'name',"text":question.name}) );
+            div.append( $('<div/>',{"class":'qhint'}));
+            //This splits the text in each line break so we will write each line separately
+            var lines = (question.qhint == null)?'':question.qhint.split(/[\n\r]/);
+            var qhintDiv = $(div).find('.qhint');
+            for(var a in lines){
+                //Write each line and add a BR tag to ensure the line break
+                qhintDiv.append($('<div/>',{"text":lines[a]}).append('<br/>'));
+            }
+            return div;
+        };
+        var isFirst = true;
+        function getReadonlyBody(question){
+            var div = $('<div/>').addClass('body');
+
+            var tags = $('<div/>',{"class":'tags'});
+            if (question.required) tags.append('<span>Required</span>');
+            if (question.minimum != null) tags.append('<span>Minimum:'+ question.minimum +'</span>');
+            if (question.maximum != null) tags.append('<span>Maximum:'+ question.maximum +'</span>');
+            if (question.currentTime) tags.append('<span>Use current date/time as default</span>');
+            div.append(tags);
+
+            if ( isType(question, TYPE_TEXT) ){
+                if ( isTypes(question, [TYPE_TEXT_SHORT, TYPE_TEXT_LONG]) ) {
+                    if ( isType(question, TYPE_TEXT_SHORT) ) div.append('<input type="text" disabled="true"/>');
+                    if ( isType(question, TYPE_TEXT_LONG ) ) div.append('<textarea rows="4" cols="40" disabled="true"/>');
+                }
+            }else if( isType(question, TYPE_DATE) ){
+                div.append('<input type="text" class="day" disabled="true" value="DD"/>'+
+                           '<input type="text" class="month_year" disabled="true" value="MM"/>'+
+                           '<input type="text" class="month_year" disabled="true" value="YYYY"/>');
+                if ( isType(question, TYPE_DATE_DATETIME) )
+                    div.append(':'+
+                               '<input type="text" class="hour_mins" disabled="true" value="HH"/>'+
+                               '<input type="text" class="hour_mins" disabled="true" value="Mins"/>');
+            }else if( isType(question, TYPE_NUMBER) ){
+                div.append( $('<div/>', {"class":"do doBefore", "text":question.doBefore}) )
+                    .append('<input type="text" disabled="true"/>')
+                    .append( $('<div/>', {"class":"do doAfter", "text":question.doAfter}) );
+            }
+
+            // Display the list of options
+            // TODO: Displaying should be dependant of question type
+            if (question.options.length > 0) {
+                var list = $('<ul/>');
+                for (i in question.options){
+                    option = question.options[i];
+                    if( isType(question, TYPE_RADIO) ){
+                        list.append(
+                            $('<div/>',{"id": option.id, "class":'option'})
+                                .append( $('<input/>',{"type":'radio', "id":'op'+option.id, "disabled":'true', "name":'op'+question.id}) )
+                                .append( $('<label/>',{"for":'op'+option.id, "text":option.caption}) )
+                        );
+
+                    }else if( isType(question, TYPE_CHECKBOX) ){
+                        list.append(
+                            $('<div/>',{"id": option.id, "class":'option'})
+                                .append( $('<input/>',{"type":'checkbox', "id":'op'+option.id, "disabled":'true', "name":'op'+question.id}) )
+                                .append( $('<label/>',{"for":'op'+option.id, "text":option.caption}) )
+                        );
+                    }
+                }
+                div.append(list);
+            }else{
+                for (i in question.options){
+                    option = question.options[i];
+                    list.append('<li class="option">'+ option.caption +'</li>');
+                }
+            }
+            return div;
+        };
+
+        // helper method to create dropdowns
+        function _dropdown(pname, options, def){
+            dropdown = $('<select/>',{"name":pname,"size":"1"});
+            for (var key in options)
+                dropdown.append('<option value="' + key + '">' + options[key] + '</option>');
+            $(dropdown).find('option[value="' + def + '"]').attr('selected','selected');
+            return dropdown;
+        }
+
+        // helper method to trim and remove extra spaces from text inputs
+        function removeExtraSpaces(){ removeInputExtraSpaces(this) }
+        function removeInputExtraSpaces(input) { $(input).val( $.trim($(input).val().replace(/[^\S^\r\n]+/g,' ')) ); }
+
+        function _textarea(pname, plabel, pdefault, pattributes) {
+            var attributes = {"name":pname, "type":'text',"rows":'3',"value":(pdefault != null ? pdefault : ''), "blur":removeExtraSpaces};
+            $.extend(attributes, pattributes)
+            var input = $('<textarea/>',attributes);
+            var div = $('<div/>').addClass('input input-'+pname)
+                    .append('<label for="' + pname + '">' + plabel + '</label>')
+                    .append( input );
+            return div;
+        }
+        function _input(pname, plabel, pdefault, pattributes) {
+            var attributes = {"name":pname, "type":'text', "value":(pdefault != null ? pdefault : ''), "blur":removeExtraSpaces};
+            $.extend(attributes, pattributes)
+
+            var input = $('<input/>',attributes);
+            var div = $('<div/>').addClass('input input-'+pname)
+                    .append('<label for="' + pname + '">' + plabel + '</label>')
+                    .append( input );
+            return div;
+        }
+        //-------------------
+        // EDITABLE QUESTIONS
+        //-------------------
+
+        function getEditableDiv(question, div){
+            var isNew = div == null ? 'true' : 'false' ;
+
+            if (div == null) div = $('<div/>').attr('id',question.id);
+            var header  = getEditableHeader(question);
+            var body    = getEditableBody(question);
+
+            var footer  = $('<div/>')
+                .addClass('footer')
+                .append('<a href="#" onclick="cancelEdit(\'' + question.id + '\',' + isNew + ');return false;">Cancel</a>')
+                .append('<input type="submit" value="Done"/>');
+
+            var form = $('<form/>',{"id":'form' + question.id,"method":'GET'})
+                        .append(header).append(body).append(footer);
+
+            $(div).html('').removeClass().addClass('question editable ' + question.type.replace('-',' ')).append(form);
+
+            // rules for validating the form
+            if(isType(question, TYPE_STATIC)){
+                $(form).validate({
+                    "rules" : {
+                        "caption": "required",
+                        "name": {"required":true, "validquestionname":true, "uniquequestion":true},
+                        "qhint": {"required":false},
+                    },"submitHandler": function(form) {
+                        $(form).find('input[type="text"] ').each(function(i,elem){removeInputExtraSpaces(elem)});
+                        acceptEdit(question.id);
+                    }, "errorPlacement": function(error, element) {
+                        error.appendTo( element.parent("div") );
+                    }
+                });
+            }if(isType(question, TYPE_NUMBER)){
+                validateNumberForm(question,form);
+            }else{
+                $(form).validate({
+                    "rules" : {
+                        "caption": "required",
+                        "name": {"required":true, "validquestionname":true, "uniquequestion":true},
+                    },
+                    "submitHandler": function(form) {
+                        $(form).find('input[type="text"] ').each(function(i,elem){removeInputExtraSpaces(elem)});
+                        acceptEdit(question.id);
+                    }, "errorPlacement": function(error, element) {
+                        error.appendTo( element.parent("div") );
+                    }
+                });
+            }
+            return div;
+        };
+
+        USE_CURRENT_DATE = 'Set date of the day (taken from device) as initial value'
+        USE_CURRENT_DATETIME = 'Set date of the day and current time (taken from device) as initial value'
+
+        function getEditableHeader(question){
+             var toolTipQuestion = 'Question code is used for reference\n'+
+             'and won\'t be shown to respondent/device.\n'+
+             'The name must be unique, begin with a letter and use\n'+
+             'only alphanumeric characters and underscores.The name\n'+
+             'cannot end with an underscore or have two consecutive\n'+
+             'underscores';
+
+            var info = $('<img/>', {"class":"infoIcon", "src":"/s.gif"});
+            var popup = $('<div/>', {"class":"mouseOverInfo", "style":"display: none;"});
+            popup.html(toolTipQuestion);
+            var popupContainer = $('<div/>', {"class":"mouseOverInfoOuter", "title":toolTipQuestion});
+            popupContainer.append(info, popup);
+
+            var div = $('<div/>').addClass('header');
+            var inputtype = $('<input/>',{"type":'hidden',"name":'type',"value":question.type});
+            var position = $('<input/>',{"type":'hidden',"name":'position',"value":question.position});
+
+            if (isType(question, TYPE_STATIC)){
+                div.append( _textarea('caption','Question',question.caption,{"maxlength":255,"placeholder":'Enter question label'}) );
+                div.append( _input('name','Question Code',question.name,{"maxlength":40,"onblur":"$(this).val($(this).val().toLowerCase())"}).append(popupContainer) );
+                div.append( _textarea('qhint', 'Content', question.qhint, {"maxlength":2000,"placeholder":'Enter content text'}) );
+            }else{
+                div.append( _textarea('caption','Question',question.caption,{"maxlength":255,"placeholder":'Enter question label'}) );
+                div.append( _input('name','Question Code',question.name,{"maxlength":40,"onblur":"$(this).val($(this).val().toLowerCase())"}).append(popupContainer) );
+                div.append( _textarea('qhint', 'Supporting text / instructions', question.qhint, {"maxlength":2000,"placeholder":'Enter additional text'}) );
+                div.append( '<div class="required"><input type="checkbox" name="required" id="req' + question.id + '" ' + (question.required ? 'checked="checked"' : '') + '/><label for="req' + question.id + '">Required / mandatory</label></div>' );
+            }
+            if (isType(question, TYPE_TEXT)) {
+                var types = {}
+                types[TYPE_TEXT_SHORT] = 'Short';
+                types[TYPE_TEXT_LONG ] = 'Long';
+                inputtype = $('<div/>').addClass('type')
+                        .append('<label for="type">Field Type</label>')
+                        .append(_dropdown('type',types,question.type)
+                            .change(function(){
+                                var options = $(this).parents('.question').find('.options');
+
+                                options.parent().hide();
+                            })
+                        );
+
+            } else if (isType(question, TYPE_NUMBER)){
+                var types = {}
+                types[TYPE_NUMBER_INTEGER] = 'Whole Number';
+                types[TYPE_NUMBER_DECIMAL] = 'Decimal Number';
+                inputtype = $('<div/>').addClass('type')
+                        .append('<label for="type">Field Type</label>')
+                        .append(_dropdown('type',types,question.type)
+                            .change(function(){
+                                var form = $('#'+question.id).find('#form' + question.id);
+                                var isDecimal = $(this).val() == TYPE_NUMBER_DECIMAL ;
+                                var isInteger = $(this).val() == TYPE_NUMBER_INTEGER ;
+                                question.type = isDecimal ? TYPE_NUMBER_DECIMAL : TYPE_NUMBER_INTEGER;
+                                $('.questions .editable').toggleClass('decimal', isDecimal);
+                                $('.questions .editable').toggleClass('integer',isInteger);
+                                validateNumberForm(question,form);
+                            })
+                        );
+            }else if (isType(question, TYPE_DATE)) {
+                var types = {}
+                types[TYPE_DATE_DATE] = 'Date only';
+                types[TYPE_DATE_DATETIME] = 'Date and Time';
+                inputtype = $('<div/>').addClass('type')
+                        .append('<label for="type">Show</label>')
+                        .append(_dropdown('type',types,question.type)
+                            .change(function(){
+                            checkboxtext.text( $(this).val() == TYPE_DATE_DATETIME ? USE_CURRENT_DATETIME : USE_CURRENT_DATE )
+                        }));
+
+                var checkbox = $('<input/>',{
+                    "id":'currdt' + question.id,
+                    "type":'checkbox',
+                    "name":'currentTime',
+                    "checked":question.currentTime ? 'checked' : null
+                });
+                var checkboxtext = $('<label/>',{
+                    "for":checkbox.attr('id'),
+                    "text": ( isType(question, TYPE_DATE_DATETIME) ? USE_CURRENT_DATETIME: USE_CURRENT_DATE )
+                });
+
+                div.append( $('<div/>').addClass('currentTime').append(checkbox).append(checkboxtext));
+            }
+
+            div.prepend(inputtype,position);
+            return div;
+        };
+        function validateNumberForm(question,div){
+            $(div).validate({
+                "rules" : {
+                    "caption": "required",
+                    "name": {"required":true, "validquestionname":true, "uniquequestion":true},
+                    "minimum": {"validate":true, "min":-999999999999.999999, "max":999999999999.999999},
+                    "maximum": {"validate":true, "min":-999999999999.999999, "max":999999999999.999999, "greaterOrEqual":"#" + div.attr("id") + " input[name=minimum]"}
+                  },
+                  "messages" : {
+                    "maximum": {"greaterOrEqual": "Must not be lower than minimum."}
+               },
+               "submitHandler": function(form) {
+                  $(div).find('input[type="text"] ').each(function(i,elem){removeInputExtraSpaces(elem)});
+                  acceptEdit(question.id);
+               }, "errorPlacement": function(error, element) {
+                    error.appendTo( element.parent("div") );
+               }
+           });
+
+        }
+        function getEditableBody(question){
+            var div = $('<div/>').addClass('body');
+
+            if ( isType(question, TYPE_NUMBER)){
+                 div.append( _input('minimum','Minimum',question.minimum, {"maxlength":16}) )
+                    .append( _input('maximum','Maximum',question.maximum, {"maxlength":16}) );
+            }
+
+            div.append( getEditableOptions(question) );
+
+            return div;
+        };
+        // Helper function to create an option row, with it's controls
+        function _option(option, prependable){
+            if(option == null) option = {"id":newId(), "name":''}
+            var div = $('<div/>').attr('id',option.id).addClass('option')
+                .append(prependable)
+                .append($('<input/>',{"type":'text', "name":'caption-'+option.id, "class":'required uniqueoption', "maxlength":255, "value":option.caption, "blur":removeExtraSpaces, "placeholder":'Option'}))
+                .append($('<input/>',{"type":'hidden', "name":'name-'+option.id,"value":option.name}))
+                .append($('<a/>',{
+                    "href":'#',
+                    "click":function(){
+                        if ($(this).parents('.options').find('.option').size() > 1) {
+                            var deleteConfirmed = true;
+                            var hasSkipLogic = false;
+                            var hasScoring = false;
+                            var hasScoring = (option.scoreValues != null && option.scoreValues.length != 0);
+                            var questionId = $(this).parents('.question').attr('id');
+                            //Id of question is in database if has more than 14 digits.
+                            if(questionId.length > 14){
+                                var skipconds = sforce.connection.query("SELECT Id, Name, {!$ObjectType.SkipCondition__c.Fields['SourceQuestion__c'].Name},"+
+                                                " {!$ObjectType.SkipCondition__c.Fields['Value__c'].Name}"+
+                                                " FROM {!$ObjectType.SkipCondition__c.Name}"+
+                                                " WHERE {!$ObjectType.SkipCondition__c.Fields['SourceQuestion__c'].Name} = '"+ questionId+"'").records;
+
+                                if(skipconds != undefined){
+                                    if(skipconds.length == undefined){
+                                       if(skipconds.Value__c == option.id)
+                                            hasSkipLogic = true;
+                                    }
+                                    else{
+                                        for (var i=0; i<skipconds.length; i++){
+                                            if(skipconds[i].Value__c == option.id){
+                                                hasSkipLogic = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(hasScoring && hasSkipLogic)
+                                deleteConfirmed = confirm(OPTION_HAS_SKIP_AND_SCORE_MESSAGE);
+                            else if(hasScoring && !hasSkipLogic)
+                                deleteConfirmed = confirm(OPTION_HAS_SCORING_MESSAGE);
+                            else if(!hasScoring && hasSkipLogic)
+                                deleteConfirmed = confirm(OPTION_HAS_SKIP_LOGIC_MESSAGE);
+                            else
+                                deleteConfirmed = true;
+
+                            if (deleteConfirmed)
+                                $(this).parent().remove();
+
+                        } else {
+                            alert('The last option cannot be deleted.');
+                        }
+                        return false;
+                    }
+                }).text('Delete'));
+            return div;
+        }
+
+        function getEditableOptions(question, div){
+            if (div == null) div = div = $('<div/>');
+            var divWrapper = $('<div/>').append('<div class="optionsWrapper" style="margin-bottom: 8px;"><h2>Options</h2></div>');
+            div.html('').addClass('options');
+            divWrapper.hide();
+            var prependable = null;
+            if( isType(question,TYPE_RADIO)) prependable = '<input type="radio" disabled="true" name="op' + question.id + '"/>';
+            if( isType(question,TYPE_CHECKBOX)) prependable = '<input type="checkbox" disabled="true"/>';
+
+            if( isTypes(question, [ TYPE_RADIO, TYPE_CHECKBOX]) ) {
+                divWrapper.show();
+                var options = question.options;
+                if (options && options.length == 0)
+                    div.append( _option(null, prependable) ); // must have at least one
+                else
+                    for (var i in options) div.append( _option(options[i], prependable).hide().fadeIn() );
+            }
+
+            // Button for adding more options
+            var morebutton = $('<input/>',{
+                "type":'button',
+                "name":'addOption',
+                "value":'Add another option',
+                "click":function(){
+                    var optiondiv = _option(null, prependable);
+                    $(this).before( optiondiv.hide().fadeIn('fast',function(){optiondiv.find('input:text').focus()}) );
+                }
+            });
+            div.append(morebutton);
+
+            return divWrapper.append(div);
+        };
+
+        // Returns a new question, parsed from editable div
+        function saveToQuestion(div){
+            var id= $(div).attr('id');
+            var type = $(div).find('[name="type"]').val();
+            var position = $(div).find('[name="position"]').val();
+            var section = $(div).parents('.section');
+
+            var question = {
+                "id": id,
+                "parent": section.attr('id'),
+                "position": position,
+                "type": type,
+                "caption": $(div).find('[name="caption"]').val(),
+                "name": $(div).find('[name="name"]').val(),
+                "qhint": $(div).find('[name="qhint"]').val(),
+                "required": $(div).find('[name="required"]').attr('checked') != null,
+                "options": new Array()
+            };
+            //if Type starts with number
+            if(type.match("^number")){
+                var min = $(div).find('[name="minimum"]').val();
+                var max = $(div).find('[name="maximum"]').val();
+                question.doBefore = $(div).find('[name="doBefore"]').val();
+                question.doAfter = $(div).find('[name="doAfter"]').val();
+                if(type == TYPE_NUMBER_DECIMAL){
+                    question.minimum = (!min || min == '') ? null : parseFloat(min);
+                    question.maximum = (!min || max == '') ? null : parseFloat(max);
+                }else{
+                    question.minimum = (!min || min == '') ? null : parseInt(min,10);
+                    question.maximum = (!min || max == '') ? null : parseInt(max,10);
+                }
+
+            }else if( isType(question, TYPE_DATE) ){
+                question.currentTime = $(div).find('[name="currentTime"]').attr('checked') != null;
+            }
+
+            var options = div.find('.options');
+            if (options.is(':hidden')) options.html(''); // Do not store options if they are not visible
+
+            var existingQuestion = questions[id];
+            options.find('div.option').each(function(i,op){
+                opid =  $(op).attr('id');
+
+                question.options.push({
+                    "id": opid,
+                    "name": $(op).find('[name=name-' + opid + ']').val(),
+                    "caption": $(op).find('[name=caption-' + opid + ']').val(),
+                    "position": (i+1)
+                });
+                if(existingQuestion != undefined){
+                    if(existingQuestion.options[i] != undefined)
+                        question.options[i].scoreValues = existingQuestion.options[i].scoreValues;
+                }
+            });
+            var existingQuestion = questions[id];
+            if (existingQuestion){
+                question.skipconditions = existingQuestion.skipconditions;
+                question.skipLogicBehavior = existingQuestion.skipLogicBehavior;
+                question.skipLogicOperator = existingQuestion.skipLogicOperator;
+            }else{
+                question.skipconditions = new Array();
+            }
+
+            return question;
+        };
+
+        // goes through all the options of the question and gets the needed one
+        function getOption (question, optionId){
+            for (var oid in question.options){
+                var option = question.options[oid];
+                if (option.id == optionId){
+                    return option;
+                }
+            }
+        }
+
+        //----------------
+        // SECTION HEADERS
+        //----------------
+
+        function sectionReadonlyHeader(section, div){
+            dragndrop();
+            if (div == null) div = $('<div/>');
+            div.html('').removeClass('editable').addClass('header readonly tertiaryPalette sectionHeader');
+            div.parent('.section').removeClass('new');
+            var secHandler = $('<div class="handle"/>');
+            var btn_edit = $('<a/>',{
+                "href":'#',
+                "text":'Edit',
+                "onclick": 'editSection("' + section.id + '");return false;'
+            });
+
+            var btn_delete = $('<a/>',{
+                "href":'#',
+                "text":'Delete',
+                "onclick":'deleteSec("' + section.id + '");return false;'
+            });
+            var btn_paste =('<a href="#" class = "paste" style="display:none" onclick="paste(\'' + section.id + '\');return false;">First of Section</a>');
+            var actions = $('<div class="actions"/>');
+
+            actions.append(btn_edit).append(btn_delete).append(btn_paste);
+            div.append(secHandler, actions);
+            div.append( $('<span/>',{"class":'caption sectionCaption',"text":section.caption,id:'sectionCaption'}));
+
+            var tags = $('<div/>',{"class":'tags'});
+            if (section.samePage) tags.append('<span>Show all questions on one page</span>');
+            div.append(tags);
+            div.append('<div/>'); // line break. resets "float" status
+            div.append($('<span/>',{"class":'name',"text":section.name}));
+
+            var secHeight = $(div).height();
+            //Draw drag and drop handler when add a new section
+            if(secHeight >0){
+                secHandler.height(secHeight+20);//Matching handler height with header of section height
+                prepareDragHandle(secHandler);
+            }
+            return div;
+        }
+
+        function deleteSec(sectionId){
+            if ($('.section:not(.new)').size() <= 1){
+                alert('You cannot remove the last section.');
+            }else{
+                var affectedConditions = new Array();
+                var sectionPosition = getMovedQuestionPosition(sectionId, true);
+                // for each question the section contains, add the corresponding affected conditions to the array
+                $('#'+sectionId).find('div.question').each(function(i,question){
+                    affectedConditions.push.apply(affectedConditions, getAffectedConditions($(question).attr('id'), true, true, sectionPosition));
+                });
+                if (confirm(affectedConditions.length ? AFFECTED_CONDITIONS_MESSAGE_DELETE + buildConfirmString(affectedConditions) : 'Are you sure?')){
+                    if(affectedConditions.length){
+                        for (var qid in questions){
+                            var question = questions[qid];
+                            var qConditions = new Array(); // create new array to store the conditions that will remain in the question
+                            for (var cid in question.skipconditions){
+                                if ($.inArray(question.skipconditions[cid], affectedConditions) == -1){
+                                    qConditions.push(question.skipconditions[cid]);
+                                }
+                            }
+                            question.skipconditions = qConditions;
+                        }
+                    }
+                    blockPage();
+                    postQuestion = {"id":sectionId};
+                    postRemoveQuestion(sectionId);
+                }
+            }
+        }
+        function editMode(value){
+            if(value == isEditing)return;
+            isEditing = value;
+
+            if(value){
+                $('.readonly .actions').hide();
+                $('.field-types, .questions, #secbutton, #questionArea').sortable('disable');
+                $('#questionArea .handle').hide();
+                $('#questionArea .sectionHeader.readonly').height(57);
+            }else{
+                $('.actions').show();
+                $('.field-types, .questions, #secbutton, #questionArea').sortable('enable');
+                $('#questionArea .handle').show();
+                $('#questionArea .sectionHeader.readonly').height('');
+            }
+        }
+        function sectionEditableHeader(section, div){
+            var isNew = div == null;
+            if (div == null) div = $('<div/>');
+            div.html('').addClass('header editable tertiaryPalette').removeClass('readonly');
+            var form = $('<form/>',{"method":'GET',"action":''});
+
+            var sectionid = $('<input/>',{"type":'hidden',"name":'sectionid',"value":section.id});
+            var caption = $('<input/>',{"type":TYPE_TEXT, "name":'caption', "value":section.caption, "maxlength":80, "blur":removeExtraSpaces});
+            var name = $('<input/>',{"type":TYPE_TEXT,"id":'sectionName', "name":'name', "value":section.name, "maxlength":40,"onblur":"$(this).val($(this).val().toLowerCase())"});
+            var position = $('<input/>',{"type":'hidden',"name":'position',"value":section.position});
+
+            var samePage = $('<div class="samePage"><input type="checkbox" name="samePage" id="same' + section.id + '" ' + (section.samePage ? 'checked="checked"' : '') + '/><label for="same' + section.id + '">Show all questions on one page</label></div>' );
+
+            var actions = $('<div class="actions"/>');
+            actions.append($('<a/>',{
+                "href":'#',
+                "text":'Cancel',
+                "click":function(){
+                    if (isNew && $('.section').size() <= 1){
+                        alert('At least one section is required.');
+                    } else if (isNew) {
+                        secdiv = div.parents('.section');
+                        secdiv.fadeOut(null, function(){secdiv.remove()});
+                        editMode(false);
+                    }else{
+                        sectionReadonlyHeader(section,div).hide().fadeIn();
+                        editMode(false);
+                    }
+                    return false;
+                }
+            })).append($('<input/>',{"type":'submit',"value":'Done'}));
+
+
+            form.append(sectionid, position, caption,
+                '<div style="clear:both;"/>',
+                '<label for="name" class="sectionNameLabel">Name</label>',
+                name,
+                samePage,
+                actions
+            );
+
+            $(form).validate({
+                "rules": {
+                    "caption": "required",
+                    "name": {"required":true, "validquestionname":true, "uniquequestion":true}
+                },
+                "submitHandler": function(form){
+                    $(form).find('input[type="text"]').each(function(i,elem){removeInputExtraSpaces(elem)});
+                    blockPage();
+                    postQuestion = {
+                        "id"       : section.id,
+                        "name"     : $(name).val(),
+                        "caption"  : $(caption).val(),
+                        "type"     : section.type,
+                        "samePage" : $(div).find('[name="samePage"]').is(':checked'),
+                        "position" : $(position).val()
+                    };
+                    var json = JSON.stringify(postQuestion);
+                    if (questions[section.id])
+                        postEditQuestion(json);
+                    else{
+                        postAddQuestion(json);}
+                }
+            });
+
+            div.append(form);
+            return div;
+        }
+
+        //-------------
+        // USER ACTIONS
+        //-------------
+
+        // called from add section button: onclick="addSection()"
+        function addSection(section,position,prevSectionId){
+
+            if(isEditing)return;
+
+            var doEdit = section == null;
+            if (doEdit) var section = {"id":newId(),"caption":'New section',"type":TYPE_SECTION, "samePage":false}
+
+            if((position && prevSectionId) == undefined)
+                section.position = 1 + getPosition(section);
+            else
+                section.position = position;
+
+            var div = $('<div/>',{"id":section.id, "type":TYPE_SECTION}).addClass('section')
+                .append( doEdit ? sectionEditableHeader(section,null) : sectionReadonlyHeader(section,null) )
+                .append('<div class="questions"></div>');
+
+            if (doEdit) div.addClass('new');
+
+            if((position && prevSectionId) == undefined){
+                $('#questionArea').append(div);
+                div.hide().fadeIn(null,function(){ if (doEdit) div.find('[name=caption]').focus().select(); });
+
+                var sections = $('#questionArea').find('.editable');
+                if( sections.size() != 0 )
+                    $('html, body').animate({scrollTop: $('.editable').offset().top});//Center the page in the section to add
+
+            }else{
+                if(position == 1){
+                    $('#questionArea').prepend(div);
+                    div.hide().fadeIn(null,function(){ if (doEdit) div.find('[name=caption]').focus().select(); });
+                }else{
+                    $('#questionArea').find('#'+prevSectionId).after(div);
+                    div.hide().fadeIn(null,function(){ if (doEdit) div.find('[name=caption]').focus().select(); });
+                }
+            }
+            editMode(true);
+            bindCaptionBlur('S');
+
+        }
+        function getPosition(question){
+            if(question.type == TYPE_SECTION){
+                return $('#questionArea').find('.section').size();
+            }
+            else{
+                section = $('#questionArea').find('.section:not(.new)').last();
+                return section.find('.question').size();
+            }
+        }
+        // called from buttons: onclick="addQuestion({type:xxx})"
+        function addQuestion(type,parent,position,prevId){
+            // Find which section to append the new question
+            // Only saved sections should be considered
+            var sections = $('#questionArea').find('.section:not(.new)');
+
+            if(sections.size() == 0){
+                alert('You must create a section first.');
+            }else{
+                if(isEditing)return;
+                var sectionId;
+                if(parent == undefined){
+                    var section = sections.last();
+                    sectionId = section.attr('id');
+                }else
+                    sectionId = parent;
+
+                var question = {
+                    "id":newId(),
+                    "parent":sectionId,
+                    "type":type,
+                    "caption":'',
+                    "name":'',
+                    "qhint":'',
+                    "required":false,
+                    "options":new Array(),
+
+                    // number questions
+                    "minimum":null,
+                    "maximum":null,
+                    "doBefore":'',
+                    "doAfter":''
+                };
+
+                question.parent = sectionId;
+                if(position == undefined){
+                    question.position = 1 + getPosition(question);
+                }else{
+                    question.position = position;
+                }
+                questiondiv = getEditableDiv(question, null);
+                if(parent == undefined){
+                    $('#' + sectionId + ' .questions').append( questiondiv.hide().fadeIn(null, function(){
+                        questiondiv.find('[name=caption]').focus();
+                    }) );
+                    $('html, body').animate({scrollTop: $('.editable').offset().top});//Center the page in the question to add
+                }else{
+                     if(position==1){
+                         $('#'+sectionId).find('.questions').prepend( questiondiv.hide().fadeIn(null, function(){
+                            questiondiv.find('[name=caption]').focus();
+                         }) );
+                     }else{
+                        var div = $('#'+prevId);
+                        $(div).after( questiondiv.hide().fadeIn(null, function(){
+                            questiondiv.find('[name=caption]').focus();
+                        }) );
+                     }
+
+                }
+
+            }
+             editMode(true);
+             bindCaptionBlur('Q');
+        };
+
+        // binds the blur action to all caption fields in the page
+        function bindCaptionBlur(prefixForName){
+            $('div.header [name="caption"]').blur(function(){
+
+                // if the name field of the question is blank, the method goes on
+                var element = $(this).parents('form').find('[name="name"]');
+                if ($.trim(element.val()) == null || $.trim(element.val()) == ''){
+
+                    var value = manageName ($(this), prefixForName);
+                    // sets the value of the name field with the caption value properly formatted
+                    $(element).val(value.toLowerCase());
+                }
+            });
+            $('div.option [name^="caption"]').blur(function(){
+                // if the name field of the question is blank, the method goes on
+                var element = $(this).parent().find($('[name^="name"]'));
+                    var value = manageName ($(this));
+                    // sets the value of the name field with the caption value properly formatted
+                    $(element).val(value.toLowerCase());
+            });
+        }
+
+        // receives a value and formats it to fit for the "name" field
+        function manageName (element, prefix,isOption){
+            /*
+            this line formats the value of the name:
+                + removes all non alphanumeric characters
+                + replaces all subsequent spaces for only one space
+                + replaces all spaces for underscores
+                + trims the content in both sides (beginning and end)
+                + truncates content to 40 characters
+                + adds a "Q" before the text if it starts with a number (in case of a question)
+                + adds a "S" before the text if it starts with a number (in case of a section)
+            */
+
+            value = $.trim($(element).val().replace(/[^a-zA-Z 0-9]+/g,'')).replace( /\s\s+/g, ' ' ).replace(/ /g,'_');
+            value = value.toLowerCase();
+            if (value != '' && value != null){
+                if (!isNaN(value.charAt(0))) value = prefix + value;
+                value = value.substring(0,40);
+
+                // Avoid name colisions
+                var i = 0;
+                var uvalue = value;
+                var ok = true;
+                var suffix = '';
+                var questionId = $(element).parents('.question').size() > 0 ? questionId = $(element).parents('.question').attr('id') : questionId = $(element).parents('.section').attr('id');
+                var options = $(element).parents('.options');
+                do {
+                    ok = true;
+                    if(isOption){
+                        for (var op in options) {
+                        if ($(op).find('input [name^="name"]').val().toLowerCase() == uvalue && op.Id != element.parent().id) {
+                            i++;
+                            suffix = '_' + i;
+                            uvalue = value.substring(0,40-suffix.length) + suffix;
+                            ok = false;
+                            break;
+                        }
+                    }
+                    }else {
+                        for (var qid in questions) {
+                            if (questions[qid].name.toLowerCase()== uvalue && qid != questionId) {
+                                i++;
+                                suffix = '_' + i;
+                                uvalue = value.substring(0,40-suffix.length) + suffix;
+                                ok = false;
+                                break;
+                            }
+                        }
+                    }
+                } while(!ok);
+                return uvalue;
+            }
+
+            return null;
+        }
+        /*
+        Drag and Drop:
+        Allow to select a question and drag this one to the destination to drop.
+        After drop the question. All page is refreshed and updated.
+        */
+        //DRAG AND DROP
+
+
+        // gets the conditions affected by a change, and puts them into an array. behaves different if the user is moving a section
+        function getAffectedConditions(questionId, isDelete, isSection, sectionPosition){
+
+            var affectedConditions = new Array(); // array to temporarily store the affected conditions when a question is being moved
+            var movedQuestion = questions[questionId];
+            if (movedQuestion.skipconditions != null){
+                // take the new position as the previous question's one
+                var position = isSection ? sectionPosition : getMovedQuestionPosition(questionId, false);
+                // checks if any question has a condition involving the moved question
+                for (var qid in questions){
+                    if (qid != questionId){
+                        var question = questions[qid];
+                        if (question.skipconditions && question.skipconditions.length){
+                            // in case a section is being moved, questions within the same section should not be checked
+                            if (!(isSection && movedQuestion.parent == question.parent)){
+                                var questionPosition = $('#' + question.id).find('.questionAutoNumber').html().substring(1);
+                                for (var cid in question.skipconditions){
+                                    var condition = question.skipconditions[cid];
+                                    if (condition.sourceQuestionId == questionId){
+                                        // if the question is before the moved one, the condition will be invalid
+                                        if (questionPosition <= position || isDelete){
+                                            affectedConditions[affectedConditions.length] = condition;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // checks the moved question's conditions
+                for (var cid in movedQuestion.skipconditions){
+                    var condition = movedQuestion.skipconditions[cid];
+                    var question = questions[condition.sourceQuestionId];
+                    // in case a section is being moved, questions within the same section should not be checked
+                    if (!(isSection && movedQuestion.parent == question.parent)){
+                        // if the condition's question is after the moved question, the condition is invalid
+                        var questionPosition = $('#'+question.id).find('.questionAutoNumber').html().substring(1);
+                        if (position < questionPosition || isDelete){
+                            affectedConditions[affectedConditions.length] = condition;
+                        }
+                    }
+                }
+            }
+            return affectedConditions;
+        }
+
+        function getMovedQuestionPosition(questionId, isSection){
+            var previousQuestion = $('#' + questionId).prev();
+            if(!previousQuestion.length){
+                // if i'm moving a section and there is no previous one, then it is in the first place
+                if (isSection)
+                    return 0;
+
+                // get previous section
+                var previousSection = $('#' + questionId).parents('.section').prev();
+                if (previousSection.length){
+                    var lastChild = previousSection.find('.question:last');
+                    if (lastChild.length){
+                        // if the previous section has at least one child, it is the previous question
+                        return lastChild.find('.questionAutoNumber').html().substring(1);
+                    }else{
+                        // if the previous section does not have a child, previous question should be looked for backwards again
+                        return getMovedQuestionPosition(previousSection.attr('id'), true);
+                    }
+                }else{
+                    // if it is the first in the section and there is no previous section, it is in position 0 (to be 1)
+                    return 0;
+                }
+            }else{
+                if (isSection){
+                    var lastChild = previousQuestion.find('.question:last');
+                    if (lastChild.length){
+                        // if a section is being moved, the last child of the previous section should be the previous question
+                        return lastChild.find('.questionAutoNumber').html().substring(1);
+                    }else{
+                        // if the previous section does not have a child, the previous question should be looked for backwards again
+                        return getMovedQuestionPosition(previousQuestion.attr('id'), true);
+                    }
+                }else{
+                    return previousQuestion.find('.questionAutoNumber').html().substring(1);
+                }
+            }
+
+        }
+
+        function buildConfirmString(affectedConds){
+            var returnString = '';
+            for (var cid in affectedConds){
+                var condition = affectedConds[cid];
+                var conditionValue = getConditionValue(condition);
+                var caption = '';
+                var sourceQuestion = questions[condition.sourceQuestionId];
+                //Questions with options
+                if(sourceQuestion.options.length > 0){
+                    for (i in sourceQuestion.options){
+                       var option = sourceQuestion.options[i];
+                       if(condition.condition != 'Answered' && option.id == condition.value){
+                           caption = option.caption;
+                       }
+                    }
+                //Questions without options
+                }else{
+                    if (condition.condition != 'Answered')
+                        caption = condition.value;
+                }
+                returnString+= '\nCondition: When ' + sourceQuestion.caption + ' ' +
+                               condition.condition + ' ' + caption + ' in ' + getConditionParent(condition.id).caption;
+            }
+            return returnString;
+        }
+
+        function getConditionValue (condition){
+            var returnString = '';
+            if (condition.value != null){
+                var questionType = questions[condition.sourceQuestionId].type;
+                if (questionType == TYPE_RADIO || questionType == TYPE_CHECKBOX){
+                    for (var oid in questions[condition.sourceQuestionId].options){
+                        if (questions[condition.sourceQuestionId].options[oid].id == condition.value){
+                            returnString += ' ' + questions[condition.sourceQuestionId].options[oid].name;
+                            break;
+                        }
+                    }
+                }else{
+                    returnString += ' ' + condition.value;
+                }
+            }
+            return returnString;
+        }
+
+        function getConditionParent (conditionId){
+            for (var qid in questions){
+                var question = questions[qid];
+                for (var cid in question.skipconditions){
+                    var condition = question.skipconditions[cid];
+                    if (condition.id == conditionId)
+                        return question;
+                }
+            }
+        }
+
+        var moveConfirmed = true;
+
+        //Question Sortable
+        function dragndrop(){
+            $(function(){
+                var originId;
+                var isQuestion;
+                var destParent;
+                $('.field-types, .questions').sortable({
+                    connectWith: '.questions',
+                    helper: 'clone',
+                    create: function(){
+                                $('.field-types').sortable({items:'div:not(.disableSort, .field-types)'}); //Disable Sort list items from menu
+                                $('.questions').sortable({handle: '.handle'});
+                    },
+                    start:function(event,ui){
+                            moveConfirmed = true;
+                            isQuestion = $(ui.item).hasClass('addQuestion');
+                            originId = $(ui.item).attr('id');
+                            $('.field-types').find('#'+originId+':hidden').show(); //Show item to drag while dragging
+                            $('.questions').sortable({ axis: 'y' });
+                            ui.placeholder.height(ui.item.height()-10);
+                            $('.actions').hide(); //Hide actions while is been moving
+                    },
+                    stop: function(event,ui){
+                            var editableMode = $('#questionArea').find('.question').hasClass('editable');
+                            if(!editableMode){
+                                if(isQuestion){
+                                    $(this).sortable('cancel');//Do not make changes when do not move a question from the menu.
+                                }else{
+                                    $('#'+originId).find('.handle').removeClass('cursorGrabbing');//Add the grab cursor in questions after moved
+                                }
+                                $('.actions').show(); //Show actions after moved
+                            }
+                    },
+                    placeholder: 'placeholderQuest tertiaryPalette',
+                    opacity:0.6,
+                    update: function(event,ui){
+                        //If im dragging an element from the menu
+                        if (isQuestion){
+                            var prevId = $('#'+originId).prev('.question:not(.editable)').attr('id');
+                            var questPos;
+                            if (prevId != undefined){
+                                var prevQuestion = questions[prevId];
+                                var parentId = prevQuestion.parent;
+                                var prevQuestPos = prevQuestion.position; //Add inside a section but not in first position
+                                questPos = parseInt(prevQuestPos)+1;
+                                addQuestion(originId,parentId,questPos,prevId); //Adding new question
+
+                            }else{
+                                questPos = 1; //Add in first position
+                                secId = $('#'+originId).parents('.section').attr('id');
+                                if(secId != undefined){
+                                    addQuestion(originId,secId,questPos); //Adding new question
+                                }
+                            }
+                            $('.field-types').sortable('cancel');
+
+                        //If im dragging a question
+                        }else{
+                            var affectedConditions = getAffectedConditions(originId, false, false);
+                            affectedConditions.length ? moveConfirmed = confirm(AFFECTED_CONDITIONS_MESSAGE_MOVE + buildConfirmString(affectedConditions)) : moveConfirmed = true;
+                            if (moveConfirmed){
+                                for (var qid in questions){
+                                    var question = questions[qid];
+                                    var qConditions = new Array(); // create new array to store the conditions that will remain in the question
+                                    for (var cid in question.skipconditions){
+                                        if ($.inArray(question.skipconditions[cid], affectedConditions) == -1){
+                                            qConditions.push(question.skipconditions[cid]);
+                                        }
+                                    }
+                                    question.skipconditions = qConditions;
+                                }
+                                cut(originId);    //Call cut function
+                                var prevPaste = $('#'+origin.id).prev().attr('id');
+                                if(prevPaste != null){
+                                    paste(prevPaste); //Paste inside a section but not in first position.
+                                }else{
+                                    var firstPaste = $('#'+origin.id).parents('.section').attr('id');
+                                    paste(firstPaste); //Paste in first position of section.
+                                }
+                            }else{
+                                $(this).sortable('cancel');
+                            }
+                        }
+                    }
+                });
+            });
+            //Section Sortable
+            $(function(){
+                var originId;
+                $('#secbutton, #questionArea').sortable({
+                    connectWith: '#questionArea',
+                    create:function(event,ui){
+                        $('#secbutton').sortable({items:'div:not(#addbutton)'}); //Disable sortable button
+                        $('#questionArea').sortable({handle: '.handle'});
+                    },
+                    start: function(event,ui){
+                        moveConfirmed = true;
+                        originId = $(ui.item).attr('id');
+                        $('#secbutton').find('div:hidden').show(); //Show item to drag while dragging
+                        $('#questionArea').sortable({axis: 'y'}); //Sort just in 'y' axis for sections
+                        if($(ui.item).height()<25){
+                            ui.placeholder.height(11); //place holder size for section button
+                        }else{
+                            ui.placeholder.height(ui.item.height());
+                        }
+                        $('.actions').hide(); //Hide actions while is been moving
+                        $('.section').addClass('dragSec'); //Add background while is been moving
+                    },
+                    change: function(event, ui) {
+                                // Re-size placeholder when change section
+                                if(originId == 'addbutton'){
+                                    var div = (ui.placeholder).parents().attr('id');
+                                    if(div == 'questionArea')
+                                        ui.placeholder.height(50);
+                                    else
+                                        ui.placeholder.height(11);
+                                }
+                    },
+                    stop: function(){
+                        var editableMode = $('#questionArea').find('.header').hasClass('editable');
+                        if(originId != 'addbutton' || !editableMode){
+                            $('.actions').show(); //Show actions after moved
+                            $('#'+originId).find('.handle').removeClass('cursorGrabbing');//Add the grab cursor in sections and questions inside that question after moved
+                        }
+                        $('.section').removeClass('dragSec'); //Remove background after moved
+                    },
+                    placeholder: 'placeholderSec tertiaryPalette',
+
+                    helper: 'clone',
+                    revert: true,
+                    opacity:0.6,
+                    update:function(event,ui){
+                        if(originId == 'addbutton'){
+                            var prevId = $('#'+originId).prev('.section:not(.new)').attr('id');
+                            var secPos;
+                            var prevSectionId;
+                            if (prevId != undefined){
+                                var prevSection = questions[prevId];
+                                prevSectionId = prevSection.id;
+                                var prevSecPos = prevSection.position; //Add Section but not in first position
+                                secPos = parseInt(prevSecPos)+1;
+                            }else{
+                                secPos = 1; //Add Section in first position
+                                prevSectionId = $('#questionArea').attr('id');
+                            }
+                            addSection(null,secPos,prevSectionId);
+                            $('#secbutton').sortable('cancel');
+                        }else{
+
+                            var affectedConditions = new Array();
+                            var sectionPosition = getMovedQuestionPosition(originId, true);
+                            // for each question the section contains, add the corresponding affected conditions to the array
+                            $('#'+originId).find('div.question').each(function(i,question){
+                                affectedConditions.push.apply(affectedConditions, getAffectedConditions($(question).attr('id'), false, true, sectionPosition));
+                            });
+                            affectedConditions.length ? moveConfirmed = confirm(AFFECTED_CONDITIONS_MESSAGE_MOVE + buildConfirmString(affectedConditions)) : moveConfirmed = true;
+                            if (moveConfirmed){
+                                for (var qid in questions){
+                                    var question = questions[qid];
+                                    var qConditions = new Array(); // create new array to store the conditions that will remain in the question
+                                    for (var cid in question.skipconditions){
+                                        if ($.inArray(question.skipconditions[cid], affectedConditions) == -1){
+                                            qConditions.push(question.skipconditions[cid]);
+                                        }
+                                    }
+                                    question.skipconditions = qConditions;
+                                }
+                                cut(originId); //Call cut function
+
+                                var secPrevPaste = $('#'+origin.id).prev('.section').attr('id');
+                                if(secPrevPaste != null)
+                                    paste(secPrevPaste);
+                                else{
+                                    paste(null);//Updating position when the section is moved to first place.
+                                }
+                            }else{
+                                $(this).sortable('cancel');
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+       /*
+       Cut and Paste functions:
+       Select a question, this question is cuted. After this, should select a question to paste.
+       The origin question is pasted after the destination question. In case that the user want to paste
+       the origin question on the first place of a section, the destination question selected must be that
+       section.
+       */
+
+        var origin; //question object origin to move
+        var destination; //question object destination
+        //CUT
+        function cut(questionId){
+            isEditing = true;
+            $('.field-types, .questions, #secbutton, #questionArea').sortable('disable');
+            $('.questions').sortable('disable');
+            $('#questionArea').sortable('disable');
+            origin = questions[questionId];
+            $('#'+origin.id).addClass('cut');
+            $('div.actions a:not(.paste)').hide();
+            if(origin.type == TYPE_SECTION)
+                $('.section >.header a.paste').text('After this Section').show();
+            else
+                $('.paste').show();
+
+            $('#'+origin.id+'>.header a.paste').text('Cancel');
+        }
+
+        //PASTE
+        function paste(questionId){
+            $('.questions').sortable('enable');
+            $('#questionArea').sortable('enable');
+            destination = questions[questionId];
+            if(destination != null && destination.id == origin.id || (origin.position == 1 && destination.id == origin.parent)){
+                // If moving to same location, cancel move
+                cancelMove();
+                return;
+            } else {
+                // Call move function on server
+                blockPage();
+                if(destination == null){
+                    postMoveQuestion(origin.id,FIRST_SECTION);
+                }else{
+                    postMoveQuestion(origin.id,destination.id);
+                }
+            }
+            setQuestionAutoNumber();
+        }
+
+        function cancelMove (){
+            $('#'+origin.id).removeClass('cut');
+            $('div.actions a:not(.paste)').show();
+            if(origin.type == TYPE_SECTION)
+                $('.section >.header a.paste').text('First of Section');
+            else
+                $('#'+origin.id+' a.paste').text('After this one');
+            $('div.actions a.paste').hide();
+            $('.field-types, .questions, #secbutton, #questionArea').sortable('enable');
+            isEditing = false;
+        }
+        var fixNumberType;
+        // called from "edit" links
+        function editQuestion(questionId){
+            editMode(true);
+            var question = questions[questionId];
+            //Get the question type before edit to fixit it if its cancel
+            if(isType(question,TYPE_NUMBER))
+                fixNumberType = question.type;
+            var div = $("#" + questionId);
+            var questiondiv = getEditableDiv(question, div);
+            questiondiv.hide().fadeIn(null, function(){
+                questiondiv.find('[name=caption]').focus();
+            });
+            bindCaptionBlur('Q');
+        };
+
+        function editSection(sectionId){
+            var section = questions[sectionId];
+            var div = $('#' + sectionId + '>div.header');
+            var sectiondiv = sectionEditableHeader(section,div);
+            sectiondiv.hide().fadeIn(null, function(){
+                sectiondiv.find('[name=caption]').focus();
+            });
+            editMode(true);
+            bindCaptionBlur('S');
+        }
+
+        // called from "delete" links
+        function removeQuestion(questionId){
+            //check if the quesiton to be remove has assigned Scores values
+            errormsg = '';
+            var qoptions = questions[questionId].options;
+            var hasScorings = false;
+            for (var i in qoptions){
+              var option = qoptions[i];
+               hasScorings = (option.scoreValues != null && option.scoreValues.length != 0) ? true : hasScorings;
+            }
+            var affectedConditions = getAffectedConditions(questionId, true, false);
+            //generate the confirmation text
+            var confirmationText = ((hasScorings==true) ?  QUESTION_HAS_SCORING_MESSAGE_DELETE:'') +
+            ((affectedConditions.length) ? AFFECTED_CONDITIONS_MESSAGE_DELETE + buildConfirmString(affectedConditions) : 'Are you sure?');
+            if (confirm(confirmationText)){
+                if(affectedConditions.length){
+                    for (var qid in questions){
+                        var question = questions[qid];
+                        var qConditions = new Array(); // create new array to store the conditions that will remain in the question
+                        for (var cid in question.skipconditions){
+                            if ($.inArray(question.skipconditions[cid], affectedConditions) == -1){
+                                qConditions.push(question.skipconditions[cid]);
+                            }
+                        }
+                        question.skipconditions = qConditions;
+                    }
+                }
+                blockPage();
+                postQuestion = {"id":questionId};
+                postRemoveQuestion( questionId );
+            }
+            hasUnsavedChanges = true;
+        };
+
+        function validateForm(div){
+            return true;
+        };
+
+        function quickSave(closeAfterwards){
+            // Validate that the user is not currently editing or moving a question or a section.
+            if ($('div.question.editable').size() > 0) {
+                alert('Can\'t save while there are questions being edited.');
+                return;
+            }
+            if($('div.question.cut').size() > 0) {
+                alert('Can\'t save while there are questions being moved.');
+                return;
+            }
+            if($('div.header.editable').size() > 0){
+                alert('Can\'t save while there are sections being edited.');
+                return;
+            }
+            if($('div.section.cut').size() > 0){
+                alert('Can\'t save while there are sections being moved.');
+                return;
+            }
+
+            // Validate that no section is empty.
+            // Keep a map of how many questions each section has.
+            // Then, check that all sections have at least one question.
+            var questionCount;
+            for (var qid in questions){
+                question = questions[qid];
+                if (question.type == TYPE_SECTION) {
+                    questionCount = $('#'  +question.id + ' .questions .question').size();
+                    if(questionCount == 0){
+                        alert('Can\'t save while section "' + question.caption + '" has no questions.');
+                        return;
+                    }
+                }
+            }
+            // Now that all validations passed, proceed to save.
+            blockPage();
+
+            //converts questions into json
+            var arr = new Array();
+            for(var i in questions) arr.push(JSON.stringify(questions[i]));
+            var json = '[' + arr.join(',') + ']';
+
+            if (closeAfterwards){
+                postSaveContinue(json);
+            }else{
+                postQuickSave(json);
+            }
+        }
+
+        //------------------
+        // ACTION COMPLETION
+        //------------------
+        $(document).ready(function(){
+            // TODO: get questions from controller and render them
+            var existing_questions = $('#existing-questions');
+            var to_draw = $.parseJSON( existing_questions.text() );
+            existing_questions.remove();
+
+            if (to_draw == null || to_draw.length == 0) {
+                // create the first section if there are none
+                var sections = $('#questionArea').find('.section');
+                if( sections.size() == 0 )
+                    addSection();
+            } else {
+                for (i in to_draw)
+                    to_draw[i].type = to_draw[i].type.toLowerCase();
+
+                // Sort questions to draw
+                // First sections, then questions. Ordered by position
+                to_draw.sort(function(a,b){
+                    return a.type == TYPE_SECTION && a.type != b.type ? -1 :
+                           b.type == TYPE_SECTION && a.type != b.type ?  1 :
+                           a.parent < b.parent ? -1 :
+                           a.parent > b.parent ?  1 :
+                           a.position - b.position;
+                });
+
+                for (var i in to_draw) {
+                    var question = to_draw[i];
+                    if (question.type == TYPE_SECTION){
+                        addSection(question);
+                        editMode(false);
+                    }
+                    else{
+                        height = getReadonlyDiv(question).height();
+                        $('#' + question.parent + ' .questions').append( getReadonlyDiv(question) );
+                    }
+                }
+
+                // Add the questions to the questions array
+                for (i in to_draw) {
+                    var question = to_draw[i];
+                    questions[question.id] = question;
+                }
+            }
+            setQuestionAutoNumber();
+            doHandler();
+        });
+
+        //Draw drag and drop handler
+        function doHandler(){
+            var hand;
+            var actH;
+            $('.section>.header.readonly, .question.readonly').each(function(){
+                hand = $(this).find('.handle');
+                actH = $(this).height()+20;//Matching height of handler with header of section height
+                hand.height(actH);
+            });
+            prepareDragHandles();
+        }
+
+        function handleMouseUp(){$(this).addClass('cursorGrabbing')}
+        function handleMouseDown(){$(this).removeClass('cursorGrabbing')}
+
+        //Cursor of the drag and drop
+        function prepareDragHandles(){ $('div.handle').mousedown(handleMouseUp).mouseup(handleMouseDown); }
+        function prepareDragHandle(div){ div.mousedown(handleMouseUp).mouseup(handleMouseDown); }
+
+        // called from "cancel" link on Editable view
+        function cancelEdit(questionId, isNew){
+            var div = $('#' + questionId);
+            var question = questions[questionId];
+            editMode(false);
+            if(isNew){
+                delete question;
+                div.remove();
+            }else{
+                //Fix question type when cancel edit
+                if(isType(question, TYPE_NUMBER)){
+                    if(fixNumberType != question.type)
+                        question.type = fixNumberType;
+                }
+                getReadonlyDiv(question, div).hide().fadeIn();
+             }
+             setQuestionAutoNumber();
+        };
+
+        // called from "done" link on Editable view
+        function acceptEdit(questionId){
+            var div = $('#' + questionId);
+            if (validateForm(div)){
+                var newQuestion = saveToQuestion(div);
+                postQuestion = newQuestion;
+                blockPage();
+
+                var json = JSON.stringify(newQuestion);
+                if (questions[questionId])
+                    postEditQuestion(json);
+                else
+                    postAddQuestion(json);
+            }
+        };
+
+        // Stores the question that is being sent to the controller,
+        // so that it can be accessed on afterPost methods.
+        var postQuestion = null;
+
+        function afterPostAddQuestion(){
+
+            var errormsg = $('.errorMessage');
+            if(!errormsg || errormsg.text() == ''){
+                questions[postQuestion.id] = postQuestion;
+                if( isType(postQuestion, TYPE_SECTION) ){
+                    var div = $('#' + postQuestion.id + '>div.header');
+                    for(qid in questions){
+                        if(questions[qid].type == TYPE_SECTION && questions[qid].position >= postQuestion.position && questions[qid].id != postQuestion.id)
+                            questions[qid].position++;
+                    }
+                    sectionReadonlyHeader(postQuestion, div.hide().fadeIn() );
+                }else{
+                    var div = $('#' + postQuestion.id);
+                    for(qid in questions){
+                        if(questions[qid].type != TYPE_SECTION && questions[qid].parent == postQuestion.parent && questions[qid].position >= postQuestion.position && questions[qid].id != postQuestion.id){
+                            questions[qid].position++;
+                        }
+                    }
+                    getReadonlyDiv(postQuestion, div).hide().fadeIn();
+                }
+            }
+            editMode(false);
+            hasUnsavedChanges = true;
+            unblockPage();
+        }
+
+        function afterPostEditQuestion(){
+            var errormsg = $('.errorMessage');
+            if(!errormsg || errormsg.text() == ''){
+                questions[postQuestion.id] = postQuestion;
+                if( isType(postQuestion, TYPE_SECTION) ){
+                    var div = $('#' + postQuestion.id + '>div.header');
+                    sectionReadonlyHeader(postQuestion, div.hide().fadeIn() );
+                }else{
+                    var div = $('#' + postQuestion.id);
+                    getReadonlyDiv(postQuestion, div).hide().fadeIn();
+                }
+            }
+            editMode(false);
+            hasUnsavedChanges = true;
+            unblockPage();
+        }
+
+        function afterPostMoveQuestion(){
+            var errormsg = $('.errorMessage');
+            var divOrigin = $('#questionArea').find('#'+origin.id);
+            // Hide Paste and show the others actions
+            $('div.actions a:not(.paste)').show();
+            $('#'+origin.id).removeClass('cut'); // remove cut class
+
+            if(origin.type == TYPE_SECTION)
+                $('.section >.header a.paste').text('First of Section');
+            else
+                $('#'+origin.id+' a.paste').text('After this one');
+            $('div.actions a.paste').hide();
+
+            if(!errormsg || errormsg.text() == ''){
+                //UPDATING POSITIONS
+                //Moving Sections
+                if(origin.type == TYPE_SECTION){
+                    //First section of page
+                    if(destination == null){
+                        for(qid in questions){
+                            if(questions[qid].type == TYPE_SECTION && questions[qid].position < origin.position){
+                                questions[qid].position++;
+                            }
+                        }
+                        origin.position = 1;
+                    }else{
+                        divOrigin.remove();//remove div from old position.
+                        for(qid in questions){
+                            if(questions[qid].position > origin.position && questions[qid].type==TYPE_SECTION)
+                                questions[qid].position--;
+                        }
+                        //Update moved question position
+                        origin.position = parseInt(destination.position)+1;
+                        $('#'+destination.id).after(divOrigin); // moving div to new position
+                        dragndrop(); //Initialize drag and drop for new div after moved
+
+                        //Update position of questions following
+                        for(qid in questions){
+                            if(questions[qid].position >= origin.position && questions[qid].id != origin.id && questions[qid].type==TYPE_SECTION)
+                                questions[qid].position++;
+                        }
+                    }
+                }else{
+                    //Moving Questions
+                    divOrigin.remove();//remove div from old position.
+                    for(qid in questions){
+                        if (questions[qid].parent == origin.parent && questions[qid].position > origin.position){
+                            questions[qid].position--;
+                        }
+                    }
+                    // Update moved question position
+                    // (Consider if destination is section or question)
+                    if (destination.type == TYPE_SECTION){
+                        $('#'+destination.id).find('.questions').prepend(divOrigin); // moving div to new position
+                        origin.parent = destination.id;
+                        origin.position = 1;
+                    } else {
+                        $('#'+destination.id).after(divOrigin); // moving div to new position
+                        origin.parent = destination.parent;
+                        origin.position = parseInt(destination.position) + 1;
+                    }
+
+                    // Update position of questions following
+                    for (qid in questions){
+                      if (questions[qid].parent == origin.parent && questions[qid].position >= origin.position && questions[qid].id != origin.id){
+                        questions[qid].position++;
+                        }
+                    }
+                }
+                var div = divOrigin.find('.handle');
+                prepareDragHandle(div);
+                isEditing = false;
+                hasUnsavedChanges = true;
+                $('.field-types, .questions, #secbutton, #questionArea').sortable('enable');
+            }
+            unblockPage();
+        }
+        function afterPostRemoveQuestion(){
+            var questionId = postQuestion.id;
+            var scrollTo = $('#' + questionId ); //element to delete
+            var errormsg = $('.errorMessage');
+            errormsg.hide();
+            var rawPosition = scrollTo.offset().top; //Position of the element in the page
+            var halfWindow = $(window).height()/2; // In order to be shown centered
+            scrollPositionToGo = rawPosition - halfWindow ;
+            if(!errormsg || errormsg.text() == ''){
+                if(questions[questionId].type != TYPE_SECTION){
+                    for(qid in questions){
+                        //UPDATE QUESTIONS POSITIONS
+                        if(questions[qid].parent == questions[questionId].parent && questions[qid].position > questions[questionId].position){
+                                questions[qid].position--;
+                        }
+                    }
+                }
+                if(questions[questionId].type == TYPE_SECTION){
+                    for(qid in questions){
+                        if(questions[qid].type == TYPE_SECTION && questions[qid].position > questions[questionId].position){
+                            questions[qid].position --;
+                        }
+                        if(questions[qid].parent == questionId && questions[qid]!= questions[questionId]){
+                            delete questions[qid];              // Remove questions inside the section
+                        }
+                    }
+                }
+                delete questions[questionId];
+                $('#' + questionId).remove();       // Remove div
+                editMode(false);
+            }else{
+                $('.removeError').remove();
+                scrollTo.append('<div class="errorMsg removeError">'+ errormsg.text() +'</div>');
+            }
+            $("body").scrollTop( scrollPositionToGo ); // Scrolls
+            unblockPage();
+        }
+
+        function afterPostQuickSave(){
+            unblockPage();
+            hasUnsavedChanges = false;
+            var foundin = $('.thereIsError');
+            if(foundin.val() == 'BUILDER_ERR_CONCURRENTSAVE'){
+                if(confirm($('.BUILDER_ERR_CONCURRENTSAVE').val() + '\nDo you want to refresh the page now?')){
+                    location.reload();
+                }
+            }else if(foundin.val().length > 0){
+                alert(foundin.val());
+            }
+            doRedirect();
+        }
+
+    </script>
+    <input type="hidden" value="{!$Label.BUILDER_ERR_CONCURRENTSAVE}" class="BUILDER_ERR_CONCURRENTSAVE"/>
+</apex:page>

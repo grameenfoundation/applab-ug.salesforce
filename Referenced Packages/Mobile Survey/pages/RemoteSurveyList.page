@@ -1,0 +1,85 @@
+<apex:page controller="gfsurveys.RemoteSurveysListController" sidebar="false" tabstyle="SurveyManager__tab">
+    <apex:sectionHeader title="{!library.Name} {!$Label.SURVEY_LIBRARY_LABEL_TITLE}" subtitle="{!library.gfsurveys__Description__c}"/>
+    <apex:pageMessages id="pageErrors"></apex:pageMessages>
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquerySimpleModal}" />
+    <c:blockOverlay label="{!$Label.SURVEY_LIBRARY_LABEL_DOWNLOADING}"/>
+
+
+    <style type="text/css">
+        #simplemodal-overlay {background-color:#000;}
+        #simplemodal-container {background-color:white; border:3px solid #444; padding:12px;}
+        #surveyDownloadComplete{
+            width:450px;display:none;padding:10px
+        }
+    </style>
+    <script type="text/javascript">
+        function openModal(success) {
+            if (success) {
+                $("#surveyDownloadComplete").modal();
+            }
+        }
+
+        function redirect(url, id) {
+            if (typeof id != 'undefined') {
+                url += '?id=' + id;
+            }
+            window.open(url,"_self");
+        }
+    </script>
+
+    <apex:outputPanel id="reload">
+        <script type="text/javacript">
+            openModal({!success});
+        </script>
+        <div id="surveyDownloadComplete">
+            <p>{!successMessage}</p>
+            <form>
+                <br />
+                <br />
+                <div style="text-align: right; padding: 5px">
+                    <button class="btn" type="button" onClick="redirect('{!$Page.SurveyManager}')">{!$Label.SURVEY_LIBRARY_LABEL_MANAGERLINK}</button>
+                    <button class="btn" type="button" onClick="redirect('{!$Page.surveySetting}', '{!newSurveyId}')">{!$Label.SURVEY_LIBRARY_LABEL_SURVEYSETTINGS}</button>
+                    <button class="btn" type="button" onClick="$.modal.close()">{!$Label.SURVEY_LIBRARY_LABEL_LIBRARYLINK}</button>
+                </div>
+            </form>
+        </div>
+    </apex:outputPanel>
+
+
+    <apex:pageBlock >
+        <apex:form >
+            <apex:pageBlockTable value="{!parsedSurveys}" var="survey">
+                <apex:column headerValue="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_NAME}">
+                    <apex:outputText value="{!survey.Survey__r.Name}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_DESC}">
+                    <apex:outputText value="{!survey.Survey__r.gfsurveys__Description__c}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_CREATED_BY}">
+                    <apex:outputText value="{!survey.Survey__r.CreatedBy.Name}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_CREATED_DATE}">
+                        <apex:outputText value="{0,date,medium}">
+                            <apex:param value="{!survey.Survey__r.CreatedDate}"/>&nbsp;
+                        </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_LAST_MOD_DATE}">
+                        <apex:outputText value="{0,date,medium}">
+                            <apex:param value="{!survey.Survey__r.LastModifiedDate}"/>&nbsp;
+                        </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_VERSION}">
+                    <apex:outputText value="{!survey.Survey__r.gfsurveys__Version__c}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.SURVEY_LIBRARY_COLUMN_HEADER_ACTIONS}">
+                    <apex:commandLink action="{!previewSurvey}" rerender="pageErrors, reload" onclick="blockPage()" oncomplete="unblockPage()" value="{!$Label.SURVEY_LIBRARY_LABEL_PREVIEW}"/>
+                    &nbsp;|&nbsp;
+                    <apex:commandLink action="{!downloadSurvey}" rerender="reload, pageErrors" onclick="blockPage()" oncomplete="unblockPage()" value="{!$Label.SURVEY_LIBRARY_LABEL_DOWNLOAD}">
+                        <apex:param value="{!survey.id}" name="remoteSurveyId"/>
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

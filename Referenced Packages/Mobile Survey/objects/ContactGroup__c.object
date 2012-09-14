@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>DeleteContactGroup</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>EditContactGroup</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>EditContactGroup</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>ViewGroup</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>This is a group where a contacts and surveys can be assigned. After that the surveys in the group will be distributed to the users in the group.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A description for the group</description>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>MemberCount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Show the count of members in the group</description>
+        <externalId>false</externalId>
+        <label>Member Count</label>
+        <summaryForeignKey>ContactGroupMember__c.ContactGroup__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Indicates whether the Group is active or inactive</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SurveyCount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Count the number of surveys assigned to the group</description>
+        <externalId>false</externalId>
+        <label>Survey Count</label>
+        <summaryForeignKey>ContactGroupSurveyAssignment__c.ContactGroup__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <label>Group</label>
+    <listViews>
+        <fullName>ActiveGroups</fullName>
+        <columns>Status__c</columns>
+        <columns>NAME</columns>
+        <columns>MemberCount__c</columns>
+        <columns>SurveyCount__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filters>
+        <label>Active Groups</label>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Status__c</columns>
+        <columns>NAME</columns>
+        <columns>MemberCount__c</columns>
+        <columns>SurveyCount__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>InactiveGroups</fullName>
+        <columns>Status__c</columns>
+        <columns>NAME</columns>
+        <columns>MemberCount__c</columns>
+        <columns>SurveyCount__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Inactive</value>
+        </filters>
+        <label>Inactive Groups</label>
+    </listViews>
+    <nameField>
+        <label>Group Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Groups</pluralLabel>
+    <searchLayouts>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <listViewButtons>ActivateGroup</listViewButtons>
+        <listViewButtons>DeactivateGroup</listViewButtons>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>MemberCount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>SurveyCount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Unique_name</fullName>
+        <active>true</active>
+        <description>Validate that the group name is unique (case sensitive).</description>
+        <errorConditionFormula>Name = VLOOKUP( $ObjectType.ContactGroup__c.Fields.Name , $ObjectType.ContactGroup__c.Fields.Name , Name ) &amp;&amp; Id &lt;&gt; VLOOKUP( $ObjectType.ContactGroup__c.Fields.Id , $ObjectType.ContactGroup__c.Fields.Name , Name )</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>There is another group with the same name. Change the name and try again.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>ActivateGroup</fullName>
+        <availability>online</availability>
+        <description>Activate the selected groups</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Activate</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.ContactGroup__c)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to activate.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+
+      var toActivateGroups = new Array(); 
+      for( i = 0; i &lt; records.length; i ++){
+               var con = new sforce.SObject(&quot;ContactGroup__c&quot;);
+               con.Id = records[i];
+               con.Status__c = &apos;Active&apos;;
+               toActivateGroups.push(con);
+      }
+      result = sforce.connection.update(toActivateGroups);
+      window.location.reload();
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>DeactivateGroup</fullName>
+        <availability>online</availability>
+        <description>Deactivate the group</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Deactivate</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.ContactGroup__c)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to deactivate.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+
+      var toActivateGroups = new Array(); 
+      for( i = 0; i &lt; records.length; i ++){
+               var con = new sforce.SObject(&quot;ContactGroup__c&quot;);
+               con.Id = records[i];
+               con.Status__c = &apos;Inactive&apos;;
+               toActivateGroups.push(con);
+      }
+      result = sforce.connection.update(toActivateGroups);
+      window.location.reload();
+}</url>
+    </webLinks>
+</CustomObject>

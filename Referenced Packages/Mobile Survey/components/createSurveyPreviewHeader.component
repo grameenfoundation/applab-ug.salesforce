@@ -1,0 +1,43 @@
+<apex:component >
+    <apex:attribute type="String" name="selected" description="Selected header"/>
+    <apex:attribute type="String" name="styleClassHeader" description="Style class header component"/>
+    <apex:attribute type="String" name="backgroundUnSelected" description="Color backgroud unselected header"/>
+    <apex:attribute type="String" name="isPPI" description="Survey type is PPI"/>
+    
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}"/>
+
+    <script type="text/javascript">
+        var tdSelection = 'table#navigationBar td';
+        var previewUrl = "{!$Page.SurveyPreview}";
+        var fieldmappingUrl = "{!$Page.SurveyFieldMapping}";
+        var lookuptablesUrl = "{!$Page.LookupTables}";
+        
+        $(document).ready(function(){
+            var tabWidth = '33.3%';
+            if(!{!isPPI}){
+                $('.LOOKUPTABLES').remove();
+                tabWidth = '50%';
+            }
+            $(tdSelection).attr('width', tabWidth);
+            
+            $(tdSelection + ':not(.{!selected})').css({background:'{!backgroundUnSelected}', cursor: 'pointer'});
+
+            $(tdSelection).click(function(){
+                var redirectTo = $(this).attr('class');
+                if (redirectTo != "{!selected}"){
+                    location.href = eval(redirectTo.toLowerCase()+'Url') + "?id={!$CurrentPage.parameters.id}&b=0";
+                }
+            });
+          }
+        );
+    </script>
+
+    <table width="100%" class="{!styleClassHeader}" id="navigationBar">
+        <tr>
+            <td align="center" class="PREVIEW">PREVIEW</td>
+            <td align="center" class="FIELDMAPPING">FIELD MAPPING</td>
+            <td align="center" class="LOOKUPTABLES">LOOKUP TABLES</td>
+        </tr>
+    </table>
+    <br/>
+</apex:component>

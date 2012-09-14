@@ -1,0 +1,496 @@
+<apex:page controller="gfsurveys.SurveyManagerController" sidebar="false" action="{!init}" tabstyle="SurveyManager__tab" id="page">
+    <apex:sectionHeader title="Home" subtitle="Surveys" />
+    <apex:pageMessages id="errorMessage" ></apex:pageMessages>
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquerySimpleModal}" />
+    <c:blockOverlay label="Loading..." callback="loadMoreActions();"/>
+    <iframe style="display:none" src="" class="CSVIframe"/>
+<style type="text/css">
+    td.noSidebarCell{padding:5px 10px 20px 10px;}
+    .errorMessage{
+        color:red;
+    }
+    span.survey-name{font-weight:bold;}
+    td[title="Action"] img{width:24px;}
+    #simplemodal-overlay {background-color:#000;}
+    #simplemodal-container {background-color:white; border:3px solid #444; padding:12px;}
+    .custPopup{
+        background-color: white;
+        border-width: 2px;
+        border-style: solid;
+        z-index: 9999;
+        left: 50%;
+        padding:10px;
+        position: absolute;
+        /* These are the properties to set the actual popup size*/
+        width: 500px;
+        margin-left: -250px;
+        top:100px;
+    }
+    .popupBackground{
+        background-color:black;
+        opacity: 0.20;
+        filter: alpha(opacity = 20);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+    }
+    .popupList{
+     font-weight:bold;
+     margin-left: 20px;
+    }
+    .SelectAllGroups{
+     font-weight:bold;
+     margin-left: 24px;
+    }
+    #confirmationClone{
+    height:100px;width:250px;display:none;
+    }
+    .surveyName{
+        float: left;
+        margin-right: 10px;
+    }
+</style>
+<!-- Following two scripts are needed to run SOQL from javascript -->
+    <script type="text/javascript">
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+    </script>
+    <script src="/soap/ajax/25.0/connection.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        // check if the survey has an xform and notify the user that it will be lost if the survey is edited
+        function editSurvey(xForm_Status, surveyId){
+            
+            if( xForm_Status!="{!XFORM_STATUS_CUSTOM}" || confirm("{!$Label.SURVEY_MANAGER_CONFIRM_EDIT_CUSTOM}")){
+
+                    window.location = '{!$Page.surveySetting}?id=' + surveyId;
+
+                }
+            return false;
+        }
+
+        // Helper method to add options to a select list
+        function op(val, str, condition){
+            return condition == null || condition
+                ? '<option value="' + val + '">' + str + '</option>'
+                : null ;
+        }
+
+        function loadMoreActions(){
+            // Clean select lists
+            $('select.moreactions').empty();
+
+            // Load actions
+            $('select.moreactions').each(function(i,elem){
+                var surveyId = $(elem).attr('id').replace('moreactions','');
+                var status = $('.' + surveyId).html();
+                var isPPI = $('.' + surveyId).hasClass('isPPI');
+                var ppiEditable = {!isPPIEnabled};
+                var isDistributed = $('.' + surveyId).hasClass('Distributed');
+                var surveyName = $('#name-'+surveyId).html();
+                var responses = parseInt($('.responses' + surveyId).text());
+                $(elem)
+                    .append( op('', 'More Actions...') )
+                    .append( op('Preview', 'Preview') )
+                    .append( op('Clone', 'Clone', !isPPI) )
+                    .append( op('editXForm', 'Edit XForm', (!isPPI || ppiEditable) && status == "Draft") )
+                    .append( op('viewXForm', 'View XForm', status != "Draft") )
+                    .append( op('-1', '----------', responses) )
+                    .append( op('Export', 'Export to CSV', responses) )
+                    .append( op('-1', '----------') )
+                    .append( op('Delete', 'Delete') )
+                    .append( op('Distribute', 'Release to Library', !isDistributed && isPPI && ppiEditable && status == "Published") );
+            });
+        }
+
+        $(document).ready(function(){
+
+            $('.statusFilter').change(function(){
+                var filter = $(this).val();
+                blockPage();
+                doFilterStatus(filter);
+            });
+        });
+        var idToClone = '';
+        var MSG_CONFIRM_CLOSE = 'You are about to close \'{surveyname}\' survey.'+
+                                '\n\nIMPORTANT: After the survey is closed, people will '+
+                                'no longer be able to respond to this survey!';
+
+        function execMoreAction(surveyId, SelectId){
+            $('select.moreactions').attr('disabled','disabled');
+            var action = $('#'+surveyId).find(":nth-child(1)").val();
+            if (action != null && action != ''){
+                if (action == 'Close'){
+                    var surveyName = $('#name-' + surveyId).text();
+                    if (confirm( MSG_CONFIRM_CLOSE.replace('{surveyname}', surveyName) )) {
+                        doMoreAction( action, surveyId );
+                    } else {
+                        $('select.moreactions').removeAttr('disabled').val('');
+                    }
+                }else if (action == 'editXForm') {
+                    doMoreAction(action, surveyId);
+                }else if (action == 'viewXForm') {
+                    doMoreAction(action, surveyId);
+                }else if (action == 'Preview') {
+                    doMoreAction(action, surveyId);
+                }else if (action =='Clone'){
+                    idToClone = surveyId;
+                    // check if the survey has group assignations
+                    var assignations = sforce.connection.query(
+                        "select Id " +
+                        "from {!$ObjectType.ContactGroupSurveyAssignment__c.Name} " +
+                        "where {!$ObjectType.ContactGroupSurveyAssignment__c.Fields['Survey__c'].Name} = '" + surveyId + "'");
+                    if(assignations.size>0){
+                        $("#confirmationClone").modal();
+                    }
+                    else{
+                        doClone();
+                    }
+                    $('select.moreactions').removeAttr('disabled').val('');
+
+                }else if (action == 'Export'){
+                    var url = '/apex/downloadCsv?surveyid='+ surveyId;
+                     $('.CSVIframe').attr('src',url);
+                    $('select.moreactions').removeAttr('disabled').val('');
+                }else if (action == 'Delete') {
+                    // Workaround to work with safari under windows
+                    setTimeout(function() {
+                         var confirm = confirmDelete();
+                         if(confirm) {
+                            doMoreAction( action, surveyId );
+                         } else {
+                            $('select.moreactions').removeAttr('disabled').val('');
+                         }
+                    },10);
+                }
+                else if(action == 'Distribute'){
+                    doMoreAction(action, surveyId);
+                }
+                else if(action == '-1'){
+                    $('select.moreactions').removeAttr('disabled').val('');
+                }
+            }
+        }
+
+        function doMoreAction(action, surveyId){
+
+            if (action != 'editXForm'){
+                blockPage();
+            }
+            doMoreActionController(action, surveyId);
+        }
+
+        function confirmDelete(){
+            return confirm('You are about to delete the survey' +
+                     '.\nAre you sure?');
+
+        }
+        function closeSurvey(surveyId){
+            var surveyName = $('#name-' + surveyId).text();
+            if (confirm( MSG_CONFIRM_CLOSE.replace('{surveyname}', surveyName) )) {
+                doMoreAction( 'Close', surveyId );
+            }
+        }
+
+        //sends the id of the selected groups to the controller and process them
+        function sendSelectedContactGroupsAndPublish(){
+            //contains all the Ids of the groups to be published
+            var myContactsGroupsIds = '';
+            var ChecboxSelectAll = document.getElementById("SelectAllGroups");
+
+            if($("#SelectAllGroups").is(':checked')){
+                //sets all groups
+                $('.checkContactGroup').each(function(){
+                    myContactsGroupsIds += (myContactsGroupsIds == '' ? '' : ',') + $(this).attr('id');
+                });
+            }else {
+                //sets the checked groups
+                $('.checkContactGroup:checked').each(function(){
+                    myContactsGroupsIds += (myContactsGroupsIds == '' ? '' : ',') + $(this).attr('id');
+                });
+            }
+
+            if (myContactsGroupsIds =='' && ChecboxSelectAll != null ){
+                alert('At least one group must be selected to publish this survey');
+            }else{
+                //send data to the controller
+                blockPage();
+                doPublish(myContactsGroupsIds);
+            }
+        }
+        //this is the functions that actualy clone the survey
+        function doClone(){
+            var cloneAllAssignmentsBoolean = $("#cloneAllAssignments").is(':checked');
+            $.modal.close();
+            blockPage();
+            doMoreActionController('Clone', idToClone, cloneAllAssignmentsBoolean);
+        }
+        function changeAllCheckboxes(){
+            var checked = $("#SelectAllGroups").is(':checked');
+            $('.checkContactGroup').attr('checked', checked);
+        }
+
+        function changeCheckboxes(){
+            $('.SelectAllGroups').attr('checked', false);
+        }
+
+        // Return an array with the group assignments for the given survey
+        function getGroupAssignments(surveyId){
+            return sforce.connection.query(
+                        "SELECT Id, {!$ObjectType.ContactGroupSurveyAssignment__c.Fields['ContactGroup__c'].Name} " +
+                        "FROM {!$ObjectType.ContactGroupSurveyAssignment__c.Name} " +
+                        "WHERE {!$ObjectType.ContactGroupSurveyAssignment__c.Fields['Survey__c'].Name} = '" + surveyId + "'").getArray('records');
+        }
+
+    </script>
+    <div id="confirmationClone">
+            <p>Clone this survey?</p>
+            <form>
+                <input type="checkbox" id="cloneAllAssignments" class="cloneAllAssignments" checked="false">
+                    Clone Group Assignments
+                </input>
+                <br />
+                <br />
+                <div style="text-align: right">
+                    <a href="#" onClick="$.modal.close();">Cancel</a>&nbsp;
+                    <button class="btn" type="button" onClick="doClone()">Clone Survey</button>
+                </div>
+            </form>
+    </div>
+    <apex:form >
+        <apex:outputPanel id="confirmationPopUp">
+            <script>
+                $(document).ready(function(){
+                    $('#SelectAllGroups').change(function(){changeAllCheckboxes();});
+                    $('.checkContactGroup').change(function(){
+                           $('#SelectAllGroups')[0].checked = this.checked && $('.checkContactGroup').size() == $('.checkContactGroup:checked').size();
+                    });
+                });
+            </script>
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayGroupPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayGroupPopUp}">
+                    You are about to publish <b>"{!surveyToPublishName}"</b>
+                     IMPORTANT: Make sure you have all of your questions finalized.<br/>
+                     Once the survey is published and you begin collection responses to<br/>
+                     a survey, you will not be able to go back and edit it.
+                     <br/>
+                     <hr/>
+                     <br/>
+
+                <apex:outputPanel id="WithoutGroupsPanel">
+                    <apex:outputText >{!$Label.SURVEY_MSG_PUBLISHINGSURVEY}</apex:outputText>
+                    <br/>
+                    <br/>
+                    <input type="checkbox" id="SelectAllGroups" class="SelectAllGroups" /> <b>All</b><br />
+                    <apex:dataTable value="{!completeGroupsList}" var="item" styleClass="popupList">
+                        <apex:column title="Name">
+                            <input type="checkbox" id="{!item.Id}" class="checkContactGroup" />
+                        </apex:column>
+                        <apex:column title="Select">
+                            <apex:outputText value="{!item.Name}"></apex:outputText>
+                        </apex:column>
+                   </apex:dataTable>
+                </apex:outputPanel>
+                <script>
+                    // Get the contact group assignments
+                    var contactGroupsOfSurvey = getGroupAssignments('{!surveyToPublish}');
+
+                    // Set the 'All' checkbox
+                    $('#SelectAllGroups').attr('checked', contactGroupsOfSurvey.length == 0);
+                    $('.checkContactGroup').attr('checked', contactGroupsOfSurvey.length == 0);
+
+                    // Set the group checkboxes
+                    for(i = 0; i < contactGroupsOfSurvey.length; i++){
+                        $("#" + contactGroupsOfSurvey[i].ContactGroup__c).attr('checked', true);
+                    }
+                </script>
+                <br />
+                <input class="btn" type="button" value="Publish" onclick="sendSelectedContactGroupsAndPublish()"/>
+                <apex:commandButton value="Cancel" onclick="blockPage()" oncomplete="unblockPage();" action="{!closeGroupPopup}" rerender="confirmationPopUp"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+    <apex:form prependId="false">
+
+        <label for="statusFilter">Filter </label>
+        <apex:selectList id="statusFilter" styleClass="statusFilter" value="{!filter}" multiselect="false" size="1">
+            <apex:selectOptions value="{!statusList}"/>
+        </apex:selectList>
+        <apex:actionFunction reRender="surveys,otpNav2" name="doFilterStatus" action="{!doFilterStatus}" oncomplete="unblockPage();">
+            <apex:param id="filter" name="filter" assignTo="{!filter}" value="" />
+        </apex:actionFunction>
+
+        <apex:outputPanel layout="block" styleClass="bNext" id="otpNav2">
+            <div class="withFilter">
+                <div class="next">
+                    <span id="pageCount">
+                        <apex:variable var="from" value="{!IF(resultSize==0,0,(pageNumber-1) * pageSize + 1)}"/>
+                        <apex:variable var="to" value="{!MIN(resultSize,pageNumber * pageSize)}"/>
+                        <apex:outputText value="{0,number,0}"><apex:param value="{!from}"/></apex:outputText>-
+                        <apex:outputText value="{0,number,0}"><apex:param value="{!to}"/></apex:outputText>&nbsp;of&nbsp;
+                        <apex:outputText value="{0,number,0}"><apex:param value="{!resultSize}"/></apex:outputText>
+                    </span>
+                    <apex:commandLink id="pagePrevLnk" action="{!Previous}" title="Previous Page" value="<Previous Page" rendered="{!hasPrevious}"/>
+                    <apex:outputText id="pagePrevTxt" title="Previous Page" value="<Previous Page" rendered="{!!hasPrevious}"/>
+                    <apex:outputText value=" | "/>
+                    <apex:commandLink id="pageNextLnk" title="Next Page" value="Next Page>" rendered="{!hasNext}" action="{!Next}"/>
+                    <apex:outputText id="pageNextTxt" title="Next Page" value="Next Page>" rendered="{!!hasNext}"/>
+                    &nbsp;
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:form>
+
+    <apex:form prependId="false">
+    <apex:pageBlock id="surveys" title="Surveys">
+        <apex:pageBlockButtons id="buttons" location="top">
+            <apex:commandButton action="{!newSurvey}" id="new" value="New"/>
+        </apex:pageBlockButtons>
+
+        <apex:outputPanel id="errorMessages">
+                    <apex:outputText styleClass="errorMessage" value="{!error}"></apex:outputText>
+        </apex:outputPanel>
+        <apex:pageBlockSection rendered="{!surveyList.size > 0}">
+
+        </apex:pageBlockSection>
+
+            <apex:pageBlocktable id="table" value="{!surveyList}" var="item">
+                <apex:column id="colStatus" title="Status"  styleClass="{!item.Survey__r.Id} {!IF(item.Survey__r.gfsurveys__IsPPI__c, 'isPPI', '')} {!IF(item.gfsurveys__Distributed__c, 'Distributed', '')}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__Status__c.Label}" action="{!doSort}"
+                            rerender="surveys">
+                            <apex:param name="columnOrder" value="Survey__r.Status__c"
+                                assignTo="{!columnOrder}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText value="{!item.Survey__r.gfsurveys__Status__c}" />
+                </apex:column>
+                <apex:column id="colName" title="Name">
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__Survey__c.Fields.Name.Label}" action="{!doSort}"
+                            rerender="surveys">
+                            <apex:param name="columnOrder" value="Survey__r.Name"
+                                assignTo="{!columnOrder}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <div class="surveyName">
+                        <span id="name-{!item.Survey__r.Id}" class="survey-name">{!item.Survey__r.Name}</span><br/>
+                        <span id="alias-{!item.Survey__r.Id}" class="survey-alias">{!item.Survey__r.Alias__c}</span>
+                    </div>
+                    <apex:image rendered="{!item.gfsurveys__Distributed__c}" value="{!URLFOR($Resource.gfsurveys__IconPackage, '/actions/bookmark-new-4-16.png')}" 
+                                title="{!$Label.SURVEY_LABEL_RELEASEDTOLIBRARY} {!item.gfsurveys__DistributionDate__c}" alt="{!$Label.SURVEY_LABEL_RELEASEDTOLIBRARY} {!item.gfsurveys__DistributionDate__c}"/>
+                </apex:column>
+                <apex:column id="colCreatedBy" title="Creator" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="Created By" action="{!doSort}"
+                            rerender="surveys">
+                            <apex:param name="columnOrder" value="Survey__r.Owner.Name"
+                                assignTo="{!columnOrder}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText >
+                            {!item.Survey__r.Owner.Name}
+                     </apex:outputText>
+                    </apex:column>
+                <apex:column id="colCreatedDate" title="Created" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__Survey__c.Fields.CreatedDate.Label}" action="{!doSort}"
+                            rerender="surveys">
+                            <apex:param name="columnOrder" value="Survey__r.CreatedDate"
+                                assignTo="{!columnOrder}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText value="{0,date,medium}">
+                        <apex:param value="{!item.Survey__r.CreatedDate}" />
+                    </apex:outputText>
+                </apex:column>
+                <apex:column id="colPublishedDate" title="Published">
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__PublishedDate__c.Label}" action="{!doSort}"
+                            rerender="surveys">
+                            <apex:param name="columnOrder" value="Survey__r.PublishedDate__c"
+                                assignTo="{!columnOrder}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText value="{0,date,medium}">
+                        <apex:param value="{!item.Survey__r.gfsurveys__PublishedDate__c}" />&nbsp;
+                    </apex:outputText>
+                </apex:column>
+                <apex:column id="colModifiedDate" title="Modified" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__Survey__c.Fields.LastModifiedDate.Label}" action="{!doSort}"
+                            rerender="surveys">
+                            <apex:param name="columnOrder" value="Survey__r.LastModifiedDate"
+                                assignTo="{!columnOrder}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText value="{0,date,medium}" >
+                            <apex:param value="{!item.Survey__r.LastModifiedDate}" />&nbsp;
+                     </apex:outputText>
+                </apex:column>
+                <apex:column id="colResponseCount" title="Response">
+                <apex:facet name="header">
+
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__ResponseCount__c.Label}" action="{!doSort}"
+                            rerender="surveys">
+                            <apex:param name="columnOrder" value="Survey__r.ResponseCount__c"
+                                assignTo="{!columnOrder}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:variable var="resultCount" value="{!TEXT(item.Survey__r.gfsurveys__ResponseCount__c)}"/>
+                    <apex:outputLink styleClass="responses{!item.Survey__r.Id}" value="{!URLFOR($Page.gfsurveys__SurveyResult, null, [id=item.Survey__r.Id])}" disabled="{!resultCount == '0'}" > {!resultCount} </apex:outputLink>
+                </apex:column>
+                <apex:column id="colActions" title="Actions" headerValue="Actions">
+                    <apex:outputpanel >
+                    <apex:variable var="isPublishable" value="{!item.Survey__r.gfsurveys__Status__c == 'Draft' && item.Survey__r.gfsurveys__QuestionCount__c > 0}"/>
+                    <apex:variable var="isEditable" value="{!item.Survey__r.gfsurveys__Status__c == 'Draft' ||item.Survey__r.gfsurveys__Status__c == null}"/>
+                    <apex:variable var="isAssignable" value="{!item.Survey__r.gfsurveys__Status__c != 'Closed'}"/>
+                    <apex:variable var="isReportable" value="{!item.Survey__r.gfsurveys__Status__c != null && item.Survey__r.gfsurveys__Status__c != 'Draft'}"/>
+                    <apex:variable var="isCloseable" value="{!OR(item.Survey__r.gfsurveys__Status__c == 'Published',item.Survey__r.gfsurveys__Status__c == 'Distributed')}"/>
+                        <apex:outputLink onclick="editSurvey('{!item.Survey__r.gfsurveys__XForm_Status__c}','{!item.Survey__r.id}')" value="#">
+                            <apex:image rendered="{!isEditable}" value="{!URLFOR($Resource.gfsurveys__IconPackage, '/icons/pencil24.png')}" title="Edit" alt="Edit"/>
+                        </apex:outputLink>
+                        <apex:image rendered="{!isEditable == false}" value="{!URLFOR($Resource.gfsurveys__IconPackage, '/icons/pencil24_gray.png')}" title="Edit" alt="Edit"/>
+
+                        <apex:outputLink value="{!$Page.gfsurveys__SurveyGroupAssignment}?id={!item.Survey__r.id}">
+                            <apex:image rendered="{!isAssignable}" value="{!URLFOR($Resource.gfsurveys__IconPackage, '/icons/groups24.png')}"  title="Assign" alt="Assign"/>
+                        </apex:outputLink>
+                        <apex:image rendered="{!NOT(isAssignable)}" value="{!URLFOR($Resource.gfsurveys__IconPackage, '/icons/groups24_gray.png')}" title="Assign" alt="Assign"/>
+
+                        <apex:commandLink action="{!showGroupPopup}" rerender="confirmationPopUp" onclick="blockPage()" oncomplete="unblockPage()">
+                            <apex:image rendered="{!isPublishable}" value="{!URLFOR($Resource.gfsurveys__IconPackage, 'icons/publish-24.png')}"  title="Publish" alt="Publish"/>
+                            <apex:param value="{!item.Survey__r.id}" name="surveyToPublish" assignTo="{!surveyToPublish}"/>
+                            <apex:param value="{!item.Survey__r.Name}" name="surveyToPublishName" assignTo="{!surveyToPublishName}"/>
+                        </apex:commandLink>
+                        <apex:image rendered="{!NOT(isPublishable)}" value="{!URLFOR($Resource.gfsurveys__IconPackage, '/icons/publish-24-gray.png')}" title="Publish" alt="Publish"/>
+
+                        <apex:image style="cursor:pointer;" onClick="closeSurvey('{!item.Survey__r.id}')" rendered="{!isCloseable}"  value="{!URLFOR($Resource.gfsurveys__IconPackage, '/actions/dialog-cancel-5.png')}" title="Close" alt="Close" />
+                        <apex:image rendered="{!NOT(isCloseable)}" value="{!URLFOR($Resource.gfsurveys__IconPackage, '/actions/dialog-cancel-5-gray.png')}" title="Close" alt="Close" />
+
+                        &nbsp;
+                        <span id="{!item.Survey__r.id}" >
+                        <select id="moreactions{!item.Survey__r.id}" class="moreactions" onchange="execMoreAction('{!item.Survey__r.id}','{!$Component.moreOptions}')"/>
+                        </span>
+                    </apex:outputpanel>
+                </apex:column>
+            </apex:pageBlocktable>
+
+            <script type="text/javascript">loadMoreActions()</script>
+            <apex:actionFunction reRender="surveys, otpNav2, errorMessage" name="doMoreActionController" action="{!doMoreAction}" oncomplete="unblockPage()">
+                <apex:param id="doAction" name="doAction" assignTo="{!doAction}" value="" />
+                <apex:param id="surveyIdAction" name="surveyIdAction" assignTo="{!surveyIdAction}" value="" />
+                <apex:param id="cloneAllAssignments" name="cloneAllAssignments" assignTo="{!cloneAllAssignments}" value="" />
+
+            </apex:actionFunction>
+            <apex:actionFunction name="doPublish" action="{!doPublish}" rerender="surveys,otpNav2,confirmationPopUp" oncomplete="unblockPage()">
+            <apex:param name="contactGroupsIdsToPublish" id="contactGroupsIdsToPublish" assignTo="{!contactGroupsIdsToPublish}" value=""/>
+        </apex:actionFunction>
+
+    </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,119 @@
+<apex:page controller="gfsurveys.SurveyGroupAssignmentController" tabStyle="gfsurveys__ContactGroup__c" sidebar="false">
+	<apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+	<apex:includeScript value="{!$Resource.gfsurveys__json2min}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery_validate}" />
+	<c:blockOverlay label="Loading Group Details..." />
+	<style type="text/css">
+		.whiteCol{
+			background-color:white;
+		}
+		.grayCol{
+			background-color:#f1f1f1 ;
+		}
+		.grayCol td,.whiteCol td{
+			border-left:1px solid black!important;
+		}
+		.tableHeader{
+			background:#ccc!important;
+		}
+		.tableHeader th{
+			border-left:1px solid black!important;
+		}
+		.buttons{
+			float:right;
+		}
+
+	    #GroupDetail {
+	        position: absolute;
+	        _position: absolute; /* hack for internet explorer 6*/
+	        top: -1%;
+	        left: -1%;
+	        z-index: 99999999;
+	        border-radius:5px;
+	        background-color:white;
+	        width:80%;
+	        margin-left:10%;
+	        margin-right:10%;
+
+	        padding-bottom:20px;
+	    }
+	    a{
+	    	cursor: pointer;
+	    }
+	    .mruOverDetail{
+	    	padding: 3px 6px 5px;
+			margin: -12px 0 0 -11px;
+			background: transparent url(/img/sprites/hover_sprite.png) 15px -29px no-repeat;
+	    }
+	    .groupLink{
+	    	color:blue!important;
+	    	text-decoration:underline!important;
+	    }
+	</style>
+	<script>
+	    function ShowDetails(Id){
+	    	$('[id$=":groupIdToDisplay"]').val(Id);
+	    	ShowDetailAction();
+	    }
+    </script>
+    <apex:sectionHeader subtitle="{!surveyName}" title="Contact group assignment" />
+    <apex:pageMessages />
+    <div style="margin-bottom:5px">
+    	&nbsp;«&nbsp;<a class="groupLink" href="{!$Page.SurveyManager}">Back to: Survey Manager</a>
+    </div>
+    <apex:outputPanel rendered="{!NOT(missingId)}" >
+		<apex:pageBlock mode="edit" title="Assign to Contact's Group" >
+			<table style="margin: auto;margin-top:30px;margin-bottom:30px;width: 96%;">
+				<tr>
+					<td style="vertical-align: top;width:30px">
+						<div>
+							<h2>Select Group</h2>
+						</div>
+					</td>
+					<td  style="vertical-align: top;width: 88px;">
+						<apex:form >
+						    <apex:pageBlocktable value="{!groupsList}" var="group" rules="cols" style="width:440px;" id="contactGroups" >
+						       <apex:column style="width:20px;text-align:center" title="Select">
+						           <apex:inputCheckbox value="{!group.isSelected}"/>
+						       </apex:column>
+						       <apex:column style="width:150px">
+						           <apex:facet name="header">
+						               <h1>Group Name</h1>
+						           </apex:facet>
+						           <c:miniDetailLayout subject="{!group.Id}"><a class="groupLink" onclick="blockPage();ShowDetails('{!group.Id}');"> {!group.Name}</a></c:miniDetailLayout>
+						       </apex:column>
+						       <apex:column style="width:90px" title="Members">
+						           <apex:facet name="header">
+						               <h1>Members</h1>
+						           </apex:facet>
+						            <apex:outputText escape="false" value="{!group.Members}" />
+						       </apex:column>
+						    </apex:pageBlocktable>
+							<apex:actionFunction name="Save" action="{!Save}"/>
+					     </apex:form>
+					 </td>
+			     </tr>
+			</table>
+	   	</apex:pageBlock>
+	   	<div id="buttons" class="buttons">
+	        <button type="button" onClick="blockPage();Save()">Assign</button>&nbsp;&nbsp;
+	    </div>
+	    <apex:outputpanel id="GroupDetailPanel">
+	    	<apex:outputPanel rendered="{!showDetails}">
+	    		<script>
+	    			$('#GroupDetail').fadeIn(300);
+	    		</script>
+			    <div id="GroupDetail" class="Custom15Tab bPageBlock" style="display:none">
+			    	<apex:detail rendered="{!showDetails}" subject="{!groupIdToDisplay}" relatedList="true" inlineEdit="true"/>
+			    	<input style="float: right;margin-right: 20px;width: 104px;" type="button" class="btn" onclick="$('#GroupDetail').fadeOut(300);unblockPage();HideDetails();" value="Close"/>
+			    </div>
+		    </apex:outputPanel>
+	    </apex:outputpanel>
+	    <apex:form >
+	    	<apex:actionFunction action="{!ShowDetails}" onComplete="$('#popup').hide();" name="ShowDetailAction" rerender="GroupDetailPanel" />
+	    	<apex:actionFunction action="{!HideDetails}" name="HideDetails" rerender="GroupDetailPanel" />
+	    	<apex:inputHidden id="groupIdToDisplay" value="{!groupIdToDisplay}"/>
+	    </apex:form>
+    </apex:outputPanel>
+</apex:page>

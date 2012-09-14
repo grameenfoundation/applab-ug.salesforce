@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>MatchingField__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Set this field to prevent duplicated records. The system will check into the &quot;matching field&quot;, if the value for the &quot;matching field&quot; already exists it will update the record(not insert).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set this field to prevent duplicated records. The system will check into the &quot;matching field&quot;, if the value for the &quot;matching field&quot; already exists it will update the record(not insert).</inlineHelpText>
+        <label>Matching Field</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ObjectApiName__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Api Name of the parent object of the fields, defined in the related QuestionMappings records, where its going to be store the mapping fields data</description>
+        <externalId>false</externalId>
+        <label>Object Api Name</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Survey</label>
+        <referenceTo>Survey__c</referenceTo>
+        <relationshipLabel>Survey Mappings</relationshipLabel>
+        <relationshipName>Survey_Mappings</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <label>Survey Mapping</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>SurveyMapping Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Survey Mappings</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>
