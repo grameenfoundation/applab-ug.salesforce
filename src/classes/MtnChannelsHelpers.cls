@@ -302,7 +302,7 @@ public with sharing class MtnChannelsHelpers {
 
         for (String merch : answer) {
             String xlatedAnswer = translateMerchandise(merch);
-            if (xlatedAnswer != null) {
+            if (xlatedAnswer != null && !xlatedAnswer.equals('null')) {
             	activity.put(fieldName + '_' + xlatedAnswer + '__c', 1.0);
             	if (xlatedAnswer.equals('Other')) {
                 	activity.put(fieldName + '_' + xlatedAnswer + '_Name__c', getAnswerString(otherAnswer));
