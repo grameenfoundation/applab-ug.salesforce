@@ -1,5 +1,13 @@
 public with sharing class MetricComponentController extends ChildComponentBase {
 
+    private String isRefresh = 'false';
+    public String getIsRefresh() {
+        return this.isRefresh;
+    }
+    public void setIsRefresh(String value) {
+        this.isRefresh = value;
+    }
+
     public override sObject getsObjectRecord() {
         if (this.sObjectRecord == null) {
             if(!loadMetricSection()) {
@@ -106,6 +114,9 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         return this.currentDate;
     }
     public void setCurrentDate(String value) {
+        if (value.equals('')) {
+            value = MetricHelpers.createDispRollOverString(Date.today(), getRollOverPeriod());
+        }
         this.currentDate = value;
     }
 
@@ -116,7 +127,6 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         if (!loaded) {
             if (this.fieldMap == null) {
                 initFieldMap('Metric_Section__c');
-                setCurrentDate(MetricHelpers.createDispRollOverString(Date.today(), getFieldValue('rollover_time__c')));
             }
             loadMetricDatas();
         }
@@ -132,7 +142,6 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         if (!loaded) {
             if (this.fieldMap == null) {
                 initFieldMap('Metric_Section__c');
-                setCurrentDate(MetricHelpers.createDispRollOverString(Date.today(), getFieldValue('rollover_time__c')));
             }
             loadMetricDatas();
         }
@@ -150,9 +159,15 @@ public with sharing class MetricComponentController extends ChildComponentBase {
             }
         }
 
-        List<Date> dates = MetricHelpers.getStartEndDates(getCurrentDate(), getFieldValue('rollover_time__c'));
+        if (this.getParentComponentController() != null) {
+           this.getParentComponentController().rebuildParameters();
+        }
+
+        setCurrentDate(getParentValue('metricDatePicker'));
+
+        List<Date> dates = MetricHelpers.getStartEndDates(getCurrentDate(), getRollOverPeriod());
         Date startDate = dates[1];
-        Date previousDate = MetricHelpers.decreaseDateRollOver(dates[0], getFieldValue('rollover_time__c'));
+        Date previousDate = MetricHelpers.decreaseDateRollOver(dates[0], getRollOverPeriod());
 
         // Check if this is for public consumption or not
         String notForPublicString = '';
@@ -162,47 +177,60 @@ public with sharing class MetricComponentController extends ChildComponentBase {
 
         // Check to see if we have a district to check.
         String districtNameClause = 'null';
-        if (!this.getParentValue('District__c').equals('')) {
+        if (!getParentValue('District__c').equals('') && getParentValue('Person__c').equals('')) {
             districtNameClause = '\'' + this.getParentValue('District__c') + '\'';
         }
 
-        String districtString = 'AND District__r.Name = ' + districtNameClause + ' ';
+        String districtString = 'AND District__c = ' + districtNameClause + ' ';
+
+        // Add a person clause if required
+        String personNameClause = 'null';
+        if (!getParentValue('Person__c').equals('')) {
+            personNameClause = '\'' + getParentValue('Person__c') + '\'';
+        }
+
+        String personString = 'AND Person__c = ' + personNameClause + ' ';
 
         //if (this.showCumulative) {
         //    this.cumulativeMetrics = MetricHelpers.getCumulativeData(organisationString, notForPublicString, districtString, quarterFirstDay, quarterLastDay, '', false);
         //}
 
         String query =
-            'SELECT '                                   +
-                'Id, '                                  +
-                'M_E_Metric__c, '                       +
-                'Actual_Value__c, '                     +
-                'Manual_Value__c, '                     +
-                'Projected_Value__c, '                  +
-                'Comment__c, '                          +
-                'Date__c, '                             +
-                'District__r.Name, '                    +
-                'M_E_Metric__r.Name, '                  +
-                'M_E_Metric__r.Update_Period__c, '      +
-                'M_E_Metric__r.Label__c, '              +
-                'M_E_Metric__r.Sub_Area__c, '           +
-                'M_E_Metric__r.Is_Header__c,'           +
-                'M_E_Metric__r.Further_Link_Url__c, '   +
-                'M_E_Metric__r.Further_Link_Text__c, '  +
-                'M_E_Metric__r.Reverse_Comparison__c '  +
-            'FROM '                                     +
-                'M_E_Metric_Data__c '                   +
-            'WHERE '                                    +
-                'Date__c <= :startDate '                +
-                'AND Date__c >= :previousDate '         +
+            'SELECT ' +
+                'Id, ' +
+                'M_E_Metric__c, ' +
+                'Actual_Value__c, ' +
+                'Manual_Value__c, ' +
+                'Projected_Value__c, ' +
+                'Comment__c, ' +
+                'Date__c, ' +
+                'Numerator__c, ' +
+                'Denumerator__c, ' +
+                'District__r.Name, ' +
+                'M_E_Metric__r.Name, ' +
+                'M_E_Metric__r.Update_Period__c, ' +
+                'M_E_Metric__r.Label__c, ' +
+                'M_E_Metric__r.Sub_Area__c, ' +
+                'M_E_Metric__r.Is_Header__c,' +
+                'M_E_Metric__r.Further_Link_Url__c, ' +
+                'M_E_Metric__r.Further_Link_Text__c, ' +
+                'M_E_Metric__r.Is_On_Fly__c, ' +
+                'M_E_Metric__r.On_The_Fly_Calculation_Type__c, ' +
+                'M_E_Metric__r.Reverse_Comparison__c ' +
+            'FROM ' +
+                'M_E_Metric_Data__c ' +
+            'WHERE ' +
+                'Date__c <= :startDate ' +
+                'AND Date__c >= :previousDate ' +
                 'AND M_E_Metric__r.Metric_Section__r.Name = \'' + getFieldValue('Name') + '\' ' +
-                'AND Is_Cumulative__c = false '         +
-                notForPublicString                      +
-                districtString                          +
-            'ORDER BY '                                 +
-                'M_E_Metric__r.Order__c ASC, '          +
-                'M_E_Metric__r.Name, '                  +
-                'District__r.Name, '                    +
+                'AND Is_Cumulative__c = false ' +
+                notForPublicString +
+                districtString +
+                personString +
+            'ORDER BY ' +
+                'M_E_Metric__r.Order__c ASC, ' +
+                'M_E_Metric__r.Name, ' +
+                'District__r.Name, ' +
                 'Date__c ASC ';
 
         System.debug(LoggingLevel.INFO, query);
@@ -264,70 +292,64 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         return true;
     }
 
+    /**
+     * Get the display type for each row of the metric display
+     */
+     public String getUpdateType() {
+
+        String returnValue = 'Country';
+        if (!getParentValue('Person__c').equals('')) {
+
+            // Showing metric by district
+            returnValue = 'Person';
+        }
+        else if (!getParentValue('District__c').equals('')) {
+            returnValue = 'District';
+        }
+        return returnValue;
+     }
+
     public override PageReference refreshData() {
 
-        loadMetricDatas();
+        try {
+            setIsRefresh('true');
+                // Rebuild the start times here so they are taken into account when rebuilding the axis
+                //if (!getParentValue('datePicker').equals('')) {
+                //    setDates(getParentValue('datePicker'));
+                //}
+            loadMetricDatas();
+        }
+        catch (Exception e) {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'An error has occured whilst refreshing the data. If the problem persists please contact support'));
+            System.debug(LoggingLevel.INFO, e.getMessage());
+        }
         return null;
     }
 
-    // Each metric section has its own time period selector so each section can be
-    // refreshed independantly of the others. This can be overriden by the general selector
-    // or hidden completely
-    public List<SelectOption> getRollOverSelectorOptions() {
-
-        List<SelectOption> options = new List<SelectOption>();
-        String[] startDateArray = getFieldValue('start_date__c').split('==');
-        if (startDateArray.size() != 3) {
-            return options;
-        }
-        String rollOverTime = getFieldValue('rollover_time__c');
-        Date startDate = MetricHelpers.getRollOverStartDate(Date.newInstance(Integer.valueOf(startDateArray[0]), Integer.valueOf(startDateArray[1]), Integer.valueOf(startDateArray[2])), rollOverTime);
-        Date endDate = MetricHelpers.getRollOverEndDate(Date.today(), rollOverTime);
-        while (startDate.daysBetween(endDate) >= 0) {
-            String optionString = MetricHelpers.createDispRollOverString(startDate, rollOverTime);
-            options.add(new SelectOption(optionString, optionString));
-            startDate = MetricHelpers.increaseDateRollOver(startDate, rollOverTime);
-        }
-        return options;
+    // Get a person who is being looked at so we can just see their breakdown
+    public String getPerson() {
+        return getParentValue('Person__c');
     }
 
-    static testMethod void testGetRollOverSelectorOptions() {
+    // Get the district id for the breakdown
+    public String getDistrict() {
+        return getParentValue('District__c');
+    }
 
-        Account account = new Account();
-        account.Name = 'party';
-        account.BillingState = 'CA';
-        Database.insert(account);
+    public String getSectionId() {
+        return getFieldValue('id');
+    }
 
-        Dashboard__c dash = new Dashboard__c();
-        dash.Account__c = account.Id;
-        dash.Title__c = 'His';
-        dash.Description__c = 'ear';
-        Database.insert(dash);
+    public String getSelectorId() {
+        return getParentValue('SelectorId');
+    }
 
-        Dashboard_Section__c section = new Dashboard_Section__c();
-        section.Dashboard__c = dash.Id;
-        section.Title__c = 'lobe';
-        section.Display_Order__c = 1;
-        section.Has_Graphs__c = false;
-        section.Has_Maps__c = false;
-        section.Has_Metrics__c = false;
-        section.Has_Selector__c = false;
-        section.Is_Active__c = false;
-        Database.insert(section);
-
-        Metric_Section__c mSection = new Metric_Section__c();
-        mSection.Dashboard_Section__c = section.Id;
-        mSection.Title__c = 'fell';
-        mSection.Description__c = 'in';
-        mSection.RollOver_Time__c = 'Quarterly';
-        mSection.Start_Date__c = Date.today().addMonths(-12);
-        mSection.Show_RollOver_Selector__c = true;
-        Database.insert(mSection);
-
-        MetricComponentController controller = new MetricComponentController();
-        controller.setsObjectRecord((sObject)mSection);
-        controller.initFieldMap('Metric_Section__c');
-        System.debug(controller.getRollOverSelectorOptions().size());
+    private String getRollOverPeriod() {
+        String rollOverPeriod = getParentValue('DatePeriod');
+        if (rollOverPeriod.equals('')) {
+            rollOverPeriod = 'Yearly';
+        }
+        return rollOverPeriod;
     }
 
     static testMethod void testController() {

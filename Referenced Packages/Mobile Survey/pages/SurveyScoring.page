@@ -1,0 +1,640 @@
+<apex:page sidebar="false" tabStyle="SurveyManager__tab" standardController="gfsurveys__Survey__c" action="{!checkLicense}" 
+    extensions="gfsurveys.SurveyScoringController">
+    <apex:sectionHeader title="{!gfsurveys__Survey__c.Name}"
+    subtitle="{!gfsurveys__Survey__c.gfsurveys__Alias__c}" />
+    <c:createSurveyHeader styleClassHeader="tertiaryPalette"
+    selected="SCORING" backgroundUnSelected="white" isPPI="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}" saveFunction="sendScoring('false')"/>
+    <c:blockOverlay label="Loading..." callback="setQuestionAutoNumber();"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__json2min}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery_validate}" />
+    <style type="text/css">
+        .questionAutoNumber{
+            margin-right: 20px;
+            margin-left: -10px;
+            color:#6d6d6d;
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 18px;
+         }
+        .mainDiv {
+            position: fixed;
+            width: 100%;
+        }
+
+        .addNewScoringGroup {
+           padding: 25px;
+           border-color: black;
+           border-width: 1px;
+           border-style: solid;
+           background-color: #EEE;
+        }
+
+        .addNewScoringGroup input{
+           width:75%;
+        }
+
+        .autonumber{
+              font-size: 1.2em;
+              margin-right:5px;
+        }
+
+        .scoringGroupLabel {
+            font-size: 1.2em;
+            min-width: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 200px;
+            float: left;
+            padding-right:4px;
+
+        }
+
+        #existingQuestions{
+          //  display : none;
+        }
+        .header{
+            color: white;
+            font-size: 14px;
+            font-weight:bolder;
+            height:20px;
+            vertical-alignment:middle;
+        }
+
+        .placeHolder{
+            width:25%;
+            clear: both;
+        }
+
+       #questionArea table{
+            padding: 10px;
+            width:100%
+        }
+
+        .scores{
+            width: 35px;
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-right-style: solid;
+            border-right-width: 1px;
+
+        }
+        #questionArea input{
+            width:30px;
+
+
+        }
+        .section{
+            color:black;
+            height:37px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            padding: 8 px;
+
+        }
+
+        .notScoringQuestion{
+            color:gray; !important;
+            background-color:gainsboro; !important;
+            height:37px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            padding: 8 px;
+            padding-left:18px;
+
+        }
+
+        .scoringQuestion{
+            color:black;
+            background-color: gainsboro;
+            height:37px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            padding: 8 px;
+            padding-left: 20px;
+        }
+
+        .customDisabled{
+            opacity: 0.5;
+        }
+
+        .questionZone{
+            padding-left: 7px;
+        }
+
+
+         #buttons {margin:20px 2px;float:right;}
+
+
+        .scoringGroupPlaceHolder{
+            margin-top:25px;
+            margin-bottom: 25px;
+            min-height: 30px;
+        }
+
+    </style>
+    <span style="display:none" id = "existingQuestions">{!questions}</span>
+    <span style="display:none" id = "scoreGroupList">{!listGroups}</span>
+    <span style="display:none" id = "scoreValuesList">{!listScoreValues}</span>
+
+    <apex:pageBlock title="Score Groups" >
+       <span class="description"> Scoring (or weighting) is where a numeric value is assigned to each of a question's answer response options. By assigning a score to each answer option it is  possible to then benefit
+            from score calculation result as part of survey submission data. You can create more than one survey group to calculate multi scores. </span>
+
+        <div class="scoringGroupPlaceHolder"></div>
+
+        <button class="createNewGroup">
+            Create
+        </button>
+    </apex:pageBlock>
+
+    <div id="questionArea" style="display:none">
+        <apex:pageBlock title="Apply Score" >
+            <table id="tableQuestions">
+                <tr>
+
+                    <td class="name">Question and Section</td>
+                </tr>
+            </table>
+        </apex:pageBlock>
+    </div>
+
+
+    <apex:form >
+        <apex:pageblock id="blockError" >
+            <apex:pageMessages ></apex:pageMessages>
+        </apex:pageblock>
+        <div id="buttons">
+            <c:SimpleCancelLink targetURL="{!$Page.gfsurveys__SurveyManager}" />&nbsp;&nbsp;
+            <button id="btnSave" type="button" onClick="sendScoring('false')">Save</button>&nbsp;&nbsp;
+            <button id="btnSaveContinue" type="button" onClick="sendScoring('true')">Save and Continue</button>
+        </div>
+
+        <apex:actionFunction name="sendScoringData" action="{!saveScoring}" rerender="blockError, questionArea" oncomplete="afterSendScoringData()" >
+            <apex:param name="scoringGroupJsonId" id="scoringGroupJsonId" assignTo="{!scoringGroupStr}" value=""/>
+            <apex:param name="scoringValuesJsonId" id="scoringValuesJsonId" assignTo="{!scoringValuesJson}" value=""/>
+            <apex:param name="shouldContinue" id="shouldContinue" assignTo="{!continueAfterwards}" value=""/>
+        </apex:actionFunction>
+
+    </apex:form>
+    <script type="text/javascript">
+        // array in which save the scoring group
+        scoringGroups = {};
+        // for generating unique ids for each scoringGroup
+        var scoringGroupCount = 0;
+        // for knowing if the page is in editing mode
+        var isEditing = false;
+        // questions objects
+        questions = null;
+
+        // KeyCode when pressing "Enter" button.
+        var KEY_RETURN = 13;
+        var MSG_CONFIRM_DELETE_SCORE_GROUP = 'Are you sure you want to delete this group?';
+        var MSG_ERR_INVALID_GROUP_NAME_LENGTH = 'The name of the scoring group must have between 1 and 40 characters.';
+        var MSG_ERR_INVALID_SCORE_VALUE = 'Value must me a number between -100 and 100';
+        var MSG_ERR_USED_GROUP_NAME = 'That name is already used for another Score calculation group';
+        var PPI_ID = 'PPI';
+        var isPPI = {!survey.isPPI__c};
+        //constructor of the class ScoringGroups
+        var ScoringGroup = function(name, position) {
+            this.name = name;
+            this.position = position;
+        }
+        function afterSendScoringData(){
+            hasUnsavedChanges = false;
+            if(popupSave) doRedirect(); 
+            unblockPage();
+        }
+        // this method generates the SC + INT which should appears before every question group
+        function reassignAutonumber() {
+            $(".autonumber").each(function(i, elem) {
+                if(!isPPI)
+                    $(elem).html('SC' + i);
+                else if(i != 0)
+                    $(elem).html('SC' + (i - 1));
+            });
+
+            $('#tableQuestions td[class*="_header"]').each(function(e, elem){
+                if(!isPPI)
+                    $(elem).html('SC' + e);
+                else if(e == 0)
+                    $(elem).html(PPI_ID);
+                else
+                    $(elem).html('SC' + (e - 1));
+            });
+            if ($(".autonumber").size() == 0) $('#questionArea').hide();
+        }
+
+        //this method generates the div and span that appears as label of scoring group
+        function getReadonlyDiv(id, name) {
+            if(name == PPI_ID)
+                return '<span class="autonumber" style="float:left;"></span>' + '<span class="scoringGroupLabel" style="float:left;">' + name + '</span>';
+            else
+                return '<span class="autonumber" style="float:left;"></span>' + '<span class="scoringGroupLabel" style="float:left;">' + name + '</span>' + '<div style="float:right"><a id="edit' + id + '" >Edit</a>  <a id="delete' + id + '" >Delete</a></div>'
+
+        }
+
+        //this method generates the td that is used as header of the column of each scoring group
+        function getHeaderTd(scoringGroupId){
+
+            return '<td class="'+ scoringGroupId + '_header">' + scoringGroupId + '</td>';
+        }
+
+        //this method generates a new column in the table when a new scoring group is created
+        function addTableTd(scoringGroupId){
+
+           $('.questionZone').before('<td id="' + scoringGroupId + '" ><input class="svInput" /></td>');
+           $('.question').before('<td id="' + scoringGroupId + '" style="width:30px" />');
+           $('.name').before(getHeaderTd(scoringGroupId));
+       }
+
+       //this method change the column name of the sg when the sg name changes
+       function changeTableTD(oldScoringGroupName, newScoringGroupName){
+           var groupId = getGroupIdByName(newScoringGroupName);
+           var oldGroupId = getGroupIdByName(oldScoringGroupName);
+           $( '.'+ oldGroupId +'_header').replaceWith(getHeaderTd(groupId));
+       }
+
+       //this method removes the columns of the scoring group when the sg is deleted
+       function removeTableTds(scoringGroupId){
+           $('#tableQuestions td[id="' + scoringGroupId + '"]').remove();
+           $('#tableQuestions td[class="' + scoringGroupId + '_header"]').remove();
+       }
+
+        //this method must change the readonly view with the editable view
+        function bindClickOnEditEvent(id){
+            $("#edit" + id).bind("click", { id : id}, function(event) {
+                $('.createNewGroup').attr("disabled",true).addClass("customDisabled");
+                if(isEditing)
+                    return; //If is editing I cant do anything
+                isEditing = true; //I set that I am editing
+                hasUnsavedChanges = true;
+                $("#placeHolder" + event.data.id).html(getEditInput(id));
+
+                var sg=scoringGroups[event.data.id];    //I get the sg from sg array and put the
+                if(sg){                                 // name in the text box
+                    document.querySelector('#input').value = decodeHTMLEntities(sg.name);
+                }
+                bindClickOnSave(event.data.id)          //binding saving and cancel event.
+                bindCancel(event.data.id);
+            });
+        }
+
+        //this method deletes the sg and update the table
+        function bindDelete(id) {
+            $("#delete" + id).bind("click", {
+                id : id
+            }, function(event) {
+                if(!isEditing){
+                    if(confirm(MSG_CONFIRM_DELETE_SCORE_GROUP)){
+                        //scoringGroups[event.data.id]=null;
+                        hasUnsavedChanges = true;
+                        removeTableTds(id);
+                        $("#placeHolder" + event.data.id).remove();
+                        if( $('.scoringGroupPlaceHolder .placeHolder').size() == 0 ) $('#questionArea').hide();
+                        reassignAutonumber(); // I have to re-assign the autogenerated number
+                    }
+                    return false;
+                }
+            });
+        }
+        //this method must save the change in the sg and update the table
+        function bindClickOnSave(id) {
+            $("#save" + id).bind('click', {id : id}, function(event) {
+                var nameGroup = jQuery.trim( document.querySelector("#input").value );
+                if(nameGroup.length < 41 && nameGroup.length > 0){
+                    nameGroup = nameGroup.replace('"', "'");
+                    nameGroup = encodeHTMLEntities(nameGroup);
+                    createNewGroupCustom(id, nameGroup);
+                }
+                else{
+                    alert(MSG_ERR_INVALID_GROUP_NAME_LENGTH);
+                }
+                reassignAutonumber();
+            });
+            $('input').bind('keypress', {id : id}, function(e) {
+                if(e.keyCode == KEY_RETURN ) {
+                    var nameGroup = jQuery.trim( document.querySelector("#input").value );
+                    if(nameGroup.length < 41 && nameGroup.length > 0){
+                        nameGroup = nameGroup.replace('"', "'");
+                        nameGroup = encodeHTMLEntities(nameGroup);
+                        createNewGroupCustom(id, nameGroup);
+                    }
+                    else{
+                        alert(MSG_ERR_INVALID_GROUP_NAME_LENGTH);
+                    }
+                }
+                reassignAutonumber();
+            });
+        }
+
+        function createNewGroupCustom(id, nameGroup){
+            if( !isScoreGroupNameUsed( nameGroup ) ){
+                $('#questionArea').show();
+                $('.createNewGroup').text(' Add ').attr("disabled", false).removeClass("customDisabled");
+                // I get the old Scoring group with the id
+                // for checking if it already exists
+                var oldScoringGroup =  scoringGroups[id];
+                // I get the name of the sg from the input create a new one an store it
+                var name = nameGroup;
+                var sg = new ScoringGroup(name,id);
+                scoringGroups[id]= sg;
+                // now updating the header of the page with the change
+                $("#placeHolder" + id).empty().append(getReadonlyDiv(id, name));
+                bindDelete(id);
+                bindClickOnEditEvent(id);
+                isEditing = false;
+                // finally I update the table
+                if(oldScoringGroup){
+                     changeTableTD(oldScoringGroup.name, name);    // i am editing, i have to change the header...
+                     changeInnerTdData(oldScoringGroup.name,name); // ...and the data attributes of the td related.
+                }else{
+                     addTableTd(id); //this is new i have to add a new column
+                }
+            }
+            else{
+                alert(MSG_ERR_USED_GROUP_NAME);
+            }
+            reassignAutonumber();
+        }
+
+        function changeInnerTdData(oldName, newName){
+            $('#tableQuestions td[id="' + oldName + '"]').each(function(){
+                $(this).attr('id', newName);
+            });
+        }
+
+
+        //Given a new name of ScoreCalculationGroup, returns true if the name is already taken for another SCG of that question.
+        function isScoreGroupNameUsed(scgName){
+            var isUsed = false;
+            $('.placeHolder .scoringGroupLabel').each(function(){
+                if( $(this).html() == scgName ) isUsed = true;
+            });
+            return isUsed;
+        }
+
+        //This method must cancel the editing
+        //this mean restore the original one(if you are editing)
+        //or remove a new row
+        function bindCancel(id){
+            $('#cancel').bind("click",{id:id} , function(event){
+                if(scoringGroups[id]){
+                    document.querySelector('#input').value = scoringGroups[id].name;
+                    $("#placeHolder" + id).children().remove();
+                    $("#placeHolder" + id).append(getReadonlyDiv(id, scoringGroups[id].name));
+                    bindDelete(id);
+                    bindClickOnEditEvent(id);
+                }else{
+                     $("#placeHolder" + id).remove();
+                }
+                isEditing=false;
+                $('.createNewGroup').attr("disabled", false).removeClass("customDisabled");
+                reassignAutonumber();
+            });
+        }
+        function getEditInput(id){
+             var defaultName = 'Survey Score';
+             defaultNameNumber = defaultName;
+             var i=1;
+             while (isScoreGroupNameUsed(defaultNameNumber) )
+             {
+                 defaultNameNumber = defaultName + ' ' + i;
+                 i++;
+               }
+            return '<input id="input" maxlength="40" value="'+defaultNameNumber+'"></input>  <div style="float:right"> <a id="save' + id + '"  >Save</a>  <a id="cancel" >Cancel</a></div>'
+        }
+        function renderEditScoringGroup(inputValue) {
+            isEditing = true;
+            var editElem = $("<div/>",{"id" : "placeHolder" + scoringGroupCount, "class":"placeHolder"}).append(getEditInput(scoringGroupCount));
+            $(".scoringGroupPlaceHolder").append(editElem);
+            bindCancel(scoringGroupCount);
+            if(inputValue)
+                document.querySelector('#input').value = inputValue;
+
+        }
+
+        function addNewScoringGroup() {
+            if(!isEditing){
+                $('.createNewGroup').attr("disabled",true).addClass("customDisabled");
+                renderEditScoringGroup();
+                //binding click on save link
+                bindClickOnSave(scoringGroupCount);
+                scoringGroupCount++;
+            }
+        }
+
+    //----------------Save data methods-------------------
+
+        // Returns the list of scoringCalculationGroup object.
+        function getScoringGroupsData(){
+
+            var listScoringGroups = new Array();
+            $('.scoringGroupPlaceHolder').children().each(function(){
+                var dummyScoringGroup = new Object();
+                dummyScoringGroup['caption'] = $(this).find('.scoringGroupLabel').text();
+                listScoringGroups.push(dummyScoringGroup);
+            });
+            return listScoringGroups;
+        }
+
+        function getScoringValues(){
+            var listScoringValues = new Array();
+            $('#tableQuestions tr').each(function(){
+                var optionRelated = $(this).attr('id');
+                if( optionRelated  != undefined ){
+
+                    $(this).find('td').each(function(){
+                        if( $(this).attr('id') != null && $(this).attr('id') != undefined ){
+                            var dummyScoringValue = new Object();
+                            var realGroupName = getGroupNameById($(this).attr('id'));
+
+                            dummyScoringValue['optionId'] = optionRelated;
+                            dummyScoringValue['groupName'] = realGroupName;
+                            dummyScoringValue['value'] = Math.round($(this).children().val());
+                            listScoringValues.push(dummyScoringValue);
+                        }
+                    });
+                }
+            });
+            return listScoringValues;
+        }
+
+        // Send the data of scoringCalculationGroup and scoringValue objects.
+        function sendScoring(continueAfter){
+            if(!isEditing){
+                var jsonStringScoringGroups = JSON.stringify(getScoringGroupsData());
+                var jsonStringScoringValues = JSON.stringify(getScoringValues());
+                blockPage();
+                sendScoringData( jsonStringScoringGroups, jsonStringScoringValues, continueAfter );
+            }
+            else{
+               alert('Can\'t save while there are score groups being edited.');
+               return;
+            }
+        }
+
+    //-----------------------------------------------------
+
+    //---------------Validation methods--------------------
+
+        //Validates that the given input is valid. (Undefined or null is valid because it becomes 0).
+        function validateInput(inputValue){
+            var isValid = true;
+            if (inputValue != null && inputValue != undefined) {
+                if( isNaN(inputValue) ){
+                    isValid = false;
+                }
+                else{
+                    if( inputValue < -100 || inputValue > 100){
+                        isValid = false;
+                    }
+                }
+            }
+            return isValid;
+        }
+
+
+     //---------------- Utility methods---------------
+
+        // Given a groupName, returns the id (autogenerated) related to that name.
+        function getGroupIdByName(groupName){
+            var spansNames = $('span.scoringGroupLabel');
+            for(i=0; i < spansNames.length; i++){
+                if( $(spansNames[i]).text() == groupName ){
+                    idGroup = spansNames[i].parentElement.attributes.id.value;
+                    return idGroup.replace('placeHolder', '');
+                }
+            }
+        }
+
+        // Given a groupId (autogenerated), returns the name related to that Id.
+        function getGroupNameById(groupId){
+            return $('.scoringGroupPlaceHolder #placeHolder' + groupId + ' .scoringGroupLabel').text();
+        }
+
+        function encodeHTMLEntities(decodedStr){
+            return $("<div/>").text(decodedStr).html();
+        }
+
+        function decodeHTMLEntities(encodedStr){
+            return $("<div/>").html(encodedStr).text();
+        }
+
+        // Sort questions to be shown in correct order for each section.
+        function sortQuestions(listQuestions){
+            var newQuestions = new Array(); // list to return
+
+            if (listQuestions != undefined && listQuestions.length > 0) {
+                for(i in listQuestions){
+                    if (listQuestions[i].type == 'Section') {
+                        newQuestions.push(listQuestions[i]);
+                        for(e in listQuestions){
+                            if (listQuestions[e].parent == listQuestions[i].id) {
+                                newQuestions.push(listQuestions[e]);
+                            }
+                        }
+                    }
+                }
+            }
+            return newQuestions;
+        }
+
+
+
+    //-------------------------------------------------------
+
+    //--------------Render saved scoring data section-----
+
+        function getGroupObjects(){
+            var existingGroups = $('#scoreGroupList').text();
+            groups = $.parseJSON(existingGroups);
+            return groups;
+        }
+
+        function getScoringValuesSaved(){
+            var existingScoreValues = $('#scoreValuesList').text();
+            scoringValues = $.parseJSON(existingScoreValues);
+            return scoringValues;
+        }
+
+        //Shows the saved score values to the page.
+        function renderScoringValues(){
+            var scoringValues = getScoringValuesSaved();
+            for (i in scoringValues) {
+                var actualScore = scoringValues[i];
+                var groupId = getGroupIdByName(actualScore.groupName);
+                document.querySelector('#tableQuestions tr[id="' + actualScore.optionId + '"] td[id="' + groupId + '"] input').value = actualScore.value;
+            }
+        }
+
+        //Shows the saved score groups to the page.
+        function renderGroups(){
+            var groups = getGroupObjects();
+            if (groups != undefined && groups.length > 0 ) {
+                for (i in groups){
+                    addNewScoringGroup();
+                    createNewGroupCustom(scoringGroupCount -1, encodeHTMLEntities(groups[i].caption) );
+                }
+            }
+        }
+
+    //------------------------------------------------------
+
+        $(".createNewGroup").bind("click", function() {
+            hasUnsavedChanges = true;
+            addNewScoringGroup();
+        });
+
+        $('#tableQuestions input.svInput').live('blur', function(){
+             if ( !validateInput($(this).val()) ) {
+                 alert(MSG_ERR_INVALID_SCORE_VALUE);
+                 $(this).val(0);
+             }
+        });
+        $('#tableQuestions input.svInput').live('change', function(){
+            hasUnsavedChanges = true;
+        });
+        //indexes for the section and question autonumber
+        var questionNumber=1;
+        var sectionNumber=1;
+        $(document).ready(function(){
+            // I get the questions and parse it as json
+            var existingQuestion = $('#existingQuestions').html();
+            questions = $.parseJSON(existingQuestion);
+            //Sort questions (this way cloned survey are sorted too)
+            questions = sortQuestions(questions);
+
+            //for each question i will render it in the table
+            $(questions).each(function(i,elem){
+                 //if question type is section, i have to render it with a section format
+                 if(elem.type=='Section'){
+                     $('#tableQuestions').append("<tr style='height:37px'><td class='question tertiaryPalette readonly' style='padding-left: 18px'><label class='questionAutoNumber'>S"+ sectionNumber +" </label><span class='section'>" + elem.caption + "</span>"+ "</td></tr>");
+                     sectionNumber++;
+                 }
+                 //if the type is radio i must render it an all its options
+                 if (elem.type=='radio' || elem.type=='checkbox') {
+                     $('#tableQuestions').append("<tr><td class='question scoringQuestion' ><label class='questionAutoNumber '>Q"+ questionNumber +"</label><span>"+elem.caption+"</span></td></tr>");
+                     var inputType = (elem.type == 'radio') ? '<input type="radio" disabled="true" /> ' : '<input type="checkbox" disabled="true"/> ';
+                     for(var i = 0; i < elem.options.length;i++){
+                         var o = elem.options[i];
+                         $('#tableQuestions').append("<tr id=" + o.id + " ><td class='questionZone'>" + inputType + o.caption + "</td></tr>");
+
+                     }
+                     questionNumber++;
+                 // finally for all the other, i have to render it as disable
+                 }else{
+                     if (elem.type != 'Section') {
+                         $('#tableQuestions').append("<tr><td class='question notScoringQuestion' style='color:#777;' ><label class='questionAutoNumber '>Q"+ questionNumber +"</label><span>" +elem.caption+"</span><div style='float:right'>You cannot assign scores to this question type</div></td> </tr>");
+                             questionNumber++;
+                     }
+                 }
+            });
+            renderGroups();
+            renderScoringValues();
+        });
+
+    </script>
+</apex:page>

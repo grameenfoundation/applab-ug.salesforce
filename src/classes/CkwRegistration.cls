@@ -31,10 +31,9 @@ public class CkwRegistration {
         person.First_Name__c = answers.get('first_name_0').Answer__c;
         person.Middle_Name__c = answers.get('middle_name_0').Answer__c;
         person.Last_Name__c = answers.get('last_name_0').Answer__c;
-        person.Father_Name__c = answers.get('fathers_name_0').Answer__c;
+        person.Fathers_Name__c = answers.get('fathers_name_0').Answer__c;
         person.Parish__c = answers.get('parish_0').Answer__c;
         person.Village__c = answers.get('village_0').Answer__c;
-        person.Type__c = 'CKW';
 
         // Translate the single/multiple selects
         // Gender
@@ -50,7 +49,7 @@ public class CkwRegistration {
         }
         person.Subcounty__c = subcounty.Id;
         person.District__c = subcounty.District__c;
-        String[] locationArray = answers.get('locationCKW_0').Answer__c.split(' ');
+        String[] locationArray = answers.get('locationCkw_0').Answer__c.split(' ');
         if (locationArray != null && locationArray.size() >= 2) {
             person.GPS_Location_E__c = locationArray[0];
             person.GPS_Location_N__c = locationArray[1];
@@ -61,7 +60,6 @@ public class CkwRegistration {
         Date dob = calculateDob(answers.get('dob_0').Answer__c);
         if (dob != null) {
             person.Date_of_Birth__c = dob;
-            person.Age__c = calculateAge(dob);
         }
 
         // Set a rollback point
@@ -87,7 +85,6 @@ public class CkwRegistration {
 
         // Populate and save the CKW
         ckw.Person__c = personId;
-        ckw.Alternative_Contact_Number__c = answers.get('personal_phone_number_0').Answer__c;
         Database.SaveResult ckwSaveResult = database.insert(ckw);
         if (!ckwSaveResult.isSuccess()) {
             returnValues.add('0');
@@ -109,7 +106,6 @@ public class CkwRegistration {
             for (String orgName : organisations) {
 
                 // Load the organistaion
-                orgName = orgName.replace('_', ' ');
                 Account org = Utils.loadOrganisationFromName(orgName);
                 if (org == null) {
                     continue;
@@ -186,9 +182,9 @@ public class CkwRegistration {
 
         // Translate the single select options
         newScorecard.Roof_Material__c = translateRoofMaterial(answers.get('q9_0').Answer__c);
-        newScorecard.Wall_Material__c = translateWallMaterial(answers.get('q10_0').Answer__c);
-        newScorecard.Education_Level__c = translateEducation(answers.get('q12_0').Answer__c);
-        newScorecard.Cooking_Fuel__c = translateFuel(answers.get('q13_0').Answer__c);
+        newScorecard.Wall_Material__c = answers.get('q10_0').Answer__c;
+        newScorecard.Education_Level__c = answers.get('q12_0').Answer__c;
+        newScorecard.Cooking_Fuel__c = answers.get('q13_0').Answer__c;
 
         // Get the boolean values
         newScorecard.Owns_TV_Radio_Cassette__c = answers.get('q14_0').Answer__c.equals('1') ? false : true;
@@ -326,7 +322,6 @@ public class CkwRegistration {
             Date dob = calculateDob(answers.get('dob_0').Answer__c);
             if (dob != null) {
                 personToUpdate.Date_of_Birth__c = dob;
-                personToUpdate.Age__c = calculateAge(dob);
             }
         }
         if (answers.containsKey('gps_0') && !answers.get('gps_0').Answer__c.equals('null')) {
@@ -386,29 +381,21 @@ public class CkwRegistration {
 
         // Loop through the remaining answers and pull out the subcounties
         List<Subcounty__c> subcounties = new List<Subcounty__c>();
-        Integer counter = 0;
-        while (answers.containsKey('name_of_subcounty_' + counter)) {
-            String subcountyName = answers.get('name_of_subcounty_' + counter).Answer__c;
+        for (String key : answers.keySet()) {
 
-            // Check that the subcounty has not already been added to the district
-            if (existingCountiesMap == null || !existingCountiesMap.containsKey(subcountyName)) {
+            // Check it is a subcounty question
+            if (key.contains('subcounty')) {
 
-                // Create the new subcounty
-                Subcounty__c newSubcounty = new Subcounty__c();
-                newSubcounty.Display_Name__c = subcountyName;
-                newSubcounty.District__c = district.Id;
+                // Check that the subcounty has not already been added to the district
+                if (existingCountiesMap == null || !existingCountiesMap.containsKey(answers.get(key).Answer__c)) {
 
-                // Add gps if it is there
-                if (answers.containsKey('gps_' + counter)) {
-                    String[] locationArray = answers.get('gps_' + counter).Answer__c.split(' ');
-                    if (locationArray != null && locationArray.size() >= 2) {
-                        newSubcounty.Latitude__c = Decimal.valueOf(locationArray[0]);
-                        newSubcounty.Longitude__c = Decimal.valueOf(locationArray[1]);
-                    }
+                    // Create the new subcounty
+                    Subcounty__c newSubcounty = new Subcounty__c();
+                    newSubcounty.Display_Name__c = answers.get(key).Answer__c;
+                    newSubcounty.District__c = district.Id;
+                    subcounties.add(newSubcounty);
                 }
-                subcounties.add(newSubcounty);
             }
-            counter++;
         }
 
         // Insert the new subcounties into the db
@@ -584,7 +571,7 @@ public class CkwRegistration {
         Account org2 = Utils.createTestOrganisation('TestOrg2');
         database.insert(org2);
 
-        District__c district = [SELECT Name FROM District__c WHERE Name = 'Gulu'];
+        District__c district = [SELECT Name FROM District__c WHERE Name = 'Oyam'];
 
         Subcounty__c subcounty = Utils.createTestSubcounty('There', district.Id);
         database.insert(subcounty);
@@ -599,9 +586,8 @@ public class CkwRegistration {
         answers.put('village_0', Utils.createTestSubmissionAnswer(null, 'village', 'Here', '', '', 0));
         answers.put('gender_0', Utils.createTestSubmissionAnswer(null, 'gender', '1', '', '', 0));
         answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', 'Gulu', '', '', 0));
-        answers.put('personal_phone_number_0', Utils.createTestSubmissionAnswer(null, '', '0123456789', '', '', 0));
         answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', subcounty.Display_Name__c, '', '', 0));
-        answers.put('locationCKW_0', Utils.createTestSubmissionAnswer(null, 'locationCkw', '32.5 2.0', '', '', 0));
+        answers.put('locationCkw_0', Utils.createTestSubmissionAnswer(null, 'locationCkw', '32.5 2.0', '', '', 0));
         answers.put('dob_0', Utils.createTestSubmissionAnswer(null, 'dob', '2011-09-30', '', '', 0));
         answers.put('partner_0', Utils.createTestSubmissionAnswer(null, 'partner', org.Name + ' ' + org2.Name, '', '', 0));
         List<String> result = processCkwRegistration(answers, person);
@@ -675,7 +661,7 @@ public class CkwRegistration {
         answers.put('gender_0', Utils.createTestSubmissionAnswer(null, 'gender', '1', '', '', 0));
         answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', subcounty.Display_Name__c, '', '', 0));
         answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', 'Gulu', '', '', 0));
-        answers.put('gps_0', Utils.createTestSubmissionAnswer(null, 'location', '32.5 2.0', '', '', 0));
+        answers.put('gps_0', Utils.createTestSubmissionAnswer(null, 'locationCkw', '32.5 2.0', '', '', 0));
         answers.put('dob_0', Utils.createTestSubmissionAnswer(null, 'dob', '2011-09-30', '', '', 0));
         answers.put('status_0', Utils.createTestSubmissionAnswer(null, 'status', 'Active', '', '', 0));
         answers.put('active_date_0', Utils.createTestSubmissionAnswer(null, 'active_date', '2011-09-30', '', '', 0));
@@ -707,11 +693,9 @@ public class CkwRegistration {
         database.insert(subcounty);
 
         Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
-        answers.put('name_of_subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'q', '', '', 0));
-        answers.put('gps_0', Utils.createTestSubmissionAnswer(null, 'locationCkw', '32.5 2.0', '', '', 0));
-        answers.put('name_of_subcounty_1', Utils.createTestSubmissionAnswer(null, 'subcounty', 'w', '', '', 0));
-        answers.put('gps_1', Utils.createTestSubmissionAnswer(null, 'locationCkw', '32.5 2.0', '', '', 0));
-        answers.put('name_of_subcounty_2', Utils.createTestSubmissionAnswer(null, 'subcounty', 'e', '', '', 0));
+        answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'q', '', '', 0));
+        answers.put('subcounty_1', Utils.createTestSubmissionAnswer(null, 'subcounty', 'w', '', '', 0));
+        answers.put('subcounty_2', Utils.createTestSubmissionAnswer(null, 'subcounty', 'e', '', '', 0));
         answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', 'Gulu', '', '', 0));
 
         // Test success

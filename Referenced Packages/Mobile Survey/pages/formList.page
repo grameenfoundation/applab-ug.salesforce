@@ -1,0 +1,2 @@
+<apex:page contentType="text/xml" action="{!process}" controller="gfsurveys.ServicesController">{!Form}<apex:outputText value="<error>{!msg}</error>" rendered="{!Form == null || Form == ''}"/>
+</apex:page>

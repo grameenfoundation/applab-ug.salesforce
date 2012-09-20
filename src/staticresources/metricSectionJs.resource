@@ -41,13 +41,15 @@ function enableEditMode(force) {
 };
 
 // Open the page to show the break down of a metric
-function openBreakDownWindow(url, id, currentDate) {
-    url = url + '?currentDate=' + currentDate + '&id=' + id;
+function openBreakDown(url, id, currentDate, district, person, section, selector) {
+
+    currentDate = currentDate.replace(' ', 'sp');
+    url = url + '?date=' + currentDate + '&metricId=' + id + '&district=' + district + '&person=' + person + '&section=' + section + '&selector=' + selector;
     openNewWindow(url);
 };
 
 // Show the modal
-function openUpdateModal(modalId, id, refreshAction) {
+function openUpdateModal(modalId, id, refreshAction, updateType) {
 
     // Use javascript remoting to get the metric details
     UpdateMetricComponentController.getMetricData(id, function(result, event) {
@@ -56,7 +58,8 @@ function openUpdateModal(modalId, id, refreshAction) {
             j$('#updateModalManualValue').val(result.Manual_Value__c);
             j$('#updateModalMetricId').val(result.Id);
             j$('#updateModalRefreshSection').val(refreshAction + '_Table');
-            j$('#updateModalComment').html(result.Comment__c);
+            j$('#updateModalComment').val(result.Comment__c);
+            j$('#updateModalType').val(updateType);
         }
         else if (event.type === 'exception') {
             addError(event.message);
@@ -124,7 +127,7 @@ function assignUpdateModalFunctions() {
 
         // Validate the input
         var valid = true;
-        var comment = j$('#updateModalComment').html();
+        var comment = j$('#updateModalComment').val();
         var man = j$('#updateModalManualValue').val();
         if (man != '' && isNaN(man)) {
             addError('Manual Value must be a valid integer or left blank');
@@ -135,6 +138,8 @@ function assignUpdateModalFunctions() {
             addError('Target Value must be a valid integer or left blank');
             valid = false;
         }
+        var dataId = j$('#updateModalMetricId').val();
+        var updateType = j$('#updateModalType').val();
         if (!valid) {
             addErrorViaSF();
             closeUpdateModal();
@@ -144,21 +149,26 @@ function assignUpdateModalFunctions() {
 
         // Use javascript remoting to save the metric details
         UpdateMetricComponentController.saveMetricData(
-            j$('#updateModalMetricId').val(),
+            dataId,
             comment,
             man,
             proj,
+            updateType,
             function(result, event) {
                 if (event.status) {
+
+                    // Clear the fields
+                    j$('#updateModalComment').val('');
+                    j$('#updateModalManualValue').val('');
+                    j$('#updateModalProjectedValue').val('');
+                    j$('#updateModalMetricId').val('');
+                    j$('#updateModalType').val('');
 
                     // Call refresh on the section that needs refreshing
                     var func = window[j$('#updateModalRefreshSection').val()];
                     func();
                 }
-                else if (event.type === 'exception') {
-                    addError(event.message);
-                    addErrorViaSF()
-                } else {
+                else {
                     addError(event.message);
                     addErrorViaSF()
                 }
@@ -172,6 +182,13 @@ function assignUpdateModalFunctions() {
 
         //Cancel the link behavior
         e.preventDefault();
+
+        // Clear the fields
+        j$('#updateModalComment').val('');
+        j$('#updateModalManualValue').val('');
+        j$('#updateModalProjectedValue').val('');
+        j$('#updateModalMetricId').val('');
+        j$('#updateModalType').val('');
         closeUpdateModal();
     });
 
@@ -183,8 +200,8 @@ function assignUpdateModalFunctions() {
 };
 
 // Open Edit modal for a metric
-function openEditWindow(id, refreshAction) {
-    openUpdateModal('updateDialog', id, refreshAction);
+function openEditWindow(id, refreshAction, updateType) {
+    openUpdateModal('updateDialog', id, refreshAction, updateType);
 };
 
 // Open a window to a standard sObject tab

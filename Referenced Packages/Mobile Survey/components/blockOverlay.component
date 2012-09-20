@@ -1,0 +1,74 @@
+<apex:component >
+    <apex:attribute name="label" type="string" description="the label to be displayed" />
+    <apex:attribute name="callback" type="string" description="receives the name of the js function to be called in unblock method, if none to be executed, receives null" />
+    
+    <style type="text/css">
+    
+    #block {
+        display: none;
+        position: absolute;
+        _position: absolute; /* hack for internet explorer 6*/
+        height: 102%;
+        width: 102%;
+        top: -1%;
+        left: -1%;
+        background: #000000;
+        border: 1px solid #cecece;
+        z-index: 99999998;
+        opacity: 0.6;
+        -moz-opacity: 0.6;
+        -webkit-opacity: 0.6;
+        filter:alpha(opacity=0.6);
+    }
+
+    #popup {
+        display: none;
+        position: absolute;
+        _position: absolute; /* hack for internet explorer 6*/
+        background-color: #fff;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        z-index: 99999999;
+        padding: 12px;
+        font-size: 13px;
+    }
+    
+    </style>
+    
+    <div id="block"></div>
+    <div id="popup">{!label}<img src="/img/loading32.gif" /></div>
+  
+    <script type="text/javascript">
+    
+    function blockPage(){
+
+        // center popup
+        var windowWidth = document.documentElement.clientWidth;
+        var windowHeight = document.documentElement.clientHeight;
+        var popupHeight = $("#popup").height();
+        var popupWidth = $("#popup").width();
+        $("#popup").css({
+            "position": "fixed",
+            "top": windowHeight/2-popupHeight/2,
+            "left": windowWidth/2-popupWidth/2
+        });
+        $("#block").css({"height":$(document).height()});
+
+        $('#block,#popup').fadeIn();
+    }
+
+    function unblockPage(){
+        $('#block,#popup').fadeOut();
+        {!IF(callback != null && callback != 'null', callback, '')}        
+    }
+    
+    $(document).ready(function(){
+        // Append page blocking to body (needed to avoid scrolling)
+        $("#block,#popup").remove().appendTo("body");
+    });
+    
+
+    </script>
+  
+</apex:component>

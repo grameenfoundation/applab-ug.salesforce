@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>M &amp; E Metrics</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Actual_Value__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The actual value for this metric. This will usually be calculated, but may be entered manually for some metrics</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The actual value for this metric. This will usually be calculated, but may be entered manually for some metrics</inlineHelpText>
+        <label>Actual Value</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Automated__c</fullName>
+        <description>Is this value automated or not? This will determine whether it is editable on the Metric Admin page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is this value automated or not? This will determine whether it is editable on the Metric Admin page.</inlineHelpText>
+        <label>Automated</label>
+        <picklist>
+            <picklistValues>
+                <fullName>False</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>True</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>M_E_Area__c</fullName>
+        <description>Under what M&amp;E area does this metric fall? This helps with organisation on the dashboard.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Under what M&amp;E area does this metric fall? This helps with organisation on the dashboard.</inlineHelpText>
+        <label>M&amp;E Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Impact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quality</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Scale</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sustainability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Metric_Label__c</fullName>
+        <description>This is the label that is displayed for this metric</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the label that is displayed for this metric</inlineHelpText>
+        <label>Metric Label</label>
+        <length>50</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Metric_Name__c</fullName>
+        <description>This is the internal metric name. It is used by formulars to pick up the metric.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the internal metric name. It is used by formulars to pick up the metric.</inlineHelpText>
+        <label>Metric Name</label>
+        <length>50</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Value__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The projected value for this metric for the given quarter. Should be entered manually.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The projected value for this metric for the given quarter. Should be entered manually</inlineHelpText>
+        <label>Projected Value</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quarter_Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <description>The start date of the quarter to which this metric belongs</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This can simply be any date falling in the quarter to which this metric belongs. We shall calculate the quarter dynamically. It defaults to the current date.</inlineHelpText>
+        <label>Quarter Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Scorecard__c</fullName>
+        <description>Under what area of the balanced scorecard does this metric fall?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Under what area of the balanced scorecard does this metric fall?</inlineHelpText>
+        <label>Scorecard Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>People</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Process</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>M&amp;E Metrics</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>M&amp;E Metrics Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>M&amp;E Metrics</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

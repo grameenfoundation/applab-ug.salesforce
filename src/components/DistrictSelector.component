@@ -40,6 +40,6 @@
             styleClass="apexDropDown"
     >
         <apex:selectOptions value="{!districts}"></apex:selectOptions>
-        <apex:actionSupport action="{!bounce}" rerender="{!$Component.dummy}"  event="onchange" onsubmit="refreshComponents('{!key}', '')" oncomplete="closeGenericModal()"/>
+        <apex:actionSupport action="{!bounce}" rerender="{!$Component.dummy}"  event="onchange" onsubmit="refreshComponents('{!key}', '')" oncomplete="addError('Selector has changed but section not refreshed');addErrorViaSF();closeGenericModal()"/>
     </apex:selectList>
 </apex:component>

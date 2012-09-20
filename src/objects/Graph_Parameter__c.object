@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Definition of a graph. This includes all the parameters that can go into the graph</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Dashboard_Section__c</fullName>
+        <description>The section of a dashboard that this graph belongs to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose the dashboard section that this graph will be displayed in</inlineHelpText>
+        <label>Dashboard Section</label>
+        <referenceTo>Dashboard_Section__c</referenceTo>
+        <relationshipLabel>Graph Parameters</relationshipLabel>
+        <relationshipName>Graph_Parameters</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Date_Period__c</fullName>
+        <description>The gap between dates on the xAxis. Only used if xAxisSeries is Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the time period between values on the xAxis if the xAxis is of type date</inlineHelpText>
+        <label>Date Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Default_Show__c</fullName>
+        <defaultValue>3</defaultValue>
+        <description>The number of points to show on a graphs xAxis by default</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose how many points on the xAxis should be shown by default. Defaults to 3</inlineHelpText>
+        <label>Default Show</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Indicates if the parameter is still active and needs calculating and including in a dashboard</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Uncheck if this graph should not be shown on a dashboard</inlineHelpText>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Legend_Color__c</fullName>
+        <description>The colour that the legend on the graph will display as</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the colour that the legend on the graph will be displayed in</inlineHelpText>
+        <label>Legend Color</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Black</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blue</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Green</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Red</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>White</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yellow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Show_Data_Inline__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show a table of the data inline with the graph. Will only show up on when a graph is part of a dashboard as opposed to being shown on its own</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to show the data on the graph in a table next to the graph</inlineHelpText>
+        <label>Show Data Inline</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Title_Color__c</fullName>
+        <description>The colour that the title will be displayed as</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the colour that the title will be displayed as</inlineHelpText>
+        <label>Title Color</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Black</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blue</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Green</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Red</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>White</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yellow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <description>The title for the graph</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter a title that will be displayed on this graph</inlineHelpText>
+        <label>Title</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Type_Of_Graph__c</fullName>
+        <description>The type of graph to be displayed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Pick the display method that this graph has</inlineHelpText>
+        <label>Type Of Graph</label>
+        <picklist>
+            <picklistValues>
+                <fullName>BarChart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ColumnChart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LineChart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PieChart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>xAxis_Color__c</fullName>
+        <description>The colour that the title of the xAxis will be displayed in</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the colour that the title of the xAxis will be displayed in</inlineHelpText>
+        <label>xAxis Color</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Black</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blue</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Green</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Red</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>White</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yellow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>xAxis_Series__c</fullName>
+        <description>The series that is along the xAxis</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select what is to be displayed along the xAxis</inlineHelpText>
+        <label>xAxis Series</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Country</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>District</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Keywords</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Person</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Region</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcounty</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>xAxis_Title__c</fullName>
+        <description>The title to go on the xAxis of a graph</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the title that is for the xAxis of this graph</inlineHelpText>
+        <label>xAxis Title</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>yAxis_Color__c</fullName>
+        <description>The colour that the yAxis title is displayed as</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the colour that the yAxis title is displayed as</inlineHelpText>
+        <label>yAxis Color</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Black</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blue</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Green</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Red</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>White</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yellow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>yAxis_Title__c</fullName>
+        <description>The title to be displayed on the yAxis of the graph</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the title for the yAxis</inlineHelpText>
+        <label>yAxis Title</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <label>Graph Parameter</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Type_Of_Graph__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>GP{0000000000}</displayFormat>
+        <label>Graph Parameter Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Graph Parameters</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

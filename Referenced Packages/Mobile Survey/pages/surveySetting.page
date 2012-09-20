@@ -1,0 +1,220 @@
+<apex:page standardController="gfsurveys__Survey__c" sidebar="false" action="{!checkRedirect}"
+    extensions="gfsurveys.SurveySettingsController" tabStyle="SurveyManager__tab" id="page">
+    <apex:sectionHeader title="{!survey.Name}" subtitle="{!survey.gfsurveys__Alias__c}" rendered="{!isNotNew}"/>
+    <apex:sectionHeader title="New Cloned Survey" subtitle="Clone Survey Builder" rendered="{!isCloning && isNotNew==false && isPPI==false}"/>
+    <apex:sectionHeader title="New PPI Survey" subtitle="PPI Survey Builder" rendered="{!isPPI && isNotNew==false}"/>
+    <apex:sectionHeader title="New Survey" subtitle="Survey Builder" rendered="{!isCloning==false && isPPI==false && isNotNew==false}"/>
+    <c:createSurveyHeader styleClassHeader="tertiaryPalette" rendered="{!isNotNew}" selected="SETTING" backgroundUnSelected="white" isPPI="{!survey.gfsurveys__IsPPI__c}" saveFunction="doQuickSave();"/>
+    <c:blockOverlay label="Loading..."/>
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}"/>
+
+    <style type="text/css">
+    .aliasField.empty{color:gray;}
+    .bPageBlock .detailList tr td{border:none;}
+    .pickWidth{width:150px;}
+    .inpText{width:146px;}
+    .bPageBlock .detailList tr td,.bPageBlock .detailList tr th,
+    .hoverDetail .bPageBlock .detailList tr td,.hoverDetail .bPageBlock .detailList tr th {border: none;}
+    .classMsgAndDesc {width: 380px;}
+    .bottomButtons{float:right;}
+    textarea{resize:none;}
+    </style>
+
+    <script type="text/javascript">
+
+        var DEF_CLOSE_MESSAGE = 'Thank you for taking the time to complete this survey!'; // Text area helper text
+
+        function setDisabledSelectOption(){
+            var create_new_survey = $('#inptCreatePPISurvey').is(':checked');
+            var update_existing_survey = $('#inptUpdatePPISurvey').is(':checked');
+            $('.createNewOne').prop('disabled', !create_new_survey );
+            $('.updateSurvey').prop('disabled', !update_existing_survey);
+        }
+        /*
+         * Execute when onblur text area, If it is empty the text area is complete with the default message
+         */
+        function loadDefaultMessage(element){
+               element.val(DEF_CLOSE_MESSAGE);
+        }
+        // Alias field functions
+        var MSGALIAS = 'Create alias title'; // Alias field helper text
+        function focusAliasField(element){
+            if($(element).hasClass('empty')) $(element).attr('value', '');
+            $(element).removeClass('empty');
+        }
+        function blurAliasField(element){
+            if($(element).attr('value') == '')
+                $(element).val(MSGALIAS).addClass('empty');
+            else
+                $(element).removeClass('empty');
+        }
+         function changeShowMap() {
+            if ($(".checkboxGPS").is(':checked')) {
+                $(".checkboxShowMap").attr("disabled",false);
+            } else {
+                $(".checkboxShowMap").attr("disabled", true).attr("checked",false);
+            }
+        }
+        function onchangeUnsavedChanges(){
+            if({!isNotNew}){
+                $('input, textarea, select').live('change', function(){
+                    hasUnsavedChanges = true;    
+                });
+                if ($(".message.errorM3:visible").length)
+                  hasUnsavedChanges = true;
+            }
+        }
+        function doQuickSave(){
+          blockPage();
+          $('.aliasField.empty').val(null);
+          quickSave();
+        }
+        function afterQuickSave(){
+            var error = $('.pbBody .message').attr('class');
+            //If do not have error message do redirect
+            if (error != 'message errorM3')
+                doRedirect();
+            unblockPage();
+       }
+       $(document).ready(function(){
+           var prevRadioButtonSelected = $('.prevSelectedRadio').val();
+           blurAliasField( $('.aliasField') );
+           $('form').submit(function(){ $('.aliasField.empty').val(null); });
+           onchangeUnsavedChanges();
+       });
+    </script>
+
+    <apex:form prependId="false">
+
+    <apex:inputText styleClass="prevSelectedRadio hidden" id="prev_hidden" value="{!prevRadioButtonSelected}"/>
+        <apex:pageBlock id="newSurvey">
+            <apex:pageMessages id="errorMessage" />
+            <apex:panelGroup id="Title_alias" rendered="{!isPPI == false}">
+                <apex:pageBlockSection columns="1" title="Title and Alias" collapsible="false" id="titleAndAlias">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Title" />
+                        <apex:outputPanel id="messages">
+                            <apex:inputField id="title" value="{!survey.Name}" required="{!isPPI == false}"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem id="aliasBlockSectionItem" >
+                        <apex:outputLabel value="Alias" />
+                        <apex:inputField styleClass="aliasField" value="{!survey.gfsurveys__Alias__c}" onfocus="focusAliasField(this)" onblur="blurAliasField(this)"/>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel value="Create alias if you want to display a different title to your respondent"/>
+                    </apex:pageBlockSectionItem>
+
+                </apex:pageBlockSection>
+            </apex:panelGroup>
+
+            <apex:panelGroup id="Ppi_survey" rendered="{!isPPI}">
+                <apex:pageBlockSection title="PPI Survey" collapsible="false">
+                    <apex:pageBlockSection id="blockSectionChoosePPI">
+
+                        <apex:pageBlockSectionItem />
+                        <apex:pageBlockSectionItem />
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Country"/>
+                            <apex:outputPanel id="messages">
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"></div>
+                                    <apex:selectList styleClass="createNewOne pickWidth" value="{!survey.gfsurveys__CountryCode__c}" size="1" required="{!survey.gfsurveys__IsPPI__c}">
+                                        <apex:selectOption itemLabel="--None--" itemValue=""/>
+                                        <apex:selectOptions value="{!countriesToSelect}" />
+                                    </apex:selectList>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem / >
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Data Year" />
+                            <apex:outputPanel id="messages">
+                                <apex:inputField id="data_year" label="Insert Year" styleClass="createNewOne inpText" value="{!survey.gfsurveys__PPIDataYear__c}" required="{!survey.gfsurveys__IsPPI__c}"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem / >
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Language" />
+                            <apex:outputPanel id="messages">
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"></div>
+                                    <apex:selectList styleClass="createNewOne pickWidth" value="{!survey.gfsurveys__LanguageCode__c}" size="1" required="{!survey.gfsurveys__IsPPI__c}">
+                                        <apex:selectOption itemLabel="--None--" itemValue=""/>
+                                        <apex:selectOptions value="{!languagesToSelect}" />
+                                    </apex:selectList>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem / >
+
+                         <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Use this Survey as Template" />
+                            <apex:selectList styleClass="useTemplate pickWidth" size="1" disabled="true">
+                                <apex:selectOption itemLabel="Select a Survey" itemValue="Default"/>
+                                <apex:selectOptions value="{!PPIExistingSurveys}" />
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+
+                    </apex:pageBlockSection>
+                </apex:pageBlockSection>
+            </apex:panelGroup>
+
+            <apex:pageBlockSection id="general" columns="2" title="General" collapsible="false">
+
+                <apex:inputField id="iptDescription" value="{!survey.gfsurveys__Description__c}" styleClass="classMsgAndDesc"/>
+
+                <apex:pageBlockSectionItem />
+
+                <apex:inputField id="deployment" value="{!survey.gfsurveys__Deployment__c}"/>
+                <script type="text/javascript">
+                    // Required to remove the "--None--" option from the picklist
+                    $("select[id$=':deployment']>option:first-child").remove();
+                </script>
+
+                <apex:inputField id="gpsCapture" value="{!survey.gfsurveys__Gps_Location_Enabled__c}" styleclass="checkboxGPS" onchange="changeShowMap()" />
+
+                <script type="text/javascript">
+                    // Required to add the "Record location automatically" text to the checkbox column
+                    var chkboxName = $('input[id$=":gpsCapture"]').attr('id');
+                    $(':checkbox').css('white-space','nowrap')
+                    .css('vertical-align','middle')
+                    .after('<label for="' + chkboxName + '" style="margin-left:10px; line-height:90%; vertical-align:middle;">Record location automatically</label>');
+                </script>
+
+                <apex:inputField id="gpsShowMap" styleClass="checkboxShowMap" value="{!survey.gfsurveys__Gps_ShowMap__c}" rendered="false"/>
+                <apex:pageBlockSectionItem rendered="false"/>
+                <apex:inputField id="closeMessage" value="{!survey.gfsurveys__Close_Message__c}" styleClass="classMsgAndDesc classMsgSubmission"/>
+                <br/>
+                <apex:selectList value="{!Survey.gfsurveys__InterviewMapField__c}" multiselect="false" size="1">
+                    <apex:selectOptions value="{!contactFields}"/>
+                </apex:selectList>
+                <apex:pageBlockSectionItem />
+                <apex:pageBlockSectionItem >
+                    <div align="right">
+                        <a style="cursor:pointer;text-decoration:underline" onclick="loadDefaultMessage($('.classMsgSubmission'))">Set to Default</a>
+                    </div>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+        <div class="bottomButtons">
+            <apex:outputPanel id="bottomButtons">
+                <c:SimpleCancelLink targetURL="{!$Page.gfsurveys__SurveyManager}"/>&nbsp;&nbsp;
+                <apex:commandButton id="btnSave" value="Save" action="{!quickSave}"/>
+                <apex:commandButton id="btnSaveContinue" value="Save and Continue" action="{!saveSettingContinue}" />
+            </apex:outputPanel>
+        </div>
+        <apex:actionFunction name="quickSave" action="{!quickSave}" reRender="newSurvey" onComplete="afterQuickSave();"/>
+    </apex:form>
+</apex:page>

@@ -12,7 +12,8 @@ public with sharing class DistrictSelectorController extends ChildComponentBase 
 
     // Set the refresh list for this controller. Should this go to its own sObject to be more configurable.
     public override String getRefreshList() {
-        return 'Subcounty__c' + this.getParentComponentController().getSectionKey();
+        return 'Subcounty__c' + this.getParentComponentController().getSectionKey() +
+            ',Person__c' + this.getParentComponentController().getSectionKey();
     }
 
     // Override method to return the controllers chosen value.
@@ -72,7 +73,7 @@ public with sharing class DistrictSelectorController extends ChildComponentBase 
                 'Id ' +
             'FROM ' +
                 'District__c ' +
-            getWhereClause() +
+                getWhereClause() +
             'ORDER BY ' +
                 'Name';
     }

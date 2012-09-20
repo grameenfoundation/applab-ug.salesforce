@@ -1,0 +1,10 @@
+<apex:page tabStyle="SurveyManager__tab" standardController="gfsurveys__Survey__c"
+    sidebar="false" extensions="gfsurveys.SurveyPreviewController">
+    <apex:composition template="gfsurveys__SurveyPreview">
+        <apex:define name="builderHeader">
+            <c:createSurveyHeader styleClassHeader="tertiaryPalette"
+                    selected="PREVIEW" backgroundUnSelected="white" isPPI="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}"/>
+        </apex:define>
+    </apex:composition>
+    <apex:outputField rendered="false" value="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}"/>
+</apex:page>

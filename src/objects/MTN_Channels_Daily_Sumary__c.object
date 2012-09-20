@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The daily container object for the mtn staff.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Existing_Outlet_Visits__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of outlets visited by the staff member that day</description>
+        <externalId>false</externalId>
+        <label>Existing Outlet Visits</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Outlet_Visits__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of new outlets visited this day</description>
+        <externalId>false</externalId>
+        <label>New Outlet Visits</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Outlet_Visit_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target for the number of outlet visits that day</description>
+        <externalId>false</externalId>
+        <label>Outlet Visit Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <description>The person this summary is for</description>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>MTN Channels Daily Sumaries</relationshipLabel>
+        <relationshipName>MTN_Channels_Daily_Sumaries</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Promotional_Activities__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of promotional activities carried out that day</description>
+        <externalId>false</externalId>
+        <label>Promotional Activities</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Work_End_Time__c</fullName>
+        <description>The time that the staff member submitted their final submission of the day</description>
+        <externalId>false</externalId>
+        <label>Work End Time</label>
+        <required>true</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Work_Start_Time__c</fullName>
+        <description>The time that the staff member started work</description>
+        <externalId>false</externalId>
+        <label>Work Start Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <label>MTN Channels Daily Sumary</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>MCDS{YY}{MM}{DD}{000000000}</displayFormat>
+        <label>MTN Channels Daily Sumary Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>MTN Channels Daily Sumaries</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

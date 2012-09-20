@@ -1,3 +1,208 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Object to hold one answer to a survey</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Answer_Boolean__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( UPPER(Answer_Short_Text__c ) ,
+&apos;YES&apos;, &apos;true&apos;,
+&apos;1&apos;, &apos;true&apos;,
+&apos;TRUE&apos;, &apos;true&apos;,
+&apos;NO&apos;, &apos;false&apos;,
+&apos;0&apos;, &apos;false&apos;,
+&apos;FALSE&apos;, &apos;false&apos;,
+&apos;null&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Answer Boolean</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Answer_Integer__c</fullName>
+        <description>Convert an answer to and integer so it can be used in the dashboard</description>
+        <externalId>false</externalId>
+        <formula>IF(ISNUMBER( Answer_Short_Text__c ), VALUE(Answer_Short_Text__c ), NULL)</formula>
+        <label>Answer Integer</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Answer_Short_Text__c</fullName>
+        <description>A hidden field that will if possible store the answer text. Needed because we cannot use textarea types in formulas, which we need</description>
+        <externalId>false</externalId>
+        <label>Answer Short Text</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Answer__c</fullName>
+        <description>The raw answer that was collected from the submission</description>
+        <externalId>false</externalId>
+        <label>Answer</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Binding__c</fullName>
+        <description>The binding on the survey form for the question that produced this answer</description>
+        <externalId>false</externalId>
+        <label>Binding</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Instance__c</fullName>
+        <description>The instance of this question</description>
+        <externalId>false</externalId>
+        <label>Instance</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Answer__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent Answer</label>
+        <referenceTo>Submission_Answer__c</referenceTo>
+        <relationshipLabel>Submission Answers</relationshipLabel>
+        <relationshipName>Submission_Answers</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Binding__c</fullName>
+        <description>The binding of the parent question that this question is a child of.</description>
+        <externalId>false</externalId>
+        <label>Parent Binding</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Instance__c</fullName>
+        <description>The instance of the parent answer that this answer is a child of</description>
+        <externalId>false</externalId>
+        <label>Parent Instance</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Question_Number__c</fullName>
+        <description>The number of the question on the survey that this answer relates to</description>
+        <externalId>false</externalId>
+        <label>Question Number</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Question_Text__c</fullName>
+        <description>The display text for the question that this answer relates to</description>
+        <externalId>false</externalId>
+        <label>Question Text</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Submission_Meta_Data__c</fullName>
+        <description>The submission data that this answer is related to</description>
+        <externalId>false</externalId>
+        <label>Submission Meta Data</label>
+        <referenceTo>Submission_Meta_Data__c</referenceTo>
+        <relationshipLabel>Submission Answers</relationshipLabel>
+        <relationshipName>Submission_Answers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Input</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Select</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Select1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Repeat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>Submission Answer</label>
+    <nameField>
+        <displayFormat>{YYYY}-{MM}-{0000000000}</displayFormat>
+        <label>Submission Answer Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Submission Answers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

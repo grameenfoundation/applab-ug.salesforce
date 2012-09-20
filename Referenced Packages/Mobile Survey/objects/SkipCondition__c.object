@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Condition__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Condition to apply to the source question value.</description>
+        <externalId>false</externalId>
+        <label>Condition</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Answered</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Is</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LesserThan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GreaterThan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>InRange</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Negate__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Determine if the result of the evaluation must be negated (return true instead of false, and back-wise).</description>
+        <externalId>false</externalId>
+        <label>Negate</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Parent__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Question on which this condition is applied</description>
+        <externalId>false</externalId>
+        <label>Parent</label>
+        <referenceTo>Question__c</referenceTo>
+        <relationshipLabel>Skip Conditions</relationshipLabel>
+        <relationshipName>SkipConditions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>SourceQuestion__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Question whose result will be evaluated to determine if the parent question is shown. This question must be previous to the parent question in the survey.</description>
+        <externalId>false</externalId>
+        <label>SourceQuestion</label>
+        <referenceTo>Question__c</referenceTo>
+        <relationshipLabel>Affected Skip Conditions</relationshipLabel>
+        <relationshipName>AffectedSkipConditions</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Value to compare against the source question value.</description>
+        <externalId>false</externalId>
+        <label>Value</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Skip Condition</label>
+    <nameField>
+        <displayFormat>SC-{000000}</displayFormat>
+        <label>Skip Condition Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Skip Conditions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

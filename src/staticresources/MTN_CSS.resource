@@ -110,7 +110,7 @@
     padding:20px;
 }
 
-#boxes #dialog {
+#boxes #dialog #genericDialog {
     width:375px; 
     height:203px;
 }

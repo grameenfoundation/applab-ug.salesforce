@@ -57,7 +57,7 @@
     </script>
     <c:ErrorMessage />
     <apex:form id="theForm">
-        <apex:actionFunction name="loadNewMetrics" action="{!loadPage}" rerender="thePageBlock, scale, impact, sustainability, quality, radioShows" oncomplete="closeModal('')">
+        <apex:actionFunction name="loadNewMetrics" action="{!loadPage}" rerender="thePageBlock, scale, impact, sustainability, quality" oncomplete="closeModal('')">
             <apex:param name="quarterParam" value=""/>
             <apex:param name="districtParam" value=""/>
         </apex:actionFunction>
@@ -280,31 +280,25 @@
             </apex:pageBlockTable>
         </apex:pageBlock>
 
-        <apex:pageBlock title="Radio shows" id="radioShows">
-        <apex:outputPanel rendered="{!NOT(ISNULL(radioShows))}">
+        <apex:pageBlock title="Radio shows" id="radioShows" rendered="{!NOT(ISNULL(radioShows))}">
             <br/><br/>
             <apex:pageBlockTable value="{!radioShows}" var="show">
                 <apex:column headerValue="Radio Station">
                     <apex:outputText value="{!show.Client_Location__r.Display_Name__c}" escape="false"/>
                 </apex:column>
                 <apex:column headerValue="Topic">
-                    <apex:outputText value="{!show.Display_Name__c}" escape="false"/>
+                    <apex:outputText value="{!show.Client_Location__r.Display_Name__c}" escape="false"/>
                 </apex:column>
                 <apex:column headerValue="Description">
                     <apex:outputText value="{!show.Description__c}" escape="false"/>
                 </apex:column>
                 <apex:column headerValue="Start Time">
-                    <apex:outputText value="{0,date,dd/MM/yyyy}">
-                        <apex:param value="{!show.Start_Time__c}"/>
-                    </apex:outputText>
+                    <apex:outputText value="{!show.Start_Time__c}"/>
                 </apex:column>
                 <apex:column headerValue="End Time">
-                    <apex:outputText value="{0,date,dd/MM/yyyy}">
-                        <apex:param value="{!show.End_Time__c}"/>
-                    </apex:outputText>
+                    <apex:outputText value="{!show.End_Time__c}"/>
                 </apex:column>
             </apex:pageBlockTable>
-                </apex:outputPanel>
         </apex:pageBlock>
     </apex:form>
 </apex:page>

@@ -30,7 +30,7 @@
             clearPageErrors();
         }
     </script>
-    <apex:form >
+    <apex:form id="errorForm">
         <apex:actionFunction name="submitError" action="{!addError}" rerender="pageErrors, pageReset">
             <apex:param name="errorParam" value=""/>
         </apex:actionFunction>

@@ -33,6 +33,18 @@ global class FarmerRegistration {
         webservice String roof;
         webservice String wall;
 
+        webservice String question1;
+        webservice String question2;
+        webservice String question3;
+        webservice String question4;
+        webservice String question5;
+        webservice String question6;
+        webservice String question7;
+        webservice String question8;
+        webservice String question9;
+        webservice String question10;
+        webservice String ppiVersion;
+
         webservice String farmerGroups;
 
         webservice String errorMessage;
@@ -57,16 +69,16 @@ global class FarmerRegistration {
         }
 
         // Load the new farmer to see if this is an update or not.
-        List<Farmer__c> farmers = Utils.loadFarmerFromId(farmerRegistration.farmerId);
         Farmer__c farmer;
         Person__c person;
+        Boolean oldStyle = false;
+        List<Farmer__c> farmers = Utils.loadFarmerFromId(farmerRegistration.farmerId);
         if (farmers.isEmpty()) {
             farmer = new Farmer__c();
-            farmer.Name = farmerRegistration.farmerId.toUpperCase();
+            farmer.Name = farmerRegistration.farmerId;
             farmer.Registered_By__c = ckw.Id;
             person = new Person__c();
-            person.District__c = ckw.District__c;
-            farmerRegistration.isUpdate = false;
+            oldStyle = true;
         }
         else if (farmers.size() == 1) {
             farmer = farmers[0];
@@ -76,16 +88,20 @@ global class FarmerRegistration {
         else {
 
             // This reg will fail due to there being more than 1 farmer with the Id already.
-            farmerRegistration.success = false;
-            farmerRegistration.errorMessage = 'There are more than 1 farmer with id: ' + farmerRegistration.farmerId + ' mark as success on the phone';
-            return farmerRegistration;
+           farmerRegistration.success = false;
+           farmerRegistration.errorMessage = 'There are more than 1 farmer with id: ' + farmerRegistration.farmerId + ' mark as success on the phone';
+           return farmerRegistration;
         }
+        person.District__c = ckw.District__c;
+        person.Country__c = ckw.Country__c;
+        person.Type__c = 'Farmer';
 
         // Load the linked farmer if required
         Farmer__c linkedFarmer;
         Person__c linkedPerson;
         Poverty_Scorecard__c linkedPovertyScorecard;
-        
+        PPI_Data__c linkedPpiData;
+
         // Check that the linked and farmer ids are not the same. If they are then allow through but with no link
         if (farmerRegistration.linkedFarmerId != null && farmerRegistration.linkedFarmerId.toUpperCase().equals(farmerRegistration.farmerId.toUpperCase())) {
             farmerRegistration.hasLinkedFarmer = false;
@@ -98,6 +114,9 @@ global class FarmerRegistration {
 
                 // Load the poverty scorecard for this farmer
                 linkedPovertyScorecard = Utils.loadCurrentPovertyScorecard(linkedFarmer.Person__c);
+                if (farmerRegistration.question2 != null) {
+                    linkedPpiData = Utils.loadCurrentPpi(linkedFarmer.Person__c);
+                }
             }
             else {
 
@@ -124,34 +143,49 @@ global class FarmerRegistration {
         if (updateLinkedPerson) {
             peopleToSave.add(linkedPerson);
         }
-        database.upsert(peopleToSave);
-        if (!farmerRegistration.isUpdate) {
+
+        Database.upsert(peopleToSave);
+        if (oldStyle) {
             farmer.Person__c = person.Id;
         }
-        database.upsert(farmer);
+        Database.upsert(farmer);
 
         // Update the poverty scorecards.
         List<Poverty_Scorecard__c> povertyScorecardsToSave = new List<Poverty_Scorecard__c>();
         Poverty_Scorecard__c newPovertyScorecard;
+        List<PPI_Data__c> ppiDatasToSave = new List<PPI_Data__c>();
         if (farmerRegistration.hasLinkedFarmer) {
             newPovertyScorecard = duplicatePovertyScorecard(linkedPovertyScorecard, person.Id);
             if (newPovertyScorecard != null) {
                 povertyScorecardsToSave.add(newPovertyScorecard);
             }
-        }
+            if (farmerRegistration.question2 != null) {
+                PPI_Data__c newPpi = duplicatePpi(linkedPpiData, person.Id);
+                if (newPpi != null) {
+                    ppiDatasToSave.add(newPpi);
+                }
+            }
+       }
         else {
             povertyScorecardsToSave = addNewPovertyScorecards(farmer, farmerRegistration, person);
+            if (farmerRegistration.question2 != null) {
+                ppiDatasToSave = addNewPpi(person, farmerRegistration);
+            }
         }
+
         if (!povertyScorecardsToSave.isEmpty()) {
-            database.insert(povertyScorecardsToSave);
+            Database.insert(povertyScorecardsToSave);
+        }
+        if (!ppiDatasToSave.isEmpty()) {
+            Database.insert(ppiDatasToSave);
         }
 
         // Add any farmer group links that are required
-        database.insert(addFarmerGroups(farmer, farmerRegistration, linkedFarmer));
+        Database.insert(addFarmerGroups(farmer, farmerRegistration, linkedFarmer));
 
         // Done so update the metric
         if (!farmerRegistration.isUpdate) {
-            MetricHelpers.updateMetric('total_farmers_reached', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+            MetricHelpers.updateMetric('total_farmers_reached', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getQuarterAsString(0)), false);
         }
 
         // Add to the CKW who registered the farmer performance review
@@ -165,10 +199,17 @@ global class FarmerRegistration {
 
     private static Person__c addPersonBioDetails(Person__c person, AddFarmerRegistration farmerRegistration, Person__c linkedPerson) {
 
+        Double age = farmerRegistration.age;
+
+        //Calculate year of bith from age
+        String yearOfBirth = String.valueOf((Date.today().year()) - Integer.valueOf(age));
+
         person.First_Name__c = farmerRegistration.firstName;
         person.Last_Name__c = farmerRegistration.lastName;
         person.Fathers_Name__c = farmerRegistration.fathersName;
-        person.Age__c = farmerRegistration.age;
+
+        // Set date of birth to 1 Jan
+        person.Date_of_Birth__c = date.parse('1/1/' + yearOfBirth);
         if (farmerRegistration.mobileNumber != null && farmerRegistration.mobileNumber.length() < 20) {
             person.Raw_Mobile_Number__c = farmerRegistration.mobileNumber;
         }
@@ -283,6 +324,184 @@ global class FarmerRegistration {
         return newCard;
     }
 
+    private static List<PPI_Data__c> addNewPpi(Person__c person, AddFarmerRegistration farmerRegistration) {
+
+        List<PPI_Data__c> newPpis = new List<PPI_Data__c>();
+
+        // Create the new poverty scorecard for this farmer
+        PPI_Data__c newPpi = new PPI_Data__c();
+        newPpi.Person__c = person.Id;
+        newPpi.Version__c = farmerRegistration.ppiVersion;
+        newPpi.Question_1__c = farmerRegistration.question1;
+        newPpi.Question_2__c = farmerRegistration.question2;
+        newPpi.Question_3__c = farmerRegistration.question3;
+        newPpi.Question_4__c = farmerRegistration.question4;
+        newPpi.Question_5__c = farmerRegistration.question5;
+        newPpi.Question_6__c = farmerRegistration.question6;
+        newPpi.Question_7__c = farmerRegistration.question7;
+        newPpi.Question_8__c = farmerRegistration.question8;
+        newPpi.Question_9__c = farmerRegistration.question9;
+        newPpi.Question_10__c = farmerRegistration.question10;
+        newPpi.Country__c = 'Uganda';
+        newPpi.Date__c = Date.today();
+        newPpi.Score__c = caluclatePpiScore(newPpi);
+
+        // Get the other farmers in this farmers household
+        if (person.Person_Household__c != null) {
+            Person__c[] householdMembers = Utils.getHouseholdMembers(person.Person_Household__c);
+
+            // Loop though and clone the new scorecard and add the correct person to it
+            if (!householdMembers.isEmpty()) {
+                for (Person__c member : householdMembers) {
+                    newPpis.add(duplicatePpi(newPpi, member.Id));
+                }
+            }
+        }
+        else {
+            newPpis.add(newPpi);
+        }
+        return newPpis;
+    }
+
+    private static Decimal caluclatePpiScore(PPI_Data__c ppiData) {
+
+        Decimal score = 0.0;
+        score += translateQuestion1(ppiData.Question_1__c);
+        score += translateQuestion2(ppiData.Question_2__c);
+        score += translateQuestion3(ppiData.Question_3__c);
+        score += translateQuestion4(ppiData.Question_4__c);
+        score += translateQuestion5(ppiData.Question_5__c);
+        score += translateQuestion6(ppiData.Question_6__c);
+        score += translateQuestion7(ppiData.Question_7__c);
+        score += translateQuestion8(ppiData.Question_8__c);
+        score += translateQuestion9(ppiData.Question_9__c);
+        score += translateQuestion10(ppiData.Question_10__c);
+        return score;
+    }
+
+    private static Decimal translateQuestion1(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 6.0,
+            'C' => 9.0,
+            'D' => 14.0,
+            'E' => 27.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion2(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 2.0,
+            'C' => 4.0,
+            'D' => 5.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion3(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 2.0,
+            'C' => 6.0,
+            'D' => 8.0,
+            'E' => 19.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion4(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 5.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion5(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 2.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion6(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 11.0,
+            'C' => 17.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion7(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 4.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion8(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 7.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion9(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 5.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static Decimal translateQuestion10(String value) {
+
+        Map<String, Decimal> translationMap = new Map<string, Decimal> {
+            'A' => 0.0,
+            'B' => 9.0
+        };
+        return translationMap.get(value);
+    }
+
+    private static PPI_Data__c duplicatePpi(PPI_Data__c ppiToCopy, String personId) {
+
+        if (ppiToCopy == null) {
+            return null;
+        }
+        PPI_Data__c newPpi = new PPI_Data__c();
+        newPpi.Person__c = personId;
+        newPpi.Date__c = Date.today();
+        newPpi.Question_1__c = ppiToCopy.Question_1__c;
+        newPpi.Question_2__c = ppiToCopy.Question_2__c;
+        newPpi.Question_3__c = ppiToCopy.Question_3__c;
+        newPpi.Question_4__c = ppiToCopy.Question_4__c;
+        newPpi.Question_5__c = ppiToCopy.Question_5__c;
+        newPpi.Question_6__c = ppiToCopy.Question_6__c;
+        newPpi.Question_7__c = ppiToCopy.Question_7__c;
+        newPpi.Question_8__c = ppiToCopy.Question_8__c;
+        newPpi.Question_9__c = ppiToCopy.Question_9__c;
+        newPpi.Question_10__c = ppiToCopy.Question_10__c;
+        newPpi.Country__c = ppiToCopy.Country__c;
+        newPpi.Score__c = ppiToCopy.Score__c;
+        newPpi.Version__c = ppiToCopy.Version__c;
+        return newPpi;
+    }
+
     private static List<Person_Organisation_Association__c> addFarmerGroups(Farmer__c farmer, AddFarmerRegistration farmerRegistration, Farmer__c linkedFarmer) {
 
         String[] farmerGroupsIds = farmerRegistration.farmerGroups.split('@#@');
@@ -372,9 +591,61 @@ global class FarmerRegistration {
         farmerRegistration.radio = true;
         farmerRegistration.roof = 'Iron sheet/tin';
         farmerRegistration.wall = 'Burnt bricks with mud/mud poles';
+        farmerRegistration.isUpdate = false;
 
         AddFarmerRegistration registeredFarmer = registerFarmer(farmerRegistration);
         System.assert(registeredFarmer.success);
+    }
+
+    static testMethod void testAddNewFarmerRegistrationWithoutPpi() {
+
+        // Create a CKW
+        CKW__c ckw = Utils.createTestCkw(null, 'TestCKW1', true, null, null);
+        database.insert(ckw);
+
+        // Create an organisation.
+        Account org = Utils.createTestOrganisation('TestOrg1');
+        database.insert(org);
+
+        AddFarmerRegistration farmerRegistration = new AddFarmerRegistration();
+        farmerRegistration.handsetId = 'TestCKW1';
+        farmerRegistration.farmerId = 'OD99998';
+        farmerRegistration.hasLinkedFarmer = false;
+
+        farmerRegistration.firstName = 'George';
+        farmerRegistration.lastName = 'Malone';
+        farmerRegistration.fathersName = 'Bobby';
+        farmerRegistration.householdStatus = 'Child of household head';
+        farmerRegistration.age = 25;
+        farmerRegistration.gender = 'Male';
+        farmerRegistration.village = 'Here';
+        farmerRegistration.mobileNumber = '01234567890';
+        farmerRegistration.latitude = '32.15';
+        farmerRegistration.longitude = '0.32';
+
+        farmerRegistration.farmerGroups = org.Id;
+        farmerRegistration.crops = 'Maize';
+        farmerRegistration.landSize = 3.0;
+        farmerRegistration.livestock = 'Cows';
+        farmerRegistration.topics = 'Market Prices';
+
+        farmerRegistration.children = 4.0;
+        farmerRegistration.fuel = 'Firewood';
+        farmerRegistration.education = 'O level';
+        farmerRegistration.clothes = true;
+        farmerRegistration.shoes = false;
+        farmerRegistration.watch = true;
+        farmerRegistration.net = false;
+        farmerRegistration.radio = true;
+        farmerRegistration.roof = 'Iron sheet/tin';
+        farmerRegistration.wall = 'Burnt bricks with mud/mud poles';
+        farmerRegistration.isUpdate = false;
+
+        AddFarmerRegistration registeredFarmer = registerFarmer(farmerRegistration);
+        System.assert(registeredFarmer.success);
+        Farmer__c farmer = [SELECT Person__c FROM Farmer__c WHERE Farmer__c.Name = 'OD99998'];
+        PPI_Data__c datas = Utils.loadCurrentPpi(farmer.Person__c);
+        System.assert(datas == null);
     }
 
     static testMethod void testAddLinkedFarmerRegistration() {
@@ -409,6 +680,7 @@ global class FarmerRegistration {
         farmerRegistration.mobileNumber = '01234567890';
         farmerRegistration.latitude = '32.15';
         farmerRegistration.longitude = '0.32';
+        farmerRegistration.isUpdate = false;
 
         farmerRegistration.farmerGroups = org.Id;
         AddFarmerRegistration registeredFarmer = registerFarmer(farmerRegistration);

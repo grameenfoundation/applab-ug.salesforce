@@ -1,3 +1,665 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata"/>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Summary of performance of each CKW in a given week or month, per different targets</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Actual_Airtime__c</fullName>
+        <description>The airtime was actually credited to the user&apos;s account, based on our performance calculations. &quot;Airtime Date&quot; should be set at the same time.</description>
+        <externalId>false</externalId>
+        <label>Actual Airtime</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actual_Payment__c</fullName>
+        <description>The actual payment that was made to the CKW; this field should be filled after the payment is processed (Payment Date should be filled at the same time).</description>
+        <externalId>false</externalId>
+        <label>Actual Payment</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Airtime_Date__c</fullName>
+        <description>The date that airtime was actually credited to the user&apos;s account. This should be updated when &quot;Actual Airtime&quot; set.</description>
+        <externalId>false</externalId>
+        <label>Airtime Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CKW_c__c</fullName>
+        <description>Links to the CKW object</description>
+        <externalId>false</externalId>
+        <label>CKW</label>
+        <referenceTo>CKW__c</referenceTo>
+        <relationshipLabel>CKW Monthly Performance Records</relationshipLabel>
+        <relationshipName>CKW_Performance_Reviews</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Duplicate_Surveys__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Stores the number of duplicate surveys in a given month for a particular CKW</description>
+        <externalId>false</externalId>
+        <label>Surveys::Duplicate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmers_Registered__c</fullName>
+        <description>The number of farmers registered by this CKW this month.</description>
+        <externalId>false</externalId>
+        <label>Farmers Registered</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Incentive_Structure__c</fullName>
+        <description>The incentive structure that is active for this performance review.</description>
+        <externalId>false</externalId>
+        <label>Incentive Structure</label>
+        <referenceTo>Incentive_Structure__c</referenceTo>
+        <relationshipName>CKW_Performance_Reviews</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Long_Term_Bonus_Airtime__c</fullName>
+        <externalId>false</externalId>
+        <formula>0</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Long Term Bonus Airtime</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Long_Term_Bonus_Pay__c</fullName>
+        <externalId>false</externalId>
+        <formula>0</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Long Term Bonus Pay</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Medium_Term_Bonus_Airtime__c</fullName>
+        <externalId>false</externalId>
+        <formula>0</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Medium Term Bonus Airtime</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Medium_Term_Bonus_Pay__c</fullName>
+        <externalId>false</externalId>
+        <formula>0</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Medium Term Bonus Pay</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Airtime__c</fullName>
+        <externalId>false</externalId>
+        <formula>Incentive_Structure__r.Airtime_Compensation__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly_Airtime</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Target__c</fullName>
+        <description>The monthly target object associated with this performance review</description>
+        <externalId>false</externalId>
+        <label>Monthly Target</label>
+        <referenceTo>Monthly_Target__c</referenceTo>
+        <relationshipName>CKW_Performance_Reviews</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Invalid_Searches_Running_Total__c</fullName>
+        <description>How many searches a CKW has done that do not match a farmer on our system</description>
+        <externalId>false</externalId>
+        <label>Searches::Invalid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Searches_Old_System__c</fullName>
+        <externalId>false</externalId>
+        <label>Searches::Old System</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Searches_Running_Total__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Stores the searches that have been recorded in the search log. This is updated every day and the searches for that day are added to the existing one</description>
+        <externalId>false</externalId>
+        <label>Searches::New System (Updated Daily)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Searches__c</fullName>
+        <description>Stores the number searches that have been made for a particular CKW in a given month</description>
+        <externalId>false</externalId>
+        <label>Searches::New System</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Test_Searches_Running_Total__c</fullName>
+        <description>Number of test searches that a CKW has done</description>
+        <externalId>false</externalId>
+        <label>Searches::Test</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_6001_Queries__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of queries sent via 6001. We have no automatic mechanism to generate this figure, it must be entered manually.</description>
+        <externalId>false</externalId>
+        <label>Searches::6001</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Operating_Month__c</fullName>
+        <description>Extracts the Months and Year from the Start Date field and updates this field. Result is a text.
+Example: If start date is selected as  1January December 2010, Operating month would be 1-2010</description>
+        <externalId>false</externalId>
+        <formula>TEXT(MONTH(Start_Date__c))&amp;&quot;-&quot;&amp;TEXT(YEAR(Start_Date__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Operating Month</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Date__c</fullName>
+        <description>The date/time that payment was processed. The Actual Payment field should be populated along with this field.</description>
+        <externalId>false</externalId>
+        <label>Payment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Message__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;Monthly earnings: &quot; &amp; TEXT(Performance_Pay__c) &amp; BR() &amp;
+&quot;Monthly airtime: &quot; &amp; TEXT(Monthly_Airtime__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Message</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Performance_Comments__c</fullName>
+        <description>Optional comments entered by the CKW manager about the CKW&apos;s performance this month. If present, these comments will be appended to the performance summary reported by Pulse.</description>
+        <externalId>false</externalId>
+        <label>Performance Comments</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( Performance_Pay__c , Incentive_Structure__r.Level_A_Compensation__c, &apos;A&apos;, Incentive_Structure__r.Level_B_Compensation__c, &apos;B&apos;,Incentive_Structure__r.Level_C_Compensation__c, &apos;C&apos;, &apos;D&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Performance Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Performance_Message__c</fullName>
+        <description>This field is obsolete due to new translation support. The content for this field is now handled using the custom label called Pulse_Performance_Tab_Content</description>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(CKW_c__r.Person__r.Country__r.Language__c, &apos;Spanish&apos;),
+&quot;Total de encuestas: &quot; &amp; TEXT(Total_Surveys_Submitted__c) &amp; BR() &amp; 
+&quot;Aprobadas: &quot; &amp; TEXT(Surveys_Approved__c) &amp; BR() &amp; 
+&quot;Rechazadas: &quot; &amp; TEXT(Surveys_Rejected__c) &amp; BR() &amp; 
+&quot;No revisadas: &quot; &amp; TEXT(Surveys_Not_Reviewed__c) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Total de busquedas: &quot; &amp; TEXT(Total_Searches__c + Number_Of_Invalid_Searches_Running_Total__c + Number_Of_Test_Searches_Running_Total__c) &amp; BR() &amp; 
+&quot;Validas: &quot; &amp; TEXT(Total_Searches__c) &amp; BR() &amp; 
+&quot;Invalidas: &quot; &amp; TEXT( Number_Of_Invalid_Searches_Running_Total__c ) &amp; BR() &amp; 
+&quot;Prueba: &quot; &amp; TEXT( Number_Of_Test_Searches_Running_Total__c ) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Productores registrados: &quot; &amp; TEXT( Farmers_Registered__c ) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Usted tiene &quot; &amp; IF((30 - DAY(TODAY()) &gt; 7), 
+TEXT(ROUND( (30 - DAY(TODAY())) / 7, 1 ) ) &amp; &quot; semanas&quot;, TEXT( 30 - DAY(TODAY()) ) &amp; &quot; days&quot;) &amp; 
+&quot; para cumplir con la meta de este mes.&quot;
+,&quot;Total Surveys: &quot; &amp; TEXT(Total_Surveys_Submitted__c) &amp; BR() &amp; 
+&quot;Approved: &quot; &amp; TEXT(Surveys_Approved__c) &amp; BR() &amp; 
+&quot;Rejected: &quot; &amp; TEXT(Surveys_Rejected__c) &amp; BR() &amp; 
+&quot;Not reviewed: &quot; &amp; TEXT(Surveys_Not_Reviewed__c) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Total Searches: &quot; &amp; TEXT(Total_Searches__c + Number_Of_Invalid_Searches_Running_Total__c + Number_Of_Test_Searches_Running_Total__c) &amp; BR() &amp; 
+&quot;Valid: &quot; &amp; TEXT(Total_Searches__c) &amp; BR() &amp; 
+&quot;Invalid: &quot; &amp; TEXT( Number_Of_Invalid_Searches_Running_Total__c ) &amp; BR() &amp; 
+&quot;Test: &quot; &amp; TEXT( Number_Of_Test_Searches_Running_Total__c ) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Farmers Registered: &quot; &amp; TEXT( Farmers_Registered__c ) &amp; BR() &amp; 
+BR() &amp; 
+&quot;You have &quot; &amp; IF((30 - DAY(TODAY()) &gt; 7), 
+TEXT(ROUND( (30 - DAY(TODAY())) / 7, 1 ) ) &amp; &quot; weeks&quot;, TEXT( 30 - DAY(TODAY()) ) &amp; &quot; days&quot;) &amp; 
+&quot; left to meet your targets this month.&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This field is obsolete due to new translation support. The content for this field is now handled using the custom label called Pulse_Performance_Tab_Content</inlineHelpText>
+        <label>Performance Message (Obsolete)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Performance_Pay__c</fullName>
+        <description>The amount of cash that the CKW has earned through searches and survey submissions this month.</description>
+        <externalId>false</externalId>
+        <formula>MIN( 
+IF (Monthly_Target__r.Search_Target__c = 0, Incentive_Structure__r.Level_A_Compensation__c, 
+IF(Total_Searches__c / Monthly_Target__r.Search_Target__c &gt;= Incentive_Structure__r.Level_A_Threshold__c, 
+Incentive_Structure__r.Level_A_Compensation__c, 
 
+IF(Total_Searches__c / Monthly_Target__r.Search_Target__c &gt;= Incentive_Structure__r.Level_B_Threshold__c, 
+Incentive_Structure__r.Level_B_Compensation__c, 
+
+IF(Total_Searches__c / Monthly_Target__r.Search_Target__c &gt;= Incentive_Structure__r.Level_C_Threshold__c, 
+Incentive_Structure__r.Level_C_Compensation__c, Incentive_Structure__r.Level_D_Compensation__c)))), 
+
+IF(Monthly_Target__r.Survey_Target__c = 0, Incentive_Structure__r.Level_A_Compensation__c, 
+IF(Total_Surveys__c / Monthly_Target__r.Survey_Target__c &gt;= Incentive_Structure__r.Level_A_Threshold__c, Incentive_Structure__r.Level_A_Compensation__c, 
+
+IF(Total_Surveys__c / Monthly_Target__r.Survey_Target__c &gt;= Incentive_Structure__r.Level_B_Threshold__c, 
+Incentive_Structure__r.Level_B_Compensation__c, 
+
+IF(Total_Surveys__c / Monthly_Target__r.Survey_Target__c &gt;= Incentive_Structure__r.Level_C_Threshold__c, 
+Incentive_Structure__r.Level_C_Compensation__c, Incentive_Structure__r.Level_D_Compensation__c)))) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Performance Pay</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Performance_Summary_of_the_month__c</fullName>
+        <description>Summary of performance review to be shown to the CKW</description>
+        <externalId>false</externalId>
+        <label>Performance Summary of the month</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Short_Term_Bonus_Airtime__c</fullName>
+        <externalId>false</externalId>
+        <formula>0</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Short Term Bonus Airtime</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Short_Term_Bonus_Pay__c</fullName>
+        <externalId>false</externalId>
+        <formula>0</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Short Term Bonus Pay</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>The month to be monitored</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select First day of the month/year you want to monitor</inlineHelpText>
+        <label>Start Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Surveys_Approved__c</fullName>
+        <description>Stores the number surveys that have been approved for a particular CKW in a given month</description>
+        <externalId>false</externalId>
+        <label>Surveys::Approved</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Surveys_Not_Reviewed__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Surveys::Not Reviewed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Surveys_Pending__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Stores the number surveys that have been pending for a particular CKW in a given month</description>
+        <externalId>false</externalId>
+        <label>Surveys::Pending</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Surveys_Rejected__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Stores the number surveys that have been rejected for a particular CKW in a given month</description>
+        <externalId>false</externalId>
+        <label>Surveys::Rejected</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_number_for_surveys__c</fullName>
+        <description>How may survey CKW is expected to finish in the month</description>
+        <externalId>false</externalId>
+        <label>Surveys::Target</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_number_of_searches__c</fullName>
+        <description>How many searched CKW is expected to run</description>
+        <externalId>false</externalId>
+        <label>Searches::Target</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Airtime__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Airtime__c + Short_Term_Bonus_Airtime__c + Medium_Term_Bonus_Airtime__c + Long_Term_Bonus_Airtime__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Airtime</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Expenses__c</fullName>
+        <description>Total expenses for the CKW per month</description>
+        <externalId>false</externalId>
+        <label>Total Expenses</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Income__c</fullName>
+        <description>Total Money earned by CKW reach month</description>
+        <externalId>false</externalId>
+        <label>Total Income</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Pay__c</fullName>
+        <externalId>false</externalId>
+        <formula>Performance_Pay__c +  Short_Term_Bonus_Pay__c + Medium_Term_Bonus_Pay__c + Long_Term_Bonus_Pay__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Pay</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Searches__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_of_6001_Queries__c  +  Number_Of_Searches__c +  Number_Of_Searches_Running_Total__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Searches::Total Valid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Surveys_Submitted__c</fullName>
+        <externalId>false</externalId>
+        <formula>Surveys_Approved__c  + Surveys_Rejected__c + Surveys_Pending__c + Surveys_Not_Reviewed__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Surveys::Submitted</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Surveys__c</fullName>
+        <externalId>false</externalId>
+        <formula>Surveys_Not_Reviewed__c + Surveys_Pending__c + Surveys_Approved__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Surveys::Total Valid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>CKW Monthly Performance</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CKW_c__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>Duplicate_Surveys__c</columns>
+        <columns>Monthly_Target__c</columns>
+        <columns>Number_Of_Searches_Old_System__c</columns>
+        <columns>Number_of_6001_Queries__c</columns>
+        <columns>Number_Of_Searches__c</columns>
+        <columns>Number_Of_Searches_Running_Total__c</columns>
+        <columns>Operating_Month__c</columns>
+        <columns>Performance_Level__c</columns>
+        <columns>Payment__c</columns>
+        <columns>Payment_Message__c</columns>
+        <columns>Performance_Message__c</columns>
+        <columns>Performance_Pay__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Start_Date__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>5/1/2011</value>
+        </filters>
+        <filters>
+            <field>Start_Date__c</field>
+            <operation>lessThan</operation>
+            <value>6/1/2011</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>PR-{YY}-{MM}-{000000}</displayFormat>
+        <label>CKW Monthly Performance Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CKW Monthly Performance Records</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

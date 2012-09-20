@@ -1,0 +1,11 @@
+<apex:page standardController="Case" tabStyle="Case" extensions="SelfServePulseController">
+    <apex:detail relatedList="false" title="true" inlineEdit="true" />
+    <apex:form id="CaseForm">
+        <apex:pageBlock title="Recent Queries" >
+             <apex:pageBlockButtons >
+                <apex:commandButton value="New Case"/>  
+             </apex:pageBlockButtons> 
+        </apex:pageBlock>
+    
+    </apex:form>
+</apex:page>

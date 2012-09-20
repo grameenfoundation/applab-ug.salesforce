@@ -11,7 +11,7 @@ function searchUrl() {
 if(counter == 0) {
 var id18 = document.getElementById('id').value;
 var id15 = id18.substring(0,15);
-document.getElementById('jiraSearch').src="http://pmo.applab.org/plugins/servlet/crmSearch?salesforce-case=" + id15;
+document.getElementById('jiraSearch').src="http://pmo.applab.org/plugins/servlet/customware/connector/issue/2/Case/fetch.action?id=" + id15;
 
 counter = 1;
 }

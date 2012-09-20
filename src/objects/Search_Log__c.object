@@ -1,3 +1,314 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This is a generic template for Custom Object.  With this template, you may adjust the default elements and values and add new elements and values.</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Accuracy__c</fullName>
+        <externalId>false</externalId>
+        <label>Accuracy</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Altitude__c</fullName>
+        <externalId>false</externalId>
+        <label>Altitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>From_USSD__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if this search came in from USSD</description>
+        <externalId>false</externalId>
+        <label>From USSD</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Group__c</fullName>
+        <description>The group to which the interviewer/CKW is associated</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The group to which the interviewer/CKW is associated</inlineHelpText>
+        <label>Group</label>
+        <referenceTo>Group__c</referenceTo>
+        <relationshipLabel>Search Logs</relationshipLabel>
+        <relationshipName>Search_Logs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Handset_Submit_Time__c</fullName>
+        <description>Time the phone sent the request</description>
+        <externalId>false</externalId>
+        <label>Handset Submit Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Interviewee_Distance_Km__c</fullName>
+        <description>Distance between where this search was done and the interviewee&apos;s home (if available)</description>
+        <externalId>false</externalId>
+        <label>Interviewee Distance (km)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Interviewee__c</fullName>
+        <description>The person who requests information</description>
+        <externalId>false</externalId>
+        <label>Interviewee</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>Search Logs (Searches Administered)</relationshipLabel>
+        <relationshipName>Interviewee_Search_Logs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Interviewer_Distance_Km__c</fullName>
+        <description>Distance between where this search was done and the interviewer&apos;s home</description>
+        <externalId>false</externalId>
+        <label>Interviewer Distance (km)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Interviewer__c</fullName>
+        <description>The CKW/Interviewer as obtained from Salesforce using handset id</description>
+        <externalId>false</externalId>
+        <label>Interviewer</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>Search Logs (Searches Done)</relationshipLabel>
+        <relationshipName>Search_Logs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Invalid_Farmer_Id__c</fullName>
+        <description>The id used by a CKW to submit an invalid search</description>
+        <externalId>false</externalId>
+        <label>Invalid Farmer Id</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latitude__c</fullName>
+        <externalId>false</externalId>
+        <label>Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longitude__c</fullName>
+        <externalId>false</externalId>
+        <label>Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Query__c</fullName>
+        <externalId>false</externalId>
+        <label>Query</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_ID__c</fullName>
+        <description>Record ID: Primary key (auto-generated)</description>
+        <displayFormat>Record-{0000}</displayFormat>
+        <externalId>false</externalId>
+        <label>Record ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Response__c</fullName>
+        <externalId>false</externalId>
+        <label>Response</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Server_Entry_Time__c</fullName>
+        <description>Time the server received the request</description>
+        <externalId>false</externalId>
+        <label>Server Entry Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Submission_Accuracy__c</fullName>
+        <description>The accuracy of the GPS reading when the log was sent from the phone</description>
+        <externalId>false</externalId>
+        <label>Submission Accuracy</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>13</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission_Altitude__c</fullName>
+        <description>The altitude that the log was submitted from</description>
+        <externalId>false</externalId>
+        <label>Submission Altitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>13</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission_GPS_Timestamp__c</fullName>
+        <description>The timestamp that the log was submitted from the phone</description>
+        <externalId>false</externalId>
+        <label>Submission GPS Timestamp</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Submission_Latitude__c</fullName>
+        <description>The latitude that the log was submitted from</description>
+        <externalId>false</externalId>
+        <label>Submission Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>13</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission_Longitude__c</fullName>
+        <description>The longitude that the log was submitted from</description>
+        <externalId>false</externalId>
+        <label>Submission Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>13</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Search Log</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Interviewee__c</columns>
+        <columns>Interviewer__c</columns>
+        <columns>Accuracy__c</columns>
+        <columns>Altitude__c</columns>
+        <columns>Category__c</columns>
+        <columns>Handset_Submit_Time__c</columns>
+        <columns>Latitude__c</columns>
+        <columns>Longitude__c</columns>
+        <columns>Query__c</columns>
+        <columns>Record_ID__c</columns>
+        <columns>Response__c</columns>
+        <columns>Server_Entry_Time__c</columns>
+        <columns>Group__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Handset_Submit_Time__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>10/24/2011 12:00 AM</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Custom Object Label Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Search Logs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

@@ -358,6 +358,7 @@ public with sharing class PerformanceDataCollector {
             'WHERE '                                                      +
                 'CreatedDate = ' + monthString + ' '                      +
                 'AND Registered_By__c IN (SELECT Person__c FROM CKW__c) ' +
+                'AND Person__r.First_Name__c != \'Not Registered\' '      +
             'GROUP BY '                                                   +
                 'Registered_By__c';
 

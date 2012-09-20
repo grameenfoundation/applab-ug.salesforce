@@ -30,15 +30,16 @@
         addSectionRefreshStore("{!sectionKey}", "{!key}");
         updateIds.push("{!key}");
     </script>
-    <apex:repeat value="{!metricIds}" var="id">
-        <script type="text/javascript">
-            updateMetricIds.push('{!id}');
-        </script>
-    </apex:repeat>
 
     <apex:actionFunction action="{!refreshData}" name="{!key}" rerender="metricSection"/>
     <apex:actionFunction action="{!refreshData}" name="{!key}_Table" rerender="metricTable" oncomplete="enableEditMode(true);closeGenericModal();return false"/>
     <apex:outputPanel id="metricSection">
+
+        <apex:repeat value="{!metricIds}" var="id">
+            <script type="text/javascript">
+                updateMetricIds.push('{!id}');
+            </script>
+        </apex:repeat>
         <apex:pageBlock title="{!title}">
             <apex:outputPanel >
                 <apex:outputText value="{!description}" escape="false"/>
@@ -84,7 +85,7 @@
                     <apex:column headerValue="Show Break Down" rendered="{!showBreakDown}" width="50px">
                         <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
                             <div style="display:inline;padding-left:2px;visibility:{!IF((metricData.hasCurrent == 'true'),'visible','hidden')}">
-                                <a href="javascript:void(0)" onclick="openBreakDown('', '{!metricData.currentQuarter.Id}', '{!currentDate}')">
+                                <a href="javascript:void(0)" onclick="openBreakDown('{!$Page.MetricBreakDown}', '{!metricData.currentQuarter.M_E_Metric__c}', '{!currentDate}', '{!district}', '{!person}', '{!sectionId}', '{!selectorId}')">
                                     Break Down
                                 </a>
                             </div>
@@ -99,7 +100,7 @@
                     </apex:column>
                     <apex:column headerValue="Update" rendered="{!allowUpdate}" width="50px">
                         <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
-                            <a id="{!metricData.currentQuarter.Id}" style="visibility:hidden" href="javascript:void(0)" onclick="openEditWindow('{!metricData.currentQuarter.Id}', '{!key}');return false;">
+                            <a id="{!metricData.currentQuarter.Id}" style="visibility:hidden" href="javascript:void(0)" onclick="openEditWindow('{!metricData.currentQuarter.Id}', '{!key}', '{!updateType}');return false;">
                                 Update
                             </a>
                         </apex:outputPanel>
@@ -107,5 +108,10 @@
                 </apex:pageBlockTable>
             </apex:outputPanel>
         </apex:pageBlock>
+        <script type="text/javascript">
+            if ({!isRefresh}) {
+                closeGenericModal();
+            }
+        </script>
     </apex:outputPanel>
 </apex:component>

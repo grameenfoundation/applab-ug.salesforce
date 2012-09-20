@@ -1,0 +1,328 @@
+<apex:page standardController="gfsurveys__ContactGroup__c"
+    extensions="gfsurveys.ContactGroupListController" tabstyle="ContactGroups__tab">
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+
+    <c:blockOverlay label="Loading..."/>
+
+
+    <!--
+    ---------------------------------------------------
+     Style classes
+    --------------------------------------------------- -->
+    <style type="text/css">
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 99999999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            /* These are the properties to set the actual popup size*/
+            width: 300px;
+            margin-left: -150px;
+            top:200px;
+        }
+
+    </style>
+
+
+    <!--
+    ---------------------------------------------------
+     Javascript functions
+    --------------------------------------------------- -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // Set the action for the filter
+            $('.filterSelectList').change(function(){
+                var filter = $(this).val();
+                blockPage();
+                doFilter(filter);
+            });
+        });
+
+        // Set the action for record checkboxes
+        function changeCheckbox(){
+            if(!$(this).is(':checked')){
+                $('.selectAllGroups').attr('checked', false);
+            }
+        }
+
+        // Change the status of all checkboxes
+        function changeAllCheckboxes(){
+            var checked = $('.selectAllGroups').is(':checked');
+            $('.checkbox').attr('checked', checked);
+        }
+
+        // Return the id of the selected groups
+        function getSelectedContactGroupIds(){
+            // Contains all the Ids of the selected groups
+            var contactsGroupsIds = '';
+
+            // Get the checked groups
+            $('.checkbox:checked').each(function(){
+                contactsGroupsIds += (contactsGroupsIds == '' ? '' : ',') + $(this).attr('id');
+            });
+            return contactsGroupsIds;
+        }
+
+        function activateSelectedGroups(){
+            var groupIds = getSelectedContactGroupIds();
+            if(groupIds == ''){
+                alert('At least one group must be selected to activate');
+            }
+            else{
+                blockPage();
+                massActivateGroup(getSelectedContactGroupIds(), true);
+            }
+        }
+
+        function deactivateSelectedGroups(){
+            var groupIds = getSelectedContactGroupIds();
+            if(groupIds == ''){
+                alert('At least one group must be selected to deactivate');
+            }
+            else{
+                blockPage();
+                massDeactivateGroup(getSelectedContactGroupIds(), true, true);
+            }
+        }
+
+
+        function hidePopUp(){
+            $('.confirmationPopUp').hide();
+            $('#popup').show();
+        }
+
+    </script>
+
+
+    <!--
+    ---------------------------------------------------
+     Apex functions
+    --------------------------------------------------- -->
+    <apex:form >
+        <apex:actionFunction name="doFilter" action="{!doFilter}" reRender="table, otpNav2" oncomplete="unblockPage()">
+            <apex:param name="filter" value="" assignTo="{!filter}"/>
+        </apex:actionFunction>
+
+        <apex:actionFunction name="inactivateGroup" action="{!inactivateGroup}" rerender="confirmationPopUp, table" oncomplete="unblockPage()"/>
+
+        <apex:actionFunction name="massActivateGroup" action="{!activateGroup}" rerender="table" oncomplete="unblockPage()">
+            <apex:param name="selectedGroupIds" value="" assignTo="{!selectedGroupIds}"/>
+            <apex:param name="targetIsSelection" value="" assignTo="{!targetIsSelection}"/>
+        </apex:actionFunction>
+
+        <apex:actionFunction name="massDeactivateGroup" action="{!showPopUp}" rerender="confirmationPopUp" oncomplete="unblockPage()">
+            <apex:param name="selectedGroupIds" value="" assignTo="{!selectedGroupIds}"/>
+            <apex:param name="targetIsSelection" value="" assignTo="{!targetIsSelection}"/>
+        </apex:actionFunction>
+    </apex:form>
+
+
+    <!--
+    ---------------------------------------------------
+     PopUp panel
+    --------------------------------------------------- -->
+    <apex:form >
+        <apex:outputPanel id="confirmationPopUp" styleClass="confirmationPopUp">
+
+            <apex:panelGroup rendered="{!displayConfirmationPopUp && NOT(activeSurvey.size > 0)}">
+                <script type="text/javascript">
+                    $('#popup').hide();
+                    if(confirm('Are you sure?')){
+                        $('#popup').show();
+                        inactivateGroup();
+                    }
+                    else{
+                        unblockPage();
+                    }
+                </script>
+            </apex:panelGroup>
+
+            <apex:outputPanel layout="block" rendered="{!displayConfirmationPopUp && activeSurvey.size > 0}" styleClass="custPopup">
+
+                <script type="text/javascript">
+                    $('#popup').hide();
+                </script>
+
+                <apex:panelGroup rendered="{!activeSurvey.size > 0}">
+                    <apex:outputText >There is at least one active survey.<br />
+                                     Do you want to continue anyway?</apex:outputText>
+                    <br/>
+                    <br/>
+                    <apex:dataTable var="item" value="{!activeSurvey}" width="100%">
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:outputText value="{!$ObjectType.gfsurveys__Survey__c.Fields.Name.Label}" />
+                            </apex:facet>
+                            <apex:outputText value="{!item.Survey__r.Name}"/>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:outputText value="{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__PublishedDate__c.Label}" />
+                            </apex:facet>
+                            <apex:outputText value="{0,date,medium}">
+                                <apex:param value="{!item.Survey__r.gfsurveys__PublishedDate__c}" />
+                            </apex:outputText>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:outputText value="{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__ResponseCount__c.Label}" />
+                            </apex:facet>
+                            <apex:outputText value="{!FLOOR(item.Survey__r.gfsurveys__ResponseCount__c)}"/>
+                        </apex:column>
+                    </apex:dataTable>
+                    <br/>
+                </apex:panelGroup>
+
+                <div style="text-align: right;">
+                    <apex:commandButton value="Ok" action="{!inactivateGroup}" rerender="confirmationPopUp, table" onclick="hidePopUp()" oncomplete="unblockPage()"/>&nbsp;
+                    <apex:commandButton value="Cancel" action="{!closeGroupPopup}" rerender="confirmationPopUp" onclick="hidePopUp()" oncomplete="unblockPage()"/>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+
+
+    <!--
+    ---------------------------------------------------
+     Page code
+    --------------------------------------------------- -->
+    <apex:sectionHeader title="Groups" subtitle="Home"/>
+
+    <apex:form >
+        <label for="filterSelectList" style="font-weight: bold">View: </label>
+        <apex:selectList styleClass="filterSelectList" value="{!filter}" multiselect="false" size="1">
+            <apex:selectOptions value="{!filterList}" />
+        </apex:selectList>
+    </apex:form>
+
+    <apex:form >
+        <apex:outputPanel layout="block" styleClass="bNext" id="otpNav2">
+            <div class="withFilter">
+                <div class="next">
+                    <span>
+
+                        <apex:variable var="from" value="{!IF(paginator.resultSize==0,0,(paginator.pageNumber-1) * paginator.pageSize + 1)}"/>
+                        <apex:variable var="to" value="{!MIN(paginator.resultSize,paginator.pageNumber * paginator.pageSize)}"/>
+                        <apex:outputText value="{0,number,0}"><apex:param value="{!from}"/></apex:outputText>-
+                        <apex:outputText value="{0,number,0}"><apex:param value="{!to}"/></apex:outputText>&nbsp;of&nbsp;
+                        <apex:outputText value="{0,number,0}"><apex:param value="{!paginator.resultSize}"/></apex:outputText>
+                    </span>
+                    <apex:commandLink action="{!paginator.previous}" title="Previous Page" value="<Previous Page" rendered="{!paginator.hasPrevious}"/>
+                    <apex:outputPanel styleClass="greyedLink" style="color:grey" rendered="{!NOT(paginator.hasPrevious)}">&lt;Previous Page</apex:outputPanel>
+                    <apex:outputText value=" | "/>
+                    <apex:outputPanel styleClass="greyedLink" style="color:grey" rendered="{!NOT(paginator.hasNext)}">Next Page&gt;</apex:outputPanel>
+                    <apex:commandLink title="Next Page" value="Next Page>" rendered="{!paginator.hasNext}" action="{!paginator.next}"/>&nbsp;
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:form>
+
+    <br />
+
+    <apex:pageBlock id="table">
+        <apex:form >
+            <input type="button" onclick="window.location='{!URLFOR($Action.ContactGroup__c.New)}'" value="New Group" class="btn"/>&nbsp;|&nbsp;
+            <input type="button" onclick="activateSelectedGroups()" value="Activate" class="btn"/>
+            <input type="button" onclick="deactivateSelectedGroups()" value="Deactivate" class="btn"/>
+        </apex:form>
+        <br />
+
+        <apex:form >
+            <apex:pageBlockTable value="{!groupList}" var="item">
+                <apex:column title="Select"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:inputCheckbox onchange="changeAllCheckboxes()" styleClass="selectAllGroups"/>
+                    </apex:facet>
+                    <input type="checkbox" id="{!item.Id}" onchange="changeCheckbox()" class="checkbox"/>
+                </apex:column>
+
+                <apex:column title="Action" styleClass="{!item.Id} actionColumn " >
+                    <apex:facet name="header">
+                        <apex:outputText value="Action" />
+                    </apex:facet>
+
+                    <apex:commandLink value="Edit" action="{!URLFOR($Action.ContactGroup__c.Edit, item.Id)}" styleClass="actionLink"/> |&nbsp;
+
+                    <apex:commandLink value="Del" onclick="if(!confirm('Are you sure?')) return false;" action="{!URLFOR($Action.ContactGroup__c.Delete, item.Id)}" styleClass="actionLink"/> |&nbsp;
+
+                    <apex:commandLink value="Activate" action="{!activateGroup}" rendered="{!item.gfsurveys__Status__c == 'Inactive'}" styleClass="actionLink" rerender="table" onclick="blockPage()" oncomplete="unblockPage()">
+                        <apex:param name="currentGroup" value="{!item.Id}" assignTo="{!currentGroupId}"/>
+                        <apex:param name="targetIsSelection" value="false" assignTo="{!targetIsSelection}"/>
+                    </apex:commandLink>
+
+                    <apex:commandLink value="Inactivate" action="{!showPopUp}" rendered="{!item.gfsurveys__Status__c == 'Active'}" styleClass="actionLink" rerender="confirmationPopUp" onclick="blockPage()">
+                        <apex:param name="currentGroup" value="{!item.Id}" assignTo="{!currentGroupId}"/>
+                        <apex:param name="targetIsSelection" value="false" assignTo="{!targetIsSelection}"/>
+                    </apex:commandLink>
+                </apex:column>
+
+                <apex:column title="Status"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.gfsurveys__Status__c.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="Status__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField value="{!item.gfsurveys__Status__c}"/>
+                </apex:column>
+
+                <apex:column title="Group Name"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.Name.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="Name" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:commandLink value="{!item.Name}"  action="{!URLFOR($Action.ContactGroup__c.View, item.Id)}"/>
+                </apex:column>
+
+                <apex:column title="Member Count"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.gfsurveys__MemberCount__c.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="MemberCount__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField value="{!item.gfsurveys__MemberCount__c}"/>
+                </apex:column>
+
+                <apex:column title="Survey Count"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.gfsurveys__SurveyCount__c.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="SurveyCount__c" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField value="{!item.gfsurveys__SurveyCount__c}"/>
+                </apex:column>
+
+                <apex:column title="Last Modified Date"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.LastModifiedDate.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="LastModifiedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField value="{!item.LastModifiedDate}"/>
+                </apex:column>
+
+                <apex:column title="Created Date"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.CreatedDate.Label}" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="CreatedDate" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField value="{!item.CreatedDate}"/>
+                </apex:column>
+
+                <apex:column title="Created By"  styleClass="{!item.Id}" >
+                    <apex:facet name="header">
+                        <apex:commandLink value="Created By" action="{!doSort}" rerender="table, otpNav2">
+                            <apex:param name="sortField" value="CreatedById" assignTo="{!tableOrderColumn}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputField value="{!item.CreatedById}"/>
+                </apex:column>
+
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

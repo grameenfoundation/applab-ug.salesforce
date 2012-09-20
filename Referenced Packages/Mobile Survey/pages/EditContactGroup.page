@@ -1,0 +1,113 @@
+<apex:page standardController="gfsurveys__ContactGroup__c" 
+    extensions="gfsurveys.ContactGroupControllerExtension" tabstyle="ContactGroups__tab">
+    <apex:sectionHeader title="Group Edit" subtitle="New Group"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <style type="text/css">
+        .listColumn{
+            text-align: center;
+            width: 200px;
+        }
+        
+        .listSelect{
+            min-width: 150px;
+            height: 200px;
+        }
+        
+        #description{
+            width: 300px;
+        }
+    </style>
+    
+    <apex:form >
+        <apex:actionFunction name="addMember" action="{!addMember}" rerender="memberSection, groupInfo"/>
+        <apex:actionFunction name="removeMember" action="{!removeMember}" rerender="memberSection, groupInfo"/>
+        <apex:actionFunction name="addSurvey" action="{!addSurvey}" rerender="surveySection, groupInfo"/>
+        <apex:actionFunction name="removeSurvey" action="{!removeSurvey}" rerender="surveySection, groupInfo"/>
+        
+        <apex:pageBlock title="Group Edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveGroup}" value="Save"/>
+                <apex:commandButton action="{!saveAndNew}" value="Save & New"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection id="groupInfo" title="Information" collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.Name.label}" />
+                    <apex:outputPanel id="messages">
+                        <apex:inputField id="name" value="{!gfsurveys__ContactGroup__c.Name}" required="true"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.gfsurveys__ContactGroup__c.Fields.gfsurveys__Description__c.label}" />
+                    <apex:outputPanel id="messages">
+                        <apex:inputField id="description" value="{!gfsurveys__ContactGroup__c.gfsurveys__Description__c}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockSection id="memberSection" title="Add Member" collapsible="false" columns="3">
+                <apex:panelGrid columns="3" columnClasses="listColumn">
+                    <apex:outputLabel value="Non Member" />
+                    <apex:outputLabel value="" />
+                    <apex:outputLabel value="Member" />
+                    
+                    <apex:selectList value="{!selectedNonMemberList}" multiselect="true" styleClass="listSelect">
+                        <apex:selectOptions value="{!nonMemberList}" />
+                    </apex:selectList>
+                    <apex:panelGroup >
+                        <br /> <br />
+                        <input type="button" value="Add >" onclick="addMember()" class="btn"/> <br /> <br />
+                        <input type="button" value="< Remove" onclick="removeMember()" class="btn"/>
+                    </apex:panelGroup>
+                    <apex:selectList value="{!selectedMemberList}" multiselect="true" styleClass="listSelect">
+                        <apex:selectOptions value="{!memberList}" />
+                    </apex:selectList>
+                </apex:panelGrid>
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockSection id="surveySection" title="Add Survey" collapsible="false" columns="3">
+                <apex:panelGrid columns="3" columnClasses="listColumn" rendered="{!gfsurveys__ContactGroup__c.gfsurveys__Status__c!='Inactive'}">
+                    <apex:outputLabel value="Unassigned to this group" />
+                    <apex:outputLabel value="" />
+                    <apex:outputLabel value="Assigned to this group" />
+                    
+                    <apex:selectList value="{!selectedUnassignedSurveyList}" multiselect="true" styleClass="listSelect">
+                        <apex:selectOptions value="{!unassignedSurveyList}" />
+                    </apex:selectList>
+                    <apex:panelGroup >
+                        <br /> <br />
+                        <input type="button" value="Add >" onclick="addSurvey()" class="btn"/> <br /> <br />
+                        <input type="button" value="< Remove" onclick="removeSurvey()" class="btn"/>
+                    </apex:panelGroup>
+                    <apex:selectList value="{!selectedAssignedSurveyList}" multiselect="true" styleClass="listSelect">
+                        <apex:selectOptions value="{!assignedSurveyList}" />
+                    </apex:selectList>
+                </apex:panelGrid>
+                
+                <apex:panelGroup rendered="{!gfsurveys__ContactGroup__c.gfsurveys__Status__c=='Inactive'}">
+                    <h1>Assigned Surveys</h1> <br/><br/>
+                    <apex:outputText rendered="{!surveyAssignments.size==0}">This group don't have any survey assigned. To add surveys you have to activate the group.</apex:outputText>
+                    <apex:pageBlockTable value="{!surveyAssignments}" var="item"  rendered="{!surveyAssignments.size>0}">
+                        <apex:column title="Name">
+                            <apex:facet name="header">{!$ObjectType.gfsurveys__Survey__c.Fields.Name.Label}</apex:facet>
+                            <apex:outputText >{!item.Survey__r.Name}</apex:outputText>
+                        </apex:column>
+                        <apex:column title="Alias">
+                            <apex:facet name="header">{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__Alias__c.Label}</apex:facet>
+                            <apex:outputText >{!item.Survey__r.gfsurveys__Alias__c}</apex:outputText>
+                        </apex:column>
+                        <apex:column title="Published">
+                            <apex:facet name="header">{!$ObjectType.gfsurveys__ContactGroupSurveyAssignment__c.Fields.gfsurveys__DatePublishedToThisGroup__c.Label}"</apex:facet>
+                            <apex:outputText value="{0,date,medium}">
+                                <apex:param value="{!item.gfsurveys__DatePublishedToThisGroup__c}" />&nbsp;
+                            </apex:outputText>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:panelGroup>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

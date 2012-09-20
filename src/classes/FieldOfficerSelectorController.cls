@@ -97,5 +97,13 @@ public with sharing class FieldOfficerSelectorController extends ChildComponentB
         }
         return ' WHERE Type__c = \'Field Officer\' ' + clause;
     }
+    
+    static testMethod void testFieldOfficerSelectorController() {
+    	FieldOfficerSelectorController fieldOfficerSelectorController = new FieldOfficerSelectorController();
+    	fieldOfficerSelectorController.getFieldOfficers();
+    	fieldOfficerSelectorController.refreshData();
+    	fieldOfficerSelectorController.getValues();
+    	fieldOfficerSelectorController.getActionFunctionName();
+    }
 
 }

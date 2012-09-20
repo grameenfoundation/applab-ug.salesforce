@@ -1,0 +1,94 @@
+<apex:page standardController="gfsurveys__ContactGroup__c" extensions="gfsurveys.DeleteContactGroupController" tabStyle="ContactGroups__tab">
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+        
+    <c:blockOverlay label="Loading..."/>
+    
+    <!--
+    ---------------------------------------------------
+     Style classes
+    --------------------------------------------------- -->
+    <style type="text/css">
+
+        
+    </style>
+    
+    <!--
+    ---------------------------------------------------
+     Javascript functions
+    --------------------------------------------------- -->
+    <script type="text/javascript">
+    
+        function goBack(){
+            window.history.go(-1);
+        }
+        function goList(){
+            window.location = '{!$Page.ContactGroupList}';
+        }
+    </script>
+    <apex:form >
+        <apex:actionFunction name="doDelete" action="{!deleteContactGroup}" oncomplete="goList()" />
+    </apex:form>
+    
+    
+    <!--
+    ---------------------------------------------------
+     Page code
+    --------------------------------------------------- -->
+    <script type="text/javascript">
+        if({!NOT(activeSurvey.size>0)}){
+            doDelete();
+            blockPage();
+        }
+    </script>
+
+   
+    <!--
+    ---------------------------------------------------
+     PopUp panel 
+    --------------------------------------------------- -->
+    <apex:form >
+        <apex:outputPanel id="confirmationPopUp" >
+            <apex:outputPanel layout="block" rendered="{!activeSurvey.size>0}" styleClass="custPopup"> 
+                <apex:sectionHeader title="Group delete" subtitle="{!gfsurveys__ContactGroup__c.Name}"/>
+                
+                <apex:outputText >The group that you are about to delete has at least one active survey.<br />
+                                  Do you want to delete it anyway?
+                </apex:outputText>
+                <br/>
+                <br/>
+                <apex:pageBlock id="pageBlock" >
+                <apex:pageBlockTable var="item" value="{!activeSurvey}" width="100%">
+                    <apex:column >
+                        <apex:facet name="header">
+                            <apex:outputText value="{!$ObjectType.gfsurveys__Survey__c.Fields.Name.Label}" />
+                        </apex:facet>
+                        <apex:outputText value="{!item.Survey__r.Name}"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <apex:outputText value="{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__PublishedDate__c.Label}" />
+                        </apex:facet>
+                        <apex:outputText value="{0,date,medium}">
+                            <apex:param value="{!item.Survey__r.gfsurveys__PublishedDate__c}" />
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <apex:outputText value="{!$ObjectType.gfsurveys__Survey__c.Fields.gfsurveys__ResponseCount__c.Label}" />
+                        </apex:facet>
+                        <apex:outputText value="{!FLOOR(item.Survey__r.gfsurveys__ResponseCount__c)}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageBlock>
+
+                
+                <br/>
+                <div style="text-align: center;">
+                    <apex:commandButton value="Ok" action="{!deleteContactGroup}" onclick="blockPage()" oncomplete="goList()"/>&nbsp;
+                    <apex:commandButton id="cancel" value="Cancel" onclick="blockPage()" oncomplete="goBack()" immediate="true"/>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+    
+</apex:page>

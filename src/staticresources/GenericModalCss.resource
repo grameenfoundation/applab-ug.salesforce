@@ -1,7 +1,7 @@
 #genericMask {
     position:absolute;
     z-index:9000;
-    background-color:#00467e;
+    background-color:#388DC6;
     display:none;
 }
 
@@ -20,18 +20,19 @@
 }
 
 #genericModalContainer {
-    background-color:#FFC600;
+    background-color:#FFFFFF;
     width:375px; 
     height:185px;
 }
 
 #genericModalBlankSpace {
-    background-color:#FFC600
+    background-color:#FFFFFF
 }
 
 #genericModalMessage {
-    background-color:#FFC600;
-    width:375px; 
+    background-color:#FFFFFF;
+    color:#55AA55;
+    width:470px; 
     height:100px;
     font-weight: bolder;
     font-size: 16;

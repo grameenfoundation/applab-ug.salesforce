@@ -1,6 +1,11 @@
-<apex:page >
-  <!-- Begin Default Content REMOVE THIS -->
-  <h1>Congratulations</h1>
-  This is your new Page: LacDashboardCertProd
-  <!-- End Default Content REMOVE THIS -->
+<apex:page sidebar="false" controller="LacPublicDashboardController">
+    <apex:pageBlock title="Certification & Production">
+        <apex:pageBlockTable value="{!certProdData}" var="item">
+            <apex:column headerValue="Metric" width="400px" value="{!item.name}"/>
+            <apex:column headerValue="Cocoa" width="70px" value="{!item.value1}"/>
+            <apex:column headerValue="Coffee" width="70px" value="{!item.value2}"/>
+            <apex:column headerValue="Plantain" width="70px" value="{!item.value3}"/>
+            <apex:column headerValue="Banana" width="70px" value="{!item.value4}"/>
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
 </apex:page>

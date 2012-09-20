@@ -7,6 +7,11 @@
 .right {
     text-align:right
 }
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .startAjax {
     color:green;
     font-size:12px;
@@ -82,8 +87,18 @@
     margin:2px;
     width:250px
 }
+.tableColumnNarrowDropDown {
+    display:inline;
+    float:left;
+    padding:2px;
+    margin:2px;
+    width:150px
+}
 .apexDropDown {
     width:250px
+}
+.apexNarrowDropDown {
+    width:150px
 }
 .inputField {
     width:250px

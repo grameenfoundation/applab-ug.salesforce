@@ -15,7 +15,7 @@ function generateGraph () {
             'vAxis' : {title: this.yAxisTitle, titleTextStyle: {color: this.yAxisColor}},
             'title': this.title,
             'titleTextStyle' : {color: this.titleColor},
-            'legendTextStyle' : {color: this.legendColor}
+            'legend' : {position: 'top', textStyle: {color: this.legendColor, fontSize: 10}}
         }
     });
     google.visualization.events.addListener(this.chart, 'ready', chartReady(this.graphId));
@@ -30,7 +30,6 @@ function rebuildDataTable() {
 
 // Draw the graph. Class method for graphDetails.
 function drawGraph() {
-
     var graphWidth = j$('#' + this.graphId).width();
     this.chart.draw();
     if (this.showDataInline) {

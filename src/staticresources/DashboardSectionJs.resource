@@ -12,7 +12,8 @@ function addSectionRefreshStore(sectionKey, key) {
 }
 function refreshDashboardSection(sectionKey) {
 
-        var idList = sectionRefreshStore[sectionKey];
+    clearErrorsFromPage();
+    var idList = sectionRefreshStore[sectionKey];
     if (typeof idList == "undefined") {
         return;
     }

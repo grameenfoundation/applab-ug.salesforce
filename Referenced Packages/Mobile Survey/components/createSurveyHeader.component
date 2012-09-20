@@ -1,0 +1,92 @@
+<apex:component >
+    <apex:attribute type="String" name="selected" description="Selected header"/>
+    <apex:attribute type="String" name="styleClassHeader" description="Style class header component"/>
+    <apex:attribute type="String" name="backgroundUnSelected" description="Color backgroud unselected header"/>
+    <apex:attribute type="String" name="isPPI" description="Survey type is PPI"/>
+    <apex:attribute type="string" name="saveFunction" description="Javascript code to save changes in the page" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}"/>
+    <apex:includeScript value="{!$Resource.gfsurveys__jquerySimpleModal}" />
+    
+    <style type="text/css">
+    .unsavedChangesDialog{display:none;}
+    #simplemodal-overlay {background-color:#000;}
+    #simplemodal-container {background-color:white; border:3px solid #444; padding:12px;}
+    .butn{float:right;cursor:pointer;}
+    </style>
+    
+    <apex:outputPanel styleClass="popupBackground" layout="block"/>
+    <apex:outputPanel id="WithoutSavePanel" styleClass="unsavedChangesDialog">
+        <apex:outputText >You did not save changes yet, what do you want to do?</apex:outputText>
+        <br/>
+        <br/>
+        <button type="button" class="butn" onclick="cancel();">Cancel</button>
+        <button type="button" class="butn" onclick="doRedirect();">Discard</button>
+        <button type="button" class="butn" onclick="savePopup();">Save</button>
+    </apex:outputPanel>
+    
+    <script type="text/javascript">
+        var settingUrl = "{!$Page.surveySetting}";
+        var questionsectionUrl = "{!$Page.SurveyQuestion}";
+        var scoringUrl = "{!$Page.SurveyScoring}";
+        var lookuptablesUrl = "{!$Page.LookupTables}";
+        var skiplogicUrl = "{!$Page.SurveyQuestionLogic}";
+        var previewUrl = "{!$Page.SurveyBuilderPreview}";
+        var fieldmappingUrl = "{!$Page.SurveyFieldMapping}";
+        var hasUnsavedChanges = false;
+        var redirectTo;
+        var popupSave = false;
+        var tdSelection = 'table#navigationBar td';
+
+        $(document).ready(function(){
+ 
+            $(tdSelection + ':not(.{!selected})').css({background:'{!backgroundUnSelected}', cursor: 'pointer'});
+
+            $(tdSelection).click(function(){
+                redirectTo = $(this).attr('class');
+                if(hasUnsavedChanges){
+                     $('.unsavedChangesDialog').modal();//Shows dialog
+                }else{
+                    doRedirect();
+                }
+            });
+          }
+        );
+
+        function cancel(){
+            $.modal.close(); // closes the open dialog
+        }
+        function doRedirect(){
+            hasUnsavedChanges = false;
+            if (redirectTo != "{!selected}"){
+                location.href = eval(redirectTo.toLowerCase()+'Url') + "?id={!$CurrentPage.parameters.id}";
+            }      
+        }
+        function savePopup(){
+            popupSave=true;
+            {!IF(saveFunction != null && saveFunction != 'null', saveFunction, '')}
+            $.modal.close(); // closes the open dialog
+        }
+    </script>
+
+    <table width="100%" class="{!styleClassHeader}" id="navigationBar">
+        <tr>
+            <td align="center" class="SETTING">SETTING</td>
+            <td align="center" class="QUESTIONSECTION">QUESTION BUILDER</td>
+            <td align="center" class="SCORING">SCORING</td>
+            <td align="center" class="LOOKUPTABLES">LOOKUP TABLES</td>
+            <td align="center" class="SKIPLOGIC">LOGIC</td>
+            <td align="center" class="FIELDMAPPING">FIELD MAPPING</td>
+            <td align="center" class="PREVIEW">PREVIEW</td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var tabWidth = '14%';
+        if(!{!isPPI}){
+            $('.LOOKUPTABLES').remove();
+            tabWidth = '16%';
+        }
+
+        $(tdSelection).attr('width', tabWidth);
+    </script>
+    <br/>
+</apex:component>

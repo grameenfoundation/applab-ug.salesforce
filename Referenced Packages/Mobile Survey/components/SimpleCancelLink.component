@@ -1,0 +1,51 @@
+<apex:component >
+<apex:attribute name="targetURL" description="URL to go when the user DO cancel." type="String" required="true"/>
+<apex:attribute name="text" description="Text to show on the link" type="String" default="Cancel"/>
+
+<style type="text/css">
+#cancel-dialog{
+    background:white;
+    border:1px solid black;
+    padding:0 10px;
+    width:200px;
+    position:absolute;
+    display:none;
+    text-align:left;
+}
+</style>
+    
+<script type="text/javascript">            
+// Shows the cancel dialog right near the cancel link.
+function showCancelDialog(elem){
+$('#cancel-dialog')
+    .show()
+    .position({
+        my: 'right bottom',
+        at: 'right top',
+        of: $(elem),
+        offset: '0 -2px'
+    });
+}
+
+// Prepares the cancel dialog to dissapear when focus is lost
+var mouse_on_cancel_dialog = false;
+
+$('#cancel-dialog').hover(
+    function(){ mouse_on_cancel_dialog=true; }, 
+    function(){ mouse_on_cancel_dialog=false; }
+);
+
+$("body").mouseup(function(){ 
+    if(! mouse_on_cancel_dialog) $('#cancel-dialog').hide();
+});
+</script>
+
+<div id="cancel-dialog">
+    <p>You will lose all unsaved changes.<br/>Are you sure?</p>
+    <p align="right">
+        <a id="cancel-yes" href="{!targetURL}">Yes, I'm sure</a>&nbsp;|&nbsp;<a id="cancel-no" href="#" onclick="$('#cancel-dialog').hide();return false;">No, wait!</a>
+    </p>
+</div>
+<a href="#" onclick="showCancelDialog(this); return false;" id="lnkCancel">{!text}</a>
+
+</apex:component>

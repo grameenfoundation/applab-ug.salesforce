@@ -48,12 +48,4 @@
         }
         return location;
     }
-
-    static testMethod void testMarker() {
-
-        Farmer__c farmer = new Farmer__c();
-        FarmerMapMarker marker = new FarmerMapMarker(farmer);
-        marker.getMarkerInfoContentString();
-    }
-
 }

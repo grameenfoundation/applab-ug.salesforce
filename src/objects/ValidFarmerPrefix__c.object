@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Protected</customSettingsVisibility>
+    <description>All the farmer prefixes that are valid for a given country</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Current__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates that this is the prefix that we are currently using to generate farmer ids</description>
+        <externalId>false</externalId>
+        <label>Current</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Prefix__c</fullName>
+        <description>The prefix that is put at the front of a farmer id</description>
+        <externalId>false</externalId>
+        <label>Prefix</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <label>Valid Farmer Prefix</label>
+</CustomObject>

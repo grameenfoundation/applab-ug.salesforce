@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The PPI warehouse object to store the PPI data until the new platform is ready</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Uganda</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Colombia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <description>The date the ppi was carried out</description>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <description>The person that this PPI is for</description>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>PPI Datas</relationshipLabel>
+        <relationshipName>PPI_Datas</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Question_10__c</fullName>
+        <description>The tenth question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 10</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_1__c</fullName>
+        <description>The first question on the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 1</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_2__c</fullName>
+        <description>The second field on the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 2</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_3__c</fullName>
+        <description>The third question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 3</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_4__c</fullName>
+        <description>The fourth question on the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 4</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_5__c</fullName>
+        <description>The fifth question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 5</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_6__c</fullName>
+        <description>The sixth question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 6</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_7__c</fullName>
+        <description>The seventh question for the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 7</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_8__c</fullName>
+        <description>The eighth question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 8</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_9__c</fullName>
+        <description>The ninth question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 9</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Score__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The score for this ppi</description>
+        <externalId>false</externalId>
+        <label>Score</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <description>The version of the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Version</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <label>PPI Data</label>
+    <nameField>
+        <displayFormat>PPI{0000000000}</displayFormat>
+        <label>PPI Data Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PPI Datas</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -13,8 +13,10 @@ public with sharing class DashboardSectionController extends ParentComponentBase
     }
 
     public override void rebuildParameters() {
-        this.getParentMap().get('DashboardSelector' + dashboardSection.Id).rebuildParameters();
-        this.setParameters(this.getParentMap().get('DashboardSelector' + dashboardSection.Id).getParameters());
+        if (null != this.getParentMap() && null != this.getParentMap().get('DashboardSelector' + dashboardSection.Id)) {
+            this.getParentMap().get('DashboardSelector' + dashboardSection.Id).rebuildParameters();
+            this.setParameters(this.getParentMap().get('DashboardSelector' + dashboardSection.Id).getParameters());
+        }
     }
 
     private List<Graph_Parameter__c> graphs;
@@ -92,6 +94,44 @@ public with sharing class DashboardSectionController extends ParentComponentBase
     }
     public void setMetrics(List<Metric_Section__c> metrics) {
         this.metrics = metrics;
+    }
+
+    // Should only every be one selector per section. Therefore will use the most recent active one for the section
+    private Dashboard_Selector__c selector;
+    public Dashboard_Selector__c getSelector() {
+
+        List<Dashboard_Selector__c> selectors = 
+            [SELECT
+                Show_Dates__c,
+                Show_Metric_Date_Selector__c,
+                Show_Country__c,
+                Show_Region__c,
+                Show_District__c,
+                Show_Subcounty__c,
+                Show_Person__c,
+                Show_Data_Validator__c,
+                Show_CKW__c,
+                Show_Farmer__c,
+                Show_Field_Officer__c,
+                Show_MTN_Chan__c,
+                Date_Period__c,
+                Start_Date__c,
+                Show_Submit_Button__c
+            FROM
+                Dashboard_Selector__c
+            WHERE
+                Is_Active__c = true
+                AND Dashboard_Section__r.Name = :dashboardSection.Name
+            ORDER BY
+                CreatedDate DESC];
+
+        if (selectors.size() == 0) {
+            return null;
+        }
+        return selectors[0];
+    }
+    public void setSelector(Dashboard_Selector__c value) {
+        this.selector = value;
     }
 
     public override String getHandle() {

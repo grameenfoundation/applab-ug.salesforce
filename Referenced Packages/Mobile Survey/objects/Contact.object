@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>mobilesurveys_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>mobilesurveys Id</label>
+        <length>15</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>mobilesurveys_LastCheckInDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Check In Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>mobilesurveys_LastCheckInDevice__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>mobilesurveys Last Check In Device</label>
+        <referenceTo>Device__c</referenceTo>
+        <relationshipLabel>Contacts</relationshipLabel>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>mobilesurveys_Password__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Password</label>
+        <length>64</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>mobilesurveys_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blocked</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mobilesurveys_Username__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Username</label>
+        <length>64</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <listViews>
+        <fullName>Surveyors</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>mobilesurveys_Username__c</columns>
+        <columns>mobilesurveys_Password__c</columns>
+        <columns>mobilesurveys_Status__c</columns>
+        <columns>mobilesurveys_LastCheckInDate__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>mobilesurveys_Username__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Surveyors</label>
+    </listViews>
+    <webLinks>
+        <fullName>ActivateContact</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Activate</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.Contact)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to activate.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+
+      var toActivateContacts = new Array(); 
+      for( i = 0; i &lt; records.length; i ++){
+               var con = new sforce.SObject(&quot;Contact&quot;);
+               con.Id = records[i];
+               con.mobilesurveys_Status__c = &apos;Active&apos;;
+               toActivateContacts.push(con);
+      }
+      result = sforce.connection.update(toActivateContacts);
+      window.location.reload();
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>DeactivateContact</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Deactivate</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.Contact)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to deactivate.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+
+      var toDeactivateContacts = new Array();
+      for( i = 0; i &lt; records.length; i ++){
+               var con = new sforce.SObject(&quot;Contact&quot;);
+               con.Id = records[i];
+               con.mobilesurveys_Status__c = &apos;Inactive&apos;;
+               toDeactivateContacts.push(con);
+      }
+      result = sforce.connection.update(toDeactivateContacts);
+      window.location.reload();
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>DeleteContact</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Delete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.Contact)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to delete.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+   if(confirm(&apos;Are you sure you want to delete selected Contacts?&apos;)){
+      var delContacts = sforce.connection.deleteIds(records);
+      var validationMessage = &apos;&apos;;
+      for( i = 0; i &lt; delContacts.length; i ++){
+           if(!delContacts[i].getBoolean(&quot;success&quot;)){
+                validationMessage += delContacts[i].errors.message + &apos; \n\r &apos; ;
+           }
+      }
+      if( validationMessage != &apos;&apos; ){
+             alert(&apos;The following Contacts could not be deleted: \r\n \r\n &apos; + validationMessage );
+      }
+      window.location.reload();
+   }
+}</url>
+    </webLinks>
+</CustomObject>

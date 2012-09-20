@@ -1,0 +1,810 @@
+<apex:page tabStyle="SurveyManager__tab" standardController="gfsurveys__Survey__c" sidebar="false" action="{!checkLicense}"
+    extensions="gfsurveys.SurveyQuestionLogicController">
+    <apex:sectionHeader title="{!gfsurveys__Survey__c.Name}"
+        subtitle="{!gfsurveys__Survey__c.gfsurveys__Alias__c}" />
+    <c:createSurveyHeader styleClassHeader="tertiaryPalette"
+        selected="SKIPLOGIC" backgroundUnSelected="white" isPPI="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}" saveFunction="save(true)"/>
+
+    <c:blockOverlay label="Loading..."/>
+
+    <apex:includeScript value="{!$Resource.gfsurveys__json2min}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery_validate}" />
+
+<style type="text/css">
+    .hint{
+        padding-left: 10px;
+        font-size: 90%;
+        width: 80%;
+        text-align: justify;
+    }
+
+    .long_input, .short_input{
+        width: 80%;
+        background-color: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #000;
+    }
+    .long_input{height: 100px;}
+    .short_input{height: 30px;}
+    .number_input{
+        height:20px;
+        border:2px solid black;
+        width:65%;
+    }
+
+    .container{height:40px;}
+
+    .blankSpace{
+        width: 1%;
+        height: 30px;
+        background-color: WhiteSmoke;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    .colon{
+        height: 30px;
+        background-color: WhiteSmoke;
+        font-weight: bold;
+        padding-top: 7px;
+    }
+
+    .Qerrors {
+        width: 100%;
+        background-color: #FFCC99;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        padding: 8px;
+        display: none;
+        color: #000;
+        font-weight: bold;
+    }
+    .cursor {cursor: pointer;}
+    .questions{min-height:20px;}
+    #content {width: 100%;}
+
+    #buttons {margin:20px 2px;float:right;}
+
+    .field-types div {cursor: pointer;}
+    .buttonType {cursor: pointer;}
+
+    textarea{resize:none;}
+
+    div.optionsClass>div{margin-bottom:10px;}
+    div.optionsClass>div>input{display:inline-block;width:400px;height:20px;border:2px solid black;margin-right:10px;}
+    div.optionsClass>div>div{display:inline-block;margin-left:4px;}
+
+    .option_caption{display:inline-block;margin:0px 10px 10px 4px;width: 15%;text-align:right;}
+
+    .option_input{
+        display:inline-block;
+        background-color: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #000;
+        width: 62%;
+        height: 25px;}
+
+    .single-multi_select{margin:0px 0px 5px 4px;}
+
+
+    div.header div.actions{width:auto;float:right;}
+    div.header div.sectionFooter{width:auto;float:right;}
+    div.header div.actions>a{padding:0 4px;}
+    label.error{font-family:sans-serif;color:red;}
+
+    div.editable div.footer{margin:10px 10px 0; text-align:right;}
+
+    div.number div.body div{display: block;}
+    div.number div.body input{width:80px}
+    div.number div.body input[type=checkbox]{width:auto}
+
+    #questionArea {margin:0 auto;background:#eee;min-width:770px;min-height:60px;}
+    #questionArea>p {font-size:10pt;}
+
+    div.section {margin-bottom:-16px;padding:2px;}
+    div.section>div.header{margin:12px;padding:10px;overflow:hidden;}
+    div.section>div.header .caption, div.section>div.header input[name=caption]{font-size:large;}
+
+    div.question {margin:12px;padding:10px;}
+    div.question input, div.question select{margin-left:10px;}
+
+    div.question.readonly {background:#ddd;}
+    div.question.readonly div.body {position:relative;padding:0 0 0 32px;color:#666;}
+    div.question.readonly div.body p{margin:1px 0;}
+    div.question.readonly div.body p:first-child{margin:3px 0;}
+    div.question .caption{font-size:large;}
+    div.question.readonly.text div.option label{min-width:100px;display:inline-block;text-align:right;}
+    div.question.readonly div.tags{position:absolute;right:4px;bottom:0;color:#666;}
+    div.question.readonly div.tags span{display: block;text-align:right;}
+    div.question div.header {margin-left: 40px;}
+    div.question div.header>div{display:inline-block;}
+    div.question div.header div.name {margin-left:5px;color:#666;}
+    div.question.readonly label.readonlyNegation{font-weight: bold; color: maroon;}
+
+    div.question.editable{background:#fff;border:3px solid gray;}
+    div.question.editable div.header{position:relative;}
+    div.question.editable form {margin-left:-10px;}
+    div.question.editable div.body>form{margin-left:20px;}
+    div.question.editable input[type=button].addConditionBtn{width:120px;}
+    div.condition {display:block;}
+    div.question.editable a.conditionDelete{margin-left: 5px;}
+    div.question.editable div.conditions input[type=text]{width:145px;}
+    div.question.editable span.conditionNegation {display:inline-block; width: 60px;}
+
+    div.question.cut{background: none repeat scroll 0 0 #FFFFFF;border: 2px dashed gray;}
+    div.currentTime{margin:0 80px}
+
+    label.questionAutoNumber{margin-right:10px; margin-left:-40px; color:#6d6d6d;}
+    label.sectionAutoNumber{ margin-right:10px; margin-left:2 0px; color:#6d6d6d;}
+    .placeholderQuest {opacity:0.4;margin:12px;padding:10px;}
+    .placeholderSec {opacity:0.4;margin-bottom:-16px;padding:2px}
+
+    .avoidOverlap{margin-bottom:15px;}
+
+</style>
+    <div id="content">
+        <apex:pageMessages id="errorMessages" ></apex:pageMessages>
+        <div id="questionArea" class="questionAreaClass"></div>
+    </div>
+
+    <apex:form >
+        <span id="existing-questions" style="display:none">{!questions}</span>
+
+        <div id="buttons">
+            <c:SimpleCancelLink targetURL="{!$Page.gfsurveys__SurveyManager}" />&nbsp;&nbsp;
+            <button id="btnSave" type="button" onClick="return save(true)">Save</button>&nbsp;&nbsp;
+            <button id="btnSaveContinue" type="button" onClick="return save(false)">Save and continue</button>
+        </div>
+
+        <apex:actionFunction name="postSave"
+            action="{!save}"
+            oncomplete="afterPostSave()"
+            reRender="errorMessages">
+            <apex:param name="questions" value="" />
+            <apex:param name="quicksave" value="" />
+        </apex:actionFunction>
+
+    </apex:form>
+
+    <script type="text/javascript"  >
+
+        // QUESTION TYPES
+        TYPE_SECTION       = 'section';
+        TYPE_TEXT          = 'text';
+        TYPE_TEXT_SHORT    = 'text-short';
+        TYPE_TEXT_LONG     = 'text-long';
+        TYPE_TEXT_MULTI    = 'text-multiple';
+        TYPE_NUMBER        = 'number';
+        TYPE_NUMBER_INTEGER= 'number-integer';
+        TYPE_NUMBER_DECIMAL= 'number-decimal';
+        TYPE_DATE          = 'date';
+        TYPE_DATE_DATE     = 'date-date';
+        TYPE_DATE_DATETIME = 'date-datetime';
+        TYPE_RADIO         = 'radio';
+        TYPE_CHECKBOX      = 'checkbox';
+        FIRST_SECTION      = '1';// Constant to move the section to first place in page
+        //Non Logical Question MAP
+        NONE_LOGICAL_QUESTIONS = {!nonLogicQuestions};
+
+        // CONDITIONS
+        var conditionText = {
+            'Answered'   :'Is Answered',
+            'Is'         :'Is',
+            'LesserThan' :'Lesser than',
+            'GreaterThan':'Greater than'
+        };
+
+        //CONDITIONS THAT NEED EXTRA FIELD TO SPECIFY
+        var conditionsWithValue = ["Is", "LesserThan", "GreaterThan"];
+
+        //QUESTIONS IN WHICH EXTRA FIELD IS COMBO
+        var questionsWithCombo = [TYPE_RADIO, TYPE_CHECKBOX];
+
+        //QUESTIONS IN WHICH EXTRA FIELD IS NUMERIC
+        var questionsWithNumberInteger = [TYPE_NUMBER_INTEGER];
+        var questionsWithNumberDecimal = [TYPE_NUMBER_DECIMAL];
+
+        //TYPES OF CONDITIONS
+        var COMBO_TYPE = 'comboCondition';
+        var NUMERIC_INTEGER_TYPE = 'numericIntegerCondition';
+        var NUMERIC_DECIMAL_TYPE = 'numeriDecimalCondition';
+        var STRING_TYPE = 'stringCondition';
+
+        //attributes for numeric and string condition value fields
+        var inputAttrs = new Array();
+        inputAttrs[NUMERIC_INTEGER_TYPE] = {"placeholder":"Please type the number","class":NUMERIC_INTEGER_TYPE,"maxlength":"255"};
+        inputAttrs[NUMERIC_DECIMAL_TYPE] = {"placeholder":"Please type the number","class":NUMERIC_DECIMAL_TYPE,"maxlength":"255"};
+        inputAttrs[STRING_TYPE]  = {"placeholder":"Please type the filter","class":STRING_TYPE,"maxlength":"255"};
+
+        //QUESTION SKIP CONDITION OPERATIONS
+        var slBehavior = new Array();
+        slBehavior['Show'] = 'Show';
+        slBehavior['Hide'] = 'Hide';
+        var slOperator = new Array();
+        slOperator['All'] = 'All';
+        slOperator['Any'] = 'Any';
+
+
+        // MAP EACH QUESTION TYPE WITH THE CONDITIONS THEY CAN HAVE
+        var availableConditions = {};
+        availableConditions[TYPE_TEXT]          = ['Answered','Is'];
+        availableConditions[TYPE_TEXT_SHORT]    = ['Answered','Is'];
+        availableConditions[TYPE_TEXT_LONG]     = ['Answered','Is'];
+        availableConditions[TYPE_TEXT_MULTI]    = ['Answered'];
+        availableConditions[TYPE_NUMBER]        = ['Answered','Is','LesserThan','GreaterThan'];
+        availableConditions[TYPE_NUMBER_INTEGER]= ['Answered','Is','LesserThan','GreaterThan'];
+        availableConditions[TYPE_NUMBER_DECIMAL]= ['Answered','Is','LesserThan','GreaterThan'];
+        availableConditions[TYPE_DATE]          = ['Answered'];
+        availableConditions[TYPE_DATE_DATE]     = ['Answered'];
+        availableConditions[TYPE_DATE_DATETIME] = ['Answered'];
+        availableConditions[TYPE_RADIO]         = ['Answered','Is'];
+        availableConditions[TYPE_CHECKBOX]      = ['Answered','Is'];
+
+        var questions = new Array(); // Questions Array
+        var isEditing = false; // Flag, limit the menu usage when a question is in edit or is new yet.
+
+        // GENERAL PURPOSE HELPER METHODS
+        function newId(){ return new Date().getTime().toString(36); }
+
+        // removes all existing autonumbers, and adds new ones based on the order of the questions
+        function setQuestionAutoNumber(){
+            var i = 1;
+            var s = 1;
+            $('.question .questionAutoNumber').remove();
+            $('.question.readonly').each(function(){
+                $(this).find('.caption').prepend('<label class="questionAutoNumber">Q' + i + '</label>');
+                i++;
+            });
+             $('.sectionHeader .sectionAutoNumber').remove();
+            $('.sectionHeader').each(function(){
+                $(this).find('.sectionCaption').prepend('<label class="sectionAutoNumber">S' + s + '</label>');
+                s++;
+            });
+        }
+
+        // JQUERY VALIDATION ADDONS
+        function hasSingleQuotes(value) { return value.indexOf("'") != -1; }
+        function isEmpty(value){ return value == null || $.trim(value) == ''; }
+        function isInteger(value){ return (value == parseInt(value, 10)) }
+        function isDecimal(value){return(value == parseFloat(value))}
+        var elemId;
+        
+        $.validator.addMethod('noSingleQuotes', function(value, element, param) {
+            return !hasSingleQuotes(value);
+        }, 'Single quotes are not supported.');
+        
+        $.validator.addMethod('integer', function(value, element, param) {
+            return isEmpty(value) || isInteger(value);
+        }, 'Please enter a valid value!');
+
+        $.validator.addMethod('decimal', function(value, element, param) {
+            return isEmpty(value) || isDecimal(value);
+        }, 'Please enter a valid value!');
+
+        $.validator.addMethod('numeric', function(value, element, param) {
+            return !isNaN(value);
+        }, 'Please enter a numeric value!');
+
+        $.validator.addMethod('required', function(value, element, param) {
+            return !isEmpty(value);
+        }, 'This field is required');
+        
+        $.validator.addClassRules(STRING_TYPE,{"noSingleQuotes": true});
+        $.validator.addClassRules(NUMERIC_INTEGER_TYPE,{"numeric": true, "required": true, "integer":true });
+        $.validator.addClassRules(NUMERIC_DECIMAL_TYPE,{"numeric": true, "required": true, "decimal":true });
+
+        //-------------------
+        // READ-ONLY QUESTIONS
+        //-------------------
+
+        function getReadonlyDiv(question, div){
+            var header  = getReadonlyHeader(question,div);
+            var body    = getReadonlyBody(question);
+
+            if (div == null) div = $('<div/>').attr('id',question.id);
+            $(div).html('')
+                .removeClass().addClass('question readonly ' + question.type.replace('-',' '))
+                .append(header).append(body);
+            return div;
+        };
+
+        function getReadonlyHeader(question, div){
+			var div = $('<div/>').addClass('header');
+			div.append('<div class="actions"/>');
+			div.append( $('<div/>',{"class":'caption',"text":question.caption}) );
+			div.append( $('<div/>',{"class":'name',"text":question.name}) );
+            if (div != null) appendEditLinks(); // means the question already exists on the page
+
+			return div;
+		};
+
+        // Removes and adds edit links to all questions, except the first non-static question and all static questions before that
+        function appendEditLinks(){
+            $('.action-edit').remove();
+            var first = true;
+            $('.question').each(function(i,elem){
+                var qId = $(elem).attr('id');
+                var isStatic = NONE_LOGICAL_QUESTIONS[qId] != null;
+                if(!first)
+                    $(elem).find('.actions').append('<a class="action-edit" href="javascript: void(0)" onclick="editQuestion(\'' + qId + '\')">Edit</a>');
+                else if (!isStatic)
+                    first = false;
+            });
+        }
+
+
+        function getReadonlyBody(question){
+            var div = $('<div/>').addClass('body');
+
+            // Describe all conditions
+            var has_conditions = false;
+            for(var key in question.skipconditions){
+                var cond = question.skipconditions[key];
+                var src  = questions[cond.sourceQuestionId];
+                var p    = $('<p>');
+                if (cond.negate == true){
+                    p.append ('<label class="readonlyNegation">not </label>');
+                }
+                p.append( $('<b>',{"text":src.caption}) );
+                p.append( ' ' + conditionText[cond.condition] + ' ' );
+                if ($.inArray(cond.condition, conditionsWithValue) != -1){
+                    if (conditionNeedsCombo(cond.sourceQuestionId)){
+                        p.append( $('<b>',{"text":getConditionOption(cond)}) );
+                    }else{
+                        if (conditionNeedsNumericInteger(cond.sourceQuestionId)||conditionNeedsNumericDecimal(cond.sourceQuestionId)){
+                                cond.value = cond.value * 1;
+                            }
+                        p.append( $('<b>',{"text":cond.value}) );
+                    }
+                }
+                div.append(p);
+                has_conditions = true;
+            }
+            div.prepend( has_conditions
+                         ? '<p><b>' + question.skipLogicBehavior + '</b> when <b>' + question.skipLogicOperator + '</b> of the following is true</p>'
+                         : '<p><b>Always show</b></p>' );
+
+            return div;
+        };
+
+        function getConditionOption (condition){
+            var question = questions[condition.sourceQuestionId];
+            for (var opt in question.options){
+                if (question.options[opt].id == condition.value){
+                    return question.options[opt].caption;
+                }
+            }
+        }
+
+        // helper method to trim and remove extra spaces from text inputs
+        function removeExtraSpaces(){ removeInputExtraSpaces(this) }
+        function removeInputExtraSpaces(input) { $(input).val( $.trim($(input).val().replace(/\s+/g,' ')) ); }
+
+        // helper method to create dropdowns
+        function _dropdown(pname, options, def){
+            dropdown = $('<select/>',{"name":pname,"size":"1"});
+            for (var key in options)
+                dropdown.append('<option value="' + key + '">' + options[key] + '</option>');
+            $(dropdown).find('option[value="' + def + '"]').attr('selected','selected');
+            return dropdown;
+        }
+
+        function _input(pname, plabel, pdefault, pattributes) {
+            var attributes = {"name":pname, "type":'text', "value":(pdefault != null ? pdefault : ''), "blur":removeExtraSpaces};
+            $.extend(attributes, pattributes)
+            var input = $('<input/>',attributes);
+            var div = $('<div/>').addClass(pname)
+                    .append('<label for="' + pname + '">' + plabel + '</label>')
+                    .append( input );
+            return div;
+        }
+
+        function getEditableBody(question){
+            var div = $('<div/>').addClass('body');
+            var form = $('<form/>',{"id":'form' + question.id,"method":'GET'});
+
+            var skipOperations = $('<div/>').addClass('skipOperations');
+            var skipLogicBehavior = _dropdown('skipLogicBehavior', slBehavior, question.skipLogicBehavior);
+            var skipLogicOperator = _dropdown('skipLogicOperator', slOperator, question.skipLogicOperator);
+            skipOperations.append('<p>').append(skipLogicBehavior).append(' when').append(skipLogicOperator).append(' of the following is true</p>');
+
+            // List all conditions
+            var conditions = $('<div/>').addClass('conditions');
+            for (key in question.skipconditions)
+                conditions.append( getEditableSkipCondition(question, question.skipconditions[key]) );
+
+            // Button for adding more conditions
+
+            var morebutton = $('<input/>',{
+                "type":'button',
+                "name":'addCondition',
+                "value":'Add condition',
+                "class":'addConditionBtn',
+                "click":function(){ getEditableSkipCondition(question,{"id":newId()}).appendTo(conditions); }
+            });
+
+            var footer = '<div class="footer">'
+                       + '<a href="javascript: void(0)" onclick="cancelEdit(\'' + question.id + '\');return false;">Cancel</a>'
+                       + '<input type="submit" value="Done"/>'
+                       + '</div>';
+
+            $(form).validate({
+                "submitHandler": function(form){ acceptEdit(question.id); }
+            });
+            return div.append( form.append(skipOperations).append(conditions).append(morebutton).append(footer) );
+        }
+
+        function getEditableSkipCondition(question, condition){
+            var div = $('<div/>').addClass('condition').attr('id',condition.id);
+
+            var checked = '';
+            var bold = '';
+            if(condition.negate){
+                checked = 'checked';
+                bold = 'bold';
+            }
+            var negation = $('<span/>').addClass('conditionNegation').append('<input type="checkbox" onclick="toggleLabel($(this));" name="negate" value="true" ' + checked + '>').append('<label style="font-weight:' + bold + '"> NOT </label>');
+            div.append(negation);
+
+            // will store the first question (default one) to later build the condition combo based on it
+            var firstQuestion;
+
+            // List all prevoius questions
+            var prevquestions = {};
+            $('.question').each(function(i,elem){
+                var otherId = $(elem).attr('id');
+
+                 if (firstQuestion == null && NONE_LOGICAL_QUESTIONS[otherId] == null){
+                     firstQuestion = otherId;//store first question's id
+                 }
+                 if (otherId == question.id) return false; // Stop iterating
+                 if(NONE_LOGICAL_QUESTIONS[otherId] == null)
+                     prevquestions[otherId] = 'Q' + (i+1) + ' ' + questions[otherId].caption;
+
+            });
+
+            var questionsdropdown = _dropdown('source', prevquestions, condition ? condition.sourceQuestionId : null);
+            div.append(questionsdropdown);
+
+            var conditiondropdown = $('<select/>',{"name":"cond","size":"1"});
+            fillConditionDropdown(conditiondropdown, condition.sourceQuestionId ? questions[condition.sourceQuestionId].type : questions[firstQuestion].type, condition.condition);
+            div.append(conditiondropdown);
+
+            // if this condition requires an extra field, checks if it is a combo or a text field and creates it
+            if ($.inArray(condition.condition, conditionsWithValue) != -1){
+                var sourceQuestion = $(questionsdropdown).val();
+                if (conditionNeedsCombo(sourceQuestion)){
+                    div.append(getOptionCombo(sourceQuestion, condition));
+                }else{
+                    div.append( $('<input/>',{"name":"value-" + condition.id,"id":"value-" + condition.id, "value":condition.value, "type":"text"}).attr( inputAttrs[getClassNeeded(sourceQuestion)] ));
+                }
+            }
+
+            div.append('<a href="javascript: void(0)" class="conditionDelete" onclick="deleteCondition(\'' + condition.id + '\')">Delete</a>');
+
+            questionsdropdown.change(function(){
+                fillConditionDropdown(conditiondropdown, questions[$(this).val()].type);
+                conditiondropdown.change();
+            });
+
+            conditiondropdown.change(function(){
+
+                var inputName = $(div).find('[name^="value"]');
+                if ($.inArray($(this).find('option:selected').val(), conditionsWithValue) != -1){
+
+                    var sourceQuestion = $(div).find('[name=source]').val();
+                    var neededClass = getClassNeeded(sourceQuestion);
+                    var existingInput = $(div).find('[name^="value"]:not(.' + neededClass + ')');
+
+                    // if there is an input not needed, deletes it and creates the corresponding one
+                    if (existingInput.length){
+                        existingInput.remove();
+                        var newInput = createNewInput (neededClass, condition, sourceQuestion);
+                        $(this).after(newInput);
+                    }else{
+                        // if there is no input at all, creates the corresponding one
+                        if (!inputName.length){
+                            var newInput = createNewInput (neededClass, condition, sourceQuestion);
+                            $(this).after(newInput);
+						}else if (neededClass==COMBO_TYPE) {
+                            inputName.remove();
+                            var newInput = createNewInput (neededClass, condition, sourceQuestion);
+                            $(this).after(newInput);
+                        }
+                    }
+                }else{
+                    inputName.remove();
+                }
+            });
+            fixMarginIe8(question.id);
+            return div;
+        }
+
+        // This method add a class(that ensures that the first applied condition doesn't overlap in IE8) when the conditions are given
+        function fixMarginIe8(questionId){
+            // Gets user browser
+            if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){
+                var ieversion = new Number(RegExp.$1); // capture x.x version and store it as a number
+                if (ieversion == 8){
+                     $('#' + questionId + ' .conditions').addClass('avoidOverlap');
+                }
+            }
+        }
+
+        // gets the class of the needed input
+        function getClassNeeded (sourceQuestion){
+            if (conditionNeedsCombo(sourceQuestion)){
+                return COMBO_TYPE;
+            }else if (conditionNeedsNumericInteger(sourceQuestion)){
+                return NUMERIC_INTEGER_TYPE;
+            }else if(conditionNeedsNumericDecimal(sourceQuestion)){
+                return NUMERIC_DECIMAL_TYPE
+            }else{
+                return STRING_TYPE;
+            }
+        }
+
+        // defines if the referenced question needs a combo
+        function conditionNeedsCombo (sourceQuestion){
+            var question = questions[sourceQuestion];
+            return $.inArray(question.type, questionsWithCombo) != -1;
+        }
+
+        // defines if the referenced question needs a numeric field
+        function conditionNeedsNumericInteger (sourceQuestion){
+            var question = questions[sourceQuestion];
+            return $.inArray(question.type, questionsWithNumberInteger) != -1;
+        }
+        function conditionNeedsNumericDecimal(sourceQuestion){
+            var question = questions[sourceQuestion];
+            return $.inArray(question.type, questionsWithNumberDecimal) != -1;
+        }
+
+        // creates the needed input depending on the needed class
+        function createNewInput (neededClass, condition, sourceQuestion){
+            if (neededClass == COMBO_TYPE){
+                return getOptionCombo(sourceQuestion, condition);
+            }else{
+                return $('<input/>',{"name":"value-" + condition.id,"id":"value-" + condition.id, "type":"text"}).attr( inputAttrs[neededClass] );
+            }
+        }
+
+        // creates a dropdown list containing a question's options
+        function getOptionCombo (questionId, condition){
+
+            var question = questions[questionId];
+            var options = new Array();
+            for (var key in question.options){
+                var option = question.options[key];
+			  	var caption = option.caption;
+			  	if (caption.length >= 40)
+			       caption = caption.substring(0,40) + '...';
+			  	options[option.id] = caption;
+            }
+
+            var resultCombo = _dropdown('value-' + condition.id, options, condition.value);
+            resultCombo.addClass(COMBO_TYPE);
+            return resultCombo;
+        }
+
+        // changes the state of the "NOT" label
+        function toggleLabel(element){
+
+            var ischecked = $(element).is(':checked');
+            $(element).next().css('font-weight', ischecked ? 'bold' : '');
+        }
+
+        // gets the selected condition and removes it from the DOM (later, saveToQuestion method persists this change)
+        function deleteCondition (conditionId){
+            $('#' + conditionId).remove();
+        }
+
+        function fillConditionDropdown(dropdown, type, def){
+            if (def == null) def = $(dropdown).val();
+
+            var avConditions = {};
+            for(i in availableConditions[type]){
+                var key = availableConditions[type][i];
+                avConditions[key] = conditionText[key];
+            }
+
+            $(dropdown).html('');
+            for (var key in avConditions)
+                $(dropdown).append('<option value="' + key + '">' + avConditions[key] + '</option>');
+            $(dropdown).val(def);
+
+            return dropdown;
+        }
+
+        // Returns a new question, parsed from editable div
+        function saveToQuestion(div){
+            var id = $(div).attr('id');
+            var question = questions[id];
+
+            question.skipconditions = new Array();
+            div.find('.condition').each(function(i,elem){
+                var condition = {
+                    "id"              :$(elem).attr('id'),
+                    "sourceQuestionId":$(elem).find('[name=source]').val(),
+                    "condition"       :$(elem).find('[name=cond]').val(),
+                    "value"           :$(elem).find('[name^=value]').val(),
+                    "negate"          :$(elem).find('[name=negate]').is(':checked') ? true : false
+                };
+                question.skipconditions.push(condition);
+            });
+            question.skipLogicBehavior = $(div).find('[name="skipLogicBehavior"]').val();
+            question.skipLogicOperator = $(div).find('[name="skipLogicOperator"]').val();
+            questions[id] = question;
+
+        };
+
+
+        //----------------
+        // SECTION HEADERS
+        //----------------
+
+        function sectionReadonlyHeader(section, div){
+            if (div == null) div = $('<div/>');
+            div.html('').removeClass('editable').addClass('header readonly tertiaryPalette sectionHeader');
+            div.append( $('<span/>',{"class":'caption sectionCaption',"text":section.caption}));
+            return div;
+        }
+
+        function editMode(value){
+            isEditing = value;
+            $('.actions').toggle(!value);
+        }
+
+        //-------------
+        // USER ACTIONS
+        //-------------
+
+        function addSection(section){
+            var div = $('<div/>',{"id":section.id, "type":TYPE_SECTION}).addClass('section')
+                .append( sectionReadonlyHeader(section,null) )
+                .append('<div class="questions"></div>');
+
+            $('#questionArea').append(div);
+            div.hide().fadeIn(null);
+        }
+
+
+        // called from "edit" links
+        function editQuestion(questionId){
+            hasUnsavedChanges = true;
+            toggleEditable(questionId,true);
+        };
+
+        function quickSave(closeAfterwards){
+            // Validate that the user is not currently editing or moving a question or a section.
+            if ($('div.question.editable').size() > 0) {
+                alert('Can\'t save while there are questions being edited.');
+                return;
+            }
+            if($('div.header.editable').size() > 0){
+                alert('Can\'t save while there are sections being edited.');
+                return;
+            }
+
+            // Validate that no section is empty.
+            // Keep a map of how many questions each section has.
+            // Then, check that all sections have at least one question.
+            var questionCount = new Array();
+            for (var qid in questions){
+                question = questions[qid];
+                if (question.type == TYPE_SECTION) {
+                    questionCount[question.id] = 0;
+                } else if (question.parent != null && question.parent != '') {
+                    var p = question.parent;
+                    questionCount[p] = questionCount[p] ? (questionCount[p] + 1) : 1;
+                }
+            }
+
+            for (var qid in questionCount)
+                if (questionCount[qid] == 0) {
+                    alert('Can\'t save while section "' + questions[qid].caption + '" has no questions.');
+                    return;
+                }
+            // Now that all validations passed, proceed to save.
+            blockPage();
+            if (closeAfterwards)
+                postSaveContinue();
+            else
+                postQuickSave();
+        }
+
+        //------------------
+        // ACTION COMPLETION
+        //------------------
+        $(document).ready(function(){
+
+            // Append page blocking to body (needed to avoid scrolling)
+            $("#block,#popup").remove().appendTo("body");
+
+            // Get questions from controller and render them
+            var existing_questions = $('#existing-questions');
+            var to_draw = $.parseJSON( existing_questions.text() );
+            existing_questions.remove();
+
+            if (to_draw == null || to_draw.length == 0) {
+                // create the first section if there are none
+                var sections = $('#questionArea').find('.section');
+                if( sections.size() == 0 )
+                    editMode(false);
+            } else {
+                for (i in to_draw)
+                    to_draw[i].type = to_draw[i].type.toLowerCase();
+
+                // Sort questions to draw
+                // First sections, then questions. Ordered by position
+                to_draw.sort(function(a,b){
+                    return a.type == TYPE_SECTION && a.type != b.type ? -1 :
+                           b.type == TYPE_SECTION && a.type != b.type ?  1 :
+                           a.parent < b.parent ? -1 :
+                           a.parent > b.parent ?  1 :
+                           a.position - b.position;
+                });
+
+                // Add the questions to the questions array
+                for (i in to_draw) {
+                    var question = to_draw[i];
+                    questions[question.id] = question;
+                }
+
+                // Draw each question
+                for (var i in to_draw) {
+                    var question = to_draw[i];
+                    if (question.type == TYPE_SECTION){
+                        addSection(question);
+                        editMode(false);
+                    }
+                    else
+                        $('#' + question.parent + ' .questions').append( getReadonlyDiv(question) );
+                }
+                appendEditLinks(); // these are not appended after the first run, so have to add them manually
+
+            }
+            setQuestionAutoNumber();
+            $($('.question')[0]).find('a').remove();
+        });
+
+        // called from "cancel" link on Editable view
+        function cancelEdit(questionId){ toggleEditable(questionId,false); };
+
+        function toggleEditable(questionId, editable){
+            var div = $('#' + questionId);
+            div.hide().toggleClass('readonly',!editable).toggleClass('editable',editable);
+            div.find('.body').remove();
+            editMode(editable);
+            div.append( editable ? getEditableBody( questions[questionId] ) : getReadonlyBody( questions[questionId] ) );
+            div.fadeIn(null);
+        }
+
+        // called from "done" link on Editable view
+        function acceptEdit(questionId){
+            var div = $('#' + questionId);
+            saveToQuestion(div);
+            toggleEditable(questionId,false);
+        }
+        
+        function save(quicksave){
+            // generate the array of questions
+            var arr = new Array();
+            for(var i in questions) arr.push(JSON.stringify(questions[i]));
+            var json = '[' + arr.join(',') + ']';
+            blockPage();
+            postSave(json,quicksave);
+            return false;
+        }
+        function afterPostSave(){ hasUnsavedChanges = false;if(popupSave) doRedirect();unblockPage();}
+
+    </script>
+</apex:page>

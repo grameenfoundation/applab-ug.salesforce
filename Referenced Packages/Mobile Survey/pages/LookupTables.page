@@ -1,0 +1,67 @@
+<apex:page controller="gfsurveys.LookupTablesController" sidebar="false" action="{!checkLicense}"
+     tabStyle="SurveyManager__tab">
+    <apex:sectionHeader title="{!theSurvey.Name}" subtitle="{!theSurvey.gfsurveys__Alias__c}"/>
+    <c:blockOverlay label="Loading..."/>
+    
+    <apex:outputPanel rendered="{!readOnly}">
+        <c:createSurveyPreviewHeader styleClassHeader="tertiaryPalette"
+            selected="LOOKUPTABLES" backgroundUnSelected="white" isPPI="{!theSurvey.gfsurveys__IsPPI__c}" />
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!NOT(readOnly)}">
+        <c:createSurveyHeader styleClassHeader="tertiaryPalette" selected="LOOKUPTABLES" backgroundUnSelected="white" isPPI="{!theSurvey.gfsurveys__IsPPI__c}"/>
+    </apex:outputPanel>
+    
+    <!--
+    ---------------------------------------------------
+     Page code 
+    --------------------------------------------------- -->
+    <apex:pageMessages />
+
+    <apex:pageBlock id="ppiBlock" >
+    
+        <apex:form rendered="{!NOT(readOnly)}">
+            <center>
+                <apex:outputLabel for="inputFile">Upload a Poverty Line Table:</apex:outputLabel>
+                <apex:inputFile id="inputFile" value="{!fileBinary}" filename="{!fileName}" />
+                <apex:commandButton action="{!ReadFile}" value="Upload File" id="theButton" style="width:70px;" onclick="blockPage()"/>
+            </center>
+        </apex:form>
+        
+        <apex:repeat var="item" value="{!ppiTables}">
+            <apex:form >
+                <div class="pbTitle bFilter">
+                    <h3>{!item.dataSet.PPITable__r.Name}</h3>&nbsp;&nbsp;
+                    <apex:commandLink value="Delete" onclick="if(!confirm('Are you sure?')) return false; blockPage();" oncomplete="unblockPage()" action="{!deleteDataSet}" rerender="ppiBlock" rendered="{!NOT(readOnly)}">
+                        <apex:param name="tableToDelete" assignTo="{!selectedTableId}" value="{!item.dataSet.PPITable__r.Id}"/>
+                    </apex:commandLink>
+                </div>
+            </apex:form>
+            
+            <apex:pageBlockTable var="line" value="{!item.lines}">
+
+                <apex:column >
+                    <apex:facet name="header">{!$ObjectType.gfsurveys__PPITableLine__c.Fields.gfsurveys__From__c.Label}</apex:facet>
+                    <apex:outputField value="{!line.gfsurveys__From__c}"/>
+                </apex:column>
+
+                <apex:column >
+                    <apex:facet name="header">{!$ObjectType.gfsurveys__PPITableLine__c.Fields.gfsurveys__To__c.Label}</apex:facet>
+                    <apex:outputField value="{!line.gfsurveys__To__c}"/>
+                </apex:column>
+
+                <apex:column >
+                    <apex:facet name="header">{!$ObjectType.gfsurveys__PPITableLine__c.Fields.gfsurveys__Probability__c.Label}</apex:facet>
+                    <apex:outputField value="{!line.gfsurveys__Probability__c}"/>
+                </apex:column>
+
+            </apex:pageBlockTable>
+        </apex:repeat>
+    </apex:pageBlock>  
+    
+    <apex:form rendered="{!NOT(readOnly)}">
+        <div id="buttons" style="margin:20px 2px;float:right;">
+            <button type="button" onclick="window.location = '{!$Page.SurveyQuestionLogic}?id={!$CurrentPage.parameters.id}'">Continue</button>
+        </div>
+    </apex:form>
+</apex:page>

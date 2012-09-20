@@ -1,0 +1,732 @@
+<apex:page tabStyle="SurveyManager__tab" standardController="gfsurveys__Survey__c"
+    sidebar="false" extensions="gfsurveys.SurveyPreviewController">
+
+    <apex:sectionHeader title="{!IF(fromNewSurvey, gfsurveys__Survey__c.Name ,'Survey Preview')}"
+        subtitle="{!IF(fromNewSurvey, gfsurveys__Survey__c.gfsurveys__Alias__c , '')}" />
+    <apex:outputPanel rendered="{!builder == '0'}">
+        <c:createSurveyPreviewHeader styleClassHeader="tertiaryPalette"
+        selected="PREVIEW" backgroundUnSelected="white" isPPI="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}"/>
+    </apex:outputPanel>
+    <apex:insert name="builderHeader"/>
+
+    <apex:includeScript value="{!$Resource.gfsurveys__json2min}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jqueryui}" />
+    <apex:includeScript value="{!$Resource.gfsurveys__jquery_validate}" />
+
+<style type="text/css">
+
+    div#printerButton{width:56px;text-align:center;float:right;}
+    div#printerButton span,
+    div#printerButton img{vertical-align:middle;}
+    .hint{
+        padding-left: 10px;
+        font-size: 90%;
+        width: 80%;
+        text-align: justify;
+    }
+
+    .long_input, .short_input{
+        width: 80%;
+        background-color: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #000;
+    }
+    .option{height:18px;}
+    .options{padding-top:15px;}
+    .long_input{height: 100px;}
+    .short_input{height: 30px;}
+    .number_input{height:20px;border:2px solid black;width:65%;}
+
+    .day{padding-left: 10px;width: 40px;}
+    .month_year{padding-left: 8px; width: 60px;}
+    .hour_mins{padding-left: 10px;width: 50px;}
+
+    .blankSpace{
+        width: 1%;
+        height: 30px;
+        background-color: WhiteSmoke;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    .colon{
+        height: 30px;
+        background-color: WhiteSmoke;
+        font-weight: bold;
+        padding-top: 7px;
+    }
+
+    .cursor {cursor: pointer;}
+    .questions{min-height:20px;}
+    #content {width: 100%;}
+
+    #left {width:150px;vertical-align:top;}
+    #buttons {margin:20px 2px;float:right;}
+
+    .field-types div {cursor: pointer;}
+    .buttonType {cursor: pointer;}
+
+    textarea{resize:none;}
+    input {margin:2px;}
+
+    div.optionsClass>div{margin-bottom:10px;}
+    div.optionsClass>div>input{display:inline-block;width:400px;height:20px;border:2px solid black;margin-right:10px;}
+    div.optionsClass>div>div{display:inline-block;margin-left:4px;}
+
+    .option_caption{display:inline-block;margin:0px 10px 10px 4px;width: 15%;text-align:right;}
+
+    .option_input{
+        display:inline-block;
+        background-color: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #000;
+        width: 62%;
+        height: 25px;}
+
+    .single-multi_select{margin:0px 0px 5px 4px;}
+
+    div.header div.sectionFooter{width:auto;float:right;}
+    label.error{font-family:sans-serif;color:red;}
+
+    div.number div.body div{display: inline-block;}
+    div.number div.body input{width:80px}
+
+    #questionArea {margin:12px auto 0;min-width:770px;min-height:60px;}
+    #questionArea>p {font-size:10pt;}
+
+    div.section {padding:2px;}
+    div.section>div.header{margin:-4px 12px 12px;padding:15px;overflow:hidden;}
+    div.section>div.header .caption, div.section>div.header input[name=caption]{font-size:large;}
+
+    div.question {margin:12px;padding:10px;}
+    div.question input, div.question select{margin-left:10px;margin-right:10px;}
+
+    div.question.readonly {background:#ddd;}
+    div.question.readonly div.body {position:relative;padding:5px 0 0 20px;}
+    div.question.readonly div.body ul{padding-left:20px;}
+    div.question.readonly .caption{font-size:large;}
+    div.question.readonly.text div.option label{min-width:100px;display:inline-block;text-align:right;}
+    div.readonly div.tags{position:relative;right:4px;top:3px;color:#666;}
+    div.readonly div.tags span{display: block;text-align:right;}
+    div.section>div.header{position:relative;}
+    div.section>div.header div.tags{position:absolute;top:initial;bottom:8px;right:14px;}
+    div.question.readonly div.header {margin-left: 40px;}
+
+    div.question.cut{background: none repeat scroll 0 0 #FFFFFF;border: 2px dashed gray;}
+    div.currentTime{margin:0 80px}
+
+    label.questionAutoNumber{margin-right: 31px;margin-left: -23px; color:#6d6d6d;}
+    label.sectionAutoNumber{ margin-right: 10px; margin-left:2 0px; color:#6d6d6d;}
+    body .btn{padding:4px;}
+
+    .samePageDiv{
+        color: #666666;
+        position: absolute;
+        right: 39px;
+        }
+    .sectionInputContainer {
+        float: left;
+        margin-left: 2px;
+    }
+
+    .sectionNameLabel {
+        float: left160px;}
+
+    label.questionAutoNumber{margin-right: 31px;margin-left: -23px; color:#6d6d6d;}
+
+    .placeholderQuest {opacity:0.4;margin:12px;padding:10px;}
+    .placeholderSec {opacity:0.4;margin-bottom:-16px;padding:2px;}
+    body .btn{padding:4px;}
+    #button{text-decoration:none;}
+    #addbutton{margin-bottom:5px;}
+    .field-types .placeholderQuest{display:none;}
+    #secbutton .placeholderSec{background:transparent;height:1px;float:left;}
+    .sectionInputContainer {float:left; margin-left:2px;}
+    .sectionNameLabel {float:left; padding-left:5px; padding-right:5px; line-height:210%;}
+
+
+    .sectionInputContainer {
+        float: left;
+        margin-left: 2px;
+    }
+
+    .sectionNameLabel {
+        float: left;
+        padding-left: 5px;
+        padding-right: 5px;
+        line-height: 210%;
+    }
+
+    #surveyDataContainer{
+        margin: 15px 3px 25px 3px;
+        width : auto;
+        height : auto;
+        min-height:100px;
+        padding: 4 px 13px 13px 13px;
+        clear: both;
+    }
+    #titleSurvey, #aliasSurvey{
+        width:100%;
+        height: auto;
+        min-height : 20px;
+    }
+    #titleSurvey{
+        font-size: 20px;
+        font-weight: bold;
+        padding-top: 11px;
+    }
+    #aliasSurvey{
+        font-size: 12px;
+        padding-top: 2px;
+    }
+    #surveyDataTable{
+        width: 100%;
+        min-height: 50px;
+        margin-top: 14px;
+    }
+
+    #surveyDataTable td{
+        width : 250px;
+    }
+
+    .spanSurveysTitles{
+        width: 170px;
+        float: left;
+    }
+
+    #surveyDataTable td:nth-child(1){
+        width: 109px;
+    }
+
+    .inputDataTd{
+        width:auto;
+    }
+
+    .conditionsTd{
+        background: #AAA;
+        padding: 10px 0px 12px 20px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        width: 460px;
+    }
+
+    .conditionsTd p {
+        margin-top:2px;
+    }
+    .tableContainerValues{
+        width: 100%;
+    }
+
+    .ellipsisResponse{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 200px;
+        float: left;
+        padding-right:4px;
+    }
+
+    .floatLeft{
+        float:left;
+        padding-right:2px;
+    }
+
+    .containerTd{
+        min-width: 25px;
+        text-align:center;
+    }
+
+    .inputDataTd ul{
+        -webkit-padding-start: 0px;
+    }
+
+    .ulOptionScore{
+        text-align:center;
+        list-style-type: none;
+        margin:0px;
+        padding:0px;
+        height:18px;
+        color: #E33;
+        font-style: italic;
+    }
+
+    .surveyInfoData{
+        width: 80%;
+        margin-left: 9%;
+    }
+
+    .surveyValues{
+        width:70%;
+    }
+
+    .scoringTitle, .scoringGroupValues {
+        float: left;
+        vertical-align: top;
+        padding-top: 12px;
+    }
+
+    .scoringTitle{
+        margin-right: 13px;
+        float: left;
+        font-weight: bold;
+    }
+
+    .scoreCalculationName{
+        margin-bottom: 5px;
+
+    }
+
+    .previewName{
+        font-size: 15px; !important;
+        font-weight: bold; !important;
+    }
+
+    .sectionCaption{
+        margin-left: 16px;
+    }
+
+    .closeButton{
+        float:right;
+        text-decoration:none;
+    }
+
+    .readonlyNegation{
+        float:left;
+        margin-right: 4px;
+    }
+
+    .tableContainerValues .conditionsTd .titleSkipCondition{
+        margin-bottom: 8px; !important;
+            }
+    .qhint{
+                margin-left:30px;
+    }
+
+</style>
+    <apex:form >
+        <apex:pageBlock title="Survey Info" mode="edit">
+            <apex:pageBlockButtons location="top">
+                <div class="btn" onclick="print();" id="printerButton" >
+                    <apex:image value="{!URLFOR($Resource.gfsurveys__IconPackage, '/icons/printer1.gif')}" />
+                    <span>Print</span>
+                </div>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" showHeader="false" >
+                <apex:outputText styleClass="previewName" value="{!surveyPreview.Name}"/>
+                <apex:outputText value="{!surveyPreview.gfsurveys__Alias__c}"/>
+            </apex:pageBlockSection>
+            <br />
+            <table class="surveyInfoData" >
+                <tr>
+                    <td class="surveyValues" >
+                        <apex:pageBlockSection columns="1" showHeader="false" >
+                            <apex:outputField value="{!surveyPreview.gfsurveys__Deployment__c}"/>
+                            <apex:outputField value="{!surveyPreview.gfsurveys__Gps_Location_Enabled__c}"/>
+                            <apex:outputField value="{!surveyPreview.gfsurveys__Close_Message__c}"/>
+                        </apex:pageBlockSection>
+                    </td>
+                    <td class="scoringTitle" style="color: #4A4A56;">  <!-- style attribute needed to override salesforce style -->
+                        Scoring:
+                    </td>
+                    <td class="scoringGroupValues" >
+                        <apex:outputText styleClass="scorePPIText" rendered="{!gfsurveys__Survey__c.gfsurveys__IsPPI__c}">PPI<br/></apex:outputText>
+                        <apex:repeat value="{!scoringGroups}" var="scoreGroup" id="scoringRepeat" >
+                            <apex:outputText value="{!scoreGroup.caption}" styleClass="scoreCalculationName"/><br/>
+                        </apex:repeat>
+                    </td>
+                </tr>
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+
+    <apex:pageBlock title="Survey Preview" mode="edit">
+        <div id="questionArea" class="questionAreaClass"></div>
+    </apex:pageBlock>
+    <apex:outputLink style="margin-right:15px;" styleClass="btn closeButton" value="{!$Page.gfsurveys__SurveyManager}"> <!-- style attribute needed to override salesforce style -->
+       Close
+    </apex:outputLink>
+
+    <apex:form >
+        <span id="existing-questions" style="display:none">{!questions}</span>
+        <span id="scoring-groups" style="display:none">{!jsonScoringGroups}</span>
+    </apex:form>
+
+    <script type="text/javascript">
+
+        // CONDITIONS
+        var conditionText = {
+            'Answered'   :'Is Answered',
+            'Is'         :'Is',
+            'LesserThan' :'is Lesser than',
+            'GreaterThan':'is Greater than'
+        };
+
+        // QUESTION TYPES
+        TYPE_SECTION = 'section';
+        TYPE_TEXT    = 'text';
+        TYPE_TEXT_SHORT = 'text-short'
+        TYPE_TEXT_LONG  = 'text-long'
+        TYPE_NUMBER  = 'number';
+        TYPE_DATE    = 'date';
+        TYPE_DATE_DATE     = 'date-date';
+        TYPE_DATE_DATETIME = 'date-datetime';
+        TYPE_RADIO    = 'radio';
+        TYPE_CHECKBOX = 'checkbox';
+        FIRST_SECTION = '1';// Constant to move the section to first place in page
+        function isType(question, type){ return question.type.indexOf(type) == 0; }
+        function isTypes(question, types){
+            for(i in types)
+                if (isType(question, types[i]))
+                    return true;
+            return false;
+        }
+
+        var questions = new Array(); // Questions Array
+        var scoringGroups = new Array(); // Scoring groups Array
+        
+        // removes all existing autonumbers, and adds new ones based on the order of the questions
+        function setQuestionAutoNumber(){
+            var i = 1;
+            var s = 1;
+            $('.question .questionAutoNumber').remove();
+            $('.question.readonly').each(function(){
+                $(this).find('.caption').prepend('<label class="questionAutoNumber">Q' + i + '</label>');
+                i++;
+            });
+            $('.sectionHeader .sectionAutoNumber').remove();
+            $('.sectionHeader').each(function(){
+                $(this).find('.sectionCaption').prepend('<label class="sectionAutoNumber">S' + s + '</label>');
+                s++;
+            });
+        }
+
+        //-------------------
+        // READ-ONLY QUESTIONS
+        //-------------------
+
+        //Create the whole question div
+        function getReadonlyDiv(question, div){
+
+            if (div == null) div = $('<div/>').attr('id',question.id);
+            //Get header for the question
+            var header  = getReadonlyHeader(question);
+            //Get body for the question
+            var body    = getReadonlyBody(question);
+            
+            //Create table for question content
+            var innerTable = document.createElement("table");
+            $(innerTable).addClass('tableContainerValues')
+            $(div).html('')
+                .removeClass().addClass('question readonly ' + question.type.replace('-',' '))
+                .append(header);
+            
+            var tr = document.createElement("tr");
+            var containerTd = $('<td class="containerTd" ></td>');
+            
+            //Create question scores content
+            if(question.type == TYPE_CHECKBOX || question.type == TYPE_RADIO){
+                if(question.options.length > 0){
+                    getScoringGroupsSaved();
+                    //If exist scoring groups that are not ppiscores
+                    if(scoringGroups.length > 0){
+                        for(sc in scoringGroups){
+                           //Score header
+                           var tdOptionScore = $('<td/>',{"text":'SC'+sc,"class":'containerTd'});
+                           //Find the score value for each option and insert it in a cell
+                           for(var i in question.options){
+                               for (var j in question.options[i].scoreValues){   
+                                   if(scoringGroups[sc].id == question.options[i].scoreValues[j].ScoringGroupId ){
+                                       var ulOptionScore = $('<ul/>',{"text":'(' +question.options[i].scoreValues[j].value+ ')', "class":'ulOptionScore'});
+                                       tdOptionScore.append(ulOptionScore);
+                                    }
+                                }
+                                //Add cell to the container cell
+                                containerTd.append(tdOptionScore);
+                            }
+                        }
+                    }
+                    //Create score values column for ppi survey
+                    if({!gfsurveys__Survey__c.gfsurveys__IsPPI__c}){
+                         var ppiScoreTd = $('<td/>',{"text":'PPI', "class":'containerTd'});
+                         for(var ppi in question.options){
+                             //Add score values to the cell
+                             var ulOptionPPIScore = $('<ul/>',{"text":'(' +question.options[ppi].ppiScore+ ')', "class":'ulOptionScore'}); 
+                             //Add cell to the cell
+                             ppiScoreTd.append(ulOptionPPIScore);
+                         }
+                         //Add cell to the container cell
+                         containerTd.prepend(ppiScoreTd);
+                     }
+                }
+            }
+            //Add container cell to the row
+            $(tr).append(containerTd);
+            
+            var firstTd = $('<td class="inputDataTd" >' + $(body).html() + '</td>');
+            $(tr).append(firstTd);
+
+            if(question.skipconditions.length > 0){
+                var secondTd = $('<td class="conditionsTd" ></td>');
+                $(tr).append(secondTd);
+            }
+
+            $(innerTable).append(tr);
+            $(div).append(innerTable);
+            var tags = $('<div/>',{"class":'tags'});
+            if (question.required) tags.append('<span>Required</span>');
+            if (question.minimum != null) tags.append('<span>Min: ' + question.minimum + '</span>');
+            if (question.maximum != null) tags.append('<span>Max: ' + question.maximum + '</span>');
+            if (question.currentTime) tags.append('<span>Use current date/time as default</span>');
+            div.append(tags);
+            return div;
+        };
+        
+        //Get scoring groups related to this survey and fill the list to use
+        function getScoringGroupsSaved(){
+            var existingGroups = $('#scoring-groups').text();
+            scoringGroups = $.parseJSON(existingGroups);
+        }
+        
+        //Assign the scoring group number for listing
+        function assignScoringGroupNumber() {
+            $(".scoreCalculationName").each(function(i, elem) {
+                $(elem).html('SC'+ i +' '+ $(elem).html());
+               
+            });
+        }
+   
+        // Sets the actual width for each scoring section (based on the scoring calculation group size).
+        function setScoringSectionWidth(){
+            var scoringSize = {!scoringGroups.size};
+            scoringWidth = scoringSize * 22;
+            if(scoringWidth == 0) scoringWidth = 1;
+            scoringWidth = scoringWidth + 'px';
+            $('.containerTd').each(function(){
+                $(this).attr('width', scoringWidth);
+            });
+        }
+
+        //Returns the conditions div for the given question.
+        function getConditionsDiv(question){
+            var div = $('<div/>').addClass('bodyConditions');
+            // Describe all conditions
+            if(question.skipconditions != undefined && question.skipconditions.length > 0){
+                for(var key in question.skipconditions){
+                    var cond = question.skipconditions[key];
+                    var src  = questions[cond.sourceQuestionId];
+                    var p    = $('<p>');
+
+                    var sourceQuestionId = cond.sourceQuestionId;
+                    questionNumber = $('#' + sourceQuestionId).find('.questionAutoNumber').html();
+                    conditionValue  = (src.type == TYPE_RADIO || src.type == TYPE_CHECKBOX) ? getOptionValue(sourceQuestionId, cond.value) : cond.value;
+
+                    p.append( $('<span>',{"text":questionNumber + '. ', "class":"floatLeft"}))
+                    p.append( $('<span>',{"text":src.caption, "class":"ellipsisResponse"}) );
+
+                    if (cond.negate == true && conditionText[cond.condition] == 'Is Answered') {
+                        p.append( $('<span>',{"text": 'Is not Answered', "class":"floatLeft"}) );
+                    }
+                    else{
+                        p.append( $('<span>',{"text":conditionText[cond.condition], "class":"floatLeft"}) );
+                        if (cond.negate == true) p.append ('<label class="readonlyNegation">not</label>');
+                    }
+                    p.append( $('<span>',{"text":conditionValue, "class":"ellipsisResponse"}) );
+
+                    div.append(p);
+                    div.append('<br />');
+
+                }
+            }
+
+            var visibility = (question.skipLogicBehavior == 'Hide')? 'Hide' : 'Show';
+            var operator = (question.skipLogicOperator == 'Any')? 'Any' : 'ALL';
+            div.prepend( '<p class="titleSkipCondition" >' + visibility + ' this when ' + operator  + ' of the following is match</p>');
+            return div;
+        };
+
+        //Returns the value of an option for a given question.Id, and option.Id.
+        function getOptionValue(sourceQuestionId, optionId){
+            return $('#' + sourceQuestionId + ' div[id*="' + optionId +'"] label').text();
+        }
+
+        function getReadonlyHeader(question){
+
+            var div = $('<div/>').addClass('header');
+            var caption = $('<div/>',{"class":'caption',"text":question.caption, "title":question.qhint});
+            div.append(caption);
+            div.append( $('<div/>',{"class":'qhint'}));
+
+            var lines = (question.qhint == null)?'':question.qhint.split(/[\n\r]/);
+            var qhintDiv = $(div).find('.qhint');
+            for(var a in lines){
+                //Write each line and add a BR tag to ensure the line break
+                qhintDiv.append($('<div/>',{"text":lines[a]}).append('<br/>'));
+            }
+            return div;
+        };
+
+        // For each question that have more than one skip condition, creates the condition section.
+        function setConditionsData(listOfQuestions){
+            if(listOfQuestions != undefined){
+                for(i in listOfQuestions){
+                 if(listOfQuestions[i].skipconditions.length > 0){
+                      questionElement = $('#' + listOfQuestions[i].id);
+                      $(questionElement).find('.conditionsTd').html($(getConditionsDiv(listOfQuestions[i])).html());
+                  }
+                }
+            }
+        }
+
+        function getReadonlyBody(question){
+
+            var div = $('<div/>').addClass('body');
+            if ( isType(question, TYPE_TEXT) ){
+                if ( isTypes(question, [TYPE_TEXT_SHORT, TYPE_TEXT_LONG]) ) {
+                    if ( isType(question, TYPE_TEXT_SHORT) ) div.append('<input type="text" />');
+                    if ( isType(question, TYPE_TEXT_LONG ) ) div.append('<textarea rows="4" cols="40" />');
+                }
+            }else if( isType(question, TYPE_DATE) ){
+                div.append('<input type="text" class="day" placeholder="DD"/>'+
+                           '<input type="text" class="month_year" placeholder="MM"/>'+
+                           '<input type="text" class="month_year" placeholder="YYYY"/>');
+                if ( isType(question, TYPE_DATE_DATETIME) )
+                    div.append(':'+
+                               '<input type="text" class="hour_mins" placeholder="HH"/>'+
+                               '<input type="text" class="hour_mins" placeholder="Mins"/>');
+            }else if( isType(question, TYPE_NUMBER) ){
+                div.append( $('<div/>', {"class":"do doBefore","text":question.doBefore}) )
+                    .append('<input type="text"/>')
+                    .append( $('<div/>', {"class":"do doAfter","text":question.doAfter}) );
+            }
+
+            // Display the list of options
+            // TODO: Displaying should be dependant of question type
+            if (question.options.length > 0) {
+                var list = $('<ul class="options"/>');
+                for (i in question.options){
+                    option = question.options[i];
+                    if( isType(question, TYPE_RADIO) ){
+                        list.append(
+                            $('<div/>',{"id": option.id, "class":'option'})
+                                .append( $('<input/>',{"type":'radio', "id":'op'+option.id, "name":'op'+question.id}) )
+                                .append( $('<label/>',{"for":'op'+option.id, "text":option.caption}) )
+                        );
+                    }else if( isType(question, TYPE_CHECKBOX) ){
+                        list.append(
+                            $('<div/>',{"id": option.id, "class":'option'})
+                                .append( $('<input/>',{"type":'checkbox', "id":'op'+option.id, "name":'op'+question.id}) )
+                                .append( $('<label/>',{"for":'op'+option.id, "text":option.caption}) )
+                        );
+                    }
+                }
+                div.append(list);
+            }else{
+                for (i in question.options){
+                    option = question.options[i];
+                    list.append('<li class="option">'+ option.caption +'</li>');
+                }
+            }
+
+            return div;
+        };
+
+        //----------------
+        // SECTION HEADERS
+        //----------------
+
+        function sectionReadonlyHeader(section, div){
+            if (div == null) div = $('<div/>');
+            div.html('').removeClass('editable').addClass('header readonly tertiaryPalette sectionHeader');
+            div.parent('.section').removeClass('new');
+            div.append( $('<span/>',{"class":'caption sectionCaption',"text":section.caption}));
+            var samePage = $('<div/>',{"class":'samePageDiv'});
+            var tags = $('<div/>',{"class":'tags'});
+            if (section.samePage) tags.append('<span>Show all questions on one page</span>');
+            div.append(tags);
+            return div;
+        }
+
+        //-------------
+        // USER ACTIONS
+        //-------------
+
+        function addSection(section){
+            var div = $('<div/>',{"id":section.id, "type":TYPE_SECTION}).addClass('section')
+                .append( sectionReadonlyHeader(section,null) )
+                .append('<div class="questions"></div>');
+
+            $('#questionArea').append(div);
+            div.hide().fadeIn(null);
+        }
+
+        function getPosition(question){
+            if(question.type == TYPE_SECTION){
+                return $('#questionArea').find('.section').size();
+            }
+            else{
+                section = $('#questionArea').find('.section:not(.new)').last();
+                return section.find('.question').size();
+            }
+        }
+
+        //------------------
+        // ACTION COMPLETION
+        //------------------
+
+        $(document).ready(function(){
+            assignScoringGroupNumber();
+            var existing_questions = $('#existing-questions');
+            var to_draw = $.parseJSON( existing_questions.text() );
+            //existing_questions.remove();
+
+            if (to_draw == null || to_draw.length == 0) {
+                // create the first section if there are none
+                var sections = $('#questionArea').find('.section');
+                if( sections.size() == 0 )
+                    addSection();
+            } else {
+                for (i in to_draw)
+                    to_draw[i].type = to_draw[i].type.toLowerCase();
+
+                // Sort questions to draw
+                // First sections, then questions. Ordered by position
+                to_draw.sort(function(a,b){
+                    return a.type == TYPE_SECTION && a.type != b.type ? -1 :
+                           b.type == TYPE_SECTION && a.type != b.type ?  1 :
+                           a.parent < b.parent ? -1 :
+                           a.parent > b.parent ?  1 :
+                           a.position - b.position;
+                });
+
+                // Add the questions to the questions array
+                for (i in to_draw) {
+                    var question = to_draw[i];
+                    questions[question.id] = question;
+                }
+
+                for (var i in to_draw) {
+                    var question = to_draw[i];
+                    if (question.type == TYPE_SECTION){
+                        addSection(question);
+                    }
+                    else{
+                        $('#' + question.parent + ' .questions').append( getReadonlyDiv(question) );
+                    }
+                }
+
+            }
+            setQuestionAutoNumber();
+            setConditionsData(questions);
+            setScoringSectionWidth();
+        });
+
+    </script>
+</apex:page>

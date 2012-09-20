@@ -29,7 +29,6 @@ public  class DashboardController {
     String currentQuarter = null;
     String showPreviousQuarter = 'true';
     Boolean isEditMode = false;
-    public String isUpdateable = 'true';
 
     public String orgName = 'null';
     private Boolean showSparkLine = true;
@@ -57,7 +56,6 @@ public  class DashboardController {
             if ((profile.Name != null) && (profile.Name.startsWith('FVR')) && (profile.Name!= 'FVR User')) {
                 this.hideDistrictSelector = true;
                 this.hideShowBreakDown = true;
-                this.isUpdateable = 'false';
                 setDistrictForUser(profile.Name);
             }
         }
@@ -453,7 +451,7 @@ public  class DashboardController {
 
     // For the moment we always want to return true here as we are updating targets manually
     public String getIsUpdateable() {
-        return this.isUpdateable;
+        return 'true';
         if (null != this.quarter && null != this.currentQuarter) {
             Date quarter = MetricHelpers.getQuarterFirstDay(this.quarter);
             Date currentQuarter = MetricHelpers.getQuarterFirstDay(this.currentQuarter);
@@ -462,9 +460,6 @@ public  class DashboardController {
             }
         }
         return 'false';
-    }
-    public void setIsUpdateable(String value) {
-        this.isUpdateable = value;
     }
 
     public String getIsEditMode() {

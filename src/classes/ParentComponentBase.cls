@@ -66,7 +66,7 @@ public with sharing virtual class ParentComponentBase {
     }
 
     // The parameters that are taken from all the child components
-    private Map<String, String> parameters = new Map<String, String>();
+    private Map<String, String> parameters;
     public Map<String, String> getParameters() {
         return this.parameters;
     }
@@ -78,6 +78,12 @@ public with sharing virtual class ParentComponentBase {
         if (getParameters() == null) {
             rebuildParameters();
         }
+
+        // May still not have a param map after rebuilding, if this is called from a constructor
+        // and rebuildParameters() is overrode
+        if (getParameters() == null) {
+            return '';
+        }
         String value = this.getParameters().get(key);
         if (value == null) {
             return '';
@@ -85,7 +91,6 @@ public with sharing virtual class ParentComponentBase {
         return value;
     }
     public void addParameter(String key, String value) {
-
         if (this.parameters == null) {
             rebuildParameters();
         }
@@ -97,13 +102,14 @@ public with sharing virtual class ParentComponentBase {
      */
     public virtual void rebuildParameters() {
 
-        if (this.childMap == null) {
-            return;
-        }
         if (this.parameters == null) {
             this.parameters = new Map<String, String>();
         }
+        if (this.childMap == null) {
+            return;
+        }
         for (String key : getChildMap().keySet()) {
+
             this.parameters.put(key, this.childMap.get(key).getValues());
         }
     }
