@@ -53,6 +53,7 @@
     </fields>
     <fields>
         <fullName>Current_Poverty_Scorecard__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The most recent poverty scorecard for this person</description>
         <externalId>false</externalId>
         <label>Current Poverty Scorecard</label>
@@ -84,6 +85,7 @@
     </fields>
     <fields>
         <fullName>District__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The district for the person</description>
         <externalId>false</externalId>
         <label>District</label>
@@ -209,6 +211,7 @@
     </fields>
     <fields>
         <fullName>Handset__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>Physical handset assigned to this Person (in the case of GF-managed assets)</description>
         <externalId>false</externalId>
         <label>Handset</label>
@@ -270,6 +273,7 @@ IF( NOT( ISBLANK( Handset__c)),
     </fields>
     <fields>
         <fullName>Person_Household__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The house hold that this person belongs to</description>
         <externalId>false</externalId>
         <label>Person Household</label>
@@ -293,6 +297,7 @@ IF( NOT( ISBLANK( Handset__c)),
     </fields>
     <fields>
         <fullName>Region__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The region that the person is in. Not required if the person has a district set</description>
         <externalId>false</externalId>
         <label>Region</label>
@@ -305,6 +310,7 @@ IF( NOT( ISBLANK( Handset__c)),
     </fields>
     <fields>
         <fullName>Subcounty__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>Subcounty</description>
         <externalId>false</externalId>
         <label>Subcounty</label>

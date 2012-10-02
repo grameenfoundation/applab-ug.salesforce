@@ -7,6 +7,7 @@ public class CallCenterController {
     Farmer__c[] farmers;
     Farmer__c farmer;
     Case[] cases;
+
     Case currentCase;
         
     public String getPhoneNumber() {
@@ -59,7 +60,7 @@ public class CallCenterController {
         clearCaseFields();
         clearAllFarmers(); 
         // Check if string is in format +2567xxxxxxxx and change to 7xxxxxxxx
-        // where x in in [0-9]
+        // where x in [0-9]
         if (phoneNumber.startsWith('+256')) {
             phoneNumber = phoneNumber.substring(4);  
         }   
@@ -113,6 +114,11 @@ public class CallCenterController {
     
     public PageReference saveCaseAndClear() {
         if (saveCurrentCase(farmer)) {
+            if (currentCase.Status == 'Closed') {
+                // For all closed cases update total_complete_interactions_call_center
+                MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
+                MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
+            }
             clearCaseFields();    
             // Reset all fields and prepare for next search 
             clearAllFarmers();  
@@ -123,6 +129,9 @@ public class CallCenterController {
     public PageReference saveCaseAndClose() {
         currentCase.Status = 'Closed';
         if (saveCurrentCase(farmer)) {
+             // For all closed cases update total_complete_interactions_call_center
+            MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
+            MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
             clearCaseFields();    
             // Reset all fields and prepare for next search 
             clearAllFarmers(); 
@@ -133,6 +142,9 @@ public class CallCenterController {
     public PageReference saveCase() {
         if (saveCurrentCase(farmer)) {  
             if (currentCase.Status == 'Closed') {
+                // For all closed cases update total_complete_interactions_call_center
+                MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
+                MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
                 clearCaseFields(); 
             }
         }
@@ -147,7 +159,7 @@ public class CallCenterController {
         }      
         currentCase.Type = 'Question';            
         currentCase.Person__c = farmer.Person__r.Id;            
-        currentCase.Reason = 'reason text';
+        currentCase.Reason = 'reason';
         currentCase.Response__c = this.response;
         currentcase.Origin = 'Phone Call';
         database.upsert(currentCase);               
@@ -170,14 +182,13 @@ public class CallCenterController {
 
     private Person__c addPersonBioDetails(Person__c person) {
         
-        //Set default values for Unknown Farmer
+        // Set default values for Unknown Farmer
         person.First_Name__c = 'Unknown Call-Centre';
         person.Last_Name__c = 'Farmer';
         person.Raw_Mobile_Number__c = phoneNumber;
-        person.Village__c = 'Unknown';
-        person.Age__c = 0;  
-        //Not yet on production system  
-        //person.Type__c = 'Farmer';    
+        person.Village__c = 'Unknown';  
+        // Not yet on production system  
+        // person.Type__c = 'Farmer';    
         return person;
     }
     
@@ -252,7 +263,8 @@ public class CallCenterController {
         CallCenterController controller = new CallCenterController();
         String dummyPhoneNumber = '0749876342';
         controller.setPhoneNumber(dummyPhoneNumber);
-        Farmer__c testFarmer = controller.createDefaultFarmer();        
+        Farmer__c testFarmer = controller.createDefaultFarmer();  
+        controller.setFarmer(testFarmer);      
         Farmer__c[] farmers = controller.getByPhoneNumber(dummyPhoneNumber);
         system.assert(!farmers.isEmpty());
         system.assert(farmers[0].Id == testfarmer.Id);
@@ -292,6 +304,17 @@ public class CallCenterController {
         system.assert(cases1 ==null);
         system.assert(!cases2.isEmpty());        
     }
+    
+    static testmethod void testPageReferences() {
+        CallCenterController controller = new CallCenterController();
+        controller.setPhoneNumber('0791568666');
+        controller.searchByPhoneNumber();
+        Case currentCase = controller.getCurrentCase();
+        currentCase.Status = 'Closed';
+        controller.saveCase();
+        controller.saveCaseAndClose();
+        system.assert(currentCase != null);
+    }
 
     // Testing getters and setters to increase code coverage
     static testmethod void testGettersAndSetters() {
@@ -304,6 +327,5 @@ public class CallCenterController {
         system.assert(controller.searchByPhoneNumber() ==  null);
         system.assert(controller.getIsNewFarmer() == true);
         system.assert(controller.getResponse() != 'response');
-    }
-    
+    }    
 }

@@ -1,0 +1,107 @@
+<apex:component controller="MapComponentController">
+
+    <style type="text/css">
+        html { height: 100% }
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        #{!$Component.mapId} { height: 100%; }
+    </style>
+    <apex:includeScript value="http://maps.google.com/maps/api/js?sensor=false"/>
+    <apex:includeScript value="{!$Resource.infoBoxPackedJs}"/>
+    <apex:includeScript value="{!$Resource.mapJs}"/>
+    <apex:attribute name="sectionKey"
+        type="String"
+        assignTo="{!sectionKey}"
+        required="true"
+        description="The key given to the section component so it can be easily identified what is in a section"
+    />
+    <apex:attribute name="key"
+        type="String"
+        assignTo="{!key}"
+        required="true"
+        description="The key given to this component so the parent can easily get access to it"
+    />
+    <apex:attribute name="pageController"
+        type="ParentComponentBase"
+        assignTo="{!parentComponentController}"
+        required="true"
+        description="The controller for the parent controller"
+    />
+    <apex:attribute name="map"
+        type="sObject"
+        description="The map parameter for the map"
+        required="true"
+        assignTo="{!sObjectRecord}"
+    />
+    <apex:attribute name="showEnlarge"
+        type="Boolean"
+        description="A true value will hide the button that allows the graph to be expanded into a new window"
+        default="true"
+    />
+    <apex:attribute name="expanded"
+        type="Boolean"
+        assignTo="{!expanded}"
+        description="A true value will hide the button that allows the graph to be expanded into a new window"
+        default="false"
+    />
+
+    <script type="text/javascript">
+        addSectionRefreshStore("{!sectionKey}", "{!key}");
+    </script>
+
+
+    <apex:actionFunction action="{!refreshData}" name="{!key}" rerender="{!$Component.mapArea}"/>
+    <apex:outputPanel id="mapArea">
+
+        <script type="text/javascript">
+            addMap("{!key}", new mapDetails(
+                "{!key}",
+                "{!latitude}",
+                "{!longitude}",
+                "{!zoom}",
+                {!disableControls},
+                {!disableInfoWindows},
+                "{!keyText}",
+                "{!stats}",
+                {!disableKey}
+            ));
+        </script>
+
+        <apex:repeat value="{!mapMarkers}" var="marker">
+            <script type="text/javascript">
+                var latitude = parseFloat('{!marker.latitude}');
+                var longitude = parseFloat('{!marker.longitude}');
+                if(isNaN(latitude)) {
+
+                    // Try to convert from DMS to Dd
+                    latitude = parseFloat(dmsToDd('{!marker.latitude}'));
+                }
+                if(isNaN(longitude)) {
+
+                    // Try to convert from DMS to Dd
+                    longitude = parseFloat(dmsToDd('{!marker.longitude}'));
+                }
+                if (!isNaN(latitude) && !isNaN(longitude)) {
+                    addMarkerToMap("{!key}", new markerData(latitude, longitude, '{!marker.markerTitle}', '{!marker.markerColour}', '{!marker.markerInfoContentString}', '{!marker.markerLabel}'));
+                }
+            </script>
+        </apex:repeat>
+        <script type="text/javascript">
+            if ({!isRefresh}) {
+                initializeMap('{!key}', '{!expanded}');
+                closeGenericModal();
+            }
+        </script>
+        <div id="{!key}" style="width:{!width}; height:{!height}" layout="block"></div>
+        <apex:outputPanel id="refreshButton">
+            <button id="mapRefresh" type="button" class="submitButton" onclick="refreshComponent('{!key}')">Refresh Map</button>
+            <button id="mapEnlarge" type="button" class="submitButton" style="visibility:{!IF(showEnlarge,'visible','hidden')}" onclick="openMapInNewWindow('{!$Page.ExpandedDashboardVisual}', '{!key}')">Enlarge Map</button>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <script type="text/javascript">
+        window.onload = initializeAll({!expanded});
+    </script>
+</apex:component>

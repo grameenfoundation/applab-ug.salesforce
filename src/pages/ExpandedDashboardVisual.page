@@ -1,0 +1,30 @@
+<apex:page controller="ExapandedDashboardVisualController" showHeader="true" sidebar="false">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <apex:includeScript value="{!$Resource.DashboardSectionJs}"/>
+    <apex:styleSheet value="{!$Resource.selectorComponenetCss}"/>
+    <apex:styleSheet value="{!$Resource.extendedVisualCss}"/>
+    <c:UpdateMetricComponent />
+    <c:GenericModal />
+    <c:ErrorMessage />
+    <script type="text/javascript">
+        assignUpdateModalFunctions();
+    </script>
+    <apex:pageBlock >
+            <apex:form >
+                 <apex:outputPanel rendered="{!showSelector}">
+                    <c:DashboardSelector sectionKey="key" key="DashboardSelectorKey" pageController="{!this}" selector="{!selector}" accountName="{!accountName}" expanded="true"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!showMap}" >
+                    <div id="mapExtendedDiv" class="extendedDiv">
+                        <c:MapComponent sectionKey="key" key="{!mapParameter.Id}" pageController="{!this}" map="{!mapParameter}" showEnlarge="false" expanded="true"/>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!showGraph}">
+                    <div id="graphExtendedDiv" class="extendedDiv">
+                        <c:GraphComponent sectionKey="key" key="{!graphParameter.Id}" pageController="{!this}" graph="{!graphParameter}" showEnlarge="false" expanded="true"/>
+                    </div>
+                </apex:outputPanel>
+            </apex:form>
+    </apex:pageBlock>
+</apex:page>

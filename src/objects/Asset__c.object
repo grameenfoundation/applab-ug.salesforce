@@ -169,6 +169,7 @@
     </fields>
     <fields>
         <fullName>Assignee__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>Assigned to person</description>
         <externalId>false</externalId>
         <label>Assignee</label>
@@ -181,6 +182,7 @@
     </fields>
     <fields>
         <fullName>Batch__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Batch</label>
         <referenceTo>Batch__c</referenceTo>

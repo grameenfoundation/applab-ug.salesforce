@@ -249,6 +249,7 @@
     </fields>
     <fields>
         <fullName>Current_Performance_Review__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The CKW&apos;s current performance review. Used to generate the message that appears in Pulse&apos;s performance tab.</description>
         <externalId>false</externalId>
         <label>Current Performance</label>
@@ -359,6 +360,7 @@ BR()&amp;
     </fields>
     <fields>
         <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Opportunity</label>
         <referenceTo>Opportunity</referenceTo>
@@ -406,6 +408,7 @@ BR()&amp;
     </fields>
     <fields>
         <fullName>Previous_Performance_Review__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>A link to last month&apos;s performance review. This is used to generate the payment message that appears in Pulse for the first few days of the month.</description>
         <externalId>false</externalId>
         <label>Previous Month&apos;s Performance</label>
@@ -418,6 +421,7 @@ BR()&amp;
     </fields>
     <fields>
         <fullName>Recruiter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>Partner or organization who has assigned the CKW</description>
         <externalId>false</externalId>
         <inlineHelpText>Select a partner account who has assigned the CKW</inlineHelpText>
@@ -431,6 +435,7 @@ BR()&amp;
     </fields>
     <fields>
         <fullName>Secondary_Recruiter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>(optional) Secondary recruiting partner for the CKW, e.g. KACOFA</description>
         <externalId>false</externalId>
         <label>Secondary Recruiter</label>

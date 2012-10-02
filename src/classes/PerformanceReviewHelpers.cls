@@ -62,13 +62,13 @@ public with sharing class PerformanceReviewHelpers {
     /**
      *  Re-calculate the number of farmers that a person has registered in a given time period. Helps to settle disputes
      *
-     *  @param personId - 
+     *  @param personId -
      */
 
     /**
      *  Load a performance review for a CKW
      *
-     *  @param ckwId     - The Id of the CKW that is being updated 
+     *  @param ckwId     - The Id of the CKW that is being updated
      *  @param startDate - The start date of the CKW_Performance_Review__c
      *
      *  @return - The performance review or null if it doesn't exist
@@ -158,7 +158,7 @@ public with sharing class PerformanceReviewHelpers {
     /**
      *  Create a performance review for a CKW
      *
-     *  @param ckw       - The CKW that is being updated 
+     *  @param ckw       - The CKW that is being updated
      *  @param startDate - The start date of the CKW_Performance_Review__c
      *
      *  @return - The newly created performance review
@@ -252,7 +252,7 @@ public with sharing class PerformanceReviewHelpers {
     /**
      *  Move a CKW to a new review.
      *
-     *  @param ckw           - The CKW that is being updated 
+     *  @param ckw           - The CKW that is being updated
      *  @param newReview     - The new performance Review
      *  @param currentReview - The current performance Review
      */
@@ -280,7 +280,7 @@ public with sharing class PerformanceReviewHelpers {
             FROM
                 Incentive_Structure__c
             WHERE
-                Start_Date__c <= :startDate 
+                Start_Date__c <= :startDate
             ORDER BY
                 Start_Date__c DESC limit 1];
         return structure;
@@ -408,7 +408,7 @@ public with sharing class PerformanceReviewHelpers {
             reviewMap.put(key, review);
         }
 
-        database.update(reviewMap.values());
+        database.upsert(reviewMap.values());
         reviewMap.clear();
         reviews.clear();
         return true;
@@ -799,7 +799,7 @@ public with sharing class PerformanceReviewHelpers {
         public String personName;
         public Integer farmersUpdated;
         public Integer farmersIgnored;
-    
+
         public UpdatedFarmerStats(String personName) {
             this.personName = personName;
             this.farmersUpdated = 0;
@@ -1026,7 +1026,7 @@ public with sharing class PerformanceReviewHelpers {
                 CKW_Performance_Review__c
              WHERE
                 CKW_c__c = :ckw.Id
-             ORDER BY 
+             ORDER BY
                 Start_Date__c];
         System.assertEquals(reviews.size(), 2);
 
@@ -1055,7 +1055,7 @@ public with sharing class PerformanceReviewHelpers {
         System.assert(stats.toOutString().equals('NAME_splitter_3_splitter_4'));
     }
 
-    static testMethod void testUpdateAll() {
+    	static testMethod void testUpdateAll() {
 
         // Create an Interviewer
         CKW__c ckw = Utils.createTestCkw(null, 'TestCKW1', true, null, null);

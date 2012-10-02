@@ -24,4 +24,16 @@ public class ErrorMessageController {
         ApexPages.getMessages().clear();
         return null;
     }
+
+    static testMethod void testController() {
+
+        PageReference pageRef = Page.UDoM_Dashboard;
+        pageRef.getParameters().put('errorParam', 'ROCK_splitter_LOBSTER');
+        Test.setCurrentPageReference(pageRef);
+        Test.startTest();
+        ErrorMessageController controller = new ErrorMessageController();
+        controller.addError();
+        controller.clearErrors();
+    }
+
 }

@@ -173,6 +173,7 @@
     </fields>
     <fields>
         <fullName>Person__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The person associated with this request</description>
         <externalId>false</externalId>
         <label>Person</label>
@@ -326,7 +327,7 @@
         <filterScope>Everything</filterScope>
         <label>All Cases</label>
         <sharedTo>
-            <groups>CKW Group</groups>
+            <group>CKW Group</group>
         </sharedTo>
     </listViews>
     <listViews>
@@ -346,7 +347,7 @@
         </filters>
         <label>All Closed Cases</label>
         <sharedTo>
-            <groups>CKW Group</groups>
+            <group>CKW Group</group>
         </sharedTo>
     </listViews>
     <listViews>
@@ -366,7 +367,7 @@
         </filters>
         <label>All New Cases</label>
         <sharedTo>
-            <groups>CKW Group</groups>
+            <group>CKW Group</group>
         </sharedTo>
     </listViews>
     <listViews>
@@ -387,7 +388,7 @@
         </filters>
         <label>All Open Cases</label>
         <sharedTo>
-            <groups>CKW Group</groups>
+            <group>CKW Group</group>
         </sharedTo>
     </listViews>
     <listViews>

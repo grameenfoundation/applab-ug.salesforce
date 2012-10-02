@@ -456,6 +456,7 @@
     </fields>
     <fields>
         <fullName>Pledge__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>Look up relationship for pledge payments</description>
         <externalId>false</externalId>
         <label>Pledge</label>
@@ -486,6 +487,7 @@
     </fields>
     <fields>
         <fullName>Recurring_Donation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Recurring Donation</label>
         <referenceTo>Recurring_Donation__c</referenceTo>

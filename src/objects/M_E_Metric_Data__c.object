@@ -74,6 +74,7 @@
     </fields>
     <fields>
         <fullName>District__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The district that this metric is for. Allows us to split the metrics by district when showing them on the dashboard</description>
         <externalId>false</externalId>
         <inlineHelpText>Select the district that this metric is for</inlineHelpText>
@@ -96,6 +97,7 @@
     </fields>
     <fields>
         <fullName>M_E_Metric__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The Metric to which this data belongs</description>
         <externalId>false</externalId>
         <inlineHelpText>The Metric to which this data belongs</inlineHelpText>

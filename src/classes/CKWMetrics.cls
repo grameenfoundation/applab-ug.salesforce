@@ -117,14 +117,14 @@ global class CKWMetrics implements Database.Batchable<sObject>, Database.Statefu
         // List of cumulative metrics that require us to look at last quarter to get the results
         List<String> previousMetricsRequired = new List<String>();
         previousMetricsRequired.add('total_interactions_surveys');
-        previousMetricsRequired.add('total_interactions_searches');
-        previousMetricsRequired.add('total_complete_interactions_ussd_searches');
+        previousMetricsRequired.add('total_interactions_searches');             
 
         // List of the metric names that are used to calculate the total info services
         List<String> totalMetrics = new List<String>();
         totalMetrics.add('total_interactions_surveys');
         totalMetrics.add('total_interactions_searches');
         totalMetrics.add('total_complete_interactions_ussd_searches');
+        totalMetrics.add('total_complete_interactions_call_center');
         totalMetrics.add('total_interactions_channels');
         
         // Lists to store the metric data for the DML actions

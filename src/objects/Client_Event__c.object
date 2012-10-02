@@ -40,6 +40,7 @@
     <enableReports>false</enableReports>
     <fields>
         <fullName>Client_Location__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The location that the event is taking place at</description>
         <externalId>false</externalId>
         <label>Client Location</label>
@@ -111,7 +112,7 @@
         <label>Type</label>
         <picklist>
             <picklistValues>
-                <fullName>FVR Radio Show</fullName>
+                <fullName>Farmer Voice Radio</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -119,6 +120,11 @@
         <type>Picklist</type>
     </fields>
     <label>Client Event</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>CE-{0000000000}</displayFormat>
         <label>Client Event Name</label>

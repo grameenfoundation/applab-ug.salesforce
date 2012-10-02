@@ -45,10 +45,11 @@ global class ScheduledTdrDailyEmail implements Schedulable {
 
         // Send the emails to the national level
         List<String> emailAddresses = new List<String>();
-        emailAddresses.add('mwamir@mtn.co.ug');
-        emailAddresses.add('kwebiij@mtn.co.ug');
-        emailAddresses.add('nalukwb@mtn.co.ug');
-        emailAddresses.add('lukandd@mtn.co.ug');
+        emailAddresses.add('opetoo@mtn.co.ug');
+        emailAddresses.add('harunas@mtn.co.ug');
+        emailAddresses.add('kobaa@mtn.co.ug');
+        emailAddresses.add('asiimwi@mtn.co.ug');
+        emailAddresses.add('nimusid@mtn.co.ug');
         TDR__c[] tdrs = TdrHelpers.loadTdrs(tdrParameters, null);
         for (TDR__c tdr : tdrs) {
             tdrIds.add((String)tdr.Person__c);

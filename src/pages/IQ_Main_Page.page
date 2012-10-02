@@ -1,0 +1,64 @@
+<apex:page sidebar="false" showHeader="true">
+<iframe id="ifiq2020" width="100%" height="535" src="/apex/iq2020" frameborder="0"/>
+    <script type="text/javascript">  
+         
+         
+         
+        var rt;
+        var loaded = 0;
+        var hOffSet = 175;
+        var wOffSet = 110;
+       
+
+        //if (window.onresize==null)
+          //max() ;
+          
+           resize();
+
+       function max() {
+            if (window.screen) {
+            window.moveTo(0,0);
+            window.resizeTo(screen.width,screen.height)
+            }
+        }
+        
+        function WindowResized() 
+        {
+            resize();
+        }
+        
+        function resize() {
+        
+            if (loaded==1)
+                return ;
+                 
+                 
+                 
+            var winW, winH;
+            if (self.innerWidth) 
+                winH = self.innerHeight;     
+            else if (document.documentElement && document.documentElement.clientWidth) 
+                winH = document.documentElement.clientHeight;
+            else if (document.body) 
+                 winH = document.body.clientHeight;
+             
+           
+            var iframeIDs='ifiq2020';
+            var resetHight=winH-hOffSet;
+            
+         
+             
+            if (resetHight < 680)
+                document.getElementById(iframeIDs).style.height = "690px";
+            else
+                document.getElementById(iframeIDs).style.height = (winH-hOffSet)+"px";
+         
+            
+            document.getElementById(iframeIDs).scrolling = "no";
+
+ 
+        }
+        document.body.onresize = WindowResized;
+     
+    </script>
+</apex:page>

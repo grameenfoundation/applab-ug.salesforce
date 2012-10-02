@@ -42,21 +42,25 @@ public class FvrDashboardControllerExtension {
         }
 
         String query =
-            'SELECT '                                    +
-                'Display_Name__c, '                      +
-                'Description__c , '                      +
-                'Type__c, '                              +
-                'Client_Location__r.Name '               +
-            'FROM '                                      +
-                'Client_Event__c '                       +
-            'WHERE '                                     +
-                'Type__c = \'Farmer Voice Radio\' '      +
-                districtString                           +
-                'AND Start_Time__c >= :quarterFirstDay ' +
-                endString                                +
-            'ORDER BY '                                  +
-                'Start_Time__c, '                        +
+            'SELECT '                                     +
+                'Display_Name__c, '                       +
+                'Description__c , '                       +
+                'Type__c, '                               +
+                'Start_Time__c, '                         +
+                'End_Time__c, '                           +
+                'Client_Location__r.Name, '               +
+                'Client_Location__r.Display_Name__c '     +
+            'FROM '                                       +
+                'Client_Event__c '                        +
+            'WHERE '                                      +
+                'Type__c = \'Farmer Voice Radio\' '       +
+                districtString                            +
+                ' AND Start_Time__c >= :quarterFirstDay ' +
+                endString                                 +
+            'ORDER BY '                                   +
+                'Start_Time__c, '                         +
                 'Client_Location__r.District__r.Name';
+        System.debug(LoggingLevel.INFO, query);
         return query;
     }
 

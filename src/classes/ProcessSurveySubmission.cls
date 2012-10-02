@@ -540,6 +540,27 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('TDR_AGENT_VISIT')) {
                 return TdrHelpers.processAgentVisitSurvey(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE')) {
+                return UDoMSurveyProcessing.processDailyRainGauge(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE_REG')) {
+                return UDoMSurveyProcessing.registerRainGauge(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('MTN_CHANNELS')) {
+                return MtnChannelsHelpers.processChannelsFFPSSurvey(surveySubmission, answers, interviewer);
+            }
+ //           else if (survey.Post_Processing_Method__c.equals('Colombia_Farmer_Registration')) {
+ //               return ColombiaFarmerRegistrationPostProcessor.processSubmission(surveySubmission, answers, interviewer);
+ //           }
+  //          else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
+  //              return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
+  //          }
+ //           else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_SPOT_CHECK')) {
+ //               return DataValidatorHelpers.processSpotCheck(surveySubmission, answers, interviewer);
+  //          }
+//            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
+//                return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
+//            }
         }
         catch (Exception e) {
             returnValues.add('0');

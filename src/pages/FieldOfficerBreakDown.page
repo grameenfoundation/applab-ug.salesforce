@@ -1,0 +1,38 @@
+<apex:page controller="FieldOfficerBreakDownController" sidebar="false">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <apex:includeScript value="{!$Resource.DashboardSectionJs}"/>
+    <apex:styleSheet value="{!$Resource.selectorComponenetCss}"/>
+    <apex:includeScript value="{!$Resource.googleCharts}"/>
+    <apex:includeScript value="{!$Resource.F_O_Graph_JS}"/>
+    <apex:styleSheet value="{!$Resource.graphComponentCss}"/>
+    <c:UpdateMetricComponent />
+    <c:GenericModal />
+    <c:ErrorMessage />
+    <script type="text/javascript">
+        assignUpdateModalFunctions();
+        addSectionRefreshStore("key", "displayMethod");
+    </script>
+
+    <apex:pageBlock >
+        <apex:form >
+            <apex:actionFunction action="{!refreshData}" name="refreshData" rerender="display" onComplete="closeGenericModal();clearErrorsFromPage()"/>
+            <apex:outputPanel rendered="{!showSelector}">
+                <c:DashboardSelector sectionKey="key" key="DashboardSelectorKey" pageController="{!this}" accountName="{!accountName}" expanded="false" selector="{!selector}"/>
+            </apex:outputPanel>
+            <apex:outputPanel id="display">
+                <apex:outputPanel rendered="{!showGraph}">
+                    <c:FieldOfficerGraph sectionKey="key" key="graph" pageController="{!this}" graph="{!id}" showEnlarge="false" showData="{!showGraph}"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!showComment}">
+                    <c:FieldListBreakdown sectionKey="key" key="graph" pageController="{!this}" fieldName="{!id}" objectName="{!objectName}" rowCount="{!rowCount}" showData="{!showComment}"/>
+                </apex:outputPanel>
+                <script type="text/javascript">
+                    if ({!isRefresh}) {
+                        closeGenericModal();
+                    }
+                </script>
+            </apex:outputPanel>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

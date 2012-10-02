@@ -14,12 +14,44 @@ public class MetricDataWrapper {
     public String hasCurrent;
 
     public String cumulativeValue { get; set; }
+    public String displayValue { get; set; }
+    public String previousDisplayValue { get; set; }
+
     public String sparkUrl { get; set; }
     public String district;
+
+    public String displayType = '';
+    private String displayString;
+    public String getDisplayString() {
+
+        String returnValue = '';
+        if (displayType.equals('Person')) {
+            returnValue = currentQuarter.Person__r.First_Name__c + ' ' + currentQuarter.Person__r.Last_Name__c;
+        }
+        else if (displayType.equals('District')) {
+            returnValue = currentQuarter.District__r.Name;
+        }
+        return returnValue;
+    }
 
     public String colour;
     public String target;
     public Boolean isHeader { get; set; }
+    public String getFurtherText() {
+
+        if (this.currentQuarter.M_E_Metric__r.Further_Link_Text__c != null) {
+            return this.currentQuarter.M_E_Metric__r.Further_Link_Text__c;
+        }
+        return '';
+    }
+
+    public String getFurtherUrl() {
+
+        if (this.currentQuarter.M_E_Metric__r.Further_Link_Url__c != null) {
+            return URL.getSalesforceBaseUrl().toExternalForm() + '/' + this.currentQuarter.M_E_Metric__r.Further_Link_Url__c;
+        }
+        return '';
+    }
 
     public String getColour() {
 
@@ -51,10 +83,15 @@ public class MetricDataWrapper {
         }
 
         // Set the colour that the metric should show
-        if (data == null || value == 0 || (value == 0 && (data.Comment__c == null || data.Comment__c == '' )) || (data.Actual_Value__c == null && data.Manual_Value__c == null) || data.Projected_Value__c == null || data.Projected_Value__c == 0.00) {
+        if (data == null || value == 0 || (value == 0 && (data.Comment__c == null || data.Comment__c == '' )) || (data.Actual_Value__c == null && data.Manual_Value__c == null && (data.M_E_Metric__r.Is_On_Fly__c != null && !data.M_E_Metric__r.Is_On_Fly__c)) || data.Projected_Value__c == null || data.Projected_Value__c == 0.00) {
 
-            // Use the previous quarters colour instead if possible.
-            if (this.previousQuarter == null || (this.previousQuarter.Actual_Value__c == null && this.previousQuarter.Manual_Value__c == null) || this.previousQuarter.Projected_Value__c == null ||this.previousQuarter.Projected_Value__c == 0.00) {
+            // Use the previous quarters colour instead if possible. 
+            if (
+                    this.previousQuarter == null || 
+                    (this.previousQuarter.Actual_Value__c == null && this.previousQuarter.Manual_Value__c == null && (this.previousQuarter.M_E_Metric__r.Is_On_Fly__c == null || !this.previousQuarter.M_E_Metric__r.Is_On_Fly__c)) || 
+                    this.previousQuarter.Projected_Value__c == null ||
+                    this.previousQuarter.Projected_Value__c == 0.00
+            ) {
                 this.colour = '#CCCCFF';
                 return this.colour;
             }
@@ -194,6 +231,20 @@ public class MetricDataWrapper {
         }
         if (data == null) {
             return null;
+        }
+        if (data.M_E_Metric__r.Is_On_Fly__c) {
+            if (data.Denumerator__c == 0 || data.Denumerator__c == null) {
+                return data.Denumerator__c;
+            }
+            if (data.M_E_Metric__r.On_The_Fly_Calculation_Type__c.equals('Percentage')) {
+                return (data.Numerator__c / data.Denumerator__c) * 100;
+            }
+            else if (data.M_E_Metric__r.On_The_Fly_Calculation_Type__c.equals('Average')) {
+                return (data.Numerator__c / data.Denumerator__c);
+            }
+            else {
+                return data.Denumerator__c;
+            }
         }
         if (data.Manual_Value__c != null) {
             return data.Manual_Value__c;

@@ -50,6 +50,7 @@
     </fields>
     <fields>
         <fullName>Group__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The Group to which the message is directed</description>
         <externalId>false</externalId>
         <label>Group</label>
@@ -72,6 +73,7 @@
     </fields>
     <fields>
         <fullName>Person__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The person to whom the message is directed</description>
         <externalId>false</externalId>
         <label>Person</label>
@@ -111,6 +113,7 @@
     </fields>
     <fields>
         <fullName>Sender__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>The person sending the message</description>
         <externalId>false</externalId>
         <label>Sender</label>

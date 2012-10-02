@@ -1,0 +1,13 @@
+<apex:page controller="Test_MultiComponenetController">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <c:UpdateMetricComponent />
+    <c:GenericModal />
+    <c:ErrorMessage />
+    <script type="text/javascript">
+        assignUpdateModalFunctions();
+    </script>
+    <c:DashboardSection dashboardSection="{!section2}"/><!--
+    <c:DashboardSection dashboardSection="{!section1}"/>
+    <c:DashboardSection dashboardSection="{!section3}"/>-->
+</apex:page>

@@ -144,6 +144,7 @@ public class Utils {
                 id,
                 Name,
                 Person__c,
+                Person__r.First_Name__c,
                 Person__r.GPS_Location_E__c,
                 Person__r.GPS_Location_N__c,
                 Crops__c,
@@ -815,6 +816,7 @@ public class Utils {
 
         Country__c country = new Country__c();
         country.Name = displayName;
+        country.ISO_Standard_Code__c = 'sw';
         return country;
     }
 
@@ -911,7 +913,9 @@ public class Utils {
     ) {
 
         M_E_Metric_Data__c metricData = new M_E_Metric_Data__c();
-        metricData.District__c = district.Id;
+        if (district != null) {
+            metricData.District__c = district.Id;
+        }
         metricData.M_E_Metric__c = metric.Id;
         metricData.Actual_Value__c = actualValue;
         metricData.Manual_Value__c = manualValue;
@@ -992,36 +996,36 @@ public class Utils {
         return testScorecard;
     }
 
-	/**
-	 * Returns the distance from this point to the supplied point, in km 
-	 * (using Haversine formula)
-	 *
-	 * from: Haversine formula - R. W. Sinnott, "Virtues of the Haversine",
-	 *       Sky and Telescope, vol 68, no 2, 1984
-	 * */
-	public static Decimal calcDistance(Decimal lat1, Decimal lng1, Decimal lat2, Decimal lng2) {
-		if (lat1 == null || lng1 == null || lat2 == null || lng2 == null) {
-			return 0.0;
-		}
-		Decimal earthRadius = 6371;
-		Decimal pi = 3.141592653589793238462643383279502884197;
-		Decimal lat1Rad = lat1 * pi / 180;
-		Decimal lat2Rad = lat2 * pi /180;
-		Decimal lng1Rad = lng1 * pi / 180;
-		Decimal lng2Rad = lng2 * pi /180;
-		Decimal dLat = lat2Rad - lat1Rad;
-		Decimal dLon = lng2Rad - lng1Rad;
-	
-	   	Decimal varA = math.sin(dLat/2) * math.sin(dLat/2) +
-         		math.cos(lat1Rad) * math.cos(lat2Rad) * 
-          		math.sin(dLon/2) * math.sin(dLon/2);
-          		
-	  	Decimal varC = 2 * math.atan2(math.sqrt(varA), math.sqrt(1-varA));
-	  	Decimal varD = earthRadius * varC;
-	  	
-	  	return varD;
-	}
-	
+    /**
+     * Returns the distance from this point to the supplied point, in km 
+     * (using Haversine formula)
+     *
+     * from: Haversine formula - R. W. Sinnott, "Virtues of the Haversine",
+     *       Sky and Telescope, vol 68, no 2, 1984
+     * */
+    public static Decimal calcDistance(Decimal lat1, Decimal lng1, Decimal lat2, Decimal lng2) {
+        if (lat1 == null || lng1 == null || lat2 == null || lng2 == null) {
+            return 0.0;
+        }
+        Decimal earthRadius = 6371;
+        Decimal pi = 3.141592653589793238462643383279502884197;
+        Decimal lat1Rad = lat1 * pi / 180;
+        Decimal lat2Rad = lat2 * pi /180;
+        Decimal lng1Rad = lng1 * pi / 180;
+        Decimal lng2Rad = lng2 * pi /180;
+        Decimal dLat = lat2Rad - lat1Rad;
+        Decimal dLon = lng2Rad - lng1Rad;
+    
+        Decimal varA = math.sin(dLat/2) * math.sin(dLat/2) +
+                math.cos(lat1Rad) * math.cos(lat2Rad) * 
+                math.sin(dLon/2) * math.sin(dLon/2);
+                
+        Decimal varC = 2 * math.atan2(math.sqrt(varA), math.sqrt(1-varA));
+        Decimal varD = earthRadius * varC;
+        
+        return varD;
+    }
+    
     static testMethod void testAll() {
 
         // Create a CKW
@@ -1073,5 +1077,19 @@ public class Utils {
         
         // Test calcDistance
         System.assert(Utils.calcDistance(0.0,0.0,0.0,0.0) == 0.0);
+    }
+        /**
+     *  Create a Commodities for use in testing. Will just create the basic required details.
+     *  Other details need to be added by calling test method.
+     *
+     *  @param appendCharacters - A string of characters to append to a name to make it unique
+     *
+     *  @return - The test Commodities__c object
+     */
+    public static Commodities__c createTestCommodities(String appendCharacters) {
+
+        Commodities__c testCommodities = new Commodities__c();
+        testCommodities.Name = 'TestCommodities_' + appendCharacters;
+        return testCommodities;
     }
 }

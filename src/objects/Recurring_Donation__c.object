@@ -41,6 +41,7 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Campaign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>Links to campaign</description>
         <externalId>false</externalId>
         <label>Campaign</label>
@@ -52,6 +53,7 @@
     </fields>
     <fields>
         <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
@@ -116,6 +118,7 @@
     </fields>
     <fields>
         <fullName>Organization__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Organization</label>
         <referenceTo>Account</referenceTo>
