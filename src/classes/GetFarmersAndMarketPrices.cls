@@ -12,10 +12,12 @@ global class GetFarmersAndMarketPrices {
     }
     
     private static List<SelectedFarmerObject> getFarmers (String selectedDistrict, String selectedCrop) {
-        List<SelectedFarmerObject> selectedFarmers = new List<SelectedFarmerObject>();
+    	
+        Map<String, SelectedFarmerObject> selectedFarmers = new Map<String, SelectedFarmerObject>();
         
         for (Farmer__c farmers: [
-            SELECT 
+            SELECT
+            	Id,
                 Farmer__c.Name, 
                 Person__r.First_Name__c, 
                 Person__r.Last_Name__c,
@@ -23,14 +25,43 @@ global class GetFarmersAndMarketPrices {
             FROM 
                 Farmer__c 
             WHERE 
-                Farmer__c.Crops__c INCLUDES (:selectedCrop) 
+                Farmer__c.Crops__c INCLUDES (:selectedCrop)
             AND 
                 Person__r.District__r.Name = :selectedDistrict ]) {
                     
-            selectedFarmers.add(new SelectedFarmerObject(farmers.Name, farmers.Person__r.First_Name__c,
+            selectedFarmers.put(farmers.Id, new SelectedFarmerObject(farmers.Name, farmers.Person__r.First_Name__c,
                                 farmers.Person__r.Last_Name__c, farmers.Person__r.Mobile_Number__c));
-                }
-        return selectedFarmers;
+        }
+        for (Market_Link_Farmer__c mFarmer : [
+        	SELECT
+        		Id,
+        		Crop_Grown_1__c,
+        		Crop_Grown_2__c,
+        		Crop_Grown_3__c,
+        		Amount_Crop_Grown_1__c,
+        		Amount_Crop_Grown_2__c,
+        		Amount_Crop_Grown_3__c,
+        		Farmer__c,
+        		Phone_Number__c
+        	FROM 
+        		Market_Link_Farmer__c
+        	WHERE
+        		Farmer__c != NULL
+        	  AND
+        	  (
+        		Crop_Grown_1__c like :selectedCrop
+        	  OR
+        	    Crop_Grown_2__c like :selectedCrop
+        	  OR
+        	  	Crop_Grown_3__c like :selectedCrop)]) {
+        
+        	SelectedFarmerObject selectedFarmer = selectedFarmers.get(mFarmer.Farmer__c);
+        	if (null != selectedFarmer) {
+        		selectedFarmer.setCropGrownDetails(mFarmer.Phone_Number__c, mFarmer.Crop_Grown_1__c, mFarmer.Crop_Grown_2__c, mFarmer.Crop_Grown_3__c,
+        								mFarmer.Amount_Crop_Grown_1__c, mFarmer.Amount_Crop_Grown_2__c, mFarmer.Amount_Crop_Grown_3__c);
+        	}        	
+        }
+        return selectedFarmers.values();
     }
     
     private static List<MarketPricesObject> getMarketPrices (String selectedDistrict, String selectedCrop) {
@@ -81,10 +112,27 @@ global class GetFarmersAndMarketPrices {
         String Id;
         String Name;
         String MobileNumber;
+        String CropGrown1;
+        String CropGrown2;
+        String CropGrown3;
+        decimal AmountCropGrown1;
+        decimal AmountCropGrown2;
+        decimal AmountCropGrown3;
         
         SelectedFarmerObject (String farmerId, String firstName, String lastName, String mobileNumber) {
             this.Id = farmerId;
             this.Name = firstName +' '+ lastName;
+            this.MobileNumber = mobileNumber;
+        }
+        
+        public void setCropGrownDetails(String mobileNumber, String cropGrown1, String cropGrown2, String cropGrown3, 
+        				decimal amountCropGrown1, decimal amountCropGrown2, decimal amountCropGrown3) {
+        	this.CropGrown1 = cropGrown1;
+            this.CropGrown2 = cropGrown2;
+            this.CropGrown3 = cropGrown3;
+            this.AmountCropGrown1 = amountCropGrown1;
+            this.AmountCropGrown2 = amountCropGrown2;
+            this.AmountCropGrown3 = amountCropGrown3;
             this.MobileNumber = mobileNumber;
         }
         
@@ -143,9 +191,18 @@ global class GetFarmersAndMarketPrices {
         farmer.Name = 'UA12345';
         farmer.Person__c = personResult.getId();
         farmer.Crops__c = 'TestCommodity';
+        database.SaveResult farmerResult = database.insert(farmer);
+        
+        Market_Link_Farmer__c mFarmer = new Market_Link_Farmer__c();
+        mFarmer.Farmer__c =  farmerResult.getId();
+        mFarmer.Farmer_Name__c = 'James';
+        mFarmer.Crop_Grown_1__c = 'TestCommodity';
+        mFarmer.Amount_Crop_Grown_1__c = 2000;
+        database.insert(mFarmer);    
         
         String[] testJson = GetFarmersAndMarketPrices.getFarmersAndMarketPrices('TestDistrict_Nakapiripit', 'TestCommodity');
         for (String s: testJson) {
+        	system.debug(s);
             system.assertNotEquals(s, '');
         }
     } 

@@ -31,6 +31,9 @@ global class ProcessSurveySubmission {
     webservice static SurveySubmission processSurveySubmission(SurveySubmission surveySubmission) {
 
         surveySubmission.success = true;
+        
+        // TODO: Delete this after testing the system
+        System.debug('XML' + surveySubmission.xml);
 
         // Load the survey
         Survey__c survey = Utils.loadSurvey(surveySubmission.surveyId);

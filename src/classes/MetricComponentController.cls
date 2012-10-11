@@ -20,6 +20,7 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         this.sObjectName = 'Metric_Section__c';
         this.sObjectId = value.Id;
         this.sObjectRecord = value;
+        this.setDatePeriodField('RollOver_Time__c');
     }
     private Boolean loadMetricSection() {
 
@@ -42,6 +43,7 @@ public with sharing class MetricComponentController extends ChildComponentBase {
                 Show_Comments__c,
                 Show_Break_Down__c,
                 Show_Further_Link__c,
+                Default_Show__c,
                 Allow_Update__c
             FROM
                 Metric_Section__c
@@ -163,81 +165,114 @@ public with sharing class MetricComponentController extends ChildComponentBase {
            this.getParentComponentController().rebuildParameters();
         }
 
-        setCurrentDate(getParentValue('metricDatePicker'));
+        this.metricDatas = new List<MetricDataWrapper>();
+        this.metricIds = new List<String>();
 
-        List<Date> dates = MetricHelpers.getStartEndDates(getCurrentDate(), getRollOverPeriod());
-        Date startDate = dates[1];
-        Date previousDate = MetricHelpers.decreaseDateRollOver(dates[0], getRollOverPeriod());
-
-        // Check if this is for public consumption or not
-        String notForPublicString = '';
-        if (UserInfo.getUserType() == 'GUEST') {
-            notForPublicString = 'AND M_E_Metric__r.Not_For_Public__c != true ';
+        if (setDates()) {
+            return loadAggregateMetrics();
         }
-
-        // Check to see if we have a district to check.
-        String districtNameClause = 'null';
-        if (!getParentValue('District__c').equals('') && getParentValue('Person__c').equals('')) {
-            districtNameClause = '\'' + this.getParentValue('District__c') + '\'';
+        else {
+            setStartDate(MetricHelpers.decreaseDateRollOver(getStartDate(), getRollOverPeriod()));
+            return loadStandardMetrics();
         }
+    }
 
-        String districtString = 'AND District__c = ' + districtNameClause + ' ';
-
-        // Add a person clause if required
-        String personNameClause = 'null';
-        if (!getParentValue('Person__c').equals('')) {
-            personNameClause = '\'' + getParentValue('Person__c') + '\'';
-        }
-
-        String personString = 'AND Person__c = ' + personNameClause + ' ';
-
-        //if (this.showCumulative) {
-        //    this.cumulativeMetrics = MetricHelpers.getCumulativeData(organisationString, notForPublicString, districtString, quarterFirstDay, quarterLastDay, '', false);
-        //}
+    /**
+     * Load metrics in a date range. This will aggregate all the metrics that were created in the given time
+     * period. Does not at the moment allow for targets to be set and will not allow to show previous time periods
+     * as that makes no sense.
+     *
+     * @return - Boolean indicating success
+     */
+    private Boolean loadAggregateMetrics() {
 
         String query =
             'SELECT ' +
-                'Id, ' +
-                'M_E_Metric__c, ' +
-                'Actual_Value__c, ' +
-                'Manual_Value__c, ' +
-                'Projected_Value__c, ' +
-                'Comment__c, ' +
-                'Date__c, ' +
-                'Numerator__c, ' +
-                'Denumerator__c, ' +
-                'District__r.Name, ' +
-                'M_E_Metric__r.Name, ' +
-                'M_E_Metric__r.Update_Period__c, ' +
-                'M_E_Metric__r.Label__c, ' +
-                'M_E_Metric__r.Sub_Area__c, ' +
-                'M_E_Metric__r.Is_Header__c,' +
-                'M_E_Metric__r.Further_Link_Url__c, ' +
-                'M_E_Metric__r.Further_Link_Text__c, ' +
-                'M_E_Metric__r.Is_On_Fly__c, ' +
-                'M_E_Metric__r.On_The_Fly_Calculation_Type__c, ' +
-                'M_E_Metric__r.Reverse_Comparison__c ' +
+                'SUM(Numerator__c) num, ' +
+                'SUM(Denumerator__c) denum, ' +
+                'SUM(Real_Value__c) realValue, ' +
+                'COUNT(Id) total, ' +
+                'M_E_Metric__c metricId ' +
             'FROM ' +
                 'M_E_Metric_Data__c ' +
-            'WHERE ' +
-                'Date__c <= :startDate ' +
-                'AND Date__c >= :previousDate ' +
-                'AND M_E_Metric__r.Metric_Section__r.Name = \'' + getFieldValue('Name') + '\' ' +
-                'AND Is_Cumulative__c = false ' +
-                notForPublicString +
-                districtString +
-                personString +
-            'ORDER BY ' +
+            generateWhereClause() +
+            ' GROUP BY ' +
+                'M_E_Metric__c';
+        System.debug(LoggingLevel.INFO, query);
+
+        // Add the aggregate results to the map
+        Map<String, MetricDataWrapper> wrappers = new Map<String, MetricDataWrapper>();
+        for (AggregateResult res : Database.query(query)) {
+            MetricDataWrapper wrapper = new MetricDataWrapper();
+            wrapper.setCurrentTotal((Decimal)res.get('total'));
+            wrapper.setCurrentRealValue((Decimal)res.get('realValue'));
+            wrapper.setCurrentNumerator((Decimal)res.get('num'));
+            wrapper.setCurrentDenumerator((Decimal)res.get('denum'));
+            wrapper.setCalculation(String.valueOf(res.get('calcType')));
+            wrapper.setIsAggregate(true);
+            wrappers.put(String.valueOf(res.get('metricId')), wrapper);
+        }
+        if (wrappers.size() == 0) {
+            return false;
+        }
+
+        // Get the M_E_Metric__c that are needed. Add the details to the wrapper objects
+        for (M_E_Metric__c metric : [
+                SELECT
+                    Id,
+                    Name,
+                    Update_Period__c,
+                    Label__c,
+                    Sub_Area__c,
+                    Is_Header__c,
+                    Further_Link_Url__c,
+                    Further_Link_Text__c,
+                    Is_On_Fly__c,
+                    On_The_Fly_Calculation_Type__c
+                FROM
+                    M_E_Metric__c
+                WHERE
+                    Id IN :wrappers.keySet()
+        ]) {
+            MetricDataWrapper wrapper = wrappers.get(metric.Id);
+            if (wrapper == null) {
+                continue;
+            }
+            wrapper.isHeader = metric.Is_Header__c;
+            wrapper.updatePeriod = metric.Update_Period__c;
+            wrapper.setLabel(metric.Label__c);
+            wrapper.setSubArea(metric.Sub_Area__c);
+            wrapper.setFurtherLinkUrl(metric.Further_Link_Url__c);
+            wrapper.setFurtherLinkText(metric.Further_Link_Text__c);
+            wrapper.setOnFly(metric.Is_On_Fly__c);
+            wrapper.setCalculation(metric.On_The_Fly_Calculation_Type__c);
+            wrapper.setName(metric.Name);
+        }
+        this.metricDatas.addAll(wrappers.values());
+        this.metricDatas.sort();
+        wrappers.clear();
+        return true;
+    }
+
+    /**
+     * Load metrics in the standard method. This will load the metric that the is for the date chosen
+     * by the metric date selector. The previous date period metric will be loaded as well
+     *
+     * @return - Boolean indicating success
+     */
+    private Boolean loadStandardMetrics() {
+
+        String query =
+            getSelectClause() +
+            generateWhereClause() +
+            ' ORDER BY ' +
                 'M_E_Metric__r.Order__c ASC, ' +
                 'M_E_Metric__r.Name, ' +
                 'District__r.Name, ' +
+                'Subcounty__r.Display_Name__c, ' +
                 'Date__c ASC ';
 
         System.debug(LoggingLevel.INFO, query);
-
-        Map<String, MetricDataWrapper> metricDataMap = new Map<String, MetricDataWrapper>();
-        this.metricDatas = new List<MetricDataWrapper>();
-        this.metricIds = new List<String>();
 
         String metricName = '';
         MetricDataWrapper metricDataWrapper = null;
@@ -265,18 +300,42 @@ public with sharing class MetricComponentController extends ChildComponentBase {
 
             // Indicate if this is a header or not
             metricDataWrapper.isHeader = metric.M_E_Metric__r.Is_Header__c;
+            if (metric.Person__c != null) {
+                metricDataWrapper.setFirstName(metric.Person__r.First_Name__c);
+                metricDataWrapper.setLastName(metric.Person__r.Last_Name__c);
+            }
+            if (metric.District__c != null) {
+                metricDataWrapper.setDistrictName(metric.District__r.Name);
+            }
+            metricDataWrapper.setSubArea(metric.M_E_Metric__r.Sub_Area__c);
+            metricDataWrapper.setLabel(metric.M_E_Metric__r.Label__c);
+            metricDataWrapper.setName(metricName);
+            metricDataWrapper.isHeader = metric.M_E_Metric__r.Is_Header__c;
+            metricDataWrapper.updatePeriod = metric.M_E_Metric__r.Update_Period__c;
+            metricDataWrapper.setMetricId(metric.M_E_Metric__r.Id);
 
             // See which quarter the metric is for.
-            if (dates[0].dayOfYear() <= metric.Date__c.dayOfYear() && dates[0].year() == metric.Date__c.year()) {
+            if (getStartDate().dayOfYear() <= metric.Date__c.dayOfYear() && getStartDate().year() == metric.Date__c.year()) {
 
                 // Current quarter
-                metricDataWrapper.currentQuarter = metric;
+                metricDataWrapper.setHasCurrent(true);
+                metricDataWrapper.setCurrentId(metric.Id);
+                metricDataWrapper.setCurrentRealValue(metric.Real_Value__c);
+                metricDataWrapper.setCurrentTarget(metric.Projected_Value__c);
+                metricDataWrapper.setFurtherLinkText(metric.M_E_Metric__r.Further_Link_Text__c);
+                metricDataWrapper.setFurtherLinkUrl(metric.M_E_Metric__r.Further_Link_Url__c);
+                metricDataWrapper.setReverseComparison(metric.M_E_Metric__r.Reverse_Comparison__c);
+                metricDataWrapper.setComment(metric.Comment__c);
+                metricDataWrapper.setOnFly(metric.M_E_Metric__r.Is_On_Fly__c);
+                metricDataWrapper.setCalculation(metric.M_E_Metric__r.Calculation_Type__c);
                 this.metricIds.add(metric.Id);
             }
             else {
 
                 // Previous quarter
-                metricDataWrapper.previousQuarter = metric;
+                metricDataWrapper.setPreviousId(metric.Id);
+                metricDataWrapper.setPreviousRealValue(metric.Real_Value__c);
+                metricDataWrapper.setPreviousTarget(metric.Projected_Value__c);
             }
 
             // Get sparkLine
@@ -290,6 +349,93 @@ public with sharing class MetricComponentController extends ChildComponentBase {
             this.metricDatas.add(metricDataWrapper);
         }
         return true;
+    }
+
+    /**
+     * Get the basic select clause
+     *
+     * @return - The base select string for the metric query
+     */
+    private String getSelectClause() {
+
+        return 'SELECT ' +
+                'Id, ' +
+                'M_E_Metric__c, ' +
+                'Actual_Value__c, ' +
+                'Manual_Value__c, ' +
+                'Projected_Value__c, ' +
+                'Comment__c, ' +
+                'Date__c, ' +
+                'Numerator__c, ' +
+                'Denumerator__c, ' +
+                'District__r.Name, ' +
+                'M_E_Metric__r.Name, ' +
+                'M_E_Metric__r.Update_Period__c, ' +
+                'M_E_Metric__r.Label__c, ' +
+                'M_E_Metric__r.Sub_Area__c, ' +
+                'M_E_Metric__r.Is_Header__c,' +
+                'M_E_Metric__r.Further_Link_Url__c, ' +
+                'M_E_Metric__r.Further_Link_Text__c, ' +
+                'M_E_Metric__r.Is_On_Fly__c, ' +
+                'M_E_Metric__r.On_The_Fly_Calculation_Type__c, ' +
+                'M_E_Metric__r.Reverse_Comparison__c ' +
+            'FROM ' +
+                'M_E_Metric_Data__c ';
+    }
+
+    /**
+     * Generate the where clause
+     *
+     * @return - The where clauses with the WHERE at the start
+     */
+    private String generateWhereClause() {
+
+        String whereClause = '';
+        List<String> whereClauses = new List<String>();
+
+        // Check if this is for public consumption or not
+        String notForPublicString = '';
+        if (UserInfo.getUserType() == 'GUEST') {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('!=', 'M_E_Metric__r.Not_For_Public__c', 'true', false));
+        }
+
+        // Distinguish by dates
+        if (getStartDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), true), false));
+        }
+        if (getEndDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), true), false));
+        }
+
+        // Add the standard clauses
+        whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'M_E_Metric__r.Metric_Section__r.Name', getFieldValue('Name'), true));
+        whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Is_Cumulative__c', 'false', false));
+
+        // Check to see if we have a district to check.
+        if (!getParentValue('District__c').equals('') && getParentValue('Subcounty__c').equals('') && getParentValue('Person__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'District__c', getParentValue('District__c'), true));
+        }
+        else {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'District__c', 'null', false));
+        }
+
+        // Add a subcounty filter
+        if(!getParentValue('Subcounty__c').equals('') && getParentValue('Person__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'District__c', getParentValue('District__c'), true));
+        }
+        else {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'District__c', 'null', false));
+        }
+
+        // Add a person clause if required
+        if (!getParentValue('Person__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__c', getParentValue('Person__c'), true));
+        }
+        else {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__c', 'null', false));
+        }
+        whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        return whereClause;
     }
 
     /**
@@ -313,10 +459,6 @@ public with sharing class MetricComponentController extends ChildComponentBase {
 
         try {
             setIsRefresh('true');
-                // Rebuild the start times here so they are taken into account when rebuilding the axis
-                //if (!getParentValue('datePicker').equals('')) {
-                //    setDates(getParentValue('datePicker'));
-                //}
             loadMetricDatas();
         }
         catch (Exception e) {
@@ -392,12 +534,24 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         M_E_Metric_Data__c metricDataTest = Utils.createTestMetricData(null, metric, 1.0, 1.0, Date.today());
         Database.insert(metricDataTest);
 
+        DashboardSectionController parent = new DashboardSectionController();
+        parent.setDashboardSection(section);
+
         MetricComponentController controller = new MetricComponentController();
         controller.setsObjectRecord((sObject)mSection);
         controller.initFieldMap('Metric_Section__c');
-        controller.setCurrentDate(MetricHelpers.createDispRollOverString(Date.today(), controller.getFieldValue('rollover_time__c')));
+        controller.setParentComponentController(parent);
+        controller.setSectionKey('key');
 
-        System.assert(controller.loadMetricSection());
+        DateTime startDate = DateTime.newInstance(Date.today().addDays(-1), Time.newInstance(18, 30, 2, 20));
+        DateTime endDate = DateTime.newInstance(Date.today().addDays(-1), Time.newInstance(18, 30, 2, 20));
+        parent.setSectionKey('key');
+        parent.setParameters(new Map<String, String>());
+        parent.addParameter('datePickerkey', 'start_date_int_' + startDate.getTime() + '_ext_end_date_int_' + endDate.getTime());
+
+        controller.getMetricDatas();
+
+/*        System.assert(controller.loadMetricSection());
         Metric_Section__c checkLoaded = (Metric_Section__c)controller.getsObjectRecord();
         System.assertEquals(mSection.Id, checkLoaded.Id);
 
@@ -414,5 +568,6 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         controller.getShowSparkLine();
         controller.getShowTargets();
         System.assertEquals(controller.getMetricDatas().size(), 1);
+*/
     }
 }

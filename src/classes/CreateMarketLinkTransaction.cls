@@ -59,6 +59,7 @@ global class CreateMarketLinkTransaction {
     	marketLinkTransaction.Crop__c = adapter.crop;
     	marketLinkTransaction.Transaction_Date__c = DateTime.valueOf(adapter.transactionDate);
     	marketLinkTransaction.Type__c = adapter.transactionType;
+    	marketLinkTransaction.Completed__c = adapter.completed;
     	
     	if (marketLinkTransaction.Type__c.trim().equals('marketSale')) {
     		marketLinkTransaction.Market_Name__c = adapter.name;
@@ -110,6 +111,7 @@ global class CreateMarketLinkTransaction {
         webservice String district;
         webservice String transactionDate;
         webservice String transactionType;
+        webservice boolean completed;
         webservice double unitPrice;
         webservice double totalQuantity;
         webservice double totalTransactionFee;
@@ -148,6 +150,7 @@ global class CreateMarketLinkTransaction {
     	madapter.unitPrice = 200;
     	madapter.name = 'Mbarara Market';
     	madapter.imei = imei;
+    	madapter.completed = true;
     	
     	Market_Link_Transaction__c marketLinkTransaction = saveMarketLinkTransactionDetails(madapter, ckw);
     	System.debug('transaction Id ' + MarketLinkTransaction.Id);
@@ -185,6 +188,7 @@ global class CreateMarketLinkTransaction {
     	madapter.unitPrice = 200;
     	madapter.name = 'Mbarara Market';
     	madapter.imei = imei;
+    	madapter.completed = false;
     	
     	// build FarmerTrasactionAdapters
     	FarmerTransaction fadapter = new FarmerTransaction();

@@ -16,7 +16,7 @@ public class Utils {
                 District__r.Name,
                 GPS_Location_E__c,
                 GPS_Location_N__c,
-                Region__r.Id
+                Region__c
             FROM
                 Person__c
             WHERE

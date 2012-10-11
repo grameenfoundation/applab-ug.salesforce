@@ -145,6 +145,54 @@ public with sharing class ProcessSubmissionHelpers {
             return datetime.newInstance(timeStamp);
         }
     }
+    
+    /**
+    *  Check for count of expected value
+    */
+    public static Integer getCount(List<String> filledInValues, String expectedValue) {
+        Integer runningTotal = 0;
+        
+        for (String filledInValue : filledInValues) {
+            if (filledInValue.equals(expectedValue)) {
+                runningTotal++;
+            }
+        }
+        
+        return runningTotal;
+    }
+    
+    /**
+    *  Get the answers for all bindings that start with passed parameter
+    * 
+    *   @param bindingPattern - A map containing the values for the the outlet visit
+    *   @param answers - A map containing all submission answers
+    *
+    *   @return List of answers as String
+    */
+    public static List<String> getSingleSelectAnswersByMatchingBindings(String bindingPattern, Map<String, Submission_Answer__c> answers) {
+    	
+    	List<String> matchingAnswers = new List<String>();
+    	Set<String> keys = answers.keySet();
+    	for (String key : keys) {
+    		if (key.startsWith(bindingPattern)) {
+    			matchingAnswers.add(answers.get(key).Answer__c);
+    		}
+    	}    	
+    	return matchingAnswers;
+    }
+    
+    /**
+    * Check if value passed in is a 'YES' persons from survey
+    *
+    */
+    public static boolean checkIfYes(String answerValue) {
+        if (answerValue == '1') {
+            return true;
+        }
+        else {
+            return false;
+        }    
+    }
 
     /**
      * Get answer from an answerMap
