@@ -356,7 +356,7 @@ public with sharing class PerformanceDataCollector {
             'FROM '                                                       +
                 'Farmer__c '                                              +
             'WHERE '                                                      +
-                'CreatedDate = ' + monthString + ' '                      +
+                'Performance_Date__c = ' + monthString + ' '              +
                 'AND Registered_By__c IN (SELECT Person__c FROM CKW__c) ' +
                 'AND Person__r.First_Name__c != \'Not Registered\' '      +
             'GROUP BY '                                                   +
