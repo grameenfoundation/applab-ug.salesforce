@@ -38,7 +38,16 @@ public with sharing class EquipmentTrackingHelpers {
         // Send the email to people who need to know that an asset with an open return is 
         // coming back from the field
         if (returns.size() > 0) {
-            
+        	List<String>emailAddresses = new List<String>();
+        	emailAddresses.add('cmbawadde@grameenfoundation.org');
+        	emailAddresses.add('sntume@grameenfoundation.org');
+        	String subject = 'Asset with open return from field';
+        	String message = 'Asset '+ assetType + 'with ' + (assetType.equals('Phone')? 'IMEI ' : 'Serial No.') + submission.imei +
+        	    ' with open return coming back from the field.';
+            Messaging.SingleEmailMessage email = EmailHelpers.createEmail(emailAddresses, subject, message);
+            List<Messaging.SingleEmailMessage> emails = new List<Messaging.SingleEmailMessage>();
+            emails.add(email);
+            EmailHelpers.sendEmails(emails);
         }
 
         // Create a new open return.
@@ -83,6 +92,16 @@ public with sharing class EquipmentTrackingHelpers {
         newLine.Equipment_Return__c = newReturn.Id;
         newLine.Start_Date__c = DateTime.newInstance(ProcessSubmissionHelpers.parseDate(ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0'))), Time.newInstance(0, 0, 0, 0));
         Database.insert(newLine);
+        //send email
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+            String[] emailAddresses = new String[]{};
+            emailAddresses.add('sntume@grameenfoundation.org');
+            emailAddresses.add('cmbawadde@grameenfoundation.org');
+            mail.setToAddresses(emailAddresses);
+            mail.setsubject('Asset arriving from field');
+            mail.setPlainTextBody('Asset return submission');
+            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+            
         return new String[] {
             '1',
             'FO with IMEI: ' + submission.imei + ' has submitted a new return for asset with id: ' + id,
@@ -176,8 +195,13 @@ public with sharing class EquipmentTrackingHelpers {
                 '7' => 'CKW Surveys Broken',
                 '8' => 'MM Issues',
                 '9' => 'Network Issues',
-                '10' => 'Other'
-            };
+                '10' => 'ReadySet cannot pick power from Solar',
+                '11' => 'ReadySet ports do not work',
+                '12' => 'ReadySet makes noise',
+                '13' => 'Broken Panel',
+                '14' => 'Other'
+    };
+
     private static String translateAssetIssue(String optionNumber) {
         return assetIssueTranslationMap.get(optionNumber);
     }
