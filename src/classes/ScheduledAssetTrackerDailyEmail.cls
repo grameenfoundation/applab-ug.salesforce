@@ -4,7 +4,7 @@ global class ScheduledAssetTrackerDailyEmail implements Schedulable {
     	//pick all equipment returns from yesterday
     	Equipment_Return__c[] equipmentReturns = [Select Id, Equipment_Type__c, 
     	Field_Officer__r.District_Name__c, Field_Officer__r.First_Name__c, Handset__c, Asset__c From Equipment_Return__c 
-    	where CreatedDate >=:date.today().addDays(-1) And Field_Officer__c !=: null];
+    	where CreatedDate >=:date.today().addDays(-1) And Field_Officer__c != :null];
 
     	List<String>emailAddresses = new List<String>();
     	//construct an email for each, send to Cecilia and Sadat
