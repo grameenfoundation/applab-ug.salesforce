@@ -92,15 +92,6 @@ public with sharing class EquipmentTrackingHelpers {
         newLine.Equipment_Return__c = newReturn.Id;
         newLine.Start_Date__c = DateTime.newInstance(ProcessSubmissionHelpers.parseDate(ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0'))), Time.newInstance(0, 0, 0, 0));
         Database.insert(newLine);
-        //send email
-        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-            String[] emailAddresses = new String[]{};
-            emailAddresses.add('sntume@grameenfoundation.org');
-            emailAddresses.add('cmbawadde@grameenfoundation.org');
-            mail.setToAddresses(emailAddresses);
-            mail.setsubject('Asset arriving from field');
-            mail.setPlainTextBody('Asset return submission');
-            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
             
         return new String[] {
             '1',
