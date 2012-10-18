@@ -1312,10 +1312,9 @@ public with sharing class TdrHelpers {
                         '<tr style="'+ getTableHeaderRowStyle() + '">' +
                             '<td style="' + getTdNameWidth() + '">'  + 'Sales Rep Name</td>'      +
                             '<td style="' + getTdOtherWidth() + '">' + 'Hours worked</td>'        +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Sales vs Activities</td>' +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Sales and Activities</td>' +
                             '<td style="' + getTdOtherWidth() + '">' + 'Total Targets</td>'       +
                             '<td style="' + getTdOtherWidth() + '">' + 'Difference</td>'          +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Other Activities</td>'    +
                         '</tr>';
         }
 
@@ -1429,10 +1428,9 @@ public with sharing class TdrHelpers {
                     }
                     Decimal difference = (totalReports + totalSales) - totalTarget;
                     summaryHtml += '<td style ="padding-left:5px;">' + hoursDifferent.intValue() + ' ' + minutes + '</td>' +
-                        '<td style ="padding-left:5px;">' + totalSales.intValue() + '/' + totalReports.intValue() + '</td>' +
+                        '<td style ="padding-left:5px;">' + (totalSales.intValue() + totalReports.intValue()) + '</td>' +
                         '<td style ="padding-left:5px;">' + totalTarget.intValue() + '</td>' +
                         '<td style ="padding-left:5px;">' + difference.intValue() + '</td>' +
-                        '<td style ="padding-left:5px;">' + totalOther.intValue() + '</td>' +
                         '</tr>';
                 }
             }
