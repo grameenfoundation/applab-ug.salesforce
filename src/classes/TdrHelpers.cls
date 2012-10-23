@@ -1402,6 +1402,23 @@ public with sharing class TdrHelpers {
                     '<td style ="padding-left:5px;">' + summary.Other__c + '</td>' +
                     '</tr>';
 
+                //Get the distances covered and their respective times
+                List<String> distances = summary.Distances__c.split(',');
+                List<String> times = summary.Times__c.split(',');
+                integer count = distances.size();
+                
+                mainHtml += '<tr style ="'+ getTableBodyStyle() + '">';
+                mainHtml += '<td style ="padding-left:5px;">Distance travelled</td>';
+                for (integer location = 1; location <= count + 1; location++) {
+                	mainHtml += '<td style ="padding-left:5px;">' + 'Location' + location + '</td>';
+                }
+                mainHtml += '</tr>';
+                mainHtml += '<tr style ="'+ getTableBodyStyle() + '">';
+                mainHtml += '<td style ="padding-left:5px;"/>';
+                for (integer location = 0; location < count; location++) {
+                	mainHtml += '<td style ="padding-left:5px;">' + distances.get(location) + ',' + times.get(location) + '</td>';
+                }
+                mainHtml += '</tr>';
                 // Calculate the totals for the summary
                 if (incSummary) {
                     totalReports = summary.MM_Agent_Full_Report__c +

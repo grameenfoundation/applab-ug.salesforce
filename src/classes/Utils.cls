@@ -609,6 +609,25 @@ public class Utils {
         return pageName;
     }
 
+    public List<double> calculateTimeDifference(Datetime startTime, Datetime endTime) {
+    	
+    	List<double> hoursMinutesTime = new List<double>();
+    	long startTimeMinutes = startTime.getTime()/60000;
+    	long endTimeMinutes = endTime.getTime()/60000;
+    	
+    	double minutesDifference = endTimeMinutes - startTimeMinutes;
+    	if (minutesDifference <= 60) {
+    		hoursMinutesTime.add(0);
+    		hoursMinutesTime.add(minutesDifference);
+    	}
+    	else if (minutesDifference > 60) {
+    		double hours = (Integer)minutesDifference / 60;
+    		double minutes = math.mod(minutesDifference, 60);
+    		hoursMinutesTime.add(hours);
+    		hoursMinutesTime.add(minutes);
+    	}
+    }
+
     /**
      *  Create a farmer for use in testing. Will just create the basic required details.
      *  Other details need to be added by calling test method.
