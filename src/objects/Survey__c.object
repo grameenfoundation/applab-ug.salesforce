@@ -107,6 +107,35 @@
         <type>Percent</type>
     </fields>
     <fields>
+        <fullName>Export_Type__c</fullName>
+        <description>What format should the submissions get bounced to another survey as</description>
+        <externalId>false</externalId>
+        <label>Export Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>XML</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>JSON</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Export_URL__c</fullName>
+        <defaultValue>&quot;NONE&quot;</defaultValue>
+        <description>The URL to export a survey to</description>
+        <externalId>false</externalId>
+        <label>Export URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
         <fullName>Form_Data__c</fullName>
         <description>Raw x-form (XML form) data that comprises the survey form (questions and their types + metadata)</description>
         <externalId>false</externalId>
@@ -220,6 +249,18 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
                 <fullName>TDR_AGENT_VISIT</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>UDOM_RAIN_GUAGE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UDOM_RAIN_GUAGE_REG</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MTN_CHANNELS</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -308,7 +349,8 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <inlineHelpText>Test: to test a survey with CKWs before commercial launch
 Pilot: Running a survey in small scale
 Production: Running the survey in full scale
-Data Validation: Running the survey for data back check</inlineHelpText>
+Data Validation: Running the survey for data back check
+Market Prices: Surveys to capture market prices</inlineHelpText>
         <label>Survey Purpose</label>
         <picklist>
             <picklistValues>
@@ -325,6 +367,10 @@ Data Validation: Running the survey for data back check</inlineHelpText>
             </picklistValues>
             <picklistValues>
                 <fullName>Data Validation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market Prices</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -360,18 +406,18 @@ Data Validation: Running the survey for data back check</inlineHelpText>
         <trackHistory>true</trackHistory>
         <type>Picklist</type>
     </fields>
-    <label>Survey</label>
+    <label>Survey (CKW)</label>
     <listViews>
         <fullName>All_Surveys</fullName>
         <columns>NAME</columns>
         <columns>Survey_Name__c</columns>
         <columns>CREATED_DATE</columns>
         <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
         <columns>OWNER.ALIAS</columns>
         <columns>CREATEDBY_USER</columns>
         <columns>OWNER.FIRST_NAME</columns>
         <columns>OWNER.LAST_NAME</columns>
-        <columns>Number_of_Questions__c</columns>
         <filterScope>Everything</filterScope>
         <label>All Surveys</label>
     </listViews>
@@ -381,7 +427,7 @@ Data Validation: Running the survey for data back check</inlineHelpText>
         <trackHistory>true</trackHistory>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Surveys</pluralLabel>
+    <pluralLabel>Surveys (CKW)</pluralLabel>
     <searchLayouts>
         <customTabListAdditionalFields>Survey_Name__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Start_Date__c</customTabListAdditionalFields>
@@ -392,6 +438,7 @@ Data Validation: Running the survey for data back check</inlineHelpText>
         <lookupPhoneDialogsAdditionalFields>Survey_Name__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Start_Date__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>End_Date__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
         <searchFilterFields>Survey_Name__c</searchFilterFields>
         <searchFilterFields>Start_Date__c</searchFilterFields>
         <searchFilterFields>End_Date__c</searchFilterFields>

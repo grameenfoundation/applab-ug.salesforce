@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Metric Section</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Metric Sections</value>
+    </caseValues>
+    <fields>
+        <help><!-- Check if users should be allowed to update the metrics --></help>
+        <label><!-- Allow Update --></label>
+        <name>Allow_Update__c</name>
+    </fields>
+    <fields>
+        <help><!-- Please select the section of the dashboard that the metrics will be displayed in --></help>
+        <label><!-- Dashboard Section --></label>
+        <name>Dashboard_Section__c</name>
+        <relationshipLabel><!-- Metric Sections --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Enter the description that will be displayed for this metric section --></help>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Uncheck this to indicate that the metric section should be displayed --></help>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select how often you want the metrics to change --></help>
+        <label><!-- RollOver Time --></label>
+        <name>RollOver_Time__c</name>
+        <picklistValues>
+            <masterLabel>Biannually</masterLabel>
+            <translation><!-- Biannually --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monthly</masterLabel>
+            <translation><!-- Monthly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarterly</masterLabel>
+            <translation><!-- Quarterly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yearly</masterLabel>
+            <translation><!-- Yearly --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Check if the section should show the break down link --></help>
+        <label><!-- Show Break Down --></label>
+        <name>Show_Break_Down__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to allow comments to be displayed in the section --></help>
+        <label><!-- Show Comments --></label>
+        <name>Show_Comments__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if a link to a further VF page needs to be added. Will only display if M E Metric records in this section have a value for Further Link url --></help>
+        <label><!-- Show Further Link --></label>
+        <name>Show_Further_Link__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if you want to see the previous quarters value --></help>
+        <label><!-- Show Previous Quarter --></label>
+        <name>Show_Previous_Quarter__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to have individual time selector for this section --></help>
+        <label><!-- Show RollOver Selector --></label>
+        <name>Show_RollOver_Selector__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if a spark line should be shown --></help>
+        <label><!-- Show Spark Line --></label>
+        <name>Show_Spark_Line__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if the targets for the metric period should be shown --></help>
+        <label><!-- Show Targets --></label>
+        <name>Show_Targets__c</name>
+    </fields>
+    <fields>
+        <help><!-- Set to the date that data collection started. Should be the start of the time period i.e. if collection started 02/02/2012 and the roll over period is quarterly then the start date is 01/01/2012 --></help>
+        <label><!-- Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter a title for this section --></help>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

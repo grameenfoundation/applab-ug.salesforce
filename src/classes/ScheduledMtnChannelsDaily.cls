@@ -13,31 +13,33 @@ global class ScheduledMtnChannelsDaily implements Schedulable {
           generalEmails.add('musenzc@mtn.co.ug');
           generalEmails.add('mwesigj@mtn.co.ug');
           generalEmails.add('kwetonj@mtn.co.ug');
-          
-          // These are to be reset to right regions
-          generalEmails.add('kalibbp@mtn.co.ug');
           generalEmails.add('mutiibs@mtn.co.ug');
-          generalEmails.add('amijim@mtn.co.ug');
-          generalEmails.add('akankwa@mtn.co.ug');
-          generalEmails.add('okanyap@mtn.co.ug');
+          
+          // Grameen emails to send
+          generalEmails.add('jolooonyango@grameenfoundation.org');
+          generalEmails.add('ekamara@grameenfoundation.org');
+          generalEmails.add('fbyarugaba@grameenfoundation.org');
           addresses.put('all', generalEmails);
           
-          // uncomment these when it is clear what needs to be done
-         /* List<String> easternEmails = new List<String>();
-          myEmail.add('odavies@applab.org');
-          addresses.put('East', easternEmails );
+          List<String> eastEmails= new List<String>();
+          eastEmails.add('okanyap@mtn.co.ug');
+          addresses.put('Eastern', eastEmails);
           
-          List<String> centralEmails = new List<String>();
-          myEmail.add('odavies@applab.org');
-          addresses.put('West', centralEmails);
+          List<String> westEmails= new List<String>();
+          westEmails.add('amijim@mtn.co.ug');
+          addresses.put('Western', westEmails);
           
-          List<String> centralEmails = new List<String>();
-          myEmail.add('odavies@applab.org');
-          addresses.put('North', centralEmails);
+          List<String> northEmails= new List<String>();
+          northEmails.add('kalibbp@mtn.co.ug');
+          addresses.put('Northern', northEmails);
           
-          List<String> centralEmails = new List<String>();
-          myEmail.add('odavies@applab.org');
-          addresses.put('South', centralEmails); */
+          List<String> southEmails= new List<String>();
+          southEmails.add('mutiibs@mtn.co.ug');
+          addresses.put('South Western', southEmails);
+          
+          List<String> centralEmails= new List<String>();
+          centralEmails.add('akankwa@mtn.co.ug');
+          addresses.put('Central', centralEmails);          
 
           List<String> personIds = new List<String>();
           Person__c[] people = 

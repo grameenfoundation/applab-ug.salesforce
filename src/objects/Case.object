@@ -137,6 +137,14 @@
                 <fullName>Call center - Others</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>MTN SIM Registration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ministry</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
@@ -170,6 +178,19 @@
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Person_Owner_Id__c</fullName>
+        <description>This is the ID of Owner of the the Person object for this case. It allows us to filter cases on owner (e.g. LAC Cases)</description>
+        <externalId>false</externalId>
+        <formula>Person__r.OwnerId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This is the ID of Owner of the the Person object for this case. It allows us to filter cases on owner (e.g. LAC Cases)</inlineHelpText>
+        <label>Person Owner Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
@@ -215,6 +236,10 @@
             </picklistValues>
             <picklistValues>
                 <fullName>MoTeCH Ghana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEA Ghana</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -311,6 +336,10 @@
                 <fullName>FVR-Suggestion</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>CKW Performance</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
@@ -327,7 +356,7 @@
         <filterScope>Everything</filterScope>
         <label>All Cases</label>
         <sharedTo>
-            <group>CKW Group</group>
+            <group>CKWGroup</group>
         </sharedTo>
     </listViews>
     <listViews>
@@ -347,7 +376,7 @@
         </filters>
         <label>All Closed Cases</label>
         <sharedTo>
-            <group>CKW Group</group>
+            <group>CKWGroup</group>
         </sharedTo>
     </listViews>
     <listViews>
@@ -367,7 +396,7 @@
         </filters>
         <label>All New Cases</label>
         <sharedTo>
-            <group>CKW Group</group>
+            <group>CKWGroup</group>
         </sharedTo>
     </listViews>
     <listViews>
@@ -388,7 +417,7 @@
         </filters>
         <label>All Open Cases</label>
         <sharedTo>
-            <group>CKW Group</group>
+            <group>CKWGroup</group>
         </sharedTo>
     </listViews>
     <listViews>
@@ -402,7 +431,7 @@
         <columns>CASES.CREATED_DATE</columns>
         <filterScope>Queue</filterScope>
         <label>CKW Cases Queue</label>
-        <queue>CKW Cases Queue</queue>
+        <queue>CKWCasesQueue</queue>
     </listViews>
     <listViews>
         <fullName>MyCases</fullName>
@@ -591,6 +620,14 @@
                 <default>false</default>
             </values>
             <values>
+                <fullName>MTN SIM Registration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ministry</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>Mobile Money</fullName>
                 <default>false</default>
             </values>
@@ -656,6 +693,10 @@
         <picklistValues>
             <picklist>Program__c</picklist>
             <values>
+                <fullName>CEA Ghana</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>CKW Uganda</fullName>
                 <default>false</default>
             </values>
@@ -677,6 +718,10 @@
         </picklistValues>
         <picklistValues>
             <picklist>Type</picklist>
+            <values>
+                <fullName>CKW Performance</fullName>
+                <default>false</default>
+            </values>
             <values>
                 <fullName>FVR-Suggestion</fullName>
                 <default>false</default>
@@ -742,7 +787,7 @@
         <protected>false</protected>
         <showsLocation>false</showsLocation>
         <showsStatus>false</showsStatus>
-        <url>http://pmo.applab.org/secure/CreateIssueFromSFCase!step2.jspa?caseId={!Case.Id}&amp;project=CKW+General&amp;issueType=Issue&amp;os_username=pmo&amp;os_password=pmo123</url>
+        <url>http://pmo.applab.org/plugins/servlet/customware/connector/issue/2/Case/create.action?id={!Case.Id}&amp;project=CKW+General&amp;issueType=Issue&amp;os_username=pmo&amp;os_password=pmo123</url>
     </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>

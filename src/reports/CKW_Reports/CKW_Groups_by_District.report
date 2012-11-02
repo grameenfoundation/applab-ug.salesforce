@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Phone__c$IMEI__c</field>
+    </columns>
+    <columns>
+        <field>Phone__c$SIM__c</field>
+    </columns>
+    <columns>
+        <field>Phone__c.Assignee__r$First_Name__c</field>
+    </columns>
+    <columns>
+        <field>Phone__c.Assignee__r$Last_Name__c</field>
+    </columns>
+    <columns>
+        <field>Phone__c.Assignee__r.PersonGroupAssociations__r$Group__c</field>
+    </columns>
+    <columns>
+        <field>Phone__c.Assignee__r$Name</field>
+    </columns>
+    <columns>
+        <field>Phone__c.Assignee__r$Parish__c</field>
+    </columns>
+    <columns>
+        <field>Phone__c.Assignee__r$Village__c</field>
+    </columns>
+    <description>CKWs grouped by District plus details</description>
+    <filter>
+        <criteriaItems>
+            <column>Phone__c.Assignee__r.PersonGroupAssociations__r$Group__c</column>
+            <operator>equals</operator>
+            <value>MTN - MM TRADE VISIT</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>CKW Groups by District</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Person_Group_Handsets_2__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Phone__c$CreatedDate</dateColumn>
+        <endDate>2012-09-30</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2009-06-27</startDate>
+    </timeFrameFilter>
+</Report>

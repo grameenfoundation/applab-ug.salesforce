@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Poverty_Scorecard__c$Name</field>
+    </columns>
+    <columns>
+        <field>Poverty_Scorecard__c.People__r$First_Name__c</field>
+    </columns>
+    <columns>
+        <field>Poverty_Scorecard__c.People__r$Last_Name__c</field>
+    </columns>
+    <columns>
+        <field>Poverty_Scorecard__c.People__r$Gender__c</field>
+    </columns>
+    <columns>
+        <field>Poverty_Scorecard__c.People__r$Name</field>
+    </columns>
+    <columns>
+        <field>Poverty_Scorecard__c.People__r.Search_Logs__r$Name</field>
+    </columns>
+    <columns>
+        <field>Poverty_Scorecard__c$Score__c</field>
+    </columns>
+    <columns>
+        <field>Poverty_Scorecard__c.People__r.Search_Logs__r$Query__c</field>
+    </columns>
+    <description>Farmer poverty and Search Log</description>
+    <format>Tabular</format>
+    <name>Search Log,Farmer, Gender,Poverty Score</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Search_Log_with_Poverty_Scorecard_for_Interviewee__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Poverty_Scorecard__c.People__r.Search_Logs__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

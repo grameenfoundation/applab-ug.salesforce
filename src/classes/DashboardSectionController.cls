@@ -13,8 +13,10 @@ public with sharing class DashboardSectionController extends ParentComponentBase
     }
 
     public override void rebuildParameters() {
-        this.getParentMap().get('DashboardSelector' + dashboardSection.Id).rebuildParameters();
-        this.setParameters(this.getParentMap().get('DashboardSelector' + dashboardSection.Id).getParameters());
+        if (null != this.getParentMap() && null != this.getParentMap().get('DashboardSelector' + dashboardSection.Id)) {
+            this.getParentMap().get('DashboardSelector' + dashboardSection.Id).rebuildParameters();
+            this.setParameters(this.getParentMap().get('DashboardSelector' + dashboardSection.Id).getParameters());
+        }
     }
 
     private List<Graph_Parameter__c> graphs;

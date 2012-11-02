@@ -10,7 +10,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Delete</actionName>
-        <type>Default</type>
+        <content>MenuDelete</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
@@ -30,7 +32,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <content>MenuManagement</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Used to develop ckw search menus</description>
@@ -64,13 +68,13 @@
     </fields>
     <label>Menu</label>
     <listViews>
-        <fullName>All</fullName>
+        <fullName>All_Menus</fullName>
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
         <columns>Account__c</columns>
         <columns>Label__c</columns>
         <filterScope>Everything</filterScope>
-        <label>All</label>
+        <label>All Menus</label>
     </listViews>
     <nameField>
         <displayFormat>M-{0000000000}</displayFormat>
@@ -88,9 +92,10 @@
         <lookupPhoneDialogsAdditionalFields>Account__c</lookupPhoneDialogsAdditionalFields>
         <searchFilterFields>Label__c</searchFilterFields>
         <searchFilterFields>Account__c</searchFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
         <searchResultsAdditionalFields>Label__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
     <startsWith>Vowel</startsWith>
 </CustomObject>

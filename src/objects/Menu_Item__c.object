@@ -10,7 +10,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Delete</actionName>
-        <type>Default</type>
+        <content>MenuItemDelete</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
@@ -30,7 +32,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <content>MenuItemManagement</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
@@ -49,6 +53,39 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Attribution__c</fullName>
+        <description>The individual or organization from whom the content was sourced.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The individual or organization from whom the content was sourced.</inlineHelpText>
+        <label>Attribution</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Content__c</fullName>
+        <description>Some content will not be stored as Articles, such content will be stored here.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Add content here that will not be stored as articles in knowledge base</inlineHelpText>
+        <label>Content</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>set if the menu item should be shown in search client</inlineHelpText>
+        <label>Is Active</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Label__c</fullName>
         <externalId>false</externalId>
         <label>Label</label>
@@ -60,9 +97,9 @@
     </fields>
     <fields>
         <fullName>Last_Modified_Date__c</fullName>
-        <description>Last Modified Date for relevant fields only i.e not metadata</description>
+        <description>Last date when object was modified</description>
         <externalId>false</externalId>
-        <inlineHelpText>Last Modified date</inlineHelpText>
+        <inlineHelpText>Last date when object was modified</inlineHelpText>
         <label>Last Modified Date</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -123,8 +160,9 @@
         <searchFilterFields>Label__c</searchFilterFields>
         <searchFilterFields>Menu__c</searchFilterFields>
         <searchFilterFields>Article_Id__c</searchFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
         <searchFilterFields>Parent_Item__c</searchFilterFields>
     </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
     <startsWith>Vowel</startsWith>
 </CustomObject>

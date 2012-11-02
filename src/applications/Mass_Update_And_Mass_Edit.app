@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <description>Mass update and mass edit selected records from list view or related list</description>
+    <label>Mass Update And Mass Edit</label>
+    <tab>About_Mass_Update_and_Mass_Edit</tab>
+    <tab>Asset__c</tab>
+    <tab>Incentive_Structure__c</tab>
+    <tab>Monthly_Target__c</tab>
+    <tab>Server_Configuration__c</tab>
+    <tab>Group__c</tab>
+    <tab>Person__c</tab>
+    <tab>Send_Messages</tab>
+    <tab>Message__c</tab>
+    <tab>Farmer__c</tab>
+    <tab>Poverty_Scorecard__c</tab>
+    <tab>Search_Log__c</tab>
+    <tab>Subscription_Topic__c</tab>
+    <tab>Error_Log__c</tab>
+    <tab>M_E_Metric__c</tab>
+    <tab>Dashboard</tab>
+    <tab>M_E_Metric_Data__c</tab>
+    <tab>Market__c</tab>
+    <tab>Application_Version__c</tab>
+    <tab>Project__c</tab>
+    <tab>District__c</tab>
+    <tab>Analytics</tab>
+    <tab>Application_Management</tab>
+    <tab>VPO_product__c</tab>
+    <tab>Subcounty__c</tab>
+    <tab>Commodities__c</tab>
+    <tab>Batch__c</tab>
+    <tab>Menu__c</tab>
+    <tab>Person_Household__c</tab>
+    <tab>Call_Centre_Support</tab>
+    <tab>TDR_Activity__c</tab>
+    <tab>TDR_Performance__c</tab>
+    <tab>FVR_Dashboard</tab>
+    <tab>Client_Location__c</tab>
+    <tab>Client_Event__c</tab>
+    <tab>Orphaned_Menu_Items</tab>
+    <tab>Single_Graph_Point__c</tab>
+    <tab>LacDashboardOps</tab>
+    <tab>LacDashboardFairtrade</tab>
+    <tab>LacDashboardSocial</tab>
+    <tab>LacDashboardCertProd</tab>
+    <tab>MTN_Channels_Registration</tab>
+    <tab>MTN_Channels</tab>
+    <tab>gfsurveys__Option__c</tab>
+</CustomApplication>

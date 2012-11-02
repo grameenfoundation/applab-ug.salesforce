@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Person__c.Gender__c</field>
+    </columns>
+    <description>Search Logs with Gender &amp; District</description>
+    <format>Tabular</format>
+    <name>Search Logs - Gender</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Search_Log__c@Search_Log__c.Interviewee__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Search_Log__c.Handset_Submit_Time__c</dateColumn>
+        <endDate>2011-06-30</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2011-06-01</startDate>
+    </timeFrameFilter>
+</Report>

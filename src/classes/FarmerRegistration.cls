@@ -66,6 +66,7 @@ global class FarmerRegistration {
             farmer = new Farmer__c();
             farmer.Name = farmerRegistration.farmerId.toUpperCase();
             farmer.Registered_By__c = ckw.Id;
+            farmer.Registered_Date__c = date.today();
             person = new Person__c();
             person.District__c = ckw.District__c;
             farmerRegistration.isUpdate = false;
@@ -74,6 +75,7 @@ global class FarmerRegistration {
             farmer = farmers[0];
             if (farmer.Person__r.First_Name__c.equalsIgnoreCase('Not Registered')) {
                 person = Utils.loadPersonId(farmer.Person__c);
+                farmer.Registered_Date__c = date.today();
                 farmerRegistration.isUpdate = true;
             } else if (farmerRegistration.isUpdate == true) {
                 person = Utils.loadPersonId(farmer.Person__c);

@@ -1206,16 +1206,13 @@ public with sharing class TdrHelpers {
     }
 
     private static String getBackgroundColour() {
-        return 'background-color:#FFFFFF;';
-    }
-    private static String getTableBackgroundColour() {
-        return 'background-color:#FFCC33;';
+        return 'background-color:#FFC600;';
     }
     private static String getLargeFont() {
         return 'font-size:30pt;';
     }
     private static String getMediumFont() {
-        return 'font-weight:bold;';
+        return 'font-size:15pt;';
     }
     private static String getSmallFont() {
         return 'font-size:10pt;';
@@ -1232,25 +1229,6 @@ public with sharing class TdrHelpers {
     private static String getCenter() {
         return 'vertical-align: center;';
     }
-    private static String getTableHeaderRowStyle(){
-        return 'border-style:solid; border-color:#FFCC33; text-align:justify; font-size:12px;'+
-        'font-family: \'Trebuchet MS\', sans-serif; word-wrap: break-word; background-color:#FFC600; '+
-        'font-weight:bold; text-shadow: 0 0 1px rgba(0, 0, 0, 0.1); -webkit-font-smoothing: antialiased; font-smooth: always;';
-    }
-    private static String getTableBodyRowStyle(){
-        return 'border-style:solid; border-color:#FFCC33; text-align:justify; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space:-o-pre-wrap; white-space: pre-wrap; word-wrap: break-word;font-size:13px; font-family: arial, sans-serif; -webkit-font-smoothing: antialiased; font-smooth: always; background-color:#FFFFFF;';
-    }
-    private static String getTableRegionRowStyle(){
-        return 'border-style:solid; border-color:#FFCC33; text-align:justify; white-space: -moz-pre-wrap; '+
-        'white-space: -pre-wrap; white-space:-o-pre-wrap; white-space: pre-wrap; word-wrap: break-word;font-size:13px; '+
-        'font-family: arial, sans-serif; -webkit-font-smoothing: antialiased; font-smooth: always;';
-    }
-    private static String getTdNameWidth() {
-        return 'width:25%; padding-left:5px;';
-    }
-    private static String getTdOtherWidth() {
-        return 'width:15%; padding-left:5px;';
-    }
     private static String getFullWidth() {
         return 'width:100%;';
     }
@@ -1258,31 +1236,13 @@ public with sharing class TdrHelpers {
         return 'width:600px;';
     }
     private static String getSumaryWidth() {
-        return 'width:96%;';
+        return 'width:80%;';
     }
     private static String getCellAlignment() {
         return 'align="center" valign="middle"';
     }
     private static String getSummaryPadding() {
-        return 'padding:0% 2% 2% 2%;';
-    }
-    private static String getRegionCellStyle() {
-        return 'background-color:#FFFFFF; column-span:1; padding-left:5px;font-weight:bold;';
-    }
-    private static String getTitleStyle() {
-        return 'font-size:20pt; font-family: \'Trebuchet MS\', sans-serif; font-weight: bold; padding-bottom: 5px; '+ 
-        'text-shadow: 0 0 1px rgba(0, 0, 0, 0.3); -webkit-font-smoothing: subpixel-antialiased; font-smooth: always;';
-    }
-    private static String getTableStyle(){
-        return 'table-layout: fixed; background-color:#FFCC33; width:100%; alignment-adjust:auto; padding:0.2px;';
-    }
-    private static String getTableHeaderStyle(){
-        return 'text-align:justify; font-size:12px; font-family: \'Trebuchet MS\', sans-serif; word-wrap: break-word; background-color:#FFC600;' +
-        'font-weight:bold; text-shadow: 0 0 1px rgba(0, 0, 0, 0.1); font-smooth: always;';
-    }
-    private static String getTableBodyStyle() {
-        return 'text-align:justify; white-space: pre-wrap; word-wrap: break-word; font-size:13px; font-family: arial, sans-serif;'+
-        'background-color:#FFFFFF; font-smooth: always;';
+        return 'padding:10px 10% 10px 10%;';
     }
 
     /**
@@ -1299,48 +1259,47 @@ public with sharing class TdrHelpers {
 
         // Create the summary table if needed
         String summaryHtml = '<div style="' + getBackgroundColour() + getFullWidth() + '">';
-        //String summaryHtml;
         if (incSummary) {
             summaryHtml = '<div style="' + getBackgroundColour() +
-                getSumaryWidth() +
-                getSummaryPadding() +
-                '">' +
-                '<div style="' + getTitleStyle() + '">' +
+                 getSumaryWidth() +
+                 getSummaryPadding() +
+                 '">' +
+                '<div style="' + getLargeFont() + '">' +
                     'Summary' +
                 '</div>' +
-                '<table style="' + getTableStyle() +'">' +
-                        '<tr style="'+ getTableHeaderRowStyle() + '">' +
-                            '<td style="' + getTdNameWidth() + '">'  + 'Sales Rep Name</td>'      +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Hours worked</td>'        +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Sales vs Activities</td>' +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Total Targets</td>'       +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Difference</td>'          +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Other Activities</td>'    +
-                        '</tr>';
+                '<table style="' + getBackgroundColour() + '">' +
+                '<tr style="' + getMediumFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '>' +
+                    '<td>Sales Rep Name</td>'      +
+                    '<td>Hours worked</td>'        +
+                    '<td>Sales vs Activities</td>' +
+                    '<td>Total Targets</td>'       +
+                    '<td>Difference</td>'          +
+                    '<td>Other Activities</td>'    +
+                '</tr>';
         }
 
         // Create the start of the main table
         String mainHtml = '<div style="' + getBackgroundColour() + getFullWidth() + '">' +
-            '<div style="' + getTitleStyle() + '">' +
+            '<div style="' + getLargeFont() + '">' +
                 'Detailed' +
             '</div>' +
-            '<table style="' + getTableStyle() + '">' +
-                '<tr style="'+ getTableHeaderRowStyle() + '">'           +
-                    '<td style="padding-left:5px; width: 13%">Sales Rep Name</td>'         +
-                    '<td style="padding-left:5px; width: 10%">Day Start</td>'              +
-                    '<td style="padding-left:5px; width: 10%">Day End</td>'                +
-                    '<td style="padding-left:5px; width: 8%">MM Full Report</td>'          +
-                    '<td style="padding-left:5px; width: 3%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 8%">MM Short Report</td>'         +
-                    '<td style="padding-left:5px; width: 3%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 8%">Corporate Sales Calls</td>'   +
-                    '<td style="padding-left:5px; width: 3%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 8%">School Sales Calls</td>'      +
-                    '<td style="padding-left:5px; width: 3%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 8%">Customer Support</td>'        +
-                    '<td style="padding-left:5px; width: 8%">Marketing Event</td>'         +
-                    '<td style="padding-left:5px; width: 7%">Other Activities</td>'        +
-                '</tr>';                                                 
+            '<table style="' + getBackgroundColour() + '">' +
+            '<tr style="' + getMediumFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '">' +
+                '<td>Sales Rep Name</td>'          +
+                '<td>Day Start</td>'               +
+                '<td>Day End</td>'                 +
+                '<td>MM Full Report</td>'          +
+                '<td>Target</td>'                  +
+                '<td>MM Short Report</td>'         +
+                '<td>Target</td>'                  +
+                '<td>Corporate Sales Calls</td>'   +
+                '<td>Target</td>'                  +
+                '<td>School Sales Calls</td>'      +
+                '<td>Target</td>'                  +
+                '<td>Customer Support</td>'        +
+                '<td>Marketing Event</td>'         +
+                '<td>Other Activities</td>'        +
+            '</tr>';
         Boolean hasData = false;
         String tdrCurrentName = '';
         String currentRegion = '';
@@ -1355,19 +1314,17 @@ public with sharing class TdrHelpers {
 
                 // If this is a new region the add the row to the table
                 if (!summary.Person__r.Region__r.Display_Name__c.equals(currentRegion)) {
-                    mainHtml += '<tr style ="'+ getTableRegionRowStyle() + '"><td style="' + getRegionCellStyle() + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td>'+
-                        '<tr><td style="column-span:14; background-color:#FFCC33; alignment-adjust:middle;"></td></tr>';
+                    mainHtml += '<tr><td colspan="14" style="' + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td></tr>';
                     if (incSummary) {
-                        summaryHtml += '<tr style ="'+ getTableRegionRowStyle() +'"><td style="' + getRegionCellStyle() + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td>'+
-                        '<tr><td style="column-span:6; background-color:#FFCC33; alignment-adjust:middle;"></td></tr>';
+                        summaryHtml += '<tr><td colspan="5" style="' + getMediumFont() + '">' + summary.Person__r.Region__r.Display_Name__c + '</td></tr>';
                     }
                     currentRegion = summary.Person__r.Region__r.Display_Name__c;
                 }
 
                 hasData = true;
-                mainHtml += '<tr style ="'+ getTableBodyStyle() +'">';
+                mainHtml += '<tr style="' + getSmallFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '>';
                 if (incSummary) {
-                    summaryHtml += '<tr style ="'+ getTableBodyStyle() +'">';
+                    summaryHtml += '<tr style="' + getSmallFont() + getOddBackgroundColour() + '" cellPading="4" ' + getCellAlignment() + '>';
                 }
                 if (!generateTdrName(
                         summary.Person__r.First_Name__c,
@@ -1377,9 +1334,9 @@ public with sharing class TdrHelpers {
                         summary.Person__r.First_Name__c,
                         summary.Person__r.Last_Name__c
                     );
-                    mainHtml += '<td style ="padding-left:5px;">' + tdrCurrentName + '</td>';
+                    mainHtml += '<td>' + tdrCurrentName + '</td>';
                     if (incSummary) {
-                        summaryHtml += '<td style ="padding-left:5px;">' + tdrCurrentName + '</td>';
+                        summaryHtml += '<td>' + tdrCurrentName + '</td>';
                     }
                 }
                 else {
@@ -1388,19 +1345,19 @@ public with sharing class TdrHelpers {
                         summaryHtml += '<td></td>';
                     }
                 }
-                mainHtml += '<td style ="padding-left:5px;">' + summary.Start_Time__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.End_Time__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.MM_Agent_Full_Report__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.MM_Agent_Full_Report_Target__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.MM_Agent_Short_Report__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.MM_Agent_Short_Report_Target__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.Corporate_Sales_Calls__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.Corporate_Sales_Calls_Target__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.School_Sales_Calls__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.School_Sales_Calls_Target__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.Customer_Support__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.Marketing_Event__c + '</td>' +
-                    '<td style ="padding-left:5px;">' + summary.Other__c + '</td>' +
+                mainHtml += '<td>' + summary.Start_Time__c + '</td>' +
+                    '<td>' + summary.End_Time__c + '</td>' +
+                    '<td>' + summary.MM_Agent_Full_Report__c + '</td>' +
+                    '<td>' + summary.MM_Agent_Full_Report_Target__c + '</td>' +
+                    '<td>' + summary.MM_Agent_Short_Report__c + '</td>' +
+                    '<td>' + summary.MM_Agent_Short_Report_Target__c + '</td>' +
+                    '<td>' + summary.Corporate_Sales_Calls__c + '</td>' +
+                    '<td>' + summary.Corporate_Sales_Calls_Target__c + '</td>' +
+                    '<td>' + summary.School_Sales_Calls__c + '</td>' +
+                    '<td>' + summary.School_Sales_Calls_Target__c + '</td>' +
+                    '<td>' + summary.Customer_Support__c + '</td>' +
+                    '<td>' + summary.Marketing_Event__c + '</td>' +
+                    '<td>' + summary.Other__c + '</td>' +
                     '</tr>';
 
                 // Calculate the totals for the summary
@@ -1428,11 +1385,11 @@ public with sharing class TdrHelpers {
                         minutes = minutesDifference - (hoursDifferent * 60);
                     }
                     Decimal difference = (totalReports + totalSales) - totalTarget;
-                    summaryHtml += '<td style ="padding-left:5px;">' + hoursDifferent.intValue() + ' ' + minutes + '</td>' +
-                        '<td style ="padding-left:5px;">' + totalSales.intValue() + '/' + totalReports.intValue() + '</td>' +
-                        '<td style ="padding-left:5px;">' + totalTarget.intValue() + '</td>' +
-                        '<td style ="padding-left:5px;">' + difference.intValue() + '</td>' +
-                        '<td style ="padding-left:5px;">' + totalOther.intValue() + '</td>' +
+                    summaryHtml += '<td>' + hoursDifferent.intValue() + ' ' + minutes + '</td>' +
+                        '<td>' + totalSales.intValue() + '/' + totalReports.intValue() + '</td>' +
+                        '<td>' + totalTarget.intValue() + '</td>' +
+                        '<td>' + difference.intValue() + '</td>' +
+                        '<td>' + totalOther.intValue() + '</td>' +
                         '</tr>';
                 }
             }
@@ -1445,14 +1402,13 @@ public with sharing class TdrHelpers {
             return html;
         }
         if (incSummary) {
-            html = summaryHtml + '</table></div></div><br /><br />' + mainHtml;
+            html = summaryHtml + '</table></div><br /><br />' + mainHtml;
         }
         else {
             html = mainHtml;
         }
-        //html += '</tbody></table>';
-        html += '</table>';
-        html += '<br></div><div>';
+        html += '</table></div>';
+        html += '<br />';
         html += createLinkToDashboard(parameters);
         html += '</div>';
         return html;

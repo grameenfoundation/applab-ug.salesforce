@@ -190,4 +190,17 @@ public with sharing class MtnChannelsSelector extends ParentComponentBase {
         this.setxAxisType(Apexpages.currentPage().getParameters().get('xAxisType'));
         return null;
     }
+    
+    static testmethod void testAll() {
+        MtnChannelsSelector controller = new MtnChannelsSelector();
+        //controller.refreshAll();
+        controller.getStockTypes();
+        controller.getStockType();
+        controller.getMerchandiseTypes();
+        controller.getMerchandiseType();
+        controller.getShowDSD();
+        controller.getShowOutlet();
+        controller.getShowCompetitorGraph();
+        controller.getxAxisType();
+    }
 }

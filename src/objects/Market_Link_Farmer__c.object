@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>These are created from Market Link application. They are optionally linked to existing farmer in case the farmer exists and to market link transactions</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Amount_Crop_Grown_1__c</fullName>
+        <description>Amount of main crop grown</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount in kgs</inlineHelpText>
+        <label>Amount of Main Crop</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_Crop_Grown_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount Second crop</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_Crop_Grown_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount Third Crop</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Crop_Grown_1__c</fullName>
+        <description>Main Crop Grown</description>
+        <externalId>false</externalId>
+        <label>Main Crop Grown</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Crop_Grown_2__c</fullName>
+        <description>Second crop grown</description>
+        <externalId>false</externalId>
+        <label>Second Crop Grown</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Crop_Grown_3__c</fullName>
+        <description>Third crop grown</description>
+        <externalId>false</externalId>
+        <label>Third Crop Grown</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Farmer_Name__c</fullName>
+        <description>Farmer&apos;s Name</description>
+        <externalId>false</externalId>
+        <label>Farmer Name</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Farmer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Farmer associated with this Market Farmer</description>
+        <externalId>false</externalId>
+        <label>Farmer</label>
+        <referenceTo>Farmer__c</referenceTo>
+        <relationshipName>MarketLink_Farmers</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone_Number__c</fullName>
+        <description>Phone Contact</description>
+        <externalId>false</externalId>
+        <label>Phone_Number</label>
+        <length>12</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Market Link Farmer</label>
+    <nameField>
+        <label>MarketLink Farmer Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Market Link Farmers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -1,11 +1,6 @@
-<apex:page sidebar="false" controller="LacPublicDashboardController">
-    <apex:pageBlock title="Program Overview">
-        <apex:pageBlockTable value="{!homepageSummaryData}" var="item">
-            <apex:column headerValue="Metric" width="400px" value="{!item.name}"/>
-            <apex:column headerValue="Value" width="70px" value="{!item.value1}"/>
-        </apex:pageBlockTable>
-    </apex:pageBlock>
-    <apex:pageBlock title="Deployment Map">
-        <iframe title="Click to enlarge" src="{!$Page.MetricMap}?mapObject=CKW&colourType=Gender&zoom=6&startLat=5.0689&startLng=-74.5263&disableKey=true&extendHeight=false&suppressFeedback=true" width="100%" height="600px" onload="injectOnclickJs(this, 'CKW', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
-    </apex:pageBlock>
+<apex:page sidebar="false">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page: LacDashboardHome
+  <!-- End Default Content REMOVE THIS -->
 </apex:page>

@@ -15,9 +15,13 @@ global class GetDistrictsAndCrops {
     private static List<String> getDistricts() {
         List<String> allDistricts = new List<String>();
         
-        for (District__c district : [SELECT Name FROM District__c]) {
-        	allDistricts.add(district.Name);
-        }
+        allDistricts.add('Kitgum');
+        allDistricts.add('Agago');
+        allDistricts.add('Pader');
+        allDistricts.add('Gulu');
+        allDistricts.add('Lira');
+        allDistricts.add('Oyam');
+
         allDistricts.sort();
         return allDistricts;
     }
@@ -25,30 +29,23 @@ global class GetDistrictsAndCrops {
     private static List<String> getCrops() {
     	List<String> allCrops = new List<String>();
     	
-    	Schema.DescribeFieldResult fieldResult = Farmer__c.Crops__c.getDescribe();
-		List<Schema.PicklistEntry> picklistEntry = fieldResult.getPicklistValues();
-		for (Schema.PicklistEntry crop: picklistEntry) {
-			String cropName = crop.getValue();
-			if (!((crop.getValue().equalsIgnoreCase('None')) || (crop.getValue().equalsIgnoreCase('Other')))) {
-				allCrops.add(crop.getValue());
-			}
-		}
+    	allCrops.add('cotton');
+		allCrops.add('maize');
+		allCrops.add('agwedde beans');
+		allCrops.add('rice');
+		allCrops.add('simsim');
+		allCrops.add('dry groundnuts');
+		allCrops.add('green grams');
+		allCrops.add('sorghum');
+		allCrops.add('sunflower');
+		allCrops.add('millet');
+
 		allCrops.sort();
     	return allCrops;
     }             
    
     static testMethod void canGetDistrictsAndCrops() {
-
-        District__c district = new District__c();
-        district.Name = 'TestDistrict_Bunyaruguru';
-        database.insert(district);
-        
-        Commodities__c commodities = new Commodities__c();
-        commodities.Name = 'TestCommodities_Cabbage';
-       
-        List<String> cropsAndDistricts = GetDistrictsAndCrops.getDistrictsAndCrops();
-        for (String s: cropsAndDistricts) {
-        	System.assertNotEquals(s, '');
-        }
+        List<String> cropsAndDistricts = GetDistrictsAndCrops.getDistrictsAndCrops();        
+        System.assert(cropsAndDistricts.size() == 2);
     } 
 }

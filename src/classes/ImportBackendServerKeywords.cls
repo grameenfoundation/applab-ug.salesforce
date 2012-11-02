@@ -6,10 +6,10 @@ global class ImportBackendServerKeywords {
      */
     webservice static boolean importBackendKeywords(List<MenuItemAdapter> menuItemAdapters, String menuLabel) {
         Menu__c menu = getMenuByLabel(menuLabel);
-        // A set is used to avoid duplicates elegantly
-        Set<Menu_Item__c> updateMenuItemsSet = new Set<Menu_Item__c>();
-        List<Menu_Item__c> updateMenuItemsList = new List<Menu_Item__c>();
-        for (MenuItemAdapter currentAdapter : menuItemAdapters) {            
+        List<Menu_Item__c> updateMenuItems = new List<Menu_Item__c>();
+        for (MenuItemAdapter currentAdapter : menuItemAdapters) {
+            System.debug('Current adapter is ' + currentAdapter.Label);
+            
             // Skip adapter if it has already been processed.
             if (currentAdapter.IsProcessed) {
                 continue;
@@ -18,14 +18,21 @@ global class ImportBackendServerKeywords {
             // check if the menu item has been found if yes update, if no, create menu item, add it to list then continue
             if (null != foundItem) {
                 currentAdapter.MenuItem = updateMenuItemContent(currentAdapter, foundItem);
-                updateMenuItemsSet.add(currentAdapter.MenuItem);
+                 // Work around so as to not add duplicates in the list
+                 // Better alternative compared to iterating over list each time
+                 // which would exponetially increase script statements 
+                try {
+                    updateMenuItems.add(currentAdapter.MenuItem);
+                }
+                catch (ListException e) {
+                   // Empty catch intentional!
+                }
                 continue;
             }
             currentAdapter.MenuItem = createAndSaveMenuItem(currentAdapter, menu, menuItemAdapters);                      
         }        
         // update List of items to be updated
-        updateMenuItemsList.addAll(updateMenuItemsSet);
-        database.update(updateMenuItemsList);
+        database.update(updateMenuItems);
         return true;
     }
     
@@ -88,6 +95,7 @@ global class ImportBackendServerKeywords {
         menuItem.Attribution__c = adapter.Attribution;
         menuItem.Is_Active__c = adapter.IsActive;
         menuItem.Last_Modified_Date__c = adapter.LastModifiedDate; 
+        System.debug('Updating '+ menuItem.Label__c + ' with adapter ' + adapter.Label);
         adapter.IsProcessed = true;
         return menuItem;
     }

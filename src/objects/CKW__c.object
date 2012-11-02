@@ -49,6 +49,18 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Alternative_Contact_Number__c</fullName>
+        <description>A phone number that is not the CKW phone</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please add a number that we can use to contact the CKW if they lose their CKW provided phone</inlineHelpText>
+        <label>Alternative Contact Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Assigned_On__c</fullName>
         <description>The date charger was assigned to the CKW</description>
         <externalId>false</externalId>
@@ -329,7 +341,21 @@
         <fullName>My_Profile__c</fullName>
         <description>Text shown in the &quot;Profile&quot; tab of Pulse</description>
         <externalId>false</externalId>
-        <formula>&quot;Your ID: &quot; &amp;  Name  &amp;  BR() &amp;
+        <formula>IF(ISPICKVAL(Person__r.Country__r.Language__c , &quot;Spanish&quot;) ,
+&quot;Identificación: &quot; &amp;  Name  &amp;  BR() &amp;
+
+&quot;Nombre: &quot; &amp;  Person__r.First_Name__c &amp; &quot; &quot; &amp;  Person__r.Last_Name__c &amp;  BR() &amp;
+
+&quot;Ubicación: &quot; &amp;  Person__r.Subcounty__r.Name &amp; &quot; , &quot; &amp;  Person__r.Parish__c  &amp; &quot; &quot;&amp;  Person__r.Village__c &amp; &quot; .&quot; &amp; BR() &amp; 
+BR()&amp;
+&quot;ID del teléfono: &quot; &amp;  Person__r.Handset__r.IMEI__c &amp; BR() &amp;
+
+&quot;Número telefónico: &quot; &amp;  Person__r.Handset__r.SIM__r.Name &amp; BR()&amp;
+BR()&amp;
+
+&quot;ATENCION: Si su nombre o número telefónico no son correctos, por favor comuníquese con su líder productor. Adicionalmente puede reportar este problema utilizando la pestaña Soporte. Sus actividades no seran registradas en el sistema si la información es incorrecta.&quot; &amp; BR()
+,
+&quot;Your ID: &quot; &amp;  Name  &amp;  BR() &amp;
 
 &quot;Your Name: &quot; &amp;  Person__r.First_Name__c &amp; &quot; &quot; &amp;  Person__r.Last_Name__c &amp;  BR() &amp;
 
@@ -340,7 +366,8 @@ BR()&amp;
 &quot;Phone Number: &quot; &amp;  Person__r.Handset__r.SIM__r.Name &amp; BR()&amp;
 BR()&amp;
 
-&quot;VERY IMPORTANT: If your name or phone number are not listed correctly, please advise your field co-coordinator or field officer as soon as possible. Alternatively you can report this problem via the Support tab. Your activities will not be recorded in the system if the above information is incorrect.&quot; &amp; BR()</formula>
+&quot;VERY IMPORTANT: If your name or phone number are not listed correctly, please advise your field co-coordinator or field officer as soon as possible. Alternatively you can report this problem via the Support tab. Your activities will not be recorded in the system if the above information is incorrect.&quot; &amp; BR()
+)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Pulse Profile</label>
         <required>false</required>
@@ -379,6 +406,7 @@ BR()&amp;
         <relationshipLabel>CKW Details</relationshipLabel>
         <relationshipName>CKW_Details</relationshipName>
         <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
@@ -503,7 +531,7 @@ BR()&amp;
     </fields>
     <label>CKW</label>
     <listViews>
-        <fullName>All_CKWs</fullName>
+        <fullName>tabitha</fullName>
         <columns>NAME</columns>
         <columns>Mobile_Number__c</columns>
         <columns>Status__c</columns>
@@ -521,6 +549,7 @@ BR()&amp;
     <searchLayouts>
         <listViewButtons>Mass_Update</listViewButtons>
         <listViewButtons>Mass_Edit</listViewButtons>
+        <searchFilterFields>NAME</searchFilterFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <webLinks>

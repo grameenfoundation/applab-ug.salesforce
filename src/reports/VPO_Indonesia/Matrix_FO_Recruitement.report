@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>VPO__c$Name</field>
+    </columns>
+    <description>Matrix: FO Recruitement</description>
+    <filter>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <column>VPO__c$Field_Officer__c</column>
+            <operator>contains</operator>
+            <value>008-1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>VPO__c$Field_Officer__c</column>
+            <operator>equals</operator>
+            <value>008-4</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>VPO__c$VPO_Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>VPO__c$Field_Officer__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>V106.04: Matrix: FO Recruitement</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>V106_VPO_List__c</reportType>
+    <scope>user</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>VPO__c$Deployment_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

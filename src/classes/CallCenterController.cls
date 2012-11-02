@@ -7,7 +7,6 @@ public class CallCenterController {
     Farmer__c[] farmers;
     Farmer__c farmer;
     Case[] cases;
-
     Case currentCase;
         
     public String getPhoneNumber() {
@@ -114,11 +113,11 @@ public class CallCenterController {
     
     public PageReference saveCaseAndClear() {
         if (saveCurrentCase(farmer)) {
-            if (currentCase.Status == 'Closed') {
-                // For all closed cases update total_complete_interactions_call_center
-                MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
-                MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
-            }
+        	if (currentCase.Status == 'Closed') {
+        	    // For all closed cases update total_complete_interactions_call_center
+                MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+                MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+        	}
             clearCaseFields();    
             // Reset all fields and prepare for next search 
             clearAllFarmers();  
@@ -129,9 +128,9 @@ public class CallCenterController {
     public PageReference saveCaseAndClose() {
         currentCase.Status = 'Closed';
         if (saveCurrentCase(farmer)) {
-             // For all closed cases update total_complete_interactions_call_center
-            MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
-            MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
+        	 // For all closed cases update total_complete_interactions_call_center
+            MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+            MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
             clearCaseFields();    
             // Reset all fields and prepare for next search 
             clearAllFarmers(); 
@@ -142,9 +141,9 @@ public class CallCenterController {
     public PageReference saveCase() {
         if (saveCurrentCase(farmer)) {  
             if (currentCase.Status == 'Closed') {
-                // For all closed cases update total_complete_interactions_call_center
-                MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
-                MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), true);
+            	// For all closed cases update total_complete_interactions_call_center
+                MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+                MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
                 clearCaseFields(); 
             }
         }
@@ -186,7 +185,8 @@ public class CallCenterController {
         person.First_Name__c = 'Unknown Call-Centre';
         person.Last_Name__c = 'Farmer';
         person.Raw_Mobile_Number__c = phoneNumber;
-        person.Village__c = 'Unknown';  
+        person.Village__c = 'Unknown';
+        person.Age__c = 0;  
         // Not yet on production system  
         // person.Type__c = 'Farmer';    
         return person;
@@ -327,5 +327,6 @@ public class CallCenterController {
         system.assert(controller.searchByPhoneNumber() ==  null);
         system.assert(controller.getIsNewFarmer() == true);
         system.assert(controller.getResponse() != 'response');
-    }    
+    }
+    
 }

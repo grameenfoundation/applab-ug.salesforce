@@ -37,7 +37,7 @@
     <enableActivities>false</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
+    <enableHistory>true</enableHistory>
     <enableReports>false</enableReports>
     <fields>
         <fullName>Application_Version__c</fullName>
@@ -48,6 +48,7 @@
         <relationshipLabel>Handsets Installed On</relationshipLabel>
         <relationshipName>Handset_Application_Associations</relationshipName>
         <required>false</required>
+        <trackHistory>true</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -59,11 +60,13 @@
         <relationshipLabel>Installed Applications</relationshipLabel>
         <relationshipName>Handset_Application_Associations</relationshipName>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <label>Handset Application Association</label>
     <nameField>
         <label>Handset Application Association Name</label>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Handset Application Associations</pluralLabel>

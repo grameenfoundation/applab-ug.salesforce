@@ -1201,4 +1201,12 @@ public with sharing class MtnChannelsGraphController extends ChildComponentBase 
             this.war = value;
         }
     }
+    static testmethod void testAll() {
+    	MtnChannelsGraphController controller = new MtnChannelsGraphController();
+    	try {
+            controller.init();
+    	}
+        catch (Exception e) {}
+        
+    }
 }

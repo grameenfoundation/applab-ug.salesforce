@@ -911,5 +911,44 @@ public with sharing class MtnChannelsEmailHelpers {
         return 'white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space:-o-pre-wrap; white-space: pre-wrap; word-wrap: break-word;'+
             'font-size:13px; font-family: arial, sans-serif; background-color:#FFFFFF; -webkit-font-smoothing: antialiased; font-smooth: always;';
     }
+    
+    static testmethod void testAll() {
+    	try {
+            DailyStaffStats stats = new DailyStaffStats( 'asdcasdewwww', 'James', 'Oloo', 'jonyango@applab.org', 'Eastern');
+                 getBackgroundColour();    
+     getTableBackgroundColour();    
+                 getLargeFont();     
+                getMediumFont();    
+                getSmallFont();     
+                 getBoldFont();     
+               getEvenBackgroundColour(); 
+     	 getBackgroundColour();    
+     getOddBackgroundColour();     
+     getCenter(); 
+     getTdNameWidth(); 
+     getTdOtherWidth(); 
+     getFullWidth(); 
+     getWideWidth(); 
+     getSumaryWidth(); 
+     getCellAlignment(); 
+     getSummaryPadding(); 
+     getTitleStyle(); 
+     getTableStyle();
+     getTableHeaderStyle();
+     getTableBodyStyle();             
+            stats.getPersonalComp();
+            getStockHeader();
+            getDailyEmailQueryString(new List<String>(), Date.today());           
+            stats.getPerformance();
+            getPerfomanceHeader();
+            getRegionHtml('Western');
+            
+            // test getters and setters
+            
+    	}
+    	catch(Exception e) {
+    	}         
+          
+    }
 
 }

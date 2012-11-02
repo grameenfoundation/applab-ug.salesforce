@@ -251,7 +251,7 @@ global class PulseController {
 
 	private static Person__c getPerson(String handsetId) {
 		if(cachedPersonObject == null) {
-			Person__c[] people = [Select Name, Id, First_Name__c, Last_Name__c, Parish__c, Village__c, Subcounty__c, Handset__r.IMEI__c, Handset__r.SIM__r.Name from Person__c WHERE Handset__r.IMEI__c =: handsetId];
+			Person__c[] people = [Select Name, Id, First_Name__c, Last_Name__c, Parish__c, Village__c, Subcounty__c, Handset__r.IMEI__c, Handset__r.SIM__r.Name, OwnerId from Person__c WHERE Handset__r.IMEI__c =: handsetId];
 			if(people.size() > 0) {
 				cachedPersonObject = people[0];
 			}

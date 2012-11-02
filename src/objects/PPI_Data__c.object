@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Temp warehouse object that stores data for the PPI surveys until the new platform is ready</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Question_1__c</fullName>
+        <description>The first question on the PPI scorecard</description>
+        <externalId>false</externalId>
+        <label>Question 1</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_2__c</fullName>
+        <description>The second question on the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 2</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_3__c</fullName>
+        <description>The third question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 3</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_4__c</fullName>
+        <description>The 4th question in the PPI survey</description>
+        <externalId>false</externalId>
+        <label>Question 4</label>
+        <required>true</required>
+        <type>TextArea</type>
+    </fields>
+    <label>PPI Data</label>
+    <nameField>
+        <displayFormat>PPI{0000000000}</displayFormat>
+        <label>PPI Data Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PPI Datas</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

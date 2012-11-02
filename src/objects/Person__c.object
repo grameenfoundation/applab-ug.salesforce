@@ -52,6 +52,19 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Country__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Country where person comes from</description>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <referenceTo>Country__c</referenceTo>
+        <relationshipLabel>People</relationshipLabel>
+        <relationshipName>People</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Current_Poverty_Scorecard__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>The most recent poverty scorecard for this person</description>
@@ -134,6 +147,16 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Email_Address__c</fullName>
+        <description>The email address to contact this person by</description>
+        <externalId>false</externalId>
+        <label>Email Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Email</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Father_Name__c</fullName>
@@ -221,6 +244,16 @@
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LAC_Farmer_Id_Temp__c</fullName>
+        <externalId>false</externalId>
+        <label>LAC Farmer Id Temp</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Last_Name__c</fullName>
@@ -348,6 +381,38 @@ IF( NOT( ISBLANK( Handset__c)),
                 <fullName>TDR</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Coffee A Cup</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Data Validator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asocati</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Field Officer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MTN Channels Staff</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Community Based Trainer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IITA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BRAC PA</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -383,6 +448,23 @@ IF( NOT( ISBLANK( Handset__c)),
         <label>All</label>
     </listViews>
     <listViews>
+        <fullName>Lac_People</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Middle_Name__c</columns>
+        <columns>Handset__c</columns>
+        <columns>Mobile_Number__c</columns>
+        <columns>Raw_Mobile_Number__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OWNER.ALIAS</field>
+            <operation>equals</operation>
+            <value>LAC</value>
+        </filters>
+        <label>LAC People</label>
+    </listViews>
+    <listViews>
         <fullName>Overview</fullName>
         <columns>First_Name__c</columns>
         <columns>Middle_Name__c</columns>
@@ -415,6 +497,7 @@ IF( NOT( ISBLANK( Handset__c)),
         <lookupPhoneDialogsAdditionalFields>First_Name__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Mobile_Number__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Raw_Mobile_Number__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
         <searchFilterFields>Last_Name__c</searchFilterFields>
         <searchFilterFields>Middle_Name__c</searchFilterFields>
         <searchFilterFields>First_Name__c</searchFilterFields>

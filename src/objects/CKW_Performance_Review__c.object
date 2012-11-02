@@ -81,6 +81,7 @@
         <relationshipLabel>CKW Monthly Performance Records</relationshipLabel>
         <relationshipName>CKW_Performance_Reviews</relationshipName>
         <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
@@ -341,7 +342,23 @@ Example: If start date is selected as  1January December 2010, Operating month w
     <fields>
         <fullName>Performance_Message__c</fullName>
         <externalId>false</externalId>
-        <formula>&quot;Total Surveys: &quot; &amp; TEXT(Total_Surveys_Submitted__c) &amp; BR() &amp; 
+        <formula>IF( ISPICKVAL(CKW_c__r.Person__r.Country__r.Language__c, &apos;Spanish&apos;),
+&quot;Total de encuestas: &quot; &amp; TEXT(Total_Surveys_Submitted__c) &amp; BR() &amp; 
+&quot;Aprobadas: &quot; &amp; TEXT(Surveys_Approved__c) &amp; BR() &amp; 
+&quot;Rechazadas: &quot; &amp; TEXT(Surveys_Rejected__c) &amp; BR() &amp; 
+&quot;No revisadas: &quot; &amp; TEXT(Surveys_Not_Reviewed__c) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Total de busquedas: &quot; &amp; TEXT(Total_Searches__c + Number_Of_Invalid_Searches_Running_Total__c + Number_Of_Test_Searches_Running_Total__c) &amp; BR() &amp; 
+&quot;Validas: &quot; &amp; TEXT(Total_Searches__c) &amp; BR() &amp; 
+&quot;Invalidas: &quot; &amp; TEXT( Number_Of_Invalid_Searches_Running_Total__c ) &amp; BR() &amp; 
+&quot;Prueba: &quot; &amp; TEXT( Number_Of_Test_Searches_Running_Total__c ) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Productores registrados: &quot; &amp; TEXT( Farmers_Registered__c ) &amp; BR() &amp; 
+BR() &amp; 
+&quot;Usted tiene &quot; &amp; IF((30 - DAY(TODAY()) &gt; 7), 
+TEXT(ROUND( (30 - DAY(TODAY())) / 7, 1 ) ) &amp; &quot; semanas&quot;, TEXT( 30 - DAY(TODAY()) ) &amp; &quot; days&quot;) &amp; 
+&quot; para cumplir con la meta de este mes.&quot;
+,&quot;Total Surveys: &quot; &amp; TEXT(Total_Surveys_Submitted__c) &amp; BR() &amp; 
 &quot;Approved: &quot; &amp; TEXT(Surveys_Approved__c) &amp; BR() &amp; 
 &quot;Rejected: &quot; &amp; TEXT(Surveys_Rejected__c) &amp; BR() &amp; 
 &quot;Not reviewed: &quot; &amp; TEXT(Surveys_Not_Reviewed__c) &amp; BR() &amp; 
@@ -355,7 +372,8 @@ BR() &amp;
 BR() &amp; 
 &quot;You have &quot; &amp; IF((30 - DAY(TODAY()) &gt; 7), 
 TEXT(ROUND( (30 - DAY(TODAY())) / 7, 1 ) ) &amp; &quot; weeks&quot;, TEXT( 30 - DAY(TODAY()) ) &amp; &quot; days&quot;) &amp; 
-&quot; left to meet your targets this month.&quot;</formula>
+&quot; left to meet your targets this month.&quot;
+)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Performance Message</label>
         <required>false</required>

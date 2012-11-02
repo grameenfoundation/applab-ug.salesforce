@@ -187,6 +187,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Person_Owner_Id__c</fullName>
+        <description>The Owner Id of the Interviewer. Used to filter searchlogs (e.g. for LAC searchlogs)</description>
+        <externalId>false</externalId>
+        <formula>Interviewer__r.OwnerId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Person Owner Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Query__c</fullName>
         <externalId>false</externalId>
         <label>Query</label>
@@ -301,10 +313,16 @@
         <filterScope>Everything</filterScope>
         <filters>
             <field>Handset_Submit_Time__c</field>
-            <operation>greaterOrEqual</operation>
-            <value>10/24/2011 12:00 AM</value>
+            <operation>greaterThan</operation>
+            <value>9/1/2012 12:00 AM</value>
+        </filters>
+        <filters>
+            <field>From_USSD__c</field>
+            <operation>equals</operation>
+            <value>1</value>
         </filters>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Custom Object Label Name</label>

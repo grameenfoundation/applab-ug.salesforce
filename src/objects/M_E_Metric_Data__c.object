@@ -73,6 +73,18 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Denumerator__c</fullName>
+        <description>The Denumerator for the on the fly calculation</description>
+        <externalId>false</externalId>
+        <label>Denumerator</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>District__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>The district that this metric is for. Allows us to split the metrics by district when showing them on the dashboard</description>
@@ -122,6 +134,30 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Numerator__c</fullName>
+        <externalId>false</externalId>
+        <label>Numerator</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The person that this metric data belongs to</description>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>M&amp;E Metric Data</relationshipLabel>
+        <relationshipName>M_E_Metric_Data</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Projected_Value__c</fullName>
         <defaultValue>0</defaultValue>
         <description>The projected value for this metric for the given quarter. Should be entered manually.</description>
@@ -157,6 +193,7 @@
         <columns>Comment__c</columns>
         <columns>Date__c</columns>
         <columns>Manual_Value__c</columns>
+        <columns>LAST_UPDATE</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

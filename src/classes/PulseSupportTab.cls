@@ -80,6 +80,7 @@ public class PulseSupportTab {
         supportCase.description =  message;
         supportCase.Person__c = person.Id;
         supportCase.subject = Label.From + ' ' + person.Name;
+        supportCase.OwnerId = person.OwnerId;
         insert supportCase;
         
         if (supportCase.id != null) {
@@ -111,6 +112,11 @@ public class PulseSupportTab {
     	getHiddenLanguageControl();
     	getFormControls('1234567890');
     	getSupportFormHtml('1234567890', 'URL');
-    	processSubmission('123457890', null, 'test', new Person__c(), 'URL');
+    	Person__c person = new Person__c();
+    	person.First_Name__c = 'Test';
+    	person.Last_Name__c = 'Test2';
+    	person.OwnerId = Userinfo.getUserId();
+    	insert person;
+    	processSubmission('123457890', null, 'test', person, 'URL');
     }
 }

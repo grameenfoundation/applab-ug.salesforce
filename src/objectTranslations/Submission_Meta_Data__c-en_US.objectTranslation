@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Submission</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Submissions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Customer Care Review Comment --></label>
+        <name>Customer_Care_Review_Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Care Review Status --></label>
+        <name>Customer_Care_Review_Status__c</name>
+        <picklistValues>
+            <masterLabel>First Level Approved</masterLabel>
+            <translation><!-- First Level Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Flagged</masterLabel>
+            <translation><!-- Flagged --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reviewed</masterLabel>
+            <translation><!-- Not Reviewed --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Data Collection Review Comment --></label>
+        <name>Data_Collection_Review_Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Collection Review Status --></label>
+        <name>Data_Collection_Review_Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Flagged</masterLabel>
+            <translation><!-- Flagged --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reviewed</masterLabel>
+            <translation><!-- Not Reviewed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Handset Submit Time --></label>
+        <name>Handset_Submit_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interview Accuracy --></label>
+        <name>Interview_Accuracy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interview Altitude --></label>
+        <name>Interview_Altitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interview GPS Timestamp --></label>
+        <name>Interview_GPS_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interview Latitude --></label>
+        <name>Interview_Latitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interview Longitude --></label>
+        <name>Interview_Longitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interviewee Distance (Km) --></label>
+        <name>Interviewee_Distance_Km__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interviewee Name --></label>
+        <name>Interviewee_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interviewee --></label>
+        <name>Interviewee__c</name>
+        <relationshipLabel><!-- Submissions (Interviewee) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Interviewer Distance (Km) --></label>
+        <name>Interviewer_Distance_Km__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interviewer Name --></label>
+        <name>Interviewer_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interviewer --></label>
+        <name>Interviewer__c</name>
+        <relationshipLabel><!-- Submissions (Interviewer) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Is Draft --></label>
+        <name>Is_Draft__c</name>
+    </fields>
+    <fields>
+        <label><!-- Poverty Scorecard --></label>
+        <name>Poverty_Scorecard__c</name>
+        <relationshipLabel><!-- Submissions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Result Hash --></label>
+        <name>Result_Hash__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission Accuracy (Meters) --></label>
+        <name>Submission_Accuracy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission Altitude (Meters) --></label>
+        <name>Submission_Altitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission GPS Timestamp --></label>
+        <name>Submission_GPS_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission Latitude --></label>
+        <name>Submission_Latitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission Longitude --></label>
+        <name>Submission_Longitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission Size (Bytes) --></label>
+        <name>Submission_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey Name --></label>
+        <name>Survey_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey --></label>
+        <name>Survey__c</name>
+        <relationshipLabel><!-- Submissions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Unregistered Farmer Id --></label>
+        <name>Unregistered_Farmer_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Submission Meta Data Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Interviewee --></label>
+            <section>Interviewee</section>
+        </sections>
+        <sections>
+            <label><!-- Interviewer --></label>
+            <section>Interviewer</section>
+        </sections>
+        <sections>
+            <label><!-- Other Info --></label>
+            <section>Other Info</section>
+        </sections>
+        <sections>
+            <label><!-- Review Info --></label>
+            <section>Review Info</section>
+        </sections>
+        <sections>
+            <label><!-- Submission Location &amp; Time --></label>
+            <section>Submission Location &amp; Time</section>
+        </sections>
+        <sections>
+            <label><!-- Survey --></label>
+            <section>Survey</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
