@@ -1,0 +1,12 @@
+<script type="text/javascript" src="/js/functions.js"></script>
+<script src="/soap/ajax/8.0/connection.js"></script>
+{!INCLUDE($SControl.RecordTypesLookup)}
+
+<script language="JavaScript">
+function redirect() {
+	var DonationRecordType  = recordTypeId("MajorGift","Opportunity"); 
+	
+parent.frames.location.replace("/006/e?retURL=%2F{!Contact.Id}&RecordType="+DonationRecordType+ "&conid={!Contact.Id}&opp3={!Contact.FirstName} {!Contact.LastName} Major Gift - {!Today}&opp11=Prospecting")
+}
+redirect();
+</script>

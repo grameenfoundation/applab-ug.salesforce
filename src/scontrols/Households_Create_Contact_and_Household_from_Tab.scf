@@ -1,0 +1,603 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+Contact and Household Creator for Salesforce.com
+Copyright (C) 2005 Steve Andersen, steve@onenw.org, ONE/Northwest, 1402 Third Ave, Suite 1000, Seattle, WA, 98101
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+---------------------------------------------------------------------
+Description: This S-Control is built to be used as a web tab. It will create a Contact and a Household, and relate the Contact to the Household.
+Last Modified: 2/06/2006-->
+<html>
+	<head>
+		<title>Contact and Household creator - Powered by the Sforce AJAX Toolkit (Beta 3.3)</title>
+		
+		<script src="https://www.salesforce.com/services/lib/ajax/beta3.3/sforceclient.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/js/functions.js"></script>
+		<link href="/dCSS/Theme2/default/common.css" type="text/css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" >
+		<link href="/dCSS/Theme2/default/custom.css" type="text/css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" >
+		
+		
+		<style>
+			th,td{
+			font-size: 12px !important;
+			}
+		</style>
+		<script type="text/javascript">
+		var ThisQuerystring = new Querystring(parent.document.URL.substring(parent.document.URL.indexOf('?'), parent.document.URL.length));
+	    var HouseholdId = ThisQuerystring.get("CF00N70000001ay0Z_lkid", "");
+		var AccountFromQuestyString = "{!Account.Id}";
+		//alert(HouseholdId);
+	
+			/****************************************************************
+			* Main function called on page load
+			*****************************************************************/
+			function initPage() {				
+				//Proof of session when used in salesforce.com interface
+				 //Initialize the connection to salesforce.com by setting the sessionid and the
+                //soap endpoint in the init call
+                sforceClient.setLoginUrl("https://www.salesforce.com/services/Soap/u/7.0");
+                sforceClient.registerInitCallback(startUp);
+                sforceClient.init("{!API.Session_ID}", "{!API.Partner_Server_URL_70}", false);
+				//Get the current contact id from the session
+            }
+			/****************************************************************
+			* main body of the app. Checks to see if Householding is installed.
+			*****************************************************************/
+			function startUp() {
+				if (!(check_field("contact", "ONEN_Household__c"))) {
+					var ErrorHTML = "<h1>Incomplete Setup</h1><p>You forgot to create the Household lookup relationship field on the Contact object.</p>";
+					ErrorHTML += "<ul><li>Please create the field on the Contact object as described in the documentation</li>";
+					ErrorHTML += "<li>Refresh this tab and the form should be visible</li></ul>";
+					document.getElementById("ContactHouseholdForm").innerHTML = ErrorHTML;
+					
+					return;
+				} else {
+					if (AccountFromQuestyString!="") {
+						var FirstContactAccountId = AccountFromQuestyString;
+						document.getElementById("AccountName_lkid").value = FirstContactAccountId;
+							//alert(FirstContactAccountId);
+						var result = sforceClient.Retrieve("Name", "Account", FirstContactAccountId);
+						if (result.className != "Fault" && result.length != 0) {
+							//alert(result[0].get("Name"));
+							document.getElementById("AccountName").value = result[0].get("Name");
+						}
+					}
+					if(HouseholdId!=""){
+						document.getElementById('recognition_heading').style.visibility='hidden';
+						document.getElementById('recognition_section').style.visibility='hidden';
+					}
+				}
+			}
+			function searchTable(who,table,fields) { // given a partial name, we need to look up the object
+				// and find exactly one, return the ID, otherwise fail and return null 
+				//who = who.replace(/([\'\&\|\!\(\)\{\}\[\]\^~\:\\\+\-])/g, "\\$1");
+			
+				var sstr = 	"find {" + soql_escape(who) + "*} in NAME FIELDS RETURNING "+table+"("+ fields+ ")"
+				var sr = sforceClient.Search(sstr); 
+				if (sr.className != "SearchResult" ) {
+					throw ( "Error: could not search "+table+" table" + sr.errors[0].message ); 
+				}	
+				return sr.searchRecords;
+			}
+			function soql_escape( s) { return s.replace(/([\'\&\|\!\(\)\{\}\[\]\^~\:\\\+\-])/g, "\\$1"); }
+			function assert(fact,msg) { if ( fact ) { return true }
+				msg = "Assert failure \n" + msg;
+				if (arguments.callee.caller != null) {
+					msg = msg + " in function "+ arguments.callee.caller.toString().match(/function\s+(\w+)/)[1];
+				}
+				alert(msg);
+				return false
+			}
+			function submitForm(contactfom){
+			
+			
+				//CONSTANT - enter the ID for the Account in which Contacts should be created
+				var IndividualAccountId = "0017000000LK3XF";
+				//set the two hidden lookup fields to this id
+				var FirstContactAccountId = IndividualAccountId;
+    			var SecondContactAccountId = IndividualAccountId;
+				//document.account1.AccountName_lkid.value = IndividualAccountId;
+				//document.account2.SecondAccountName_lkid.value = IndividualAccountId;
+				
+				var ContactAccountID = IndividualAccountId;
+				
+				// has the account field been modified from the default value ?
+				if (document.getElementById("AccountName_mod").value == '1') {
+					//alert('modified ');
+					var sr = searchTable(document.getElementById("AccountName").value,"Account","id,Name");
+					var accid; var conid;
+					switch (sr.length) { 
+					case 0: 
+						var acc = new Sforce.Dynabean("Account");
+						acc.set("Name",document.getElementById("AccountName").value);
+						acc.set("BillingStreet", document.getElementById("ContactAddress").value);
+						acc.set("BillingCity", document.getElementById("ContactCity").value );
+						acc.set("BillingState", document.getElementById("ContactState").value );
+						acc.set("BillingCountry", document.getElementById("ContactCountry").value);
+						acc.set("BillingPostalCode", document.getElementById("ContactZip").value);
+					//	acc.set("RecordTypeId", document.getElementById('recordtype').value);
+						var saveResult = sforceClient.Create([acc]);
+						assert(saveResult[0].className == "SaveResult", "no save" ); 
+						assert(saveResult[0].success == true, saveResult[0].errors[0].message );
+						
+						qr = sforceClient.Query("Select Id, Name from Account where id = '"+ saveResult[0].id + "'");
+						assert(qr.className == "QueryResult",'could not query new account '+saveResult[0].id )
+						document.getElementById("AccountName_lkid").value =saveResult[0].id;
+						document.getElementById("AccountName_mod").value ='0';
+						
+						break;
+					case 1:
+						document.getElementById("AccountName_lkid").value =sr[0].get("Id");
+						document.getElementById("AccountName_mod").value ='0';
+						
+						break;
+					default : account = sr[0];	break;
+					} 
+				
+				}
+				
+				//if a last name was entered for the contact
+				if(document.getElementById("ContactLastName").value!="" || document.getElementById("ContactFirstName").value!=""){
+				
+					var ContactFirstName = document.getElementById("ContactFirstName").value;
+					var ContactLastName = document.getElementById("ContactLastName").value;
+					var ContactAddress = document.getElementById("ContactAddress").value;
+					var ContactCity = document.getElementById("ContactCity").value;
+					var ContactState = document.getElementById("ContactState").value;
+					var ContactZip = document.getElementById("ContactZip").value;
+					var ContactCountry = document.getElementById("ContactCountry").value;
+					var WorkAddress = document.getElementById("WorkAddress").value;
+					var WorkCity = document.getElementById("WorkCity").value;
+					var WorkState = document.getElementById("WorkState").value;
+					var WorkZip = document.getElementById("WorkZip").value;
+					var WorkCountry = document.getElementById("WorkCountry").value;
+					var AccountName = document.getElementById("AccountName").value;
+					var Contact2FirstName = document.getElementById("Contact2FirstName").value;
+					var Contact2LastName = document.getElementById("Contact2LastName").value;
+					
+					//set the recognition name and use it for the name of the Household, unless it wasn't supplied
+					if (document.getElementById("RecognitionName").value!="") {
+						var RecognitionName = document.getElementById("RecognitionName").value;
+						var HouseholdName = RecognitionName + " Household";
+					} else {
+						//if there is a second contact
+						//alert(Contact2LastName + ":" + ContactLastName);
+						if(Contact2LastName!="") {
+							//if they share the same last name
+							if (Contact2LastName == ContactLastName) {
+								var RecognitionName = ContactFirstName;
+								//if the second contact first name is supplied
+								if (Contact2FirstName!="") {
+									RecognitionName += " and " + Contact2FirstName;
+								}
+								//add the last name to it
+								RecognitionName += " " + ContactLastName;
+								//use that for the household name
+								var HouseholdName = RecognitionName + " Household";
+							} else {
+								//if they don't share the last name
+								var RecognitionName = ContactFirstName + " " + ContactLastName + " and ";
+								//if they supplied a first name for the second contact, use it
+								if (Contact2FirstName!="") {
+									RecognitionName += Contact2FirstName + " ";
+								}
+								//alert("got here");
+								RecognitionName += Contact2LastName;
+								var HouseholdName = RecognitionName + " Household";
+							}
+						} else {
+							var RecognitionName = ContactFirstName + " " + ContactLastName;
+							var HouseholdName = RecognitionName + " Household";
+						}
+						
+					}
+					//set the short recognition name if it was supplied
+					if (document.getElementById("RecognitionNameShort").value!="") {
+						var RecognitionNameShort = document.getElementById("RecognitionNameShort").value;
+					} else {
+					
+						if(Contact2LastName!="" && Contact2FirstName!="") {
+							var RecognitionNameShort = ContactFirstName + " and " + Contact2FirstName;
+
+						} else {
+							var RecognitionNameShort = ContactFirstName;
+						}
+					}
+				     if (HouseholdId=="") {
+				     //create household
+						 var Household = new Sforce.Dynabean('ONEN_Household__c');
+						 var HouseholdArray = new Array(1);
+						 //Set the Recordtype
+						 Household.set("Name",HouseholdName); 
+						 Household.set("MailingStreet__c",ContactAddress);
+						 Household.set("MailingCity__c",ContactCity);
+						 Household.set("MailingState__c",ContactState);
+						 Household.set("MailingPostalCode__c",ContactZip);
+						 Household.set("MailingCountry__c",ContactCountry);
+						 Household.set("Recognition_Name__c",RecognitionName);
+						 Household.set("Recognition_Name_Short__c",RecognitionNameShort);
+						 
+						 HouseholdArray[0] = Household;   
+						 //Call create on the Opportunity.
+						 var HouseholdSaveResult = sforceClient.Create(HouseholdArray);
+						if (HouseholdSaveResult[0].success == true) {
+							//get the object that was returned
+							CreatedHousehold = HouseholdSaveResult[0];
+							HouseholdId = CreatedHousehold.id;
+						} else {
+							alert("Error in creating household!");
+						} 
+					 }
+						var Contact = new Sforce.Dynabean('Contact');
+						var ContactArray = new Array(1);
+						//Set the Recordtype
+						Contact.set("FirstName",ContactFirstName);									
+						Contact.set("LastName",ContactLastName);
+						var ContactAccountAddress="";
+						var ContactAccountCity="";
+						var ContactAccountState="";
+						var ContactAccountPostalCode="";
+						var ContactAccountCountry="";
+						if(document.getElementById("AccountName_lkid").value!=null&&document.getElementById("AccountName_lkid").value!="") {
+							FirstContactAccountId = document.getElementById("AccountName_lkid").value;
+				    
+				      	}			
+				      	
+						Contact.set("AccountId",FirstContactAccountId);
+						Contact.set("MailingStreet",ContactAddress);
+						Contact.set("MailingCity",ContactCity);
+						Contact.set("MailingState",ContactState);
+						Contact.set("MailingPostalCode",ContactZip);
+						Contact.set("MailingCountry",ContactCountry);	
+						//if the form has some data in it, use it. If not, get the address from the Account
+						if(WorkAddress!="" || WorkCity!="") {
+							//update contact other fields with data entry form fields
+							Contact.set("OtherStreet",WorkAddress);
+							Contact.set("OtherCity",WorkCity);
+							Contact.set("OtherState",WorkState);
+							Contact.set("OtherPostalCode",WorkZip);
+							Contact.set("OtherCountry",WorkCountry);
+						} else {
+							Contact.set("OtherStreet",ContactAccountAddress);
+							Contact.set("OtherCity",ContactAccountCity);
+							Contact.set("OtherState",ContactAccountState);
+							Contact.set("OtherPostalCode",ContactAccountPostalCode);
+							Contact.set("OtherCountry",ContactAccountCountry);
+						}
+						
+						//Set the close date to today				
+						Contact.set("ONEN_Household__c", HouseholdId);
+						ContactArray[0] = Contact;			
+						//Call create on the Opportunity.
+						var ContactSaveResult = sforceClient.Create(ContactArray);
+		
+						if (ContactSaveResult[0].success == true) {
+						
+							//get the object that was returned
+							CreatedContact = ContactSaveResult[0];		
+							//relate the second contact to the household
+							if (Contact2LastName!="") {
+								var Contact2 = new Sforce.Dynabean('Contact');
+								var Contact2Array = new Array(1);
+								//Set the Recordtype
+								Contact2.set("FirstName",Contact2FirstName);									
+								Contact2.set("LastName",Contact2LastName);
+								if(document.getElementById("SecondAccountName_lkid").value!=null&&document.getElementById("SecondAccountName_lkid").value!="") {
+									SecondContactAccountId = document.getElementById("SecondAccountName_lkid").value;
+						    
+						      	}
+								Contact2.set("AccountId",SecondContactAccountId);
+								Contact2.set("MailingStreet",ContactAddress);
+								Contact2.set("MailingCity",ContactCity);
+								Contact2.set("MailingState",ContactState);
+								Contact2.set("MailingPostalCode",ContactZip);
+								Contact2.set("MailingCountry",ContactCountry);					
+								
+								Contact2.set("ONEN_Household__c", HouseholdId);
+								Contact2Array[0] = Contact2;			
+								var Contact2SaveResult = sforceClient.Create(Contact2Array);
+								//error handling
+								if (Contact2SaveResult[0].success == true) {
+									//if two Contacts were created, drop the user on the Household record
+									top.location.replace("/" + HouseholdId);
+								} else {
+									alert("Error creating Contact! " + ContactSaveResult[0].message);
+								}
+								
+							} else {
+								//if one Contact was created, drop the user on the edit page for that Contact
+								top.location.replace("/" + CreatedContact.id + "/e?retURL=/" + CreatedContact.id);
+							}
+							
+						} else {
+							alert("Error creating Contact! " + ContactSaveResult[0].message);
+						}
+	
+					
+				} else {
+					alert("Last Name and First Name are required.");
+					return;
+				}
+				
+				
+			}
+			/****************************************************************
+			* function to look for a field on a given object. Thanks to Ron Hess of sf.com!
+			*****************************************************************/
+			function check_field(table, name) { // checks for custom field exists
+                name = name.toLowerCase();
+                if( ! /__c/.test(name) ) {
+                    name += '__c';
+                }
+                var def = sforceClient.DescribeSObject(table); 
+                var ret =  def.fieldMap.containsItem(name);
+                return ( ret );
+            }
+/* Client-side access to querystring name=value pairs
+	Version 1.2.3
+	22 Jun 2005
+	Adam Vandenberg
+*/
+function Querystring(qs) { // optionally pass a querystring to parse
+	this.params = new Object()
+	this.get=Querystring_get
+	
+	if (qs == null)
+		qs=location.search.substring(1,location.search.length)
+
+	if (qs.length == 0) return
+
+// Turn <plus> back to <space>
+// See: http://www.w3.org/TR/REC-html40/interact/forms.html#h-17.13.4.1
+	qs = qs.replace(/\+/g, ' ')
+	var args = qs.split('&') // parse out name/value pairs separated via &
+	
+// split out each name=value pair
+	for (var i=0;i<args.length;i++) {
+		var value;
+		var pair = args[i].split('=')
+		var name = unescape(pair[0])
+
+		if (pair.length == 2)
+			value = unescape(pair[1])
+		else
+			value = name
+		
+		this.params[name] = value
+	}
+}
+
+function Querystring_get(key, default_) {
+	// This silly looking line changes UNDEFINED to NULL
+	if (default_ == null) default_ = null;
+	
+	var value=this.params[key]
+	if (value==null) value=default_;
+	
+	return value
+}
+</script>
+
+	</head>
+	<body onLoad="initPage();">
+	
+	
+	<DIV class="bPageBlock bEditBlock secondaryPalette" id=ep>
+			<DIV class=pbHeader>
+				<TABLE cellSpacing=0 cellPadding=0 border=0>
+					<TBODY>
+						<TR>
+							<TD class=pbTitle>
+								<IMG class=minWidth title="" height=1 alt="" src="/s.gif" width=1>
+								<H2 class=mainTitle>Create a Contact</H2>
+							</TD>
+							<TD class=pbButton>
+								<INPUT class=btn type="button" title=Save tabIndex=19 value="Save" name=save onclick="javascript:submitForm()">
+									<!-- <INPUT class=btn title=Cancel tabIndex=18 value=Cancel name=cancel type=submit onclick="javascript:window.close()"> -->
+							</TD>
+						</TR>
+					</TBODY>
+				</TABLE>
+			</DIV>
+			<DIV class=pbBody>
+				<DIV class="pbSubheader first tertiaryPalette" id=head_1_ep>
+					<SPAN class=pbSubExtra>
+						<SPAN class=requiredLegend>
+							<SPAN class=requiredExampleOuter>
+								<SPAN class=requiredExample>&nbsp;</SPAN>
+							</SPAN>
+							<SPAN class=requiredText> = Required Information</SPAN>
+						</SPAN>
+					</SPAN>
+					<H3>Contact Information<SPAN class=titleSeparatingColon>:</SPAN></H3>
+				</DIV>
+		
+				<DIV class=pbSubsection>
+					<TABLE class=detailList cellSpacing=0 cellPadding=0 border=0>
+						<TBODY>
+					
+							<TR>
+								<TD class=labelCol><label for="ContactFirstName">First Name</label></TD>
+								<TD class="dataCol col02">
+									
+									<input tabindex="1" type="text" id="ContactFirstName">
+								</TD>
+								<TD class="labelCol last">
+								
+								<label for="AccountName">Organization</label>
+								
+								
+								
+								
+								</TD>
+								<TD class="dataCol col02 last"><form name="account1" id="account1"><input type="hidden" name="AccountName_lkid" id="AccountName_lkid">
+								<input type="hidden" name="AccountName_lkold" id="AccountName_lkold" value="null">
+								<input type="hidden" name="AccountName_lktp" id="AccountName_lktp" value="001">
+								<input type="hidden" name="AccountName_lspf" id="AccountName_lspf" value="0">
+								<input type="hidden" name="AccountName_mod" id="AccountName_mod" value="0">
+								<span class="lookupInput">
+									<input tabindex="3" maxlength="80" type="text" onchange="document.getElementById('AccountName_lkid').value='';document.getElementById('AccountName_mod').value='1';" id="AccountName" size="28" name="AccountName" value="Individual">
+									<a href="JavaScript:openLookup('/_ui/common/data/LookupPage?lknm=AccountName&amp;lkfm=editPage&amp;lktp=' + document.getElementById('AccountName_lktp').value,670,document.getElementById('AccountName_mod').value,'&amp;lksrch=' + escapeUTF(document.getElementById('AccountName').value),'maxw')" tabindex="4" title="Account Lookup (New Window)" onclick="setLastMousePosition(event)" id="AccountName_lkwgt">
+									<img src="/s.gif" alt="Account Lookup (New Window)" class="lookupPopup"></a>
+								</span></form></TD>
+								
+							</TR>
+							<TR>
+								<TD class="labelCol last"><label for="ContactLastName">Last Name</label></TD>
+								<TD class="dataCol col02 last">
+									<div class="requiredInput">
+										<div class="requiredBlock"></div>
+										<input tabindex="2" type="text" id="ContactLastName">
+									</div></TD>
+									<TD class=labelCol></TD>
+								<TD class="dataCol col02"></TD>
+								
+							</TR>
+							
+						</TBODY>
+					</TABLE>
+				</DIV>
+				<div class="pbSubheader tertiaryPalette" id="head_5_ep">
+					<h3>Address Information<span  class="titleSeparatingColon">:</span></h3>
+				</div>
+				<div class="pbSubsection">
+					<TABLE  class="detailList" cellpadding="0" cellspacing="0" border="0">
+						<TBODY>
+							<TR>
+								<TD class="labelCol"><label for="ContactAddress">Mailing Address</label></TD>
+								<TD class="dataCol col02"><textarea  tabindex="4" onkeyup="handleTextAreaElementChange('ContactAddress', 255, 'remaining', 'over limit');" maxlength="255" type="text" onclick="handleTextAreaElementChange('ContactAddress', 255, 'remaining', 'over limit');" onkeydown="handleTextAreaElementChange('ContactAddress', 255, 'remaining', 'over limit');" wrap="soft" onmousedown="handleTextAreaElementChange('ContactAddress', 255, 'remaining', 'over limit');" onchange="handleTextAreaElementChange('ContactAddress', 255, 'remaining', 'over limit');" id="ContactAddress" name="ContactAddress"></textarea></TD>
+								<TD class="labelCol"><label for="WorkAddress">Other Address</label></TD>
+								<TD class="dataCol col02"><textarea  tabindex="9" onkeyup="handleTextAreaElementChange('WorkAddress', 255, 'remaining', 'over limit');" maxlength="255" type="text" onclick="handleTextAreaElementChange('WorkAddress', 255, 'remaining', 'over limit');" onkeydown="handleTextAreaElementChange('WorkAddress', 255, 'remaining', 'over limit');" wrap="soft" onmousedown="handleTextAreaElementChange('WorkAddress', 255, 'remaining', 'over limit');" onchange="handleTextAreaElementChange('WorkAddress', 255, 'remaining', 'over limit');" id="WorkAddress" name="WorkAddress"></textarea></TD>
+								
+							</TR>
+							<TR>
+								<TD class="labelCol"><label for="ContactCity">Mailing City</label></TD>
+								<TD class="dataCol col02"><input tabindex="5" type="text" id="ContactCity"></TD>
+								<TD class="labelCol"><label for="WorkCity">Other City</label></TD>
+								<TD class="dataCol col02"><input tabindex="10" type="text" id="WorkCity"></TD>
+								
+							</TR>	
+							<TR>
+								<TD class="labelCol"><label for="ContactState">Mailing State/Province</label></TD>
+								<TD class="dataCol col02"><input tabindex="6" type="text" value="" id="ContactState"></TD>
+								<TD class="labelCol"><label for="WorkState">Other State/Province</label></TD>
+								<TD class="dataCol col02"><input tabindex="11" type="text" value="" id="WorkState"></TD>
+							</TR>
+							<TR>
+								<TD class="labelCol"><label for="ContactZip">Mailing Postal Code/ZIP</label></TD>
+								<TD class="dataCol col02"><input tabindex="7" type="text" id="ContactZip"></TD>
+								<TD class="labelCol"><label for="WorkZip">Other Postal Code/ZIP</label></TD>
+								<TD class="dataCol col02"><input tabindex="12" type="text" id="WorkZip"></TD>
+							</TR>
+							<TR>
+								<TD class="labelCol last"><label for="ContactCountry">Mailing Country</label></TD>
+								<TD class="dataCol col02 last"><input tabindex="8" type="text" value="US" id="ContactCountry"></TD>
+								<TD class="labelCol last"><label for="WorkCountry">Other Country</label></TD>
+								<TD class="dataCol col02 last"><input tabindex="13" type="text" value="" id="WorkCountry"></TD>
+							</TR>
+						</TBODY>
+					</TABLE>
+				</DIV>
+				<div class="pbSubheader tertiaryPalette" id="head_5_ep">
+					<h3>Optional Second Contact<span  class="titleSeparatingColon">:</span></h3>
+				</div>
+				<div class="pbSubsection">
+					<TABLE  class="detailList" cellpadding="0" cellspacing="0" border="0">
+						<TBODY>
+						<TR>
+							<TD class=labelCol><label for="Contact2FirstName">Second Contact First Name</label></TD>
+							<TD class="dataCol col02"><input tabindex="14" type="text"id="Contact2FirstName"></TD>
+							
+							<TD class="labelCol last">
+								
+							<label for="AccountName">Second Contact's Organization</label>
+							
+							</TD>
+							<TD class="dataCol last"><form name="account2" id="account2"><input type="hidden" name="SecondAccountName_lkid" id="SecondAccountName_lkid">
+							<input type="hidden" name="SecondAccountName_lkold" id="SecondAccountName_lkold" value="null">
+							<input type="hidden" name="SecondAccountName_lktp" id="SecondAccountName_lktp" value="001">
+							<input type="hidden" name="SecondAccountName_lspf" id="SecondAccountName_lspf" value="0">
+							<input type="hidden" name="SecondAccountName_mod" id="SecondAccountName_mod" value="0">
+							<span class="lookupInput">
+								<input tabindex="16" maxlength="80" type="text" onchange="document.getElementById('SecondAccountName_lkid').value='';document.getElementById('SecondAccountName_mod').value='1';" id="SecondAccountName" size="28" name="SecondAccountName" value="Individual">
+								<a href="JavaScript:openLookup('/_ui/common/data/LookupPage?lknm=SecondAccountName&amp;lkfm=editPage&amp;lktp=' + document.getElementById('SecondAccountName_lktp').value,670,document.getElementById('SecondAccountName_mod').value,'&amp;lksrch=' + escapeUTF(document.getElementById('SecondAccountName').value),'maxw')" tabindex="4" title="SecondAccount Lookup (New Window)" onclick="setLastMousePosition(event)" id="SecondAccountName_lkwgt">
+								<img src="/s.gif" alt="SecondAccount Lookup (New Window)" class="lookupPopup"></a>
+							</span></form></TD>
+							
+							
+						</TR>
+						<TR>
+							<TD class="labelCol last">
+								<label for="Contact2LastName">Second Contact Last Name</label>
+							</TD>
+							<TD class="dataCol last ">
+								<input tabindex="15" type="text" id="Contact2LastName">
+							</TD>
+							
+							
+						</TR>
+					 	</TBODY>					
+					</TABLE>
+				</div>
+					<div class="pbSubheader tertiaryPalette" id="recognition_heading">
+					<h3>Optional Recognition Information<span  class="titleSeparatingColon">:</span></h3>
+				</div>
+				<div class="pbSubsection" id="recognition_section">
+					<TABLE  class="detailList" cellpadding="0" cellspacing="0" border="0">
+						<TBODY>
+					 	<TR>
+							<TD class="labelCol last"><LABEL for=RecognitionName>Recognition Name</LABEL></TD>
+							<TD class="dataCol col02 last"><input tabindex="17" type="text"id="RecognitionName"> </TD>
+							<TD class="labelCol last">
+								<LABEL for=recognitionname>Recognition Name - Short</LABEL>
+							</TD>
+							<TD class="dataCol col02 last">
+								<input tabindex="18" type="text" id="RecognitionNameShort"> 
+							</TD>
+						</TR>
+						</TBODY>
+					</TABLE>
+				</div>
+		
+			</DIV>
+			<div class="pbBottomButtons">
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td class="pbTitle">
+								<img src="/s.gif" alt="" title="" class="minWidth" height="1" width="1">&nbsp;
+							</td>
+							<td class="pbButtonb">
+								<INPUT tabindex="18" class=btn type="button" title=Save value="Save" name=save onclick="javascript:submitForm()">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<DIV class="pbFooter secondaryPalette">
+				<DIV class=bg>
+				
+				</DIV>
+			</DIV>
+		</DIV>
+
+	
+	  
+	</body>
+
+</html>

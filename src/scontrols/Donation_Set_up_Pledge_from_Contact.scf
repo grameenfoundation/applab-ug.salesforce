@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<script src="https://www.salesforce.com/services/lib/ajax/beta3.3/sforceclient.js" type="text/javascript"></script>
+<script type="text/javascript" language="JavaScript1.2" >
+
+	sforceClient.init("{!API.Session_ID}", "{!API.Partner_Server_URL_70}"); 	
+	var bean = new Sforce.Dynabean("Pledges__c");	
+	var def = bean.getDefinition(); 
+
+//	alert(def.urlNew);
+	
+</script>
+<body> 
+</body>
+<script language="JavaScript">
+function redirect() {
+
+parent.frames.location.replace(def.urlNew +"?retURL=%2F{!Contact.Id}&CF00N70000001ay06={!Contact.Name}&Name={!Contact.FirstName} {!Contact.LastName} Pledge - Started {!Today}&opp9={!Today}")
+}
+redirect();
+</script>

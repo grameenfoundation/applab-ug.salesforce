@@ -1,0 +1,14 @@
+<script type="text/javascript" src="/js/functions.js"></script>
+<script src="/soap/ajax/8.0/connection.js"></script>
+{!INCLUDE($SControl.RecordTypesLookup)}
+
+<script language="JavaScript"> 
+
+function redirect() {
+	var DonationRecordType  = recordTypeId("PledgePayment","Opportunity"); 
+
+	parent.frames.location.replace("/006/e?retURL=%2F{!Pledges__c.Id}&RecordType= " + DonationRecordType + 
+		" &conid={!Pledges__c.ContactId__c}&accid={!Pledges__c.OrganizationId__c}&opp3={!Pledges__c.Contact__c} Pledge Donation - {!Today}&opp9={!Today}&opp11=Posted&opp7={!Pledges__c.Pledge_Payment_Installment_Amount__c}&CF00N70000001ay08={!Pledges__c.Name}&00N70000001ay09={!Pledges__c.Program_Designation__c}") 
+} 
+redirect(); 
+</script>
