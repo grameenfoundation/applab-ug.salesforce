@@ -1,0 +1,44 @@
+<project name="Mobile Surveys tasks" basedir="." xmlns:sf="antlib:com.salesforce">
+    <property name="sf.token" value=""/> <!-- in case it's not defined on properties file -->
+    <property file="build.properties"/>
+    <property environment="env"/>
+
+    <!-- Shows deploying code & running tests for code in directory -->
+    <target name="deploy">
+        <!-- Upload the contents of the "codepkg" directory -->
+        <sf:deploy username="${sf.username}" password="${sf.password}${sf.token}" serverurl="${sf.serverurl}" deployRoot="src"/>
+    </target>
+
+    <target name="test">
+        <!-- Runs all tests for the current state -->
+        <sf:deploy username="${sf.username}" password="${sf.password}${sf.token}" serverurl="${sf.serverurl}" deployRoot="src" runAllTests="true" checkOnly="true" logType="None"/>
+    </target>
+
+    <target name="deploy-test">
+        <sf:deploy username="${sf.username}" password="${sf.password}${sf.token}" serverurl="${sf.serverurl}" deployRoot="src" runAllTests="true" logType="None"/>
+    </target>
+
+    <!-- Shows retrieving code; only succeeds if done after deployCode -->
+    <target name="retrieve">
+      <!-- Retrieve the contents listed in the file codepkg/package.xml into the codepkg directory -->
+      <sf:retrieve username="${sf.username}" password="${sf.password}${sf.token}" serverurl="${sf.serverurl}" retrieveTarget="src" packageNames="Mobile Survey"/>
+    </target>
+
+    <!-- Asserts that the code can be deployed and all tests run correctly. -->
+    <target name="validate-package">
+        <!-- Upload the contents of the "codepkg" directory, running all tests -->
+        <sf:deploy
+            username="developer@grameen.dpck"
+            password="salesforce1"
+            serverurl="https://login.salesforce.com"
+            deployRoot="src"
+            runAllTests="true"
+            checkOnly="true"/>
+    </target>
+
+    <target name="partial-deploy">
+        <!-- Upload the contents of the "codepkg" directory -->
+        <sf:deploy username="${sf.username}" password="${sf.password}${sf.token}" serverurl="${sf.serverurl}" deployRoot="src" allowMissingFiles="true" />
+    </target>
+
+</project>
