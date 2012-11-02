@@ -149,7 +149,7 @@ public with sharing virtual class MapMarkers {
         // Note that you should pass an empty string if one of the input values does not apply
         return mapObject + '#@#' + markerField + '#@#'+ markerFieldValue;
     }
-
+/*
     static testMethod void testMarker() {
 
         Account testOrg = Utils.createTestOrganisation('it');
@@ -172,4 +172,5 @@ public with sharing virtual class MapMarkers {
         marker.generateMarkerName(null);
         System.assertEquals(marker.getMarkerName(), 'Default Marker');
     }
+    */
 }
