@@ -54,7 +54,7 @@ trigger AddMtnTdrActivity on TDR_Activity__c (before insert) {
 			    Decimal distance = (Utils.calcDistance(lat1, lng1, lat2, lng2) * 1000).setscale(2);
 			
 			    //Calculate the time difference between this activity and the very first one
-			    List<double> timeDifference = Utils.calculateTimeDifference(firstDaysActivity[0].End_Time__c, 
+			    List<Integer> timeDifference = Utils.calculateTimeDifference(firstDaysActivity[0].End_Time__c, 
 			    	tdrActivity.Start_Time__c);
 			    	
 			    tdrPerformance.Distances__c = tdrPerformance.Distances__c + ',' + distance;
