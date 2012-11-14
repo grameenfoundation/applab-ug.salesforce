@@ -3545,4 +3545,236 @@ public with sharing class TdrHelpers {
     	System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).equals('Weekly Report processed sucessfully'));
     }
+    
+    static testMethod void testSendReportingEmails() {
+    	
+    	// Create a country
+        Country__c country = Utils.createTestCountry('NEW COUNTRY');
+        database.insert(country);
+
+        // Create a region
+        Region__c region = Utils.createTestRegion('NEW REGION', country);
+        database.insert(region);
+
+        // Create a test TDR
+        Person__c person = Utils.createTestPerson(null, 'TestingTDR', true, null, 'Female');
+        person.Type__c = 'TDR';
+        person.Region__c = region.Id;
+        database.insert(person);
+
+        TDR__c tdr = new TDR__c();
+        tdr.Person__c = person.Id;
+        database.insert(tdr);
+
+        TDR__c tdr2 = [SELECT Person__c, Name, Id, Person__r.Id, Person__r.Name, Person__r.Region__c FROM TDR__c WHERE Id = :tdr.Id];
+
+        // Create a some default targets
+        List<TDR_Default_Target__c> defaultTargets = new List<TDR_Default_Target__c>();
+        TDR_Default_Target__c weeklyTarget = new TDR_Default_Target__c();
+        weeklyTarget.Type__c = 'WEEKLY';
+        weeklyTarget.Region__c = region.Id;
+        weeklyTarget.Corporate_Sales_Calls__c = 1.0;
+        weeklyTarget.Customer_Support__c = 2.0;
+        weeklyTarget.Marketing_Event__c = 3.0;
+        weeklyTarget.MM_Agent_Full_Report__c = 4.0;
+        weeklyTarget.MM_Agent_Short_Report__c = 5.0;
+        weeklyTarget.Other__c = 6.0;
+        weeklyTarget.School_Sales_Calls__c = 7.0;
+        weeklyTarget.Start_Date__c = Date.today().toStartOfWeek();
+        defaultTargets.add(weeklyTarget);
+
+        // Add an old one to make sure the correct target is found
+        TDR_Default_Target__c weeklyTarget2 = new TDR_Default_Target__c();
+        weeklyTarget2.Type__c = 'WEEKLY';
+        weeklyTarget2.Region__c = region.Id;
+        weeklyTarget2.Corporate_Sales_Calls__c = 8.0;
+        weeklyTarget2.Customer_Support__c = 9.0;
+        weeklyTarget2.Marketing_Event__c = 10.0;
+        weeklyTarget2.MM_Agent_Full_Report__c = 11.0;
+        weeklyTarget2.MM_Agent_Short_Report__c = 12.0;
+        weeklyTarget2.Other__c = 13.0;
+        weeklyTarget2.School_Sales_Calls__c = 14.0;
+        weeklyTarget2.Start_Date__c = Date.today().addDays(-30).toStartOfWeek();
+        defaultTargets.add(weeklyTarget2);
+
+        TDR_Default_Target__c monthlyTarget = new TDR_Default_Target__c();
+        monthlyTarget.Type__c = 'MONTHLY';
+        monthlyTarget.Region__c = region.Id;
+        monthlyTarget.Corporate_Sales_Calls__c = 10.0;
+        monthlyTarget.Customer_Support__c = 20.0;
+        monthlyTarget.Marketing_Event__c = 30.0;
+        monthlyTarget.MM_Agent_Full_Report__c = 40.0;
+        monthlyTarget.MM_Agent_Short_Report__c = 50.0;
+        monthlyTarget.Other__c = 60.0;
+        monthlyTarget.School_Sales_Calls__c = 70.0;
+        monthlyTarget.Start_Date__c = Date.today().toStartOfMonth();
+        defaultTargets.add(monthlyTarget);
+
+        TDR_Default_Target__c yearlyTarget = new TDR_Default_Target__c();
+        yearlyTarget.Type__c = 'YEARLY';
+        yearlyTarget.Region__c = region.Id;
+        yearlyTarget.Corporate_Sales_Calls__c = 100.0;
+        yearlyTarget.Customer_Support__c = 200.0;
+        yearlyTarget.Marketing_Event__c = 300.0;
+        yearlyTarget.MM_Agent_Full_Report__c = 400.0;
+        yearlyTarget.MM_Agent_Short_Report__c = 500.0;
+        yearlyTarget.Other__c = 600.0;
+        yearlyTarget.School_Sales_Calls__c = 700.0;
+        yearlyTarget.Start_Date__c = Date.parse('01/01/' + String.valueOf(Date.today().year()));
+        defaultTargets.add(yearlyTarget);
+        database.insert(defaultTargets);
+
+        // Run a test submission for today for each type of survey
+        List<String> returnValues = new List<String>();
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        answers.put('q46_0', Utils.createTestSubmissionAnswer(null, '', '0123 3210', null, null, null));
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '32432443253';
+        submission.resultHash = '1';
+
+        // Test for the full report
+        answers.put('q1_0',  Utils.createTestSubmissionAnswer(null, 'q1', '1', null, null, null));
+        answers.put('q27_0',  Utils.createTestSubmissionAnswer(null, 'q27', 'Agent Name', null, null, null));
+        answers.put('q44_0',  Utils.createTestSubmissionAnswer(null, 'q44', 'This one', null, null, null));
+        answers.put('q45_0',  Utils.createTestSubmissionAnswer(null, 'q45', 'MM LONG VISIT', null, null, null));
+        answers.put('q31_0',  Utils.createTestSubmissionAnswer(null, 'q31', '100', null, null, null));
+        processAgentVisitSurvey(submission, answers, person);
+        returnValues = processAgentVisitSurvey(submission, answers, person);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
+    	
+    	List<String> personIds = new List<String>();
+    	personIds.add(person.Id);
+    	Map<String, List<String>> addresses = new Map<String, List<String>>();
+
+        Date startDate = Date.today();
+        List<String> emailAddresses = new List<String>();
+        emailAddresses.add('snsubuga@applab.org');
+        addresses.put('all', emailAddresses);
+
+
+        // Send to New region
+        List<String> centralEmails= new List<String>();
+        centralEmails.add('snsubuga@grameenfoundation.org');
+        addresses.put('NEW REGION', centralEmails);
+        TdrHelpers.sendReportingEmails(addresses, personIds, startDate);
+    }
+    
+    static testMethod void  testSendWeeklyEmails() {
+    	
+    	// Create a country
+        Country__c country = Utils.createTestCountry('NEW COUNTRY');
+        database.insert(country);
+
+        // Create a region
+        Region__c region = Utils.createTestRegion('NEW REGION', country);
+        database.insert(region);
+
+        // Create a test TDR
+        Person__c person = Utils.createTestPerson(null, 'TestingTDR', true, null, 'Female');
+        person.Type__c = 'TDR';
+        person.Region__c = region.Id;
+        database.insert(person);
+
+        TDR__c tdr = new TDR__c();
+        tdr.Person__c = person.Id;
+        database.insert(tdr);
+
+        TDR__c tdr2 = [SELECT Person__c, Name, Id, Person__r.Id, Person__r.Name, Person__r.Region__c FROM TDR__c WHERE Id = :tdr.Id];
+
+        // Create a some default targets
+        List<TDR_Default_Target__c> defaultTargets = new List<TDR_Default_Target__c>();
+        TDR_Default_Target__c weeklyTarget = new TDR_Default_Target__c();
+        weeklyTarget.Type__c = 'WEEKLY';
+        weeklyTarget.Region__c = region.Id;
+        weeklyTarget.Corporate_Sales_Calls__c = 1.0;
+        weeklyTarget.Customer_Support__c = 2.0;
+        weeklyTarget.Marketing_Event__c = 3.0;
+        weeklyTarget.MM_Agent_Full_Report__c = 4.0;
+        weeklyTarget.MM_Agent_Short_Report__c = 5.0;
+        weeklyTarget.Other__c = 6.0;
+        weeklyTarget.School_Sales_Calls__c = 7.0;
+        weeklyTarget.Start_Date__c = Date.today().toStartOfWeek();
+        defaultTargets.add(weeklyTarget);
+
+        // Add an old one to make sure the correct target is found
+        TDR_Default_Target__c weeklyTarget2 = new TDR_Default_Target__c();
+        weeklyTarget2.Type__c = 'WEEKLY';
+        weeklyTarget2.Region__c = region.Id;
+        weeklyTarget2.Corporate_Sales_Calls__c = 8.0;
+        weeklyTarget2.Customer_Support__c = 9.0;
+        weeklyTarget2.Marketing_Event__c = 10.0;
+        weeklyTarget2.MM_Agent_Full_Report__c = 11.0;
+        weeklyTarget2.MM_Agent_Short_Report__c = 12.0;
+        weeklyTarget2.Other__c = 13.0;
+        weeklyTarget2.School_Sales_Calls__c = 14.0;
+        weeklyTarget2.Start_Date__c = Date.today().addDays(-30).toStartOfWeek();
+        defaultTargets.add(weeklyTarget2);
+
+        TDR_Default_Target__c monthlyTarget = new TDR_Default_Target__c();
+        monthlyTarget.Type__c = 'MONTHLY';
+        monthlyTarget.Region__c = region.Id;
+        monthlyTarget.Corporate_Sales_Calls__c = 10.0;
+        monthlyTarget.Customer_Support__c = 20.0;
+        monthlyTarget.Marketing_Event__c = 30.0;
+        monthlyTarget.MM_Agent_Full_Report__c = 40.0;
+        monthlyTarget.MM_Agent_Short_Report__c = 50.0;
+        monthlyTarget.Other__c = 60.0;
+        monthlyTarget.School_Sales_Calls__c = 70.0;
+        monthlyTarget.Start_Date__c = Date.today().toStartOfMonth();
+        defaultTargets.add(monthlyTarget);
+
+        TDR_Default_Target__c yearlyTarget = new TDR_Default_Target__c();
+        yearlyTarget.Type__c = 'YEARLY';
+        yearlyTarget.Region__c = region.Id;
+        yearlyTarget.Corporate_Sales_Calls__c = 100.0;
+        yearlyTarget.Customer_Support__c = 200.0;
+        yearlyTarget.Marketing_Event__c = 300.0;
+        yearlyTarget.MM_Agent_Full_Report__c = 400.0;
+        yearlyTarget.MM_Agent_Short_Report__c = 500.0;
+        yearlyTarget.Other__c = 600.0;
+        yearlyTarget.School_Sales_Calls__c = 700.0;
+        yearlyTarget.Start_Date__c = Date.parse('01/01/' + String.valueOf(Date.today().year()));
+        defaultTargets.add(yearlyTarget);
+        database.insert(defaultTargets);
+
+        // Run a test submission for today for each type of survey
+        List<String> returnValues = new List<String>();
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        answers.put('q46_0', Utils.createTestSubmissionAnswer(null, '', '0123 3210', null, null, null));
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '32432443253';
+        submission.resultHash = '1';
+
+        // Test for the full report
+        answers.put('q1_0',  Utils.createTestSubmissionAnswer(null, 'q1', '1', null, null, null));
+        answers.put('q27_0',  Utils.createTestSubmissionAnswer(null, 'q27', 'Agent Name', null, null, null));
+        answers.put('q44_0',  Utils.createTestSubmissionAnswer(null, 'q44', 'This one', null, null, null));
+        answers.put('q45_0',  Utils.createTestSubmissionAnswer(null, 'q45', 'MM LONG VISIT', null, null, null));
+        answers.put('q31_0',  Utils.createTestSubmissionAnswer(null, 'q31', '100', null, null, null));
+        processAgentVisitSurvey(submission, answers, person);
+        returnValues = processAgentVisitSurvey(submission, answers, person);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
+    	
+    	List<String> personIds = new List<String>();
+    	personIds.add(person.Id);
+    	Map<String, List<String>> addresses = new Map<String, List<String>>();
+
+        Date startDate = Date.today();
+        List<String> emailAddresses = new List<String>();
+        emailAddresses.add('snsubuga@applab.org');
+        addresses.put('all', emailAddresses);
+
+
+        // Send to New region
+        List<String> centralEmails= new List<String>();
+        centralEmails.add('snsubuga@grameenfoundation.org');
+        addresses.put('NEW REGION', centralEmails);
+        TdrHelpers.sendWeeklyEmails(addresses, personIds, startDate);
+    }
 }
