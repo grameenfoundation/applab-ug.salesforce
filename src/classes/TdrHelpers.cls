@@ -1271,7 +1271,7 @@ public with sharing class TdrHelpers {
 	                }
 	                regionsToIncludeInAll.add(key);
 	
-	                String html = getRegionHtml(key);
+	                String html = getWeeklyReportVisitRegionHtml(key);
 	
 	                String subject = 'TDR Weekly Report for region ' + key + ' between ' + reportDate.format('yyyy-MM-dd') + ' and ' + reportDate.addDays(7).format('yyyy-MM-dd');
 	                Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get(key), subject, html);
@@ -1283,7 +1283,7 @@ public with sharing class TdrHelpers {
 	            String html = '';
 	            for (String key : regionsToIncludeInAll) {
 	                html += '<div>' + key + '</div>';
-	                html += getRegionHtml(key);
+	                html += getWeeklyReportVisitRegionHtml(key);
 	            }
 	            String subject = 'TDR Weekly Report between  ' + reportDate.format('yyyy-MM-dd') + ' and ' + reportDate.addDays(7).format('yyyy-MM-dd');
 	            Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get('all'), subject, html);
@@ -1298,55 +1298,55 @@ public with sharing class TdrHelpers {
 	        }*/
     }
     
-    private static String getRegionHtml(String region) {
+    private static String getWeeklyReportVisitRegionHtml(String region) {
     	
     	// Create the start of the main table
         String mainHtml = '<div style="' + getBackgroundColour() + getFullWidth() + '">' +
             '<div style="' + getTitleStyle() + '">' +
                 'Detailed' +
             '</div>' +
-            '<table style="' + getWeeklyReportTableStyle() + '">'                                                +
+            '<table style="' + getWeeklyReportTableStyle() + '">'                                    +
                 '<tr style="'+ getTableHeaderRowStyle() + '">'                                       +
                     '<td style="padding-left:5px; width: 13%">Sales Rep Name</td>'                   +
-                    '<td style="padding-left:5px; width: 10%">Banked Agents</td>'                     +
+                    '<td style="padding-left:5px; width: 10%">Banked Agents</td>'                    +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">New agents</td>'                        +
+                    '<td style="padding-left:5px; width: 10%">New agents</td>'                       +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">Active DSTs</td>'                       +
+                    '<td style="padding-left:5px; width: 10%">Active DSTs</td>'                      +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
                     '<td style="padding-left:5px; width:10%">MM Activations</td>'                    +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">MM Sub acquisition</td>'                +
+                    '<td style="padding-left:5px; width: 10%">MM Sub acquisition</td>'               +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">Simcard registrations</td>'             +
+                    '<td style="padding-left:5px; width: 10%">Simcard registrations</td>'            +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">Easytalk new locations</td>'            +
+                    '<td style="padding-left:5px; width: 10%">Easytalk new locations</td>'           +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">Easytalk Installations</td>'            +
+                    '<td style="padding-left:5px; width: 10%">Easytalk Installations</td>'           +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">Card sales</td>'                        +
+                    '<td style="padding-left:5px; width: 10%">Card sales</td>'                       +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 12%">Easytalk Activations</td>'              +
+                    '<td style="padding-left:5px; width: 12%">Easytalk Activations</td>'             +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">Easytalk repairs</td>'                  +
+                    '<td style="padding-left:5px; width: 10%">Easytalk repairs</td>'                 +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 13%">Payphone repairs/reactivations</td>'    +
+                    '<td style="padding-left:5px; width: 13%">Payphone repairs/reactivations</td>'   +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
                     '<td style="padding-left:5px; width: 7%">%</td>'                                 +
-                    '<td style="padding-left:5px; width: 10%">Active Internet cafes</td>'             +
+                    '<td style="padding-left:5px; width: 10%">Active Internet cafes</td>'            +
                     '<td style="padding-left:5px; width: 8%">Target</td>'                            +
-                    '<td style="padding-left:5px; width: 7%">%</td>'                                 +                                +                                 +
+                    '<td style="padding-left:5px; width: 7%">%</td>'                                 +
                 '</tr>';                                                 
         Boolean hasData = false;
         String tdrCurrentName = '';
@@ -1453,22 +1453,22 @@ public with sharing class TdrHelpers {
                     '<td style="padding-left:5px; width: 10%">Sales Rep Name</td>'          +
                     '<td style="padding-left:5px; width: 10%">Day Start</td>'               +
                     '<td style="padding-left:5px; width: 10%">Day End</td>'                 +
-                    '<td style="padding-left:5px; width: 6%">MM Full Report</td>'          +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 6%">MM Short Report</td>'         +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 6%">Corporate Sales Calls</td>'   +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 6%">School Sales Calls</td>'      +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 6%">Customer Support</td>'        +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 6%">Marketing Event</td>'         +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 6%">Other Activities</td>'        +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
-                    '<td style="padding-left:5px; width: 6%">PA Products</td>'             +
-                    '<td style="padding-left:5px; width: 4%">Target</td>'                  +
+                    '<td style="padding-left:5px; width: 6%">MM Full Report</td>'           +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
+                    '<td style="padding-left:5px; width: 6%">MM Short Report</td>'          +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
+                    '<td style="padding-left:5px; width: 6%">Corporate Sales Calls</td>'    +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
+                    '<td style="padding-left:5px; width: 6%">School Sales Calls</td>'       +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
+                    '<td style="padding-left:5px; width: 6%">Customer Support</td>'         +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
+                    '<td style="padding-left:5px; width: 6%">Marketing Event</td>'          +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
+                    '<td style="padding-left:5px; width: 6%">Other Activities</td>'         +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
+                    '<td style="padding-left:5px; width: 6%">PA Products</td>'              +
+                    '<td style="padding-left:5px; width: 4%">Target</td>'                   +
                 '</tr>';                                                 
         Boolean hasData = false;
         String tdrCurrentName = '';
@@ -2012,11 +2012,11 @@ public with sharing class TdrHelpers {
                 '</div>' +
                 '<table style="' + getSummaryTableStyle() +'">' +
                         '<tr style="'+ getTableHeaderRowStyle() + '">' +
-                            '<td style="' + getTdNameWidth() + '">'  + 'Sales Rep Name</td>'      +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Hours worked</td>'        +
+                            '<td style="' + getTdNameWidth() + '">'  + 'Sales Rep Name</td>'       +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Hours worked</td>'         +
                             '<td style="' + getTdOtherWidth() + '">' + 'Sales and Activities</td>' +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Total Targets</td>'       +
-                            '<td style="' + getTdOtherWidth() + '">' + 'Difference</td>'          +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Total Targets</td>'        +
+                            '<td style="' + getTdOtherWidth() + '">' + 'Difference</td>'           +
                         '</tr>';
         }
 
@@ -2111,16 +2111,11 @@ public with sharing class TdrHelpers {
                     '<td style ="padding-left:5px;">' + summary.Other__c + '</td>' +
                     '<td style ="padding-left:5px;">' + summary.PA_Products__c + '</td>' +
                     '</tr>';
-                system.debug('distances '+summary.Distances__c);system.debug('times ' +summary.Times__c);
                 //Get the distances covered and their respective times
                 List<String> distances = summary.Distances__c.split(',');
-                system.debug(distances);
                 List<String> times = summary.Times__c.split(',');
-                system.debug(times);
                 integer count = distances.size();
-                system.debug('No of places visited ' + count);
-                
-                
+
                 mainHtml += '<tr style ="'+ getTableBodyStyle() + '">';
                 mainHtml += '<td style ="padding-left:5px;">Distance travelled</td>';
                 for (integer location = 1; location <= count; location++) {
