@@ -40,10 +40,10 @@ trigger AddMtnTdrActivity on TDR_Activity__c (before insert) {
     
     if (firstDaysActivity.size() > 0 && previousActivity.size() > 0) {
     	
-    	if (previousActivity[0].Activity_Latitude__c != '' && previousActivity[0].Activity_Latitude__c != 'NA' && 
-    	    previousActivity[0].Activity_Longitude__c != '' && previousActivity[0].Activity_Longitude__c != 'NA' &&
-    	    tdrActivity.Activity_Latitude__c != '' && tdrActivity.Activity_Latitude__c != 'NA' && 
-    	    tdrActivity.Activity_Longitude__c != '' && tdrActivity.Activity_Longitude__c != 'NA') {
+    	if (previousActivity[0].Activity_Latitude__c != null && previousActivity[0].Activity_Latitude__c != 'NA' && 
+    	    previousActivity[0].Activity_Longitude__c != null && previousActivity[0].Activity_Longitude__c != 'NA' &&
+    	    tdrActivity.Activity_Latitude__c != null && tdrActivity.Activity_Latitude__c != 'NA' && 
+    	    tdrActivity.Activity_Longitude__c != null && tdrActivity.Activity_Longitude__c != 'NA') {
     	    	
 			    Decimal lat1 = decimal.valueOf(previousActivity[0].Activity_Latitude__c);
 			    Decimal lng1 = decimal.valueOf(previousActivity[0].Activity_Longitude__c);
