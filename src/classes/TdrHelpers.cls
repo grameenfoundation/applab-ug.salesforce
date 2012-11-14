@@ -1289,13 +1289,6 @@ public with sharing class TdrHelpers {
 	            Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get('all'), subject, html);
 	            EmailHelpers.sendEmails(new Messaging.SingleEmailMessage[] { email });
 	        }
-	
-	        // Send out all the personal emails as well
-	        /*for (String regionKey : regionStats.keySet()) {
-	            for (String key : regionStats.get(regionKey).keySet()) {
-	                sendPersonalEmail(regionStats.get(regionKey).get(key), reportDate);
-	            }
-	        }*/
     }
     
     private static String getWeeklyReportVisitRegionHtml(String region) {
@@ -1367,7 +1360,6 @@ public with sharing class TdrHelpers {
                         '<tr><td style="column-span:14; background-color:#FFCC33; alignment-adjust:middle;"></td></tr>';
                     currentRegion = region;
                 }
-
                 hasData = true;
                 mainHtml += '<tr style ="'+ getTableBodyStyle() +'">';
                 if (!generateTdrName(
