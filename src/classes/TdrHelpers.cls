@@ -3777,4 +3777,77 @@ public with sharing class TdrHelpers {
         addresses.put('NEW REGION', centralEmails);
         TdrHelpers.sendWeeklyEmails(addresses, personIds, startDate);
     }
+    
+    static testMethod void testSendWeeklyReportEmails() {
+    	
+    	ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '32432443253';
+        submission.resultHash = '1';
+        
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        answers.put('q1_0',  Utils.createTestSubmissionAnswer(null, 'q1', '4', null, null, null));
+        answers.put('q2_0',  Utils.createTestSubmissionAnswer(null, 'q2', '5', null, null, null));
+        answers.put('q3_0',  Utils.createTestSubmissionAnswer(null, 'q3', '6', null, null, null));
+        answers.put('q4_0',  Utils.createTestSubmissionAnswer(null, 'q4', '7', null, null, null));
+        answers.put('q5_0',  Utils.createTestSubmissionAnswer(null, 'q5', '8', null, null, null));
+        answers.put('q6_0',  Utils.createTestSubmissionAnswer(null, 'q6', '7', null, null, null));
+        answers.put('q7_0',  Utils.createTestSubmissionAnswer(null, 'q7', '6', null, null, null));
+        answers.put('q8_0',  Utils.createTestSubmissionAnswer(null, 'q8', '5', null, null, null));
+        answers.put('q9_0',  Utils.createTestSubmissionAnswer(null, 'q9', '4', null, null, null));
+        answers.put('q10_0',  Utils.createTestSubmissionAnswer(null, 'q10', '5', null, null, null));
+        answers.put('q11_0',  Utils.createTestSubmissionAnswer(null, 'q11', '6', null, null, null));
+        answers.put('q12_0',  Utils.createTestSubmissionAnswer(null, 'q12', '7', null, null, null));
+        answers.put('q13_0',  Utils.createTestSubmissionAnswer(null, 'q13', '8', null, null, null));
+        
+        // Create a country
+        Country__c country = Utils.createTestCountry('NEW COUNTRY');
+        database.insert(country);
+
+        // Create a region
+        Region__c region = Utils.createTestRegion('NEW REGION', country);
+        database.insert(region);
+
+        // Create a test TDR
+        Person__c person = Utils.createTestPerson(null, 'TestingTDR', true, null, 'Female');
+        person.Type__c = 'TDR';
+        person.Region__c = region.Id;
+        database.insert(person);
+        
+        // Create a target for this test TDR
+        TDR_Weekly_Target__c tdrWeeklyTarget = new TDR_Weekly_Target__c();
+        tdrWeeklyTarget.Active_DSTs__c = 10.0;
+        tdrWeeklyTarget.Active_Internet_Cafes__c = 9.0;
+        tdrWeeklyTarget.Banked_Agents__c = 8.0;
+        tdrWeeklyTarget.Card_Sales__c = 7.0;
+        tdrWeeklyTarget.Easytalk_Activations__c = 6.0;
+        tdrWeeklyTarget.Easytalk_Installations__c = 7.0;
+        tdrWeeklyTarget.Easytalk_New_Locations__c = 6.0;
+        tdrWeeklyTarget.Easytalk_Repairs__c = 8.0;
+        tdrWeeklyTarget.MM_Sub_Acquisitions__c = 5.0;
+        tdrWeeklyTarget.Mobile_Money_Activations__c = 7.0;
+        tdrWeeklyTarget.New_Agents__c = 6.0;
+        tdrWeeklyTarget.Payphone_Repairs__c = 5.0;
+        tdrWeeklyTarget.Simcard_Registrations__c = 8.0;
+        database.insert(tdrWeeklyTarget);
+        
+        List<String> returnValues = processWeeklyReportVisit(submission, answers, person);
+    	System.assert(returnValues.get(0).equals('1')); 
+    	
+    	List<String> personIds = new List<String>();
+    	personIds.add(person.Id);
+    	Map<String, List<String>> addresses = new Map<String, List<String>>();
+
+        Date startDate = Date.today();
+        List<String> emailAddresses = new List<String>();
+        emailAddresses.add('snsubuga@applab.org');
+        addresses.put('all', emailAddresses);
+
+        // Send to New region
+        List<String> centralEmails= new List<String>();
+        centralEmails.add('snsubuga@grameenfoundation.org');
+        addresses.put('NEW REGION', centralEmails);
+        TdrHelpers.sendWeeklyReportEmail(addresses, personIds, startDate);   	
+    }
 }
