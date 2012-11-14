@@ -1201,7 +1201,7 @@ public with sharing class TdrHelpers {
 
                 String html = getSummaryHtml(key, true);
 
-                String subject = 'TDR Daily activities for region ' + key + ' for ' + reportDate;
+                String subject = 'TDR Daily activities for region ' + key + ' for ' + reportDate.format('yyyy-MM-dd');
                 Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get(key), subject, html);
                 EmailHelpers.sendEmails(new Messaging.SingleEmailMessage[] { email });
             }
@@ -1255,7 +1255,7 @@ public with sharing class TdrHelpers {
 
                 String html = getWeeklyPerformanceRegionHtml(key);
 
-                String subject = 'TDR Weekly Activity report for region ' + key + ' between ' + reportDate + ' and ' + reportDate.addDays(7);
+                String subject = 'TDR Weekly Activity report for region ' + key + ' between ' + reportDate.format('yyyy-MM-dd') + ' and ' + reportDate.addDays(7).format('yyyy-MM-dd');
                 Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get(key), subject, html);
                 EmailHelpers.sendEmails(new Messaging.SingleEmailMessage[] { email });
             }
@@ -1309,7 +1309,7 @@ public with sharing class TdrHelpers {
 	
 	                String html = getRegionHtml(key);
 	
-	                String subject = 'TDR Weekly Report for region ' + key + ' between ' + reportDate + ' and ' + reportDate.addDays(7);
+	                String subject = 'TDR Weekly Report for region ' + key + ' between ' + reportDate.format('yyyy-MM-dd') + ' and ' + reportDate.addDays(7).format('yyyy-MM-dd');
 	                Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get(key), subject, html);
 	                EmailHelpers.sendEmails(new Messaging.SingleEmailMessage[] { email });
 	            }
@@ -1321,7 +1321,7 @@ public with sharing class TdrHelpers {
 	                html += '<div>' + key + '</div>';
 	                html += getRegionHtml(key);
 	            }
-	            String subject = 'TDR Weekly Report for  ' + reportDate;
+	            String subject = 'TDR Weekly Report between  ' + reportDate.format('yyyy-MM-dd') + ' and ' + reportDate.addDays(7).format('yyyy-MM-dd');
 	            Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get('all'), subject, html);
 	            EmailHelpers.sendEmails(new Messaging.SingleEmailMessage[] { email });
 	        }
