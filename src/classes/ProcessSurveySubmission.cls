@@ -558,17 +558,23 @@ global class ProcessSurveySubmission {
  //           else if (survey.Post_Processing_Method__c.equals('Colombia_Farmer_Registration')) {
  //               return ColombiaFarmerRegistrationPostProcessor.processSubmission(surveySubmission, answers, interviewer);
  //           }
-  //          else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
-  //              return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
-  //          }
- //           else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_SPOT_CHECK')) {
- //               return DataValidatorHelpers.processSpotCheck(surveySubmission, answers, interviewer);
-  //          }
-//            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
-//                return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
-//            }
+            else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
+                return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_SPOT_CHECK')) {
+                return DataValidatorHelpers.processSpotCheck(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
+                return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
+            }
             else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
                 return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('TDR_PA_PRODUCTS')) {
+            	return TdrHelpers.processTdrPaProductsSurvey(surveySubmission, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
+            	return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
             }
         }
         catch (Exception e) {

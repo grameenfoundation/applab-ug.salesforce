@@ -1,15 +1,12 @@
-global class ScheduledTdrDailyEmail implements Schedulable {
-
-    // CronExpression = Seconds Minutes Hours Day_of_month Month Day_of_week optional_year
-    // Run every day at 6am
-    public static String cronExpression = '0 0 6 * * ?';
+global class ScheduledTdrWeeklyEmail implements Schedulable {
 
     global void execute(SchedulableContext sc) {
 
         Map<String, List<String>> addresses = new Map<String, List<String>>();
 
+
         // Add the dates for yesterday
-        Date startDate = Date.today().addDays(-1);
+        Date startDate = Date.today().addDays(-8);
 
         // Send the emails to the national level
         List<String> emailAddresses = new List<String>();
@@ -18,14 +15,12 @@ global class ScheduledTdrDailyEmail implements Schedulable {
         emailAddresses.add('kobaa@mtn.co.ug');
         emailAddresses.add('asiimwi@mtn.co.ug');
         emailAddresses.add('nimusid@mtn.co.ug');
+
         addresses.put('all', emailAddresses);
-
-
         // Send to Central region
         List<String> centralEmails= new List<String>();
         centralEmails.add('kiwagin@mtn.co.ug');
         addresses.put('Central', centralEmails);
-        
 
         // Send to East region
         List<String> eastEmails= new List<String>();
@@ -33,25 +28,25 @@ global class ScheduledTdrDailyEmail implements Schedulable {
         addresses.put('Eastern', eastEmails);
 
         // Send to West region
-        List<String> westEmails= new List<String>();
+        List<String> westEmails = new List<String>();
         westEmails.add('ndobolj@mtn.co.ug');
-        addresses.put('Western' ,westEmails);
+        addresses.put('Western', westEmails);
 
         // Send to South West region
-        List<String> southEmails= new List<String>();
-        southEmails.add('mutakar@mtn.co.ug');
-        addresses.put('South Western', southEmails);
+        List<String> southWestEmails= new List<String>();
+        southWestEmails.add('mutakar@mtn.co.ug');
+        addresses.put('South Western', southWestEmails);
 
         // Send to North region
-        List<String> northEmails= new List<String>();
+        List<String> northEmails = new List<String>();
         northEmails.add('ogwangp@mtn.co.ug');
-        addresses.put('Northern' ,northEmails);
+        addresses.put('Northern', northEmails);
 
         // Send email to West Nile region
         List<String> westNileEmails = new List<String>();
         westNileEmails.add('kibirae@mtn.co.ug');
         addresses.put('West Nile', westNileEmails);
-        
+
 		List<String> personIds = new List<String>();
 		Person__c[] people = 
 		    [SELECT 
@@ -70,6 +65,6 @@ global class ScheduledTdrDailyEmail implements Schedulable {
         for (Person__c person : people) {
             personIds.add(person.Id);
         }
-        TdrHelpers.sendReportingEmails(addresses, personIds, startDate);
+        TdrHelpers.sendWeeklyEmails(addresses, personIds, startDate);
     }
 }
