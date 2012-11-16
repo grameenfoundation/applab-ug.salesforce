@@ -60,11 +60,12 @@ trigger AddMtnTdrActivity on TDR_Activity__c (before insert) {
 			    tdrPerformance.Distances__c = tdrPerformance.Distances__c + ',' + distance;
 			    tdrPerformance.Times__c = tdrPerformance.Times__c + ',' +  timeDifference.get(0) + ':' +
 	    	       timeDifference.get(1);
-    	    }
-    	    else {
-    	    	tdrPerformance.Distances__c = tdrPerformance.Distances__c + ', NA';
-			    tdrPerformance.Times__c = tdrPerformance.Times__c + ',NA';
-    	    }
+
+    	}
+    	else {
+	        tdrPerformance.Distances__c = tdrPerformance.Distances__c + ', NA';
+	        tdrPerformance.Times__c = tdrPerformance.Times__c + ',NA';
+    	}
 	    database.update(tdrPerformance);
     }
 }

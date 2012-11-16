@@ -2,10 +2,9 @@ public with sharing class TdrHelpers {
 
     private static Map<String, Map<String, TDR_Weekly_Report__c>> regionStats;
     private static Map<String, List<String>> regionStaffOrder;
-    private static Map<String, Map<String, TDR_Performance__c>> regionPerformanceStats;
-    private static Map<String, List<String>> regionPerformanceStaffOrder;
-    private static Map<String, Map<String, TDR_Performance__c>> dailyRegionPerformanceStats;
-    private static Map<String, List<String>> dailyPerformanceStaffOrder;
+    private static Map<String, Map<String, TDR_Performance__c>> tdrPerformanceStats;
+    private static Map<String, List<String>> tdrPerformanceStaffOrder;
+    private static Integer visitCount = 0;
     /**
      * A class to deal with MTN TDRs
      */
@@ -36,7 +35,7 @@ public with sharing class TdrHelpers {
         }
 
         // Sort out the GPS location that the activity was carried out. This will need to be split up
-        String[] gps = answers.get('q46_0').Answer__c.split(' ');
+        String[] gps = ProcessSubmissionHelpers.getAnswerString(answers.get('q46_0')).split(' ');
         String latitude = 'N/A';
         String longitude = 'N/A';
         if (gps.size() > 2) {
@@ -71,15 +70,15 @@ public with sharing class TdrHelpers {
         }
 
         // Scrape the survey for the answers that are required
-        String typeOfSubmission = translateSubmissionType(answers.get('q1_0').Answer__c);
+        String typeOfSubmission = translateSubmissionType(ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0')));
         String activityConducted = '';
         if (answers.containsKey('q44_0')) {
-            activityConducted = answers.get('q44_0').Answer__c;
+            activityConducted = ProcessSubmissionHelpers.getAnswerString(answers.get('q44_0'));
         }
 
         String generalComment = '';
         if (answers.containsKey('q45_0')) {
-            generalComment = answers.get('q45_0').Answer__c;
+            generalComment = ProcessSubmissionHelpers.getAnswerString(answers.get('q45_0'));
         }
 
         String contactName = '';
@@ -90,37 +89,37 @@ public with sharing class TdrHelpers {
 
         // Based on the type of the submission scrape the data out
         if (typeOfSubmission.equals('MM Agent Full Report')) {
-            companyName = answers.get('q27_0').Answer__c;
-            eFloat = Decimal.valueOf(answers.get('q31_0').Answer__c);
+            companyName = ProcessSubmissionHelpers.getAnswerString(answers.get('q27_0'));
+            eFloat = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q31_0'), 'q31', 0.0);
             fieldToUpdate = 'MM_Agent_Full_Report__c';
         }
         else if (typeOfSubmission.equals('MM Agent Short Report')) {
-            companyName = answers.get('q2_0').Answer__c;
-            eFloat = Decimal.valueOf(answers.get('q3_0').Answer__c);
+            companyName = ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0'));
+            eFloat = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q3_0'), 'q3', 0.0);
             fieldToUpdate = 'MM_Agent_Short_Report__c';
         }
         else if (typeOfSubmission.equals('Corporate Sales')) {
-            companyName = answers.get('q18_0').Answer__c;
-            contactName = answers.get('q19_0').Answer__c;
+            companyName = ProcessSubmissionHelpers.getAnswerString(answers.get('q18_0'));
+            contactName = ProcessSubmissionHelpers.getAnswerString(answers.get('q19_0'));
             fieldToUpdate = 'Corporate_Sales_Calls__c';
         }
         else if (typeOfSubmission.equals('School Sales')) {
-            companyName = answers.get('q21_0').Answer__c;
-            contactName = answers.get('q22_0').Answer__c;
+            companyName = ProcessSubmissionHelpers.getAnswerString(answers.get('q21_0'));
+            contactName = ProcessSubmissionHelpers.getAnswerString(answers.get('q22_0'));
             fieldToUpdate = 'School_Sales_Calls__c';
         }
         else if (typeOfSubmission.equals('Customer Support')) {
-            companyName = answers.get('q14_0').Answer__c;
-            contactName = answers.get('q16_0').Answer__c;
-            specificComment = answers.get('q15_0').Answer__c;
+            companyName = ProcessSubmissionHelpers.getAnswerString(answers.get('q14_0'));
+            contactName = ProcessSubmissionHelpers.getAnswerString(answers.get('q16_0'));
+            specificComment = ProcessSubmissionHelpers.getAnswerString(answers.get('q15_0'));
             fieldToUpdate = 'Customer_Support__c';
         }
         else if (typeOfSubmission.equals('Marketing Event')) {
-            specificComment = answers.get('q24_0').Answer__c;
+            specificComment = ProcessSubmissionHelpers.getAnswerString(answers.get('q24_0'));
             fieldToUpdate = 'Marketing_Event__c';
         }
         else if (typeOfSubmission.equals('Other')) {
-            specificComment = answers.get('q25_0').Answer__c;
+            specificComment = ProcessSubmissionHelpers.getAnswerString(answers.get('q25_0'));
             fieldToUpdate = 'Other__c';
         }
         else {
@@ -1183,7 +1182,10 @@ public with sharing class TdrHelpers {
     }
 
     /**
-     *  Send the daily emails to the MTN people
+     * Send the daily performance emails to the MTN people
+     * @param emailAddresses - a list of email addresses to receive the emails grouped by region
+     * @param personIds - list of person ids
+     * @param reportDate - initial report date
      */
     public static void sendReportingEmails(Map<String, List<String>> emailAddresses, List<String> personIds, Datetime reportDate) {
 
@@ -1219,7 +1221,10 @@ public with sharing class TdrHelpers {
     }
 
     /**
-     *  Send the weekly emails to the MTN people
+     * Send the weekly performance email
+     * @param emailAddresses - a list of email addresses to receive the emails grouped by region
+     * @param personIds - list of person ids
+     * @param reportDate - initial report date
      */
     public static void sendWeeklyEmails(Map<String, List<String>> emailAddresses, List<String> personIds, Datetime reportDate) {
 
@@ -1256,6 +1261,9 @@ public with sharing class TdrHelpers {
     }
     /**
     * Send the weekly email based on the Weekly Report Survey
+    * @param emailAddresses - map of emailaddresses grouped by region
+    * @param personIds - list of person ids
+    * @param reportDate - start date of the report
     */
     public static void sendWeeklyReportEmail(Map<String, List<String>> emailAddresses, List<String> personIds, Datetime reportDate) {
     		
@@ -1290,7 +1298,14 @@ public with sharing class TdrHelpers {
 	            EmailHelpers.sendEmails(new Messaging.SingleEmailMessage[] { email });
 	        }
     }
-    
+
+    /**
+     *  Creates the TDR_Weekly_Report__c Html for the email for a given region
+     *
+     *  @param region - The region whose data is to be displayed
+     *
+     *  @return - the Html to be sent for the given region
+     */    
     private static String getWeeklyReportVisitRegionHtml(String region) {
     	
     	// Create the start of the main table
@@ -1425,14 +1440,20 @@ public with sharing class TdrHelpers {
             return html;
         }
         html = mainHtml;
-        //html += '</tbody></table>';
         html += '</table>';
         html += '<br></div><div>';
         html += createLinkToDashboard(null);
         html += '</div>';
         return html;
     }
-    
+
+    /**
+     *  Creates the TDR_Performance__c Html for the email for a given region
+     *
+     *  @param region - The region whose data is to be displayed
+     *
+     *  @return - the Html to be sent for the given region
+     */      
     private static String getWeeklyPerformanceRegionHtml(String region) {
 
         // Create the start of the main table
@@ -1466,7 +1487,7 @@ public with sharing class TdrHelpers {
         String tdrCurrentName = '';
         String currentRegion = '';
         Integer currentRow = 0;
-        Map<String, TDR_Performance__c> regionPeople = regionPerformanceStats.get(region);
+        Map<String, TDR_Performance__c> regionPeople = tdrPerformanceStats.get(region);
         TDR_Performance__c [] performances = regionPeople.values();
             for (TDR_Performance__c performance : performances) {
 
@@ -1525,9 +1546,7 @@ public with sharing class TdrHelpers {
             html = 'EMPTY';
             return html;
         }
-
         html = mainHtml;
-        //html += '</tbody></table>';
         html += '</table>';
         html += '<br></div><div>';
         html += createLinkToDashboard(null);
@@ -1535,27 +1554,46 @@ public with sharing class TdrHelpers {
         return html;
     }
     
+    /**
+    * Pick TDR_Performance__c data from salesforce for a list of 
+    * persons on a given date
+    * @param personIds - list of person ids whose performance is sought
+    * @param reportDate - the date for which the performance is required
+    *
+    * @return Boolean - whether there are any performance records for 
+    * these persons on that date
+    */
     private static Boolean getDailyReportData(List<String> personIds, Datetime reportDate) {
-    	initRegionsForDailyData();
+
+    	initRegionsForPerformanceReport();
     	Boolean records = false;
     	for (TDR_Performance__c[] dailyPerformances : Database.query(getDailyPerformanceDataQuery(personIds, reportDate))) {
     		records = true;
     		for (TDR_Performance__c dailyPerformance : dailyPerformances) {
-    			Map<String, TDR_Performance__c> regionMap = dailyRegionPerformanceStats.get(dailyPerformance.Person__r.Region__r.Display_Name__c);
+    			String[] visits = dailyPerformance.Distances__c.split(',');
+    			if (visits.size() > visitCount) {
+    				visitCount = visits.size();
+    			}
+    			Map<String, TDR_Performance__c> regionMap = tdrPerformanceStats.get(dailyPerformance.Person__r.Region__r.Display_Name__c);
     			TDR_Performance__c report = regionMap.get(dailyPerformance.Person__c);
-    			List<String> reportList = dailyPerformanceStaffOrder.get(dailyPerformance.Person__r.Region__r.Display_Name__c);
+    			List<String> reportList = tdrPerformanceStaffOrder.get(dailyPerformance.Person__r.Region__r.Display_Name__c);
     			if (report == null) {
     				report = dailyPerformance;
     				reportList.add(dailyPerformance.Person__c);
     			}
-    			dailyPerformanceStaffOrder.put(dailyPerformance.Person__r.Region__r.Display_Name__c, reportList);
+    			tdrPerformanceStaffOrder.put(dailyPerformance.Person__r.Region__r.Display_Name__c, reportList);
     			regionMap.put(dailyPerformance.Person__c, report);
-    			dailyRegionPerformanceStats.put(dailyPerformance.Person__r.Region__r.Display_Name__c, regionMap);
+    			tdrPerformanceStats.put(dailyPerformance.Person__r.Region__r.Display_Name__c, regionMap);
     		}
     	}
     	return records;
     }
-
+    /**
+    * Returns true if there are any records for the given date
+    * @param personIds - The Person Ids whose data is required
+    * @param reportDate - the initial date for which the data is required
+    * @return Boolean - whether any records for the given parameters exist
+    */
     private static Boolean getWeeklyReportVisitData(List<String> personIds, Datetime reportDate) {
     	
     	initRegions();
@@ -1577,29 +1615,37 @@ public with sharing class TdrHelpers {
     	} 
     	return records;                                         
     }
-    
+    /**
+    * Returns true if there are any records for the given date
+    * @param personIds - The Person Ids whose data is required
+    * @param reportDate - the initial date for which the data is required
+    * @return Boolean - whether any records for the given parameters exist
+    */
     private static Boolean getWeeklyReportData(List<String> personIds, Datetime reportDate) {
     	
-    	initRegionsForWeeklyReport();
+    	initRegionsForPerformanceReport();
     	Boolean records = false;
     	for (TDR_Performance__c[] weeklyPerformances : Database.query(getWeeklyPerformanceDataQuery(personIds, reportDate))) {
     		records = true;
     		for (TDR_Performance__c weeklyPerformance : weeklyPerformances) {
-    			Map<String, TDR_Performance__c> regionMap = regionPerformanceStats.get(weeklyPerformance.Person__r.Region__r.Display_Name__c);
+    			Map<String, TDR_Performance__c> regionMap = tdrPerformanceStats.get(weeklyPerformance.Person__r.Region__r.Display_Name__c);
     			TDR_Performance__c report = regionMap.get(weeklyPerformance.Person__c);
-    			List<String> reportList = regionPerformanceStaffOrder.get(weeklyPerformance.Person__r.Region__r.Display_Name__c);
+    			List<String> reportList = tdrPerformanceStaffOrder.get(weeklyPerformance.Person__r.Region__r.Display_Name__c);
     			if (report == null) {
                     report = weeklyPerformance;
                     reportList.add(weeklyPerformance.Person__c);
                 }
-                regionPerformanceStaffOrder.put(weeklyPerformance.Person__r.Region__r.Display_Name__c, reportList);
+                tdrPerformanceStaffOrder.put(weeklyPerformance.Person__r.Region__r.Display_Name__c, reportList);
                 regionMap.put(weeklyPerformance.Person__c, report);
-                regionPerformanceStats.put(weeklyPerformance.Person__r.Region__r.Display_Name__c, regionMap);
+                tdrPerformanceStats.put(weeklyPerformance.Person__r.Region__r.Display_Name__c, regionMap);
     		}
     	} 
     	return records;                                         
     }
-    
+    /**
+    * Initialize 2 Maps, one to hold Weekly Report data for each TDR grouped by region
+    * the other to keep track of the order the TDRs in each region
+    */
     private static void initRegions() {
     	
     	regionStats = new Map<String, Map<String, TDR_Weekly_Report__c>>();
@@ -1625,11 +1671,14 @@ public with sharing class TdrHelpers {
             regionStaffOrder.put(region.Display_Name__c, new List<String>());
         }
     }
-    
-    private static void initRegionsForWeeklyReport() {
+    /**
+    * Initialize 2 Maps, one to hold TDR Performance data for each TDR grouped by region
+    * the other to keep track of the order the TDRs in each region
+    */    
+    private static void initRegionsForPerformanceReport() {
 	
-		regionPerformanceStats = new Map<String, Map<String, TDR_Performance__c>>();
-	    regionPerformanceStaffOrder = new Map<String, List<String>>();
+		tdrPerformanceStats = new Map<String, Map<String, TDR_Performance__c>>();
+	    tdrPerformanceStaffOrder = new Map<String, List<String>>();
 		
 		Region__c[] regions =
 	        [SELECT
@@ -1647,37 +1696,17 @@ public with sharing class TdrHelpers {
 	            )
 	    ];
 	    for (Region__c region : regions) {
-	        regionPerformanceStats.put(region.Display_Name__c, new Map<String, TDR_Performance__c>());
-	        regionPerformanceStaffOrder.put(region.Display_Name__c, new List<String>());
-	    }
-    }
-    
-    private static void initRegionsForDailyData() {
-    	
-    	dailyRegionPerformanceStats = new Map<String, Map<String, TDR_Performance__c>>();
-    	dailyPerformanceStaffOrder = new Map<String, List<String>>();
-    	
-		Region__c[] regions =
-	        [SELECT
-	            Display_Name__c
-	        FROM
-	            Region__c
-	        WHERE
-	            Id IN (
-	                SELECT
-	                    Region__c
-	                FROM
-	                    Person__c
-	                WHERE
-	                    Type__c = 'TDR'
-	            )
-	    ];
-	    for (Region__c region : regions) {
-	        dailyRegionPerformanceStats.put(region.Display_Name__c, new Map<String, TDR_Performance__c>());
-	        dailyPerformanceStaffOrder.put(region.Display_Name__c, new List<String>());
+	        tdrPerformanceStats.put(region.Display_Name__c, new Map<String, TDR_Performance__c>());
+	        tdrPerformanceStaffOrder.put(region.Display_Name__c, new List<String>());
 	    }
     }
 
+    /**
+    * Returns the query to pick the weekly data
+    * @param personIds - a list of the TDR Person Ids
+    * @param reportDate - the start date of the required report data
+    * @return - the query to return the weekly report data records
+    */
     private static String getWeeklyReportDataQuery(List<String> personIds, Datetime reportDate) {
 
     	String query = 'SELECT ' +
@@ -1724,7 +1753,13 @@ public with sharing class TdrHelpers {
          System.debug(LoggingLevel.INFO, query);     
          return query;
     }
-    
+
+
+    /*
+    * @param personIds - a list of the TDR Person Ids
+    * @param reportDate - the start date of the required report data
+    * @return - the query to return the weekly performance data records
+    */    
     private static String getWeeklyPerformanceDataQuery(List<String> personIds, Datetime reportDate) {
 
     	String query = 'SELECT ' +
@@ -1765,7 +1800,12 @@ public with sharing class TdrHelpers {
          System.debug(LoggingLevel.INFO, query);     
          return query;
     }
-    
+    /**
+    * Returns the query to pick Performance data for the given date
+    * @param personIds - the list of Person Ids whose data is sought
+    * @param reportDate - the initial date of the data required
+    * @return String - the query 
+    */
     private static String getDailyPerformanceDataQuery(List<String> personIds, Datetime reportDate) {
     	
         String query =
@@ -2041,7 +2081,8 @@ public with sharing class TdrHelpers {
         String tdrCurrentName = '';
         String currentRegion = '';
         Integer currentRow = 0;
-        Map<String, TDR_Performance__c> regionPeople= dailyRegionPerformanceStats.get(region);
+        Map<String, TDR_Performance__c> regionPeople= tdrPerformanceStats.get(region);
+
         TDR_Performance__c[] summaryList = regionPeople.values();
         
         for (TDR_Performance__c summary : summaryList) {
@@ -2110,13 +2151,15 @@ public with sharing class TdrHelpers {
 
                 mainHtml += '<tr style ="'+ getTableBodyStyle() + '">';
                 mainHtml += '<td style ="padding-left:5px;">Distance travelled</td>';
-                for (integer location = 1; location <= count; location++) {
+
+                for (integer location = 1; location <= visitCount; location++) {
                 	mainHtml += '<td style="padding-left:5px; width: 10%">' + 'Location' + location + '</td>';
                 }
                 mainHtml += '</tr>';
                 mainHtml += '<tr style ="'+ getTableBodyStyle() + '">';
                 mainHtml += '<td style ="padding-left:5px;"/>';
-                for (integer location = 0; location < count; location++) {
+
+                for (integer location = 0; location < visitCount; location++) {
                 	String visitTime = times.get(location);
                 	String formattedTime = '';
                 	if (visitTime.contains(':')) {
@@ -2410,6 +2453,18 @@ public with sharing class TdrHelpers {
         }
         return whereString;
     }
+    /**
+     *  Update in the TDR_Performance_Record objects for this TDR
+     * from the PA Products Survey
+     *
+     *  @param submission - The submission object being processed
+     *  @param person     - The Person__c object for the tdr who submitted the form
+     *
+     *  @return - A three element list of Strings with the following format
+     *              element 1 - Binary indicator of success (0 = fail, 1 = success)
+     *              element 2 - Error message if required for the logs and tech team
+     *              element 3 - Message body to the CKW if required.
+     */
 
     public static List<String> processTdrPaProductsSurvey(ProcessSurveySubmission.SurveySubmission submission, Person__c person) {
     	
@@ -2421,6 +2476,150 @@ public with sharing class TdrHelpers {
 
             // Send back the error message
             return new String[] { '0', 'User is not a TDR', 'SUPRESSMSG' };
+        }
+
+        DateTime handsetSubmitTime = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime);
+        if (handsetSubmitTime == null) {
+            return new String[] { '0', 'No handset submit time in this submission', 'SUPRESSMSG' };
+        }
+        DateTime submissionStartTime = ProcessSurveySubmission.getTimestamp(submission.submissionStartTime);
+        if (submissionStartTime == null) {
+            return new String[] { '0', 'No Submission Start Time.', 'SUPRESSMSG' };
+        }
+        // Create blank target map. This allows all the default targets to be taken if required
+        Map<String, String> dummyTargetMap = generateDummyTargetMap();
+
+        // Load the TDRs performance objects. There should be four of these.
+        //    1. The Daily object
+        //    2. The weekly object
+        //    3. The monthly object
+        //    4. The yearly object.
+        List<TDR_Performance__c> performanceRecords = new List<TDR_Performance__c>();
+        TDR_Performance__c dailyPerformance = loadTdrPerformanceRecord(tdr, 'DAILY', getDefaultDate('DAILY', handsetSubmitTime.date()));
+        if (dailyPerformance == null) {
+            dailyPerformance = createNewTdrPerformanceRecord(tdr, 'DAILY', getDefaultDate('DAILY', handsetSubmitTime.date()), dummyTargetMap);
+        }
+        updateTdrPerformanceObject(dailyPerformance, 'PA_Products__c', 1, false, submissionStartTime, handsetSubmitTime);
+        performanceRecords.add(dailyPerformance);
+
+        TDR_Performance__c weeklyPerformance = loadTdrPerformanceRecord(tdr, 'WEEKLY', getDefaultDate('WEEKLY', handsetSubmitTime.date()));
+        if (weeklyPerformance == null) {
+            weeklyPerformance = createNewTdrPerformanceRecord(tdr, 'WEEKLY', getDefaultDate('WEEKLY', handsetSubmitTime.date()), dummyTargetMap);
+        }
+        updateTdrPerformanceObject(weeklyPerformance, 'PA_Products__c', 1, false, submissionStartTime, handsetSubmitTime);
+        performanceRecords.add(weeklyPerformance);
+
+        // Sort the monthly performance
+        TDR_Performance__c monthlyPerformance = loadTdrPerformanceRecord(tdr, 'MONTHLY', getDefaultDate('MONTHLY', handsetSubmitTime.date()));
+        if (monthlyPerformance == null) {
+            monthlyPerformance = createNewTdrPerformanceRecord(tdr, 'MONTHLY', getDefaultDate('MONTHLY', handsetSubmitTime.date()), dummyTargetMap);
+        }
+        updateTdrPerformanceObject(monthlyPerformance, 'PA_Products__c', 1, false, submissionStartTime, handsetSubmitTime);
+        performanceRecords.add(monthlyPerformance);
+
+        // Sort the yearly performance
+        TDR_Performance__c yearlyPerformance = loadTdrPerformanceRecord(tdr, 'YEARLY', getDefaultDate('YEARLY', handsetSubmitTime.date()));
+        if (yearlyPerformance == null) {
+            yearlyPerformance = createNewTdrPerformanceRecord(tdr, 'YEARLY', getDefaultDate('YEARLY', handsetSubmitTime.date()), dummyTargetMap);
+        }
+        updateTdrPerformanceObject(yearlyPerformance, 'PA_Products__c', 1, false, submissionStartTime, handsetSubmitTime);
+        //yearlyPerformance.PA_Products__c += 1;
+        performanceRecords.add(yearlyPerformance);
+
+        // Update the DB
+        database.upsert(performanceRecords);
+        
+        // Return success
+        return new String[] { '1', 'PA Products processed sucessfully', 'SUPRESSMSG' };
+    }
+    /**
+     *  Fill in the TDR_Weekly_Report objects for this TDR
+     * from the Weekly report Survey
+     *
+     *  @param submission - The submission object being processed
+     *  @param answers    - A map containing the values for the registration
+     *                       The keys are <binding>_<instance> for compatibility
+     *  @param person     - The Person__c object for the tdr who submitted the form
+     *
+     *  @return - A three element list of Strings with the following format
+     *              element 1 - Binary indicator of success (0 = fail, 1 = success)
+     *              element 2 - Error message if required for the logs and tech team
+     *              element 3 - Message body to the CKW if required.
+     */
+    public static List<String> processWeeklyReportVisit(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
+    	
+    	TDR_Weekly_Target__c weeklyTarget = [Select 
+    	                                           Active_DSTs__c,
+    	                                           Active_Internet_Cafes__c,
+    	                                           Banked_Agents__c,
+    	                                           Card_Sales__c,
+    	                                           Easytalk_Activations__c,
+    	                                           Easytalk_Installations__c,
+    	                                           Easytalk_New_Locations__c,
+    	                                           Easytalk_Repairs__c,
+    	                                           MM_Sub_Acquisitions__c,
+    	                                           Mobile_Money_Activations__c,
+    	                                           New_Agents__c,
+    	                                           Payphone_Repairs__c,
+    	                                           Simcard_Registrations__c
+    	                                     From
+    	                                           TDR_Weekly_Target__c
+    	                                     order by 
+    	                                           CreatedDate 
+    	                                     desc limit 1];
+
+    	TDR_Weekly_Report__c tdrWeekly = new TDR_Weekly_Report__c();
+    	tdrWeekly.Banked_Agents__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q1_0'), 'q1', 0.0);
+    	tdrWeekly.Banked_Agents_Targets__c = weeklyTarget.Banked_Agents__c;
+    	tdrWeekly.New_Agents__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q2_0'), 'q2', 0.0);
+    	tdrWeekly.New_Agents_Target__c = weeklyTarget.New_Agents__c;
+    	tdrWeekly.Active_DSTs__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q3_0'), 'q3', 0.0);
+    	tdrWeekly.Active_DSTs_Target__c = weeklyTarget.Active_DSTs__c;
+    	tdrWeekly.Mobile_Money_Activations__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q4_0'), 'q4', 0.0);
+    	tdrWeekly.Mobile_Money_Activations_Target__c = weeklyTarget.Mobile_Money_Activations__c;
+    	tdrWeekly.MM_Sub_Acquisitions__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q5_0'), 'q5', 0.0);
+    	tdrWeekly.MM_Sub_Acquisitions_Target__c = weeklyTarget.MM_Sub_Acquisitions__c;
+    	tdrWeekly.Simcard_Registrations__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q6_0'), 'q6', 0.0);
+    	tdrWeekly.Simcard_Registrations_Target__c = weeklyTarget.Simcard_Registrations__c;
+    	tdrWeekly.Easytalk_New_Locations__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q7_0'), 'q7', 0.0);
+    	tdrWeekly.Easytalk_New_Locations_Target__c = weeklyTarget.Easytalk_New_Locations__c;
+    	tdrWeekly.Easytalk_Installations__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q8_0'), 'q8', 0.0);
+    	tdrWeekly.Easytalk_Installations_Target__c = weeklyTarget.Easytalk_Installations__c;
+    	tdrWeekly.Card_Sales__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q9_0'), 'q9', 0.0);
+    	tdrWeekly.Card_Sales_Target__c = weeklyTarget.Card_Sales__c;
+    	tdrWeekly.Easytalk_Activations__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q10_0'), 'q10', 0.0);
+    	tdrWeekly.Easytalk_Activations_Target__c = weeklyTarget.Easytalk_Activations__c;
+    	tdrWeekly.Easytalk_Repairs__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q11'), 'q11', 0.0);
+    	tdrWeekly.Easytalk_Repairs_Target__c = weeklyTarget.Easytalk_Repairs__c;
+    	tdrWeekly.Payphone_Repairs__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q12'), 'q12', 0.0);
+    	tdrWeekly.Payphone_Repairs_Targets__c = weeklyTarget.Payphone_Repairs__c;
+    	tdrWeekly.Active_Internet_Cafes__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q13_0'), 'q13', 0.0);
+    	tdrWeekly.Active_Internet_Cafes_Target__c = weeklyTarget.Active_Internet_Cafes__c;
+    	tdrWeekly.Person__c = person.Id;
+    	
+    	database.insert(tdrWeekly);
+    	return new String[] { '1', 'Weekly Report processed sucessfully', 'SUPRESSMSG' };
+    }
+
+    /**
+     *  Create a IN clause for a SOQL statement
+     */
+    public static String addInWhereClause(String objectName, Boolean negate, String ids, List<String> idList, Boolean incQuotes) {
+
+        String[] values;
+        if (ids != null) {
+            values = ids.split(',');
+        }
+        else {
+            values = idList;
+        }
+        String out = '';
+        out = objectName + ' ';
+        if (values.size() == 1) {
+            if (negate) {
+                out = out + '!';
+            }
+            out = out + '= ';
         }
 
         DateTime handsetSubmitTime = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime);
@@ -2751,133 +2950,6 @@ public with sharing class TdrHelpers {
         returnValues = processAgentVisitSurvey(submission, answers, person);
         System.assert(returnValues.get(0).equals('0'));
         System.assert(returnValues.get(1).equals('Type of submission is unrecognised'));
-
-       /* // Dig out the performance records for this guy and check that there is one visit in each and that the targets have defaulted.
-        TDR_Performance__c dailyPerformance = loadTdrPerformanceRecord(tdr2, 'DAILY', null);
-
-        TDR_Performance__c weeklyPerformance = loadTdrPerformanceRecord(tdr2, 'WEEKLY', null);
-        System.assertEquals(weeklyPerformance.Corporate_Sales_Calls__c, 1);
-        System.assertEquals(weeklyPerformance.Corporate_Sales_Calls_Target__c, 1);
-        System.assertEquals(weeklyPerformance.Customer_Support__c, 1);
-        System.assertEquals(weeklyPerformance.Marketing_Event__c, 1);
-        System.assertEquals(weeklyPerformance.MM_Agent_Full_Report__c, 1.0);
-        System.assertEquals(weeklyPerformance.MM_Agent_Full_Report_Target__c, 4.0);
-        System.assertEquals(weeklyPerformance.MM_Agent_Short_Report__c, 1.0);
-        System.assertEquals(weeklyPerformance.MM_Agent_Short_Report_Target__c, 5.0);
-        System.assertEquals(weeklyPerformance.Other__c, 1.0);
-        System.assertEquals(weeklyPerformance.School_Sales_Calls__c, 1.0);
-        System.assertEquals(weeklyPerformance.School_Sales_Calls_Target__c, 7.0);
-
-        TDR_Performance__c monthlyPerformance = loadTdrPerformanceRecord(tdr2, 'MONTHLY', null);
-        System.assertEquals(monthlyPerformance.MM_Agent_Full_Report__c, 1.0);
-        System.assertEquals(monthlyPerformance.MM_Agent_Full_Report_Target__c, 40.0);
-        System.assertEquals(monthlyPerformance.MM_Agent_Short_Report__c, 1.0);
-        System.assertEquals(monthlyPerformance.MM_Agent_Short_Report_Target__c, 50.0);
-        System.assertEquals(monthlyPerformance.Other__c, 1.0);
-        System.assertEquals(monthlyPerformance.School_Sales_Calls__c, 1.0);
-        System.assertEquals(monthlyPerformance.School_Sales_Calls_Target__c, 70.0);
-        System.assertEquals(monthlyPerformance.MM_Agent_Short_Report__c, 1.0);
-        System.assertEquals(monthlyPerformance.MM_Agent_Short_Report_Target__c, 50.0);
-        System.assertEquals(monthlyPerformance.School_Sales_Calls__c, 1.0);
-        System.assertEquals(monthlyPerformance.School_Sales_Calls_Target__c, 70.0);
-
-        TDR_Performance__c yearlyPerformance = loadTdrPerformanceRecord(tdr2, 'YEARLY', null);
-        System.assertEquals(yearlyPerformance.Corporate_Sales_Calls__c, 1.0);
-        System.assertEquals(yearlyPerformance.Corporate_Sales_Calls_Target__c, 100.0);
-        System.assertEquals(yearlyPerformance.Customer_Support__c, 1.0);
-        System.assertEquals(yearlyPerformance.Marketing_Event__c, 1.0);
-        System.assertEquals(yearlyPerformance.MM_Agent_Full_Report__c, 1.0);
-        System.assertEquals(yearlyPerformance.MM_Agent_Full_Report_Target__c, 400.0);
-        System.assertEquals(yearlyPerformance.MM_Agent_Short_Report__c, 1.0);
-        System.assertEquals(yearlyPerformance.MM_Agent_Short_Report_Target__c, 500.0);
-        System.assertEquals(yearlyPerformance.Other__c, 1.0);
-        System.assertEquals(yearlyPerformance.School_Sales_Calls__c, 1.0);
-        System.assertEquals(yearlyPerformance.School_Sales_Calls_Target__c, 700.0);
-
-        // Check that all the avtivities were created alright
-        TDR_Activity__c mmfrActivity = [
-            SELECT
-                Activity_Type__c,
-                Additional_Comments__c
-            FROM
-                TDR_Activity__c
-            WHERE
-                TDR_Performance_Record__c = :dailyPerformance.Id
-                AND Activity_Type__c = 'MM Agent Full Report'];
-        System.assert(mmfrActivity.Activity_Type__c.equals('MM Agent Full Report'));
-        System.assert(mmfrActivity.Additional_Comments__c.equals('MM LONG VISIT'));
-
-        TDR_Activity__c mmsrActivity = [
-            SELECT
-                Activity_Type__c,
-                Additional_Comments__c
-            FROM
-                TDR_Activity__c
-            WHERE
-                TDR_Performance_Record__c = :dailyPerformance.Id
-                AND Activity_Type__c = 'MM Agent Short Report'];
-        System.assert(mmsrActivity.Activity_Type__c.equals('MM Agent Short Report'));
-        System.assert(mmsrActivity.Additional_Comments__c.equals('MM SHORT VISIT'));
-
-        TDR_Activity__c cscActivity = [
-            SELECT
-                Activity_Type__c,
-                Additional_Comments__c
-            FROM
-                TDR_Activity__c
-            WHERE
-                TDR_Performance_Record__c = :dailyPerformance.Id
-                AND Activity_Type__c = 'Corporate Sales'];
-        System.assert(cscActivity.Activity_Type__c.equals('Corporate Sales'));
-        System.assert(cscActivity.Additional_Comments__c.equals('CORPORATE SALES CALL'));
-
-        TDR_Activity__c sscActivity = [
-            SELECT
-                Activity_Type__c,
-                Additional_Comments__c
-            FROM
-                TDR_Activity__c
-            WHERE
-                TDR_Performance_Record__c = :dailyPerformance.Id
-                AND Activity_Type__c = 'School Sales'];
-        System.assert(sscActivity.Activity_Type__c.equals('School Sales'));
-        System.assert(sscActivity.Additional_Comments__c.equals('SCHOOL SALES CALL'));
-
-        TDR_Activity__c csActivity = [
-            SELECT
-                Activity_Type__c,
-                Additional_Comments__c
-            FROM
-                TDR_Activity__c
-            WHERE
-                TDR_Performance_Record__c = :dailyPerformance.Id
-                AND Activity_Type__c = 'Customer Support'];
-        System.assert(csActivity.Activity_Type__c.equals('Customer Support'));
-        System.assert(csActivity.Additional_Comments__c.equals('CUSTOMER SUPPORT ISSUE'));
-
-        TDR_Activity__c meActivity = [
-            SELECT
-                Activity_Type__c,
-                Additional_Comments__c
-            FROM
-                TDR_Activity__c
-            WHERE
-                TDR_Performance_Record__c = :dailyPerformance.Id
-                AND Activity_Type__c = 'Marketing Event'];
-        System.assert(meActivity.Activity_Type__c.equals('Marketing Event'));
-        System.assert(meActivity.Additional_Comments__c.equals('MARKETING EVENT DESCRIPTION'));
-
-        TDR_Activity__c oActivity = [
-            SELECT
-                Activity_Type__c,
-                Additional_Comments__c
-            FROM
-                TDR_Activity__c
-            WHERE
-                TDR_Performance_Record__c = :dailyPerformance.Id
-                AND Activity_Type__c = 'Other'];
-        System.assert(oActivity.Activity_Type__c.equals('Other'));
-        System.assert(oActivity.Additional_Comments__c.equals('OTHER DESCRIPTION'));*/
 
         // Test with a person who is not a TDR
         Person__c nonTdr = new Person__c();
