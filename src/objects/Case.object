@@ -355,9 +355,6 @@
         <columns>CASES.CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
         <label>All Cases</label>
-        <sharedTo>
-            <group>CKWGroup</group>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>All_Closed_Cases</fullName>
@@ -375,9 +372,6 @@
             <value>Closed</value>
         </filters>
         <label>All Closed Cases</label>
-        <sharedTo>
-            <group>CKWGroup</group>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>All_New_Cases</fullName>
@@ -395,9 +389,6 @@
             <value>New</value>
         </filters>
         <label>All New Cases</label>
-        <sharedTo>
-            <group>CKWGroup</group>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>All_Open_Cases</fullName>
@@ -416,22 +407,6 @@
             <value>Closed</value>
         </filters>
         <label>All Open Cases</label>
-        <sharedTo>
-            <group>CKWGroup</group>
-        </sharedTo>
-    </listViews>
-    <listViews>
-        <fullName>CKW_Cases_Queue</fullName>
-        <columns>CASES.CASE_NUMBER</columns>
-        <columns>Person__c</columns>
-        <columns>Category__c</columns>
-        <columns>CASES.TYPE</columns>
-        <columns>CASES.SUBJECT</columns>
-        <columns>CASES.STATUS</columns>
-        <columns>CASES.CREATED_DATE</columns>
-        <filterScope>Queue</filterScope>
-        <label>CKW Cases Queue</label>
-        <queue>CKWCasesQueue</queue>
     </listViews>
     <listViews>
         <fullName>MyCases</fullName>
