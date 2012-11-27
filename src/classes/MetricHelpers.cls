@@ -364,16 +364,16 @@ public with sharing class MetricHelpers {
 
         Date qDate = null;
         if(monthParts[0].equals('Jan')) {
-            qDate = Date.parse('01/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 1, 1);
         }
         else if(monthParts[0].equals('Apr')) {
-            qDate = Date.parse('04/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 4, 1);
         }
         else if(monthParts[0].equals('Jul')) {
-            qDate = Date.parse('07/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 07, 1);
         }
         else if(monthParts[0].equals('Oct')) {
-            qDate = Date.parse('10/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 10, 1);
         }
         return qDate;   
     }
@@ -387,16 +387,16 @@ public with sharing class MetricHelpers {
 
         Date qDate = null;
         if(monthParts[0].equals('Jan')) {
-            qDate = Date.parse('03/31/' + year);
+        	qDate =Date.newInstance(Integer.valueOf(year), 3, 31);
         }
         else if(monthParts[0].equals('Apr')) {
-            qDate = Date.parse('06/30/' + year);
+        	qDate =Date.newInstance(Integer.valueOf(year), 6, 30);
         }
         else if(monthParts[0].equals('Jul')) {
-            qDate = Date.parse('09/30/' + year);
+        	qDate =Date.newInstance(Integer.valueOf(year), 9, 30);
         }
         else if(monthParts[0].equals('Oct')) {
-            qDate = Date.parse('12/31/' + year);
+        	qDate =Date.newInstance(Integer.valueOf(year), 12, 31);
         }
         return qDate;   
     }
@@ -422,10 +422,43 @@ public with sharing class MetricHelpers {
         }
         return dateString;   
     }
+    
+    /**
+    * Added this to replace getQuarterLastDayAsString since the Date.parse format it uses is locale specific
+    */
+    public static String getInstanceQuarterLastDayAsString(String quarterString) {
+
+        String[] monthParts = quarterString.split(' - ');
+        String[] yearParts = monthParts[1].split(' ');
+        String year = yearParts[1];
+
+        String dateString = null;
+        if(monthParts[0].equals('Jan')) {
+        	dateString = year + '-03-31 00:00:00';
+        }
+        else if(monthParts[0].equals('Apr')) {
+        	dateString = year + '-06-30 00:00:00';
+        }
+        else if(monthParts[0].equals('Jul')) {
+        	dateString = year + '-09-30 00:00:00';
+        }
+        else if(monthParts[0].equals('Oct')) {
+        	dateString = year + '-12-31 00:00:00';
+        }
+        return dateString;   
+    }
 
     public static String parseDateToString(Date qDate) {
 
         return String.valueOf(qDate.month()) + '/' + String.valueOf(qDate.day()) + '/' + String.valueOf(qDate.year());
+    }
+    
+    /**
+    * Added this to replace getQuarterLastDayAsString since the Date.parse format it uses is locale specific
+    */
+    public static String parseInstanceDateToString(Date qDate) {
+
+        return String.valueOf(qDate.year()) + '-' + String.valueOf(qDate.month()) + '-' + String.valueOf(qDate.day()) + ' 00:00:00';
     }
 
     public static Integer getQuarter(Date qDate) {
@@ -1128,9 +1161,12 @@ public with sharing class MetricHelpers {
 
     // Remember that this will only work for dates that are in the same format as the users
     // locale. I hate SF sometimes.
+    // **NOTE: Changed this to use Date.newInstance() instead
     public static Date convertStringToDate(String dateString) {
-        return Date.parse(dateString);
+    	String[] dateArray = dateString.split('/');
+    	return Date.newInstance(Integer.valueOf(dateArray[2]), Integer.valueOf(dateArray[0]), Integer.valueOf(dateArray[1]));   	
     }
+
     public static Date convertSoqlStringToDate(String dateString) {
         String[] dateArray = dateString.split('-');
         return convertStringToDate(dateArray[1] + '/' + dateArray[2] + '/' + dateArray[0]);

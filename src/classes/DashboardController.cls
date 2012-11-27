@@ -274,31 +274,40 @@ public  class DashboardController {
         }
 
         String query =
-            'SELECT '                                   +
-                'Id, '                                  +
-                'M_E_Metric__c, '                       +
-                'Actual_Value__c, '                     +
-                'Manual_Value__c, '                     +
-                'Projected_Value__c, '                  +
-                'Comment__c, '                          +
-                'Date__c, '                             +
-                'District__r.Name, '                    +
-                'M_E_Metric__r.Name, '                  +
-                'M_E_Metric__r.M_E_Area__c, '           +
-                'M_E_Metric__r.Update_Period__c, '      +
-                'M_E_Metric__r.Label__c, '              +
-                'M_E_Metric__r.Sub_Area__c, '           +
-                'M_E_Metric__r.Is_Header__c,'           +
-                'M_E_Metric__r.Reverse_Comparison__c '  +
-            'FROM '                                     +
-                'M_E_Metric_Data__c '                   +
-            'WHERE '                                    +
-                'Date__c >= :previousQuarterFirstDay '  +
-                'AND Date__c <= :quarterLastDay '       +
-                'AND Is_Cumulative__c = false '         +
-                notForPublicString                      +
-                organisationString                      +
-                districtString                          +
+            'SELECT ' +
+                'Id, ' +
+                'M_E_Metric__c, ' +
+                'Actual_Value__c, ' +
+                'Manual_Value__c, ' +
+                'Real_Value__c, ' +
+                'Projected_Value__c, ' +
+                'Comment__c, ' +
+                'Date__c, ' +
+                'Person__c, ' +
+                'Person__r.First_Name__c, ' +
+                'Person__r.Last_Name__c, ' +
+                'District__c, ' +
+                'District__r.Name, ' +
+                'M_E_Metric__r.Name, ' +
+                'M_E_Metric__r.M_E_Area__c, ' +
+                'M_E_Metric__r.Update_Period__c, ' +
+                'M_E_Metric__r.Label__c, '  +
+                'M_E_Metric__r.Sub_Area__c, '  +
+                'M_E_Metric__r.Is_Header__c,'  +
+                'M_E_Metric__r.Is_On_Fly__c, ' +
+                'M_E_Metric__r.Calculation_Type__c, ' +
+                'M_E_Metric__r.Further_Link_Text__c, ' +
+                'M_E_Metric__r.Further_Link_Url__c, ' +
+                'M_E_Metric__r.Reverse_Comparison__c ' +
+            'FROM ' +
+                'M_E_Metric_Data__c ' +
+            'WHERE ' +
+                'Date__c >= :previousQuarterFirstDay ' +
+                'AND Date__c <= :quarterLastDay ' +
+                'AND Is_Cumulative__c = false ' +
+                notForPublicString +
+                organisationString +
+                districtString +
             'ORDER BY '                                 +
                 'M_E_Metric__r.M_E_Area__c, '           +
                 'M_E_Metric__r.Order__c ASC, '          +
@@ -385,17 +394,36 @@ public  class DashboardController {
                 continue;
             }
             metricDataWrapper.isHeader = metric.M_E_Metric__r.Is_Header__c;
+            metricDataWrapper.setSubArea(metric.M_E_Metric__r.Sub_Area__c);
+           // metricDataWrapper.setLabel(metric.M_E_Metric__r.Label__c);
+            metricDataWrapper.setName(metricName);
+            metricDataWrapper.isHeader = metric.M_E_Metric__r.Is_Header__c;
+            metricDataWrapper.updatePeriod = metric.M_E_Metric__r.Update_Period__c;
+            metricDataWrapper.setMetricId(metric.M_E_Metric__r.Id);
 
             // See which quarter the metric is for.
             if (quarterFirstDay.dayOfYear() <= metric.Date__c.dayOfYear() && quarterFirstDay.year() == metric.Date__c.year()) {
 
                 // Current quarter
                 metricDataWrapper.currentQuarter = metric;
+                metricDataWrapper.setHasCurrent(true);
+                metricDataWrapper.setCurrentId(metric.Id);
+                metricDataWrapper.setCurrentRealValue(metric.Real_Value__c);
+                metricDataWrapper.setCurrentTarget(metric.Projected_Value__c);
+                metricDataWrapper.setFurtherLinkText(metric.M_E_Metric__r.Further_Link_Text__c);
+                metricDataWrapper.setFurtherLinkUrl(metric.M_E_Metric__r.Further_Link_Url__c);
+                metricDataWrapper.setReverseComparison(metric.M_E_Metric__r.Reverse_Comparison__c);
+                metricDataWrapper.setComment(metric.Comment__c);
+                metricDataWrapper.setOnFly(metric.M_E_Metric__r.Is_On_Fly__c);
+                metricDataWrapper.setCalculation(metric.M_E_Metric__r.Calculation_Type__c);
             }
             else {
 
                 // Previous quarter
                 metricDataWrapper.previousQuarter = metric;
+                metricDataWrapper.setPreviousId(metric.Id);
+                metricDataWrapper.setPreviousRealValue(metric.Real_Value__c);
+                metricDataWrapper.setPreviousTarget(metric.Projected_Value__c);
             }
 
             // Get sparkLine

@@ -96,6 +96,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         this.sObjectId = value.Id;
         this.sObjectRecord = value;
         this.sObjectName = 'Graph_Parameter__c';
+        this.setDatePeriodField('Date_Period__c');
         if (this.isLoaded == false) {
             init();
         }
@@ -147,11 +148,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
             if (this.getParentComponentController() != null) {
                 this.getParentComponentController().rebuildParameters();
-
-                // Rebuild the start times here so they are taken into account when rebuilding the axis
-                if (!getParentValue('datePicker').equals('')) {
-                    setDates(getParentValue('datePicker'));
-                }
+                setDates();
             }
 
             initAxis();
@@ -179,7 +176,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
     private Boolean init() {
 
-        setDates(getParentValue('datePicker'));
+        setDates();
         initAxis();
         return true;
     }
@@ -595,6 +592,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
         Graph_Type__c graphType = new Graph_Type__c();
         graphType.Graph_Parameter__c = graph.Id;
+        graphType.Group_Field__c = 'Val';
         Database.insert(graphType);
 
 
@@ -643,6 +641,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         Database.insert(graph2);
 
         Graph_Type__c graphType2 = new Graph_Type__c();
+        graphType2.Group_Field__c = 'Val';
         graphType2.Graph_Parameter__c = graph2.Id;
         Database.insert(graphType2);
 

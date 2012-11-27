@@ -102,14 +102,4 @@ public with sharing class PersonSelectorController extends ChildComponentBase {
         }
         return clause;
     }
-    
-    static testmethod void testAll() {
-    	PersonSelectorController controller = new PersonSelectorController();
-    	controller.getPersons();
-    	controller.getPerson();
-        controller.refreshData();
-        controller.getValues();
-        controller.buildPersonQueryString();
-        controller.getActionFunctionName();
-    }
 }

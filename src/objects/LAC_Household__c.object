@@ -37,8 +37,8 @@
     <enableActivities>false</enableActivities>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
     <fields>
         <fullName>Family_size__c</fullName>
         <externalId>false</externalId>
@@ -46,6 +46,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackHistory>false</trackHistory>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -55,6 +56,7 @@
         <label>LAC Farmer Id Temp</label>
         <length>15</length>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -65,6 +67,7 @@
         <label>Other Member Id</label>
         <length>15</length>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -75,6 +78,7 @@
         <label>Other Member Name</label>
         <length>30</length>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -85,6 +89,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackHistory>false</trackHistory>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -119,6 +124,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -131,6 +137,7 @@
     <nameField>
         <displayFormat>HH-{0000000}</displayFormat>
         <label>LAC Household Name</label>
+        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>LAC Households</pluralLabel>

@@ -15,7 +15,8 @@ public class Utils {
                 Id,
                 District__r.Name,
                 GPS_Location_E__c,
-                GPS_Location_N__c
+                GPS_Location_N__c,
+                Region__r.Id
             FROM
                 Person__c
             WHERE
@@ -42,7 +43,7 @@ public class Utils {
             [SELECT
                 Id,
                 Village__c,
-                Person_Household__c,
+		Person_Household__c,        //LAC_Household__c,
                 GPS_Location_N__c,
                 GPS_Location_E__c
             FROM
@@ -85,7 +86,8 @@ public class Utils {
                 Age__c,
                 Date_of_Birth__c,
                 Gender__c,
-                Person_Household__c
+		Person_Household__c
+                //LAC_Household__c
             FROM
                 Person__c
             WHERE
@@ -483,8 +485,10 @@ public class Utils {
                 Id
             FROM
                 Person__c
-            WHERE
+	    WHERE
                 Person_Household__c = :personHouseholdId];
+           // WHERE
+            //    LAC_Household__c = :personHouseholdId];
         return personList;
     }
 
@@ -607,6 +611,26 @@ public class Utils {
         String pageName = url.substring(startIndex + 1, endIndex);
         System.debug(LoggingLevel.INFO, pageName + ' ' + startIndex + ' ' + endIndex);
         return pageName;
+    }
+
+    public static List<Integer> calculateTimeDifference(Datetime startTime, Datetime endTime) {
+        
+        List<Integer> hoursMinutesTime = new List<Integer>();
+        Integer startTimeMinutes = (Integer)startTime.getTime()/60000;
+        Integer endTimeMinutes = (Integer)endTime.getTime()/60000;
+        
+        Integer minutesDifference = endTimeMinutes - startTimeMinutes;
+        if (minutesDifference <= 60) {
+            hoursMinutesTime.add(0);
+            hoursMinutesTime.add(minutesDifference);
+        }
+        else if (minutesDifference > 60) {
+            Integer hours = minutesDifference / 60;
+            Integer minutes = math.mod(minutesDifference, 60);
+            hoursMinutesTime.add(hours);
+            hoursMinutesTime.add(minutes);
+        }
+        return hoursMinutesTime;
     }
 
     /**

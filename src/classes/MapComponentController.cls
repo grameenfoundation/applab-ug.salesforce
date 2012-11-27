@@ -45,9 +45,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
                 this.getParentComponentController().rebuildParameters();
 
                 // Rebuild the start times here so they are taken into account when rebuilding the axis
-                if (!getParentValue('datePicker').equals('')) {
-                    setDates(getParentValue('datePicker'));
-                }
+                setDates();
             }
             setUp();
         }
@@ -214,7 +212,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
             markers.addAll(getClientLocationMarkers());
         }
         else if (sObjectType.equalsIgnoreCase('Submission') || !getParentValue('ShowSubmission').equals('')) {
-            //markers.addAll(getSubmissionMarkers());
+            markers.addAll(getSubmissionMarkers());
         }
         else if (sObjectType.equalsIgnoreCase('Search Log') || !getParentValue('Show SearchLog').equals('')) {
             //markers.addAll(getSearchMarkers());
@@ -402,6 +400,82 @@ public with sharing class MapComponentController extends ChildComponentBase {
         return whereClauses;
     }
 
+    // Methods for getting map markers from the Submission_Meta_Data__c sObject
+    private List<MapMarkers> getSubmissionMarkers() {
+
+        List<MapMarkers> markers = new List<MapMarkers>();
+        Map<String, Integer> surveyMarkersMap = new Map<String, Integer>();
+        Submission_Meta_Data__c[] submissions = Database.query(getSubmissionMarkersQuery());
+        for (Submission_Meta_Data__c submission : submissions) {
+            if (submission.Submission_Latitude__c == null || submission.Submission_Longitude__c == null) {
+                continue;
+            }
+            SubmissionMapMarker marker = new SubmissionMapMarker(submission);
+            marker.generateMarkerName(submission.Survey_Name__c);
+            marker.setMarkerColour(getColour(marker.getColour(), marker.getMarkerName()));
+            markers.add(marker);
+            if (surveyMarkersMap.containsKey(submission.Survey_Name__c)) {
+                surveyMarkersMap.put(submission.Survey_Name__c, surveyMarkersMap.get(submission.Survey_Name__c) + 1);
+            }
+            else {
+                surveyMarkersMap.put(submission.Survey_Name__c, 1);
+            }
+        }
+        for (String key : surveyMarkersMap.keySet()) {
+            setStats('There are ' + surveyMarkersMap.get(key) + ' ' + key + ' matching your search<br/>');
+        }
+        return markers;
+    }
+
+    private String getSubmissionMarkersQuery() {
+
+        String baseQuery =
+            'SELECT ' +
+                'Name, ' +
+                'Id, ' +
+                'Client_Location__c, ' +
+                'Submission_Latitude__c, ' +
+                'Submission_Longitude__c, ' +
+                'Survey_Name__c, ' +
+                'Interviewer__r.Name, ' +
+                'Interviewer_Name__c, ' +
+                'Interviewer__c, ' +
+                'Interviewer__r.First_Name__c, ' +
+                'Interviewer__r.Last_Name__c, '  +
+                'Interviewer__r.Subcounty__r.Display_Name__c ' +
+            'FROM ' +
+                'Submission_Meta_Data__c ';
+
+        List<String> whereClauses = getSubmissionWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        String query = baseQuery + whereClause;
+        System.debug(LoggingLevel.INFO, query);
+        return query;
+    }
+
+    private List<String> getSubmissionWhereClause() {
+
+        List<String> whereClauses = new List<String>();
+        if (!getParentValue('District__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.District__c', getParentValue('District__c'), true));
+        }
+        if (!getParentValue('Subcounty__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.Subcounty__c', getParentValue('Subcounty__c'), true));
+        }
+
+        // Distinguish by dates
+        if (getStartDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Handset_Submit_Time__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), false), false));
+        }
+        if (getEndDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Handset_Submit_Time__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
+        }
+        return whereClauses;
+    }
 
     // Set the colours up that can be used for dynamic assignment of map markers. Will override the default colour if that colour is already in use
     // by another category of map marker

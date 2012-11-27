@@ -137,7 +137,9 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
                 Show_MTN_Chan__c,
                 Date_Period__c,
                 Show_Submit_Button__c,
-                Start_Date__c
+                Start_Date__c,
+                Show_Brac_Area__c,
+                Show_Brac_PA__c
             FROM
                 Dashboard_Selector__c
             WHERE

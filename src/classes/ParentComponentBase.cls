@@ -97,6 +97,13 @@ public with sharing virtual class ParentComponentBase {
         this.parameters.put(key, value);
     }
 
+    public Boolean hasKey(String key) {
+        if (this.parameters == null) {
+            return false;
+        }
+        return this.parameters.containsKey(key);
+    }
+
     /**
      *  Loop through all the child components and add their values to the parameter map
      */

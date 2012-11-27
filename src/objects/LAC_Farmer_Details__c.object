@@ -37,8 +37,8 @@
     <enableActivities>false</enableActivities>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
     <fields>
         <fullName>Contact__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -48,6 +48,7 @@
         <relationshipLabel>LAC Farmer Details</relationshipLabel>
         <relationshipName>LAC_Farmer_Details</relationshipName>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -77,6 +78,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -106,6 +108,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -123,6 +126,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -149,6 +153,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -157,6 +162,7 @@
         <label>Household Head Name</label>
         <length>20</length>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -175,6 +181,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -183,6 +190,7 @@
         <label>LAC Farmer Id Temp</label>
         <length>15</length>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -195,6 +203,7 @@
         <relationshipLabel>LAC Farmer Details</relationshipLabel>
         <relationshipName>LAC_Farmer_Details</relationshipName>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -229,6 +238,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
@@ -241,6 +251,7 @@
         <relationshipLabel>LAC Farmer Details</relationshipLabel>
         <relationshipName>LAC_Farmer_Details</relationshipName>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -294,6 +305,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -302,6 +314,7 @@
         <label>Phone Model</label>
         <length>20</length>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -314,6 +327,7 @@
         <relationshipLabel>Registered LAC Farmer Details</relationshipLabel>
         <relationshipName>LAC_Farmer_Details_Registered_By</relationshipName>
         <required>false</required>
+        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -331,6 +345,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -357,11 +372,13 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <label>LAC Farmer Details</label>
     <nameField>
         <label>LAC Farmer Details Record Id</label>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>LAC Farmer Details</pluralLabel>

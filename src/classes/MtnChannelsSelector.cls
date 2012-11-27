@@ -25,6 +25,8 @@ public with sharing class MtnChannelsSelector extends ParentComponentBase {
                     Show_MTN_Chan__c,
                     Date_Period__c,
                     Show_Submit_Button__c,
+                    Show_Brac_Area__c,
+                    Show_Brac_PA__c,
                     Start_Date__c
                 FROM
                     Dashboard_Selector__c
@@ -189,18 +191,5 @@ public with sharing class MtnChannelsSelector extends ParentComponentBase {
         this.setMerchandiseType(Apexpages.currentPage().getParameters().get('merchandiseType'));
         this.setxAxisType(Apexpages.currentPage().getParameters().get('xAxisType'));
         return null;
-    }
-    
-    static testmethod void testAll() {
-        MtnChannelsSelector controller = new MtnChannelsSelector();
-        //controller.refreshAll();
-        controller.getStockTypes();
-        controller.getStockType();
-        controller.getMerchandiseTypes();
-        controller.getMerchandiseType();
-        controller.getShowDSD();
-        controller.getShowOutlet();
-        controller.getShowCompetitorGraph();
-        controller.getxAxisType();
     }
 }

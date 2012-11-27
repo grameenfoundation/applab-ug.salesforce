@@ -504,6 +504,8 @@
         <columns>ACCOUNT.NAME</columns>
         <columns>ACCOUNT.PHONE1</columns>
         <columns>ACCOUNT.TYPE</columns>
+        <columns>CORE.USERS.FIRST_NAME</columns>
+        <columns>CORE.USERS.LAST_NAME</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>ACCOUNT.RECORDTYPE</field>
@@ -511,6 +513,7 @@
             <value>Account.Business</value>
         </filters>
         <label>All Businesses</label>
+        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>AllGovernment</fullName>
@@ -1978,7 +1981,6 @@
         <errorDisplayField>BillingState</errorDisplayField>
         <errorMessage>A valid 2 letter state abbreviation is required</errorMessage>
     </validationRules>
-    
     <webLinks>
         <fullName>Mass_Edit</fullName>
         <availability>online</availability>
@@ -2003,7 +2005,6 @@
         <protected>false</protected>
         <requireRowSelection>true</requireRowSelection>
     </webLinks>
-    
     <webLinks>
         <fullName>View_Connections</fullName>
         <availability>online</availability>

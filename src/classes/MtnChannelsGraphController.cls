@@ -225,7 +225,7 @@ public with sharing class MtnChannelsGraphController extends ChildComponentBase 
      * Method to override the standard setDate method. Uses the quarter selector if no
      * date range is set
      */
-    private void setDates() {
+    public override Boolean setDates() {
 
         // Check that the date picker has been set.
         Boolean startDateSet = false;
@@ -260,6 +260,7 @@ public with sharing class MtnChannelsGraphController extends ChildComponentBase 
         else if (!endDateSet) {
             setEndDate(getStartDate());
         }
+        return true;
     }
 
     // Methods to generate the graphs are below
@@ -1200,13 +1201,5 @@ public with sharing class MtnChannelsGraphController extends ChildComponentBase 
         public void setWar(String value) {
             this.war = value;
         }
-    }
-    static testmethod void testAll() {
-    	MtnChannelsGraphController controller = new MtnChannelsGraphController();
-    	try {
-            controller.init();
-    	}
-        catch (Exception e) {}
-        
     }
 }

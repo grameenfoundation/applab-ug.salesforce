@@ -29,12 +29,15 @@ public with sharing virtual class DynamicDashboardBaseController {
                 Has_Graphs__c,
                 Has_Metrics__c,
                 Has_Maps__c,
-                Has_Selector__c
+                Has_Selector__c,
+                Dashboard__r.Account__r.Name
             FROM
                 Dashboard_Section__c
             WHERE
                 Dashboard__r.Name = :dashboardName
-                AND Is_Active__c = true];
+                AND Is_Active__c = true
+            ORDER BY
+                Display_Order__c];
         return sectionsToLoad;
     }
 

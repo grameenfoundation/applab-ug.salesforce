@@ -199,13 +199,4 @@ public with sharing class MtnChannelsExpandedController extends ParentComponentB
         this.setxAxisType(Apexpages.currentPage().getParameters().get('xAxisType'));
         return null;
     }
-    
-    static testmethod void testAll() {
-        MtnChannelsExpandedController controller = new MtnChannelsExpandedController();
-        controller.refreshAll();
-        controller.getStockTypes();
-        controller.getStockType();
-        controller.getMerchandiseTypes();
-        controller.getMerchandiseType();
-    }
 }

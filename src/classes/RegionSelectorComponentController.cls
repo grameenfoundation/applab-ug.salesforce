@@ -77,14 +77,4 @@ public with sharing class RegionSelectorComponentController extends ChildCompone
             'ORDER BY ' +
                 'Name';
     }
-    
-    static testmethod void testAll() {
-        RegionSelectorComponentController controller = new RegionSelectorComponentController();
-    	controller.getRegions();
-    	controller.getRegion();
-        controller.refreshData();
-        controller.getValues();
-        controller.buildRegionQueryString();
-        controller.getActionFunctionName();
-    } 
 }

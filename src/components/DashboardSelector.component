@@ -55,6 +55,11 @@
                     <c:SubcountySelector key="Subcounty__c{!sectionKey}" pageController="{!this}" show="{!showSubcounty}" sectionKey="{!sectionKey}"/>
                 </div>
             </apex:outputPanel>
+            <apex:outputPanel id="raAreaSelector" rendered="{!showBracArea}">
+                <div class="tableColumnDropDown">
+                    <c:BracAreaSelector key="Subcounty__c{!sectionKey}" pageController="{!this}" show="{!showBracArea}" sectionKey="{!sectionKey}"/>
+                </div>
+            </apex:outputPanel>
             <apex:outputPanel id="personSelector" rendered="{!showPerson}">
                 <div class="tableColumnDropDown">
                     <c:PersonSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showPerson}" sectionKey="{!sectionKey}"/>
@@ -73,6 +78,11 @@
             <apex:outputPanel id="fieldOfficer" rendered="{!showFieldOfficer}">
                 <div class="tableColumnDropDown">
                     <c:FieldOfficerSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showFieldOfficer}" sectionKey="{!sectionKey}"/>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel id="bracPa" rendered="{!showBracPa}">
+                <div class="tableColumnDropDown">
+                    <c:BracPASelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showBracPa}" sectionKey="{!sectionKey}"/>
                 </div>
             </apex:outputPanel>
             <apex:outputPanel id="datePicker" rendered="{!showDates}">

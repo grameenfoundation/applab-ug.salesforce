@@ -126,7 +126,11 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Rain Gauge</fullName>
+                <fullName>BRAC Health Branch</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rain gauge</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -144,6 +148,18 @@
         <label>Client Location Name</label>
         <type>AutoNumber</type>
     </nameField>
+    <namedFilters>
+        <fullName>nf_01I70000000QP4fEAG_00N70000002sjTJEAY</fullName>
+        <active>true</active>
+        <field>BRAC_PA__c.Client_Location__c</field>
+        <filterItems>
+            <field>Client_Location__c.Type__c</field>
+            <operation>equals</operation>
+            <value>BRAC Health Branch</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>BRAC PA_Client Location</name>
+    </namedFilters>
     <pluralLabel>Client Locations</pluralLabel>
     <searchLayouts>
         <lookupDialogsAdditionalFields>Display_Name__c</lookupDialogsAdditionalFields>

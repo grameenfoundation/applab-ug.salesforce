@@ -59,10 +59,10 @@ public class MetricMapController {
             gap = -60;
         }
         if (getNamedVariable('searchStartDate').equals('')) {
-            this.variables.put('searchStartDate', MetricHelpers.parseDateToString(now.addDays(gap)));
+            this.variables.put('searchStartDate', MetricHelpers.parseInstanceDateToString(now.addDays(gap)));
         }
         if (getNamedVariable('searchEndDate').equals('')) {
-            this.variables.put('searchEndDate', MetricHelpers.parseDateToString(now));
+            this.variables.put('searchEndDate', MetricHelpers.parseInstanceDateToString(now));
         }
 
         this.defaultedSubmissionStartDate = false;

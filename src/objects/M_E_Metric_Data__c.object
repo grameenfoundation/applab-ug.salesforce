@@ -183,6 +183,18 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Subcounty__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Subcounty</label>
+        <referenceTo>Subcounty__c</referenceTo>
+        <relationshipLabel>M&amp;E Metric Data</relationshipLabel>
+        <relationshipName>M_E_Metric_Data</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
     <label>M&amp;E Metric Data</label>
     <listViews>
         <fullName>All</fullName>

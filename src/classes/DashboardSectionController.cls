@@ -13,7 +13,7 @@ public with sharing class DashboardSectionController extends ParentComponentBase
     }
 
     public override void rebuildParameters() {
-        if (null != this.getParentMap() && null != this.getParentMap().get('DashboardSelector' + dashboardSection.Id)) {
+        if (this.getParentMap() != null && this.getParentMap().get('DashboardSelector' + dashboardSection.Id) != null) {
             this.getParentMap().get('DashboardSelector' + dashboardSection.Id).rebuildParameters();
             this.setParameters(this.getParentMap().get('DashboardSelector' + dashboardSection.Id).getParameters());
         }
@@ -85,6 +85,7 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Show_Break_Down__c,
                 Show_Spark_Line__c,
                 Show_Further_Link__c,
+                Default_Show__c,
                 Allow_Update__c
             FROM
                 Metric_Section__c
@@ -116,7 +117,9 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Show_MTN_Chan__c,
                 Date_Period__c,
                 Start_Date__c,
-                Show_Submit_Button__c
+                Show_Submit_Button__c,
+                Show_Brac_PA__c,
+                Show_Brac_Area__c
             FROM
                 Dashboard_Selector__c
             WHERE

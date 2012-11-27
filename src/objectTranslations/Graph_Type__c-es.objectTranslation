@@ -9,10 +9,27 @@
         <value><!-- Graph Type --></value>
     </caseValues>
     <fields>
+        <label><!-- Calculation --></label>
+        <name>Calculation__c</name>
+        <picklistValues>
+            <masterLabel>SUM</masterLabel>
+            <translation><!-- SUM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <help>Escoga el parametro de grafica</help>
         <label>Grafico de los Parametros</label>
         <name>Graph_Parameter__c</name>
         <relationshipLabel>Tipos Graficas</relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Group Field --></label>
+        <name>Group_Field__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if this type is to gather data from many fields on the same record --></help>
+        <label><!-- Is Multiple --></label>
+        <name>Is_Multiple__c</name>
     </fields>
     <fields>
         <help>Si esta grafica es para busqueda entre los registros</help>
@@ -23,6 +40,10 @@
         <help>Escriba la eqtiqueta para este tipo</help>
         <label>Etiqueta</label>
         <name>Label__c</name>
+    </fields>
+    <fields>
+        <label><!-- Person Prefix --></label>
+        <name>Person_Prefix__c</name>
     </fields>
     <fields>
         <help>Seleccione donde los datos para esta grafica</help>

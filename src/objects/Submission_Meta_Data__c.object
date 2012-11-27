@@ -40,6 +40,17 @@
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
     <fields>
+        <fullName>Client_Location__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Client Location</label>
+        <referenceTo>Client_Location__c</referenceTo>
+        <relationshipLabel>Submissions</relationshipLabel>
+        <relationshipName>Submissions</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Customer_Care_Review_Comment__c</fullName>
         <description>Customer care comments on the submission</description>
         <externalId>false</externalId>

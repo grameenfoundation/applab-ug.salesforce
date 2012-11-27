@@ -78,6 +78,11 @@ public with sharing virtual class ChildComponentBase {
         this.sObjectRecord = value;
     }
 
+    private String datePeriod;
+    public void setDatePeriodField(String value) {
+        this.datePeriod = value;
+    }
+
     // Set up the start date
     private Date startDate;
     public Date getStartDate() {
@@ -85,15 +90,14 @@ public with sharing virtual class ChildComponentBase {
     }
     public Date getStartDate(Boolean useDefault) {
 
+        if (this.startDate != null) {
+            return this.startDate;
+        }
+
         // Get the date period from the controlling sObject
-        String datePeriod = getFieldValue('Date_Period__c');
+        String datePeriod = getFieldValue(this.datePeriod);
         if (datePeriod == null) {
             datePeriod = getParentValue('DatePeriod');
-        }
-        String ds = getFieldValue('Default_Show__c');
-        Integer defaultShow = 0;
-        if (!ds.equals('')) {
-            defaultShow = Integer.valueOf(ds);
         }
 
         // Looking for all records so no need to set a start time
@@ -104,20 +108,28 @@ public with sharing virtual class ChildComponentBase {
 
             // Default the start date if one has not been entered by a selector component in the same section
             if (this.startDate == null && useDefault) {
+
+                String ds = getFieldValue('Default_Show__c');
+                Integer defaultShow = 0;
+                if (ds != null && !ds.equals('')) {
+                    defaultShow = Integer.valueOf(ds);
+                }
                 if (datePeriod.equalsIgnoreCase('Day')) {
                     this.startDate = Date.today().addDays(-defaultShow);
                 }
-                else if (datePeriod.equalsIgnoreCase('Week')) {
-                    this.startDate = Date.today().toStartOfWeek().addDays(-defaultShow * 7);
+                else if (datePeriod.equalsIgnoreCase('Weekly')) {
+                    defaultShow--;
+                    this.startDate = Date.today().toStartOfWeek().addDays(-(defaultShow * 7));
                 }
-                else if (datePeriod.equalsIgnoreCase('Month')) {
+                else if (datePeriod.equalsIgnoreCase('Monthly')) {
+                    defaultShow--;
                     this.startDate = Date.today().toStartOfMonth().addMonths(-defaultShow);
                 }
-                else if (datePeriod.equalsIgnoreCase('Quarter')) {
-                    this.startDate = Date.today().toStartOfMonth().addMonths(-defaultShow * 3);
+                else if (datePeriod.equalsIgnoreCase('Quarterly')) {
+                    this.startDate = Date.today().addMonths(-defaultShow * 3).toStartOfMonth();
                 }
                 else {
-                    this.startDate = Date.parse('01/01/' + Date.today().year()).addMonths(-defaultShow * 12);
+                	this.endDate = Date.newInstance(this.endDate.year(), 1, 1).addMonths(-defaultShow * 12);
                 }
             }
         }
@@ -134,13 +146,16 @@ public with sharing virtual class ChildComponentBase {
     }
     public Date getEndDate(Boolean useDefault) {
 
-        String datePeriod = getFieldValue('Date_Period__c');
+        if (this.endDate != null) {
+            return this.endDate;
+        }
+        String datePeriod = getFieldValue(this.datePeriod);
         if (datePeriod == null) {
             datePeriod = getParentValue('DatePeriod');
         }
         String ds = getFieldValue('Default_Show__c');
         Integer defaultShow = 0;
-        if (!ds.equals('')) {
+        if (ds != null && !ds.equals('')) {
             defaultShow = Integer.valueOf(ds);
         }
         if (datePeriod.equals('All')) {
@@ -155,17 +170,17 @@ public with sharing virtual class ChildComponentBase {
                     return null;
                 }
             }
-            if (datePeriod.equalsIgnoreCase('Week')) {
+            if (datePeriod.equalsIgnoreCase('Weekly')) {
                 this.endDate = this.endDate.toStartOfWeek().addDays(6);
             }
-            else if (datePeriod.equalsIgnoreCase('Month')) {
+            else if (datePeriod.equalsIgnoreCase('Monthly')) {
                 this.endDate = this.endDate.toStartOfMonth().addMonths(1).addDays(-1);
             }
-            else if (datePeriod.equalsIgnoreCase('Quarter')) {
+            else if (datePeriod.equalsIgnoreCase('Quarterly')) {
                 this.endDate = this.endDate.toStartOfMonth().addMonths(3).addDays(-1);
             }
-            else if (datePeriod.equalsIgnoreCase('Year')) {
-                this.endDate = Date.parse('01/01/' + this.endDate.year()).addMonths(12).addDays(-1);
+            else if (datePeriod.equalsIgnoreCase('Yearly')) {
+            	this.endDate = Date.newInstance(this.endDate.year(), 1, 1).addMonths(12).addDays(-1);
            }
         }
         return this.endDate;
@@ -176,24 +191,63 @@ public with sharing virtual class ChildComponentBase {
 
     /**
      *  Takes the date string generated by the date components and converts into usable dates
+     *
+     *  @return - A boolean indicating which date selector that was used.
+     *              - True = date picker
+     *              - False = date drop down
      */
-    public virtual void setDates(String dateString) {
+    public virtual Boolean setDates() {
 
-        String[] dates = dateString.split('_ext_');
-        for (Integer i = 0; i < dates.size(); i++) {
-            String[] dateArray = dates[i].split('_int_');
+        // Check that the date picker has been set.
+        Boolean startDateSet = false;
+        Boolean endDateSet = false;
+        Boolean range = true;
+
+        String[] datesString = getParentValue('datePicker').split('_ext_');
+        for (Integer i = 0; i < datesString.size(); i++) {
+            String[] dateArray = datesString[i].split('_int_');
             if (dateArray.size() != 2) {
                 continue;
             }
             if (dateArray[0].equals('start_date') && !dateArray[1].equals('NONE')) {
+                startDateSet = true;
                 setStartDate(DateTime.newInstance(Long.valueOf(dateArray[1])).date());
-                System.debug(dateArray[1]);
             }
             else if (dateArray[0].equals('end_date') && !dateArray[1].equals('NONE')) {
+                endDateSet = true;
                 setEndDate(DateTime.newInstance(Long.valueOf(dateArray[1])).date());
-                System.debug(dateArray[1]);
             }
         }
+
+        // Check that the dates are set. If they are not set then fall back to the quarter
+        // selector. If only one was set then assume that the same day is being looked at
+        if (!startDateSet && !endDateSet) {
+            if (!getParentValue('metricDatePicker').equals('')) {
+                List<Date> dates = MetricHelpers.getStartEndDates(getParentValue('metricDatePicker'), getParentValue('DatePeriod'));
+                if (dates.size() > 1) {
+                    setStartDate(dates[0]);
+                    setEndDate(dates[1]);
+                    return false;
+                }
+            }
+            else {
+
+                // Set to defaults
+                setStartDate(getStartDate(true));
+                setEndDate(getEndDate(true));
+            }
+            range = false;
+        }
+        else if (!startDateSet) {
+            setStartDate(getStartDate(true));
+        }
+        else if (!endDateSet) {
+            setEndDate(getEndDate(true));
+        }
+        if (!parentHasKey('metricDatePicker')) {
+            range = true;
+        }
+        return range;
     }
 
     // Set the dimensions for the child componenets displays
@@ -213,21 +267,35 @@ public with sharing virtual class ChildComponentBase {
     }
 
     /**
-     *  Get a value from a fellow child component with the same parent controller
+     * Get a value from a fellow child component with the same parent controller
      *
-     *  @param key - The key for the child component that the value is coming from
+     * @param key - The key for the child component that the value is coming from
      */
     public String getParentValue(String key) {
 
         String value = '';
         if (this.getParentComponentController() != null) {
-             value = this.getParentComponentController().getParameter(key + this.getSectionKey());
+            value = this.getParentComponentController().getParameter(key + this.getSectionKey());
         }
         return value;
     }
 
     /**
-     *  Add a value to the parents parameterMap if a parent exists
+     * See if the parent selector has a given key
+     *
+     *  param key - The key for the child component that the value is coming from
+     */
+    public Boolean parentHasKey(String key) {
+
+        Boolean hasKey = false;
+        if (this.getParentComponentController() != null) {
+            hasKey = this.getParentComponentController().hasKey(key + this.getSectionKey());
+        }
+        return hasKey;
+    }
+
+    /**
+     * Add a value to the parents parameterMap if a parent exists
      */
     public void addParameterToParent(String value) {
 

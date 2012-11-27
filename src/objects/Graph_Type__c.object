@@ -39,6 +39,19 @@
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
     <fields>
+        <fullName>Calculation__c</fullName>
+        <externalId>false</externalId>
+        <label>Calculation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>SUM</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Graph_Parameter__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>The graph definition that this type belongs to</description>
@@ -50,6 +63,22 @@
         <relationshipName>Graph_Types</relationshipName>
         <required>false</required>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Group_Field__c</fullName>
+        <externalId>false</externalId>
+        <label>Group Field</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Is_Multiple__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates that this is a type that fetches many fields from the same record</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if this type is to gather data from many fields on the same record</inlineHelpText>
+        <label>Is Multiple</label>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Keyword__c</fullName>
@@ -67,6 +96,14 @@
         <externalId>false</externalId>
         <inlineHelpText>Enter the label for this type</inlineHelpText>
         <label>Label</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Person_Prefix__c</fullName>
+        <description>The prefix to put on front of the Person where clauses</description>
+        <externalId>false</externalId>
+        <label>Person Prefix</label>
         <required>false</required>
         <type>TextArea</type>
     </fields>

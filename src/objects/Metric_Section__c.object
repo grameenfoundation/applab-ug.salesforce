@@ -62,6 +62,17 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>Default_Show__c</fullName>
+        <description>The default date range</description>
+        <externalId>false</externalId>
+        <label>Default Show</label>
+        <precision>1</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Description__c</fullName>
         <description>Blurb that is shown just below the title in the page block section</description>
         <externalId>false</externalId>
@@ -150,6 +161,15 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to have individual time selector for this section</inlineHelpText>
         <label>Show RollOver Selector</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Selector_On_Break_Down__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the selector on the break down page for the metric</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if the selector should be shown on the break down page</inlineHelpText>
+        <label>Show Selector On Break Down</label>
         <type>Checkbox</type>
     </fields>
     <fields>

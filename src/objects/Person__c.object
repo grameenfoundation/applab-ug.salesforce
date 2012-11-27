@@ -413,6 +413,10 @@ IF( NOT( ISBLANK( Handset__c)),
                 <fullName>BRAC PA</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Opportunity International</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -458,11 +462,12 @@ IF( NOT( ISBLANK( Handset__c)),
         <columns>Raw_Mobile_Number__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>OWNER.ALIAS</field>
+            <field>Country__c</field>
             <operation>equals</operation>
-            <value>LAC</value>
+            <value>Colombia</value>
         </filters>
         <label>LAC People</label>
+        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>Overview</fullName>
@@ -480,6 +485,55 @@ IF( NOT( ISBLANK( Handset__c)),
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
+    <namedFilters>
+        <fullName>nf_01I70000000QMlTEAW_00N70000002sjVeEAI</fullName>
+        <active>true</active>
+        <field>Field_Officer_Productivity__c.Field_Officer__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Field Officer</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Field Officer Productivity_Field Officer</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I70000000QP4BEAW_00N70000002sjOTEAY</fullName>
+        <active>true</active>
+        <field>Equipment_Return__c.Field_Officer__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Field Officer</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Equipment Return_Field Officer</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I70000000QP4fEAG_00N70000002sjTTEAY</fullName>
+        <active>true</active>
+        <errorMessage>Please select a Person that has a type of BRAC PA</errorMessage>
+        <field>BRAC_PA__c.Person__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>BRAC PA</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>BRAC PA_Person</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I70000000QP4zEAG_00N70000002sjYsEAI</fullName>
+        <active>true</active>
+        <field>Field_Officer_Productivity_Targets__c.Field_Officer__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Field Officer</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Field Officer Productivity Target_Field</name>
+    </namedFilters>
     <pluralLabel>People</pluralLabel>
     <searchLayouts>
         <customTabListAdditionalFields>Last_Name__c</customTabListAdditionalFields>

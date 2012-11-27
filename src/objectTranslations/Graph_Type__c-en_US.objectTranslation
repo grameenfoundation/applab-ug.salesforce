@@ -9,10 +9,27 @@
         <value>Graph Types</value>
     </caseValues>
     <fields>
+        <label><!-- Calculation --></label>
+        <name>Calculation__c</name>
+        <picklistValues>
+            <masterLabel>SUM</masterLabel>
+            <translation><!-- SUM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <help><!-- Choose the graph parameter that this type belongs to --></help>
         <label><!-- Graph Parameter --></label>
         <name>Graph_Parameter__c</name>
         <relationshipLabel><!-- Graph Types --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Group Field --></label>
+        <name>Group_Field__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if this type is to gather data from many fields on the same record --></help>
+        <label><!-- Is Multiple --></label>
+        <name>Is_Multiple__c</name>
     </fields>
     <fields>
         <help><!-- If this graph is for search logs enter the keyword that this type captures --></help>
@@ -23,6 +40,10 @@
         <help><!-- Enter the label for this type --></help>
         <label><!-- Label --></label>
         <name>Label__c</name>
+    </fields>
+    <fields>
+        <label><!-- Person Prefix --></label>
+        <name>Person_Prefix__c</name>
     </fields>
     <fields>
         <help><!-- Select where the data for this graph type is to come from --></help>

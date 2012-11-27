@@ -59,6 +59,14 @@ public with sharing class DashboardSelectorComponentController extends ParentCom
         return this.selector.Date_Period__c;
     }
 
+    public Boolean getShowBracPa() {
+        return this.selector.Show_Brac_PA__c;
+    }
+
+    public Boolean getShowBracArea() {
+        return this.selector.Show_Brac_Area__c;
+    }
+
     public Boolean getShowSubmitButton() {
         return this.selector.Show_Submit_Button__c;
     }
