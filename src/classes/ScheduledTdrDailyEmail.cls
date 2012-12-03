@@ -12,7 +12,7 @@ global class ScheduledTdrDailyEmail implements Schedulable {
         Date startDate = Date.today().addDays(-1);
 
         // Send the emails to the national level
-        addresses.put('all', new List<String> {'opetoo@mtn.co.ug', 'harunas@mtn.co.ug', 'kobaa@mtn.co.ug', 'asiimwi@mtn.co.ug', 'nimusid@mtn.co.ug'});
+        addresses.put('all', new List<String> {'opetoo@mtn.co.ug', 'harunas@mtn.co.ug', 'kobaa@mtn.co.ug', 'asiimwi@mtn.co.ug', 'nimusid@mtn.co.ug', 'kaheruc@mtn.co.ug', 'fbyarugaba@grameenfoundation.org', 'ekamara@grameenfoundation.org'});
 
         // Send to Central region
         addresses.put('Central', new List<String> {'kiwagin@mtn.co.ug'});
