@@ -2083,6 +2083,7 @@ public with sharing class TdrHelpers {
         String currentRegion = '';
         Integer currentRow = 0;
         Map<String, TDR_Performance__c> regionPeople= tdrPerformanceStats.get(region);
+        if (null != regionPeople) {
         TDR_Performance__c[] summaryList = regionPeople.values();
         
         for (TDR_Performance__c summary : summaryList) {
@@ -2157,17 +2158,19 @@ public with sharing class TdrHelpers {
                 mainHtml += '</tr>';
                 mainHtml += '<tr style ="'+ getTableBodyStyle() + '">';
                 mainHtml += '<td style ="padding-left:5px;"/>';
-                for (integer location = 0; location < visitCount; location++) {
-                	String visitTime = times.get(location);
-                	String formattedTime = '';
-                	if (visitTime.contains(':')) {
-                		List<String> hoursMinutes = visitTime.split(':');
-                		formattedTime = hoursMinutes.get(0) + 'hr, ' + hoursMinutes.get(1) + 'min';
-                	}
-                	else {
-                		formattedTime = visitTime + ' min';
-                	}
-                	mainHtml += '<td style ="padding-left:5px;">' + distances.get(location) + 'm,' + formattedTime + '</td>';
+                if (null != times) {
+	                for (integer location = 0; location < visitCount && times.size() > location; location++) {
+	                	String visitTime = times.get(location);
+	                	String formattedTime = '';
+	                	if (visitTime.contains(':')) {
+	                		List<String> hoursMinutes = visitTime.split(':');
+	                		formattedTime = hoursMinutes.get(0) + 'hr, ' + hoursMinutes.get(1) + 'min';
+	                	}
+	                	else {
+	                		formattedTime = visitTime + ' min';
+	                	}
+	                	mainHtml += '<td style ="padding-left:5px;">' + distances.get(location) + 'm,' + formattedTime + '</td>';
+	                }
                 }
                 mainHtml += '</tr>';
                 // Calculate the totals for the summary
@@ -2202,7 +2205,8 @@ public with sharing class TdrHelpers {
                         '</tr>';
                 }
         }
-
+        
+        }
 
         // Put together the parts for the final html.
         String html = '';
@@ -2221,7 +2225,7 @@ public with sharing class TdrHelpers {
         html += '<br></div><div>';
         html += createLinkToDashboard(null);
         html += '</div>';
-        html += getDateActivityHtml(performanceDate);
+        html += getDateActivityHtml(region, performanceDate);
         return html;
     }
 
@@ -2677,7 +2681,7 @@ public with sharing class TdrHelpers {
             AND 
                 day_only(LastModifiedDate) = :startDate
             ORDER BY 
-                Start_Date__c DESC];
+                Person__r.Region__r.Display_Name__c];
        
         if (records.isEmpty()) {
             return null;
@@ -2707,7 +2711,7 @@ public with sharing class TdrHelpers {
      	return activities;
      }
      
-     private static String getDateActivityHtml(Date startDate) {
+     private static String getDateActivityHtml(String region, Date startDate) {
      	
      	List<TDR_Performance__c> tdrPerformances = loadTdrPerformanceRecords('Daily', startDate);
      	if (null != tdrPerformances) {
@@ -2739,7 +2743,7 @@ public with sharing class TdrHelpers {
 	                    '<td style="padding-left:5px; width: 10%">Submission Date</td>'         +
 	                '</tr>';
 	        
-	        String currentRegion = '';
+	        String currentRegion = region;
 	        for (Map<String, List<TDR_Activity__c>> performanceActivitiesMap : listOfMaps) {
 	        	for (String key : id2PerformanceMap.keyset()) {system.debug('key '+key);
 	        		TDR_Performance__c performance = id2PerformanceMap.get(key);
@@ -2747,21 +2751,18 @@ public with sharing class TdrHelpers {
 	        		if (performance != null && activities != null) {
 	        		    Date reportDate = performance.Start_Date__c;
 	        		    Datetime formattedDt = datetime.newInstance(reportDate.year(), reportDate.month(), reportDate.day());
-	        		    if (!performance.Person__r.Region__r.Display_Name__c.equals(currentRegion)) {
-	        		    	dateActivityHtml += '<tr style ="'+ getTableRegionRowStyle() + '"><td style="' + getRegionCellStyle() + getMediumFont() + '">' + performance.Person__r.Region__r.Display_Name__c + '</td>'+
-	                        '<tr><td style="column-span:14; background-color:#FFCC33; alignment-adjust:middle;"></td></tr>';
-	                        currentRegion = performance.Person__r.Region__r.Display_Name__c;
-	        		    }
-	                    dateActivityHtml = dateActivityHtml + '<tr>'           +
+	        		    if (performance.Person__r.Region__r.Display_Name__c.equals(currentRegion)) {
+	                        dateActivityHtml = dateActivityHtml + '<tr>'           +
 	                                '<td style ="padding-left:5px;">' + performance.Person__r.First_Name__c + ' ' + performance.Person__r.Last_Name__c + '</td>' +
 	                                '<td style ="padding-left:5px;">' + activities.size() + '</td>' +
 	                                '<td style ="padding-left:5px;">' + formattedDt.format('yyyy-MM-dd') + '</td>' +
 	                                '<td style ="padding-left:5px;">' + (datetime.newInstance(startDate.year(), startDate.month(),startDate.day())).format('yyyy-MM-dd') + '</td>' +
 	                                '</tr>';
+	        		    }
 	        		}
 	        	}
 	        }
-	        return dateActivityHtml;
+	        return dateActivityHtml = dateActivityHtml + '</table>';
      	}
      	else {
      		return '';
