@@ -1194,7 +1194,7 @@ public with sharing class TdrHelpers {
         performanceDate = Date.newInstance(reportDate.year(), reportDate.month(), reportDate.day());
 	    Boolean sendAll = false;
 	    List<String> regionsToIncludeInAll = new List<String>();
-	    if (getDailyReportData(personIds, reportDate)) {
+	    if (getDailyReportData(personIds, performanceDate)) {
 	    	
     		// Create the email for each region specified
             for (String key : emailAddresses.keySet()) {
@@ -1217,7 +1217,7 @@ public with sharing class TdrHelpers {
                 html += '<div>' + key + '</div>';
                 html += getSummaryHtml(key, true);
             }
-            String subject = 'report ' + reportDate;
+            String subject = 'TDR Daily activities for  ' + reportDate.format('yyyy-MM-dd');
             Messaging.SingleEmailMessage email = EmailHelpers.createHtmlEmail(emailAddresses.get('all'), subject, html);
             EmailHelpers.sendEmails(new Messaging.SingleEmailMessage[] { email });
         }
@@ -1564,7 +1564,7 @@ public with sharing class TdrHelpers {
     * @return Boolean - whether there are any performance records for 
     * these persons on that date
     */
-    private static Boolean getDailyReportData(List<String> personIds, Datetime reportDate) {
+    private static Boolean getDailyReportData(List<String> personIds, Date reportDate) {
 
     	initRegionsForPerformanceReport();
     	Boolean records = false;
@@ -1806,8 +1806,9 @@ public with sharing class TdrHelpers {
     * @param reportDate - the initial date of the data required
     * @return String - the query 
     */
-    private static String getDailyPerformanceDataQuery(List<String> personIds, Datetime reportDate) {
+    private static String getDailyPerformanceDataQuery(List<String> personIds, Date reportDate) {
     	
+    	//Date startDate = Date.newInstance(reportDate.year(), reportDate.month(), reportDate.day());
         String query =
             'SELECT '                                   +
                 'Customer_Support__c, '                 +
@@ -1834,7 +1835,7 @@ public with sharing class TdrHelpers {
             'FROM '                                     +
                 'TDR_Performance__c '                   +
             'WHERE ' + 
-                'Start_Time__c >= :reportDate ' +
+                'Start_Date__c = :reportDate ' +
              'AND ' +
              'Type__c =\'DAILY\' ' +
              ' AND ' +
@@ -2709,58 +2710,62 @@ public with sharing class TdrHelpers {
      private static String getDateActivityHtml(Date startDate) {
      	
      	List<TDR_Performance__c> tdrPerformances = loadTdrPerformanceRecords('Daily', startDate);
-     	System.debug('performances '+tdrPerformances.size());
-     	List<TDR_Activity__c> tdrActivities = getPerformanceActivities(tdrPerformances, startDate);
-     	System.debug('activities '+tdrActivities.size());
-     	List<Map<String, List<TDR_Activity__c>>> listOfMaps = new List<Map<String, List<TDR_Activity__c>>>();
-     	
-     	for (TDR_Performance__c tdrPerformance : tdrPerformances) {
-     		id2PerformanceMap.put((String)tdrPerformance.Id, tdrPerformance);
-     		List<TDR_Activity__c> tdrActs = new List<TDR_Activity__c>();
-     		for (TDR_Activity__c tdrActivity : tdrActivities) {
-     			if (tdrActivity.TDR_Performance_Record__c == tdrPerformance.Id) {
-     				tdrActs.add(tdrActivity);
-     			}
-     		}
-     		Map<String, List<TDR_Activity__c>> performanceActivitiesMap = new Map<String, List<TDR_Activity__c>>();
-     		performanceActivitiesMap.put((String)tdrPerformance.Id, tdrActs);
-     		listOfMaps.add(performanceActivitiesMap);
+     	if (null != tdrPerformances) {
+	     	List<TDR_Activity__c> tdrActivities = getPerformanceActivities(tdrPerformances, startDate);
+	     	System.debug('activities '+tdrActivities.size());
+	     	List<Map<String, List<TDR_Activity__c>>> listOfMaps = new List<Map<String, List<TDR_Activity__c>>>();
+	     	
+	     	for (TDR_Performance__c tdrPerformance : tdrPerformances) {
+	     		id2PerformanceMap.put((String)tdrPerformance.Id, tdrPerformance);
+	     		List<TDR_Activity__c> tdrActs = new List<TDR_Activity__c>();
+	     		for (TDR_Activity__c tdrActivity : tdrActivities) {
+	     			if (tdrActivity.TDR_Performance_Record__c == tdrPerformance.Id) {
+	     				tdrActs.add(tdrActivity);
+	     			}
+	     		}
+	     		Map<String, List<TDR_Activity__c>> performanceActivitiesMap = new Map<String, List<TDR_Activity__c>>();
+	     		performanceActivitiesMap.put((String)tdrPerformance.Id, tdrActs);
+	     		listOfMaps.add(performanceActivitiesMap);
+	     	}
+	     	String dateActivityHtml = '<div style="' + getBackgroundColour() + getFullWidth() + '">' +
+	            '<div style="' + getTitleStyle() + '">' +
+	                'Yesterday\'s Submissions' +
+	            '</div>' +
+	            '<table style="' + getTableStyle() + '">' +
+	                '<tr style="'+ getTableHeaderRowStyle() + '">'           +
+	                    '<td style="padding-left:5px; width: 10%">Sales Rep Name</td>'         +
+	                    '<td style="padding-left:5px; width: 10%">No. of Submissions</td>'     +
+	                    '<td style="padding-left:5px; width: 10%">Date Worked</td>'            +
+	                    '<td style="padding-left:5px; width: 10%">Submission Date</td>'         +
+	                '</tr>';
+	        
+	        String currentRegion = '';
+	        for (Map<String, List<TDR_Activity__c>> performanceActivitiesMap : listOfMaps) {
+	        	for (String key : id2PerformanceMap.keyset()) {system.debug('key '+key);
+	        		TDR_Performance__c performance = id2PerformanceMap.get(key);
+	        		List<TDR_Activity__c> activities = performanceActivitiesMap.get(key);
+	        		if (performance != null && activities != null) {
+	        		    Date reportDate = performance.Start_Date__c;
+	        		    Datetime formattedDt = datetime.newInstance(reportDate.year(), reportDate.month(), reportDate.day());
+	        		    if (!performance.Person__r.Region__r.Display_Name__c.equals(currentRegion)) {
+	        		    	dateActivityHtml += '<tr style ="'+ getTableRegionRowStyle() + '"><td style="' + getRegionCellStyle() + getMediumFont() + '">' + performance.Person__r.Region__r.Display_Name__c + '</td>'+
+	                        '<tr><td style="column-span:14; background-color:#FFCC33; alignment-adjust:middle;"></td></tr>';
+	                        currentRegion = performance.Person__r.Region__r.Display_Name__c;
+	        		    }
+	                    dateActivityHtml = dateActivityHtml + '<tr>'           +
+	                                '<td style ="padding-left:5px;">' + performance.Person__r.First_Name__c + ' ' + performance.Person__r.Last_Name__c + '</td>' +
+	                                '<td style ="padding-left:5px;">' + activities.size() + '</td>' +
+	                                '<td style ="padding-left:5px;">' + formattedDt.format('yyyy-MM-dd') + '</td>' +
+	                                '<td style ="padding-left:5px;">' + (datetime.newInstance(startDate.year(), startDate.month(),startDate.day())).format('yyyy-MM-dd') + '</td>' +
+	                                '</tr>';
+	        		}
+	        	}
+	        }
+	        return dateActivityHtml;
      	}
-     	String dateActivityHtml = '<div style="' + getBackgroundColour() + getFullWidth() + '">' +
-            '<div style="' + getTitleStyle() + '">' +
-                'Yesterday\'s Submissions' +
-            '</div>' +
-            '<table style="' + getTableStyle() + '">' +
-                '<tr style="'+ getTableHeaderRowStyle() + '">'           +
-                    '<td style="padding-left:5px; width: 10%">Sales Rep Name</td>'         +
-                    '<td style="padding-left:5px; width: 10%">No. of Submissions</td>'     +
-                    '<td style="padding-left:5px; width: 10%">Date Worked</td>'            +
-                    '<td style="padding-left:5px; width: 10%">Submission Date</td>'         +
-                '</tr>';
-        
-        String currentRegion = '';
-        for (Map<String, List<TDR_Activity__c>> performanceActivitiesMap : listOfMaps) {
-        	for (String key : id2PerformanceMap.keyset()) {system.debug('key '+key);
-        		TDR_Performance__c performance = id2PerformanceMap.get(key);
-        		List<TDR_Activity__c> activities = performanceActivitiesMap.get(key);
-        		if (performance != null && activities != null) {
-        		    Date reportDate = performance.Start_Date__c;
-        		    Datetime formattedDt = datetime.newInstance(reportDate.year(), reportDate.month(), reportDate.day());
-        		    if (!performance.Person__r.Region__r.Display_Name__c.equals(currentRegion)) {
-        		    	dateActivityHtml += '<tr style ="'+ getTableRegionRowStyle() + '"><td style="' + getRegionCellStyle() + getMediumFont() + '">' + performance.Person__r.Region__r.Display_Name__c + '</td>'+
-                        '<tr><td style="column-span:14; background-color:#FFCC33; alignment-adjust:middle;"></td></tr>';
-                        currentRegion = performance.Person__r.Region__r.Display_Name__c;
-        		    }
-                    dateActivityHtml = dateActivityHtml + '<tr>'           +
-                                '<td style ="padding-left:5px;">' + performance.Person__r.First_Name__c + ' ' + performance.Person__r.Last_Name__c + '</td>' +
-                                '<td style ="padding-left:5px;">' + activities.size() + '</td>' +
-                                '<td style ="padding-left:5px;">' + formattedDt.format('yyyy-MM-dd') + '</td>' +
-                                '<td style ="padding-left:5px;">' + (datetime.newInstance(startDate.year(), startDate.month(),startDate.day())).format('yyyy-MM-dd') + '</td>' +
-                                '</tr>';
-        		}
-        	}
-        }
-        return dateActivityHtml;              
+     	else {
+     		return '';
+     	}              
      }
     // Test methods below here
     /**
@@ -2863,7 +2868,7 @@ public with sharing class TdrHelpers {
         processAgentVisitSurvey(submission, answers, person);
         returnValues = processAgentVisitSurvey(submission, answers, person);
         System.assert(returnValues.get(0).equals('1'));
-        //System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
+        System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
 
         // Test for the short report
         answers.clear();
@@ -3550,7 +3555,7 @@ public with sharing class TdrHelpers {
         processAgentVisitSurvey(submission, answers, person);
         returnValues = processAgentVisitSurvey(submission, answers, person);
         System.assert(returnValues.get(0).equals('1'));
-        //System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
+        System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
     	
     	List<String> personIds = new List<String>();
     	personIds.add(person.Id);
@@ -3666,7 +3671,7 @@ public with sharing class TdrHelpers {
         processAgentVisitSurvey(submission, answers, person);
         returnValues = processAgentVisitSurvey(submission, answers, person);
         System.assert(returnValues.get(0).equals('1'));
-        //System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
+        System.assert(returnValues.get(1).equals('Agent visit processed sucessfully'));
     	
     	List<String> personIds = new List<String>();
     	personIds.add(person.Id);
