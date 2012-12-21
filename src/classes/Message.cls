@@ -1,5 +1,57 @@
 public with sharing class Message {
 
+    /**
+     * Encapsulates the information that is needed to send an SMS to a given gateway for a given list of recipients
+     */
+    public String subject;
+    public String body;
+    public Id senderId;
+    public String senderName;
+    public Map<String, SendSMSHelpers.Recipient> recipients;
+    public DateTime expirationTime;
+    public DateTime sentTime;
+    public String medium;
+
+    public Message(
+            String subject,
+            String body,
+            Id senderId,
+            String senderName,
+            DateTime expirationTime,
+            DateTime sentTime,
+            String medium
+    ) {
+
+        this.subject = subject;
+        this.body = body;
+        this.senderId = senderId;
+        this.senderName = senderName;
+        this.recipients = new Map<String, SendSMSHelpers.Recipient>();
+        this.expirationTime = expirationTime;
+        this.sentTime = sentTime;
+        this.medium = medium;
+    }
+
+    public void addRecipient(SendSMSHelpers.Recipient recipient) {
+        this.recipients.put(recipient.personId, recipient);
+    }
+
+    /**
+     * Create a MD5 hash of the message text. This can then be used a key to a map to identify the message easily
+     *
+     * @return - The hash string
+     */
+    public String getMessageHash() {
+        return EncodingUtil.base64Encode(Crypto.generateDigest('MD5', Blob.valueOf(this.body)));
+    }
+
+
+
+
+
+
+
+/*
     private String body;
     private String subject;
     private Map<String, String> recipientMap; // Contains Person Id as Key and Mobile Number as Value
@@ -68,7 +120,7 @@ public with sharing class Message {
      * We need this static helper method because only @future methods can make we service
      * calls, and @future methods must be static, void, and may only accept primitive types
      * as parameters
-     */
+     *
     @future(callout=true)
     private static void internalSendViaSms(String serverUrl, String requestBody) {
         updateSmsMetric(parseResponse(SqlHelpers.postServletRequest(serverUrl, 'sendSms', requestBody)));
@@ -450,4 +502,5 @@ public with sharing class Message {
 
         System.assertEquals(parseResponse(xml), 1.0);
     }
+*/
 }

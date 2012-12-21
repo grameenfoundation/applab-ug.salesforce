@@ -72,6 +72,19 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>Number_Of_Resends__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of time this message has been tried to be resent</description>
+        <externalId>false</externalId>
+        <label>Number of resends</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Person__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>The person to whom the message is directed</description>

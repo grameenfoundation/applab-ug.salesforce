@@ -76,7 +76,7 @@ global class ProcessSurveySubmission {
         if (survey.Post_Processing_Method__c != null && !survey.Post_Processing_Method__c.equalsIgnoreCase('None')) {
 
             // Carry out the additional processing that is required
-            List<String> results = additionalProcessing(surveySubmission, survey, interviewer, intervieweeId);
+            /*List<String> results = additionalProcessing(surveySubmission, survey, interviewer, intervieweeId);
 
             // Parse the results
             String messageSubject;
@@ -137,7 +137,7 @@ global class ProcessSurveySubmission {
             // If we are not saving the submission or the submission failed return to the client
             if (!survey.Save_To_Salesforce__c || results.get(0).equals('0')) {
                 return surveySubmission;
-            }
+            }*/
         }
 
         // Create and save the submission meta data object
