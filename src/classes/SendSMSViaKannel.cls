@@ -1,5 +1,9 @@
 public class SendSMSViaKannel implements SendViaSMSGateway {
 
+    /**
+     * Send out SMS via Kannel. Messages to Kannel are sent via the middle tier.
+     * Implements the SendViaSMSGateway interface
+     */
     public String execute(List<Message> inputMessages) {
 
         Boolean single = inputMessages.size() == 1 && inputMessages[0].recipients.size() == 1;
@@ -134,6 +138,9 @@ public class SendSMSViaKannel implements SendViaSMSGateway {
         return JSON.serialize(response);
     }
 
+    /**
+     * Private class to represent a list of Kannel messages used for JSON serialisation.
+     */
     private class KannelMessages {
         List<KannelMessage> messages;
 

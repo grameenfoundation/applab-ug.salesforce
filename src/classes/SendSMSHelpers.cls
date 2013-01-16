@@ -188,7 +188,7 @@ public class SendSMSHelpers {
      *                             The key to the inner map is the message hash
      * @param scheduleForResend - Boolean indicating that the failed messages should be resent
      */
-    public static void sendThroughGateways(Map<String, Map<String, Message>> messages, Boolean scheduleForResend) {
+    public static Boolean sendThroughGateways(Map<String, Map<String, Message>> messages, Boolean scheduleForResend) {
 
         Map<String, Boolean> resultMap = new Map<String, Boolean>();
 
@@ -215,9 +215,11 @@ public class SendSMSHelpers {
         }
 
         // If we are allowing resends then add the messages that failed to the schedular
+        Boolean rescheduled = false;
         if (scheduleForResend && resultMap.size() > 0) {
-            scheduleMessagesForResend(resultMap, messages);
+            rescheduled = scheduleMessagesForResend(resultMap, messages);
         }
+        return rescheduled;
     }
 
     /**
@@ -228,8 +230,9 @@ public class SendSMSHelpers {
      *                      The key to the outer map is the country code
      *                      The key to the inner map is the message hash
      */
-    public static void scheduleMessagesForResend(Map<String, Boolean> resultMap, Map<String, Map<String, Message>> messages) {
+    public static Boolean scheduleMessagesForResend(Map<String, Boolean> resultMap, Map<String, Map<String, Message>> messages) {
 
+        Boolean rescheduled = false;
         DateTime nextSend = DateTime.now().addHours(1);
         List<Scheduled_Message_Queue__c> resendMessages = new List<Scheduled_Message_Queue__c>();
         for (String countryCode : messages.keySet()) {
@@ -245,6 +248,7 @@ public class SendSMSHelpers {
                             Scheduled_Message_Queue__c message = recipient.messages.get(messageHash);
                             message.Number_Of_Resends__c++;
                             resendMessages.add(message);
+                            rescheduled = true;
                         }
                         else {
 
@@ -260,12 +264,16 @@ public class SendSMSHelpers {
                                 Person__c = recipient.personId
                             );  
                             resendMessages.add(message);
+                            rescheduled = true;
                         }
                     }
                 }
             }
         }
-        upsert(resendMessages);
+        if (rescheduled) {
+            upsert(resendMessages);
+        }
+        return rescheduled;
     }
 
     /**
@@ -376,11 +384,12 @@ public class SendSMSHelpers {
             message.addRecipient(recipient);
         }
         SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
-        gateway.loadSetting();
-        String body = gateway.createBody(new List<Message>{ message }, recipients.size() == 1);
-        System.debug(LoggingLevel.INFO, body);
-        HttpResponse response = gateway.sendRequest(gateway.buildRequest(body, recipients.size() == 1));
-        System.debug(LoggingLevel.INFO, response.getBody());
+        //gateway.loadSetting();
+        //String body = gateway.createBody(new List<Message>{ message }, recipients.size() == 1);
+        //System.debug(LoggingLevel.INFO, body);
+        //HttpResponse response = gateway.sendRequest(gateway.buildRequest(body, recipients.size() == 1));
+        //System.debug(LoggingLevel.INFO, response.getBody());
+        System.debug(gateway.execute(new List<Message>{ message }));
     }
 /*
     public static String sendMessage(String message, String countryCode) {

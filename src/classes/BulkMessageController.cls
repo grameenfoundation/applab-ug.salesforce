@@ -62,7 +62,7 @@ public class BulkMessageController {
                 WHERE
                     id = :this.senderId
                 LIMIT 1];
-System.debug(LoggingLevel.INFO, sender.Name);
+
             List<Id> recipients = new List<Id>();
             List<Id> groupsToSendTo = new List<Id>();
             List<Id> groupRecipients = new List<Id>();
@@ -92,9 +92,12 @@ System.debug(LoggingLevel.INFO, sender.Name);
             groupRecipients.addAll(SendSMSHelpers.getGroupMemberIds(groupsToSendTo));
 
             Boolean sendNow = this.dummyMessage.Expiration_Time__c <= datetime.now();
+            Boolean rescheduled = false;
             if (sendNow) {
+
+                // Send the messages immediately through the relevant gateways
                 recipients.addAll(groupRecipients);
-                SendSmsHelpers.sendThroughGateways(
+                rescheduled = SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
                         recipients, this.subject, this.messageText, sender.Id, sender.Name, this.sendViaPulse, this.sendViaSms, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c
                     ), true
@@ -131,6 +134,9 @@ System.debug(LoggingLevel.INFO, sender.Name);
                     );
                     messageQueue.add(message);
                 }
+
+                // Save the scheduled messsages. Parse the SaveResults and roll back all the new messages if there is a failure.
+                // User will have to reschedule the messages them selves
                 Database.SaveResult[] saveMessageResults = Database.insert(messageQueue, false);
                 for (Database.SaveResult result : saveMessageResults) {
                     if (!result.isSuccess()) {
@@ -142,6 +148,9 @@ System.debug(LoggingLevel.INFO, sender.Name);
                         return null;
                     }
                 }
+            }
+            if (rescheduled) {
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.severity.INFO, 'Some of your messages were scheduled to be resent in an hour.'));
             }
             ApexPages.addMessage(new ApexPages.Message(ApexPages.severity.INFO, 'You may send another message by completing the form below.'));
         }

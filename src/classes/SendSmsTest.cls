@@ -17,6 +17,10 @@ public class SendSmsTest {
             '{"statusCode" : "400", "response":"Bad number", "phoneNumber":"999", "personId":"a0R70000002igrbEAA", "messageHash" : "Hash2"}]}';
     }
 
+    public static String getTestYPResponse() {
+        return '';
+    }
+
     static void addGatewaySettings(
             String name,
             String bulkEndPoint,
@@ -74,7 +78,7 @@ public class SendSmsTest {
         addGatewaySettings('Kannel', 'bulk', 'single', 'username', 'password', 123);
 
         // Create the country settings (send through kannel as can do full process with test data)
-        addCountrySetting('TestCountry', 'SendSMSKannel', 256, 'JJ');
+        addCountrySetting('JJ', 'SendSMSKannel', 256, 'JJ');
 
         // Create the country
         Country__c c1 = new Country__c( Name = 'TestCountry', ISO_Standard_Code__c = 'JJ', Language__c = 'English');
@@ -113,7 +117,7 @@ public class SendSmsTest {
     static testMethod void testYPCreateBodyTooManyMessages() {
 
         addGatewaySettings('YellowPepper', 'bulk', 'single', 'username', 'password', 123);
-        addCountrySetting('TestCountry', 'SendSMSViaYellowPepper', 256, 'JJ');
+        addCountrySetting('JJ', 'SendSMSViaYellowPepper', 256, 'JJ');
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
                 'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
@@ -156,7 +160,7 @@ public class SendSmsTest {
         };
         SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
         gateway.loadSetting();
-        System.assertEquals(gateway.createBody(messages, true), 'Serial=username&Pin=password&Message=2560123456789&Sender=odavies%40grameen.dev.ckw1.org');
+        System.assertEquals(gateway.createBody(messages, true), 'op=sendBroadcastMessage&Serial=username&Pin=password&Message=body&Mobile=2560123456789&Sender=odavies%40grameen.dev.ckw1.org');
     }
 
     static testMethod void testYPCreateBodyBulk() {
@@ -178,7 +182,7 @@ public class SendSmsTest {
         };
         SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
         gateway.loadSetting();
-        System.assertEquals(gateway.createBody(messages, false), 'Serial=username&Pin=password&Messages=2560123456789;256987654321&Sender=odavies%40grameen.dev.ckw1.org');
+        System.assertEquals(gateway.createBody(messages, false), 'op=sendBroadcastMessage&Serial=username&Pin=password&Message=body&Mobiles=2560123456789;256987654321&Sender=odavies%40grameen.dev.ckw1.org');
     }
 
     static testMethod void testYPBuildRequestSingle() {
@@ -201,8 +205,24 @@ public class SendSmsTest {
         System.assertEquals(request.getEndpoint(), 'bulk');
     }
 
+    static testMethod void testYPCallback() {
+
+        SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
+        Map<String, Boolean> resultMap = gateway.callback(getTestKannelResponse(), null);
+        for (String key : resultMap.keySet()) {
+            if (!key.equals('a0R70000002igrbEAA_splitter_Hash2')) {
+                System.assert(resultMap.get(key));
+            }
+            else {
+                System.assert(!resultMap.get(key));
+            }
+        }
+    }
+
     // Test Pulse
     static testMethod void testSendViaPulse() {
+
+        addCountrySetting('JJ', 'SendSMSKannel', 256, 'JJ');
 
         Person__c p1 = new Person__c( Last_Name__c = 'l1', First_Name__c = 'f1' );
         Person__c p2 = new Person__c( Last_Name__c = 'l2', First_Name__c = 'f2' );
@@ -210,10 +230,10 @@ public class SendSmsTest {
 
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                p1.id, 'firstName', 'middleName', 'lastName', '0123456789', '254', null
+                p1.id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
             ),
             SendSMSHelpers.generateRecipient(
-                p2.id, 'firstName2', 'middleName2', 'lastName2', '987654321', '254', null
+                p2.id, 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
             )
         };
         messages = new List<Message>{
@@ -237,12 +257,15 @@ public class SendSmsTest {
     // Test Kannel
     static testMethod void testKannelCreateBody() {
 
+        // Create the country settings (send through kannel as can do full process with test data)
+        addCountrySetting('JJ', 'SendSMSKannel', 256, 'JJ');
+
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', '254', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
             ),
             SendSMSHelpers.generateRecipient(
-                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', '254', null
+                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
             )
         };
         messages = new List<Message>{
@@ -254,7 +277,7 @@ public class SendSmsTest {
             )
         };
         SendSMSViaKannel gateway = new SendSMSViaKannel();
-        System.assertEquals(gateway.createBody(messages, false), '[{"recipients":[{"phoneNumber":"0123456789","personId":"id","countryCode":"254"},{"phoneNumber":"987654321","personId":"id2","countryCode":"254"}],"messageHash":"hBotaJrYa9FhFEdFPCLG/A==","message":"body"},{"recipients":[{"phoneNumber":"0123456789","personId":"id","countryCode":"254"},{"phoneNumber":"987654321","personId":"id2","countryCode":"254"}],"messageHash":"dq9jxb13sqOiz8vVJkX6OA==","message":"body2"}]');
+        System.assertEquals(gateway.createBody(messages, false), '{"messages":[{"sender":"odavies@grameen.dev.ckw1.org","recipients":[{"phoneNumber":"0123456789","personId":"id","countryCode":"256"},{"phoneNumber":"987654321","personId":"id2","countryCode":"256"}],"messageHash":"hBotaJrYa9FhFEdFPCLG/A==","message":"body"},{"sender":"odavies@grameen.dev.ckw1.org","recipients":[{"phoneNumber":"0123456789","personId":"id","countryCode":"256"},{"phoneNumber":"987654321","personId":"id2","countryCode":"256"}],"messageHash":"dq9jxb13sqOiz8vVJkX6OA==","message":"body2"}]}');
     }
 
     static testMethod void testKannelBuildSingleRequest() {
@@ -291,12 +314,14 @@ public class SendSmsTest {
 
     static testMethod void testKannelFailureString() {
 
+        addCountrySetting('JJ', 'SendSMSKannel', 256, 'JJ');
+
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', '254', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
             ),
             SendSMSHelpers.generateRecipient(
-                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', '254', null
+                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
             )
         };
         messages = new List<Message>{
