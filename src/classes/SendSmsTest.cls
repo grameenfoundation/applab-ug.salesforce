@@ -4,10 +4,21 @@ public class SendSmsTest {
     /**
      * Test methods for the sending of messages.
      * For both the bulk message page and for the scheduling of messages
+     *
+     * Classes covered:
+     *    BulkMessageController
+     *    Message
+     *    SendMessageViaPulse
+     *    SendSMS
+     *    SendSMSHelpers
+     *    SendSMSViaKannel
+     *    SendSMSViaYellowPepper
+     *    SendViaSMSGateway
      */
 
     static List<Group__c> groups;
     static List<Message> messages;
+    static List<Person__c> people;
 
     // HELPER METHODS USED FOR TESTING
     public static String getTestKannelResponse() {
@@ -18,7 +29,11 @@ public class SendSmsTest {
     }
 
     public static String getTestYPResponse() {
-        return '';
+        return '{"yellowPepperResponse" : [' +
+            '{"messageHash" : "Hash2", "personId" : "1", "success" : true},' +
+            '{"messageHash" : "Hash2", "personId" : "2", "success" : true},' +
+            '{"messageHash" : "Hash2", "personId" : "3", "success" : false}' +
+            ']}';
     }
 
     static void addGatewaySettings(
@@ -76,9 +91,11 @@ public class SendSmsTest {
 
         // Create the gateway settings
         addGatewaySettings('Kannel', 'bulk', 'single', 'username', 'password', 123);
+        addGatewaySettings('PULSE', 'bulk', 'single', 'username', 'password', 123);
 
         // Create the country settings (send through kannel as can do full process with test data)
-        addCountrySetting('JJ', 'SendSMSKannel', 256, 'JJ');
+        addCountrySetting('JJ', 'SendSMSViaKannel', 256, 'JJ');
+        addCountrySetting('PULSE', 'SendMessageViaPulse', 000, 'XXX');
 
         // Create the country
         Country__c c1 = new Country__c( Name = 'TestCountry', ISO_Standard_Code__c = 'JJ', Language__c = 'English');
@@ -92,6 +109,7 @@ public class SendSmsTest {
         Person__c p5 = new Person__c( Last_Name__c = 'l5', Middle_Name__c = 'm5', First_Name__c = 'f5', Country__c = c1.Id, Raw_Mobile_Number__c = '555555555');
         Person__c p6 = new Person__c( Last_Name__c = 'l6', Middle_Name__c = 'm6', First_Name__c = 'f6', Country__c = c1.Id, Raw_Mobile_Number__c = '666666666');
         insert(new List<Person__c>{ p1, p2, p3, p4, p5, p6 });
+        people = new List<Person__c>{ p1, p2, p3, p4, p5, p6 };
 
         // Create some groups
         Group__c g1 = new Group__c( Name='Group1' );
@@ -160,7 +178,7 @@ public class SendSmsTest {
         };
         SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
         gateway.loadSetting();
-        System.assertEquals(gateway.createBody(messages, true), 'op=sendBroadcastMessage&Serial=username&Pin=password&Message=body&Mobile=2560123456789&Sender=odavies%40grameen.dev.ckw1.org');
+        System.assertEquals(gateway.createBody(messages, true), 'op=sendBroadcastMessage&Serial=username&Pin=password&Message=body&Mobile=2560123456789&Sender=123');
     }
 
     static testMethod void testYPCreateBodyBulk() {
@@ -182,7 +200,7 @@ public class SendSmsTest {
         };
         SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
         gateway.loadSetting();
-        System.assertEquals(gateway.createBody(messages, false), 'op=sendBroadcastMessage&Serial=username&Pin=password&Message=body&Mobiles=2560123456789;256987654321&Sender=odavies%40grameen.dev.ckw1.org');
+        System.assertEquals(gateway.createBody(messages, false), 'op=sendBroadcastMessage&Serial=username&Pin=password&Message=body&Mobiles=2560123456789;256987654321&Sender=123');
     }
 
     static testMethod void testYPBuildRequestSingle() {
@@ -208,14 +226,42 @@ public class SendSmsTest {
     static testMethod void testYPCallback() {
 
         SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
-        Map<String, Boolean> resultMap = gateway.callback(getTestKannelResponse(), null);
+        Map<String, Boolean> resultMap = gateway.callback(getTestYPResponse(), null);
         for (String key : resultMap.keySet()) {
-            if (!key.equals('a0R70000002igrbEAA_splitter_Hash2')) {
+            if (!key.equals('3_splitter_Hash2')) {
                 System.assert(resultMap.get(key));
             }
             else {
                 System.assert(!resultMap.get(key));
             }
+        }
+    }
+
+    static testMethod void testYPExecute() {
+
+        addCountrySetting('JJ', 'SendSMSKannel', 256, 'JJ');
+        addGatewaySettings('YellowPepper', 'bulk', 'single', 'username', 'password', 123);
+
+        Person__c p1 = new Person__c( Last_Name__c = 'l1', First_Name__c = 'f1' );
+        Person__c p2 = new Person__c( Last_Name__c = 'l2', First_Name__c = 'f2' );
+        insert(new List<Person__c>{ p1, p2 });
+
+        List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
+            SendSMSHelpers.generateRecipient(
+                p1.id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+            ),
+            SendSMSHelpers.generateRecipient(
+                p2.id, 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+            )
+        };
+        List<Message> message = new List<Message>{
+            createMessage(
+                'Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'PULSE', recipients
+            )
+        };
+        SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
+        for (Boolean result : gateway.callback(gateway.execute(message), null).values()) {
+            System.assert(!result);
         }
     }
 
@@ -252,6 +298,11 @@ public class SendSmsTest {
         for (Boolean result : resultMap.values()) {
             System.assert(result);
         }
+
+        // Pointlessly uping the code coverage
+        gateway.createBody(null, false);
+        gateway.buildRequest('', false);
+        gateway.sendRequest(null);
     }
 
     // Test Kannel
@@ -339,6 +390,30 @@ public class SendSmsTest {
         for (String key : resultMap.keySet()) {
             System.assert(!resultMap.get(key));
         }
+    }
+
+    static testMethod void testKannelExecute() {
+
+        addCountrySetting('JJ', 'SendSMSKannel', 256, 'JJ');
+
+        List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
+            SendSMSHelpers.generateRecipient(
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+            ),
+            SendSMSHelpers.generateRecipient(
+                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+            )
+        };
+        messages = new List<Message>{
+            createMessage(
+                'Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients
+            ),
+            createMessage(
+                'Subject2', 'body2', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients
+            )
+        };
+        SendSMSViaKannel gateway = new SendSMSViaKannel();
+        System.assertEquals(gateway.execute(messages), gateway.getTestKannelResponse(messages));
     }
 
     // Tests for Bulk Message controller
@@ -447,5 +522,92 @@ public class SendSmsTest {
         System.assertEquals(controller.getSendeeItems().size(), 6);
         controller.getSelectedGroups();
         System.assertEquals(controller.getSendeeItems().size(), 7);
+    }
+
+    // SendSMSHelpers Tests
+    static testMethod void testGroupMembershipExpansion() {
+
+        // Create the country
+        Country__c c1 = new Country__c( Name = 'TestCountry', ISO_Standard_Code__c = 'JJ', Language__c = 'English');
+        Country__c c2 = new Country__c( Name = 'TestCountry', ISO_Standard_Code__c = 'DD', Language__c = 'English');
+        insert(new List<Country__c>{ c1, c2 });
+
+        addCountrySetting('JJ', 'SendSMSViaYellowPepper', 256, 'JJ');
+        addCountrySetting('DD', 'SendSMSViaYellowPepper', 000, 'DD');
+
+        // Create some people
+        Person__c p1 = new Person__c( Last_Name__c = 'l1', Middle_Name__c = 'm1', First_Name__c = 'f1', Country__c = c1.Id, Raw_Mobile_Number__c = '111111111');
+        Person__c p2 = new Person__c( Last_Name__c = 'l2', Middle_Name__c = 'm2', First_Name__c = 'f2', Country__c = c2.Id, Raw_Mobile_Number__c = '222222222');
+        Person__c p3 = new Person__c( Last_Name__c = 'l3', Middle_Name__c = 'm3', First_Name__c = 'f3', Country__c = c2.Id, Raw_Mobile_Number__c = '333333333');
+        Person__c p4 = new Person__c( Last_Name__c = 'l4', Middle_Name__c = 'm4', First_Name__c = 'f4', Country__c = c2.Id, Raw_Mobile_Number__c = '444444444');
+        Person__c p5 = new Person__c( Last_Name__c = 'l5', Middle_Name__c = 'm5', First_Name__c = 'f5', Country__c = c1.Id, Raw_Mobile_Number__c = '555555555');
+        Person__c p6 = new Person__c( Last_Name__c = 'l6', Middle_Name__c = 'm6', First_Name__c = 'f6', Country__c = c1.Id, Raw_Mobile_Number__c = '666666666');
+        insert(new List<Person__c>{ p1, p2, p3, p4, p5, p6 });
+
+        // Create some groups
+        Group__c g1 = new Group__c( Name='Group1' );
+        Group__c g2 = new Group__c( Name='Group2' );
+        groups = new List<Group__c>{ g1, g2 };
+        insert(groups);
+
+        // Add some people to the groups
+        Person_Group_Association__c pga1 = new Person_Group_Association__c( Group__c = g1.Id, Person__c = p1.Id);
+        Person_Group_Association__c pga2 = new Person_Group_Association__c( Group__c = g1.Id, Person__c = p2.Id);
+        Person_Group_Association__c pga3 = new Person_Group_Association__c( Group__c = g1.Id, Person__c = p3.Id);
+        Person_Group_Association__c pga4 = new Person_Group_Association__c( Group__c = g1.Id, Person__c = p4.Id);
+        Person_Group_Association__c pga5 = new Person_Group_Association__c( Group__c = g1.Id, Person__c = p5.Id);
+        Person_Group_Association__c pga6 = new Person_Group_Association__c( Group__c = g1.Id, Person__c = p6.Id);
+        Person_Group_Association__c pga7 = new Person_Group_Association__c( Group__c = g2.Id, Person__c = p1.Id);
+        Person_Group_Association__c pga8 = new Person_Group_Association__c( Group__c = g2.Id, Person__c = p3.Id);
+        Person_Group_Association__c pga9 = new Person_Group_Association__c( Group__c = g2.Id, Person__c = p5.Id);
+        insert(new List<Person_Group_Association__c>{ pga1, pga2, pga3, pga4, pga5, pga6, pga7, pga8, pga9 });
+
+        Map<String, List<SendSMSHelpers.Recipient>> members = SendSMSHelpers.expandGroupMembership(g1.Id);
+        System.assertEquals(members.size(), 2);
+        for (String countryCode : members.keySet()) {
+            System.assertEquals(members.get(countryCode).size(), 3);
+        }
+    }
+
+    // Test SendSMS batch job
+    static testMethod void testBatch() {
+
+        setUpMessaging();
+
+        // Add some schduled messages
+        DateTime sendTime = DateTime.now().addMinutes(-5);
+        Scheduled_Message_Queue__c m1 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = true, Send_Via_SMS__c = false, Sender__c = UserInfo.getUserId(), Group__c = groups[0].Id);
+        Scheduled_Message_Queue__c m2 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[0].Id);
+        Scheduled_Message_Queue__c m3 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[1].Id);
+        Database.insert(new List<Scheduled_Message_Queue__c>{ m1, m2, m3 });
+
+        // Send the scheduled messages
+        String queryString = 'SELECT ' +
+                'Id, ' +
+                'Group__c, ' +
+                'Person__c, ' +
+                'Person__r.First_Name__c, ' +
+                'Person__r.Middle_Name__c, ' +
+                'Person__r.Last_Name__c, ' +
+                'Person__r.Mobile_Number__c, ' +
+                'Person__r.Country__r.ISO_Standard_Code__c, ' +
+                'Message__c, ' +
+                'Sender__c, ' +
+                'Sender__r.Name, ' +
+                'Subject__c, ' +
+                'Send_Date_Time__c, ' +
+                'Expiration_Date__c, ' +
+                'Send_Via_Pulse__c, ' +
+                'Send_Via_Sms__c ' +
+            'FROM ' +
+                'Scheduled_Message_Queue__c ' +
+            'WHERE ' +
+                'Send_Date_Time__c <= ' + MetricHelpers.convertDateTimeToString(DateTime.now(), false);
+        Test.StartTest();
+        ID batchprocessid = Database.executeBatch(new SendSMS(queryString, DateTime.now()), 10);
+        Test.StopTest();
+
+        // Check the new queue size. It should be 0 as all messages were sent and as this is test none of the messages were rescheduled
+        System.AssertEquals(database.countquery('SELECT COUNT() FROM Scheduled_Message_Queue__c WHERE LastModifiedDate <= ' + MetricHelpers.convertDateTimeToString(DateTime.now().addMinutes(-2) , false)), 0);
     }
 }

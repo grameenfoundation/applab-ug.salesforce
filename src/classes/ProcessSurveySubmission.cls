@@ -76,7 +76,7 @@ global class ProcessSurveySubmission {
         if (survey.Post_Processing_Method__c != null && !survey.Post_Processing_Method__c.equalsIgnoreCase('None')) {
 
             // Carry out the additional processing that is required
-            /*List<String> results = additionalProcessing(surveySubmission, survey, interviewer, intervieweeId);
+            List<String> results = additionalProcessing(surveySubmission, survey, interviewer, intervieweeId);
 
             // Parse the results
             String messageSubject;
@@ -97,8 +97,6 @@ global class ProcessSurveySubmission {
             // Send Pulse and SMS feedback to the submitter
             if (!results.get(2).equals('SUPRESSMSG')) {
                 messageBody = results.get(2);
-                List<Recipient> recipients = new List<Recipient>();
-                recipients.add(new Recipient(interviewer.Id, Recipient.RecipientType.Person));
                 User sender = [
                     SELECT
                         Id,
@@ -108,27 +106,11 @@ global class ProcessSurveySubmission {
                     WHERE
                         Name = 'ckw admin'
                 ];
-                Server_Configuration__c configuration = [
-                    SELECT
-                        URL__c,
-                        Base_URL__c,
-                        Services_Path__c,
-                        Survey_Database__c,
-                        Search_Database__c
-                    FROM
-                        Server_Configuration__c
-                    LIMIT 1
-                ];
-                Message message = new Message(
-                    messageSubject,
-                    messageBody,
-                    recipients,
-                    sender,
-                    datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0)),
-                    configuration
+                SendSmsHelpers.sendThroughGateways(
+                    SendSmsHelpers.generateMessage(
+                        new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0))
+                    ), true
                 );
-                message.sendViaPulse();
-                message.sendViaSms();
             }
 
             // Return the completed submission
@@ -137,7 +119,7 @@ global class ProcessSurveySubmission {
             // If we are not saving the submission or the submission failed return to the client
             if (!survey.Save_To_Salesforce__c || results.get(0).equals('0')) {
                 return surveySubmission;
-            }*/
+            }
         }
 
         // Create and save the submission meta data object

@@ -123,7 +123,7 @@ public class SendSMSViaKannel implements SendViaSMSGateway {
     }
 
     // HELPER METHODS USED FOR TESTING
-    private String getTestKannelResponse(List<Message> inputMessages) {
+    public String getTestKannelResponse(List<Message> inputMessages) {
 
         String output = '';
         KannelResponse response = new KannelResponse(new List<KannelResponseLine>());

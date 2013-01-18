@@ -6,6 +6,7 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
      * stops the callout limit coming into play
      */
     global final String query;
+    global final DateTime startTime;
     global static final String pulse = 'PULSE';
 
     // Key of first map is the country code. Key of second map is the message in a MD5 hash
@@ -21,12 +22,14 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
     // A map of the results from the various gateways
     global Map<String, Boolean> resultMap;
 
-    global SendSMS (String baseQuery) {
+    global SendSMS (String baseQuery, DateTime startTime) {
         query = baseQuery;
         messages = new Map<String, Map<String, Message>>();
         recipientMap = new Map<Id, SendSMSHelpers.Recipient>();
         inputMessageMap = new Map<String, Scheduled_Message_Queue__c>();
         resultMap = new Map<String, Boolean>();
+        startTime = DateTime.now();
+        groupMap = new Map<String, Map<String, List<SendSMSHelpers.Recipient>>>();
     }
 
     global Database.QueryLocator start(Database.BatchableContext BC){
@@ -61,6 +64,9 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
                     // Send message via sms if needed
                     Message messageToSend;
                     if (message.Send_Via_SMS__c) {
+                        if (messages.get(countryCode) == null) {
+                            messages.put(countryCode, new Map<String, Message>());
+                        }
                         messageToSend = messages.get(countryCode).get(messageHash);
                         if (messageToSend == null) {
                             messageToSend = new Message(message.Subject__c, message.Message__c, message.Sender__c, message.Sender__r.Name, message.Expiration_Date__c, message.Send_Date_Time__c, 'SMS');
@@ -70,6 +76,9 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
                     // Send message via pulse as well if needed
                     Message pulseMessage;
                     if (message.Send_Via_Pulse__c) {
+                        if (messages.get(pulse) == null) {
+                            messages.put(pulse, new Map<String, Message>());
+                        }
                         pulseMessage = messages.get(pulse).get(messageHash);
                         if (pulseMessage == null) {
                             pulseMessage = new Message(message.Subject__c, message.Message__c, message.Sender__c, message.Sender__r.Name, message.Expiration_Date__c, message.Send_Date_Time__c, pulse);
@@ -148,6 +157,9 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
         SendSmsHelpers.sendThroughGateways(messages, true);
     }
 
-    // There is nothing to do in the finish method as it has all been taken care of in execute
-    global void finish(Database.BatchableContext BC) {}
+    global void finish(Database.BatchableContext BC) {
+
+        // Delete all the scheduled messages that have been sent out
+        Database.delete([SELECT Id FROM Scheduled_Message_Queue__c WHERE LastModifiedDate < :startTime]);
+    }
 }
