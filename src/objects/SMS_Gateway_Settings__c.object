@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Protected</customSettingsVisibility>
+    <description>The settings for the actual gateway</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Bulk_End_Point__c</fullName>
+        <description>The end point for the gateway for sending a message to more than one person</description>
+        <externalId>false</externalId>
+        <label>Bulk End Point</label>
+        <required>true</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Password__c</fullName>
+        <description>The password for the gateway</description>
+        <externalId>false</externalId>
+        <label>Password</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Short_Code__c</fullName>
+        <description>The short code for the gateway</description>
+        <externalId>false</externalId>
+        <label>Short Code</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Single_Endpoint__c</fullName>
+        <description>end point for sending a single message to one user</description>
+        <externalId>false</externalId>
+        <label>Single Endpoint</label>
+        <required>true</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Username__c</fullName>
+        <description>The username for the gateway</description>
+        <externalId>false</externalId>
+        <label>Username</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Sms Gateway Settings</label>
+</CustomObject>
