@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Poverty Indexes</relationshipLabel>
+        <relationshipName>Poverty_Indexes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Female_Head_Spouse_Highest_School_Grade__c</fullName>
+        <externalId>false</externalId>
+        <label>Highest School Grade</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None or preschool</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary standards 1 to 6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary standard 7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary standard 8 or secondary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No female head/spouse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Secondary form 4 or higher</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Household_Member_Count__c</fullName>
+        <description>Number of members in household</description>
+        <externalId>false</externalId>
+        <label>Household Member Count</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Nine or more</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seven or eight</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Six</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Five</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Four</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One or two</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Main_dwelling_floor_material__c</fullName>
+        <externalId>false</externalId>
+        <label>Main dwelling floor material</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Wood, earth, or other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cement, or tiles</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Main_source_of_lighting_fuel__c</fullName>
+        <externalId>false</externalId>
+        <label>Main source of lighting fuel</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Collected firewood, purchased firewood, grass, or dry cell (torch)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Paraffin, candles, biogas, or other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electricity, solar, or gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Male_head_type_of_business__c</fullName>
+        <externalId>false</externalId>
+        <label>Male head type of business</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Does not work</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No male head/spouse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agriculture, hunting, forestry, fishing, mining or quarrying</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Any other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Num_of_habitable_rooms_in_main_dwelling__c</fullName>
+        <externalId>false</externalId>
+        <label>Num of habitable rooms in main dwelling</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Four or more</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_frying_pans__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of frying pans</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two or more</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_mosquito_nets__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of mosquito nets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two or more</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_towels__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of towels</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two or more</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Own_iron_box__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Own iron box</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>Poverty Index</label>
+    <nameField>
+        <displayFormat>PPI-{0000}</displayFormat>
+        <label>Poverty Index Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Poverty Indexes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>
