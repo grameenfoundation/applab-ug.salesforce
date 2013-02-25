@@ -1,3 +1,12 @@
+/**
+ * This class contains methods that respond to the GfSurveyContactGroupTrigger events.
+ * I.e after insert, after update etc. <br/>
+ * Primarily the methods in this class cascade changes from the gfsurveys__ContactGroup__c records to 
+ * the Group__c records. E.g When a gfsurveys__ContactGroup__c is created, a corresponding Group__c record 
+ * is also created. <br/>
+ * The cascading is also applicable to the membership (Contact/Person group assocations) records for each of the 
+ * classes (gfsurveys__ContactGroup__c and Group__c)
+ */
 public with sharing class GfSurveyContactGroupTriggerHandler {
 	
 	public void OnBeforeInsert(gfsurveys__ContactGroup__c[] newObjects){
