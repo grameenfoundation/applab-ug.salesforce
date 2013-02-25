@@ -1,6 +1,5 @@
 public with sharing class GfSurveyContactGroupTriggerHandler {
 	
-
 	public void OnBeforeInsert(gfsurveys__ContactGroup__c[] newObjects){
 		
     }
@@ -20,22 +19,29 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
         deleteCkwGroups(deletedObjects);
     }
     
+    /**
+     * deletes ckw groups that have the same names as the given gfsurveys__ContactGroup__c 
+     * objects. The gfsurveys__ContactGroup__c objects
+     */
     private void deleteCkwGroups(gfsurveys__ContactGroup__c[] objects){
     	List<Group__c> ckwGroupsForDelete = new List<Group__c>();
-            for(gfsurveys__ContactGroup__c g : objects){
-                Group__c ckwGroup = null;
-                try{
-                    ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:g.Name];
-                }catch(Exception ex){}
-                
-                if(ckwGroup != null){
-                    ckwGroupsForDelete.add(ckwGroup);
-                }
-            }
+        for(gfsurveys__ContactGroup__c g : objects){
+            Group__c ckwGroup = null;
+            try{
+                ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:g.Name];
+            }catch(Exception ex){}
             
-            delete ckwGroupsForDelete;
+            if(ckwGroup != null){
+                ckwGroupsForDelete.add(ckwGroup);
+            }
+        }
+        
+        delete ckwGroupsForDelete;
     }
     
+    /**
+     * removes Person_Group_Association__c records for the corresponding  gfsurveys__ContactGroup__c records.
+     */
     private void removeDeletedCkwPersonGroupAssocations(gfsurveys__ContactGroup__c[] objects){
     	List<Person_Group_Association__c> groupAssociations = new List<Person_Group_Association__c>();
         for(gfsurveys__ContactGroup__c g : objects){
@@ -75,11 +81,15 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
 					}
 				}
             }
-         }
+        }
          
         delete groupAssociations;
     }
     
+    /**
+     * create Person_Group_Association__c records for the corresponding gfsurveys__ContactGroup__c records 
+     * in the given array.
+     */
     private void createCkwPersonGroupAssocations(gfsurveys__ContactGroup__c[] objects){
     	List<Person_Group_Association__c> groupAssociations = new List<Person_Group_Association__c>();
         for(gfsurveys__ContactGroup__c g : objects){
@@ -122,10 +132,21 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
 					}
 				}
             }
-         }
+        }
+        
         insert groupAssociations;
     }
     
+    /**
+     * creates or update Ckw Groups based on the given gfsurveys__ContactGroup__c records. I.e.
+     * if a Group__c record does not exist, a new record will be created to correspond with the 
+     * gfsurveys__ContactGroup__c record in the given objects parameter. <br/>
+     * 
+     * @Param oldMap holds the gfsurveys__ContactGroup__c records before they were updated and is useful 
+     * during the update operation to get the old name of the gfsurveys__ContactGroup__c before it was 
+     * renamed for cases where the name has changed. This is so that the rename of the group can be cascaded 
+     * to the corresponding CKW Group (Group__c) record.
+     */
     private void createOrUpdateCkwGroups(gfsurveys__ContactGroup__c[] objects, Map<Id, gfsurveys__ContactGroup__c> oldMap){
     	List<Group__c> ckwGroupsForInsert = new List<Group__c>();
         List<Group__c> ckwGroupsForUpdate = new List<Group__c>();
@@ -159,6 +180,10 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
         update ckwGroupsForUpdate;
     }
     
+    /**
+     * tests to make sure that a change to the name of a gfsurveys__ContactGroup__c group name 
+     * is cascaded to the corresponding Group__c record.
+     */
     @IsTest
     static void testGroupNameUpdate(){
     	RecordType recordType = new RecordType();
@@ -201,6 +226,10 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
     	}    	
     }
     
+    /**
+     * tests to ensure that a deletion of a gfsurveys__ContactGroup__c record deletes the corresponding 
+     * Group__c record.
+     */
     @IsTest
     static void testGroupDeletion(){
     	RecordType recordType = new RecordType();
@@ -261,6 +290,10 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
     	}
     }
     
+    /**
+     * tests to make sure when a membership record is removed for the gfsurveys__ContactGroup__c group 
+     * record, the corresponding Person_Group_Association__c record is also removed.
+     */
     @IsTest
     static void testGroupMembershipRemoval(){
     	RecordType recordType = new RecordType();
@@ -317,6 +350,10 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
     	}
     }
     
+    /**
+     * tests to make sure when a membership record is added for the gfsurveys__ContactGroup__c group 
+     * record, the corresponding Person_Group_Association__c record is also added.
+     */
     @IsTest
     static void testGroupMemberShipCreation(){
     	RecordType recordType = new RecordType();
@@ -359,6 +396,10 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
     	}
     }
     
+    /**
+     * tests to make sure when a gfsurveys__ContactGroup__c record is created, a Group__c 
+     * is also created.
+     */
     @IsTest
     static void testGroupCreation(){
     	RecordType recordType = new RecordType();
