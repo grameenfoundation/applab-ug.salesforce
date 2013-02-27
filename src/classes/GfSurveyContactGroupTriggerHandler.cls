@@ -22,7 +22,6 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
 	 */
     public void OnAfterInsert(gfsurveys__ContactGroup__c[] newObjects) {
     	createOrUpdateCkwGroups(newObjects, new Map<Id, gfsurveys__ContactGroup__c>());
-    	createCkwPersonGroupAssocations(newObjects);
     }
     
     /**
@@ -36,8 +35,6 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
      */
     public void OnAfterUpdate(gfsurveys__ContactGroup__c[] updatedObjects, Map<Id, gfsurveys__ContactGroup__c> oldMap) {
     	createOrUpdateCkwGroups(updatedObjects, oldMap);
-    	createCkwPersonGroupAssocations(updatedObjects);
-    	removeDeletedCkwPersonGroupAssocations(updatedObjects);
     }
     
     /**
@@ -56,6 +53,8 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
      * Retrieves Group__c records that correspond to the given gfsurveys__ContactGroup__c records.
      *
      * @param objects an array of gfsurveys__ContactGroup__c records for which Group__c records are required.
+     *
+     * @return list of Group__c records that have the same names as the given gfsurveys__ContactGroup__c records.
      */
     private List<Group__c> getCkwGroupsByGfSurveyGroups(gfsurveys__ContactGroup__c[] objects) {
     	List<String> groupNames = new List<String>();
@@ -75,149 +74,6 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
      */
     private void deleteCkwGroups(gfsurveys__ContactGroup__c[] objects) {
         delete getCkwGroupsByGfSurveyGroups(objects);
-    }
-    
-    /**
-     * removes Person_Group_Association__c records for the corresponding  gfsurveys__ContactGroup__c records.
-     *
-     * @param objects an array of gfsurveys__ContactGroup__c records for which Person_Group_Association__c 
-     * records for the corresponding Group__c records will be deleted.
-     */
-    private void removeDeletedCkwPersonGroupAssocations(gfsurveys__ContactGroup__c[] objects){
-    	//get a list of group names
-    	List<String> groupNames = new List<String>();
-        for(gfsurveys__ContactGroup__c g : objects){
-           groupNames.add(g.Name);
-        }
-        
-        /*
-         * queries for gfsurveys__ContactGroupMember__c records that are in the recycle bin 
-         * and have a group whose name is in the groupNames list created above.
-         */
-        for (gfsurveys__ContactGroupMember__c[] members: 
-					[SELECT gfsurveys__Contact__c, gfsurveys__Contact__r.Id, gfsurveys__ContactGroup__c, 
-						gfsurveys__ContactGroup__r.Id,gfsurveys__ContactGroup__r.Name 
-						FROM gfsurveys__ContactGroupMember__c WHERE (gfsurveys__ContactGroup__r.Name IN :groupNames AND isDeleted=true) ALL ROWS]) {
-			
-			//generate a list of contact identifiers from the membership records.
-			List<String> contactIdz = new List<String>();
-			for (gfsurveys__ContactGroupMember__c member : members) {
-				contactIdz.add(member.gfsurveys__Contact__r.Id);
-			}
-			
-			/*
-			 * query for membership records for the Group__c entities whose names are in the 
-			 * groupNames list defined above and have a person associated to a contact whose
-			 * Id is in the contactIdz list defined above.
-			 */
-			List<Person_Group_Association__c> associations = [
-	    		SELECT 
-	    			Id,
-	    			Group__c,
-	    			Person__c,
-	    			Group__r.Name
-	    		FROM 
-	    			Person_Group_Association__c 
-				WHERE 
-					Group__r.Name IN :groupNames 
-					AND Person__c IN (
-						SELECT 
-							Id
-						FROM 
-							Person__c 
-						WHERE Contact__c IN :contactIdz)];
-						
-			delete associations;
-		}
-    }
-    
-    /**
-     * create Person_Group_Association__c records for the corresponding gfsurveys__ContactGroup__c records 
-     * in the given array.
-     *
-     * @param objects an array of gfsurveys__ContactGroup__c records from whose membership records the Group__c
-     * membership records are going to be created.
-     */
-    private void createCkwPersonGroupAssocations(gfsurveys__ContactGroup__c[] objects) {
-    	List<String> groupNames = new List<String>();
-    	for (gfsurveys__ContactGroup__c g : objects) {
-        	groupNames.add(g.Name);
-        }
-    	
-    	List<Group__c> ckwGroups = getCkwGroupsByGfSurveyGroups(objects);
-    	List<Person_Group_Association__c> groupAssociations = new List<Person_Group_Association__c>();
-    	
-    	for (gfsurveys__ContactGroupMember__c[] members : 
-					[SELECT gfsurveys__Contact__c, gfsurveys__Contact__r.Id, gfsurveys__ContactGroup__c, 
-						gfsurveys__ContactGroup__r.Id, gfsurveys__ContactGroup__r.Name 
-						FROM gfsurveys__ContactGroupMember__c WHERE gfsurveys__ContactGroup__r.Name IN :groupNames] ) {
-			//generate a list of contact identifiers from the membership records.
-			List<String> contactIdz = new List<String>();
-			for (gfsurveys__ContactGroupMember__c member : members) {
-				contactIdz.add(member.gfsurveys__Contact__r.Id);
-			}
-			
-			//get list of people that are associated with contacts in the membership records.
-			List<Person__c> people = [
-				SELECT 
-					Id, 
-					Contact__c
-				FROM 
-					Person__c 
-				WHERE 
-					Contact__c IN :contactIdz
-			];
-			
-			//get person group assocations for people assocated with contacts in the membership records
-			List<Person_Group_Association__c> pGroupAssoc = [
-				SELECT 
-					Group__c, 
-					Person__c, 
-					Group__r.Name, 
-					Person__r.Id 
-				FROM 
-					Person_Group_Association__c 
-			    WHERE (Group__r.Name IN :groupNames AND Person__r.Id IN :people)
-			];
-			
-			for (gfsurveys__ContactGroupMember__c member : members) {
-				//retrieve person
-				Person__c person = null;
-				for (Person__c p : people) {
-					if(p.Contact__c == member.gfsurveys__Contact__c){
-						person = p;
-						break;
-					}
-				}
-				
-				//retrieve Group__c record
-				Group__c ckwGroup = null;
-				for (Group__c g : ckwGroups) {
-					if (g.Name == member.gfsurveys__ContactGroup__r.Name) {
-						ckwGroup = g;
-						break;
-					}
-				}
-				
-				//determine if a person group assocation already exists
-				Person_Group_Association__c pGroup = null;
-				for (Person_Group_Association__c pg : pGroupAssoc) {
-					if (pg.Person__c == person.Id && pg.Group__c == ckwGroup.Id) {
-						pGroup = pg;
-					}
-				}
-				
-				if (pGroup == null) {
-					pGroup = new Person_Group_Association__c();
-        			pGroup.Group__c = ckwGroup.Id;
-        			pGroup.Person__c = person.Id;
-        			
-        			groupAssociations.add(pGroup);
-				}
-			}
-		}
-		
-		insert groupAssociations;
     }
     
     /**

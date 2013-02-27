@@ -154,7 +154,7 @@ private class GfSurveyContactGroupTriggerHandlerTest {
     		insert member;
     		
     		Person_Group_Association__c pGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-				WHERE (Group__r.Name=:gfGroup.Name AND Person__r.Id=:person.Id)];
+				WHERE (Group__r.Name = :gfGroup.Name AND Person__r.Id = :person.Id)];
     		
     		system.assert(pGroup != null);
     		
@@ -163,7 +163,7 @@ private class GfSurveyContactGroupTriggerHandlerTest {
     		Person_Group_Association__c removedGroup = null;
     		try{
 	    		removedGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-					WHERE (Group__r.Name=:gfGroup.Name AND Person__r.Id=:person.Id)];
+					WHERE (Group__r.Name = :gfGroup.Name AND Person__r.Id = :person.Id)];
     		}catch(Exception ex){}
     		
     		if(removedGroup == null)
