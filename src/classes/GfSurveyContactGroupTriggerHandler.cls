@@ -1,149 +1,223 @@
 /**
  * This class contains methods that respond to the GfSurveyContactGroupTrigger events.
- * I.e after insert, after update etc. <br/>
+ * I.e after insert, after update etc.
+ *
  * Primarily the methods in this class cascade changes from the gfsurveys__ContactGroup__c records to 
  * the Group__c records. E.g When a gfsurveys__ContactGroup__c is created, a corresponding Group__c record 
- * is also created. <br/>
+ * is also created.
+ *
  * The cascading is also applicable to the membership (Contact/Person group assocations) records for each of the 
  * classes (gfsurveys__ContactGroup__c and Group__c)
+ *
+ * @author Charles Tumwebaze
  */
 public with sharing class GfSurveyContactGroupTriggerHandler {
 	
-	public void OnBeforeInsert(gfsurveys__ContactGroup__c[] newObjects){
-		
-    }
-
-    public void OnAfterInsert(gfsurveys__ContactGroup__c[] newObjects){
+	/**
+	 * handles the after insert event on the gfsurveys__ContactGroup__c object as called by the 
+	 * GFSurveyContactGroupTrigger. 
+	 * This method is called when  gfsurveys__ContactGroup__c record(s) have been inserted into the datastore.
+	 *
+	 * @param newObjects an array of gfsurveys__ContactGroup__c records that have been inserted into the datastore.
+	 */
+    public void OnAfterInsert(gfsurveys__ContactGroup__c[] newObjects) {
     	createOrUpdateCkwGroups(newObjects, new Map<Id, gfsurveys__ContactGroup__c>());
     	createCkwPersonGroupAssocations(newObjects);
     }
     
-    public void OnAfterUpdate(gfsurveys__ContactGroup__c[] oldObjects, gfsurveys__ContactGroup__c[] updatedObjects, Map<Id, gfsurveys__ContactGroup__c> oldMap){
+    /**
+     * handles the after update event on the gfsurveys__ContactGroup__c object as called by the 
+     * GFSurveyContactGroupTrigger.
+     *
+     * This method is called when gfsurveys__ContactGroup__c record(s) have been updated in the datastore.
+     *
+     * @param updatedObjects an array of gfsurveys__ContactGroup__c records after modifications have been made.
+     * @param oldMap a map of Id to gfsurveys__ContactGroup__c records before modifications were made.
+     */
+    public void OnAfterUpdate(gfsurveys__ContactGroup__c[] updatedObjects, Map<Id, gfsurveys__ContactGroup__c> oldMap) {
     	createOrUpdateCkwGroups(updatedObjects, oldMap);
     	createCkwPersonGroupAssocations(updatedObjects);
     	removeDeletedCkwPersonGroupAssocations(updatedObjects);
     }
     
-    public void OnAfterDelete(gfsurveys__ContactGroup__c[] deletedObjects){
+    /**
+     * handles the after delete event on the gfsurveys__ContactGroup__c object as called by the 
+     * GFSurveyContactGroupTrigger.
+     *
+     * This method is called after gfsurveys__ContactGroup__c record(s) have been deleted from the datastore.
+     *
+     * @param objects an array of gfsurveys__ContactGroup__c records that have been deleted from the datastore.
+     */
+    public void OnAfterDelete(gfsurveys__ContactGroup__c[] deletedObjects) {
         deleteCkwGroups(deletedObjects);
+    }
+    
+    /**
+     * Retrieves Group__c records that correspond to the given gfsurveys__ContactGroup__c records.
+     *
+     * @param objects an array of gfsurveys__ContactGroup__c records for which Group__c records are required.
+     */
+    private List<Group__c> getCkwGroupsByGfSurveyGroups(gfsurveys__ContactGroup__c[] objects) {
+    	List<String> groupNames = new List<String>();
+        for(gfsurveys__ContactGroup__c g : objects){
+           groupNames.add(g.Name);
+        }
+        
+        return [SELECT Id, Name, Active__c FROM Group__c WHERE Name IN :groupNames];
     }
     
     /**
      * deletes ckw groups that have the same names as the given gfsurveys__ContactGroup__c 
      * objects. The gfsurveys__ContactGroup__c objects
+     *
+     * @param objects an array of gfsurveys__ContactGroup__c records whose corresponding Group__c records 
+     * are to be deleted.
      */
-    private void deleteCkwGroups(gfsurveys__ContactGroup__c[] objects){
-    	List<Group__c> ckwGroupsForDelete = new List<Group__c>();
-        for(gfsurveys__ContactGroup__c g : objects){
-            Group__c ckwGroup = null;
-            try{
-                ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:g.Name];
-            }catch(Exception ex){}
-            
-            if(ckwGroup != null){
-                ckwGroupsForDelete.add(ckwGroup);
-            }
-        }
-        
-        delete ckwGroupsForDelete;
+    private void deleteCkwGroups(gfsurveys__ContactGroup__c[] objects) {
+        delete getCkwGroupsByGfSurveyGroups(objects);
     }
     
     /**
      * removes Person_Group_Association__c records for the corresponding  gfsurveys__ContactGroup__c records.
+     *
+     * @param objects an array of gfsurveys__ContactGroup__c records for which Person_Group_Association__c 
+     * records for the corresponding Group__c records will be deleted.
      */
     private void removeDeletedCkwPersonGroupAssocations(gfsurveys__ContactGroup__c[] objects){
-    	List<Person_Group_Association__c> groupAssociations = new List<Person_Group_Association__c>();
+    	//get a list of group names
+    	List<String> groupNames = new List<String>();
         for(gfsurveys__ContactGroup__c g : objects){
-            Group__c ckwGroup = null;
-            try{
-                ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:g.Name];
-            }catch(Exception ex){ 
-            }
-            
-            if(ckwGroup != null){
-				for(gfsurveys__ContactGroupMember__c[] members: 
-					[SELECT gfsurveys__Contact__c, gfsurveys__Contact__r.Id, gfsurveys__ContactGroup__c,gfsurveys__ContactGroup__r.Id,gfsurveys__ContactGroup__r.Name 
-						FROM gfsurveys__ContactGroupMember__c WHERE (gfsurveys__ContactGroup__r.Name=:g.Name AND isDeleted=true) ALL ROWS] ){
-					
-					for(gfsurveys__ContactGroupMember__c member : members){
-						Person__c person = null;
-		        		try{
-		        			person = [SELECT Id, Contact__r.Id FROM Person__c WHERE Contact__r.Id =:member.gfsurveys__Contact__r.Id LIMIT 1];
-		        		}catch(Exception ex){
-		        			System.debug(ex.getMessage());
-		        		}
-		        			        		
-		        		if(person != null){
-			        		Person_Group_Association__c pGroup = null;
-			        		
-			        		try{
-			        			pGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-			        				WHERE (Group__r.Name=:ckwGroup.Name AND Person__r.Id=:person.Id)];
-			        		}catch(Exception ex){
-			        			System.debug(ex.getMessage());
-			        		}
-			        		
-			        		if(pGroup != null){
-			        			groupAssociations.add(pGroup);
-			        		}
-		        		}
-					}
-				}
-            }
+           groupNames.add(g.Name);
         }
-         
-        delete groupAssociations;
+        
+        /*
+         * queries for gfsurveys__ContactGroupMember__c records that are in the recycle bin 
+         * and have a group whose name is in the groupNames list created above.
+         */
+        for (gfsurveys__ContactGroupMember__c[] members: 
+					[SELECT gfsurveys__Contact__c, gfsurveys__Contact__r.Id, gfsurveys__ContactGroup__c, 
+						gfsurveys__ContactGroup__r.Id,gfsurveys__ContactGroup__r.Name 
+						FROM gfsurveys__ContactGroupMember__c WHERE (gfsurveys__ContactGroup__r.Name IN :groupNames AND isDeleted=true) ALL ROWS]) {
+			
+			//generate a list of contact identifiers from the membership records.
+			List<String> contactIdz = new List<String>();
+			for (gfsurveys__ContactGroupMember__c member : members) {
+				contactIdz.add(member.gfsurveys__Contact__r.Id);
+			}
+			
+			/*
+			 * query for membership records for the Group__c entities whose names are in the 
+			 * groupNames list defined above and have a person associated to a contact whose
+			 * Id is in the contactIdz list defined above.
+			 */
+			List<Person_Group_Association__c> associations = [
+	    		SELECT 
+	    			Id,
+	    			Group__c,
+	    			Person__c,
+	    			Group__r.Name
+	    		FROM 
+	    			Person_Group_Association__c 
+				WHERE 
+					Group__r.Name IN :groupNames 
+					AND Person__c IN (
+						SELECT 
+							Id
+						FROM 
+							Person__c 
+						WHERE Contact__c IN :contactIdz)];
+						
+			delete associations;
+		}
     }
     
     /**
      * create Person_Group_Association__c records for the corresponding gfsurveys__ContactGroup__c records 
      * in the given array.
+     *
+     * @param objects an array of gfsurveys__ContactGroup__c records from whose membership records the Group__c
+     * membership records are going to be created.
      */
-    private void createCkwPersonGroupAssocations(gfsurveys__ContactGroup__c[] objects){
+    private void createCkwPersonGroupAssocations(gfsurveys__ContactGroup__c[] objects) {
+    	List<String> groupNames = new List<String>();
+    	for (gfsurveys__ContactGroup__c g : objects) {
+        	groupNames.add(g.Name);
+        }
+    	
+    	List<Group__c> ckwGroups = getCkwGroupsByGfSurveyGroups(objects);
     	List<Person_Group_Association__c> groupAssociations = new List<Person_Group_Association__c>();
-        for(gfsurveys__ContactGroup__c g : objects){
-            Group__c ckwGroup = null;
-            try{
-                ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:g.Name];
-            }catch(Exception ex){   
-            }
-            
-            if(ckwGroup != null){
-				for(gfsurveys__ContactGroupMember__c[] members: 
-					[SELECT gfsurveys__Contact__c, gfsurveys__Contact__r.Id, gfsurveys__ContactGroup__c,gfsurveys__ContactGroup__r.Id,gfsurveys__ContactGroup__r.Name FROM gfsurveys__ContactGroupMember__c WHERE gfsurveys__ContactGroup__r.Name=:g.Name] ){
-					
-					for(gfsurveys__ContactGroupMember__c member : members){
-						Person__c person = null;
-		        		try{
-		        			person = [SELECT Id, Contact__r.Id FROM Person__c WHERE Contact__r.Id =:member.gfsurveys__Contact__r.Id LIMIT 1];
-		        		}catch(Exception ex){
-		        			System.debug(ex.getMessage());
-		        		}
-		        			        		
-		        		if(person != null){
-			        		Person_Group_Association__c pGroup = null;
-			        		
-			        		try{
-			        			pGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-			        				WHERE (Group__r.Name=:ckwGroup.Name AND Person__r.Id=:person.Id)];
-			        		}catch(Exception ex){
-			        			System.debug(ex.getMessage());
-			        		}
-			        		
-			        		if(pGroup == null){
-			        			pGroup = new Person_Group_Association__c();
-			        			pGroup.Group__c = ckwGroup.Id;
-			        			pGroup.Person__c = person.Id;
-			        			
-			        			groupAssociations.add(pGroup);
-			        		}
-		        		}
+    	
+    	for (gfsurveys__ContactGroupMember__c[] members : 
+					[SELECT gfsurveys__Contact__c, gfsurveys__Contact__r.Id, gfsurveys__ContactGroup__c, 
+						gfsurveys__ContactGroup__r.Id, gfsurveys__ContactGroup__r.Name 
+						FROM gfsurveys__ContactGroupMember__c WHERE gfsurveys__ContactGroup__r.Name IN :groupNames] ) {
+			//generate a list of contact identifiers from the membership records.
+			List<String> contactIdz = new List<String>();
+			for (gfsurveys__ContactGroupMember__c member : members) {
+				contactIdz.add(member.gfsurveys__Contact__r.Id);
+			}
+			
+			//get list of people that are associated with contacts in the membership records.
+			List<Person__c> people = [
+				SELECT 
+					Id, 
+					Contact__c
+				FROM 
+					Person__c 
+				WHERE 
+					Contact__c IN :contactIdz
+			];
+			
+			//get person group assocations for people assocated with contacts in the membership records
+			List<Person_Group_Association__c> pGroupAssoc = [
+				SELECT 
+					Group__c, 
+					Person__c, 
+					Group__r.Name, 
+					Person__r.Id 
+				FROM 
+					Person_Group_Association__c 
+			    WHERE (Group__r.Name IN :groupNames AND Person__r.Id IN :people)
+			];
+			
+			for (gfsurveys__ContactGroupMember__c member : members) {
+				//retrieve person
+				Person__c person = null;
+				for (Person__c p : people) {
+					if(p.Contact__c == member.gfsurveys__Contact__c){
+						person = p;
+						break;
 					}
 				}
-            }
-        }
-        
-        insert groupAssociations;
+				
+				//retrieve Group__c record
+				Group__c ckwGroup = null;
+				for (Group__c g : ckwGroups) {
+					if (g.Name == member.gfsurveys__ContactGroup__r.Name) {
+						ckwGroup = g;
+						break;
+					}
+				}
+				
+				//determine if a person group assocation already exists
+				Person_Group_Association__c pGroup = null;
+				for (Person_Group_Association__c pg : pGroupAssoc) {
+					if (pg.Person__c == person.Id && pg.Group__c == ckwGroup.Id) {
+						pGroup = pg;
+					}
+				}
+				
+				if (pGroup == null) {
+					pGroup = new Person_Group_Association__c();
+        			pGroup.Group__c = ckwGroup.Id;
+        			pGroup.Person__c = person.Id;
+        			
+        			groupAssociations.add(pGroup);
+				}
+			}
+		}
+		
+		insert groupAssociations;
     }
     
     /**
@@ -156,285 +230,58 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
      * renamed for cases where the name has changed. This is so that the rename of the group can be cascaded 
      * to the corresponding CKW Group (Group__c) record.
      */
-    private void createOrUpdateCkwGroups(gfsurveys__ContactGroup__c[] objects, Map<Id, gfsurveys__ContactGroup__c> oldMap){
-    	List<Group__c> ckwGroupsForInsert = new List<Group__c>();
-        List<Group__c> ckwGroupsForUpdate = new List<Group__c>();
-        for(gfsurveys__ContactGroup__c g : objects){
+    private void createOrUpdateCkwGroups(gfsurveys__ContactGroup__c[] objects, Map<Id, gfsurveys__ContactGroup__c> oldMap) {
+    	
+    	Set<Id> idz = oldMap.keySet(); 
+    	List<String> groupNames = new List<String>();
+    	for (Id identifier : idz) {
+    		groupNames.add(oldMap.get(identifier).Name);	
+    	}
+    	
+        for (gfsurveys__ContactGroup__c g : objects) {
+			gfsurveys__ContactGroup__c oldGp = oldMap.get(g.Id);
+			
+			//add group name only if it doesn't already exist.
+			if (g.Name != oldGp.Name)
+          		groupNames.add(g.Name);
+        }
+        
+        List<Group__c> ckwGroups = [SELECT Id, Name, Active__c FROM Group__c WHERE Name IN :groupNames];
+    	List<Group__c> groups = new List<Group__c>();
+    	
+    	/*
+    	 * we iterate over gfsurveys__ContactGroup__c records and create/update the 
+    	 * corresponding Group__c records
+    	 */
+        for (gfsurveys__ContactGroup__c g : objects) {
             Group__c ckwGroup = null;
-            try{
-            	gfsurveys__ContactGroup__c oldGroup = oldMap.get(g.Id);
-            	if(oldGroup != null){
-                	ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:oldGroup.Name];
-            	}else{
-                	ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:g.Name];
-            	}
-            }catch(Exception ex){
-            	system.debug(ex.getMessage());   
-            }
-            if(ckwGroup == null){
+        	gfsurveys__ContactGroup__c oldGroup = oldMap.get(g.Id);
+        	if (oldGroup != null) {
+        		for(Group__c group1 : ckwGroups) {
+        			if(group1.Name == oldGroup.Name)
+            			ckwGroup = group1;
+        		}
+        	} else {
+            	for (Group__c group1 : ckwGroups) {
+        			if(group1.Name == g.Name)
+            			ckwGroup = group1;
+        		}
+        	}
+        	
+            if (ckwGroup == null) {
                 ckwGroup = new Group__c();
-                ckwGroupsForInsert.add(ckwGroup);
-            }else{
-                ckwGroupsForUpdate.add(ckwGroup);                    
             }
+            
+            groups.add(ckwGroup);                    
+            
             ckwGroup.Name = g.Name;
-            if(g.gfsurveys__Status__c == 'Active'){
+            if (g.gfsurveys__Status__c == 'Active') {
                 ckwGroup.Active__c = true;   
-            }else{
+            } else {
                 ckwGroup.Active__c = false;   
             }
         }
         
-        insert ckwGroupsForInsert;
-        update ckwGroupsForUpdate;
-    }
-    
-    /**
-     * tests to make sure that a change to the name of a gfsurveys__ContactGroup__c group name 
-     * is cascaded to the corresponding Group__c record.
-     */
-    @IsTest
-    static void testGroupNameUpdate(){
-    	RecordType recordType = new RecordType();
-    	recordType.Name='Business';
-    	
-    	Account account = new Account(Name='CKW', RecordType=recordType);
-    	account.BillingState='CA';
-    	insert account;
-    	
-    	Contact contact = new Contact();
-    	contact.FirstName = 'Grameen';
-    	contact.LastName = 'Foundation';
-    	contact.AccountId = account.Id;
-    	insert contact;
-    	
-    	Person__c person = new Person__c();
-    	person.Last_Name__c = 'Foundation';
-    	person.First_Name__c = 'Grameen';
-    	person.Contact__c = contact.Id;
-    	insert person;
-    	
-    	gfsurveys__ContactGroup__c gfGroup = new gfsurveys__ContactGroup__c();
-    	gfGroup.Name = 'Testing';
-    	gfGroup.gfsurveys__Description__c = 'Testing Trigger';
-    	insert gfGroup;
-    	
-    	try{
-    		Group__c ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:gfGroup.Name];
-    		system.assert(ckwGroup != null);
-    		
-    		gfGroup.Name='Testing2';
-    		update gfGroup;
-    		
-    		Group__c ckwGroup2 = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:gfGroup.Name];
-    		system.assert(ckwGroup2 != null);
-			system.assertEquals(ckwGroup.Id, ckwGroup2.Id);	
-    	}catch(Exception ex){
-    		system.debug(ex.getMessage());
-    		system.assert(false);
-    	}    	
-    }
-    
-    /**
-     * tests to ensure that a deletion of a gfsurveys__ContactGroup__c record deletes the corresponding 
-     * Group__c record.
-     */
-    @IsTest
-    static void testGroupDeletion(){
-    	RecordType recordType = new RecordType();
-    	recordType.Name='Business';
-    	
-    	Account account = new Account(Name='CKW', RecordType=recordType);
-    	account.BillingState='CA';
-    	insert account;
-    	
-    	Contact contact = new Contact();
-    	contact.FirstName = 'Grameen';
-    	contact.LastName = 'Foundation';
-    	contact.AccountId = account.Id;
-    	insert contact;
-    	
-    	Person__c person = new Person__c();
-    	person.Last_Name__c = 'Foundation';
-    	person.First_Name__c = 'Grameen';
-    	person.Contact__c = contact.Id;
-    	insert person;
-    	
-    	gfsurveys__ContactGroup__c gfGroup = new gfsurveys__ContactGroup__c();
-    	gfGroup.Name = 'Testing';
-    	gfGroup.gfsurveys__Description__c = 'Testing Trigger';
-    	insert gfGroup;
-    	
-    	try{
-    		gfsurveys__ContactGroupMember__c member = new gfsurveys__ContactGroupMember__c();
-    		member.gfsurveys__Contact__c = contact.Id;
-    		member.gfsurveys__ContactGroup__c = gfGroup.Id;
-    		insert member;
-    		
-    		Person_Group_Association__c pGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-				WHERE (Group__r.Name=:gfGroup.Name AND Person__r.Id=:person.Id)];
-    		
-    		system.assert(pGroup != null);
-
-			delete gfGroup;
-			
-			Group__c ckwGroup = null;
-			try{
-				ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:gfGroup.Name];
-			}catch(Exception ex){}
-			
-    		system.assert(ckwGroup == null);
-    		
-    		Person_Group_Association__c removedGroup = null;
-    		try{
-	    		removedGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-					WHERE (Group__r.Name=:gfGroup.Name AND Person__r.Id=:person.Id)];
-    		}catch(Exception ex){}
-    		
-    		system.assert(removedGroup == null);
-				
-    	}catch(Exception ex){
-    		system.debug(ex.getMessage());
-    		system.assert(false);
-    	}
-    }
-    
-    /**
-     * tests to make sure when a membership record is removed for the gfsurveys__ContactGroup__c group 
-     * record, the corresponding Person_Group_Association__c record is also removed.
-     */
-    @IsTest
-    static void testGroupMembershipRemoval(){
-    	RecordType recordType = new RecordType();
-    	recordType.Name='Business';
-    	
-    	Account account = new Account(Name='CKW', RecordType=recordType);
-    	account.BillingState='CA';
-    	insert account;
-    	
-    	Contact contact = new Contact();
-    	contact.FirstName = 'Grameen';
-    	contact.LastName = 'Foundation';
-    	contact.AccountId = account.Id;
-    	insert contact;
-    	
-    	Person__c person = new Person__c();
-    	person.Last_Name__c = 'Foundation';
-    	person.First_Name__c = 'Grameen';
-    	person.Contact__c = contact.Id;
-    	insert person;
-    	
-    	gfsurveys__ContactGroup__c gfGroup = new gfsurveys__ContactGroup__c();
-    	gfGroup.Name = 'Testing';
-    	gfGroup.gfsurveys__Description__c = 'Testing Trigger';
-    	insert gfGroup;
-    	
-    	try{
-    		gfsurveys__ContactGroupMember__c member = new gfsurveys__ContactGroupMember__c();
-    		member.gfsurveys__Contact__c = contact.Id;
-    		member.gfsurveys__ContactGroup__c = gfGroup.Id;
-    		insert member;
-    		
-    		Person_Group_Association__c pGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-				WHERE (Group__r.Name=:gfGroup.Name AND Person__r.Id=:person.Id)];
-    		
-    		system.assert(pGroup != null);
-    		
-    		delete member;
-    		
-    		Person_Group_Association__c removedGroup = null;
-    		try{
-	    		removedGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-					WHERE (Group__r.Name=:gfGroup.Name AND Person__r.Id=:person.Id)];
-    		}catch(Exception ex){}
-    		
-    		if(removedGroup == null)
-    			system.assert(true);
-    		else
-    			system.assert(false);
-				
-    	}catch(Exception ex){
-    		system.debug(ex.getMessage());
-    		system.assert(false);
-    	}
-    }
-    
-    /**
-     * tests to make sure when a membership record is added for the gfsurveys__ContactGroup__c group 
-     * record, the corresponding Person_Group_Association__c record is also added.
-     */
-    @IsTest
-    static void testGroupMemberShipCreation(){
-    	RecordType recordType = new RecordType();
-    	recordType.Name='Business';
-    	
-    	Account account = new Account(Name='CKW', RecordType=recordType);
-    	account.BillingState='CA';
-    	insert account;
-    	
-    	Contact contact = new Contact();
-    	contact.FirstName = 'Grameen';
-    	contact.LastName = 'Foundation';
-    	contact.AccountId = account.Id;
-    	insert contact;
-    	
-    	Person__c person = new Person__c();
-    	person.Last_Name__c = 'Foundation';
-    	person.First_Name__c = 'Grameen';
-    	person.Contact__c = contact.Id;
-    	insert person;
-    	
-    	gfsurveys__ContactGroup__c gfGroup = new gfsurveys__ContactGroup__c();
-    	gfGroup.Name = 'Testing';
-    	gfGroup.gfsurveys__Description__c = 'Testing Trigger';
-    	insert gfGroup;
-    	
-    	try{
-    		gfsurveys__ContactGroupMember__c member = new gfsurveys__ContactGroupMember__c();
-    		member.gfsurveys__Contact__c = contact.Id;
-    		member.gfsurveys__ContactGroup__c = gfGroup.Id;
-    		insert member;
-    		
-    		Person_Group_Association__c pGroup = [SELECT Group__c, Person__c, Group__r.Name, Person__r.Id FROM Person_Group_Association__c 
-				WHERE (Group__r.Name=:gfGroup.Name AND Person__r.Id=:person.Id)];
-    		
-    		system.assert(pGroup != null);
-    	}catch(Exception ex){
-    		system.debug(ex.getMessage());
-    		system.assert(false);
-    	}
-    }
-    
-    /**
-     * tests to make sure when a gfsurveys__ContactGroup__c record is created, a Group__c 
-     * is also created.
-     */
-    @IsTest
-    static void testGroupCreation(){
-    	RecordType recordType = new RecordType();
-    	recordType.Name='Business';
-    	
-    	Account account = new Account(Name='CKW', RecordType=recordType);
-    	account.BillingState='CA';
-    	insert account;
-    	
-    	Contact contact = new Contact();
-    	contact.FirstName = 'Grameen';
-    	contact.LastName = 'Foundation';
-    	contact.AccountId = account.Id;
-    	insert contact;
-    	
-    	gfsurveys__ContactGroup__c gfGroup = new gfsurveys__ContactGroup__c();
-    	gfGroup.Name = 'Testing';
-    	gfGroup.gfsurveys__Description__c = 'Testing Trigger';
-    	insert gfGroup;
-    	
-    	try{
-    		Group__c ckwGroup = [SELECT Id, Name, Active__c FROM Group__c WHERE Name=:gfGroup.Name];
-    		system.assert(ckwGroup != null);
-    	}catch(Exception ex){
-    		system.debug(ex.getMessage());
-    		system.assert(false);
-    	}
+        upsert groups;
     }
 }
