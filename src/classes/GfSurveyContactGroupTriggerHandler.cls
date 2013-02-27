@@ -242,7 +242,9 @@ public with sharing class GfSurveyContactGroupTriggerHandler {
 			gfsurveys__ContactGroup__c oldGp = oldMap.get(g.Id);
 			
 			//add group name only if it doesn't already exist.
-			if (g.Name != oldGp.Name)
+			if (oldGp != null && g.Name != oldGp.Name)
+          		groupNames.add(g.Name);
+          	else
           		groupNames.add(g.Name);
         }
         
