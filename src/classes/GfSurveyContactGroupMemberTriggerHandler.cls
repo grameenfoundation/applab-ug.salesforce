@@ -67,7 +67,7 @@ public with sharing class GfSurveyContactGroupMemberTriggerHandler {
     	List<Person_Group_Association__c> groupAssociations = new List<Person_Group_Association__c>();
     	
 		//generate a list of contact identifiers from the membership records.
-		List<String> contactIds = new List<String>();
+		List<Id> contactIds = new List<Id>();
 		for (gfsurveys__ContactGroupMember__c member : objects) {
 			contactIds.add(member.gfsurveys__Contact__c);
 		}
