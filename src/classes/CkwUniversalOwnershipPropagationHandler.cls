@@ -32,7 +32,7 @@ public with sharing class CkwUniversalOwnershipPropagationHandler {
 	 * propagates the ownership of the given person to the contact record
 	 * that is associated with it.
 	 *
-	 * @parm person the perosn from which the ownership is to be propagaged.
+	 * @param person the perosn from which the ownership is to be propagaged.
 	 */
 	public void propagateFromPersonToContact(Person__c person){
 		List<Contact> contacts = [
@@ -45,28 +45,39 @@ public with sharing class CkwUniversalOwnershipPropagationHandler {
 				Id = :person.Contact__c AND ownerId != :person.ownerId
 		];
 		
-		for(Contact contact : contacts){
-			contact.OwnerId = person.OwnerId;
+		if (contacts != null) {
+			for(Contact contact : contacts){
+				contact.OwnerId = person.OwnerId;
+			}
+			
+			update contacts;
 		}
-		
-		update contacts;
 	}
 	
+	/**
+	 * propagates the ownership of the given group record to the gfsurveys__ContactGroup__c
+	 * records associated with it.
+	 *
+	 * @param groupc the group from which the ownership is to be propagated.
+	 */
 	public void propagateFromCkwGroupToGfSurveyGroup(Group__c groupc) {
 		List<gfsurveys__ContactGroup__c> groups = [
 			SELECT
 				Id,
-				Name
+				Name,
+				OwnerId
 			FROM
 				gfsurveys__ContactGroup__c
 			WHERE 
-				Name = :groupc.Name
+				Name = :groupc.Name AND ownerId != :groupc.OwnerId
 		];
 		
-		for (gfsurveys__ContactGroup__c g : groups) {
-			g.OwnerId = groupc.OwnerId;
+		if (groups != null) {
+			for (gfsurveys__ContactGroup__c g : groups) {
+				g.OwnerId = groupc.OwnerId;
+			}
+			
+			update groups;
 		}
-		
-		update groups;
 	}
 }
