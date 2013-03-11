@@ -10,6 +10,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
     Transient Map<String, String> usedColourMapTypes;
     Transient Map<String, String> usedColourMapNames;
     Transient Set<String> usedColours;
+    private Map_Parameter__c mapParameter;
 
     private void setUp() {
         if (isLoaded) {
@@ -63,6 +64,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
         this.sObjectRecord = value;
         this.sObjectName = 'Map_Parameter__c';
         setsObjectId(value.Id);
+        loadMapParameter();
         setUp();
     }
     private Boolean loadMapParameter() {
@@ -72,15 +74,16 @@ public with sharing class MapComponentController extends ChildComponentBase {
             return false;
         }
 
-        if (isLoaded) {
-            return true;
-        }
+       // if (isLoaded) {
+       //     return true;
+       // }
         Map_Parameter__c[] maps = [SELECT
                 Id,
                 Name,
                 Title__c,
                 Latitude__c,
                 Longitude__c,
+                Keyword__c,
                 Type_Of_sObject__c,
                 Zoom__c,
                 Splitter__c
@@ -92,8 +95,12 @@ public with sharing class MapComponentController extends ChildComponentBase {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'No map found that matches this Map id. Please check the map is in the system'));
             return false;
         }
-        setsObjectRecord((sObject)maps[0]);
-        isLoaded = true;
+        // Set Map Parameter
+        mapParameter = maps[0];
+        
+        // Commented thiss out becuase of cyclic calls;
+        //setsObjectRecord((sObject)maps[0]);
+       // isLoaded = true;
         return true;
     }
 
@@ -404,7 +411,9 @@ public with sharing class MapComponentController extends ChildComponentBase {
     private List<MapMarkers> getSubmissionMarkers() {
 
         List<MapMarkers> markers = new List<MapMarkers>();
+        try {
         Map<String, Integer> surveyMarkersMap = new Map<String, Integer>();
+        
         Submission_Meta_Data__c[] submissions = Database.query(getSubmissionMarkersQuery());
         for (Submission_Meta_Data__c submission : submissions) {
             if (submission.Submission_Latitude__c == null || submission.Submission_Longitude__c == null) {
@@ -412,6 +421,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
             }
             SubmissionMapMarker marker = new SubmissionMapMarker(submission);
             marker.generateMarkerName(submission.Survey_Name__c);
+            
             marker.setMarkerColour(getColour(marker.getColour(), marker.getMarkerName()));
             markers.add(marker);
             if (surveyMarkersMap.containsKey(submission.Survey_Name__c)) {
@@ -423,6 +433,9 @@ public with sharing class MapComponentController extends ChildComponentBase {
         }
         for (String key : surveyMarkersMap.keySet()) {
             setStats('There are ' + surveyMarkersMap.get(key) + ' ' + key + ' matching your search<br/>');
+        }
+        }
+        catch(Exception e) {
         }
         return markers;
     }
@@ -458,13 +471,19 @@ public with sharing class MapComponentController extends ChildComponentBase {
     }
 
     private List<String> getSubmissionWhereClause() {
-
+        
+        System.debug('Reached begining of where clause');
         List<String> whereClauses = new List<String>();
         if (!getParentValue('District__c').equals('')) {
-            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.District__c', getParentValue('District__c'), true));
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Interviewer__r.District__c', getParentValue('District__c'), true));
         }
         if (!getParentValue('Subcounty__c').equals('')) {
-            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.Subcounty__c', getParentValue('Subcounty__c'), true));
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Interviewer__r.Subcounty__c', getParentValue('Subcounty__c'), true));
+        }
+        if (this.mapParameter.Keyword__c != null && !this.mapParameter.Keyword__c.equals('')) {
+           System.debug('Keyword: ' + this.mapParameter.Keyword__c);
+           whereClauses.add(SoqlHelpers.addInWhereClause('Survey_Name__c', false, this.mapParameter.Keyword__c, null, true));
+           //whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Survey_Name__c', this.mapParameter.Keyword__c, true));
         }
 
         // Distinguish by dates
@@ -474,6 +493,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
         if (getEndDate(false) != null) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Handset_Submit_Time__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
         }
+        System.debug('Reached end of where clause');
         return whereClauses;
     }
 

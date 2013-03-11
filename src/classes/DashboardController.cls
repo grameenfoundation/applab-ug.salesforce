@@ -395,7 +395,7 @@ public  class DashboardController {
             }
             metricDataWrapper.isHeader = metric.M_E_Metric__r.Is_Header__c;
             metricDataWrapper.setSubArea(metric.M_E_Metric__r.Sub_Area__c);
-           // metricDataWrapper.setLabel(metric.M_E_Metric__r.Label__c);
+            metricDataWrapper.setLabel(metric.M_E_Metric__r.Label__c);
             metricDataWrapper.setName(metricName);
             metricDataWrapper.isHeader = metric.M_E_Metric__r.Is_Header__c;
             metricDataWrapper.updatePeriod = metric.M_E_Metric__r.Update_Period__c;

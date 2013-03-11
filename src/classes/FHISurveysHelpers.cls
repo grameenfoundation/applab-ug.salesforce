@@ -2,6 +2,43 @@
  *  Class that deals with all FHI 360 surveys processing
 */
 public with sharing class FHISurveysHelpers {
+    
+    private static Map<String, String> subcountyMap = null;
+    
+    private static Map<String, String> getSubcountyMap() {
+        if (null == subcountyMap) {
+            subcountyMap = new Map<String, String>();
+            subcountyMap.put('Atwere', 'Awere');
+            subcountyMap.put('Atanga', 'Atanga');
+            subcountyMap.put('Puranga', 'Puranga');
+            subcountyMap.put('Pakwach', 'Pakwach');
+            subcountyMap.put('Kucwiny', 'Kucwiny');
+            subcountyMap.put('Parombo', 'Parombo');
+            subcountyMap.put('Pakwach Town Council', 'Pakwach TC');
+            subcountyMap.put('Okwalogwen', 'Okwalongwen');
+            subcountyMap.put('Agwata', 'Agwata');
+            subcountyMap.put('Dokolo', 'Dokolo');
+            subcountyMap.put('Omiya Pacwa', 'Omiya Pacwa');
+            subcountyMap.put('Omiya Pacwa(New, Curved out of Paimol S/C)', 'Omiya Pacwa Paimol');
+            subcountyMap.put('Omot', 'Omot');
+            subcountyMap.put('Patongo', 'Patongo');
+            subcountyMap.put('Loro', 'Loro');
+            subcountyMap.put('Abok', 'Abok');
+            subcountyMap.put('Aleka', 'Aleka');
+            subcountyMap.put('Ruhija', 'Ruhija');
+            subcountyMap.put('Muko', 'Muko');
+            subcountyMap.put('Nyamweru', 'Nyamweru');
+            subcountyMap.put('Nyabwishenya', 'Nyabwishenya');
+            subcountyMap.put('Nyundo', 'Nyundo');
+            subcountyMap.put('Bukimbiri', 'Bukimbiri');
+            subcountyMap.put('Kicuzi', 'Kicuzi');
+            subcountyMap.put('Nyamarebe', 'Nyamarebe');
+            subcountyMap.put('Kihihi', 'Kihiihi');
+            subcountyMap.put('Nyamirama', 'Nyamirama');
+            subcountyMap.put('Rugyeyo', 'Rugyeyo');
+        }
+        return subcountyMap;
+    }
 
     public static Map<String, M_E_Metric__c> metricMap = new Map<String, M_E_Metric__c>();
     
@@ -41,10 +78,10 @@ public with sharing class FHISurveysHelpers {
         
         String subcountyName = '';
         if (isNorth) {
-            subcountyName = translateNorthernSubcountyName(answers, districtValue);
+            subcountyName = getSubcountyMap().get(translateNorthernSubcountyName(answers, districtValue));
         }
         else {
-            subcountyName = translateSouthernSubcountyName(answers, districtValue);
+            subcountyName = getSubcountyMap().get(translateSouthernSubcountyName(answers, districtValue));
         }
         System.debug('Subcounty: ' + subcountyName);
         
@@ -288,10 +325,10 @@ public with sharing class FHISurveysHelpers {
         
         String subcountyName = '';
         if (isNorth) {
-            subcountyName = translateNorthernSubcountyNameReg(answers, districtValue);
+            subcountyName = getSubcountyMap().get(translateNorthernSubcountyNameReg(answers, districtValue));
         }
         else {
-            subcountyName = translateSouthernSubcountyNameReg(answers, districtValue);
+            subcountyName = getSubcountyMap().get(translateSouthernSubcountyNameReg(answers, districtValue));
         }
         System.debug('Subcounty: ' + subcountyName);
 
@@ -434,13 +471,13 @@ public with sharing class FHISurveysHelpers {
     }
     
     private static boolean getValue(String northBinding, String southBinding, Map<String, Submission_Answer__c> answers, boolean isNorth) {
-    	try {
+        try {
             boolean val = isNorth ? ProcessSubmissionHelpers.getAnswerNumber(answers.get(northBinding), northBinding, true) >= 1 :  ProcessSubmissionHelpers.getAnswerNumber(answers.get(southBinding), southBinding, true) >= 1;
             return val;
-    	}
-    	catch (Exception ex) {
-    	   return false;
-    	}
+        }
+        catch (Exception ex) {
+           return false;
+        }
     }
     
     /**
@@ -578,7 +615,7 @@ public with sharing class FHISurveysHelpers {
                 '2' => 'Kucwiny',
                 '3' => 'Parombo'
             };
-            subcountyName = translationMap.get(answers.get('q5_0').Answer__c);
+            subcountyName = translationMap.get(answers.get('q11_0').Answer__c);
         }
          else if (districtBinding.equals('3')) {
              // Dokolo
@@ -587,16 +624,17 @@ public with sharing class FHISurveysHelpers {
                 '2' => 'Agwata',
                 '3' => 'Dokolo'
             };
-            subcountyName = translationMap.get(answers.get('q6_0').Answer__c);
+            subcountyName = translationMap.get(answers.get('q25_0').Answer__c);
         }
          else if (districtBinding.equals('4')) {
              // Agago
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Amiya Pacwa',
-                '2' => 'Omot',
-                '3' => 'Patongo'
+                '1' => 'Omiya Pacwa',
+                '2' => 'Omiya Pacwa(New, Curved out of Paimol S/C)',
+                '3' => 'Omot',
+                '4' => 'Patongo'
             };
-            subcountyName = translationMap.get(answers.get('q7_0').Answer__c);
+            subcountyName = translationMap.get(answers.get('q27_0').Answer__c);
         }
          else if (districtBinding.equals('5')) {
              // Oyam
@@ -605,7 +643,7 @@ public with sharing class FHISurveysHelpers {
                 '2' => 'Abok',
                 '3' => 'Aleka'
             };
-            subcountyName = translationMap.get(answers.get('q8_0').Answer__c);
+            subcountyName = translationMap.get(answers.get('q36_0').Answer__c);
         }
         return subcountyName;
     }
@@ -623,9 +661,9 @@ public with sharing class FHISurveysHelpers {
         if (districtBinding.equals('1')) {        
             // Kabale
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Muko',
-                '2' => 'Nyawmeru',
-                '3' => 'Ruhija'
+                '1' => 'Ruhija',
+                '2' => 'Muko',
+                '3' => 'Nyawmeru'
             };
             subcountyName = translationMap.get(answers.get('q4_0').Answer__c);
         }
@@ -642,7 +680,7 @@ public with sharing class FHISurveysHelpers {
              // Ibanda
             Map<String, String> translationMap = new Map<String, String> {
                 '1' => 'Kicuzi',
-                '2' => 'Nyamrebe'
+                '2' => 'Nyamarebe'
             };
             subcountyName = translationMap.get(answers.get('q6_0').Answer__c);
         }
@@ -698,9 +736,10 @@ public with sharing class FHISurveysHelpers {
          else if (districtBinding.equals('4')) {
              // Agago
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Amiya Pacwa',
-                '2' => 'Omot',
-                '3' => 'Patongo'
+                '1' => 'Omiya Pacwa',
+                '2' => 'Omiya Pacwa(New, Curved out of Paimol S/C)',
+                '3' => 'Omot',
+                '4' => 'Patongo'
             };
             subcountyName = translationMap.get(answers.get('q27_0').Answer__c);
         }
@@ -729,9 +768,9 @@ public with sharing class FHISurveysHelpers {
         if (districtBinding.equals('1')) {        
             // Kabale
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Muko',
-                '2' => 'Nyawmeru',
-                '3' => 'Ruhija'
+                '1' => 'Ruhija',
+                '2' => 'Muko',
+                '3' => 'Nyawmeru'
             };
             subcountyName = translationMap.get(answers.get('q4_0').Answer__c);
         }
@@ -748,7 +787,7 @@ public with sharing class FHISurveysHelpers {
              // Ibanda
             Map<String, String> translationMap = new Map<String, String> {
                 '1' => 'Kicuzi',
-                '2' => 'Nyamrebe'
+                '2' => 'Nyamarebe'
             };
             subcountyName = translationMap.get(answers.get('q6_0').Answer__c);
         }
@@ -847,12 +886,12 @@ public with sharing class FHISurveysHelpers {
     }
     
     static testmethod void testFhiGroupNorthSurveyProcessing() {
-    	
-    	// Create Test Org, this is necessary for the creation of metrics
-    	Account acc =  Utils.createTestOrganisation('test Org');
-    	database.insert(acc);
-    	
-    	//Utils.createTestMetric(acc, calculationType, area, subDivide, appendCharacters)
+        
+        // Create Test Org, this is necessary for the creation of metrics
+        Account acc =  Utils.createTestOrganisation('test Org');
+        database.insert(acc);
+        
+        //Utils.createTestMetric(acc, calculationType, area, subDivide, appendCharacters)
         
         // Create Server Configuration
         Server_Configuration__c config = new Server_Configuration__c();

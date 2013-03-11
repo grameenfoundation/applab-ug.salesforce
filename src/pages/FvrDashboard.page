@@ -1,0 +1,310 @@
+<apex:page controller="DashboardController" extensions="FvrDashboardControllerExtension" title="Farmer Voice Radio Dashboard" sidebar="false">
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+    <c:AddCommonJavaScript />
+    <c:FvrModalComponant />
+    <style>
+        body .pbBody table.list tr.dataRow .htmlDetailElementTable td {
+            border:none; !important
+        }
+    </style>
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <script>
+        function openEditWindow(recordId, quarter) {
+             popup = window.open("{!$Page.MetricEdit}?quarter=" + quarter + "&sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
+             popup.focus(); 
+        };
+
+        function openBreakDown(metricName, quarter) {
+             popup = window.open("{!$Page.MetricDetailPage}?quarter=" + quarter + "&metricName=" + metricName + "&orgName='Farmer Voice Radio'", "lookup");
+             popup.focus(); 
+        };
+
+        function closeEditPopup() {
+            if(null != popup) {
+                popup.close()
+                popup = null;
+                window.location.reload();
+            }
+        };
+
+        function toggleDisable(bool) {
+            var elem = document.getElementById('{!$Component.theForm.thePageBlock.quarter}');
+            if (elem != null) {
+                elem.disabled = bool;
+            }
+            var elem = document.getElementById('{!$Component.theForm.thePageBlock.district}');
+            if (elem != null) {
+                elem.disabled = bool;
+            }
+        }
+
+        function submitForm() {
+
+            openModal('dialog', 'Fetching new values. Please wait');
+            if ({!hideDistrictSelector}) {
+                loadNewMetrics(
+                    getSingleSelectValue(document.getElementById('{!$Component.theForm.thePageBlock.quarter}')),
+                    '{!district}'
+                );
+            }
+            else {
+                loadNewMetrics(
+                    getSingleSelectValue(document.getElementById('{!$Component.theForm.thePageBlock.quarter}')),
+                    getSingleSelectValue(document.getElementById('{!$Component.theForm.thePageBlock.district}'))
+                );
+            }
+        }
+    </script>
+    <c:ErrorMessage />
+    <apex:form id="theForm">
+        <apex:actionFunction name="loadNewMetrics" action="{!loadPage}" rerender="thePageBlock, scale, impact, sustainability, quality, radioShows" oncomplete="closeModal('')">
+            <apex:param name="quarterParam" value=""/>
+            <apex:param name="districtParam" value=""/>
+        </apex:actionFunction>
+        <apex:pageblock id="thePageBlock">
+            <div class="tableRow">
+            <apex:selectList value="{!quarter}" multiselect="false" size="1" id="quarter">
+                <apex:selectOptions value="{!quarters}"></apex:selectOptions>
+            </apex:selectList>
+             <apex:selectList rendered="{!IF((hideDistrictSelector==false), true, false)}" value="{!district}" multiselect="false" size="1" id="district">
+                <apex:selectOptions value="{!districtList}"></apex:selectOptions>
+            </apex:selectList>
+            <button id="submit" class="submit" type="button" onclick="submitForm()">Go</button>
+            <div style="display:inline;padding-left:10px;visibility:{!IF(((isUpdateable == 'true') && (isEditMode == 'false') && ($Profile.Name != 'Ckw Public Dashboard Profile')),'visible','hidden')}">
+                 <a href='{!$Page.FvrDashboard}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=true'>Update Metrics</a>
+            </div>
+            <div style="display:inline;padding-left:10px;visibility:{!IF(isEditMode == 'true','visible','hidden')}">
+                You are currently in Update Mode: <a href='{!$Page.FvrDashboard}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=false'>Leave Update Mode</a>
+            </div>
+            <apex:outputText rendered="{!isCurrentQuarter}" ></apex:outputText>
+            </div>
+        </apex:pageblock>
+
+        <apex:pageBlock title="Scale" id="scale">
+            Strengthening and Scaling the Farmer Voice Services 
+            <br/><br/>
+            <apex:pageBlockTable value="{!scaleData}" var="item">
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText value="{!item.label}" escape="false"/>
+                </apex:column>
+                <apex:column width="70px" headerValue="Target">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.target}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" headerValue="Actual">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="width:100%;height:100%;background-color:{!item.colour}">
+                            <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                                &nbsp;<apex:param value="{!item.currentValue}"/>
+                            </apex:outputText>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                 <apex:column width="70px" headerValue="Prev. Actual" rendered="{!showPreviousQuarter}">
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}" rendered="{!NOT(item.isHeader)}">
+                        <apex:param value="{!item.previousValue}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Comment">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.comment}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
+                            <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                                Break Down
+                            </a>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="Update" rendered="{!isEditMode}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                            Update
+                        </a>
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Quality" id="quality">
+            Quality of Information and Services
+            <br/><br/>
+            <apex:pageBlockTable value="{!qualityData}" var="item">
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText value="{!item.label}" escape="false"/>
+                </apex:column>
+                <apex:column width="70px" headerValue="Target">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.target}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" headerValue="Actual">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="width:100%;height:100%;background-color:{!item.colour}">
+                            <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                                &nbsp;<apex:param value="{!item.currentValue}"/>
+                            </apex:outputText>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                 <apex:column width="70px" headerValue="Prev. Actual" rendered="{!showPreviousQuarter}">
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}" rendered="{!NOT(item.isHeader)}">
+                        <apex:param value="{!item.previousValue}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Comment">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.comment}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
+                            <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                                Break Down
+                            </a>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="Update" rendered="{!isEditMode}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                            Update
+                        </a>
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Sustainability" id="sustainability">
+            Sustainability of Farmer Voice Radio Services
+            <br/><br/>
+            <apex:pageBlockTable value="{!sustainabilityData}" var="item">
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText value="{!item.label}" escape="false"/>
+                </apex:column>
+                <apex:column width="70px" headerValue="Target">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.target}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" headerValue="Actual">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="width:100%;height:100%;background-color:{!item.colour}">
+                            <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                                &nbsp;<apex:param value="{!item.currentValue}"/>
+                            </apex:outputText>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                 <apex:column width="70px" headerValue="Prev. Actual" rendered="{!showPreviousQuarter}">
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}" rendered="{!NOT(item.isHeader)}">
+                        <apex:param value="{!item.previousValue}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Comment">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.comment}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
+                            <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                                Break Down
+                            </a>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="Update" rendered="{!isEditMode}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                            Update
+                        </a>
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Impact" id="impact">
+            Impact achieved through Farmer Voice Radio
+            <br/><br/>
+            <apex:pageBlockTable value="{!impactData}" var="item">
+                <apex:column headerValue="Indicator" width="400px">
+                    <apex:outputText value="{!item.label}" escape="false"/>
+                </apex:column>
+                <apex:column width="70px" headerValue="Target">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.target}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" headerValue="Actual">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="width:100%;height:100%;background-color:{!item.colour}">
+                            <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                                &nbsp;<apex:param value="{!item.currentValue}"/>
+                            </apex:outputText>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                 <apex:column width="70px" headerValue="Prev. Actual" rendered="{!showPreviousQuarter}">
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}" rendered="{!NOT(item.isHeader)}">
+                        <apex:param value="{!item.previousValue}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Comment">
+                        <apex:outputText rendered="{!NOT(item.isHeader)}">
+                            {!item.comment}
+                        </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
+                            <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
+                                Break Down
+                            </a>
+                        </div>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="Update" rendered="{!isEditMode}" width="50px">
+                    <apex:outputPanel rendered="{!NOT(item.isHeader)}">
+                        <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}', '{!quarter}');return false;">
+                            Update
+                        </a>
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Radio shows" id="radioShows">
+        <apex:outputPanel rendered="{!NOT(ISNULL(radioShows))}">
+            <br/><br/>
+            <apex:pageBlockTable value="{!radioShows}" var="show">
+                <apex:column headerValue="Radio Station">
+                    <apex:outputText value="{!show.Client_Location__r.Display_Name__c}" escape="false"/>
+                </apex:column>
+                <apex:column headerValue="Topic">
+                    <apex:outputText value="{!show.Display_Name__c}" escape="false"/>
+                </apex:column>
+                <apex:column headerValue="Description">
+                    <apex:outputText value="{!show.Description__c}" escape="false"/>
+                </apex:column>
+                <apex:column headerValue="Start Time">
+                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!show.Start_Time__c}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="End Time">
+                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!show.End_Time__c}"/>
+                    </apex:outputText>
+                </apex:column>
+            </apex:pageBlockTable>
+                </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

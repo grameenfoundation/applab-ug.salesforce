@@ -24,6 +24,77 @@ global class CreateSearchLogEntry {
         webservice Boolean inserted = false;
     }
 
+    // Only works for USSD batching
+    webservice static Boolean createNewSearchLogEntries(List<SearchLogEntry> searchLogEntries) {
+
+        List<Search_Log__c> searchLogs = new List<Search_Log__c>();
+        Map<String, Person__c> personMsisdnMap = getFarmerPersonObjects(searchLogEntries);
+        Decimal totalCompleteUssdSearches = 0.0;
+        Decimal totalIncompleteUssdSearches = 0.0;
+        Decimal totalInfoServices = 0.0;
+        String currentQuarterIndicator = MetricHelpers.getCurrentQuarterAsString(0);
+
+        for (SearchLogEntry searchLogEntry : searchLogEntries) {
+            Search_Log__c searchLog = new Search_Log__c();
+            searchLog.Server_Entry_Time__c = getDateFromString(searchLogEntry.serverEntryTime);
+            searchLog.Handset_Submit_Time__c =  getDateFromString(searchLogEntry.submissionTime);
+            searchLog.Category__c = searchLogEntry.category;
+            searchLog.Query__c = searchLogEntry.query;
+            searchLog.Response__c = searchLogEntry.content;
+            currentQuarterIndicator = getQuarterIndicator(searchLogEntry.submissionTime);
+
+            Long timeStamp = null;
+            if (searchLogEntry.submissionGPSTime != null) {
+                timeStamp = Long.valueOf(searchLogEntry.submissionGPSTime);
+            }
+            if (timeStamp == null || timeStamp == 0) {
+                searchLog.Submission_GPS_Timestamp__c = null;
+            }
+            else {
+                searchLog.Submission_GPS_Timestamp__c = datetime.newInstance(timeStamp);
+            }
+
+            searchLog.Latitude__c = 0.0;
+            searchLog.Longitude__c = 0.0;
+            searchLog.Altitude__c = 0.0;
+            searchLog.Accuracy__c = 0.0;
+            searchLog.Submission_Latitude__c = 0.0;
+            searchLog.Submission_Longitude__c = 0.0;
+            searchLog.Submission_Altitude__c = 0.0;
+            searchLog.Submission_Accuracy__c = 0.0;
+            searchLog.From_Ussd__c = true;
+
+            // Get interviewee: all ussd seaches assumed to be 'interviewee originated' and the interviewer is the same as the interviewee 
+            // Get farmer: interviewee assumed to be farmer
+            Person__c interviewee = personMsisdnMap.get(searchLogEntry.msisdn);
+            if(interviewee != null) {
+                searchLog.Interviewee__c = interviewee.Id;
+                searchLog.Interviewer__c = interviewee.Id;
+             	searchLog.OwnerId = interviewee.OwnerId;   
+            }
+
+            searchLogs.add(searchLog);
+
+            if (searchLogEntry.isCompleted == true) {
+
+                // For all ussd completed search attempts update total_complete_interactions_ussd_searches
+                totalCompleteUssdSearches += 1;
+                totalInfoServices += 1;
+            }
+            else{
+
+                // For all ussd search attempts update total_interactions_ussd_searches
+                totalIncompleteUssdSearches += 1;
+            }
+
+    }
+        insert searchLogs;
+        MetricHelpers.updateMetric('total_complete_interactions_ussd_searches', totalCompleteUssdSearches, null, null, MetricHelpers.getQuarterFirstDay(currentQuarterIndicator), MetricHelpers.getQuarterLastDay(currentQuarterIndicator), false);
+        MetricHelpers.updateMetric('total_info_services_offered', totalInfoServices, null, null, MetricHelpers.getQuarterFirstDay(currentQuarterIndicator), MetricHelpers.getQuarterLastDay(currentQuarterIndicator), false);
+        MetricHelpers.updateMetric('total_incomplete_interactions_ussd_searches', totalIncompleteUssdSearches, null, null, MetricHelpers.getQuarterFirstDay(currentQuarterIndicator), MetricHelpers.getQuarterLastDay(currentQuarterIndicator), false);
+        return true;
+    }
+
     webservice static SearchLogEntry createNewSearchLogEntry(SearchLogEntry searchLogEntry) {
 
         Search_Log__c searchLog = new Search_Log__c();
@@ -104,6 +175,7 @@ global class CreateSearchLogEntry {
             Person__c interviewer = getInterviewer(searchLogEntry);
             if(interviewer != null) {
                 searchLog.Interviewer__c = interviewer.Id; 
+                searchLog.OwnerId = interviewer.OwnerId;
             }
 
             // Save searchLog entry
@@ -140,6 +212,72 @@ global class CreateSearchLogEntry {
         Datetime dateValue = datetime.valueOf(dateString);
         return dateValue;
     }
+    
+    public static String getQuarterIndicator(String submissionTime) {
+
+        String[] submissionDate = submissionTime.split(' ');
+        String[] dateParts = submissionDate[0].split('-');
+        String year = dateParts[0];
+        Integer month = Integer.valueOf(dateParts[1]);
+        String quarterIndicator;
+
+        if (month <= 3) {
+            quarterIndicator = 'Jan - Mar ' + year;
+        }
+        else if (month <= 6) {
+            quarterIndicator = 'Apr - Jun ' + year;
+        }
+        else if (month <= 9) {
+            quarterIndicator = 'Jul - Sep ' + year;
+        }
+        else if (month <= 12) {
+            quarterIndicator = 'Oct - Dec ' + year;
+        }
+
+        return quarterIndicator;
+    }
+
+    public static Map<String, Person__c> getFarmerPersonObjects(List<SearchLogEntry> searchLogEntries) {
+
+        Map<String, Person__c> personMsisdnMap = new Map<String, Person__c>();
+        Map<String, Boolean> msisdnMap = new Map<String, Boolean>();
+
+        for (SearchLogEntry searchLogEntry : searchLogEntries) {
+            personMsisdnMap.put(searchLogEntry.msisdn, null);
+            msisdnMap.put(searchLogEntry.msisdn, false);
+        }
+
+        //Check if person exists: Get Id corresponding to msisdn
+        for (Person__c person : [
+            SELECT 
+                Id, Raw_Mobile_Number__c, OwnerId
+            FROM 
+                Person__c 
+            WHERE
+                Raw_Mobile_Number__c IN :(personMsisdnMap.keySet())
+         ]){
+                personMsisdnMap.put(person.Raw_Mobile_Number__c, person);
+         }
+
+        List<String> missingPersonMsisdns = new List<String>();
+        List<Person__c> missingPersons = new List<Person__c>();
+
+        for (String msisdn : personMsisdnMap.keySet()) {
+            if (null == personMsisdnMap.get(msisdn)) {
+                missingPersonMsisdns.add(msisdn);
+            }
+        }
+
+        missingPersons = createFarmerPersonObjects(missingPersonMsisdns);
+        createNewFarmerObjects(missingPersons);
+
+        for (Person__c person : missingPersons) {
+            personMsisdnMap.put(person.Raw_Mobile_Number__c, person);
+        }
+
+        createFarmerObjects(personMsisdnMap, msisdnMap);
+        return personMsisdnMap;	          
+    }
 
     public static Person__c getFarmerPersonObject(SearchLogEntry searchLogEntry) {
         Person__c person = new Person__c();
@@ -148,7 +286,7 @@ global class CreateSearchLogEntry {
             //Check if person exists: Get Id corresponding to msisdn
             Person__c[] people = [
 	            SELECT 
-	                Id 
+	                Id, OwnerId 
 	            FROM 
 	                Person__c 
 	            WHERE
@@ -181,7 +319,7 @@ global class CreateSearchLogEntry {
 
             Person__c[] people = [
                 SELECT
-                    Id
+                    Id, OwnerId
                 FROM 
                     Person__c
                 WHERE
@@ -209,7 +347,7 @@ global class CreateSearchLogEntry {
         Person__c person = new Person__c();
         Person__c[] people = [
             SELECT
-                Id
+                Id, OwnerId
             FROM
                 Person__c
             WHERE
@@ -234,7 +372,7 @@ global class CreateSearchLogEntry {
         //Check for existence of farmer with person.Id
         Farmer__c[] farmers = [
             SELECT 
-                Id 
+                Id, Person__r.OwnerId
             FROM 
                 Farmer__c 
             WHERE
@@ -248,6 +386,50 @@ global class CreateSearchLogEntry {
         }
     }
 
+    public static List<Person__c> createFarmerPersonObjects(List<String> missingPersonsMsisdns) {
+
+        List<Person__c> persons = new List<Person__c>();
+        for (String msisdn : missingPersonsMsisdns) {
+            Person__c person = new Person__c();
+            person.First_Name__c = 'Unknown USSD';
+            person.Last_Name__c = 'User';
+            person.Raw_Mobile_Number__c = msisdn;
+            persons.add(person);
+        }
+        insert persons;
+        return persons;
+    }
+
+    public static void createFarmerObjects(Map<String, Person__c> personMsisdnMap, Map<String, Boolean> personFarmerMap) {
+
+        List<Farmer__c> newFarmers = new List<Farmer__c>();
+        List<Farmer__c> farmers = new List<Farmer__c>();
+
+        for (Farmer__c farmer : [
+            SELECT 
+                Id,
+                Person__c, Person__r.OwnerId,
+                Person__r.Raw_Mobile_Number__c
+            FROM 
+                Farmer__c 
+            WHERE
+                Person__r.Raw_Mobile_Number__c IN :(personMsisdnMap.keySet()) 
+            ]) {
+
+                farmers.add(farmer);
+                personFarmerMap.put(farmer.Person__r.Raw_Mobile_Number__c, true);
+            } 
+
+        for (String msisdn : personMsisdnMap.keySet()) {
+            if (!personFarmerMap.get(msisdn)) {
+                Farmer__c farmer = new Farmer__c();
+                farmer.Person__c = personMsisdnMap.get(msisdn).Id;
+                newFarmers.add(farmer);
+            } 
+        } 
+        insert newFarmers;
+    }
+
     public static Person__c createFarmerPersonObject(SearchLogEntry searchLogEntry) {
 
         // Create the new person
@@ -258,6 +440,18 @@ global class CreateSearchLogEntry {
         insert person;
         return person;
     }
+    
+    public static void createNewFarmerObjects(List<Person__c> persons) {
+
+        List<Farmer__c> farmers = new List<Farmer__c>();
+        for (Person__c person : persons) {
+        	Farmer__c farmer = new Farmer__c();
+        	farmer.Person__c = person.Id;
+        	farmers.add(farmer);
+        }
+        insert farmers;
+    }
+    
 
     public static void createFarmerObject(Person__c person) {
 
@@ -271,7 +465,7 @@ global class CreateSearchLogEntry {
         Person__c person = new Person__c();
         Person__c[] people = [
             SELECT
-                Id,
+                Id, OwnerId,
                 GPS_Location_E__c,
                 GPS_Location_N__c
             FROM
@@ -308,35 +502,126 @@ global class CreateSearchLogEntry {
         createFarmerObject(testPerson);
     }
 
-    static testMethod void testCreateSearchLogEntry() {
-        SearchLogEntry entry = new SearchLogEntry();
-        entry.handsetId = 'MyTestHandsetId';
-        entry.serverEntryTime = '2010-01-01 00:00:00';
-        entry.submissionTime = '2010-01-01 00:00:00';
-        entry.farmerId = 'MyTestFarmerId';
-        entry.latitude = '0.00';
-        entry.longitude = '0.00';
-        entry.altitude = '0.00';
-        entry.accuracy = '0.00';
-        entry.submissionLatitude = '0.00';
-        entry.submissionLongitude = '0.00';
-        entry.submissionAltitude = '0.00';
-        entry.submissionAccuracy = '0.00';
-        entry.submissionGPSTime = '0';
-        entry.category = 'Category';
-        entry.query = 'Query';
-        entry.content = 'Content';
-        entry.msisdn = 'MyMsisdn';
+    static testMethod void testGetQuarterIndicator(){
+        String testTime1 = '2010-01-01 00:00:00';
+        getQuarterIndicator(testTime1);
+        String testTime2 = '2010-04-01 00:00:00';
+        getQuarterIndicator(testTime2);
+        String testTime3 = '2010-07-01 00:00:00';
+        getQuarterIndicator(testTime3);
+        String testTime4 = '2010-11-01 00:00:00';
+        getQuarterIndicator(testTime4);
+    }
 
-        SearchLogEntry createdEntry = createNewSearchLogEntry(entry);
-        System.assert(createdEntry.inserted);
+    static testMethod void testCreateSearchLogEntry() {
+        SearchLogEntry entry1 = new SearchLogEntry();
+        entry1.handsetId = 'MyTestHandsetId1';
+        entry1.serverEntryTime = '2010-01-01 00:00:00';
+        entry1.submissionTime = '2010-01-01 00:00:00';
+        entry1.farmerId = 'MyTestFarmerId1';
+        entry1.latitude = '0.00';
+        entry1.longitude = '0.00';
+        entry1.altitude = '0.00';
+        entry1.accuracy = '0.00';
+        entry1.submissionLatitude = '0.00';
+        entry1.submissionLongitude = '0.00';
+        entry1.submissionAltitude = '0.00';
+        entry1.submissionAccuracy = '0.00';
+        entry1.submissionGPSTime = '0';
+        entry1.category = 'Category1';
+        entry1.query = 'Query1';
+        entry1.content = 'Content1';
+        entry1.msisdn = 'MyMsisdn1';
+
+        SearchLogEntry createdEntry1 = createNewSearchLogEntry(entry1);
+        System.assert(createdEntry1.inserted);
         loadTestPerson();
 
-        getInterviewer(entry);
-        createFarmerPersonObject(entry);
+        getInterviewer(entry1);
+        createFarmerPersonObject(entry1);
 
-        getFarmerPersonObject(entry);
+        getFarmerPersonObject(entry1);
         testcreateFarmerObject();
+
+        SearchLogEntry entry2 = new SearchLogEntry();
+        entry2.handsetId = 'MyTestHandsetId2';
+        entry2.serverEntryTime = '2010-01-01 00:00:00';
+        entry2.submissionTime = '2010-01-01 00:00:00';
+        entry2.farmerId = 'MyTestFarmerId2';
+        entry2.latitude = '0.00';
+        entry2.longitude = '0.00';
+        entry2.altitude = '0.00';
+        entry2.accuracy = '0.00';
+        entry2.submissionLatitude = '0.00';
+        entry2.submissionLongitude = '0.00';
+        entry2.submissionAltitude = '0.00';
+        entry2.submissionAccuracy = '0.00';
+        entry2.submissionGPSTime = '0';
+        entry2.category = 'Category2';
+        entry2.query = 'Query2';
+        entry2.content = 'Content2';
+        entry2.msisdn = 'MyMsisdn2';
+        entry2.isUssd = true;
+        entry2.isCompleted = true;
+
+        SearchLogEntry createdEntry2 = createNewSearchLogEntry(entry2);
+        System.assert(createdEntry2.inserted);
+        loadTestPerson();
+
+        getInterviewer(entry2);
+        createFarmerPersonObject(entry2);
+
+        getFarmerPersonObject(entry2);
+        testcreateFarmerObject();
+
+    }
+
+    static testMethod void testCreateSearchLogEntries() {
+
+        List<SearchLogEntry> searchLogs = new List<SearchLogEntry>();
+
+        SearchLogEntry entry1 = new SearchLogEntry();
+        entry1.handsetId = 'MyTestHandsetId1';
+        entry1.serverEntryTime = '2010-01-01 00:00:00';
+        entry1.submissionTime = '2010-01-01 00:00:00';
+        entry1.farmerId = 'MyTestFarmerId1';
+        entry1.latitude = '0.00';
+        entry1.longitude = '0.00';
+        entry1.altitude = '0.00';
+        entry1.accuracy = '0.00';
+        entry1.submissionLatitude = '0.00';
+        entry1.submissionLongitude = '0.00';
+        entry1.submissionAltitude = '0.00';
+        entry1.submissionAccuracy = '0.00';
+        entry1.submissionGPSTime = '0';
+        entry1.category = 'Category';
+        entry1.query = 'Query';
+        entry1.content = 'Content';
+        entry1.msisdn = 'MyMsisdn1';
+        searchLogs.add(entry1);
+
+        SearchLogEntry entry2 = new SearchLogEntry();
+        entry2.handsetId = 'MyTestHandsetId2';
+        entry2.serverEntryTime = '2010-01-01 00:00:00';
+        entry2.submissionTime = '2010-01-01 00:00:00';
+        entry2.farmerId = 'MyTestFarmerId2';
+        entry2.latitude = '0.00';
+        entry2.longitude = '0.00';
+        entry2.altitude = '0.00';
+        entry2.accuracy = '0.00';
+        entry2.submissionLatitude = '0.00';
+        entry2.submissionLongitude = '0.00';
+        entry2.submissionAltitude = '0.00';
+        entry2.submissionAccuracy = '0.00';
+        entry2.submissionGPSTime = '0';
+        entry2.category = 'Category';
+        entry2.query = 'Query';
+        entry2.content = 'Content';
+        entry2.msisdn = 'MyMsisdn2';
+        searchLogs.add(entry2);
+
+		getFarmerPersonObjects(searchLogs);
+        System.assert(createNewSearchLogEntries(searchLogs));
 
     }
 }

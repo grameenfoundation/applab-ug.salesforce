@@ -89,6 +89,17 @@ This is to get around the limits that salesforce imposes</description>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Distances__c</fullName>
+        <defaultValue>&quot;0&quot;</defaultValue>
+        <description>Comma separated list of distances for each activity</description>
+        <externalId>false</externalId>
+        <label>Distances</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>End_Time__c</fullName>
         <description>The last submission for this time period</description>
         <externalId>false</externalId>
@@ -193,6 +204,28 @@ This is to get around the limits that salesforce imposes</description>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>PA_Products_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>PA Products Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PA_Products__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>PA_Products</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Person__c</fullName>
         <description>The person object for the TDR that this is linked to</description>
         <externalId>false</externalId>
@@ -244,6 +277,16 @@ This is to get around the limits that salesforce imposes</description>
         <label>Start Time</label>
         <required>false</required>
         <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Times__c</fullName>
+        <defaultValue>&quot;0&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Times</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Type__c</fullName>

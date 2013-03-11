@@ -157,7 +157,7 @@ public with sharing class FieldOfficeHelpers {
         fop.Used_Ckw__c = getAnswerNumber(answers.get('q79_0'), 'q79');
         fop.Farmers_Opinion__c = translateFarmerOpinion(getAnswerString(answers.get('q78_0')));
         fop = parseFarmerMajorComplaints(getAnswerSet(answers.get('q75_0')), fop);
-        fop.Additional_Comments__c = getAnswerString(answers.get('q82_0'));
+        //fop.Additional_Comments__c = getAnswerString(answers.get('q82_0'));
         return fop;
     }
 
@@ -468,7 +468,7 @@ public with sharing class FieldOfficeHelpers {
         // Test farmer group
         answers.put('q86_0', Utils.createTestSubmissionAnswer(null, '', '1 1 1 1 1', null, null, null));
         answers.put('q1_0', Utils.createTestSubmissionAnswer(null, '', '4', null, null, null));
-        answers.put('q82_0', Utils.createTestSubmissionAnswer(null, '', 'Tahoma calls. It\'s waiting there to get rid of us all', null, null, null));
+        //answers.put('q82_0', Utils.createTestSubmissionAnswer(null, '', 'Tahoma calls. It\'s waiting there to get rid of us all', null, null, null));
         answers.put('q72_0', Utils.createTestSubmissionAnswer(null, '', '11', null, null, null));
         answers.put('q80_0', Utils.createTestSubmissionAnswer(null, '', '1', null, null, null));
         answers.put('q79_0', Utils.createTestSubmissionAnswer(null, '', '1', null, null, null));

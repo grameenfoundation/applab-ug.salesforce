@@ -111,6 +111,10 @@
                 <behavior>Edit</behavior>
                 <field>LAC_Farmer_Id_Temp__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Contact__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -168,6 +172,7 @@
         <fields>CKW_Type__c</fields>
         <fields>CREATEDBY_USER</fields>
         <fields>CREATED_DATE</fields>
+        <fields>Active_Date__c</fields>
         <relatedList>CKW__c.Person__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -322,6 +327,10 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>Field_Officer_Productivity_Targets__c.Field_Officer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>TDR_Weekly_Report__c.Person__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

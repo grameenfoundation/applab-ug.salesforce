@@ -1278,6 +1278,16 @@
         <visibleLines>3</visibleLines>
     </fields>
     <label>LAC Farm</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>LAC_Household__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <label>LAC Farm Name</label>
         <trackHistory>false</trackHistory>
@@ -1285,5 +1295,5 @@
     </nameField>
     <pluralLabel>LAC Farms</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

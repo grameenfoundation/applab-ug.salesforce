@@ -52,6 +52,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>People</relationshipLabel>
+        <relationshipName>People</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Country__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>Country where person comes from</description>
@@ -417,6 +429,10 @@ IF( NOT( ISBLANK( Handset__c)),
                 <fullName>Opportunity International</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>BVAT</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -457,9 +473,12 @@ IF( NOT( ISBLANK( Handset__c)),
         <columns>First_Name__c</columns>
         <columns>Last_Name__c</columns>
         <columns>Middle_Name__c</columns>
+        <columns>Contact__c</columns>
         <columns>Handset__c</columns>
         <columns>Mobile_Number__c</columns>
         <columns>Raw_Mobile_Number__c</columns>
+        <columns>Country__c</columns>
+        <columns>OWNER.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>Country__c</field>

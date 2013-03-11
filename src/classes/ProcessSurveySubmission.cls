@@ -552,12 +552,12 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('MTN_CHANNELS')) {
                 return MtnChannelsHelpers.processChannelsFFPSSurvey(surveySubmission, answers, interviewer);
             }
-           // else if (survey.Post_Processing_Method__c.equals('FHI_GROUP_REGISTRATION')) {
-            //return FHISurveysHelpers.processGroupRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
-           // }
-            //else if (survey.Post_Processing_Method__c.equals('FHI_HOUSEHOLD_REGISTRATION')) {
-              // return FHISurveysHelpers.processHouseholdRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
-            //}
+            else if (survey.Post_Processing_Method__c.equals('FHI_GROUP_REGISTRATION')) {
+                return FHISurveysHelpers.processGroupRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FHI_HOUSEHOLD_REGISTRATION')) {
+                return FHISurveysHelpers.processHouseholdRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
             else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
                 return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
             }
@@ -570,15 +570,15 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
                 return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
             }
-        //    else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
-         //       return BracSurveysHelpers.processHealthProgrammeSurvey(surveySubmission, answers, interviewer);
-         //   }
-         //   else if (survey.Post_Processing_Method__c.equals('TDR_PA_PRODUCTS')) {
-         //       return TdrHelpers.processTdrPaProductsSurvey(surveySubmission, interviewer);
-         //   }
-         //   else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
-         //       return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
-         //   }
+            else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
+                return BracSurveysHelpers.processHealthProgrammeSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('TDR_PA_PRODUCTS')) {
+                return TdrHelpers.processTdrPaProductsSurvey(surveySubmission, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
+                return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');
@@ -790,5 +790,4 @@ global class ProcessSurveySubmission {
         surveySubmission.json = 'none';
         SurveySubmission resultSurveySubmission = processSurveySubmission(surveySubmission);
     }
-
 }
