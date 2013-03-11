@@ -239,6 +239,15 @@ public with sharing class ProcessSubmissionHelpers {
         return extractAnswer(answerMap, answerKey, null);
     }
 
+    /** 
+     * This is for the new IBT surveys
+     */
+    public static gfsurveys__Answer__c extractAnswer(Map<String, gfsurveys__Answer__c> answers, String key) {
+    	if(answers.containsKey(key)) {
+    		return answers.get(key);
+    	}
+    	return null;
+    }
     
     /**
      *  Create a submission meta data object. This will allow the submissions to be mapped

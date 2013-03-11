@@ -376,6 +376,17 @@
         <type>Picklist</type>
     </fields>
     <label>LAC Farmer Details</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OWNER.ALIAS</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>Person__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <label>LAC Farmer Details Record Id</label>
         <trackHistory>false</trackHistory>
@@ -383,5 +394,5 @@
     </nameField>
     <pluralLabel>LAC Farmer Details</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

@@ -44,7 +44,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
             System.debug(LoggingLevel.INFO, 'Failed to init the data table');
             return 'FAIL';
         }
-
+        system.debug('Graph data successfully initialised');
         // Set the dimensions of the graph
         setHeight('300');
         setWidth('700');
@@ -248,7 +248,9 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         if (getFieldValue('Type_Of_Graph__c').equals('PieChart')) {
             this.graphColumns.add(new GraphColumnWrapper('number', getFieldValue('yAxis_Title__c'))); 
         }
-        else {
+        else if (getFieldValue('Type_Of_Graph__c').equalsIgnoreCase('LineChart')) {
+
+            // This is lazy when the next dashboard that needs a line graph is created this will have to change
             this.graphColumns.add(new GraphColumnWrapper('number', 'Rain Fall MM')); 
        }
     }
@@ -319,14 +321,10 @@ public with sharing class GraphComponentController extends ChildComponentBase {
              success = initTrendDataTable();
         }
         else if (typeOfGraph.equalsIgnoreCase('ColumnChart')) {
-
-            // Not implemented yet so this type should not have been selected so fail
-            success = false;
+            success = initColumnDataTable();
         }
         else if (typeOfGraph.equalsIgnoreCase('BarChart')) {
-
-            // Not implemented yet so this type should not have been selected so fail
-            success = false;
+            success = initBarDataTable();
         }
         else if (typeOfGraph.equalsIgnoreCase('PieChart')) {
             success = initPieDataTable();
@@ -338,7 +336,97 @@ public with sharing class GraphComponentController extends ChildComponentBase {
     }
 
     /**
-     *  Each segment of pie is represented by a graph type
+     * Init a column chart
+     */
+    private Boolean initColumnDataTable() {
+
+        Boolean success = true;
+
+        // Get all the segments of the pie
+        Graph_Type__c[] segments = [
+            SELECT
+                Name,
+                Id,
+                Type_Of_sObject__c,
+                Label__c,
+                Keyword__c,
+                Is_Multiple__c,
+                Calculation__c,
+                Group_Field__c,
+                Person_Prefix__c
+            FROM
+                Graph_Type__c
+            WHERE
+                Graph_Parameter__c = :getsObjectRecord().Id];
+
+        for (Graph_Type__c segment : segments) {
+            String sObjectName = segment.Type_Of_sObject__c;
+            System.debug(LoggingLevel.INFO, sObjectName);
+            if (segment.Is_Multiple__c) {
+                getMultipleColumnChart(segment);
+            }
+            else {
+                system.debug('returning false');
+                return false;
+            }
+        }
+        return success;
+    }
+
+    private void getMultipleColumnChart(Graph_Type__c definition) {
+
+        Integer counter = 0;
+        Map<String, String> fieldStore = new Map<String, String>();
+        String query = 'SELECT ';
+        for (String field : definition.Label__c.split('_#splitter#_')) {
+            query += ' ' + definition.Calculation__c + '(' + field + ') field' + counter + ', ';
+            fieldStore.put('field' + counter, field);
+            counter++;
+            String objectName = definition.Type_Of_sObject__c.replace(' ', '_') + '__c';
+            if (field.contains('__r.')) {
+                List<String> names = field.split('__r.');
+                objectName = names[names.size() - 2] + '__c';
+                field = names[names.size() - 1];
+            }
+
+            // Add the column wrappers
+            Schema.DescribeFieldResult fieldRes = Schema.getGlobalDescribe().get(objectName).getDescribe().fields.getMap().get(field).getDescribe();
+            this.graphColumns.add(new GraphColumnWrapper('number', fieldRes.getLabel()));
+        }
+        query += getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false) + ' grouping ' +
+            ' FROM ' +
+                definition.Type_Of_sObject__c.replace(' ', '_') + '__c' +
+            ' WHERE ' +
+                generateWhereClause(definition.Person_Prefix__c) + 
+            ' GROUP BY ' +
+                getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false);
+        System.debug(LoggingLevel.INFO, query);
+        AggregateResult[] results = Database.query(query);
+        for (AggregateResult result : results) {
+            GraphComponentController.GraphRowWrapper wrapper = new GraphComponentController.GraphRowWrapper(String.valueOf(result.get('grouping')));
+            for (Integer i = 0; i < counter; i++) {
+                wrapper.addValue(String.valueOf(result.get('field' + i)));
+            }
+            System.debug('Wrapper:' + wrapper);
+            System.debug('Row order: ' + String.valueOf(result.get('grouping')));
+            this.rowOrder.add(String.valueOf(result.get('grouping')));
+            this.rowMap.put(String.valueOf(result.get('grouping')), wrapper);
+        }
+        system.debug('Number of rows: ' + this.rowMap.size());
+    }
+
+    /**
+     * Init a bar chart. Have not been asked for this yet so not implemented yet. This is a placeholder stub
+     */
+    private Boolean initBarDataTable() {
+
+        Boolean success = false;
+        return success;
+    }
+
+    /**
+     * Each segment of pie is represented by a graph type unless getting multiple records from the same sObject.
+     * Then is is one type for all the segments belonging to that sObject
      */
     private Boolean initPieDataTable() {
 
@@ -349,7 +437,11 @@ public with sharing class GraphComponentController extends ChildComponentBase {
                 Id,
                 Type_Of_sObject__c,
                 Label__c,
-                Keyword__c
+                Keyword__c,
+                Is_Multiple__c,
+                Calculation__c,
+                Group_Field__c,
+                Person_Prefix__c
             FROM
                 Graph_Type__c
             WHERE
@@ -358,7 +450,10 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         for (Graph_Type__c segment : segments) {
             String sObjectName = segment.Type_Of_sObject__c;
             System.debug(LoggingLevel.INFO, sObjectName);
-            if (sObjectName.equalsIgnoreCase('Search Log')) {
+            if (segment.Is_Multiple__c) {
+                getMultiplePieChart(segment);
+            }
+            else if (sObjectName.equalsIgnoreCase('Search Log')) {
                 this.rowOrder.add(segment.Keyword__c);
                 getPieSearchLogValue(segment);
             }
@@ -373,23 +468,48 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         return true;
     }
 
+    private void getMultiplePieChart(Graph_Type__c definition) {
+
+        Integer counter = 0;
+        Map<String, String> fieldStore = new Map<String, String>();
+        String query = 'SELECT ';
+        for (String field : definition.Label__c.split('_#splitter#_')) {
+            query += ' ' + definition.Calculation__c + '(' + field + ') field' + counter + ', ';
+            fieldStore.put('field' + counter, field);
+            counter++;
+        }
+        query += getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false) + ' grouping ' +
+            ' FROM ' +
+                definition.Type_Of_sObject__c.replace(' ', '_') + '__c' +
+            ' WHERE ' +
+                generateWhereClause(definition.Person_Prefix__c) +
+            ' GROUP BY ' +
+                getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false);
+        System.debug(LoggingLevel.INFO, query);
+        AggregateResult[] results = Database.query(query);
+        for (AggregateResult result : results) {
+            for (Integer i = 0; i < counter; i++) {
+                Schema.DescribeFieldResult field = Schema.getGlobalDescribe().get(definition.Type_Of_sObject__c.replace(' ', '_') + '__c').getDescribe().fields.getMap().get(fieldStore.get('field' + i)).getDescribe();
+                GraphComponentController.GraphRowWrapper wrapper = new GraphComponentController.GraphRowWrapper(field.getLabel());
+                wrapper.addValue(String.valueOf(result.get('field' + i)));
+                this.rowOrder.add(fieldStore.get('field' + i));
+                this.rowMap.put(fieldStore.get('field' + i), wrapper);
+            }
+        }
+    }
+
     private void getPieSinglePointValue(Graph_Type__c segment) {
 
         String id = segment.Id;
-        String queryBase = 'SELECT '             +
-                'sum(Value__c) total, '          +
-                'Graph_Type__c type '            +
-            'FROM '                              +
-                'Single_Graph_Point__c '         +
-            'WHERE '                             +
-                'Graph_Type__r.Id = :id ';
-        List<String> whereClauses = generateSinglePointWhereClause();
-        String whereClause = '';
+        String queryBase = 'SELECT ' +
+                'sum(Value__c) total, ' +
+                'Graph_Type__c type ' +
+            'FROM ' +
+                'Single_Graph_Point__c ' +
+            'WHERE ' +
+                'Graph_Type__r.Id = :id AND ';
 
-        if (whereClauses.size() > 0) {
-            whereClause = SoqlHelpers.joinWhereClause(whereClauses, true);
-        }
-        String query = queryBase + whereClause + 'Group By Graph_Type__c';
+        String query = queryBase + generateWhereClause('') + 'Group By Graph_Type__c';
         System.debug(LoggingLevel.INFO, query);
 
         AggregateResult result = Database.query(query);
@@ -479,46 +599,88 @@ public with sharing class GraphComponentController extends ChildComponentBase {
             'FROM '                      +
                 'Single_Graph_Point__c ' +
             'WHERE '                     +
-                'Graph_Type__r.Graph_Parameter__r.Id = :id ';
+                'Graph_Type__r.Graph_Parameter__r.Id = :id AND ' +
+                generateWhereClause('', false);
 
-        List<String> whereClauses = generateSinglePointWhereClause();
-        String whereClause = '';
-
-        if (whereClauses.size() > 0) {
-            whereClause = SoqlHelpers.joinWhereClause(whereClauses, true);
-        }
-        String query = baseString + whereClause + getGroupByClause() + getOrderByClause();
+        String query = baseString + ' GROUP BY ' + getGroupByClause('Group_By_Date__c', '', true) + getOrderByClause();
         System.debug(LoggingLevel.INFO, query);
         return query;
     }
 
-    private List<String> generateSinglePointWhereClause() {
+    private String generateWhereClause(String personPrefix) {
+
+        return generateWhereClause(personPrefix, true);
+    }
+
+    private String generateWhereClause(String personPrefix, Boolean isDate) {
+
+        if (personPrefix == null) {
+            personPrefix = '';
+        }
 
         List<String> whereClauses = new List<String>();
 
         // Get the parameters if there are any
         if (this.getParentComponentController() != null) {
             if (!this.getParentValue('District__c').equals('')) {
-                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.District__c', this.getParentValue('District__c'), true));
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__r.District__c', this.getParentValue('District__c'), true));
             }
             if (!this.getParentValue('Subcounty__c').equals('')) {
-                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.Subcounty__c', this.getParentValue('Subcounty__c'), true));
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__r.Subcounty__c', this.getParentValue('Subcounty__c'), true));
+            }
+            if (!this.getParentValue('Village__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__r.Village__c', this.getParentValue('Village__c'), true));
+            }
+            if (!this.getParentValue('Person__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__c', this.getParentValue('Person__c'), true));
+            }
+            if (!this.getParentValue('Client_Location__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Client_Location__c', this.getParentValue('Client_Location__c'), true));
             }
         }
 
         // Distinguish by dates
         if (getStartDate(true) != null) {
-            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(true)), false), false));
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(true)), isDate), false));
         }
         if (getEndDate(true) != null) {
-            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(true)), false), false));
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(true)), isDate), false));
         }
-        return whereClauses;
+        String whereClause = '';
+        if (whereClauses.size() > 0) {
+            whereClause = SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        return whereClause;
     }
+    
+    private String getGroupByClause(String returnValue, String prefix, Boolean forceDefault) {
 
-    private String getGroupByClause() {
+        if (forceDefault) {
+            return returnValue;
+        }
+        
+        if (null == prefix) {
+            prefix = '';
+        } else {
+            prefix += '.';
+        }
 
-        return ' GROUP BY Group_By_Date__c';
+        // Get the parameters if there are any
+        if (this.getParentComponentController() != null) {
+            if (!this.getParentValue('District__c').equals('')) {
+                returnValue = prefix + 'Person__r.District__c';
+            }
+            if (!this.getParentValue('Subcounty__c').equals('')) {
+                returnValue = prefix + 'Person__r.Subcounty__c';
+            }
+            if (!this.getParentValue('Village__c').equals('')) {
+                returnValue = prefix + 'Person__r.Village__c';
+            }
+            if (!this.getParentValue('Person__c').equals('')) {
+                returnValue = prefix + 'Person__c';
+            }
+        }
+        return returnValue;
     }
 
     private String getOrderByClause() {
@@ -592,9 +754,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
         Graph_Type__c graphType = new Graph_Type__c();
         graphType.Graph_Parameter__c = graph.Id;
-        graphType.Group_Field__c = 'Val';
         Database.insert(graphType);
-
 
         List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
         Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
@@ -619,7 +779,6 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         sgps.add(sgp3);
         Database.insert(sgps);
 
-
         GraphComponentController controller = new GraphComponentController();
         controller.setExpanded(true);
         controller.setsObjectId(graph.Id);
@@ -641,7 +800,6 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         Database.insert(graph2);
 
         Graph_Type__c graphType2 = new Graph_Type__c();
-        graphType2.Group_Field__c = 'Val';
         graphType2.Graph_Parameter__c = graph2.Id;
         Database.insert(graphType2);
 

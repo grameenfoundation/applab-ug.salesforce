@@ -41,6 +41,18 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Country__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <referenceTo>Country__c</referenceTo>
+        <relationshipLabel>Accounts</relationshipLabel>
+        <relationshipName>Accounts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Endowment__c</fullName>
         <externalId>false</externalId>
         <label>Endowment</label>
@@ -1982,6 +1994,29 @@
         <errorMessage>A valid 2 letter state abbreviation is required</errorMessage>
     </validationRules>
     <webLinks>
+        <fullName>Create_Connection</fullName>
+        <availability>online</availability>
+        <description>used to create connection from organization to other contacts outside of that organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Create Connection</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>ContactConnectionCreatefromOrganization</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>GenerateMailingLabels</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>750</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Generate Mailing Labels</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>GenerateMailingLabels</scontrol>
+    </webLinks>
+    <webLinks>
         <fullName>Mass_Edit</fullName>
         <availability>online</availability>
         <displayType>massActionButton</displayType>
@@ -2004,6 +2039,30 @@
         <page>MassUpdateAccount</page>
         <protected>false</protected>
         <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Organization_Pledge</fullName>
+        <availability>online</availability>
+        <description>setup pledge from organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Pledge</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>DonationSetupPledgefromOrganization</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>Organization_Recurring_Donation</fullName>
+        <availability>online</availability>
+        <description>setup recurring donation from organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Recurring Donation</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>DonationSetupRecurringfromOrganization</scontrol>
     </webLinks>
     <webLinks>
         <fullName>View_Connections</fullName>

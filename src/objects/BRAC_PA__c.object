@@ -48,12 +48,32 @@
             <controllingField>Region__c</controllingField>
             <picklistValues>
                 <fullName>Arua</fullName>
+                <controllingFieldValues>Northern</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kampala East</fullName>
+                <controllingFieldValues>Central</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mbale</fullName>
                 <controllingFieldValues>Eastern</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Kampala</fullName>
-                <controllingFieldValues>Central</controllingFieldValues>
+                <fullName>Mbarara</fullName>
+                <controllingFieldValues>South Western</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kabwohe</fullName>
+                <controllingFieldValues>South Western</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soroti</fullName>
+                <controllingFieldValues>Eastern</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -105,11 +125,11 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>South Western</fullName>
+                <fullName>Western</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Western</fullName>
+                <fullName>South Western</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -117,6 +137,11 @@
         <type>Picklist</type>
     </fields>
     <label>BRAC PA</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <label>BRAC PA Name</label>
         <type>Text</type>

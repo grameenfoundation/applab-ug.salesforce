@@ -31,10 +31,10 @@ public with sharing class BracSurveysHelpers {
         Client_Location__c clientLocation = loadClientLocation(bracPa);
         BRAC_Health_Visit__c healthVisit = getCurrentHealthVisit(bracPa);
         
-        Boolean isHouseholdVisit = answers.get('hh_hf_0').Answer__c.equals('1') ? true : false;
+        Boolean isHouseholdVisit = answers.get('hh_hf_0').Answer__c.equals('2') ? true : false;
         
         // Sort out the GPS for the submission. Look for the one in the survey. If that does not exist then use the background gps for the survey
-        String[] gps = isHouseholdVisit ? ProcessSubmissionHelpers.getAnswerString(answers.get('q12_0')).split(' ') : ProcessSubmissionHelpers.getAnswerString(answers.get('q34_0')).split(' ');
+        String[] gps = isHouseholdVisit ? ProcessSubmissionHelpers.getAnswerString(answers.get('q34_0')).split(' ') : ProcessSubmissionHelpers.getAnswerString(answers.get('q12_0')).split(' ');
 
         String latitude = submission.interviewLatitude;
         String longitude = submission.interviewLongitude;
@@ -209,7 +209,22 @@ public with sharing class BracSurveysHelpers {
         
         healthVisit.BRAC_PA_Target__c = target.Id;      
         healthVisit.Date__c = Date.today().toStartOfMonth();
-        //Database.insert(healthVisit);
+        healthVisit.Health_Visits__c = 0;
+        healthVisit.Households_Visited__c = 0;
+        healthVisit.Max_Distance_Traveled__c = 0;
+        healthVisit.CHP_Attended__c =0;
+        healthVisit.CHP_Visited__c = 0;
+        healthVisit.Pregnant_Women__c = 0;
+        healthVisit.Children_Immunised__c = 0;
+        healthVisit.Malaria_Under_5_Female__c = 0;
+        healthVisit.Malaria_Under_5_Male__c = 0;
+        healthVisit.Malaria_Over_5_Female__c = 0;
+        healthVisit.Malaria_Over_5_Male__c = 0;
+        healthVisit.Diarrhoea_Under_5_Male__c = 0;
+        healthVisit.Diarrhoea_Under_5_Female__c = 0;
+        healthVisit.Diarrhoea_Over_5_Male__c = 0;
+        healthVisit.Diarrhoea_Over_5_Female__c = 0;
+        Database.insert(healthVisit);
         return healthVisit;
     }    
 }

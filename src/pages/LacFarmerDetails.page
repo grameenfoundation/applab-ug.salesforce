@@ -1,0 +1,52 @@
+<apex:page standardController="LAC_Farmer_Details__c" extensions="LacFarmerDetailsController"
+    action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='xSystem Administrator',null,URLFOR($Action.LAC_Farmer_Details__c.View,LAC_Farmer_Details__c.Id,null,true))}">
+    <apex:outputText value="{!LAC_Farmer_Details__c.Person__c}" rendered="false"/>
+    <apex:sectionHeader title="Farmer" subtitle="{!LAC_Farmer_Details__c.Name}"/>
+    <apex:pageBlock title="Farmer Details" mode="maindetail" tabStyle="LAC_Farmer_Details__c">
+        <apex:pageBlockButtons location="top">
+            <apex:form >
+                <apex:commandButton action="{!edit}" value="Edit"/>
+                <apex:commandButton action="{!delete}" value="Delete"/>
+            </apex:form>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="2" title="Bio Data">
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.First_Name__c}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Middle_Name__c}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Last_Name__c}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Id}" label="Id"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Account.Name}" label="Group (partner)"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Village__c}" label="Location"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.GPS_Location_E__c}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.GPS_Location_N__c}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Brand__c}" label="Type of mobile phone"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Model__c}" label="Model of mobile phone"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Phone}" label="Mobile phone #"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2" title="Socio-economic">
+            <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__r.Registration_PPI_Score__c}" label="Poverty level (PPI)"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Gender__c}" />
+            <apex:outputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" label="Marginalization"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" title="Agronomic">
+            <apex:relatedList list="LAC_Farms__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}">
+                <apex:facet name="header"><div class='pbTitle'><h3>Farms</h3></div></apex:facet>
+            </apex:relatedList>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" title="Program">
+            <apex:outputField value="{!LAC_Farmer_Details__c.CreatedDate}" label="Date of start in the program"/>
+            <apex:outputText value="{!SubmissionsNum}" label="# surveys filled"/>
+            <apex:outputText value="{!SearchesNum}" label="# of information searches"/>
+            <apex:relatedList list="Search_Logs__r" subject="{!LAC_Farmer_Details__c.Person__c}">
+                <apex:facet name="header"><div class='pbTitle'><h3>Search logs</h3></div></apex:facet>
+            </apex:relatedList>
+            <apex:relatedList list="Messages__r" subject="{!LAC_Farmer_Details__c.Person__c}">
+                <apex:facet name="header"><div class='pbTitle'><h3># messages received </h3></div></apex:facet>
+            </apex:relatedList>
+            <apex:outputText value="{!(SubmissionsNum+SearchesNum+MessagesNum)}" label="Total # of interactions "/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" title="Other">
+            <!-- apex:relatedList list="ActivityHistories"/>
+            <apex:relatedList list="NotesAndAttachments"/-->
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

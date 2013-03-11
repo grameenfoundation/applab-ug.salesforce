@@ -390,7 +390,7 @@ public with sharing class FieldOfficerGraphController extends ChildComponentBase
                 'SUM(Major_Personal__c) personal, ' +
                 'SUM(Major_Payment__c) payment, ' +
                 'SUM(Major_Other__c) other, ' +
-                'SUM(Major_Network__c) network, ' +
+                'SUM(Major_Network__c) nettwork, ' +
                 'SUM(Major_Charge__c) charge' +
                 getSelectClause() +
             'FROM ' +
@@ -414,7 +414,7 @@ public with sharing class FieldOfficerGraphController extends ChildComponentBase
                 wrapper.addValue(String.valueOf(res.get('charge')));
                 wrapper.addValue(String.valueOf(res.get('payment')));
                 wrapper.addValue(String.valueOf(res.get('phone')));
-                wrapper.addValue(String.valueOf(res.get('network')));
+                wrapper.addValue(String.valueOf(res.get('nettwork')));
                 wrapper.addValue(String.valueOf(res.get('personal')));
                 wrapper.addValue(String.valueOf(res.get('other')));
                 this.rowMap.put(identifier, wrapper);

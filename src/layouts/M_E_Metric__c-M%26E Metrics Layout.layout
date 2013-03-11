@@ -127,9 +127,10 @@
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
-        <customLabel>false</customLabel>
+        <customLabel>true</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>true</editHeading>
+        <label>Custom Links</label>
         <layoutColumns/>
         <layoutColumns/>
         <layoutColumns/>
@@ -159,7 +160,13 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Denumerator__c</fields>
+        <fields>Numerator__c</fields>
+        <fields>Date__c</fields>
+        <fields>CREATED_DATE</fields>
         <relatedList>M_E_Metric_Data__c.M_E_Metric__c</relatedList>
+        <sortField>Date__c</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

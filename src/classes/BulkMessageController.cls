@@ -1,4 +1,4 @@
-public class BulkMessageController {
+public with sharing class BulkMessageController {
 
     String[] groups = new String[]{};
     String[] people = new String[]{};

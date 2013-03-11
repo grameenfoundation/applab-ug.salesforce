@@ -145,6 +145,10 @@
                 <fullName>Ministry</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>NAADS</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
@@ -407,6 +411,19 @@
             <value>Closed</value>
         </filters>
         <label>All Open Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>CKW_Cases_Queue</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>Person__c</columns>
+        <columns>Category__c</columns>
+        <columns>CASES.TYPE</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.CREATED_DATE</columns>
+        <filterScope>Queue</filterScope>
+        <label>CKW Cases Queue</label>
+        <queue>CKWCasesQueue</queue>
     </listViews>
     <listViews>
         <fullName>MyCases</fullName>
@@ -762,7 +779,7 @@
         <protected>false</protected>
         <showsLocation>false</showsLocation>
         <showsStatus>false</showsStatus>
-        <url>http://pmo.applab.org/plugins/servlet/customware/connector/issue/2/Case/create.action?id={!Case.Id}&amp;project=CKW+General&amp;issueType=Issue&amp;os_username=pmo&amp;os_password=pmo123</url>
+        <url>https://applab.atlassian.net/plugins/servlet/customware/connector/issue/2/Case/create.action?id={!Case.Id}&amp;project=CKW+General&amp;issueType=Issue&amp;skipSearch=true&amp;os_username=pmo&amp;os_password=pmo123</url>
     </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>

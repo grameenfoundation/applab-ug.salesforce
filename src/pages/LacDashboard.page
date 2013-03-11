@@ -1,0 +1,211 @@
+<!-- Use tabs within the page so that they shows up on one Salesforce tab -->
+<apex:page sidebar="false" showHeader="true" showChat="false" controller="LacDashboardController">
+    
+    <!-- Setup the tab css to match the page style !-->
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css"/>
+    
+    <!-- Some custom css for the tab headers (the text was a bit too small for my taste) !-->
+    <style type="text/css">
+    .lacBoldTabTitles { font-weight:bold; }
+    </style>
+    
+    <apex:form >
+        <apex:pageBlock title="Change Quarter">
+            <apex:selectList value="{!quarter}" multiselect="false" size="1">
+                <apex:selectOptions value="{!quarters}"></apex:selectOptions>
+            </apex:selectList>
+            <apex:commandButton value="Go" action="{!changeQuarter}"></apex:commandButton>
+            <apex:outputText rendered="{!isCurrentQuarter}" ></apex:outputText>
+        </apex:pageBlock>
+    </apex:form>
+    
+    <!-- Set up the tab panel !-->
+    <apex:tabPanel switchType="server" selectedTab="overview" id="lacDashboardTab" headerClass="lacBoldTabTitles">
+        <apex:tab label="Overview" name="overview" id="overviewTab">
+            
+            <!-- Css for the slider !-->
+            <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-ui-1.8.14.custom.min.js')}" />
+            <apex:includeScript value="{!$Resource.CommonJS}" />
+            <apex:includeScript value="{!URLFOR($Resource.nivoslider, 'nivo-slider/jquery.nivo.slider.pack.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.nivoslider, 'nivo-slider/themes/default/default.css')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.nivoslider, 'nivo-slider/nivo-slider.css')}" />
+            
+            <!-- Create a div to surround everything so that we have a white bg (the dashboard bg is white, so this helps it not look bad) - setting the tab bg style to white causes the header to appear funny !-->
+            <div style="display:block;background-color:white;width:100%;overflow:hidden;">
+                <apex:pageBlock >
+                            <apex:pageBlockTable value="{!overviewData}" var="item">
+                                <apex:column value="{!item['label']}" headerValue="Metric" width="400px"/>
+                                <apex:column width="70px" value="{!item['target']}" headerValue="Target"/>
+                                <apex:column width="70px">
+                                    <apex:facet name="header">Actual</apex:facet>
+                                    <div style="width:100%;height:100%;background-color:{!item['colour']}">
+                                        <apex:outputText value="{0}" >
+                                                <apex:param value="{!item['currentValue']}"/>
+                                        </apex:outputText>
+                                    </div>
+                                </apex:column>
+                                <apex:column width="70px" value="{!item['previousValue']}" headerValue="Prev. Actual"/>
+                            </apex:pageBlockTable>
+                        </apex:pageBlock>
+                        
+                <!-- The Slider !-->
+                <div class="slider-wrapper theme-default">
+                    <div class="ribbon"></div>
+                    <div id="slider" class="nivoSlider">
+                        <apex:image url="{!$Resource.lacimage1}" title="#caption1" height="556px"/>
+                        <apex:image url="{!$Resource.lacimage2}" title="#caption2" height="556px"/>
+                        <apex:image url="{!$Resource.lacimage3}" title="#caption3" height="556px"/>
+                    </div>
+                    <div id="caption1" class="nivo-html-caption">
+                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Coffee production in colombia</h3><br/>
+                        Grameen Foundation's connecting local coffee producers to major suppliers<br/>
+                        - Colombia
+                    </div>
+                    <div id="caption2" class="nivo-html-caption">
+                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Improving banana quality</h3><br/>
+                        Information from Grameen Foundation is paramount in improving banana yeilds and quality<br/>
+                        - Rwanda
+                    </div>
+                    <div id="caption3" class="nivo-html-caption">
+                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Large scale cacao production</h3><br/>
+                        Cacao is a major cash crop that could propel people out of poverty<br/>
+                        - Peru
+                    </div>
+                    <style type="text/css">
+                        .slider-wrapper {
+                            border-top: 1px solid #CCCCCC; 
+                            margin: 10px;
+                        }
+                        
+                        .theme-default #slider {
+                            /*margin: 0 auto 0 auto; */ /* This would center the slider */
+                            margin: 10px;
+                            width: 833px; /* Make sure your images are the same size */
+                            height: 400px;
+                        }
+                        
+                        .theme-default .nivo-controlNav { 
+                            width: 833px;
+                        }
+                        
+                        .theme-default .nivoSlider {
+                            position:relative;
+                            left: 0px;
+                            background:url(loading.gif) no-repeat 50% 50%;
+                            -webkit-box-shadow: none;
+                            -moz-box-shadow: none;
+                            box-shadow: none;
+                        }
+                        /* This would change the style of the slider caption text
+                            .nivo-caption {
+                            background:none;
+                            bottom:55px;
+                            left:50px;
+                            width:350px;
+                            color: white;
+                            font-size:15px;
+                            font-weight: bold;
+                            text-shadow: 0px 1px 0px black;
+                        }*/
+                    </style>
+                    <script type="text/javascript"> 
+                        var j$ = jQuery.noConflict();
+                        j$(document).ready(function() {
+                            j$('#slider').nivoSlider(
+                                {
+                                    effect:"fade",
+                                    animSpeed:800,
+                                    pauseTime:15000,
+                                    captionOpacity:1
+                                }
+                                ); 
+                        });
+                    </script>
+                </div>
+            </div>
+        </apex:tab>
+        <apex:tab label="Social Impact" name="socialImpact" id="socialImpactTab">
+                <!-- Barchart for marginalized farmer categories (percentages) -->
+                <div style="float:left;margin-right:100px;">
+                            <apex:chart height="400" width="300" data="{!marginalizedFarmersData}">
+                                <apex:axis type="Numeric" position="left" fields="data"
+                                    title="Percentage" grid="true"/>
+                                <apex:axis type="Category" position="bottom" fields="name"
+                                    title="Marginalized Farmers">
+                                    <apex:chartLabel rotate="315"/>
+                                </apex:axis>
+                                <apex:barSeries title="" orientation="vertical" axis="left"
+                                    xField="name" yField="data">
+                                    <apex:chartTips height="20" width="120"/>
+                                </apex:barSeries>
+                            </apex:chart>
+                        </div>
+                   
+                    <!-- Barchart for poverty lines -->
+                    <div style="float:left;margin-right:100px;">
+                            <apex:chart height="400" width="300" data="{!povertyLinesData}">
+                                <apex:axis type="Numeric" position="left" fields="data"
+                                    title="Percentage" grid="true"/>
+                                <apex:axis type="Category" position="bottom" fields="name"
+                                    title="Poverty Lines">
+                                    <apex:chartLabel rotate="315"/>
+                                </apex:axis>
+                                <apex:barSeries title="" orientation="vertical" axis="left"
+                                    xField="name" yField="data">
+                                    <apex:chartTips height="20" width="120"/>
+                                </apex:barSeries>
+                            </apex:chart>
+                        </div>
+        </apex:tab>
+        <!-- Hide Empty Tabs
+                <apex:tab label="Certification & Production" name="certProd" id="certProdTab">
+                   Nothing here yet
+                </apex:tab>
+                <apex:tab label="Fairtrade Access Fund" name="faf" id="fafTab">
+                   Nothing here yet
+                </apex:tab>
+        !-->
+        <apex:tab label="Scale & Quality" name="scaleQuality" id="scaleQualityTab">
+                <!-- Barchart for marginalized farmer categories -->
+                <div style="float:left;margin-right:100px;">
+                   <apex:chart height="400" width="300" data="{!farmerScaleData}">
+                                <apex:axis type="Numeric" position="left" fields="data"
+                                    title="Farmers/Households" grid="true"/>
+                                <apex:axis type="Category" position="bottom" fields="name"
+                                    title="Categories">
+                                    <apex:chartLabel rotate="315"/>
+                                </apex:axis>
+                                <apex:barSeries title="" orientation="vertical" axis="left"
+                                    xField="name" yField="data">
+                                    <apex:chartTips height="20" width="120"/>
+                                </apex:barSeries>
+                            </apex:chart>
+                    </div>
+                    
+                    <!-- Pie chart of interactions % -->
+                    <div style="float:left;margin-right:100px;">
+                            <apex:chart height="350" width="500" data="{!interactionsData}">
+                                <apex:pieSeries dataField="data" labelField="name"/>
+                                <apex:legend position="right"/>
+                            </apex:chart>
+                    </div>
+                    
+                    <!--  Barchart for ckws -->
+                    <div style="float:left;margin-right:100px;">
+                            <apex:chart height="400" width="300" data="{!ckwScaleData}">
+                                <apex:axis type="Numeric" position="left" fields="data"
+                                    title="Ckws" grid="true"/>
+                                <apex:axis type="Category" position="bottom" fields="name"
+                                    title="Categories">
+                                    <apex:chartLabel rotate="315"/>
+                                </apex:axis>
+                                <apex:barSeries title="" orientation="vertical" axis="left"
+                                    xField="name" yField="data">
+                                    <apex:chartTips height="20" width="120"/>
+                                </apex:barSeries>
+                            </apex:chart>
+                    </div>
+        </apex:tab>
+    </apex:tabPanel>
+</apex:page>

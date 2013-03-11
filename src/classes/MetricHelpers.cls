@@ -377,7 +377,13 @@ public with sharing class MetricHelpers {
         }
         return qDate;   
     }
-
+    
+    public static Date getQuarterFirstDay(Date dateInQuarter) {
+        // Change date to 'Jan - Mar 2010' format
+        String quarterAsString = getQuarterAsString(dateInQuarter);
+        return getQuarterFirstDay(quarterAsString);
+    }
+    
     // quarterString is in format 'Jan - Mar 2010';
     public static Date getQuarterLastDay(String quarterString) {
 
@@ -387,18 +393,24 @@ public with sharing class MetricHelpers {
 
         Date qDate = null;
         if(monthParts[0].equals('Jan')) {
-        	qDate =Date.newInstance(Integer.valueOf(year), 3, 31);
+            qDate =Date.newInstance(Integer.valueOf(year), 3, 31);
         }
         else if(monthParts[0].equals('Apr')) {
-        	qDate =Date.newInstance(Integer.valueOf(year), 6, 30);
+            qDate =Date.newInstance(Integer.valueOf(year), 6, 30);
         }
         else if(monthParts[0].equals('Jul')) {
-        	qDate =Date.newInstance(Integer.valueOf(year), 9, 30);
+            qDate =Date.newInstance(Integer.valueOf(year), 9, 30);
         }
         else if(monthParts[0].equals('Oct')) {
-        	qDate =Date.newInstance(Integer.valueOf(year), 12, 31);
+            qDate =Date.newInstance(Integer.valueOf(year), 12, 31);
         }
         return qDate;   
+    }
+    
+    public static Date getQuarterLastDay(Date dateInQuarter) {
+        // Change date to 'Jan - Mar 2010' format
+        String quarterAsString = getQuarterAsString(dateInQuarter);
+        return getQuarterLastDay(quarterAsString);
     }
 
     public static String getQuarterLastDayAsString(String quarterString) {
@@ -434,16 +446,16 @@ public with sharing class MetricHelpers {
 
         String dateString = null;
         if(monthParts[0].equals('Jan')) {
-        	dateString = year + '-03-31 00:00:00';
+            dateString = year + '-03-31 00:00:00';
         }
         else if(monthParts[0].equals('Apr')) {
-        	dateString = year + '-06-30 00:00:00';
+            dateString = year + '-06-30 00:00:00';
         }
         else if(monthParts[0].equals('Jul')) {
-        	dateString = year + '-09-30 00:00:00';
+            dateString = year + '-09-30 00:00:00';
         }
         else if(monthParts[0].equals('Oct')) {
-        	dateString = year + '-12-31 00:00:00';
+            dateString = year + '-12-31 00:00:00';
         }
         return dateString;   
     }
@@ -1163,8 +1175,8 @@ public with sharing class MetricHelpers {
     // locale. I hate SF sometimes.
     // **NOTE: Changed this to use Date.newInstance() instead
     public static Date convertStringToDate(String dateString) {
-    	String[] dateArray = dateString.split('/');
-    	return Date.newInstance(Integer.valueOf(dateArray[2]), Integer.valueOf(dateArray[0]), Integer.valueOf(dateArray[1]));   	
+        String[] dateArray = dateString.split('/');
+        return Date.newInstance(Integer.valueOf(dateArray[2]), Integer.valueOf(dateArray[0]), Integer.valueOf(dateArray[1]));       
     }
 
     public static Date convertSoqlStringToDate(String dateString) {
@@ -1552,7 +1564,7 @@ public with sharing class MetricHelpers {
         MetricHelpers.calculateAverageMetric('TEST_THIS_CODE');
 
         // Check the date manipulations
-        Date testDate1 = date.newInstance(2012, 2, 1);
+        Date testDate1 = date.newInstance(2013, 2, 1);
         Integer firstQuarter = getQuarter(testDate1);
         String firstQuarterStartMonth = getQuarterStartMonth(firstQuarter);
         String firstQuarterEndMonth = getQuarterEndMonth(firstQuarter);
@@ -1590,7 +1602,7 @@ public with sharing class MetricHelpers {
         Date quarterIntStringLast = getQuarterLastDay(quarterString);
         Date quarterDateStringFirst = getQuarterFirstDay(quarterDateString);
         Date quarterDateStringLast = getQuarterLastDay(quarterDateString);
-        System.AssertEquals(quarterString,'Jan - Mar 2012');
+        System.AssertEquals(quarterString,'Jan - Mar 2013');
         System.assertEquals(quarterString, quarterDateString);
         System.assertEquals(quarterIntStringFirst, quarterDateStringFirst);
         System.assertEquals(quarterIntStringLast, quarterDateStringLast);

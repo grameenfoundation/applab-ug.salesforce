@@ -131,8 +131,11 @@
     <label>LAC Household</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>HH-{0000000}</displayFormat>
@@ -142,5 +145,5 @@
     </nameField>
     <pluralLabel>LAC Households</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

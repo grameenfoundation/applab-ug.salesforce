@@ -129,7 +129,7 @@ public with sharing virtual class ChildComponentBase {
                     this.startDate = Date.today().addMonths(-defaultShow * 3).toStartOfMonth();
                 }
                 else {
-                	this.endDate = Date.newInstance(this.endDate.year(), 1, 1).addMonths(-defaultShow * 12);
+                	this.endDate = Date.newInstance(this.getEndDate(true).year(), 1, 1).addMonths(-defaultShow * 12);
                 }
             }
         }

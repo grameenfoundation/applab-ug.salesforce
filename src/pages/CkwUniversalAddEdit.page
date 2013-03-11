@@ -1,0 +1,78 @@
+<apex:page standardController="CKW__c" extensions="CkwUniversalAddEditController" tabStyle="CKW__c" sideBar="false">
+
+  <h1 style="font-size: 15px;">CKW</h1>
+  <apex:pageMessages />
+  <apex:form >
+        <apex:pageBlock title="CKW" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+                <apex:commandButton action="{!saveAndNew}" value="Save & New"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Bio Information">
+                <apex:inputField label="Salutation" value="{!contact.Salutation}"/>    
+                <apex:inputField label="FirstName" value="{!contact.FirstName}"/>
+                <apex:inputfield label="LastName" value="{!contact.LastName}"/>
+                <apex:inputfield label="Date of Birth" value="{!contact.Birthdate}"/>
+                <apex:inputField label="Account Name" value="{!contact.AccountId}"/>
+                <apex:inputfield label="Title" value="{!contact.title}"/>
+                <apex:inputField label="Email" value="{!contact.Email}"/>
+                <apex:inputField label="Phone" value="{!contact.phone}"/>
+                <apex:inputField label="Marital Status" value="{!contact.Marital_Status__c}"/>
+                <apex:inputField label="Gender" value="{!person.Gender__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlocksection title="CKW Information" collapsible="true">
+                <apex:inputfield label="Contract Signed" value="{!ckw.Contract_Signed__c}"/>
+                <apex:inputfield label="Commitment fee paid" value="{!ckw.Has_CKW_paid_the_commitment_fee__c}"/>
+                <apex:inputfield label="Recruiter" value="{!ckw.Recruiter__c}"/>
+                <apex:inputfield label="Secondary Recruiter" value="{!ckw.Secondary_Recruiter__c}"/>
+                <apex:inputfield label="Status" value="{!ckw.Status__c}"/>
+                <apex:inputfield label="Poverty Status" value="{!ckw.Poverty_Status__c}"/>
+                <apex:inputfield label="Rank" value="{!ckw.CKW_Rank__c}"/>
+                <apex:inputfield label="Type" value="{!ckw.CKW_Type__c}"/>
+                <apex:inputfield label="Date Assigned" value="{!ckw.Assigned_On__c}"/>
+            </apex:pageBlocksection>
+            <apex:pageBlockSection title="Social Economic Information" collapsible="true">
+                <apex:inputfield label="Houseshold Head" value="{!contact.Head_Of_Household__c}"/>
+                <apex:inputfield label="Education Level" value="{!person.Education_Level__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Address Information" collapsible="true">
+                <apex:inputfield label="Country" value="{!contact.Country__c}"/>
+                <apex:inputfield label="District" value="{!person.District__c}"/>
+                <apex:inputfield label="Region" value="{!person.Region__c}"/>
+                <apex:inputfield label="SubCounty" value="{!person.Subcounty__c}"/>
+                <apex:inputfield label="Parish" value="{!person.Parish__c}"/>
+                <apex:inputfield label="Village" value="{!person.Village__c}"/>
+                <apex:inputfield label="GPS Location E" value="{!person.GPS_Location_E__c}"/>
+                <apex:inputfield label="GPS Location N" value="{!person.GPS_Location_N__c}"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlocksection title="Device/Handset" collapsible="true">
+                <apex:inputfield label="Serial No" value="{!handset.Serial_Number__c}"/>
+                <apex:inputfield label="Brand" value="{!handset.Brand__c}"/>
+                <apex:inputfield label="IMEI" value="{!handset.IMEI__c}"/>
+                <apex:inputfield label="Battery Type" value="{!handset.Battery_Type__c}"/>
+                <apex:inputfield label="OS Version" value="{!handset.OS_Firmware_Version__c}"/>
+                <apex:inputfield label="Status" value="{!device.gfsurveys__Status__c}"/>
+                <apex:inputfield label="Last Login" value="{!device.gfsurveys__LastCheckInDate__c}"/>
+                <apex:inputfield label="Purchase Value (USD)" value="{!handset.Purchase_Value_USD__c}"/>
+                <apex:inputfield label="Simcard No" value="{!simcard.Name}"/>
+                <apex:inputfield label="Carrier" value="{!simcard.Carrier__c}"/>
+                <apex:inputfield label="Simcard Serial" value="{!simcard.SIM_Serial_Number__c}"/>
+            </apex:pageBlocksection>
+            <apex:pageBlocksection title="Survey Credentials" collapsible="true">
+                <apex:inputfield label="Mobile survey Id" value="{!contact.gfsurveys__mobilesurveys_Id__c}"/>
+                <apex:inputfield label="Username" value="{!contact.gfsurveys__mobilesurveys_Username__c}"/>
+                <apex:inputSecret redisplay="true" label="Password" value="{!contact.gfsurveys__mobilesurveys_Password__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlocksection title="Training Evaluation" collapsible="true">
+                <apex:inputfield label="Comprehension" value="{!ckw.Comprehension__c}"/>
+                <apex:inputfield label="Absorption Content" value="{!ckw.Content_Absorption__c}"/>
+                <apex:inputfield label="Group Dynamics" value="{!ckw.Group_Dynamics__c}"/>
+                <apex:inputfield label="Attitude" value="{!ckw.Attitude__c}"/>
+                <apex:inputfield label="Special Needs" value="{!ckw.Special_Needs__c}"/>
+                <apex:inputfield label="General Notes" value="{!ckw.General_Notes__c}"/>
+            </apex:pageBlocksection>
+        </apex:pageBlock>
+  </apex:form>
+</apex:page>

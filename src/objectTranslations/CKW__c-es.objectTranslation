@@ -2,11 +2,11 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value><!-- CKW --></value>
+        <value>Encuestador</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value><!-- CKW --></value>
+        <value>Encuestadores</value>
     </caseValues>
     <fields>
         <label>Fecha de activos</label>
@@ -169,6 +169,10 @@
         <relationshipLabel>CKWs</relationshipLabel>
     </fields>
     <fields>
+        <label><!-- First Name --></label>
+        <name>First_Name__c</name>
+    </fields>
+    <fields>
         <help>Alguna otra informacion co respecto al CKW durante el entreamieto</help>
         <label>Notas generales</label>
         <name>General_Notes__c</name>
@@ -202,6 +206,14 @@
             <masterLabel>Yes</masterLabel>
             <translation>Si</translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Name --></label>
+        <name>Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Middle Name --></label>
+        <name>Middle_Name__c</name>
     </fields>
     <fields>
         <label>Numero movil</label>
@@ -295,7 +307,7 @@
             <translation>Suspendido</translation>
         </picklistValues>
     </fields>
-    <gender><!-- Feminine --></gender>
+    <gender>Feminine</gender>
     <layouts>
         <layout>CKW Layout</layout>
         <sections>
@@ -331,7 +343,7 @@
             <section>Training Evaluation</section>
         </sections>
     </layouts>
-    <nameFieldLabel><!-- CKW ID --></nameFieldLabel>
+    <nameFieldLabel>CKW ID</nameFieldLabel>
     <webLinks>
         <label>Edicion masiva</label>
         <name>Mass_Edit</name>

@@ -14,7 +14,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
-        <type>Default</type>
+        <content>CkwUniversalAddEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>List</actionName>
@@ -22,7 +24,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
+        <content>CkwUniversalAddEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Tab</actionName>
@@ -30,7 +34,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <content>CkwDetail</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Profile of CKWs</description>
@@ -273,6 +279,17 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>First_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.First_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>General_Notes__c</fullName>
         <description>Any other relevant info regarding the CKW during training</description>
         <externalId>false</externalId>
@@ -325,6 +342,28 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Last_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Middle_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Middle_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Middle Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Mobile_Number__c</fullName>
@@ -533,11 +572,15 @@ BR()&amp;
     <listViews>
         <fullName>tabitha</fullName>
         <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Middle_Name__c</columns>
+        <columns>Last_Name__c</columns>
         <columns>Mobile_Number__c</columns>
         <columns>Status__c</columns>
         <columns>Active_Date__c</columns>
         <filterScope>Everything</filterScope>
         <label>All CKWs</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>CKW-{YY}-{000000}</displayFormat>
