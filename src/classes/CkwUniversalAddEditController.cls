@@ -145,6 +145,24 @@ public class CkwUniversalAddEditController {
      * CKW being edited/created.
      */
     public void saveDevice(){
+    	List<gfsurveys__Device__c> existingDevice = [
+    		SELECT
+    			Id,
+    			gfsurveys__IMEI__c,
+    			gfsurveys__OS__c,
+    			gfsurveys__Model__c,
+    			gfsurveys__Device_Id__c,
+    			OwnerId 
+    		FROM 
+    			gfsurveys__Device__c 
+    		WHERE 
+    			gfsurveys__IMEI__c = :handset.IMEI__c
+    	];
+    	
+    	if(existingDevice != null && !existingDevice.isEmpty()){
+    		device = existingDevice.get(0);
+    	}
+    	
         device.gfsurveys__IMEI__c = handset.IMEI__c;
         device.gfsurveys__OS__c = handset.OS_Firmware_Version__c;
         device.gfsurveys__Model__c = handset.Brand__c;
@@ -189,11 +207,11 @@ public class CkwUniversalAddEditController {
     public PageReference save() {
         try {
         	/**
-        	 * if the handset is new and the IMEI has been provided
+        	 * if the IMEI has been provided
         	 * from the user interface, then we query for the existing 
-        	 * handset and assign it to the person
+        	 * handset and assign it to the handset reference in this controller.
         	 */
-        	if (handset.Id == null && handset.IMEI__c != null) {
+        	if (handset.IMEI__c != null) {
         		List<Phone__c> handsets = [
         			SELECT 
         				Id, 
@@ -208,11 +226,38 @@ public class CkwUniversalAddEditController {
         				SIM__r.SIM_Serial_Number__c
         			FROM 
         				Phone__c 
-        			WHERE IMEI__c = :handset.IMEI__c];
+        			WHERE IMEI__c = :handset.IMEI__c AND Id != :handset.Id];
         			
-        		if (handsets.size() >= 1) {
-        			handset = handsets.get(0);
-        			simcard = handset.SIM__r;
+        		if (handsets != null && handsets.size() >= 1) {
+        			List<Person__c> existingOwner = [
+        				SELECT
+        					Id,
+        					First_Name__c,
+        					Last_Name__c,
+        					Handset__c
+        				FROM
+        					Person__c
+        				WHERE Handset__c = :handsets.get(0).Id AND Id != :person.Id
+        			];
+        			
+        			/*
+        			 * if the device has an existing owner, report to the user about the 
+        			 * assignee.
+        			 */
+        			if(existingOwner != null && !existingOwner.isEmpty()){
+        				PageReference personPageRef = new ApexPages.StandardController(existingOwner.get(0)).view();
+        				
+        				String msgStr = 'Handset Already assigned to <a href="'+ personPageRef.getUrl()+'" target="_blank">'+ 
+        					existingOwner.get(0).First_Name__c + ' ' + existingOwner.get(0).Last_Name__c+'</a>';
+        					
+        				ApexPages.Message msg = new ApexPages.Message(ApexPages.severity.ERROR, msgStr);
+        				ApexPages.addmessage(msg);
+        				
+        				return null;
+        			}else{
+        				handset = handsets.get(0);
+        				simcard = handset.SIM__r;
+        			}
         		}
         	}
         	
@@ -251,7 +296,7 @@ public class CkwUniversalAddEditController {
      */
     public PageReference saveAndNew(){
         PageReference ref = save();
-        if(ref != null){
+        if (ref != null) {
             String ObjectPrefix = CKW__c.sObjectType.getDescribe().getKeyPrefix();
             PageReference p = new PageReference('/'+ObjectPrefix+'/e');
             p.setRedirect(true);
