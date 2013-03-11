@@ -1643,19 +1643,7 @@
             </values>
         </picklistValues>
     </recordTypes>
-    <webLinks>
-        <fullName>Contact_Donation</fullName>
-        <availability>online</availability>
-        <description>New donation for contact record</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Contact Donation</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_from_Contact</scontrol>
-    </webLinks>
+
     <webLinks>
         <fullName>Contact_Donation_History</fullName>
         <availability>online</availability>
@@ -1668,71 +1656,6 @@
         <protected>false</protected>
         <requireRowSelection>true</requireRowSelection>
         <url>/00O70000001KiYg?pv0={!Contact.Id}&amp;isdtp=lt</url>
-    </webLinks>
-    <webLinks>
-        <fullName>Contact_Grant</fullName>
-        <availability>online</availability>
-        <description>Create new Grant from contact</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Contact Grant</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Grant_from_Contact</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Contact_Major_Gift</fullName>
-        <availability>online</availability>
-        <description>Create new Major Gift from contact</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Contact Major Gift</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Major_Gift_from_Contact</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Contact_Matching</fullName>
-        <availability>online</availability>
-        <description>Create new matching donation from contact</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Contact Matching</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Matching_from_Contact</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Contact_Membership</fullName>
-        <availability>online</availability>
-        <description>Create new membership donation from contact</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Contact Membership</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Membership_from_Contact</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Contact_Pledge_Payment</fullName>
-        <availability>online</availability>
-        <description>create new pledge payment from contact record</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Contact Pledge Payment</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Pledge_Payment_from_Contact</scontrol>
     </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>
@@ -1760,19 +1683,6 @@
         <requireRowSelection>true</requireRowSelection>
     </webLinks>
     <webLinks>
-        <fullName>Organization_Donation</fullName>
-        <availability>online</availability>
-        <description>New donation for organization record</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Organization Donation</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_from_Organization</scontrol>
-    </webLinks>
-    <webLinks>
         <fullName>Organization_Donation_History</fullName>
         <availability>online</availability>
         <description>runs report of donation history for this organization</description>
@@ -1784,70 +1694,5 @@
         <protected>false</protected>
         <requireRowSelection>true</requireRowSelection>
         <url>/00O70000001KiYh?pv0={!Account.Id}&amp;isdtp=lt</url>
-    </webLinks>
-    <webLinks>
-        <fullName>Organization_Grant</fullName>
-        <availability>online</availability>
-        <description>Create new Grant from organization</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Organization Grant</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Grant_from_Organization</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Organization_Major_Gift</fullName>
-        <availability>online</availability>
-        <description>Create new major gift from organization</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Organization Major Gift</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Major_Gift_from_Organization</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Organization_Matching</fullName>
-        <availability>online</availability>
-        <description>Create new matching donation from Organization</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Organization Matching</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Matching_from_Organization</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Organization_Membership</fullName>
-        <availability>online</availability>
-        <description>Create new membership donation from organiztion</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Organization Membership</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Membership_from_Organization</scontrol>
-    </webLinks>
-    <webLinks>
-        <fullName>Organization_Pledge_Payment</fullName>
-        <availability>online</availability>
-        <description>create new pledge payment from organization</description>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>sControl</linkType>
-        <masterLabel>Organization Pledge Payment</masterLabel>
-        <openType>sidebar</openType>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-        <scontrol>Donation_Create_Pledge_Payment_from_Organization</scontrol>
     </webLinks>
 </CustomObject>
