@@ -579,6 +579,12 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
                 return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
+                return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
+                return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');

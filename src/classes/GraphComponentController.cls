@@ -474,17 +474,22 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         Map<String, String> fieldStore = new Map<String, String>();
         String query = 'SELECT ';
         for (String field : definition.Label__c.split('_#splitter#_')) {
-            query += ' ' + definition.Calculation__c + '(' + field + ') field' + counter + ', ';
+            query += ', ' + definition.Calculation__c + '(' + field + ') field' + counter ;
             fieldStore.put('field' + counter, field);
-            counter++;
+            counter++;  
         }
-        query += getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false) + ' grouping ' +
-            ' FROM ' +
-                definition.Type_Of_sObject__c.replace(' ', '_') + '__c' +
-            ' WHERE ' +
-                generateWhereClause(definition.Person_Prefix__c) +
-            ' GROUP BY ' +
-                getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false);
+
+        // For scenarios where grouping may not be necessary
+        if (!String.isEmpty(definition.Group_Field__c)) {
+            query += ' ,' + getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false) + ' grouping ';
+        }
+        query += ' FROM ' + definition.Type_Of_sObject__c.replace(' ', '_') + '__c' +
+            ' WHERE ' + generateWhereClause(definition.Person_Prefix__c);
+        if (!String.isEmpty(definition.Group_Field__c)) {
+            query += ' GROUP BY ' + getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false);
+        }
+
+        query = query.replace('SELECT ,' ,'SELECT');
         System.debug(LoggingLevel.INFO, query);
         AggregateResult[] results = Database.query(query);
         for (AggregateResult result : results) {
