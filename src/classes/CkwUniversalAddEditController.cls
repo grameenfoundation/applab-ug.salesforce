@@ -181,7 +181,17 @@ public class CkwUniversalAddEditController {
         person.Email_Address__c = contact.Email;
         person.Country__c = contact.Country__c;
         person.Contact__c = contact.Id;
-        person.Handset__c = handset.Id;
+        
+        /*
+    	 * if the ckw status is changed to dropped, we don't assign 
+    	 * the handset details to the person
+    	 */
+    	if (ckw.Status__c != 'Dropped') {
+        	person.Handset__c = handset.Id;
+    	} else {
+    		person.Handset__c = null;
+    	}
+    	
         person.ownerId = contact.OwnerId;
         
         if(person.Id == null){
@@ -200,70 +210,92 @@ public class CkwUniversalAddEditController {
     }
     
     /**
+     * gets the existing handset with the IMEI specified by the user in the 
+     * handset property.
+     */
+    private Phone__c getExistingDevice() {
+    	/**
+    	 * if the IMEI has been provided
+    	 * from the user interface, then we query for the existing 
+    	 * handset and assign it to the handset reference in this controller.
+    	 */
+    	if (handset.IMEI__c != null) {
+    		List<Phone__c> handsets = [
+    			SELECT 
+    				Id, 
+    				Serial_Number__c, 
+    				Brand__c, IMEI__c, 
+    				Battery_Type__c, 
+    				OS_Firmware_Version__c, 
+        			Purchase_Value_USD__c,
+    				SIM__r.Id, 
+    				SIM__r.Name, 
+    				SIM__r.Carrier__c, 
+    				SIM__r.SIM_Serial_Number__c
+    			FROM 
+    				Phone__c 
+    			WHERE IMEI__c = :handset.IMEI__c AND Id != :handset.Id];
+    			
+    		if(handsets != null && !handsets.isEmpty()){
+    			return handsets.get(0);
+    		}
+    	}
+
+    	return null;
+    }
+    
+    /**
      * handles the save action of the CkwUniversalAddEditPage Visualforce page
      *
      * @return PageReference the page the will be displayed after the save operation.
      */
     public PageReference save() {
         try {
-        	/**
-        	 * if the IMEI has been provided
-        	 * from the user interface, then we query for the existing 
-        	 * handset and assign it to the handset reference in this controller.
+        	
+        	/*
+        	 * if the ckw status is changed to dropped, we don't save the handset
+        	 * details.
         	 */
-        	if (handset.IMEI__c != null) {
-        		List<Phone__c> handsets = [
-        			SELECT 
-        				Id, 
-        				Serial_Number__c, 
-        				Brand__c, IMEI__c, 
-        				Battery_Type__c, 
-        				OS_Firmware_Version__c, 
-            			Purchase_Value_USD__c,
-        				SIM__r.Id, 
-        				SIM__r.Name, 
-        				SIM__r.Carrier__c, 
-        				SIM__r.SIM_Serial_Number__c
-        			FROM 
-        				Phone__c 
-        			WHERE IMEI__c = :handset.IMEI__c AND Id != :handset.Id];
-        			
-        		if (handsets != null && handsets.size() >= 1) {
-        			List<Person__c> existingOwner = [
-        				SELECT
-        					Id,
-        					First_Name__c,
-        					Last_Name__c,
-        					Handset__c
-        				FROM
-        					Person__c
-        				WHERE Handset__c = :handsets.get(0).Id AND Id != :person.Id
-        			];
-        			
-        			/*
-        			 * if the device has an existing owner, report to the user about the 
-        			 * assignee.
-        			 */
-        			if(existingOwner != null && !existingOwner.isEmpty()){
-        				PageReference personPageRef = new ApexPages.StandardController(existingOwner.get(0)).view();
-        				
-        				String msgStr = 'Handset Already assigned to <a href="'+ personPageRef.getUrl()+'" target="_blank">'+ 
-        					existingOwner.get(0).First_Name__c + ' ' + existingOwner.get(0).Last_Name__c+'</a>';
-        					
-        				ApexPages.Message msg = new ApexPages.Message(ApexPages.severity.ERROR, msgStr);
-        				ApexPages.addmessage(msg);
-        				
-        				return null;
-        			}else{
-        				handset = handsets.get(0);
-        				simcard = handset.SIM__r;
-        			}
-        		}
+        	if (ckw.Status__c != 'Dropped') {
+        		Phone__c p = getExistingDevice();
+        		
+        		if (p != null) {
+	    			List<Person__c> existingOwner = [
+	    				SELECT
+	    					Id,
+	    					First_Name__c,
+	    					Last_Name__c,
+	    					Handset__c
+	    				FROM
+	    					Person__c
+	    				WHERE Handset__c = :p.Id AND Id != :person.Id
+	    			];
+	    			
+					/*
+	    			 * if the device has an existing owner, report to the user about the 
+	    			 * assignee.
+	    			 */
+	    			if(existingOwner != null && !existingOwner.isEmpty()) {
+	    				PageReference personPageRef = new ApexPages.StandardController(existingOwner.get(0)).view();
+	    				
+	    				String msgStr = 'Handset Already assigned to <a href="'+ personPageRef.getUrl()+'" target="_blank">'+ 
+	    					existingOwner.get(0).First_Name__c + ' ' + existingOwner.get(0).Last_Name__c+'</a>';
+	    					
+	    				ApexPages.Message msg = new ApexPages.Message(ApexPages.severity.ERROR, msgStr);
+						ApexPages.addmessage(msg);
+						
+						return null;
+		    		} else {
+	    				handset = p;
+	    				simcard = handset.SIM__r;
+		    		}
+	    		}
+    			
+            	saveSimcard();
+            	saveHandset();
+            	saveDevice();
         	}
         	
-            saveSimcard();
-            saveHandset();
-            saveDevice();
             saveContact();
             savePerson();
             saveCkw();
@@ -318,6 +350,29 @@ public class CkwUniversalAddEditController {
     }
     
     /**
+     * tests the removal of the device from a CKW when their status 
+     * changes to dropped.
+     */
+    @IsTest
+    static void testCkwStatusChangetoDropped(){
+    	CkwUniversalAddEditController controller = initTestController();
+        controller.save();
+        
+        Person__c person = [SELECT Id, Handset__c FROM Person__c WHERE Id=:controller.person.Id];
+        System.assertEquals(controller.person.Id, person.Id);
+        System.assertEquals(controller.handset.Id, person.Handset__c);
+        
+        CKW__c ckw = [SELECT Id, Status__c FROM CKW__c WHERE Id = :controller.ckw.Id];
+        System.assertEquals(controller.ckw.Id, ckw.Id);
+        
+       	controller.ckw.Status__c = 'Dropped';
+       	controller.save();
+       	
+       	ckw = [SELECT Id, Status__c FROM CKW__c WHERE Id = :controller.ckw.Id];
+       	System.assert(controller.person.Handset__c == null);
+    }
+    
+    /**
      * tests the save action of this controller
      */
     @IsTest
@@ -357,9 +412,19 @@ public class CkwUniversalAddEditController {
      * during testing.
      */
     static CkwUniversalAddEditController initTestController(){
+    	Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+		system.assert(p != null);
+		
+		User user = new User(Alias = 'ckwtest', Email='ckwtest@testorg.com', 
+	    	EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+	     	LocaleSidKey='en_US', ProfileId = p.Id, 
+	     	TimeZoneSidKey='America/Los_Angeles', UserName='ckwtest@testorg.com');
+		insert user;
+		
         CkwUniversalAddEditController controller = new CkwUniversalAddEditController(new ApexPages.StandardController(new CKW__c()));
         controller.contact.LastName='Rambo';
         controller.contact.FirstName='John';
+        controller.contact.OwnerId = user.Id;
         controller.handset.Serial_Number__c='90000000';
         controller.handset.IMEI__c = '9989989893dkdkeid';
         controller.handset.Purchase_Value_USD__c = 450;
