@@ -52,7 +52,7 @@
         	<apex:outputfield value="{!LAC_Farmer_Details__c.Owner.Name}" label="Owner" />
         	<apex:form >
         		<apex:panelGrid columns="2">
-					<apex:inputfield value="{!LAC_Farmer_Details__c.ownerId}" />
+					<apex:inputfield label="Change Owner" value="{!LAC_Farmer_Details__c.ownerId}" />
 					<apex:commandButton action="{!changeOwner}" value="Change Owner"/>        		
         		</apex:panelGrid>
         	</apex:form>

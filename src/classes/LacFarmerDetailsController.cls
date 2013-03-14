@@ -77,10 +77,10 @@ public with sharing class LacFarmerDetailsController {
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 		system.assert(p != null);
 		
-		User user = new User(Alias = 'newUser', Email='newuser@testorg.com', 
+		User user = new User(Alias = 'ckwtest', Email='ckwtest@testorg.com', 
 	    	EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
 	     	LocaleSidKey='en_US', ProfileId = p.Id, 
-	     	TimeZoneSidKey='America/Los_Angeles', UserName='newuser@testorg.com');
+	     	TimeZoneSidKey='America/Los_Angeles', UserName='ckwtest@testorg.com');
 		insert user;
 		
 		RecordType recordType = new RecordType();
