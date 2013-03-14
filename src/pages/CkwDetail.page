@@ -22,6 +22,7 @@
             <apex:outputField value="{!CKW__c.Person__r.Handset__r.IMEI__c}"/>
             <apex:outputField value="{!CKW__c.Person__r.Age__c}"/>
             <apex:outputField value="{!CKW__c.Person__r.Raw_Mobile_Number__c}" label="Alternative Mobile"/>
+            <apex:outputField label="Owner" value="{!CKW__c.Person__r.Owner.Name}"/>
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="2" title="Socio Economic">
             <apex:outputField value="{!CKW__c.Person__r.Current_Poverty_Scorecard__r.Score__c}" label="Poverty Level"/>
