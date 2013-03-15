@@ -1,59 +1,59 @@
 <apex:page standardController="LAC_Farmer_Details__c" extensions="LacFarmerDetailsController"
     action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='xSystem Administrator',null,URLFOR($Action.LAC_Farmer_Details__c.View,LAC_Farmer_Details__c.Id,null,true))}">
     <apex:outputText value="{!LAC_Farmer_Details__c.Person__c}" rendered="false"/>
-    <apex:sectionHeader title="Farmer" subtitle="{!LAC_Farmer_Details__c.Name}"/>
-    <apex:pageBlock title="Farmer Details" mode="maindetail" tabStyle="LAC_Farmer_Details__c">
+    <apex:sectionHeader title="{!$Label.FARMER}" subtitle="{!LAC_Farmer_Details__c.Name}"/>
+    <apex:pageBlock title="{!$Label.FARMER_DETAILS}" mode="maindetail" tabStyle="LAC_Farmer_Details__c">
         <apex:pageBlockButtons location="top">
             <apex:form >
-                <apex:commandButton action="{!edit}" value="Edit"/>
-                <apex:commandButton action="{!delete}" value="Delete"/>
+                <apex:commandButton action="{!edit}" value="{!$Label.EDIT}"/>
+                <apex:commandButton action="{!delete}" value="{!$Label.DELETE}"/>
             </apex:form>
         </apex:pageBlockButtons>
-        <apex:pageBlockSection columns="2" title="Bio Data">
+        <apex:pageBlockSection columns="2" title="{!$Label.BIO_DATA}">
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.First_Name__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Middle_Name__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Last_Name__c}"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Id}" label="Id"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Account.Name}" label="Group (partner)"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Village__c}" label="Location"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Id}" label="{!$Label.ID}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Account.Name}" label="{!$Label.GROUP_PARTNER}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Village__c}" label="{!$Label.LOCATION}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.GPS_Location_E__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.GPS_Location_N__c}"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Brand__c}" label="Type of mobile phone"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Model__c}" label="Model of mobile phone"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Phone}" label="Mobile phone #"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Brand__c}" label="{!$Label.TYPE_OF_MOBILE_PHONE}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Model__c}" label="{!$Label.MODEL_OF_MOBILE_PHONE}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Phone}" label="{!$Label.MOBILE_PHONE} #"/>
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="2" title="Socio-economic">
-            <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__r.Registration_PPI_Score__c}" label="Poverty level (PPI)"/>
+        <apex:pageBlockSection columns="2" title="{!$Label.SOCIAL_ECONOMIC_INFORMATION}">
+            <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__r.Registration_PPI_Score__c}" label="{!$Label.POVERTY_LEVEL_PPI}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Gender__c}" />
-            <apex:outputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" label="Marginalization"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" label="{!$Label.MARGINALIZATION}"/>
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="1" title="Agronomic">
+        <apex:pageBlockSection columns="1" title="{!$Label.AGRONOMIC}">
             <apex:relatedList list="LAC_Farms__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}">
-                <apex:facet name="header"><div class='pbTitle'><h3>Farms</h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.FARMS}</h3></div></apex:facet>
             </apex:relatedList>
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="1" title="Program">
-            <apex:outputField value="{!LAC_Farmer_Details__c.CreatedDate}" label="Date of start in the program"/>
-            <apex:outputText value="{!SubmissionsNum}" label="# surveys filled"/>
-            <apex:outputText value="{!SearchesNum}" label="# of information searches"/>
+        <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
+            <apex:outputField value="{!LAC_Farmer_Details__c.CreatedDate}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
+            <apex:outputText value="{!SubmissionsNum}" label="{!$Label.NO_OF_SURVEYS_FILLED}"/>
+            <apex:outputText value="{!SearchesNum}" label="{!$Label.NO_OF_INFORMATION_SEARCHES}"/>
             <apex:relatedList list="Search_Logs__r" subject="{!LAC_Farmer_Details__c.Person__c}">
-                <apex:facet name="header"><div class='pbTitle'><h3>Search logs</h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.SEARCH_LOGS}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:relatedList list="Messages__r" subject="{!LAC_Farmer_Details__c.Person__c}">
-                <apex:facet name="header"><div class='pbTitle'><h3># messages received </h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.NO_OF_MESSAGES_RECEIVED}</h3></div></apex:facet>
             </apex:relatedList>
-            <apex:outputText value="{!(SubmissionsNum+SearchesNum+MessagesNum)}" label="Total # of interactions "/>
+            <apex:outputText value="{!(SubmissionsNum+SearchesNum+MessagesNum)}" label="{!$Label.TOTAL_NO_OF_INTERACTIONS}"/>
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="1" title="Other">
+        <apex:pageBlockSection columns="1" title="{!$Label.OTHER}">
             <!-- apex:relatedList list="ActivityHistories"/>
             <apex:relatedList list="NotesAndAttachments"/-->
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="2" title="Ownership">
-        	<apex:outputfield value="{!LAC_Farmer_Details__c.Owner.Name}" label="Owner" />
+        <apex:pageBlockSection columns="1" title="{!$Label.OWNERSHIP}">
+        	<apex:outputfield value="{!LAC_Farmer_Details__c.Owner.Name}" label="{!$Label.CURRENT_OWNER}" />
         	<apex:form >
         		<apex:panelGrid columns="2">
-					<apex:inputfield label="Change Owner" value="{!LAC_Farmer_Details__c.ownerId}" />
-					<apex:commandButton action="{!changeOwner}" value="Change Owner"/>        		
+					<apex:inputfield value="{!LAC_Farmer_Details__c.ownerId}" />
+					<apex:commandButton action="{!changeOwner}" value="{!$Label.CHANGE_OWNER}"/>        		
         		</apex:panelGrid>
         	</apex:form>
         </apex:pageBlockSection>
