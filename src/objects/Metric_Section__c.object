@@ -1,43 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <deploymentStatus>Deployed</deploymentStatus>
-    <description>A section that holds metrics to be shown on a dashboard</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Allow_Update__c</fullName>
         <defaultValue>false</defaultValue>
@@ -208,13 +170,22 @@
         <required>true</required>
         <type>TextArea</type>
     </fields>
-    <label>Metric Section</label>
-    <nameField>
-        <displayFormat>MS{0000000000}</displayFormat>
-        <label>Metric Section Name</label>
-        <type>AutoNumber</type>
-    </nameField>
-    <pluralLabel>Metric Sections</pluralLabel>
-    <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
+    <fields>
+        <fullName>View_Mode__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This field will determine if the metric datas in this section should be displayed from the start of the data collection period(Aggregated) or if they should only be displayed for the current defined period(Disaggregated)</inlineHelpText>
+        <label>View Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Disaggregated</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aggregated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
 </CustomObject>

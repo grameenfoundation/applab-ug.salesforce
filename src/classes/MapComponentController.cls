@@ -228,7 +228,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
             //markers.addAll(getMetricMarkers());
         }
         else if (sObjectType.equalsIgnoreCase('Person') || !getParentValue('ShowPerson').equals('')) {
-            //markers.addAll(getPersonMarkers());
+            markers.addAll(getPersonMarkers());
         }
         return markers;
     }
@@ -494,6 +494,106 @@ public with sharing class MapComponentController extends ChildComponentBase {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Handset_Submit_Time__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
         }
         System.debug('Reached end of where clause');
+        return whereClauses;
+    }
+     /**
+     *  Load Person Markers for this map
+     */
+    private List<MapMarkers> getPersonMarkers() {
+
+        Map<String, MapMarkers> markers = new Map<String, MapMarkers>();
+
+        Person__c[] persons = database.query(getPersonMarkersQuery());
+        if (persons.size() == 0) {
+            return markers.values();
+        }
+
+        for (Person__c person : persons) {
+            // Dont include if we are missing the location
+            if (person.GPS_Location_N__c == null || person.GPS_Location_E__c == null) {
+                continue;
+            }
+
+            PersonMapMarker marker = new PersonMapMarker(person);
+            marker.generateMarkerName(getFieldvalue('Splitter__c'));
+            marker.setMarkerColour(getColour(marker.getColour(), marker.getMarkerName()));
+            markers.put(person.Name, marker);
+        }
+
+        // If there is only one Person then center the map around them and zoom to a better level
+        if (markers.size() == 1) {
+            this.zoom = '10';
+            this.latitude = persons[0].GPS_Location_N__c;
+            this.longitude = persons[0].GPS_Location_E__c;
+        }
+ 
+        // Tidy up the created lists so to keep the heap size down.
+        persons.clear();
+        setStats('There are ' + markers.size() + ' Persons who match your search<br/>');
+        return markers.values();
+    }
+
+    /** 
+     *  Create the SOQL query that gets the Person objects for the map markers
+     *
+     *  @return - The SOQL query to return the Person objects
+     */
+    private String getPersonMarkersQuery() {
+
+        String baseQuery = 'SELECT ' +
+                'Id, '   +
+                'Name, ' +
+                'Gender__c,'    +
+                'Parish__c, '  +
+                'Village__c, ' +
+                'District__r.Name, ' +
+                'Subcounty__r.Display_Name__c, ' +
+                'GPS_Location_N__c,' + 
+                'GPS_Location_E__c ' +
+            'FROM ' +
+                'Person__c';
+
+        List<String> whereClauses = getPersonWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        String query = baseQuery + whereClause;
+        System.debug(LoggingLevel.INFO, query);
+        return query;
+    }
+
+    /**
+     *  Build the where cluse for the query. Values are taken from the children of the parent if there is one.
+     *  If not then everything is loaded.
+     *
+     *  @return - The where clause basing on the limitations of region, district, subcounty, person type and owner if defined.
+     */
+    private List<String> getPersonWhereClause() {
+
+        List<String> whereClauses = new List<String>();
+
+        if (!getParentValue('Region__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Region__c', getParentValue('Region__c'), true));
+        }
+        
+        if (!getParentValue('District__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'District__c', getParentValue('District__c'), true));
+        }
+        if (!getParentValue('Subcounty__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Subcounty__c', getParentValue('Subcounty__c'), true));
+        }
+        
+        //Distinguish by the type of person
+        if (this.mapParameter.Keyword__c != null && !this.mapParameter.Keyword__c.equals('')) {
+           whereClauses.add(SoqlHelpers.addInWhereClause('Type__c', false, this.mapParameter.Keyword__c, null, true));
+        }
+
+        // Distinguish by the owner of this person
+        if (!getParentValue('OwnerId').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'OwnerId', getParentValue('OwnerOd'), true));
+        }
         return whereClauses;
     }
 

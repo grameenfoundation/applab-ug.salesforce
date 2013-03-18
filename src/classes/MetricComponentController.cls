@@ -1,7 +1,10 @@
 public with sharing class MetricComponentController extends ChildComponentBase {
 
-    private String isRefresh = 'false';
+    private String isRefresh;
     public String getIsRefresh() {
+        if (isRefresh == null) {
+            isRefresh = 'false';
+        }
         return this.isRefresh;
     }
     public void setIsRefresh(String value) {
@@ -166,9 +169,15 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         }
 
         this.metricDatas = new List<MetricDataWrapper>();
-        this.metricIds = new List<String>();
+        this.metricIds = new List<String>();       
 
-        if (setDates()) {
+         if ((String.valueOf(getFieldValue('View_Mode__c')).equalsIgnoreCase('Aggregated')) && !(Boolean.valueOf(getIsRefresh()))) {
+            String[] startDateArray = getFieldValue('Start_Date__c').split('==');
+            setStartDate((DateTime.newInstance(integer.valueOf(startDateArray[0]), integer.valueOf(startDateArray[1]), integer.valueOf(startDateArray[2]))).date());
+            setEndDate((datetime.now()).date());
+            return loadAggregateMetrics();
+        } 
+         else if (setDates()) {
             return loadAggregateMetrics();
         }
         else {

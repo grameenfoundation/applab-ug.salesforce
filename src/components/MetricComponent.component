@@ -48,7 +48,7 @@
                 </a>
             </apex:outputPanel>
             <br/><br/>
-
+        <apex:inputHidden value="{!isRefresh}" id="isRefresh" />
             <apex:outputPanel id="metricTable">
                 <apex:pageBlockTable value="{!metricDatas}" var="metricData">
                     <apex:column headerValue="Indicator">
