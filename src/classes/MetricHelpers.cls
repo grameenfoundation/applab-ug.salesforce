@@ -582,6 +582,7 @@ public with sharing class MetricHelpers {
                 Date__c,
                 M_E_Metric__r.Label__c,
                 Actual_Value__c,
+                Real_Value__c,
                 Projected_Value__c, 
                 M_E_Metric__r.M_E_Area__c,
                 Comment__c 
