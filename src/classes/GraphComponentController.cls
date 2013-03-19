@@ -474,9 +474,9 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         Map<String, String> fieldStore = new Map<String, String>();
         String query = 'SELECT ';
         for (String field : definition.Label__c.split('_#splitter#_')) {
-            query += ' ' + definition.Calculation__c + '(' + field + ') field' + counter + ', ';
+            query += ', ' + definition.Calculation__c + '(' + field + ') field' + counter ;
             fieldStore.put('field' + counter, field);
-            counter++;
+            counter++;  
         }
 
         // For scenarios where grouping may not be necessary
