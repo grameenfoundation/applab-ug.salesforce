@@ -22,7 +22,8 @@ function generateRefreshList(id) {
 // Refresh all the components that are related to the component that has been changed
 function refreshComponents(id, value) {
 
-    openGenericModal('genericDialog', 'Updating selectors. Please wait');
+    openGenericModal('genericDialog', 'Updating values in the selectors. Please wait');
+    clearErrorsFromPage();
 
     // Dig out all the component ids that need refreshing
     var ids = generateRefreshList(id).split(",");
@@ -33,6 +34,9 @@ function refreshComponents(id, value) {
             continue;
         }
         var func = window[getActionFunction(ids[i])];
+        if (typeof(func) == 'undefined') {
+            continue;
+        }
         func();
     }
 }
