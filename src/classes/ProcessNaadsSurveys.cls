@@ -19,11 +19,13 @@ public with sharing class ProcessNaadsSurveys {
     public static List<String>  processNaadsBaselineSurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
 
         List<String> metricNames = new List<String> {
-            'Farmer_group_trainings_meetings_or_attended',
-            'Number_of_farmer_supervisory_visits_conducted', 
-            'Number_of_farmers_attending_group_trainings_meetings'
+            'Percentage_of_beneficiaries_satisfied_with_advisory_services',
+            'Percentage_of_farmers_noticing_improvement_in_NAADS_extension_services',
+            'Percentage_of_farmers_reporting_a_feedback_channel_for_NAADS',
+            'Percentage_of_farmers_satisfied_with_feedback_channel_for_NAADS',
+            'Percentage_of_beneficiaries_perceiving_involvement_in_group_decision_making'
         };
-
+		
         String subcountyName = naadsBaselineSubcountyMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')));
         if (subcountyName == null) {
             return new String[]{ '0', 'Subcounty does not exist!!', 'SUPRESSMSG' };
@@ -76,7 +78,7 @@ public with sharing class ProcessNaadsSurveys {
         if (datas == null) {
             datas = new M_E_Metric_Data__c[]{};
             for (String metricName : metricNames) {
-                M_E_Metric_Data__c mData = MetricHelpers.createNewMetric(metricName, currentDate, 0.0, null, null, subcounty[0].Id, 'NAADS', true);
+                M_E_Metric_Data__c mData = MetricHelpers.createNewMetric(metricName, currentDate, 0.0, null, null, subcounty[0].Id, 'NAADS', false);
                 datas.add(mdata);
             }
         }
@@ -94,7 +96,7 @@ public with sharing class ProcessNaadsSurveys {
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug('Checking for metric name: ' + key);
             if (totalNewData == null) {
-                totalNewData = MetricHelpers.createNewMetric(key, currentDate, 0.0, null, null, subcounty[0].Id, 'NAADS', true);
+                totalNewData = MetricHelpers.createNewMetric(key, currentDate, 0.0, null, null, subcounty[0].Id, 'NAADS', false);
             }
             Decimal farmerCount = 0.0;
 
@@ -198,13 +200,18 @@ public with sharing class ProcessNaadsSurveys {
      */
      public static List<String> processAdvisoryServiceSurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {        
              
-         List<String> metricNames = new List<String> {
+         /**List<String> metricNames = new List<String> {
              'Percentage_of_beneficiaries_satisfied_with_advisory_services',
              'Percentage_of_farmers_noticing_improvement_in_NAADS_extension_services',
              'Percentage_of_farmers_reporting_a_feedback_channel_for_NAADS',
              'Percentage_of_farmers_satisfied_with_feedback_channel_for_NAADS',
              'Percentage_of_beneficiaries_perceiving_involvement_in_group_decision_making'
-         };
+         };**/
+        List<String> metricNames = new List<String> {
+            'Farmer_group_trainings_meetings_or_attended',
+            'Number_of_farmer_supervisory_visits_conducted', 
+            'Number_of_farmers_attending_group_trainings_meetings'
+        };		 
 
          String subcountyName = advisorySubcountyMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')));
          Decimal farmerCount = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q19_0'), 'q19_0', true);
@@ -263,7 +270,7 @@ public with sharing class ProcessNaadsSurveys {
         if (datas == null) {
             datas = new M_E_Metric_Data__c[]{};
             for (String metricName : metricNames) {
-                M_E_Metric_Data__c mData = MetricHelpers.createNewMetric(metricName, currentDate, 0.0, null, null, subcounty.Id, 'NAADS', true);
+                M_E_Metric_Data__c mData = MetricHelpers.createNewMetric(metricName, currentDate, 0.0, null, null, subcounty.Id, 'NAADS', false);
                 datas.add(mdata);
             }
         }
@@ -281,7 +288,7 @@ public with sharing class ProcessNaadsSurveys {
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug('Checking for metric name: ' + key);
             if (totalNewData == null) {
-                totalNewData = MetricHelpers.createNewMetric(key, currentDate, 0.0, null, null, subcounty.Id, 'NAADS', true);
+                totalNewData = MetricHelpers.createNewMetric(key, currentDate, 0.0, null, null, subcounty.Id, 'NAADS', false);
             }
 
             // Update the metric based on the key
