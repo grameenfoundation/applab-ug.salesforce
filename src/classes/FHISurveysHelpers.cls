@@ -67,6 +67,23 @@ public with sharing class FHISurveysHelpers {
         }
         //Commented out to save space
         ProcessSubmissionHelpers.createSubmissionMetaData(submission, submitter);
+        
+        // Get the group details i.e name and location
+        String[] gps;
+        String groupName;
+        if (isNorth) {
+            gps = answers.get('q66_0').Answer__c.split(' ');
+            groupName = answers.get('q40_0').Answer__c;
+        } else {
+            gps = answers.get('q57_0').Answer__c.split(' ');
+            groupName = answers.get('q31_0').Answer__c;
+        }    
+        String latitude = submission.interviewLatitude;
+        String longitude = submission.interviewLongitude;
+        if (gps.size() > 2) {
+            latitude = gps[0];
+            longitude = gps[1];
+        }
 
         // Dig out the values that are to be added to the metrics
         String registrationDate = answers.get('q1_0').Answer__c;
@@ -120,6 +137,20 @@ public with sharing class FHISurveysHelpers {
 
         String subcountyId = subcounty.Id;
         system.debug('subcounty id ' + subcountyId);
+        
+        //Register the group details as a client location so that they can be shown on the map
+        List<Client_Location__c> clientLocations = new List<Client_Location__c>();
+        clientLocations = [SELECT Id FROM Client_Location__c WHERE Display_Name__c = :groupName];
+        if (clientLocations.isEmpty()) { 
+            Client_Location__c clientLocation = new Client_Location__c();
+            clientLocation.Display_Name__c = groupName;
+            clientLocation.Latitude__c = latitude;
+            clientLocation.Longitude__c = longitude;
+            clientLocation.Type__c = '';
+            clientLocation.Account__c = [SELECT Id FROM Account WHERE Name='FHI 360' LIMIT 1].Id;
+            clientLocation.District__c = [SELECT Id FROM District__c WHERE Name = :districtName LIMIT 1].Id;
+            database.insert(clientLocation);
+        }
         
         // Load the metrics for the month that the submission is for
         List<String> metricNames = new List<String> { 
@@ -953,3 +984,5 @@ public with sharing class FHISurveysHelpers {
         //System.assert(resultSurveySubmission.success);
     }
  }
+
+                    
