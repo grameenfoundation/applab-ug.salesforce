@@ -585,6 +585,9 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
                 return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('EW_FARMER_REG')) {
+                return ProcessEwarehouseSurveys.processEwarehouseFarmerRegistration(surveySubmission, answers, interviewer);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');
