@@ -18,7 +18,9 @@ public with sharing class CkwDetailController {
 			update persons.get(0);
 		}
 		
-		return null;
+		PageReference pageRef = new PageReference(ApexPages.currentPage().getUrl());
+		pageRef.setRedirect(true);
+		return pageRef;
 	}
 
 	public static testMethod void test() {
