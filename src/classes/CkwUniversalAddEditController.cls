@@ -260,7 +260,7 @@ public class CkwUniversalAddEditController {
         		Phone__c p = getExistingDevice();
         		
         		if (p != null) {
-	    			List<Person__c> existingOwner = [
+	    			/*List<Person__c> existingOwner = [
 	    				SELECT
 	    					Id,
 	    					First_Name__c,
@@ -269,7 +269,20 @@ public class CkwUniversalAddEditController {
 	    				FROM
 	    					Person__c
 	    				WHERE Handset__c = :p.Id AND Id != :person.Id
+	    			];*/
+	    			List<CKW__c> existingOwner = [
+	    				SELECT
+	    					Id,
+	    					Person__r.Id,
+	    					Person__r.First_Name__c,
+	    					Person__r.Last_Name__c,
+	    					Person__r.Handset__c
+	    				FROM
+	    					CKW__c
+	    				WHERE
+	    					Person__r.Handset__c = :p.Id AND Person__r.Id != :person.Id
 	    			];
+	    			
 	    			
 					/*
 	    			 * if the device has an existing owner, report to the user about the 
@@ -279,7 +292,7 @@ public class CkwUniversalAddEditController {
 	    				PageReference personPageRef = new ApexPages.StandardController(existingOwner.get(0)).view();
 	    				
 	    				String msgStr = 'Handset Already assigned to <a href="'+ personPageRef.getUrl()+'" target="_blank">'+ 
-	    					existingOwner.get(0).First_Name__c + ' ' + existingOwner.get(0).Last_Name__c+'</a>';
+	    					existingOwner.get(0).Person__r.First_Name__c + ' ' + existingOwner.get(0).Person__r.Last_Name__c+'</a>';
 	    					
 	    				ApexPages.Message msg = new ApexPages.Message(ApexPages.severity.ERROR, msgStr);
 						ApexPages.addmessage(msg);

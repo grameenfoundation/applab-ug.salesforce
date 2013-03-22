@@ -24,6 +24,12 @@
             <apex:outputField value="{!CKW__c.Person__r.Raw_Mobile_Number__c}" label="{!$Label.ALTERNATIVE_MOBILE}"/>
             <apex:outputField label="{!$Label.OWNER}" value="{!CKW__c.Person__r.Owner.Name}"/>
         </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2" title="{!$Label.DEVICE_INFORMATION}" rendered="{!IF(CKW__c.Person__r.Handset__c == null, false, true)}">
+          	<apex:outputField label="{!$Label.HANDSET}" VALUE="{!CKW__c.Person__r.Handset__c}" />
+          	<apex:form >
+           		<apex:commandButton onclick="if(window.confirm('{!$Label.CONFIRM_HANDSET_REMOVAL}')){return true;}else{return false;}" action="{!removeHandset}" value="{!$Label.REMOVE_HANDSET}"/>
+           	</apex:form>
+        </apex:pageBlockSection>
         <apex:pageBlockSection columns="2" title="{!$Label.SOCIAL_ECONOMIC_INFORMATION}">
             <apex:outputField value="{!CKW__c.Person__r.Current_Poverty_Scorecard__r.Score__c}" label="{!$Label.POVERTY_LEVEL}"/>
             <apex:outputField value="{!CKW__c.Person__r.Gender__c}"/>
