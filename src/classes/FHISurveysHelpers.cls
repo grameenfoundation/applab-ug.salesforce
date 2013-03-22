@@ -8,7 +8,7 @@ public with sharing class FHISurveysHelpers {
     private static Map<String, String> getSubcountyMap() {
         if (null == subcountyMap) {
             subcountyMap = new Map<String, String>();
-            subcountyMap.put('Atwere', 'Awere');
+            subcountyMap.put('Awere', 'Awere');
             subcountyMap.put('Atanga', 'Atanga');
             subcountyMap.put('Puranga', 'Puranga');
             subcountyMap.put('Pakwach', 'Pakwach');
@@ -18,7 +18,8 @@ public with sharing class FHISurveysHelpers {
             subcountyMap.put('Okwalogwen', 'Okwalongwen');
             subcountyMap.put('Agwata', 'Agwata');
             subcountyMap.put('Dokolo', 'Dokolo');
-            subcountyMap.put('Omiya Pacwa', 'Omiya Pacwa');
+            subcountyMap.put('Amiya Pacwa', 'Omiya Pacwa');
+			subcountyMap.put('Omiya Pacwa', 'Omiya Pacwa');
             subcountyMap.put('Omiya Pacwa(New, Curved out of Paimol S/C)', 'Omiya Pacwa Paimol');
             subcountyMap.put('Omot', 'Omot');
             subcountyMap.put('Patongo', 'Patongo');
@@ -603,7 +604,7 @@ public with sharing class FHISurveysHelpers {
             // Pader
             Map<String, String> translationMap = new Map<String, String> {
                 '1' => 'Awere',
-                '2' => 'Atenga',
+                '2' => 'Atanga',
                 '3' => 'Puranga'
             };
             subcountyName = translationMap.get(answers.get('q4_0').Answer__c);
@@ -615,7 +616,7 @@ public with sharing class FHISurveysHelpers {
                 '2' => 'Kucwiny',
                 '3' => 'Parombo'
             };
-            subcountyName = translationMap.get(answers.get('q11_0').Answer__c);
+            subcountyName = translationMap.get(answers.get('q5_0').Answer__c);
         }
          else if (districtBinding.equals('3')) {
              // Dokolo
@@ -624,17 +625,17 @@ public with sharing class FHISurveysHelpers {
                 '2' => 'Agwata',
                 '3' => 'Dokolo'
             };
-            subcountyName = translationMap.get(answers.get('q25_0').Answer__c);
+            subcountyName = translationMap.get(answers.get('q6_0').Answer__c);
         }
          else if (districtBinding.equals('4')) {
              // Agago
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Omiya Pacwa',
-                '2' => 'Omiya Pacwa(New, Curved out of Paimol S/C)',
-                '3' => 'Omot',
-                '4' => 'Patongo'
+                '1' => 'Amiya Pacwa',
+                '2' => 'Omot',
+                '3' => 'Patongo',
+                '4' => 'Omiya Pacwa(New, Curved out of Paimol S/C)'
             };
-            subcountyName = translationMap.get(answers.get('q27_0').Answer__c);
+            subcountyName = translationMap.get(answers.get('q7_0').Answer__c);
         }
          else if (districtBinding.equals('5')) {
              // Oyam
@@ -661,9 +662,9 @@ public with sharing class FHISurveysHelpers {
         if (districtBinding.equals('1')) {        
             // Kabale
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Ruhija',
-                '2' => 'Muko',
-                '3' => 'Nyawmeru'
+                '1' => 'Muko',
+                '2' => 'Nyamweru',
+                '3' => 'Ruhija'
             };
             subcountyName = translationMap.get(answers.get('q4_0').Answer__c);
         }
@@ -710,7 +711,7 @@ public with sharing class FHISurveysHelpers {
             // Pader
             Map<String, String> translationMap = new Map<String, String> {
                 '1' => 'Awere',
-                '2' => 'Atenga',
+                '2' => 'Atanga',
                 '3' => 'Puranga'
             };
             subcountyName = translationMap.get(answers.get('q4_0').Answer__c);
@@ -720,7 +721,8 @@ public with sharing class FHISurveysHelpers {
             Map<String, String> translationMap = new Map<String, String> {
                 '1' => 'Pakwach',
                 '2' => 'Kucwiny',
-                '3' => 'Parombo'
+                '3' => 'Parombo',
+				'4' => 'Pakwach Town Council'
             };
             subcountyName = translationMap.get(answers.get('q11_0').Answer__c);
         }
@@ -770,16 +772,16 @@ public with sharing class FHISurveysHelpers {
             Map<String, String> translationMap = new Map<String, String> {
                 '1' => 'Ruhija',
                 '2' => 'Muko',
-                '3' => 'Nyawmeru'
+                '3' => 'Nyamweru'
             };
             subcountyName = translationMap.get(answers.get('q4_0').Answer__c);
         }
         else if (districtBinding.equals('2')) {
              // Kisoro
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Bukimbiri',
-                '2' => 'Nyabwishenya',
-                '3' => 'Nyundo'
+                '1' => 'Nyabwishenya',
+                '2' => 'Nyundo',
+                '3' => 'Bukimbiri'
             };
             subcountyName = translationMap.get(answers.get('q5_0').Answer__c);
         }
