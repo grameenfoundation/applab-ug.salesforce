@@ -136,6 +136,9 @@ public with sharing class ProcessNaadsSurveys {
                  }
                  totalNewData.Actual_Value__c = 100*(totalNewData.Numerator__c/totalNewData.Denumerator__c);
             }
+            else {
+            	continue;
+            }
             dataMap.put(key, totalNewData);
         }
         List<Database.upsertResult> uResults = Database.upsert(dataMap.values());
@@ -199,14 +202,7 @@ public with sharing class ProcessNaadsSurveys {
      *              element 3 - Message body to the CKW if required.
      */
      public static List<String> processAdvisoryServiceSurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {        
-             
-         /**List<String> metricNames = new List<String> {
-             'Percentage_of_beneficiaries_satisfied_with_advisory_services',
-             'Percentage_of_farmers_noticing_improvement_in_NAADS_extension_services',
-             'Percentage_of_farmers_reporting_a_feedback_channel_for_NAADS',
-             'Percentage_of_farmers_satisfied_with_feedback_channel_for_NAADS',
-             'Percentage_of_beneficiaries_perceiving_involvement_in_group_decision_making'
-         };**/
+
         List<String> metricNames = new List<String> {
             'Farmer_group_trainings_meetings_or_attended',
             'Number_of_farmer_supervisory_visits_conducted', 
@@ -215,7 +211,7 @@ public with sharing class ProcessNaadsSurveys {
 
          String subcountyName = advisorySubcountyMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')));
          Decimal farmerCount = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q19_0'), 'q19_0', true);
-         String visitType = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0'));
+         Set<String> visitType = ProcessSubmissionHelpers.getAnswerSet(answers.get('q1_0'));
          Subcounty__c subcounty = [Select Id from Subcounty__c where Display_Name__c =:subcountyName];
          DateTime handsetSubmitTime = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime);
          Date currentDate = handsetSubmitTime.date();
@@ -232,16 +228,16 @@ public with sharing class ProcessNaadsSurveys {
              naadsMetric.Monthly_Visit_Count__c = 0;
              naadsMetric.Attendance_Sheet_Count__c = 0;
          }
-         if (visitType == '1') {
+         if (visitType.contains('1')) {
              naadsMetric.Monthly_Visit_Count__c += 1;
          }
-         else if (visitType == '2') {
+         if (visitType.contains('2')) {
              naadsMetric.Group_Trainings_Count__c += 1;
          }
-         else if (visitType == '3') {
+         if (visitType.contains('3')) {
              naadsMetric.Supervisory_Visit_Count__c += 1;
          }
-         else {
+         if (visitType.contains('4')) {
              naadsMetric.Attendance_Sheet_Count__c += 1;
          }
          database.upsert(naadsMetric);
@@ -292,17 +288,20 @@ public with sharing class ProcessNaadsSurveys {
             }
 
             // Update the metric based on the key
-            if (key.equals('Farmer_group_trainings_meetings_or_attended') && visitType == '2') {
+            if (key.equals('Farmer_group_trainings_meetings_or_attended') && visitType.contains('2')) {
                  totalNewData.Denumerator__c += 1;
                  totalNewData.Actual_Value__c = totalNewData.Denumerator__c;
             }
-            else if (key.equals('Number_of_farmer_supervisory_visits_conducted') && visitType == '3') {
+            else if (key.equals('Number_of_farmer_supervisory_visits_conducted') && visitType.contains('3')) {
                  totalNewData.Denumerator__c+= 1;
                  totalNewData.Actual_Value__c = totalNewData.Denumerator__c;
             }
-            else if (key.equals('Number_of_farmers_attending_group_trainings_meetings') && visitType == '2') {
+            else if (key.equals('Number_of_farmers_attending_group_trainings_meetings') && visitType.contains('2')) {
                  totalNewData.Denumerator__c += farmerCount;
                  totalNewData.Actual_Value__c = totalNewData.Denumerator__c;
+            }
+            else {
+            	continue;
             }
             dataMap.put(key, totalNewData);
         }
