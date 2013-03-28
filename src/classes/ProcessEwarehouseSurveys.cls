@@ -39,6 +39,7 @@ public with sharing class ProcessEwarehouseSurveys {
        Person__c person = new Person__c();
        person.First_Name__c = names[0];
        person.Last_Name__c = names[1];
+       person.Contact__c = contactSaveResult[0].getId();
        String countryName = 'Kenya';
        Country__c country = [SELECT Id from Country__c WHERE Name = :countryName];
        person.Country__c = country.Id;
