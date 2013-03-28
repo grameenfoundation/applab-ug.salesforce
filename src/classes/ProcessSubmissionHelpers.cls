@@ -170,15 +170,15 @@ public with sharing class ProcessSubmissionHelpers {
     *   @return List of answers as String
     */
     public static List<String> getSingleSelectAnswersByMatchingBindings(String bindingPattern, Map<String, Submission_Answer__c> answers) {
-    	
-    	List<String> matchingAnswers = new List<String>();
-    	Set<String> keys = answers.keySet();
-    	for (String key : keys) {
-    		if (key.startsWith(bindingPattern)) {
-    			matchingAnswers.add(answers.get(key).Answer__c);
-    		}
-    	}    	
-    	return matchingAnswers;
+        
+        List<String> matchingAnswers = new List<String>();
+        Set<String> keys = answers.keySet();
+        for (String key : keys) {
+            if (key.startsWith(bindingPattern)) {
+                matchingAnswers.add(answers.get(key).Answer__c);
+            }
+        }       
+        return matchingAnswers;
     }
     
     /**
@@ -243,10 +243,10 @@ public with sharing class ProcessSubmissionHelpers {
      * This is for the new IBT surveys
      */
     public static gfsurveys__Answer__c extractAnswer(Map<String, gfsurveys__Answer__c> answers, String key) {
-    	if(answers.containsKey(key)) {
-    		return answers.get(key);
-    	}
-    	return null;
+        if(answers.containsKey(key)) {
+            return answers.get(key);
+        }
+        return null;
     }
     
     /**
@@ -292,6 +292,25 @@ public with sharing class ProcessSubmissionHelpers {
             }
         }
         return true;
+    }
+
+    /**
+    *  Given a Set<String> of items, return a semi colon delimited string of the items
+    *
+    *  @param items    - A set containing the items to be returned
+    *                       as a semi-colon delimited string
+    *
+    *  @return - The semi colon delimited string
+    */    
+    public static String processAnswerSet(Set<String> items) {
+        String returnString = '';
+        if (items.size() > 0 ) {
+            for (String item : items) {
+                returnString = returnString + ';' + item;
+            }
+            returnString = returnString.substring(1);
+        }
+        return returnString;
     }
     
     static testMethod void testAnswers() {        
