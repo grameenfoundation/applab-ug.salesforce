@@ -585,6 +585,9 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
                 return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
+                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');
@@ -621,6 +624,10 @@ global class ProcessSurveySubmission {
         Farmer__c farmer1 = Utils.createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
+
+        // Create an Opportunity farmer
+        Opportunity_Farmer__c oppFarmer1 = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        database.insert(oppFarmer1);
 
         // Create povery scorecards
         Poverty_Scorecard__c  povertyScorecard1 = Utils.createTestPovertyScorecard('POOR', farmer1.Person__c, false, '');
@@ -662,6 +669,10 @@ global class ProcessSurveySubmission {
         Farmer__c farmer1 = Utils.createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
+
+        // Create an Opportunity farmer
+        Opportunity_Farmer__c oppFarmer1 = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        database.insert(oppFarmer1);
 
         // Create povery scorecards
         Poverty_Scorecard__c  povertyScorecard1 = Utils.createTestPovertyScorecard('POOR', farmer1.Person__c, false, '');

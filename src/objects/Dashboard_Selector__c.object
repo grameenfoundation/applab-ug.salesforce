@@ -35,6 +35,7 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Controls what selectors are to go on a dashboard selector</description>
     <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
@@ -46,7 +47,6 @@
         <relationshipLabel>Dashboard Selectors</relationshipLabel>
         <relationshipName>Dashboard_Selectors</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -149,6 +149,15 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Show_Opportunity_Farmer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the opportunity farmer selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the opportunity farmer selector in the dashboard selector</inlineHelpText>
+        <label>Show Opportunity Farmer</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Show_Field_Officer__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Show the field officer selector</description>
@@ -173,6 +182,15 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to show the metric date selector. Only check if not showing the normal date selector</inlineHelpText>
         <label>Show Metric Date Selector</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Opportunity_Farmer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the opportunity farmer selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the opportunity farmer selector in the dashboard selector</inlineHelpText>
+        <label>Show Opportunity Farmer</label>
         <type>Checkbox</type>
     </fields>
     <fields>
