@@ -51,6 +51,13 @@ public with sharing class DashboardSelectorComponentController extends ParentCom
         return this.selector.Show_Field_Officer__c;
     }
 
+    /** 
+     *  Enable Opportunity Farmer dashboard selector
+     */ 
+    public Boolean getShowOpportunityFarmer() {
+        return this.selector.Show_Opportunity_Farmer__c;
+    }
+
     public Date getStartDate() {
         return this.selector.Start_Date__c;
     }
