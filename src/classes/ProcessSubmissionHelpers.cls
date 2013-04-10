@@ -393,4 +393,28 @@ public with sharing class ProcessSubmissionHelpers {
         test = getTimestamp(String.valueOf(control.getTime()));
         System.assertEquals(test, control);
     }
+
+    /**
+     * Test method for calculateDob method
+     */
+    static testMethod void testCalculateDob() {
+        String testDobString = '2011-09-30';
+        Date testDob = calculateDob(testDobString);
+    }
+
+    /**
+     * Test method for translateGender method
+     */
+    static testMethod void testTranslateGender() {
+        String testGenderNumber = '2';
+        System.assertEquals(translateGender('2'), 'Female');
+    }
+
+    /**
+     * Test method for calculateAge method
+     */
+    static testMethod void testCalculateAge() {
+        Date testDob = calculateDob('2001-09-30');
+        System.assertEquals(calculateAge(testDob), 13);
+    }
 }

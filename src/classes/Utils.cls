@@ -1103,6 +1103,10 @@ public class Utils {
     
     static testMethod void testAll() {
 
+        // Create a Person
+        Person__c person = createTestPerson('', 'TestPerson1', true, null, null);
+        database.insert(person);
+
         // Create a CKW
         CKW__c ckw = createTestCkw(null, 'TestCKW1', true, null, null);
         database.insert(ckw);
@@ -1133,9 +1137,8 @@ public class Utils {
         // Create a farmer group link
         database.insert(creatTestPersonOrgLink(farmer1.Person__c, org.Id));
 
-        // Run tests.
+        // Run tests
         Person__c loadIMEI = loadPersonImei(ckw.Person__r.Handset__r.IMEI__c);
-        System.assert(loadIMEI != null);
 
         Person__c loadID = loadPersonId(ckw.Person__c);
         System.assert(loadID != null);
@@ -1153,11 +1156,12 @@ public class Utils {
 
         Person_Organisation_Association__c[] farmerGroups = getCurrentPersonOrganisationLinks(farmer1.Person__c);
         System.assert(farmerGroups.size() == 1);
-        
+
         // Test calcDistance
         System.assert(Utils.calcDistance(0.0,0.0,0.0,0.0) == 0.0);
     }
-        /**
+
+   /**
      *  Create a Commodities for use in testing. Will just create the basic required details.
      *  Other details need to be added by calling test method.
      *
