@@ -330,7 +330,7 @@ public with sharing class ProcessSubmissionHelpers {
      *
      *  @param dob - The date of birth (format YYYY-MM-dd (2011-09-30))
      *
-     *  @return - Integer : number representing the age of the interviewee 
+     *  @return - A number representing the age of the interviewee 
      */
     public static Integer calculateAge(Date dob) {
         Date now = date.today();
@@ -353,7 +353,7 @@ public with sharing class ProcessSubmissionHelpers {
      *
      *  @param dobString - A String that represents the date of birth (format YYYY-MM-dd (2011-09-30))
      *
-     *  @return - date of birth as a Date datatype
+     *  @return - date of birth
      */
     public static Date calculateDob(String dobString) {
         Date dob = null;

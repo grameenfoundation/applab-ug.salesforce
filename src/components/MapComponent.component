@@ -92,19 +92,7 @@
             <script type="text/javascript">
                 var latitude = parseFloat('{!vertice.latitude}');
                 var longitude = parseFloat('{!vertice.longitude}');
-                if(isNaN(latitude)) {
-
-                    // Try to convert from DMS to Dd
-                    latitude = parseFloat(dmsToDd('{!vertice.latitude}'));
-                }
-                if(isNaN(longitude)) {
-
-                    // Try to convert from DMS to Dd
-                    longitude = parseFloat(dmsToDd('{!vertice.longitude}'));
-                }
-                if (!isNaN(latitude) && !isNaN(longitude)) {
-                    addVerticeToMap("{!key}", new verticeData(latitude, longitude));
-                }
+                addVerticeToMap("{!key}", new verticeData(latitude, longitude));
             </script>
         </apex:repeat>
         <script type="text/javascript">

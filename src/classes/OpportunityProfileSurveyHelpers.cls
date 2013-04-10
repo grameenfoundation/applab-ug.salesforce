@@ -28,7 +28,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
         // Check if Opportunity Farmer already exists
          if (opportunityFarmerExists) {
 
-            // Opportunity Farmer does not exist so return an error
+            // Opportunity Farmer does exists so return an error
             return new String[] { '0', 'The Opportunity Farmer ' + answers.get('q7_0').Answer__c + ' ' + answers.get('q6_0').Answer__c + ': already exists in our System. Contact tech team', 'SUPRESSMSG' };
         }
 
@@ -67,7 +67,6 @@ public with sharing class OpportunityProfileSurveyHelpers {
         String districtValue = answers.get('q30_0').Answer__c;
         String districtName = translateDistrictName(districtValue);
         District__c district = ProcessSubmissionHelpers.getDistrict(districtName);
-        System.debug('District: ' + districtName);
 
         String subcountyName = '';
         subcountyName = getSubcountyMap().get(translateSubcountyName(answers, districtValue));
@@ -78,12 +77,11 @@ public with sharing class OpportunityProfileSurveyHelpers {
                                     FROM
                                         Subcounty__c
                                     WHERE
-                                        Display_Name__c =:subcountyName
+                                        Display_Name__c = :subcountyName
                                     AND 
-                                        District__c =:district.Id
+                                        District__c = :district.Id
                                     LIMIT 1
                                    ];
-
         if (subcounty.isEmpty()) {
 
            // Subcounty does not exist so return an error
@@ -91,7 +89,6 @@ public with sharing class OpportunityProfileSurveyHelpers {
         }
 
         person.Subcounty__c = subcounty[0].Id;
-        system.debug('subcounty id ' + subcounty[0].Id);
         person.District__c = district.Id;
 
         // Calculate the age of the person. Should this be a formula on Person
@@ -132,7 +129,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
         }
 
         // Create this Opportunity Farmer's Land
-        List<FarmerLandCoordinates> farmerLandCoordinatesList = new List<FarmerLandCoordinates>();
+        List<Coordinates> farmerLandCoordinatesList = new List<Coordinates>();
 
         // Check if farmer already has land
         landExists = checkIfFarmerLandExists(oppFarmer);
@@ -148,7 +145,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
         newFarmerLand.Opportunity_Farmer__c = oppFarmer.Id;
 
         while (answers.containsKey('q87_' + counter)) {
-            FarmerLandCoordinates coordinate = new FarmerLandCoordinates();
+            Coordinates coordinate = new Coordinates();
 
             // Add gps if it is there
             if (answers.containsKey('q87_' + counter)) {
@@ -242,7 +239,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
      *
      *  @param answers - A map of the answers submitted for the survey
      *
-     *  @return - boolean flag (true if they exist)
+     *  @return - 'where' clause string
      */
     private static String getWhereClause(Map<String, Submission_Answer__c> answers) {
 
