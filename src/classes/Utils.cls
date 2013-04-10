@@ -923,9 +923,9 @@ public class Utils {
     public static FarmerLand__c createTestFarmerLand(String appendCharacters, Id opportunityFarmerId) {
 
         FarmerLand__c testFarmerLand = new FarmerLand__c();
-        FarmerLandCoordinates coordinate1 = new FarmerLandCoordinates();
-        FarmerLandCoordinates coordinate2 = new FarmerLandCoordinates();
-        List<FarmerLandCoordinates> coordinatesList = new List<FarmerLandCoordinates>();
+        Coordinates coordinate1 = new Coordinates();
+        Coordinates coordinate2 = new Coordinates();
+        List<Coordinates> coordinatesList = new List<Coordinates>();
         coordinate1.Latitude = 6.278930; 
         coordinate1.Longitude = 33.2678;
         coordinate2.Latitude = 0.263748;
