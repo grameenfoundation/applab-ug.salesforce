@@ -133,6 +133,7 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
                 Show_Data_Validator__c,
                 Show_CKW__c,
                 Show_Farmer__c,
+                Show_Opportunity_Farmer__c,
                 Show_Field_Officer__c,
                 Show_MTN_Chan__c,
                 Date_Period__c,

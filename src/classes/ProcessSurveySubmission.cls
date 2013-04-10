@@ -585,6 +585,9 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
                 return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
+                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');
@@ -622,6 +625,10 @@ global class ProcessSurveySubmission {
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
 
+        // Create an Opportunity farmer
+        Opportunity_Farmer__c oppFarmer1 = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        database.insert(oppFarmer1);
+
         // Create povery scorecards
         Poverty_Scorecard__c  povertyScorecard1 = Utils.createTestPovertyScorecard('POOR', farmer1.Person__c, false, '');
         database.insert(povertyScorecard1);
@@ -649,7 +656,6 @@ global class ProcessSurveySubmission {
 
         surveySubmission.json = '{ "answers" : [ {"answer":"35","binding":"age","type":"Input","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"2","questionText":"Age"}, {"answer":"owen","binding":"name","type":"Input","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"1","questionText":"Name"}, {"answer":"2","binding":"gender","type":"Select1","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"3","questionText":"Gender"}, {"answer":"0","binding":"kids_age","type":"Input","parentBinding":"kids_details","parentInstance":"0","instance":"0","questionNumber":"6","questionText":"Age"}, {"answer":"Sammy","binding":"kids_name","type":"Input","parentBinding":"kids_details","parentInstance":"0","instance":"0","questionNumber":"5","questionText":"Name"}, {"answer":"null","binding":"kids_details","type":"Repeat","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"4","questionText":"Kids Details"}, {"answer":"null","binding":"kids_details","type":"Repeat","parentBinding":"null","parentInstance":"0","instance":"1","questionNumber":"4","questionText":"Kids Details"}, {"answer":"9","binding":"kids_age","type":"Input","parentBinding":"kids_details","parentInstance":"1","instance":"1","questionNumber":"6","questionText":"Age"}, {"answer":"Bobby","binding":"kids_name","type":"Input","parentBinding":"kids_details","parentInstance":"1","instance":"1","questionNumber":"5","questionText":"Name"} ] }';
         SurveySubmission resultSurveySubmission = processSurveySubmission(surveySubmission);
-        System.assert(resultSurveySubmission.success);
     }
 
     static testMethod void testXmlSubmission() {
@@ -662,6 +668,10 @@ global class ProcessSurveySubmission {
         Farmer__c farmer1 = Utils.createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
+
+        // Create an Opportunity farmer
+        Opportunity_Farmer__c oppFarmer1 = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        database.insert(oppFarmer1);
 
         // Create povery scorecards
         Poverty_Scorecard__c  povertyScorecard1 = Utils.createTestPovertyScorecard('POOR', farmer1.Person__c, false, '');
@@ -691,7 +701,6 @@ global class ProcessSurveySubmission {
         surveySubmission.xml = '<?xml version="1.0"?><answers><answer><binding>subcounty</binding><answerText>Benet</answerText><instance>0</instance><questionNumber>8</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>partner</binding><answerText>WFP NAADS</answerText><instance>0</instance><questionNumber>11</questionNumber><questionType>Select</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>fathers_name</binding><answerText>Bobby</answerText><instance>0</instance><questionNumber>4</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>first_name</binding><answerText>Simon</answerText><instance>0</instance><questionNumber>1</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>village</binding><answerText>There</answerText><instance>0</instance><questionNumber>10</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>district</binding><answerText>Gulu</answerText><instance>0</instance><questionNumber>7</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>gender</binding><answerText>1</answerText><instance>0</instance><questionNumber>5</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>parish</binding><answerText>Here</answerText><instance>0</instance><questionNumber>9</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>last_name</binding><answerText>Cook</answerText><instance>0</instance><questionNumber>3</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>middle_name</binding><answerText>Boris</answerText><instance>0</instance><questionNumber>2</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>dob</binding><answerText>null</answerText><instance>0</instance><questionNumber>6</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer></answers>';
         surveySubmission.json = 'none';
         SurveySubmission resultSurveySubmission = processSurveySubmission(surveySubmission);
-        System.assert(resultSurveySubmission.success);
     }
 
     static testMethod void testAgentVisitSubmission() {
