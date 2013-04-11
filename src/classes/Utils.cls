@@ -707,6 +707,7 @@ public class Utils {
         Opportunity_Farmer__c testOpportunityFarmer = new Opportunity_Farmer__c();
         if (createAll) {
             Person__c person = createTestPerson('', appendCharacters, createAll, districtId, gender);
+            person.Type__c = 'Opportunity Farmer';
             database.insert(person);
             testOpportunityFarmer.Person__c = person.Id;
         }
@@ -1103,10 +1104,6 @@ public class Utils {
     
     static testMethod void testAll() {
 
-        // Create a Person
-        Person__c person = createTestPerson('', 'TestPerson1', true, null, null);
-        database.insert(person);
-
         // Create a CKW
         CKW__c ckw = createTestCkw(null, 'TestCKW1', true, null, null);
         database.insert(ckw);
@@ -1116,9 +1113,10 @@ public class Utils {
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
 
-        // Create an opportunity farmer
+        // Create Opportunity Farmer
         Opportunity_Farmer__c oppFarmer1 = createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
         database.insert(oppFarmer1);
+        System.assert(oppFarmer1 !=null);
 
         // Create povery scorecards
         Poverty_Scorecard__c  povertyScorecard1 = createTestPovertyScorecard('POOR', farmer1.Person__c, false, '');
@@ -1139,6 +1137,7 @@ public class Utils {
 
         // Run tests
         Person__c loadIMEI = loadPersonImei(ckw.Person__r.Handset__r.IMEI__c);
+        System.assert(loadIMEI != null);
 
         Person__c loadID = loadPersonId(ckw.Person__c);
         System.assert(loadID != null);
