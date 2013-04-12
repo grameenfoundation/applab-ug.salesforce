@@ -14,7 +14,7 @@ public with sharing class TestOpportunityProfileSurveyHelpers {
         database.SaveResult accountSaveResult = database.insert(testAccount);
 
         // Create test Opportunity Farmer
-        Opportunity_Farmer__c testOpportunityFarmer = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        Opportunity_Farmer__c testOpportunityFarmer = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer0', true, null, null);
         database.insert(testOpportunityFarmer);
 
         // Create test FarmerLand

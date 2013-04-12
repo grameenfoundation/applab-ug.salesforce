@@ -1105,16 +1105,16 @@ public class Utils {
     static testMethod void testAll() {
 
         // Create a CKW
-        CKW__c ckw = createTestCkw(null, 'TestCKW1', true, null, null);
+        CKW__c ckw = createTestCkw(null, 'TestCKW0', true, null, null);
         database.insert(ckw);
 
         // Create a farmer
-        Farmer__c farmer1 = createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
+        Farmer__c farmer1 = createTestFarmer('OD99998', null, 'TestFarmer0', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
 
         // Create Opportunity Farmer
-        Opportunity_Farmer__c oppFarmer1 = createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        Opportunity_Farmer__c oppFarmer1 = createTestOpportunityFarmer(null, 'TestOppFarmer0', true, null, null);
         database.insert(oppFarmer1);
         System.assert(oppFarmer1 !=null);
 
@@ -1136,7 +1136,7 @@ public class Utils {
         database.insert(creatTestPersonOrgLink(farmer1.Person__c, org.Id));
 
         // Run tests
-        Person__c loadIMEI = loadPersonImei(ckw.Person__r.Handset__r.IMEI__c);
+        Person__c loadIMEI = loadPersonImei('TestCKW0');
         System.assert(loadIMEI != null);
 
         Person__c loadID = loadPersonId(ckw.Person__c);
