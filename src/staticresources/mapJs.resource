@@ -3,7 +3,10 @@
  */
 
 var mapParameters = new Object();
-
+var j$ = jQuery.noConflict();
+var areaSqMeters = 0;
+var areaVal = 0;
+var areaConversionFactor = 0.000247;
 
 function initialize() {
 
@@ -27,6 +30,8 @@ function initialize() {
     }
 
     this.map = new google.maps.Map(document.getElementById(this.mapId), this.options);
+
+    // Plot Markers if they exist
     for (i = 0; i < this.markers.length; i++) {
         var markerUrl = "https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=" + this.markers[i].markerLabel + "|" + this.markers[i].markerColour + "|000000"
         var markerImage = new google.maps.MarkerImage(markerUrl);
@@ -65,10 +70,45 @@ function initialize() {
         var infoLabel = new InfoBox(myOptions);
         infoLabel.open(this.map);
     }
+
+    // Draw corresponding polygon for the vertices if required
+    var latLngPoints = [];
+
+    // Prepare map points for the polygon if available
+    for (i = 0; i < this.polygon.length; i++) {   
+        latLngPoints.push(this.polygon[i].polygonCoordinates);
+    };
+
+    // Prepare and Construct the polygon
+    var mapPoly = new google.maps.Polygon({
+        paths : latLngPoints,
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+        geodesic: true,
+        strokeColor: "#FF0000"
+    });
+    mapPoly.setMap(this.map);
+
+    // Calculate the area of the polygon in sqMeters
+    areaSqMeters = google.maps.geometry.spherical.computeArea(latLngPoints);
+
+    // Convert area from square meters to acres
+    areaVal = areaSqMeters*areaConversionFactor;
+
+    // Normalize area to 3 decimal points
+    areaVal = Math.round(areaVal*1000)/1000;
+    setAreaVal();
 }
 
 function addMapMarker(marker) {
     this.markers.push(marker);
+}
+
+// Include vertice on polygon
+function addMapVertice(vertice) {
+    this.polygon.push(vertice);
 }
 
 function addMapInfoWindow(infoWindow) {
@@ -84,6 +124,7 @@ function mapDetails(mapId, lat, long, zoom, disableControls, disableInfoWindows,
 
     this.mapId = mapId;
     this.markers = [];
+    this.polygon = [];
     this.infoWindows = [];
     this.startLat = parseFloat(lat);
     this.startLong = parseFloat(long);
@@ -100,6 +141,7 @@ function mapDetails(mapId, lat, long, zoom, disableControls, disableInfoWindows,
 
     this.initialize = initialize;
     this.addMapMarker = addMapMarker;
+    this.addMapVertice = addMapVertice;
     this.addMapInfoWindow = addMapInfoWindow;
     this.addMapOption = addMapOption;
     this.attachInfoWindow = attachInfoWindow;
@@ -118,6 +160,12 @@ function getMap(key) {
 function addMarkerToMap(key, marker) {
     var map = getMap(key);
     map.addMapMarker(marker);
+}
+
+// Add vertice to this map
+function addVerticeToMap(key, vertice){
+    var map = getMap(key);
+    map.addMapVertice(vertice);
 }
 
 function attachInfoWindow(marker, contentString) {
@@ -148,6 +196,11 @@ function markerData(gpsLatitude, gpsLongitude, title, colour, contentString, lab
     this.markerLabel = label
 };
 
+// Class that holds the data for each polygon vertice
+function verticeData(gpsLatitude, gpsLongitude) {
+    this.polygonCoordinates = new google.maps.LatLng(gpsLatitude, gpsLongitude);
+};
+
 function initializeAll(extended) {
     for (var key in mapParameters) {
         if (mapParameters.hasOwnProperty(key)) {
@@ -165,6 +218,13 @@ function initializeMap(key, extended) {
         j$('#' + mapParameters[key].mapId).css('left', winW/2-j$('#' + mapParameters[key].mapId).width()/2);
         j$('#mapRefresh').css('margin-left', '45%');
     }
+}
+
+// Set the area to be shown on the dashboard page 
+function setAreaVal() {
+    j$(document).ready(function() {
+        j$("#j_id0\\:landSize\\:landSizeSection\\:sizeAcresSectionItem\\:sizeAcres").html(areaVal + " Acres");
+    });
 }
 
 function getWindowDimensions() {

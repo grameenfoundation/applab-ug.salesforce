@@ -261,6 +261,57 @@ public with sharing class MetricHelpers {
         System.debug(LoggingLevel.INFO, 'Metric Created Successfully');
         return metricData;
     }
+	
+    public static M_E_Metric_Data__c createNewMetric(
+            String metricName,
+            Date startDate,
+            Decimal actualValue,
+            Decimal target,
+            Id districtId,
+            Id subcountyId,
+            String orgName,
+            Boolean isCumulative
+    ) {
+
+        // Create the new metric_data
+        System.debug(LoggingLevel.INFO, 'METRIC NAME = ' + metricName + ' District ID - ' + districtId);
+        M_E_Metric_Data__c metricData = new M_E_Metric_Data__c();
+        M_E_Metric__c[] metrics = getMetrics(metricName, orgName);
+        if (metrics == null || metrics.size() == 0) {
+            System.debug(LoggingLevel.INFO, 'Metric Creation Failed');
+            return null;
+        }
+        M_E_Metric__c metric = metrics[0];
+
+        // Add the details required.
+        metricData.M_E_Metric__c = metric.Id;
+        metricData.Name = metricData.Id;
+        metricData.Date__c = startDate;
+        metricData.Actual_Value__c = actualValue;
+        metricData.Is_Cumulative__c = isCumulative;
+		metricData.Denumerator__c = 0;
+		metricData.Numerator__c = 0;
+        if (districtId != null) {
+            metricData.District__c = districtId;
+        }
+		metricData.Subcounty__c = subcountyId;
+        // If no target supplied get the target from the parent metric
+        if (target == null) {
+            if (metric != null) {
+                metricData.Projected_Value__c = metric.Projected_Value__c;
+            }
+            else {
+
+                // If we cant get a value then set the target to 1
+                metricData.Projected_Value__c = 1.0;
+            }
+        }
+        else {
+            metricData.Projected_Value__c = target;
+        }
+        System.debug(LoggingLevel.INFO, 'Metric Created Successfully');
+        return metricData;
+    }
 
     /**
      *  Update the Actual_Value__c for a given metric in a quarter.
@@ -575,13 +626,15 @@ public with sharing class MetricHelpers {
 
     public static M_E_Metric_Data__c[] loadAllMetricData(String metricId) {
 
+        M_E_Metric_Data__c[] metricDatas = new M_E_Metric_Data__c[]{};
         Date quarterLastDay = MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0));
-        M_E_Metric_Data__c[] metricData = [
+        for (M_E_Metric_Data__c[] metricData : [
             SELECT
                 Id,
                 Date__c,
                 M_E_Metric__r.Label__c,
                 Actual_Value__c,
+                Real_Value__c,
                 Projected_Value__c, 
                 M_E_Metric__r.M_E_Area__c,
                 Comment__c 
@@ -592,9 +645,10 @@ public with sharing class MetricHelpers {
                 AND M_E_Metric__r.Id =:metricId
             ORDER BY
                 Date__c ASC
-        ];
-
-        return metricData;
+        ]) {
+            metricDatas = metricData;
+        }
+        return metricDatas;
     }
 
     /**

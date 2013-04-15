@@ -80,6 +80,11 @@
                     <c:FieldOfficerSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showFieldOfficer}" sectionKey="{!sectionKey}"/>
                 </div>
             </apex:outputPanel>
+            <apex:outputPanel id="opportunityFarmerSelector" rendered="{!showOpportunityFarmer}">
+                <div class="tableColumnDropDown">
+                    <c:OpportunityFarmerSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showOpportunityFarmer}" sectionKey="{!sectionKey}" />
+                </div>
+            </apex:outputPanel>
             <apex:outputPanel id="bracPa" rendered="{!showBracPa}">
                 <div class="tableColumnDropDown">
                     <c:BracPASelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showBracPa}" sectionKey="{!sectionKey}"/>

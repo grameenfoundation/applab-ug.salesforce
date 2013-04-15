@@ -5,46 +5,53 @@
     <apex:pageBlock title="CKW" mode="maindetail" tabStyle="CKW__c">
         <apex:pageBlockButtons location="top">
             <apex:form >
-                <apex:commandButton action="{!edit}" value="Edit"/>
-                <apex:commandButton action="{!delete}" value="Delete"/>
+                <apex:commandButton action="{!edit}" value="{!$Label.EDIT}"/>
+                <apex:commandButton action="{!delete}" value="{!$Label.DELETE}"/>
             </apex:form>
         </apex:pageBlockButtons>
-        <apex:pageBlockSection columns="2" title="Bio Data">
+        <apex:pageBlockSection columns="2" title="{!$Label.BIO_INFORMATION}">
             <apex:outputField value="{!CKW__c.First_Name__c}"/>
             <apex:outputField value="{!CKW__c.Middle_Name__c}"/>
             <apex:outputField value="{!CKW__c.Last_Name__c}"/>
             <apex:outputField value="{!CKW__c.Name}"/>
-            <apex:outputField value="{!CKW__c.Person__r.Contact__r.Account.Name}" label="Partner"/>
-            <apex:outputField value="{!CKW__c.Person__r.Village__c}" label="Location"/>
+            <apex:outputField value="{!CKW__c.Person__r.Contact__r.Account.Name}" label="{!$Label.PARTNER}"/>
+            <apex:outputField value="{!CKW__c.Person__r.Village__c}" label="{!$Label.LOCATION}"/>
             <apex:outputField value="{!CKW__c.Person__r.GPS_Location_E__c}"/>
             <apex:outputField value="{!CKW__c.Person__r.GPS_Location_N__c}"/>
-            <apex:outputField value="{!CKW__c.Person__r.Contact__r.Phone}" label="Mobile phone"/>
+            <apex:outputField value="{!CKW__c.Person__r.Contact__r.Phone}" label="{!$Label.MOBILE_PHONE}"/>
             <apex:outputField value="{!CKW__c.Person__r.Handset__r.IMEI__c}"/>
             <apex:outputField value="{!CKW__c.Person__r.Age__c}"/>
-            <apex:outputField value="{!CKW__c.Person__r.Raw_Mobile_Number__c}" label="Alternative Mobile"/>
+            <apex:outputField value="{!CKW__c.Person__r.Raw_Mobile_Number__c}" label="{!$Label.ALTERNATIVE_MOBILE}"/>
+            <apex:outputField label="{!$Label.OWNER}" value="{!CKW__c.Person__r.Owner.Name}"/>
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="2" title="Socio Economic">
-            <apex:outputField value="{!CKW__c.Person__r.Current_Poverty_Scorecard__r.Score__c}" label="Poverty Level"/>
+        <apex:pageBlockSection columns="2" title="{!$Label.DEVICE_INFORMATION}" rendered="{!IF(CKW__c.Person__r.Handset__c == null, false, true)}">
+          	<apex:outputField label="{!$Label.HANDSET}" VALUE="{!CKW__c.Person__r.Handset__c}" />
+          	<apex:form >
+           		<apex:commandButton onclick="if(window.confirm('{!$Label.CONFIRM_HANDSET_REMOVAL}')){return true;}else{return false;}" action="{!removeHandset}" value="{!$Label.REMOVE_HANDSET}"/>
+           	</apex:form>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2" title="{!$Label.SOCIAL_ECONOMIC_INFORMATION}">
+            <apex:outputField value="{!CKW__c.Person__r.Current_Poverty_Scorecard__r.Score__c}" label="{!$Label.POVERTY_LEVEL}"/>
             <apex:outputField value="{!CKW__c.Person__r.Gender__c}"/>
             <!--apex:outputField value="" label="Marginalization"/>
             <apex:outputField value="" label="Crops"/>
             <apex:outputField value="" label="Financial access"/-->
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="1" title="Performance">
+        <apex:pageBlockSection columns="1" title="{!$Label.PERFORMANCE}">
             <apex:relatedList list="Farmers_Registered__r" subject="{!CKW__c.Person__c}">
-                <apex:facet name="header"><div class='pbTitle'><h3>Registered Farmers</h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.REGISTERED_FARMER}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:relatedList list="Interviewee_Search_Logs__r" subject="{!CKW__c.Person__c}">
-                <apex:facet name="header"><div class='pbTitle'><h3>Searched Administered</h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.SEARCHES_ADMINISTERED}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:relatedList list="Messages__r" subject="{!CKW__c.Person__c}">
-                <apex:facet name="header"><div class='pbTitle'><h3>Messages</h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.MESSAGES}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:relatedList list="Cases__r" subject="{!CKW__c.Person__c}">
-                <apex:facet name="header"><div class='pbTitle'><h3>Cases</h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.CASES}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:relatedList list="CKW_Performance_Reviews__r">
-                <apex:facet name="header"><div class='pbTitle'><h3>Monthly Performance Records</h3></div></apex:facet>
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.MONTHLY_PERFORMANCE_RECORDS}</h3></div></apex:facet>
             </apex:relatedList>
             <!--apex:outputField value="" label="CKWDetail"/>
             <apex:outputField value="" label="Interactions with farmers "/>
@@ -52,9 +59,9 @@
             <apex:outputField value="" label="Annual visits"/>
             <apex:outputField value="" label="Tiempo promedio de certificación (cuando empezaron)"/-->
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="1" title="Other">
-            <apex:relatedList list="PersonGroupAssociations__r" subject="{!CKW__c.Person__c}" title="Groups">
-                <apex:facet name="header"><div class='pbTitle'><h3>Groups</h3></div></apex:facet>
+        <apex:pageBlockSection columns="1" title="{!$Label.OTHER}">
+            <apex:relatedList list="PersonGroupAssociations__r" subject="{!CKW__c.Person__c}" title="{!$Label.GROUPS}">
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.GROUPS}</h3></div></apex:facet>
             </apex:relatedList>
             <!-- apex:outputField value="" label="Satisfaction"/>
             <apex:outputField value="" label="Payments"/>

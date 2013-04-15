@@ -286,8 +286,8 @@ global class MetricDataWrapper implements Comparable {
 
             // Only show the actual value for the previous quarters
             if(!MetricHelpers.getCurrentQuarterAsString(0).equals(MetricHelpers.getQuarterAsString(item.Date__c))) {
-                if(item.Actual_Value__c  != null) {
-                    chdActual += item.Actual_Value__c + ',';
+                if(item.Real_Value__c  != null) {
+                    chdActual += item.Real_Value__c + ',';
                 } else {
                     chdActual += '0,';
                 }
@@ -327,7 +327,7 @@ global class MetricDataWrapper implements Comparable {
             numerator = this.previousNumerator;
             denumerator = this.previousDenumerator;
         }
-        System.debug(LoggingLevel.INFO, 'Valules for metric: ' + this.name + ' Real: ' + realValue + ' Num: ' + numerator + ' Denum: ' + denumerator + ' Fly: ' + this.onFly + ' calc: ' + this.calculation + ' agg: ' + this.isAggregate);
+        System.debug(LoggingLevel.INFO, 'Values for metric: ' + this.name + ' Real: ' + realValue + ' Num: ' + numerator + ' Denum: ' + denumerator + ' Fly: ' + this.onFly + ' calc: ' + this.calculation + ' agg: ' + this.isAggregate);
         if (this.onFly) {
             if (denumerator == null || denumerator == 0) {
                 return denumerator;

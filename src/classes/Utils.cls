@@ -693,6 +693,31 @@ public class Utils {
     }
 
     /**
+     *  Create a special type of farmer - Opportunity farmer for use in testing. Will just create the basic required details.
+     *  Other details need to be added by calling test method.
+     *
+     *  @param personId - The Id of the person to link this farmer too
+     *  @param appendCharacters - A string of characters to append to a name to make it unique
+     *  @param createAll - Should the ckw be created from scratch i.e no existing person
+     *
+     *  @return - The test opportunity farmer object
+     */
+    public static Opportunity_Farmer__c createTestOpportunityFarmer(String personId, String appendCharacters, Boolean createAll, String districtId, String gender) {
+
+        Opportunity_Farmer__c testOpportunityFarmer = new Opportunity_Farmer__c();
+        if (createAll) {
+            Person__c person = createTestPerson('', appendCharacters, createAll, districtId, gender);
+            person.Type__c = 'Opportunity Farmer';
+            database.insert(person);
+            testOpportunityFarmer.Person__c = person.Id;
+        }
+        else {
+            testOpportunityFarmer.Person__c = personId;
+        }
+        return testOpportunityFarmer;
+    }
+
+    /**
      *  Create a CKW for use in testing. Will just create the basic required details.
      *  Other details need to be added by calling test method.
      *
@@ -890,6 +915,33 @@ public class Utils {
     }
 
     /**
+     *  Create a FarmerLand for use in testing. 
+     *
+     *  @param appendCharacters - A string of characters to append to a name to make it unique
+     *
+     *  @return - The test FarmerLand__c object
+     */
+    public static FarmerLand__c createTestFarmerLand(String appendCharacters, Id opportunityFarmerId) {
+
+        FarmerLand__c testFarmerLand = new FarmerLand__c();
+        Coordinates coordinate1 = new Coordinates();
+        Coordinates coordinate2 = new Coordinates();
+        List<Coordinates> coordinatesList = new List<Coordinates>();
+        coordinate1.Latitude = 6.278930; 
+        coordinate1.Longitude = 33.2678;
+        coordinate2.Latitude = 0.263748;
+        coordinate2.Longitude = 32.436849; 
+        coordinatesList.add(coordinate1);
+        coordinatesList.add(coordinate2);
+
+        testFarmerLand.Name = 'testFarm_' + appendCharacters;
+        testFarmerLand.Coordinates__c = JSON.Serialize(coordinatesList); 
+        testFarmerLand.Opportunity_Farmer__c = opportunityFarmerId;
+
+        return testFarmerLand;
+    }
+
+    /**
      *  Create a metric for testing
      *
      *  @param orgId            - The Organisation this is for.
@@ -1053,13 +1105,18 @@ public class Utils {
     static testMethod void testAll() {
 
         // Create a CKW
-        CKW__c ckw = createTestCkw(null, 'TestCKW1', true, null, null);
+        CKW__c ckw = createTestCkw(null, 'TestCKW0', true, null, null);
         database.insert(ckw);
 
         // Create a farmer
-        Farmer__c farmer1 = createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
+        Farmer__c farmer1 = createTestFarmer('OD99998', null, 'TestFarmer0', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
+
+        // Create Opportunity Farmer
+        Opportunity_Farmer__c oppFarmer1 = createTestOpportunityFarmer(null, 'TestOppFarmer0', true, null, null);
+        database.insert(oppFarmer1);
+        System.assert(oppFarmer1 !=null);
 
         // Create povery scorecards
         Poverty_Scorecard__c  povertyScorecard1 = createTestPovertyScorecard('POOR', farmer1.Person__c, false, '');
@@ -1078,8 +1135,8 @@ public class Utils {
         // Create a farmer group link
         database.insert(creatTestPersonOrgLink(farmer1.Person__c, org.Id));
 
-        // Run tests.
-        Person__c loadIMEI = loadPersonImei(ckw.Person__r.Handset__r.IMEI__c);
+        // Run tests
+        Person__c loadIMEI = loadPersonImei('TestCKW0');
         System.assert(loadIMEI != null);
 
         Person__c loadID = loadPersonId(ckw.Person__c);
@@ -1098,11 +1155,12 @@ public class Utils {
 
         Person_Organisation_Association__c[] farmerGroups = getCurrentPersonOrganisationLinks(farmer1.Person__c);
         System.assert(farmerGroups.size() == 1);
-        
+
         // Test calcDistance
         System.assert(Utils.calcDistance(0.0,0.0,0.0,0.0) == 0.0);
     }
-        /**
+
+   /**
      *  Create a Commodities for use in testing. Will just create the basic required details.
      *  Other details need to be added by calling test method.
      *

@@ -51,6 +51,17 @@ public with sharing class DashboardSelectorComponentController extends ParentCom
         return this.selector.Show_Field_Officer__c;
     }
 
+    public Boolean getShowFarmer() {
+        return this.selector.Show_Farmer__c;
+    }
+
+    /** 
+     *  Enable Opportunity Farmer dashboard selector
+     */ 
+    public Boolean getShowOpportunityFarmer() {
+        return this.selector.Show_Opportunity_Farmer__c;
+    }
+
     public Date getStartDate() {
         return this.selector.Start_Date__c;
     }
@@ -118,6 +129,8 @@ public with sharing class DashboardSelectorComponentController extends ParentCom
         selector.Show_Dates__c = true;
         selector.Show_Subcounty__c = true;
         selector.Show_District__c = true;
+        selector.Show_Farmer__c = true;
+        selector.Show_Opportunity_Farmer__c = true;
         selector.Dashboard_Section__c = section.id;
         controller.setSelector(selector);
 
@@ -128,6 +141,8 @@ public with sharing class DashboardSelectorComponentController extends ParentCom
         System.assert(controller.getShowDates());
         System.assert(controller.getShowDistrict());
         System.assert(controller.getShowSubcounty());
+        System.assert(controller.getShowOpportunityFarmer());
+        System.assert(controller.getShowFarmer());
         System.assert(controller.getShowMetricDates());
         System.assert(controller.getShowPerson());
     }

@@ -113,6 +113,7 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Show_Data_Validator__c,
                 Show_CKW__c,
                 Show_Farmer__c,
+                Show_Opportunity_Farmer__c,
                 Show_Field_Officer__c,
                 Show_MTN_Chan__c,
                 Date_Period__c,

@@ -1,7 +1,6 @@
 /**
  *  Controller for a map component. This component will show a google map that contains markers for various sObject types
  */
-
 public with sharing class MapComponentController extends ChildComponentBase {
 
     // Variables that deal with setting the colours of the map markers
@@ -26,8 +25,10 @@ public with sharing class MapComponentController extends ChildComponentBase {
         }
         this.stats = '';
         this.mapMarkers = new List<MapMarkers>();
+        this.mapPolygon = new List<MapPolygon>();
         setDefaultColourMap();
         setMapMarkers(loadMapMarkers());
+        setMapPolygon(loadMapPolygon());
         setKeyText();
         isLoaded = true;
     }
@@ -200,6 +201,17 @@ public with sharing class MapComponentController extends ChildComponentBase {
     }
 
     /**
+     *  Variable that contains coordinates to use to draw a Polygon on the Map
+     */
+    private List<MapPolygon> mapPolygon;
+    public List<MapPolygon> getMapPolygon() {
+        return this.mapPolygon;
+    }
+    public void setMapPolygon(List<MapPolygon> values) {
+        this.mapPolygon = values;
+    }
+
+    /**
      *  Load the map markers that are to be shown on the map. This can be based on the Map_Parameter__c object or on values passed into the controller
      */
     public List<MapMarkers> loadMapMarkers() {
@@ -231,6 +243,24 @@ public with sharing class MapComponentController extends ChildComponentBase {
             //markers.addAll(getPersonMarkers());
         }
         return markers;
+    }
+
+    /**
+     *  Load the map polygon that is to be shown on the map. 
+     *  This can be based on the Map_Parameter__c object or on values passed into the controller
+     *
+     *  @return - a list of vertice coordinates to draw a polygon
+     */
+    public List<MapPolygon> loadMapPolygon() {
+
+        List<MapPolygon> polygon = new List<MapPolygon>();
+
+        // Decide which type of polygon to show based on the params feed from selector
+        String sObjectType = getFieldvalue('Type_Of_sObject__c');
+        if (sObjectType.equalsIgnoreCase('FarmerLand') || !getParentValue('ShowOpportunityFarmer').equals('')) {
+            polygon.addAll(getFarmerLandPolygon());
+        } 
+        return polygon;
     }
 
     /**
@@ -497,6 +527,85 @@ public with sharing class MapComponentController extends ChildComponentBase {
         return whereClauses;
     }
 
+    /**
+     *  Load FarmerLand Polygon coordinates for this map
+     *
+     *  @return - a list of vertice coordinates
+     */
+    private List<MapPolygon> getFarmerLandPolygon() {
+
+        Map<String, MapPolygon> polygon = new Map<String, MapPolygon>();
+
+        // Get the FarmerLand object for corresponding opportunity Farmer 
+        FarmerLand__c[] farmerLand = database.query(getFarmerLandPolygonQuery());
+        if ((farmerLand.size() == 0) || (farmerLand == null)) {
+            return polygon.values();
+        }
+
+        List<Coordinates> farmerLandCoords = new List<Coordinates>();
+
+        // Normalize coordinates string into List of Coordinates
+        farmerLandCoords = (List<Coordinates>)JSON.deserialize(farmerLand[0].Coordinates__c, List<Coordinates>.Class);
+        if(farmerLandCoords.size()>0){
+            for (integer i = 0; i<farmerLandCoords.size(); i++){
+                if ((farmerLandCoords[i].Latitude != null) && (farmerLandCoords[i].Longitude != null)) { 
+                    FarmerLandMapPolygon vertice = new FarmerLandMapPolygon(farmerLandCoords[i]);
+                    polygon.put(farmerLand[0].Name + i, vertice);
+                }
+                else {
+                    continue;
+                }
+            }
+        } 
+
+        // Tidy up the created lists so to keep the heap size down.
+        farmerLandCoords.clear();
+        return polygon.values();
+    }
+
+    /**
+     *  Create the SOQL query that gets the FarmerLand objects for the map markers
+     *
+     *  @return - The SOQL query to return the FarmerLand object
+     */ 
+    private String getFarmerLandPolygonQuery() {
+
+        String baseQuery = 
+            'SELECT ' +
+                'Id, ' +
+                'Name, ' +
+                'Coordinates__c ' +
+            'FROM ' +
+                'FarmerLand__c';
+
+        List<String> whereClauses = getFarmerLandWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+
+        String query = baseQuery + whereClause + ' LIMIT 1';
+        System.debug(LoggingLevel.INFO, query);
+        return query;
+    }
+
+    /**
+     *  Build the where clause for the query. Values are taken from the children of the parent if there is one.
+     *  If not then everything is loaded.
+     *
+     *  @return - The where clause basing on the Opportunity Farmer selected
+     */
+    private List<String> getFarmerLandWhereClause() {
+
+        List<String> whereClauses = new List<String>();
+
+        if (!getParentValue('Person__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Opportunity_Farmer__r.Person__c', getParentValue('Person__c'), true));
+        }
+        return whereClauses;
+    }
+
     // Set the colours up that can be used for dynamic assignment of map markers. Will override the default colour if that colour is already in use
     // by another category of map marker
     private void setDefaultColourMap() {
@@ -641,6 +750,32 @@ public with sharing class MapComponentController extends ChildComponentBase {
         controller.getKeyText();
         controller.getLatitude();
         controller.refreshData();
-    }
+        controller.getCkwMarkers();
+        controller.getSubmissionMarkers();
 
+        Opportunity_Farmer__c testOpportunityFarmer = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        database.insert(testOpportunityFarmer); 
+
+        Map_Parameter__c testMap1 = new Map_Parameter__c();
+        testMap1.Dashboard_Section__c = section.Id;
+        testMap1.Latitude__c = '1';
+        testMap1.Longitude__c = '2';
+        testMap1.Title__c = 'We Polygon';
+        testMap1.Type_Of_sObject__c = 'FarmerLand';
+        testMap1.Zoom__c = 8;
+        Database.insert(testMap1);
+
+        controller.setsObjectRecord(testMap1);
+        System.assertEquals(controller.getTypeOfsObject(), 'FarmerLand');
+        System.assertEquals(controller.getZoom(), '8');
+        System.assertEquals(controller.getTitle(), 'We Polygon');
+        System.assertEquals(controller.getLatitude(), '1');
+        System.assertEquals(controller.getLongitude(), '2');
+
+        FarmerLand__c testFarmerLand = Utils.createTestFarmerLand('TestFarmerland', testOpportunityFarmer.Id);
+        database.insert(testFarmerLand);
+
+        controller.getMapPolygon();
+        controller.loadMapPolygon();
+    }
 }
