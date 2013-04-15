@@ -707,6 +707,7 @@ public class Utils {
         Opportunity_Farmer__c testOpportunityFarmer = new Opportunity_Farmer__c();
         if (createAll) {
             Person__c person = createTestPerson('', appendCharacters, createAll, districtId, gender);
+            person.Type__c = 'Opportunity Farmer';
             database.insert(person);
             testOpportunityFarmer.Person__c = person.Id;
         }
@@ -1103,22 +1104,19 @@ public class Utils {
     
     static testMethod void testAll() {
 
-        // Create a Person
-        Person__c person = createTestPerson('', 'TestPerson1', true, null, null);
-        database.insert(person);
-
         // Create a CKW
-        CKW__c ckw = createTestCkw(null, 'TestCKW1', true, null, null);
+        CKW__c ckw = createTestCkw(null, 'TestCKW0', true, null, null);
         database.insert(ckw);
 
         // Create a farmer
-        Farmer__c farmer1 = createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
+        Farmer__c farmer1 = createTestFarmer('OD99998', null, 'TestFarmer0', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
 
-        // Create an opportunity farmer
-        Opportunity_Farmer__c oppFarmer1 = createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        // Create Opportunity Farmer
+        Opportunity_Farmer__c oppFarmer1 = createTestOpportunityFarmer(null, 'TestOppFarmer0', true, null, null);
         database.insert(oppFarmer1);
+        System.assert(oppFarmer1 !=null);
 
         // Create povery scorecards
         Poverty_Scorecard__c  povertyScorecard1 = createTestPovertyScorecard('POOR', farmer1.Person__c, false, '');
@@ -1138,7 +1136,8 @@ public class Utils {
         database.insert(creatTestPersonOrgLink(farmer1.Person__c, org.Id));
 
         // Run tests
-        Person__c loadIMEI = loadPersonImei(ckw.Person__r.Handset__r.IMEI__c);
+        Person__c loadIMEI = loadPersonImei('TestCKW0');
+        System.assert(loadIMEI != null);
 
         Person__c loadID = loadPersonId(ckw.Person__c);
         System.assert(loadID != null);
