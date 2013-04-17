@@ -146,10 +146,20 @@ public with sharing class MapComponentController extends ChildComponentBase {
     }
     private String latitude;
     public String getLatitude() {
+
+        // If custom value exists use it
+        if (!String.isEmpty(this.latitude)){
+            return this.latitude;
+        }
         return getFieldValue('Latitude__c');
     }
     private String longitude;
     public String getLongitude() {
+
+        // If custom value exists use it
+        if (!String.isEmpty(this.longitude)){
+            return this.longitude;
+        }
         return getFieldValue('Longitude__c');
     }
     public String getTypeOfsObject() {
@@ -646,6 +656,11 @@ public with sharing class MapComponentController extends ChildComponentBase {
         // Normalize coordinates string into List of Coordinates
         farmerLandCoords = (List<Coordinates>)JSON.deserialize(farmerLand[0].Coordinates__c, List<Coordinates>.Class);
         if(farmerLandCoords.size()>0){
+
+            // Center the map around the the assumed median vertice for a better view
+            integer midmark = farmerLandCoords.size()/2;
+            this.latitude = String.valueOf(farmerLandCoords[midmark].Latitude);
+            this.longitude = String.valueOf(farmerLandCoords[midmark].Longitude);
             for (integer i = 0; i<farmerLandCoords.size(); i++){
                 if ((farmerLandCoords[i].Latitude != null) && (farmerLandCoords[i].Longitude != null)) { 
                     FarmerLandMapPolygon vertice = new FarmerLandMapPolygon(farmerLandCoords[i]);
