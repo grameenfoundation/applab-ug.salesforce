@@ -137,7 +137,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalHouseholds != '0') {
-	        	return String.valueOf(Decimal.valueOf(poorHouseholds) / Decimal.valueOf(totalHouseholds));
+	        	return String.valueOf(((Decimal.valueOf(poorHouseholds) / Decimal.valueOf(totalHouseholds)) * 100).round());
 	        }
 	        
 	        return '0';

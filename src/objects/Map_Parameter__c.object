@@ -84,6 +84,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Map_Marker_Source_Class__c</fullName>
+        <description>Defines the Visualforce class that will be used to retrieve the Map Markers for this Map Parameter. This will be used if the Type_Of_sObject__c is set to None. The class is a normal visualforce class, but must implement MapComponentController.IMapMarkerSource</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Defines the Visualforce class that will be used to retrieve the Map Markers for this Map Parameter. This will be used if the Type_Of_sObject__c is set to None. The class must implement MapComponentController.IMapMarkerSource</inlineHelpText>
+        <label>Map Marker Source</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Splitter__c</fullName>
         <description>What should the markers for the default sObject be divided by</description>
         <externalId>false</externalId>
@@ -167,6 +178,21 @@
         <unique>false</unique>
     </fields>
     <label>Map Parameter</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Dashboard_Section__c</columns>
+        <columns>Keyword__c</columns>
+        <columns>Latitude__c</columns>
+        <columns>Longitude__c</columns>
+        <columns>Splitter__c</columns>
+        <columns>Title__c</columns>
+        <columns>Type_Of_sObject__c</columns>
+        <columns>Zoom__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <displayFormat>MP{0000000000}</displayFormat>
         <label>Map Parameter Name</label>

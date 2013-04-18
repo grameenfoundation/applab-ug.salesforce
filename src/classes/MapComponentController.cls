@@ -1,7 +1,6 @@
 /**
  *  Controller for a map component. This component will show a google map that contains markers for various sObject types
  */
-
 public with sharing class MapComponentController extends ChildComponentBase {
 
     // Variables that deal with setting the colours of the map markers
@@ -12,6 +11,25 @@ public with sharing class MapComponentController extends ChildComponentBase {
     Transient Set<String> usedColours;
     private Map_Parameter__c mapParameter;
 
+	// Interface for custom Map Marker Sources (any class that wants to provide a list of MapMarkers should implement this)
+    public interface IMapMarkerSource { 
+    	List<MapMarkers> loadMapMarkers(Map<String, String> parameters);
+    }
+    
+    
+	// Instantiate a Map Marker Source class from the className
+    public static IMapMarkerSource getMapMarkerSourceInstance(String className) {
+        Type t = Type.forName(className);
+        if(t != null) {
+        	return (IMapMarkerSource) t.newInstance();
+        }
+        
+        throw new MapComponentControllerException('Map Marker Source class called ' + className + ' does not exist!');
+    }
+    
+    // MapComponentControllerException - exceptions within this component should be of this type
+    public class MapComponentControllerException extends Exception {}
+    
     private void setUp() {
         if (isLoaded) {
             return;
@@ -26,8 +44,10 @@ public with sharing class MapComponentController extends ChildComponentBase {
         }
         this.stats = '';
         this.mapMarkers = new List<MapMarkers>();
+        this.mapPolygon = new List<MapPolygon>();
         setDefaultColourMap();
         setMapMarkers(loadMapMarkers());
+        setMapPolygon(loadMapPolygon());
         setKeyText();
         isLoaded = true;
     }
@@ -145,10 +165,20 @@ public with sharing class MapComponentController extends ChildComponentBase {
     }
     private String latitude;
     public String getLatitude() {
+
+        // If custom value exists use it
+        if (!String.isEmpty(this.latitude)){
+            return this.latitude;
+        }
         return getFieldValue('Latitude__c');
     }
     private String longitude;
     public String getLongitude() {
+
+        // If custom value exists use it
+        if (!String.isEmpty(this.longitude)){
+            return this.longitude;
+        }
         return getFieldValue('Longitude__c');
     }
     public String getTypeOfsObject() {
@@ -200,6 +230,17 @@ public with sharing class MapComponentController extends ChildComponentBase {
     }
 
     /**
+     *  Variable that contains coordinates to use to draw a Polygon on the Map
+     */
+    private List<MapPolygon> mapPolygon;
+    public List<MapPolygon> getMapPolygon() {
+        return this.mapPolygon;
+    }
+    public void setMapPolygon(List<MapPolygon> values) {
+        this.mapPolygon = values;
+    }
+
+    /**
      *  Load the map markers that are to be shown on the map. This can be based on the Map_Parameter__c object or on values passed into the controller
      */
     public List<MapMarkers> loadMapMarkers() {
@@ -229,8 +270,48 @@ public with sharing class MapComponentController extends ChildComponentBase {
         }
         else if (sObjectType.equalsIgnoreCase('Person') || !getParentValue('ShowPerson').equals('')) {
             //markers.addAll(getPersonMarkers());
+        } else if (sObjectType.equalsIgnoreCase('Custom Class')) {
+        	// Try to get the Map_Marker_Source_Class__c to see if a custom Map Marker Source Class was defined
+        	String sObjectMapMarkerSource = getFieldvalue('Map_Marker_Source_Class__c');
+        	if(sObjectMapMarkerSource != null && sObjectMapMarkerSource != '') {
+        		// Try to load the class defined in Map_Marker_Source_Class__c
+        		IMapMarkerSource mapMarkerSource = getMapMarkerSourceInstance(sObjectMapMarkerSource);
+        		
+        		// Call loadMapMarkers, and pass in any parameters that can be used for filtering the results
+        		Map<String, String> parameters = new Map<String, String>();
+        		ParentComponentBase parent = getParentComponentController();
+        		if(parent != null) {
+        			parameters = parent.getParameters();
+        		}
+        		
+        		// Also just add parameters from the page (Added this because in one case the above code wasn't getting the parameters)
+        		parameters.putAll(ApexPages.currentPage().getParameters());
+        		
+        		markers.addAll(mapMarkerSource.loadMapMarkers(parameters));
+        		
+        	} else {
+        		throw new MapComponentControllerException('Map_Marker_Source_Class__c is not set on the Map Parameter Object. Unable to load Map Markers');
+        	}
         }
         return markers;
+    }
+
+    /**
+     *  Load the map polygon that is to be shown on the map. 
+     *  This can be based on the Map_Parameter__c object or on values passed into the controller
+     *
+     *  @return - a list of vertice coordinates to draw a polygon
+     */
+    public List<MapPolygon> loadMapPolygon() {
+
+        List<MapPolygon> polygon = new List<MapPolygon>();
+
+        // Decide which type of polygon to show based on the params feed from selector
+        String sObjectType = getFieldvalue('Type_Of_sObject__c');
+        if (sObjectType.equalsIgnoreCase('FarmerLand') || !getParentValue('ShowOpportunityFarmer').equals('')) {
+            polygon.addAll(getFarmerLandPolygon());
+        } 
+        return polygon;
     }
 
     /**
@@ -396,14 +477,12 @@ public with sharing class MapComponentController extends ChildComponentBase {
         if (!getParentValue('Subcounty__c').equals('')) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.Subcounty__c', getParentValue('Subcounty__c'), true));
         }
+        
+        //Distinguish by the type of location
+        if (this.mapParameter.Keyword__c != null && !this.mapParameter.Keyword__c.equals('')) {
+           whereClauses.add(SoqlHelpers.addInWhereClause('Type__c', false, this.mapParameter.Keyword__c, null, true));
+        }
 
-        // Distinguish by dates
-        if (getStartDate(false) != null) {
-            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Active_Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), false), false));
-        }
-        if (getEndDate(false) != null) {
-            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Active_Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
-        }
         return whereClauses;
     }
 
@@ -494,6 +573,191 @@ public with sharing class MapComponentController extends ChildComponentBase {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Handset_Submit_Time__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
         }
         System.debug('Reached end of where clause');
+        return whereClauses;
+    }
+
+    /**
+     *  Load Person Markers for this map
+     */
+    private List<MapMarkers> getPersonMarkers() {
+
+        Map<String, MapMarkers> markers = new Map<String, MapMarkers>();
+
+        Person__c[] persons = database.query(getPersonMarkersQuery());
+        if (persons.size() == 0) {
+            return markers.values();
+        }
+
+        for (Person__c person : persons) {
+            // Dont include if we are missing the location
+            if (person.GPS_Location_N__c == null || person.GPS_Location_E__c == null) {
+                continue;
+            }
+
+            PersonMapMarker marker = new PersonMapMarker(person);
+            marker.generateMarkerName(getFieldvalue('Splitter__c'));
+            marker.setMarkerColour(getColour(marker.getColour(), marker.getMarkerName()));
+            markers.put(person.Name, marker);
+        }
+
+        // If there is only one Person then center the map around them and zoom to a better level
+        if (markers.size() == 1) {
+            this.zoom = '10';
+            this.latitude = persons[0].GPS_Location_N__c;
+            this.longitude = persons[0].GPS_Location_E__c;
+        }
+ 
+        // Tidy up the created lists so to keep the heap size down.
+        persons.clear();
+        setStats('There are ' + markers.size() + ' Persons who match your search<br/>');
+        return markers.values();
+    }
+
+    /** 
+     *  Create the SOQL query that gets the Person objects for the map markers
+     *
+     *  @return - The SOQL query to return the Person objects
+     */
+    private String getPersonMarkersQuery() {
+
+        String baseQuery = 'SELECT ' +
+                'Id, '   +
+                'Name, ' +
+                'Gender__c,'    +
+                'Parish__c, '  +
+                'Village__c, ' +
+                'District__r.Name, ' +
+                'Subcounty__r.Display_Name__c, ' +
+                'GPS_Location_N__c,' + 
+                'GPS_Location_E__c ' +
+            'FROM ' +
+                'Person__c';
+
+        List<String> whereClauses = getPersonWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        String query = baseQuery + whereClause;
+        System.debug(LoggingLevel.INFO, query);
+        return query;
+    }
+
+    /**
+     *  Build the where cluse for the query. Values are taken from the children of the parent if there is one.
+     *  If not then everything is loaded.
+     *
+     *  @return - The where clause basing on the limitations of region, district, subcounty, person type and owner if defined.
+     */
+    private List<String> getPersonWhereClause() {
+
+        List<String> whereClauses = new List<String>();
+
+        if (!getParentValue('Region__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Region__c', getParentValue('Region__c'), true));
+        }
+        
+        if (!getParentValue('District__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'District__c', getParentValue('District__c'), true));
+        }
+        if (!getParentValue('Subcounty__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Subcounty__c', getParentValue('Subcounty__c'), true));
+        }
+        
+        //Distinguish by the type of person
+        if (this.mapParameter.Keyword__c != null && !this.mapParameter.Keyword__c.equals('')) {
+           whereClauses.add(SoqlHelpers.addInWhereClause('Type__c', false, this.mapParameter.Keyword__c, null, true));
+        }
+
+        // Distinguish by the owner of this person
+        if (!getParentValue('OwnerId').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'OwnerId', getParentValue('OwnerOd'), true));
+        }
+        return whereClauses;
+    }
+
+    /**
+     *  Load FarmerLand Polygon coordinates for this map
+     *
+     *  @return - a list of vertice coordinates
+     */
+    private List<MapPolygon> getFarmerLandPolygon() {
+
+        Map<String, MapPolygon> polygon = new Map<String, MapPolygon>();
+
+        // Get the FarmerLand object for corresponding opportunity Farmer 
+        FarmerLand__c[] farmerLand = database.query(getFarmerLandPolygonQuery());
+        if ((farmerLand.size() == 0) || (farmerLand == null)) {
+            return polygon.values();
+        }
+
+        List<Coordinates> farmerLandCoords = new List<Coordinates>();
+
+        // Normalize coordinates string into List of Coordinates
+        farmerLandCoords = (List<Coordinates>)JSON.deserialize(farmerLand[0].Coordinates__c, List<Coordinates>.Class);
+        if(farmerLandCoords.size()>0){
+
+            // Center the map around the the assumed median vertice for a better view
+            integer midmark = farmerLandCoords.size()/2;
+            this.latitude = String.valueOf(farmerLandCoords[midmark].Latitude);
+            this.longitude = String.valueOf(farmerLandCoords[midmark].Longitude);
+            for (integer i = 0; i<farmerLandCoords.size(); i++){
+                if ((farmerLandCoords[i].Latitude != null) && (farmerLandCoords[i].Longitude != null)) { 
+                    FarmerLandMapPolygon vertice = new FarmerLandMapPolygon(farmerLandCoords[i]);
+                    polygon.put(farmerLand[0].Name + i, vertice);
+                }
+                else {
+                    continue;
+                }
+            }
+        } 
+
+        // Tidy up the created lists so to keep the heap size down.
+        farmerLandCoords.clear();
+        return polygon.values();
+    }
+
+    /**
+     *  Create the SOQL query that gets the FarmerLand objects for the map markers
+     *
+     *  @return - The SOQL query to return the FarmerLand object
+     */ 
+    private String getFarmerLandPolygonQuery() {
+
+        String baseQuery = 
+            'SELECT ' +
+                'Id, ' +
+                'Name, ' +
+                'Coordinates__c ' +
+            'FROM ' +
+                'FarmerLand__c';
+
+        List<String> whereClauses = getFarmerLandWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+
+        String query = baseQuery + whereClause + ' LIMIT 1';
+        System.debug(LoggingLevel.INFO, query);
+        return query;
+    }
+
+    /**
+     *  Build the where clause for the query. Values are taken from the children of the parent if there is one.
+     *  If not then everything is loaded.
+     *
+     *  @return - The where clause basing on the Opportunity Farmer selected
+     */
+    private List<String> getFarmerLandWhereClause() {
+
+        List<String> whereClauses = new List<String>();
+
+        if (!getParentValue('Person__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Opportunity_Farmer__r.Person__c', getParentValue('Person__c'), true));
+        }
         return whereClauses;
     }
 
@@ -641,6 +905,57 @@ public with sharing class MapComponentController extends ChildComponentBase {
         controller.getKeyText();
         controller.getLatitude();
         controller.refreshData();
-    }
+        controller.getCkwMarkers();
+        controller.getSubmissionMarkers();
 
+        Opportunity_Farmer__c testOpportunityFarmer = Utils.createTestOpportunityFarmer(null, 'TestOppFarmer1', true, null, null);
+        database.insert(testOpportunityFarmer); 
+
+        Map_Parameter__c testMap1 = new Map_Parameter__c();
+        testMap1.Dashboard_Section__c = section.Id;
+        testMap1.Latitude__c = '1';
+        testMap1.Longitude__c = '2';
+        testMap1.Title__c = 'We Polygon';
+        testMap1.Type_Of_sObject__c = 'FarmerLand';
+        testMap1.Zoom__c = 8;
+        Database.insert(testMap1);
+
+        controller.setsObjectRecord(testMap1);
+        System.assertEquals(controller.getTypeOfsObject(), 'FarmerLand');
+        System.assertEquals(controller.getZoom(), '8');
+        System.assertEquals(controller.getTitle(), 'We Polygon');
+        System.assertEquals(controller.getLatitude(), '1');
+        System.assertEquals(controller.getLongitude(), '2');
+
+        FarmerLand__c testFarmerLand = Utils.createTestFarmerLand('TestFarmerland', testOpportunityFarmer.Id);
+        database.insert(testFarmerLand);
+
+        controller.getMapPolygon();
+        controller.loadMapPolygon();
+        
+        Map_Parameter__c testMapWithMarkerSource = new Map_Parameter__c();
+        testMapWithMarkerSource.Dashboard_Section__c = section.Id;
+        testMapWithMarkerSource.Keyword__c = 'Rain Gauge';
+        testMapWithMarkerSource.Latitude__c = '1';
+        testMapWithMarkerSource.Longitude__c = '2';
+        testMapWithMarkerSource.Splitter__c = 'Gender';
+        testMapWithMarkerSource.Title__c = 'We';
+        testMapWithMarkerSource.Type_Of_sObject__c = 'Custom Class';
+        testMapWithMarkerSource.Map_Marker_Source_Class__c = 'MapComponentController.testMapMarkerSourceClass';
+        testMapWithMarkerSource.Zoom__c = 8;
+        Database.insert(testMapWithMarkerSource);
+        
+        controller.setsObjectRecord(testMapWithMarkerSource);
+        List<MapMarkers> mapMarkers = controller.loadMapMarkers();
+        System.assertEquals(mapMarkers.size(), 1);
+    }
+    
+    // Test MapMarker class for use in above test. Just implements MapComponentController.IMapMarkerSource and returns a List<MapMarkers> with one item
+    public with sharing class testMapMarkerSourceClass implements MapComponentController.IMapMarkerSource {
+    	public List<MapMarkers> loadMapMarkers(Map<String, String> parameters) {
+    		List<MapMarkers> mapMarkers = new List<MapMarkers>();
+    		mapMarkers.add(new MapMarkers());
+    		return mapMarkers;
+    	}
+    }
 }

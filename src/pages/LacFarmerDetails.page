@@ -1,5 +1,5 @@
 <apex:page standardController="LAC_Farmer_Details__c" extensions="LacFarmerDetailsController"
-    action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='xSystem Administrator',null,URLFOR($Action.LAC_Farmer_Details__c.View,LAC_Farmer_Details__c.Id,null,true))}">
+    action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='System Administrator',null,URLFOR($Action.LAC_Farmer_Details__c.View,LAC_Farmer_Details__c.Id,null,true))}">
     <apex:outputText value="{!LAC_Farmer_Details__c.Person__c}" rendered="false"/>
     <apex:sectionHeader title="{!$Label.FARMER}" subtitle="{!LAC_Farmer_Details__c.Name}"/>
     <apex:pageBlock title="{!$Label.FARMER_DETAILS}" mode="maindetail" tabStyle="LAC_Farmer_Details__c">
@@ -27,10 +27,18 @@
             <apex:outputField value="{!LAC_Farmer_Details__c.Gender__c}" />
             <apex:outputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" label="{!$Label.MARGINALIZATION}"/>
         </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" title="{!$Label.HOUSEHOLD}">
+            <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__c}" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}"/>
+            <apex:outputText value="No Information" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, True, False)}"></apex:outputText>
+            <apex:relatedList list="LAC_Farmer_Details__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}">
+                <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.MEMBERS}</h3></div></apex:facet>
+            </apex:relatedList>
+        </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.AGRONOMIC}">
-            <apex:relatedList list="LAC_Farms__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}">
+            <apex:relatedList list="LAC_Farms__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}"  rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}">
                 <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.FARMS}</h3></div></apex:facet>
             </apex:relatedList>
+            <apex:outputText value="No Information" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, True, False)}"></apex:outputText>
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
             <apex:outputField value="{!LAC_Farmer_Details__c.CreatedDate}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
@@ -49,13 +57,13 @@
             <apex:relatedList list="NotesAndAttachments"/-->
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.OWNERSHIP}">
-        	<apex:outputfield value="{!LAC_Farmer_Details__c.Owner.Name}" label="{!$Label.CURRENT_OWNER}" />
-        	<apex:form >
-        		<apex:panelGrid columns="2">
-					<apex:inputfield value="{!LAC_Farmer_Details__c.ownerId}" />
-					<apex:commandButton action="{!changeOwner}" value="{!$Label.CHANGE_OWNER}"/>        		
-        		</apex:panelGrid>
-        	</apex:form>
+            <apex:outputfield value="{!LAC_Farmer_Details__c.Owner.Name}" label="{!$Label.CURRENT_OWNER}" />
+            <apex:form >
+                <apex:panelGrid columns="2">
+                    <apex:inputfield value="{!LAC_Farmer_Details__c.ownerId}" />
+                    <apex:commandButton action="{!changeOwner}" value="{!$Label.CHANGE_OWNER}"/>                
+                </apex:panelGrid>
+            </apex:form>
         </apex:pageBlockSection>
     </apex:pageBlock>
 </apex:page>
