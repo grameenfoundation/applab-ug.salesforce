@@ -260,7 +260,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
         return clause;
     }
 
-    /**
+/**
      *  Get the district name out of the survey
      *
      *  @param districtValue - A map containing the values for the the districts
@@ -323,10 +323,10 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '2' => 'Busakira',
                 '3' => 'Imanyiro',
                 '4' => 'Kigandalo',
-                '5' => 'Malango',
+                '5' => 'Malongo',
                 '6' => 'Wairasa',
                 '7' => 'Bukabooli',
-                '8' => 'Kiterera',
+                '8' => 'Kityerera',
                 '9' => 'Mayuge Town Council',
                 '10' => 'Jaguzi Islands',
                 '11' => 'Baitambogwe',
@@ -356,11 +356,10 @@ public with sharing class OpportunityProfileSurveyHelpers {
             Map<String, String> translationMap = new Map<String, String> {
                 '1' => 'Bulange',
                 '2' => 'Nsinze',
-                '3' => 'Namutumba Town Council',
-                '4' => 'Namutumba',
-                '5' => 'Magada',
-                '6' => 'Kibaale',
-                '7' => 'Ivukula'
+                '3' => 'Namutumba',
+                '4' => 'Magada',
+                '5' => 'Kibaale',
+                '6' => 'Ivukula'
             };
             subcountyName = translationMap.get(answers.get('q34_0').Answer__c);
         }
@@ -425,13 +424,14 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '13' => 'Mutoto',
                 '14' => 'Nakaloke',
                 '15' => 'Lukhonge',
-                '16' => 'Namakwenke',
-                '17' => 'Nyondo',
-                '18' => 'Bungokho Matoto',
-                '19' => 'Busano',
-                '20' => 'Busoba',
-                '21' => 'Bungokho',
-                '22' => 'Industrial Division'
+                '16' => 'Bubyangu',
+                '17' => 'Namakwenke',
+                '18' => 'Nyondo',
+                '19' => 'Bungokho Matoto',
+                '20' => 'Busano',
+                '21' => 'Busoba',
+                '22' => 'Bungokho',
+                '23' => 'Industrial Division'
             };
             subcountyName = translationMap.get(answers.get('q37_0').Answer__c);
         }
@@ -572,10 +572,10 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Busakira', 'Busakira');
             subcountyMap.put('Imanyiro', 'Imanyiro');
             subcountyMap.put('Kigandalo', 'Kigandalo');
-            subcountyMap.put('Malango', 'Malango');
+            subcountyMap.put('Malongo', 'Malongo');
             subcountyMap.put('Wairasa', 'Wairasa');
             subcountyMap.put('Bukabooli', 'Bukabooli');
-            subcountyMap.put('Kiterera', 'Kiterera');
+            subcountyMap.put('Kityerera', 'Kityerera');
             subcountyMap.put('Mayuge Town Council', 'Mayuge Town Council');
             subcountyMap.put('Jaguzi Islands', 'Jaguzi Islands');
             subcountyMap.put('Baitambogwe', 'Baitambogwe');
@@ -591,7 +591,6 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Nakigo', 'Nakigo');
             subcountyMap.put('Bulange', 'Bulange');
             subcountyMap.put('Nsinze', 'Nsinze');
-            subcountyMap.put('Namutumba Town Council', 'Namutumba Town Council');
             subcountyMap.put('Namutumba', 'Namutumba');
             subcountyMap.put('Magada', 'Magada');
             subcountyMap.put('Kibaale', 'Kibaale');
@@ -639,6 +638,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Wanale', 'Wanale');
             subcountyMap.put('Mutoto', 'Mutoto');
             subcountyMap.put('Nakaloke', 'Nakaloke');
+            subcountyMap.put('Bubyangu', 'Bubyangu');
             subcountyMap.put('Lukhonge', 'Lukhonge');
             subcountyMap.put('Namakwenke', 'Namakwenke');
             subcountyMap.put('Nyondo', 'Nyondo');
@@ -702,7 +702,6 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Omodoi', 'Omodoi');
             subcountyMap.put('Usuk', 'Usuk');
             subcountyMap.put('Ongongoja', 'Ongongoja');
-            subcountyMap.put('Bulesa', 'Bulesa');
             subcountyMap.put('Kobwin', 'Kobwin');
             subcountyMap.put('Kanyum', 'Kanyum');
             subcountyMap.put('Mukongoro', 'Mukongoro');
