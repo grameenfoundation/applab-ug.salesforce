@@ -308,7 +308,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '3' => 'Mafubira',
                 '4' => 'Jinja Municipality',
                 '5' => 'Masese',
-                '6' => 'Walukaba',
+                '6' => 'Walukuba',
                 '7' => 'Mpumudde',
                 '8' => 'Budondo',
                 '9' => 'Buwenge'
@@ -323,10 +323,10 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '2' => 'Busakira',
                 '3' => 'Imanyiro',
                 '4' => 'Kigandalo',
-                '5' => 'Malongo',
+                '5' => 'Malango',
                 '6' => 'Wairasa',
                 '7' => 'Bukabooli',
-                '8' => 'Kityerera',
+                '8' => 'Kiterera',
                 '9' => 'Mayuge Town Council',
                 '10' => 'Jaguzi Islands',
                 '11' => 'Baitambogwe',
@@ -367,7 +367,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
 
             // Bugiri
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Nabukali',
+                '1' => 'Nabukalu',
                 '2' => 'Iwemba',
                 '3' => 'Buluguyi',
                 '4' => 'Bulesa',
@@ -425,7 +425,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '14' => 'Nakaloke',
                 '15' => 'Lukhonge',
                 '16' => 'Bubyangu',
-                '17' => 'Namakwenke',
+                '17' => 'Namakwekwe',
                 '18' => 'Nyondo',
                 '19' => 'Bungokho Matoto',
                 '20' => 'Busano',
@@ -564,7 +564,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Butembe', 'Butembe');
             subcountyMap.put('Mafubira', 'Mafubira');
             subcountyMap.put('Jinja Municipality', 'Jinja Municipality');
-            subcountyMap.put('Walukaba', 'Walukaba');
+            subcountyMap.put('Walukuba', 'Walukuba');
             subcountyMap.put('Mpumudde', 'Mpumudde');
             subcountyMap.put('Budondo', 'Budondo');
             subcountyMap.put('Buwenge', 'Buwenge');
@@ -572,10 +572,10 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Busakira', 'Busakira');
             subcountyMap.put('Imanyiro', 'Imanyiro');
             subcountyMap.put('Kigandalo', 'Kigandalo');
-            subcountyMap.put('Malongo', 'Malongo');
+            subcountyMap.put('Malango', 'Malango');
             subcountyMap.put('Wairasa', 'Wairasa');
             subcountyMap.put('Bukabooli', 'Bukabooli');
-            subcountyMap.put('Kityerera', 'Kityerera');
+            subcountyMap.put('Kiterera', 'Kiterera');
             subcountyMap.put('Mayuge Town Council', 'Mayuge Town Council');
             subcountyMap.put('Jaguzi Islands', 'Jaguzi Islands');
             subcountyMap.put('Baitambogwe', 'Baitambogwe');
@@ -595,7 +595,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Magada', 'Magada');
             subcountyMap.put('Kibaale', 'Kibaale');
             subcountyMap.put('Ivukula', 'Ivukula');
-            subcountyMap.put('Nabukali', 'Nabukali');
+            subcountyMap.put('Nabukalu', 'Nabukalu');
             subcountyMap.put('Iwemba', 'Iwemba');
             subcountyMap.put('Buluguyi', 'Buluguyi');
             subcountyMap.put('Bulesa', 'Bulesa');
@@ -640,7 +640,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Nakaloke', 'Nakaloke');
             subcountyMap.put('Bubyangu', 'Bubyangu');
             subcountyMap.put('Lukhonge', 'Lukhonge');
-            subcountyMap.put('Namakwenke', 'Namakwenke');
+            subcountyMap.put('Namakwekwe', 'Namakwekwe');
             subcountyMap.put('Nyondo', 'Nyondo');
             subcountyMap.put('Bungokho Matoto', 'Bungokho Matoto');
             subcountyMap.put('Busano', 'Busano');
