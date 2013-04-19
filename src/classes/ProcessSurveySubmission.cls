@@ -586,7 +586,7 @@ global class ProcessSurveySubmission {
                 return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
             }
             else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
-                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
+                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(surveySubmission, answers, intervieweeId);
             }
         }
         catch (Exception e) {

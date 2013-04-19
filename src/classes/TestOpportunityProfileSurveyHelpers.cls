@@ -36,20 +36,28 @@ public with sharing class TestOpportunityProfileSurveyHelpers {
         answers.put('q87_0', Utils.createTestSubmissionAnswer(null, 'q87_0', '32.5 2.0', '', '', 0));
         answers.put('q87_1', Utils.createTestSubmissionAnswer(null, 'q87_1', '32.7 5.0', '', '', 0));
 
+        // Create Test submission
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '32432443253';
+        submission.resultHash = '1';
+        submission.farmerId = 'OD99994';
+
         // Test success
-        List<String> result1 = OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, testOpportunityFarmer.Person__c);
+        List<String> result1 = OpportunityProfileSurveyHelpers.processClientProfileSurvey(submission, answers, testOpportunityFarmer.Person__c);
         System.debug(LoggingLevel.INFO, result1.get(0) + ' ' + result1.get(1));
         System.assert(result1.get(0).equals('1'));
 
         // Test failure due to non existent subcounty
         answers.put('q31_0', Utils.createTestSubmissionAnswer(null, 'q31', 'testSub', '', '', 0));
-        List<String> result0 = OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, testOpportunityFarmer.Person__c);
+        List<String> result0 = OpportunityProfileSurveyHelpers.processClientProfileSurvey(submission, answers, testOpportunityFarmer.Person__c);
         System.debug(LoggingLevel.INFO, result0.get(0) + ' ' + result0.get(1));
         System.assert(result0.get(0).equals('0'));
 
         // Test failure due to non existent District
         answers.put('q30_0', Utils.createTestSubmissionAnswer(null, 'q30', 'testDist', '', '', 0));
-        List<String> result2 = OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, testOpportunityFarmer.Person__c);
+        List<String> result2 = OpportunityProfileSurveyHelpers.processClientProfileSurvey(submission, answers, testOpportunityFarmer.Person__c);
         System.debug(LoggingLevel.INFO, result0.get(0) + ' ' + result2.get(1));
         System.assert(result2.get(0).equals('0'));
     }

@@ -18,14 +18,14 @@ public with sharing class OpportunityProfileSurveyHelpers {
      *              element 2 - Error message if required for the logs and tech team
      *              element 3 - Message body to the person that administered the survey if required.
      */
-    public static List<String> processClientProfileSurvey(Map<String, Submission_Answer__c> answers, Id intervieweeId) {
+    public static List<String> processClientProfileSurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Id intervieweeId) {
 
         boolean opportunityFarmerExists = false;
         boolean landExists = false;
 
-        opportunityFarmerExists = checkIfOpportunityFarmerExists(answers);
+        // Check if Opportunity Farmer already exists 
+        opportunityFarmerExists = checkIfOpportunityFarmerExists(submission, answers);
 
-        // Check if Opportunity Farmer already exists
          if (opportunityFarmerExists) {
 
             // Opportunity Farmer does exists so return an error
@@ -117,6 +117,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
 
         // Populate and save the Opportunity Farmer
         oppFarmer.Person__c = personId;
+        oppFarmer.Name = submission.farmerId;
         Database.SaveResult oppFarmerSaveResult = database.insert(oppFarmer);
         if (!oppFarmerSaveResult.isSuccess()) {
             for (Database.Error error : oppFarmerSaveResult.getErrors()) {
@@ -220,13 +221,13 @@ public with sharing class OpportunityProfileSurveyHelpers {
      *
      *  @return - String query
      */
-    private static String buildOpportunityFarmerQueryString(Map<String, Submission_Answer__c> answers) {
+    private static String buildOpportunityFarmerQueryString(Submission submission, Map<String, Submission_Answer__c> answers) {
 
         String query = 'SELECT ' +
                 'Id ' +
             'FROM ' +
                 'Opportunity_Farmer__c ' +
-            getWhereClause(answers);
+            getWhereClause(submission, answers);
         System.debug(LoggingLevel.INFO, query);
         return query;
     }
@@ -241,7 +242,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
      *
      *  @return - 'where' clause string
      */
-    private static String getWhereClause(Map<String, Submission_Answer__c> answers) {
+    private static String getWhereClause(Submission submission, Map<String, Submission_Answer__c> answers) {
 
         List<String> whereClauses = new List<String>();
         if (!String.isEmpty(answers.get('q6_0').Answer__c)) {
@@ -308,7 +309,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '3' => 'Mafubira',
                 '4' => 'Jinja Municipality',
                 '5' => 'Masese',
-                '6' => 'Walukaba',
+                '6' => 'Walukuba',
                 '7' => 'Mpumudde',
                 '8' => 'Budondo',
                 '9' => 'Buwenge'
@@ -323,10 +324,10 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '2' => 'Busakira',
                 '3' => 'Imanyiro',
                 '4' => 'Kigandalo',
-                '5' => 'Malongo',
+                '5' => 'Malango',
                 '6' => 'Wairasa',
                 '7' => 'Bukabooli',
-                '8' => 'Kityerera',
+                '8' => 'Kiterera',
                 '9' => 'Mayuge Town Council',
                 '10' => 'Jaguzi Islands',
                 '11' => 'Baitambogwe',
@@ -367,7 +368,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
 
             // Bugiri
             Map<String, String> translationMap = new Map<String, String> {
-                '1' => 'Nabukali',
+                '1' => 'Nabukalu',
                 '2' => 'Iwemba',
                 '3' => 'Buluguyi',
                 '4' => 'Bulesa',
@@ -425,7 +426,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
                 '14' => 'Nakaloke',
                 '15' => 'Lukhonge',
                 '16' => 'Bubyangu',
-                '17' => 'Namakwenke',
+                '17' => 'Namakwekwe',
                 '18' => 'Nyondo',
                 '19' => 'Bungokho Matoto',
                 '20' => 'Busano',
@@ -564,7 +565,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Butembe', 'Butembe');
             subcountyMap.put('Mafubira', 'Mafubira');
             subcountyMap.put('Jinja Municipality', 'Jinja Municipality');
-            subcountyMap.put('Walukaba', 'Walukaba');
+            subcountyMap.put('Walukuba', 'Walukuba');
             subcountyMap.put('Mpumudde', 'Mpumudde');
             subcountyMap.put('Budondo', 'Budondo');
             subcountyMap.put('Buwenge', 'Buwenge');
@@ -572,10 +573,10 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Busakira', 'Busakira');
             subcountyMap.put('Imanyiro', 'Imanyiro');
             subcountyMap.put('Kigandalo', 'Kigandalo');
-            subcountyMap.put('Malongo', 'Malongo');
+            subcountyMap.put('Malango', 'Malango');
             subcountyMap.put('Wairasa', 'Wairasa');
             subcountyMap.put('Bukabooli', 'Bukabooli');
-            subcountyMap.put('Kityerera', 'Kityerera');
+            subcountyMap.put('Kiterera', 'Kiterera');
             subcountyMap.put('Mayuge Town Council', 'Mayuge Town Council');
             subcountyMap.put('Jaguzi Islands', 'Jaguzi Islands');
             subcountyMap.put('Baitambogwe', 'Baitambogwe');
@@ -595,7 +596,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Magada', 'Magada');
             subcountyMap.put('Kibaale', 'Kibaale');
             subcountyMap.put('Ivukula', 'Ivukula');
-            subcountyMap.put('Nabukali', 'Nabukali');
+            subcountyMap.put('Nabukalu', 'Nabukalu');
             subcountyMap.put('Iwemba', 'Iwemba');
             subcountyMap.put('Buluguyi', 'Buluguyi');
             subcountyMap.put('Bulesa', 'Bulesa');
@@ -640,7 +641,7 @@ public with sharing class OpportunityProfileSurveyHelpers {
             subcountyMap.put('Nakaloke', 'Nakaloke');
             subcountyMap.put('Bubyangu', 'Bubyangu');
             subcountyMap.put('Lukhonge', 'Lukhonge');
-            subcountyMap.put('Namakwenke', 'Namakwenke');
+            subcountyMap.put('Namakwekwe', 'Namakwekwe');
             subcountyMap.put('Nyondo', 'Nyondo');
             subcountyMap.put('Bungokho Matoto', 'Bungokho Matoto');
             subcountyMap.put('Busano', 'Busano');
