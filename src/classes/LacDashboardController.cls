@@ -2,11 +2,27 @@ public with sharing class LacDashboardController extends ParentComponentBase {
     // The quarter passed in from the page
     public String quarter;
     
+    // The option which determines what to show on the overview map
+    public String overviewMapOption {get; set;}
+    
     // The current quarter (derived from the current date - NOW)
     String currentQuarter = null;
     
     public LacDashboardController() {
-        setUpQuarter(ApexPages.currentPage().getParameters().get('quarter'));
+        setUpOptions(ApexPages.currentPage().getParameters());
+    }
+    
+    private void setUpOptions(Map<String, String> options) {
+    	setUpQuarter(options.get('quarter'));
+    	setUpOverviewMapOption(options.get('overviewMapOption'));
+    }
+    
+    private void setUpOverviewMapOption(String option) {
+    	if(option == null) {
+    		this.overviewMapOption = 'all';
+    	} else {
+    		this.overviewMapOption = option;
+    	}
     }
     
     private void setUpQuarter(String quarter) {
@@ -60,11 +76,18 @@ public with sharing class LacDashboardController extends ParentComponentBase {
         this.quarter = quarter;
     }
     
-    public PageReference changeQuarter() {
+    public PageReference changeOptions() {
+        // Options already changed
+        
         PageReference resultPage = ApexPages.currentPage(); 
-        resultPage.getParameters().put('quarter', this.quarter);
-        resultPage.setRedirect(true);
+        resultPage.setRedirect(false);
         return resultPage;
+        
+        /*
+        resultPage.getParameters().put('quarter', this.quarter);
+        resultPage.getParameters().put('overviewMapOption', this.overviewMapOption);
+        resultPage.setRedirect(true);
+        return resultPage;*/
     }
     
     public String getIsCurrentQuarter() {
@@ -141,10 +164,10 @@ public with sharing class LacDashboardController extends ParentComponentBase {
                 String color = '';
                  
                 // Total Farmers
-                String totalFarmers = currentValues.get(totalFarmersMetricName);
-                String totalFarmersTarget = targetValues.get(totalFarmersMetricName);
-                String previousTotalFarmers = previousValues.get(totalFarmersMetricName);
-                color = getColor(totalFarmersTarget, totalFarmers);
+                String totalFarmers = Integer.valueOf(currentValues.get(totalFarmersMetricName)).format();
+                String totalFarmersTarget = (targetValues.get(totalFarmersMetricName) == '')?'':Integer.valueOf(targetValues.get(totalFarmersMetricName)).format();
+                String previousTotalFarmers = Integer.valueOf(previousValues.get(totalFarmersMetricName)).format();
+                color = getColor(targetValues.get(totalFarmersMetricName), currentValues.get(totalFarmersMetricName));
                 
                 Map<String,String> totalFarmersRow = new Map<String, String>();
                 totalFarmersRow.put('label', 'Total farmers');
@@ -163,7 +186,7 @@ public with sharing class LacDashboardController extends ParentComponentBase {
                 color = getColor(poorHouseholdsPercentTarget, poorHouseholdsPercent);
                 
                 Map<String,String> poorHouseholdsRow = new Map<String, String>();
-                poorHouseholdsRow.put('label', '% of households with over 50% likelihood of being under $1.25 per day');
+                poorHouseholdsRow.put('label', '% of poor households');
                 poorHouseholdsRow.put('target', poorHouseholdsPercentTarget + '%');
                 poorHouseholdsRow.put('currentValue', poorHouseholdsPercent + '%');
                 poorHouseholdsRow.put('previousValue', previousPoorHouseholdsPercent + '%');
@@ -172,10 +195,10 @@ public with sharing class LacDashboardController extends ParentComponentBase {
                 overviewData.add(poorHouseholdsRow);
                 
                 // Total Interactions
-                String totalInteractions = currentValues.get(totalInteractionsMetricName);
-                String totalInteractionsTarget = targetValues.get(totalInteractionsMetricName);
-                String previousTotalInteractions = previousValues.get(totalInteractionsMetricName);
-                color = getColor(totalInteractionsTarget, totalInteractions);
+                String totalInteractions = Integer.valueOf(currentValues.get(totalInteractionsMetricName)).format();
+                String totalInteractionsTarget = (targetValues.get(totalInteractionsMetricName) == '')?'':Integer.valueOf(targetValues.get(totalInteractionsMetricName)).format();
+                String previousTotalInteractions = Integer.valueOf(previousValues.get(totalInteractionsMetricName)).format();
+                color = getColor(targetValues.get(totalInteractionsMetricName), currentValues.get(totalInteractionsMetricName));
                 
                 Map<String,String> totalIteractionsRow = new Map<String, String>();
                 totalIteractionsRow.put('label', 'Total interactions');
@@ -187,10 +210,10 @@ public with sharing class LacDashboardController extends ParentComponentBase {
                 overviewData.add(totalIteractionsRow);
                 
                 // Total Ckws
-                String totalCkws = currentValues.get(totalCkwsMetricName);
-                String totalCkwsTarget = targetValues.get(totalCkwsMetricName);
-                String previousTotalCkws = previousValues.get(totalCkwsMetricName);
-                color = getColor(totalCkwsTarget, totalCkws);
+                String totalCkws = Integer.valueOf(currentValues.get(totalCkwsMetricName)).format();
+                String totalCkwsTarget = (targetValues.get(totalCkwsMetricName) == '')?'':Integer.valueOf(targetValues.get(totalCkwsMetricName)).format();
+                String previousTotalCkws = Integer.valueOf(previousValues.get(totalCkwsMetricName)).format();
+                color = getColor(targetValues.get(totalCkwsMetricName), currentValues.get(totalCkwsMetricName));
                 
                 Map<String,String> totalCkwsRow = new Map<String, String>();
                 totalCkwsRow.put('label', 'Total CKWs');
@@ -202,10 +225,10 @@ public with sharing class LacDashboardController extends ParentComponentBase {
                 overviewData.add(totalCkwsRow);
                 
                 // Total Cooperatives
-                String totalOrgs = currentValues.get(totalOrgsMetricName);
-                String totalOrgsTarget = targetValues.get(totalOrgsMetricName);
-                String previousTotalOrgs = previousValues.get(totalOrgsMetricName);
-                color = getColor(totalOrgsTarget, totalOrgs);
+                String totalOrgs = Integer.valueOf(currentValues.get(totalOrgsMetricName)).format();
+                String totalOrgsTarget = (targetValues.get(totalOrgsMetricName) == '')?'':Integer.valueOf(targetValues.get(totalOrgsMetricName)).format();
+                String previousTotalOrgs = Integer.valueOf(previousValues.get(totalOrgsMetricName)).format();
+                color = getColor(targetValues.get(totalOrgsMetricName), currentValues.get(totalOrgsMetricName));
                 
                 Map<String,String> totalOrgsRow = new Map<String, String>();
                 totalOrgsRow.put('label', 'Total Cooperatives');
@@ -224,21 +247,21 @@ public with sharing class LacDashboardController extends ParentComponentBase {
         Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(getQuarter());
         
         // Add all the metrics to a list
-                List<String> metrics = new List<String>();
-                metrics.add('LacMetrics.IndigoPercent');
-                metrics.add('LacMetrics.AfroColombianoPercent');
-                metrics.add('LacMetrics.FemaleHeadedPercent');
-                metrics.add('LacMetrics.DisplacedPercent');
-                metrics.add('LacMetrics.ElderlyPercent');
-                metrics.add('LacMetrics.PoorHouseholdsPercent');
-                
-                // Get the current metric values
-                Map<String, String> currentValues = LacMetricManager.getValues(metrics, quarterFirstDay);
+        List<String> metrics = new List<String>();
+        metrics.add('LacMetrics.IndigoPercent');
+        metrics.add('LacMetrics.AfroColombianoPercent');
+        metrics.add('LacMetrics.FemaleHeadedPercent');
+        metrics.add('LacMetrics.DisplacedPercent');
+        metrics.add('LacMetrics.ElderlyPercent');
+        metrics.add('LacMetrics.PoorHouseholdsPercent');
+        
+        // Get the current metric values
+        Map<String, String> currentValues = LacMetricManager.getValues(metrics, quarterFirstDay);
                 
         // Indigo
         Map<String, Object> indigo = new Map<String, Object>();
         indigo.put('name', 'Indigo');
-        indigo.put('data', currentValues.get('LacMetrics.IndigoPercent'));
+        indigo.put('data', 0); // currentValues.get('LacMetrics.IndigoPercent'));
         data.add(indigo);
         
         // Afro
@@ -374,14 +397,13 @@ public with sharing class LacDashboardController extends ParentComponentBase {
         Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(getQuarter());
         
         // Add all the metrics to a list
-                List<String> metrics = new List<String>();
-                metrics.add('LacMetrics.TotalSearches');
-                metrics.add('LacMetrics.TotalCkwSurveys');
-                metrics.add('LacMetrics.TotalMessages');
-                metrics.add('LacMetrics.TotalIbtSurveys');
-                
-                // Get the current metric values
-                Map<String, String> currentValues = LacMetricManager.getValues(metrics, quarterFirstDay);
+        List<String> metrics = new List<String>();
+        metrics.add('LacMetrics.TotalSearches');
+        metrics.add('LacMetrics.TotalSurveys');
+        metrics.add('LacMetrics.TotalMessages');
+        
+        // Get the current metric values
+        Map<String, String> currentValues = LacMetricManager.getValues(metrics, quarterFirstDay);
                 
         // Searches
         Map<String, Object> wedge1 = new Map<String, Object>();
@@ -389,16 +411,10 @@ public with sharing class LacDashboardController extends ParentComponentBase {
         wedge1.put('data', currentValues.get('LacMetrics.TotalSearches'));
         data.add(wedge1);
         
-        // Ckw Surveys
-        Map<String, Object> wedge2 = new Map<String, Object>();
-        wedge2.put('name', 'Ckw Surveys'); 
-        wedge2.put('data', currentValues.get('LacMetrics.TotalCkwSurveys'));
-        data.add(wedge2);
-        
        // Ibt Surveys
         Map<String, Object> wedge3 = new Map<String, Object>();
-        wedge3.put('name', 'Ibt Surveys');
-        wedge3.put('data', currentValues.get('LacMetrics.TotalIbtSurveys'));
+        wedge3.put('name', 'Surveys');
+        wedge3.put('data', currentValues.get('LacMetrics.TotalSurveys'));
         data.add(wedge3);
         
         // Messages
@@ -437,7 +453,43 @@ public with sharing class LacDashboardController extends ParentComponentBase {
         return data;
     }
     
+    public List<SelectOption> getOverviewMapOptions() {
+    	List<SelectOption> options = new List<SelectOption>();
+    	options.add(new SelectOption('all', 'All'));
+    	options.add(new SelectOption('ckws', 'Ckws'));
+    	options.add(new SelectOption('farmers', 'Farmers'));
+    	options.add(new SelectOption('searches', 'Searches'));
+    	options.add(new SelectOption('surveys', 'Surveys'));
+    	return options;	
+    }
+    
+	public void changeOverviewMapOption() {
+		
+	}
+
+    public String getCurrentMapDescription() {
+    	String description = 'Showing ';
+    	String overviewMapOption = this.overviewMapOption.toLowerCase();
+    	if(overviewMapOption == 'all') {
+    		description += ' all records (max 1,000)';
+    	} else {
+    		description += overviewMapOption + ' (max 1,000)';
+    	} 
+    	
+    	if(getIsCurrentQuarter() == 'true') {
+    		description += ' for this quarter.';
+    	} else {
+    		description += ' for quarter ' + getQuarter();
+    	}
+    	
+    	return description;
+    }
+    
+    // To add a map param to the db for the overview map, make sure it's title is in the format 'LAC Overview Map - ' + overviewMapOption 
+    // E.g. LAC Overview Map - all
+    // Look at getOverviewMapOptions() to see the possible options
     public Map_Parameter__c getMapParameter () {
+    	String titleParam = 'LAC Overview Map - ' + this.overviewMapOption;
         Map_Parameter__c param = [SELECT
                 Id,
                 Name,
@@ -456,7 +508,7 @@ public with sharing class LacDashboardController extends ParentComponentBase {
             WHERE
                 Dashboard_Section__r.Dashboard__r.Name = 'LAC Dashboard'
                 and 
-                Title__c = 'LAC Overview Map' LIMIT 1]; 
+                Title__c =: titleParam LIMIT 1]; 
         return param;
     }
     
@@ -465,7 +517,7 @@ public with sharing class LacDashboardController extends ParentComponentBase {
                 LacDashboardController controller = new LacDashboardController();
                 controller.getQuarters();
                 controller.getQuarter();
-                controller.changeQuarter();
+                controller.changeOptions();
                 controller.getIsCurrentQuarter();
                 controller.getOverviewData();
                 controller.getMarginalizedFarmersData();
