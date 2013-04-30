@@ -1,0 +1,32 @@
+<apex:page standardController="Campaign_Message_Def__c"
+	extensions="CampaignMessageDefController"
+	action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='System Administrator',null,URLFOR($Action.Campaign_Message_Def__c.View,Campaign_Message_Def__c.Id,null,true))}">
+	
+	<h1 style="font-size: 120%; margin: 10px 0px; display: block !important;">Campaign Message Details</h1>
+	
+	<apex:pageBlock >
+		<apex:pageBlockButtons >
+			<apex:form >
+				<apex:commandButton action="{!edit}" value="{!$Label.EDIT}" />
+				<apex:commandButton action="{!delete}"
+					value="{!$Label.DELETE}" />
+			</apex:form>
+		</apex:pageBlockButtons>
+		<apex:pageBlockSection columns="1" id="fieldSection">
+			<apex:outputField value="{!campaignMessage.Name}" />
+			<apex:outputField value="{!campaignMessage.Format__c}" />
+			<apex:outputField value="{!campaignMessage.Language__c}" />
+			<apex:outputField value="{!campaignMessage.Message_Key__c}" />
+			<apex:outputField value="{!campaignMessage.Date__c}" rendered="{!campaign.Campaign_Type__c == 'Absolute'}"/>
+			<apex:outputField value="{!campaignMessage.Start_Time__c}" rendered="{!campaign.Campaign_Type__c != 'Cron'}" />
+			<apex:outputField value="{!campaignMessage.Offset_Time__c}" rendered="{!campaign.Campaign_Type__c == 'Offset'}" />
+			<apex:outputField value="{!campaignMessage.Repeat_Every__c}" rendered="{!campaign.Campaign_Type__c == 'Repeat Interval'}"/>
+			<apex:outputField value="{!campaignMessage.Cron__c}" rendered="{!campaign.Campaign_Type__c == 'Cron'}" />
+			<apex:outputField value="{!campaignMessage.Repeat_On__c}" rendered="{!campaign.Campaign_Type__c == 'Day of Week'}"/>
+			<apex:outputField value="{!campaign.Campaign_Type__c}" />
+			<apex:outputField value="{!campaign.Name}"/>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+	
+	<apex:relatedList list="Campaign_Message_Content__r" subject="{!campaignMessage.Id}"/>
+</apex:page>
