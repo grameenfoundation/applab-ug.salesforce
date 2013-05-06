@@ -137,7 +137,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalHouseholds != '0') {
-	        	return String.valueOf(Decimal.valueOf(poorHouseholds) / Decimal.valueOf(totalHouseholds));
+	        	return String.valueOf((Decimal.valueOf(poorHouseholds) * 100 / Decimal.valueOf(totalHouseholds)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -178,7 +178,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalHouseholds != '0') {
-	        	return String.valueOf(Decimal.valueOf(poorHouseholds) / Decimal.valueOf(totalHouseholds));
+	        	return String.valueOf((Decimal.valueOf(poorHouseholds) * 100 / Decimal.valueOf(totalHouseholds)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -218,7 +218,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalHouseholds != '0') {
-	        	return String.valueOf(Decimal.valueOf(poorHouseholds) / Decimal.valueOf(totalHouseholds));
+	        	return String.valueOf((Decimal.valueOf(poorHouseholds) *100 / Decimal.valueOf(totalHouseholds)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -258,7 +258,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalHouseholds != '0') {
-	        	return String.valueOf(Decimal.valueOf(poorHouseholds) / Decimal.valueOf(totalHouseholds));
+	        	return String.valueOf((Decimal.valueOf(poorHouseholds) * 100 / Decimal.valueOf(totalHouseholds)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -272,11 +272,10 @@ public with sharing class LacMetrics {
 	        
 	        // Searches + Surveys + Messages
 	        Integer searches = Integer.valueOf(LacMetricManager.getValue('LacMetrics.TotalSearches', dateInQuarter, '0'));
-	        Integer ckwSurveys = Integer.valueOf(LacMetricManager.getValue('LacMetrics.TotalCkwSurveys', dateInQuarter, '0'));
-	        Integer ibtSurveys = Integer.valueOf(LacMetricManager.getValue('LacMetrics.TotalIbtSurveys', dateInQuarter, '0'));
+	        Integer surveys = Integer.valueOf(LacMetricManager.getValue('LacMetrics.TotalSurveys', dateInQuarter, '0'));
 	        Integer messages = Integer.valueOf(LacMetricManager.getValue('LacMetrics.TotalMessages', dateInQuarter, '0'));
 	        
-	        return String.valueOf(searches + ckwSurveys + ibtSurveys + messages);
+	        return String.valueOf(searches + surveys + messages);
 	    }
 	}
 	
@@ -305,7 +304,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(total != '0') {
-	        	return String.valueOf(Decimal.valueOf(searches) / Decimal.valueOf(total));
+	        	return String.valueOf((Decimal.valueOf(searches) * 100 / Decimal.valueOf(total)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -339,10 +338,20 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(total != '0') {
-	        	return String.valueOf(Decimal.valueOf(surveys) / Decimal.valueOf(total));
+	        	return String.valueOf((Decimal.valueOf(surveys) * 100 / Decimal.valueOf(total)).setScale(1));
 	        }
 	        
 	        return '0';
+		 }
+	}
+	
+	public with sharing class TotalSurveys implements LacMetricManager.ILacMetricCalculator {
+		public string calculate(Date dateInQuarter) {
+	        String totalIbtSurveys = LacMetricManager.getValue('LacMetrics.TotalIbtSurveys', dateInQuarter, '0');
+	        String totalCkwSurveys = LacMetricManager.getValue('LacMetrics.TotalCkwSurveys', dateInQuarter, '0');
+	        
+	        // Return total
+	        return String.valueOf(Integer.valueOf(totalIbtSurveys) + Integer.valueOf(totalCkwSurveys));
 		 }
 	}
 	
@@ -371,7 +380,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(total != '0') {
-	        	return String.valueOf(Decimal.valueOf(surveys) / Decimal.valueOf(total));
+	        	return String.valueOf((Decimal.valueOf(surveys) * 100 / Decimal.valueOf(total)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -403,7 +412,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(total != '0') {
-	        	return String.valueOf(Decimal.valueOf(messages) / Decimal.valueOf(total));
+	        	return String.valueOf((Decimal.valueOf(messages) * 100 / Decimal.valueOf(total)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -420,7 +429,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalFarmers != '0') {
-	        	return String.valueOf(Decimal.valueOf(indigoFarmers) / Decimal.valueOf(totalFarmers));
+	        	return String.valueOf((Decimal.valueOf(indigoFarmers) * 100 / Decimal.valueOf(totalFarmers)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -457,7 +466,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalFarmers != '0') {
-	        	return String.valueOf(Decimal.valueOf(afroFarmers) / Decimal.valueOf(totalFarmers));
+	        	return String.valueOf(( Decimal.valueOf(afroFarmers) * 100 / Decimal.valueOf(totalFarmers)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -494,7 +503,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalHouseholds != '0') {
-	        	return String.valueOf(Decimal.valueOf(femaleHeaded) / Decimal.valueOf(totalHouseholds));
+	        	return String.valueOf(( Decimal.valueOf(femaleHeaded) * 100 / Decimal.valueOf(totalHouseholds)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -531,7 +540,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalFarmers != '0') {
-	        	return String.valueOf(Decimal.valueOf(displaced) / Decimal.valueOf(totalFarmers));
+	        	return String.valueOf((Decimal.valueOf(displaced) * 100 / Decimal.valueOf(totalFarmers)).setScale(1));
 	        }
 	        
 	        return '0';
@@ -568,7 +577,7 @@ public with sharing class LacMetrics {
 	        
 	        // Return percentage
 	        if(totalFarmers != '0') {
-	        	return String.valueOf(Decimal.valueOf(elderly) / Decimal.valueOf(totalFarmers));
+	        	return String.valueOf((Decimal.valueOf(elderly) * 100 / Decimal.valueOf(totalFarmers)).setScale(1));
 	        }
 	        
 	        return '0';

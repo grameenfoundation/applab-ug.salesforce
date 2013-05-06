@@ -11,6 +11,25 @@ public with sharing class MapComponentController extends ChildComponentBase {
     Transient Set<String> usedColours;
     private Map_Parameter__c mapParameter;
 
+	// Interface for custom Map Marker Sources (any class that wants to provide a list of MapMarkers should implement this)
+    public interface IMapMarkerSource { 
+    	List<MapMarkers> loadMapMarkers(Map<String, String> parameters);
+    }
+    
+    
+	// Instantiate a Map Marker Source class from the className
+    public static IMapMarkerSource getMapMarkerSourceInstance(String className) {
+        Type t = Type.forName(className);
+        if(t != null) {
+        	return (IMapMarkerSource) t.newInstance();
+        }
+        
+        throw new MapComponentControllerException('Map Marker Source class called ' + className + ' does not exist!');
+    }
+    
+    // MapComponentControllerException - exceptions within this component should be of this type
+    public class MapComponentControllerException extends Exception {}
+    
     private void setUp() {
         if (isLoaded) {
             return;
@@ -251,6 +270,28 @@ public with sharing class MapComponentController extends ChildComponentBase {
         }
         else if (sObjectType.equalsIgnoreCase('Person') || !getParentValue('ShowPerson').equals('')) {
             //markers.addAll(getPersonMarkers());
+        } else if (sObjectType.equalsIgnoreCase('Custom Class')) {
+        	// Try to get the Map_Marker_Source_Class__c to see if a custom Map Marker Source Class was defined
+        	String sObjectMapMarkerSource = getFieldvalue('Map_Marker_Source_Class__c');
+        	if(sObjectMapMarkerSource != null && sObjectMapMarkerSource != '') {
+        		// Try to load the class defined in Map_Marker_Source_Class__c
+        		IMapMarkerSource mapMarkerSource = getMapMarkerSourceInstance(sObjectMapMarkerSource);
+        		
+        		// Call loadMapMarkers, and pass in any parameters that can be used for filtering the results
+        		Map<String, String> parameters = new Map<String, String>();
+        		ParentComponentBase parent = getParentComponentController();
+        		if(parent != null) {
+        			parameters = parent.getParameters();
+        		}
+        		
+        		// Also just add parameters from the page (Added this because in one case the above code wasn't getting the parameters)
+        		parameters.putAll(ApexPages.currentPage().getParameters());
+        		
+        		markers.addAll(mapMarkerSource.loadMapMarkers(parameters));
+        		
+        	} else {
+        		throw new MapComponentControllerException('Map_Marker_Source_Class__c is not set on the Map Parameter Object. Unable to load Map Markers');
+        	}
         }
         return markers;
     }
@@ -891,5 +932,30 @@ public with sharing class MapComponentController extends ChildComponentBase {
 
         controller.getMapPolygon();
         controller.loadMapPolygon();
+        
+        Map_Parameter__c testMapWithMarkerSource = new Map_Parameter__c();
+        testMapWithMarkerSource.Dashboard_Section__c = section.Id;
+        testMapWithMarkerSource.Keyword__c = 'Rain Gauge';
+        testMapWithMarkerSource.Latitude__c = '1';
+        testMapWithMarkerSource.Longitude__c = '2';
+        testMapWithMarkerSource.Splitter__c = 'Gender';
+        testMapWithMarkerSource.Title__c = 'We';
+        testMapWithMarkerSource.Type_Of_sObject__c = 'Custom Class';
+        testMapWithMarkerSource.Map_Marker_Source_Class__c = 'MapComponentController.testMapMarkerSourceClass';
+        testMapWithMarkerSource.Zoom__c = 8;
+        Database.insert(testMapWithMarkerSource);
+        
+        controller.setsObjectRecord(testMapWithMarkerSource);
+        List<MapMarkers> mapMarkers = controller.loadMapMarkers();
+        System.assertEquals(mapMarkers.size(), 1);
+    }
+    
+    // Test MapMarker class for use in above test. Just implements MapComponentController.IMapMarkerSource and returns a List<MapMarkers> with one item
+    public with sharing class testMapMarkerSourceClass implements MapComponentController.IMapMarkerSource {
+    	public List<MapMarkers> loadMapMarkers(Map<String, String> parameters) {
+    		List<MapMarkers> mapMarkers = new List<MapMarkers>();
+    		mapMarkers.add(new MapMarkers());
+    		return mapMarkers;
+    	}
     }
 }

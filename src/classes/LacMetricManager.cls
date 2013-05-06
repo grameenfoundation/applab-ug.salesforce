@@ -35,6 +35,7 @@ public with sharing class LacMetricManager {
 		'LacMetrics.TotalCkwSurveysPercent' => 'Total Ckw Surveys %',
 		'LacMetrics.TotalIbtSurveys' => 'Total IBT Surveys (Cumulative)',
 		'LacMetrics.TotalIbtSurveysPercent' => 'Total IBT Surveys %',
+		'LacMetrics.TotalSurveys'=> 'Total Surveys',
 		'LacMetrics.TotalMessages' => 'Total Messages (Cumulative)',
 		'LacMetrics.TotalMessagesPercent' => 'Total Messages %',
 		'LacMetrics.TotalCkws' => 'Total CKWs (Cumulative)',
