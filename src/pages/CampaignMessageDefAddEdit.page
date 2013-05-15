@@ -11,6 +11,14 @@ action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve 
 					value="{!$Label.SAVE_AND_NEW}" />
 				<apex:commandButton action="{!cancel}" value="{!$Label.CANCEL}" />
 			</apex:pageBlockButtons>
+			<apex:actionRegion immediate="true">
+				<apex:pageBlockSection columns="1">
+					<apex:actionStatus id="ajaxStatus" startText="Loading...!" stopText="" />
+					<apex:inputField value="{!campaignMessage.Message_Campaign__c}">
+						<apex:actionSupport action="{!onChangeMessageCampaign}" event="onchange" rerender="fieldSection" status="ajaxStatus"/>
+					</apex:inputField>
+				</apex:pageBlockSection>
+			</apex:actionRegion>
 			<apex:pageBlockSection columns="1" id="fieldSection">
 				<apex:inputField required="true" value="{!campaignMessage.Name}" />
 				<apex:inputField required="true" value="{!campaignMessage.Format__c}" />
@@ -24,14 +32,7 @@ action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve 
 				<apex:inputField value="{!campaignMessage.Repeat_On__c}" rendered="{!campaign.Campaign_Type__c == 'Day of Week'}"/>
 				<apex:outputField value="{!campaign.Campaign_Type__c}" />
 			</apex:pageBlockSection>
-			<apex:actionRegion immediate="true">
-				<apex:pageBlockSection columns="1">
-					<apex:actionStatus id="ajaxStatus" startText="Loading...!" stopText="" />
-					<apex:inputField value="{!campaignMessage.Message_Campaign__c}">
-						<apex:actionSupport action="{!onChangeMessageCampaign}" event="onchange" rerender="fieldSection" status="ajaxStatus"/>
-					</apex:inputField>
-				</apex:pageBlockSection>
-			</apex:actionRegion>
+			
 		</apex:pageBlock>
 	</apex:form>
 </apex:page>
