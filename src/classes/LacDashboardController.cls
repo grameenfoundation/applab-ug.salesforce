@@ -459,7 +459,7 @@ public with sharing class LacDashboardController extends ParentComponentBase {
     	options.add(new SelectOption('ckws', 'Ckws'));
     	options.add(new SelectOption('farmers', 'Farmers'));
     	options.add(new SelectOption('searches', 'Searches'));
-    	options.add(new SelectOption('surveys', 'Surveys'));
+    	//options.add(new SelectOption('surveys', 'Surveys'));
     	return options;	
     }
     
