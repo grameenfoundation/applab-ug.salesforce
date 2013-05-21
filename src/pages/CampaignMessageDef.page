@@ -18,7 +18,7 @@
 			<apex:outputField value="{!campaignMessage.Language__c}" />
 			<apex:outputField value="{!campaignMessage.Message_Key__c}" />
 			<apex:outputField value="{!campaignMessage.Date__c}" rendered="{!campaign.Campaign_Type__c == 'Absolute'}"/>
-			<apex:outputField value="{!campaignMessage.Start_Time__c}" rendered="{!campaign.Campaign_Type__c != 'Cron'}" />
+			<apex:outputField value="{!campaignMessage.Start_Time__c}"/>
 			<apex:outputField value="{!campaignMessage.Offset_Time__c}" rendered="{!campaign.Campaign_Type__c == 'Offset'}" />
 			<apex:outputField value="{!campaignMessage.Repeat_Every__c}" rendered="{!campaign.Campaign_Type__c == 'Repeat Interval'}"/>
 			<apex:outputField value="{!campaignMessage.Cron__c}" rendered="{!campaign.Campaign_Type__c == 'Cron'}" />

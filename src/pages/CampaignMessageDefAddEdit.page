@@ -25,7 +25,7 @@ action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve 
 				<apex:inputfield required="true" value="{!campaignMessage.Language__c}" />
 				<apex:inputfield value="{!campaignMessage.Message_Key__c}" />
 				<apex:inputField required="true" id="messageDate" value="{!campaignMessage.Date__c}" rendered="{!campaign.Campaign_Type__c == 'Absolute'}"/>
-				<apex:inputfield value="{!campaignMessage.Start_Time__c}" rendered="{!campaign.Campaign_Type__c != 'Cron'}" />
+				<apex:inputfield value="{!campaignMessage.Start_Time__c}" />
 				<apex:inputField value="{!campaignMessage.Offset_Time__c}" rendered="{!campaign.Campaign_Type__c == 'Offset'}" />
 				<apex:inputField value="{!campaignMessage.Repeat_Every__c}" rendered="{!campaign.Campaign_Type__c == 'Repeat Interval'}"/>
 				<apex:inputField value="{!campaignMessage.Cron__c}" rendered="{!campaign.Campaign_Type__c == 'Cron'}" />
