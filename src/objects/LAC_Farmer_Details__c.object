@@ -14,7 +14,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
-        <type>Default</type>
+        <content>LacFarmerDetailAddEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>List</actionName>
@@ -22,7 +24,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
+        <content>LacFarmerDetailAddEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Tab</actionName>
@@ -30,7 +34,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <content>LacFarmerDetails</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Custom fields for LAC farmers</description>
@@ -199,7 +205,7 @@
     <fields>
         <fullName>Image__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;&quot;))</formula>
+        <formula>IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Image</label>
         <required>false</required>
