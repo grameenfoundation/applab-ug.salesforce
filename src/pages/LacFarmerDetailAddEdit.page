@@ -1,0 +1,35 @@
+<apex:page standardController="LAC_Farmer_Details__c" extensions="LacFarmerDetailsController"
+    action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='System Administrator',null,URLFOR($Action.LAC_Farmer_Details__c.View,LAC_Farmer_Details__c.Id,null,true))}">
+	<apex:sectionHeader title="{!$Label.FARMER}" subtitle="{!LAC_Farmer_Details__c.Name}"/>
+    <apex:form >
+	    <apex:pageBlock title="{!$Label.FARMER_DETAILS}" mode="maindetail" tabStyle="LAC_Farmer_Details__c">
+	        <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!save}" value="{!$Label.SAVE}"/>
+                <apex:commandButton action="{!cancel}" value="{!$Label.CANCEL}"/>
+	        </apex:pageBlockButtons>
+	        <apex:pageBlockSection columns="2" title="{!$Label.BIO_DATA}">
+	        	<apex:inputFile value="{!profilePicture.body}" filename="{!profilePicture.name}"/>
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" />
+	        	<apex:inputHidden value="{!LAC_Farmer_Details__c.Image_Document_Id__c}" />
+	        </apex:pageBlockSection>
+	        <apex:pageBlockSection columns="1" title="{!$Label.SOCIAL_ECONOMIC_INFORMATION}">
+	            <apex:inputField value="{!LAC_Farmer_Details__c.Gender__c}" />
+	            <apex:inputField value="{!LAC_Farmer_Details__c.Ethnicity__c}"/>
+	            <apex:inputField value="{!LAC_Farmer_Details__c.Employment_Status__c}"/>
+	        </apex:pageBlockSection>
+	        <apex:pageBlockSection columns="3" title="{!$Label.OTHER}">
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Contact__c}"/>
+	        	<apex:inputfield value="{!LAC_Farmer_Details__c.Name}"/>
+	        	<apex:inputfield value="{!LAC_Farmer_Details__c.LAC_Farmer_Id_Temp__c}"/>
+	        	<apex:inputfield value="{!LAC_Farmer_Details__c.Person__c}"/>
+	        	<apex:inputfield value="{!LAC_Farmer_Details__c.Registered_By__c}"/>
+	        	<apex:inputfield value="{!LAC_Farmer_Details__c.LAC_Household__c}"/>
+	        	<apex:inputfield value="{!LAC_Farmer_Details__c.ownerId}" />
+	        </apex:pageBlockSection>
+	        <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!save}" value="{!$Label.SAVE}"/>
+                <apex:commandButton action="{!cancel}" value="{!$Label.CANCEL}"/>
+	        </apex:pageBlockButtons>
+	    </apex:pageBlock>
+    </apex:form>
+</apex:page>

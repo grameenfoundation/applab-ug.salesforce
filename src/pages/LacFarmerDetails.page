@@ -9,6 +9,11 @@
                 <apex:commandButton action="{!delete}" value="{!$Label.DELETE}"/>
             </apex:form>
         </apex:pageBlockButtons>
+        <div style="border-top: 1px solid #CCC">
+			<div style="height: 153px; width: 143px; margin: 5px auto; border-top: 1px solid #DDD;">
+	        	<apex:outputField value="{!LAC_Farmer_Details__c.Image__c}"/>	
+	        </div>        
+        </div>
         <apex:pageBlockSection columns="2" title="{!$Label.BIO_DATA}">
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.First_Name__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Middle_Name__c}"/>
@@ -53,9 +58,15 @@
             <apex:outputText value="{!(SubmissionsNum+SearchesNum+MessagesNum)}" label="{!$Label.TOTAL_NO_OF_INTERACTIONS}"/>
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.OTHER}">
-            <!-- apex:relatedList list="ActivityHistories"/>
-            <apex:relatedList list="NotesAndAttachments"/-->
+            <!-- apex:relatedList list="ActivityHistories"/>-->
+            <apex:relatedList list="NotesAndAttachments"/>
         </apex:pageBlockSection>
+         <!--<apex:pageBlockSection columns="1" title="{!$Label.SET_PROFILE_PICTURE}">
+         	<apex:form >
+	         	<apex:inputFile value="{!profilePicture.body}" filename="{!profilePicture.name}"/>
+				<apex:commandButton value="Upload" action="{!uploadProfilePicture}"/>
+			</apex:form>
+         </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.OWNERSHIP}">
             <apex:outputfield value="{!LAC_Farmer_Details__c.Owner.Name}" label="{!$Label.CURRENT_OWNER}" />
             <apex:form >
@@ -65,5 +76,6 @@
                 </apex:panelGrid>
             </apex:form>
         </apex:pageBlockSection>
+        -->
     </apex:pageBlock>
 </apex:page>
