@@ -193,7 +193,7 @@ public class SendSMSHelpers {
         Map<String, Boolean> resultMap = new Map<String, Boolean>();
 
         // Go through the created messages and send to the correct gateway
-        for (String countryCode : messages.keySet()) {
+        for (String countryCode : orderGateway(messages.keySet())) {
             SMS_Gateway_Country_Settings__c gatewaySetting = SMS_Gateway_Country_Settings__c.getInstance(countryCode);
             if (gatewaySetting == null) {
 
@@ -274,6 +274,30 @@ public class SendSMSHelpers {
             upsert(resendMessages);
         }
         return rescheduled;
+    }
+
+    /**
+     * If the PULSE gateway is present then put it at the back of the queue as it must be sent last
+     *
+     * @param countryCodes - A set of the country codes being sent to
+     *
+     * @return - A list of the country codes with PULSE at the end if it is present
+     */
+    private static List<String> orderGateway(Set<String> countryCodes) {
+
+        List<String> orderedCodes = new List<String>();
+        if (!countryCodes.contains(pulse)) {
+            orderedCodes.addAll(countryCodes);
+            return orderedCodes;
+        }
+        for (String code : countryCodes) {
+            if (code.equals(pulse)) {
+                continue;
+            }
+            orderedCodes.add(code);
+        }
+        orderedCodes.add(pulse);
+        return orderedCodes;
     }
 
     /**
