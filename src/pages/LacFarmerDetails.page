@@ -58,24 +58,7 @@
             <apex:outputText value="{!(SubmissionsNum+SearchesNum+MessagesNum)}" label="{!$Label.TOTAL_NO_OF_INTERACTIONS}"/>
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.OTHER}">
-            <!-- apex:relatedList list="ActivityHistories"/>-->
             <apex:relatedList list="NotesAndAttachments"/>
         </apex:pageBlockSection>
-         <!--<apex:pageBlockSection columns="1" title="{!$Label.SET_PROFILE_PICTURE}">
-         	<apex:form >
-	         	<apex:inputFile value="{!profilePicture.body}" filename="{!profilePicture.name}"/>
-				<apex:commandButton value="Upload" action="{!uploadProfilePicture}"/>
-			</apex:form>
-         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="1" title="{!$Label.OWNERSHIP}">
-            <apex:outputfield value="{!LAC_Farmer_Details__c.Owner.Name}" label="{!$Label.CURRENT_OWNER}" />
-            <apex:form >
-                <apex:panelGrid columns="2">
-                    <apex:inputfield value="{!LAC_Farmer_Details__c.ownerId}" />
-                    <apex:commandButton action="{!changeOwner}" value="{!$Label.CHANGE_OWNER}"/>                
-                </apex:panelGrid>
-            </apex:form>
-        </apex:pageBlockSection>
-        -->
     </apex:pageBlock>
 </apex:page>
