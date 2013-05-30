@@ -8,7 +8,10 @@
                 <apex:commandButton action="{!cancel}" value="{!$Label.CANCEL}"/>
 	        </apex:pageBlockButtons>
 	        <apex:pageBlockSection columns="2" title="{!$Label.BIO_DATA}">
-	        	<apex:inputFile value="{!profilePicture.body}" filename="{!profilePicture.name}"/>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.PROFILE_PICTURE}" for="profile_picture"/>
+	        		<apex:inputFile value="{!profilePicture.body}" filename="{!profilePicture.name}" id="profile_picture"/>
+	        	</apex:pageBlockSectionItem>
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" />
 	        	<apex:inputHidden value="{!LAC_Farmer_Details__c.Image_Document_Id__c}" />
 	        </apex:pageBlockSection>
