@@ -128,6 +128,10 @@ function mapDetails(mapId, lat, long, zoom, disableControls, disableInfoWindows,
     this.infoWindows = [];
     this.startLat = parseFloat(lat);
     this.startLong = parseFloat(long);
+    
+    sLatitude = this.startLat;
+    sLongitude = this.startLong;
+    
     this.zoom = parseFloat(zoom);
     this.disableControls = disableControls;
     this.disableInfoWindows = disableInfoWindows;
@@ -181,9 +185,9 @@ function setCloseWindow(infoWindow) {
 }
 
 function closeMarker() {
-    if (this.map.getZoom() <= 7) {
-        this.map.panTo(new google.maps.LatLng(this.startLat, this.startLong));
-    }
+    //if (this.map.getZoom() <= 7) {
+        //this.map.panTo(new google.maps.LatLng(this.startLat, this.startLong));
+    //}
 }
 
 // Class that holds the data for each map marker
