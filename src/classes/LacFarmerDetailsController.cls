@@ -13,6 +13,34 @@ public with sharing class LacFarmerDetailsController {
 		
 		profilePicture = new Attachment();
 	}
+	
+	public CKW__c getAssociatedCkw() {
+		List<Person__c> persons = [
+			SELECT 
+				Id 
+			FROM 
+				Person__c 
+			WHERE Contact__c IN (SELECT Registered_By__c FROM LAC_Farmer_Details__c WHERE Id =: obj.Id)];
+		
+		if (!persons.isEmpty()) {
+			List<CKW__c> ckws = [
+			SELECT 
+				Id,
+				First_Name__c,
+				Last_Name__c 
+			FROM 
+				CKW__c 
+			WHERE 
+				Person__c =: persons.get(0).Id];
+				
+			if (!ckws.isEmpty()) {
+				return ckws.get(0);
+			}	
+		}
+		
+		
+		return null;
+	}
 
 	public Decimal getSearchesNum() {
 		return [SELECT COUNT() FROM Search_Log__c WHERE Interviewee__c = :this.obj.Person__c LIMIT 50000];

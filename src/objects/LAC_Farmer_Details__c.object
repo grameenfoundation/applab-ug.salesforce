@@ -46,6 +46,48 @@
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Certification_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Certification Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Commercial_Crops__c</fullName>
+        <externalId>false</externalId>
+        <label>Commercial Crops</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cocoa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Honey</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Horticulture</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>Contact__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -88,6 +130,14 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Entrance_Into_Programme__c</fullName>
+        <externalId>false</externalId>
+        <label>Entrance Into Programme</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
         <fullName>Ethnicity__c</fullName>
         <externalId>false</externalId>
         <label>Ethnicity</label>
@@ -110,6 +160,58 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Financial_Access__c</fullName>
+        <description>Used to determine whether a farmer has access to finance.</description>
+        <externalId>false</externalId>
+        <label>Financial Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Food_Security_Crops__c</fullName>
+        <externalId>false</externalId>
+        <label>Food Security Crops</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Food_Security_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Food Security Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Secure</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unsecure</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -249,6 +351,28 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+        <fullName>Monthly_Production__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly Production</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Sales__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Person__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -322,6 +446,17 @@
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Planted_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Planted Area</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>

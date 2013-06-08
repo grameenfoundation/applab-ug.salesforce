@@ -16,6 +16,7 @@
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Middle_Name__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Last_Name__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Id}" label="{!$Label.ID}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Date_of_Birth__c}" />
             <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Account.Name}" label="{!$Label.GROUP_PARTNER}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Village__c}" label="{!$Label.LOCATION}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.GPS_Location_E__c}"/>
@@ -23,13 +24,17 @@
             <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Brand__c}" label="{!$Label.TYPE_OF_MOBILE_PHONE}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Model__c}" label="{!$Label.MODEL_OF_MOBILE_PHONE}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Phone}" label="{!$Label.MOBILE_PHONE} #"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Gender__c}" />
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="2" title="{!$Label.SOCIAL_ECONOMIC_INFORMATION}">
             <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__r.Registration_PPI_Score__c}" label="{!$Label.POVERTY_LEVEL_PPI}"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Gender__c}" />
+            
             <apex:outputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" label="{!$Label.MARGINALIZATION}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Financial_Access__c}" label="{!$Label.FINANCIAL_ACCESS}" />
+            <apex:outputField value="{!LAC_Farmer_Details__c.Food_Security_Status__c}" label="{!$Label.FOOD_SECURITY_STATUS}" />
+            <apex:outputfield value="{!LAC_Farmer_Details__c.Commercial_Crops__c}" label="{!$Label.COMMERCIAL_CROPS}"/>
         </apex:pageBlockSection>
-        <apex:pageBlockSection columns="1" title="{!$Label.HOUSEHOLD}">
+        <!--<apex:pageBlockSection columns="1" title="{!$Label.HOUSEHOLD}">
             <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__c}" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}"/>
             <apex:outputText value="{!$Label.NO} {!$Label.HOUSEHOLD}" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, True, False)}"></apex:outputText>
             <apex:relatedList list="LAC_Farmer_Details__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}">
@@ -41,18 +46,22 @@
                 <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.FARMS}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:outputText value="No Information" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, True, False)}"></apex:outputText>
-        </apex:pageBlockSection>
+        </apex:pageBlockSection>-->
+        
         <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
+        	<apex:variable var="ckw" value="{!associatedCkw}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.CreatedDate}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
+            <apex:outputtext rendered="{!IF(ckw == NULL, False, True)}" value="{!ckw.First_Name__c} {!ckw.Last_Name__c}" 
+            	label="{!$Label.ASSOCIATED_CKW}"/>
             <apex:outputText value="{!SubmissionsNum}" label="{!$Label.NO_OF_SURVEYS_FILLED}"/>
             <apex:outputText value="{!SearchesNum}" label="{!$Label.NO_OF_INFORMATION_SEARCHES}"/>
+            <apex:outputText value="{!(SubmissionsNum+SearchesNum+MessagesNum)}" label="{!$Label.TOTAL_NO_OF_INTERACTIONS}"/>
             <apex:relatedList list="Search_Logs__r" subject="{!LAC_Farmer_Details__c.Person__c}">
                 <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.SEARCH_LOGS}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:relatedList list="Messages__r" subject="{!LAC_Farmer_Details__c.Person__c}">
                 <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.NO_OF_MESSAGES_RECEIVED}</h3></div></apex:facet>
             </apex:relatedList>
-            <apex:outputText value="{!(SubmissionsNum+SearchesNum+MessagesNum)}" label="{!$Label.TOTAL_NO_OF_INTERACTIONS}"/>
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.OTHER}">
             <apex:relatedList list="NotesAndAttachments"/>
