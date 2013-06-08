@@ -191,29 +191,6 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Image_Document_Id__c</fullName>
-        <caseSensitive>false</caseSensitive>
-        <description>Store the Identifier of the document that represents an image for the Lac Farmer Detail</description>
-        <externalId>false</externalId>
-        <label>Image Document Id</label>
-        <length>255</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
-        <unique>true</unique>
-    </fields>
-    <fields>
-        <fullName>Image__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Image</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
         <externalId>false</externalId>
         <label>LAC Farmer Id Temp</label>

@@ -13,7 +13,7 @@ public with sharing class LacMapMarkerSources {
 							'Person__r.Gender__c, ' +
 							'Person__r.Age__c, ' + 
 							'Person__r.Current_Poverty_Scorecard__r.Poverty_Percentage__c, '+
-							'Image_Document_Id__c ' +
+							'Contact__r.Picture_Attachment_Id__c ' +
 							'from Lac_Farmer_Details__c';
 			
 			List<String> queryWhereClause = new List<String>();
@@ -93,7 +93,8 @@ public with sharing class LacMapMarkerSources {
 							'Person__r.First_Name__c, ' +
 							'Person__r.Last_Name__c, ' +
 							'Person__r.Gender__c, ' +
-							'Person__r.Age__c ' +
+							'Person__r.Age__c, ' +
+							'Person__r.Contact__r.Picture_Attachment_Id__c ' +
 							'from CKW__c';
 			
 			List<String> queryWhereClause = new List<String>();

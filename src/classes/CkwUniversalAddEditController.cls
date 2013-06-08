@@ -8,6 +8,7 @@
 public class CkwUniversalAddEditController {
     ApexPages.StandardController sController = null;
     private Phone__c tempHandset;
+    private Attachment profilePicture;
     
     public CkwUniversalAddEditController(ApexPages.StandardController controller) {
         ckw = (CKW__c)controller.getRecord();
@@ -33,7 +34,9 @@ public class CkwUniversalAddEditController {
             Person__r.Handset__r.SIM__r.Name,Person__r.Handset__r.SIM__r.Carrier__c, Person__r.Handset__r.SIM__r.SIM_Serial_Number__c,
             Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r.Id,
             Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r.gfsurveys__LastCheckInDate__c,
-            Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r.gfsurveys__Status__c  
+            Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r.gfsurveys__Status__c,
+            Person__r.Contact__r.Picture__c,
+            Person__r.Contact__r.Picture_Attachment_Id__c  
             FROM CKW__c WHERE Id=:ckw.Id];
         }
         
@@ -66,8 +69,22 @@ public class CkwUniversalAddEditController {
         }else{
             simcard = new SIM__c();
         }
+        
+        profilePicture = new Attachment();
     }
-    
+
+	public Attachment getProfilePicture() {
+		if (contact.Picture_Attachment_Id__c != null) {
+			List<Attachment> attachments = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE Id = :contact.Picture_Attachment_Id__c ];
+			if (!attachments.isEmpty()) {
+				this.profilePicture = attachments.get(0);
+			}
+		} else {
+			return new Attachment();
+		}
+		return this.profilePicture;
+	}
+	
     /**
      * get the Identifier of the ckw object from the url parameters
      */
@@ -310,6 +327,7 @@ public class CkwUniversalAddEditController {
         	}
         	
             saveContact();
+            saveProfilePicture();
             savePerson();
             saveCkw();
             
@@ -318,6 +336,29 @@ public class CkwUniversalAddEditController {
            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, ex.getMessage()));
            return null;
         }
+    }
+    
+    /**
+    * Save profile picture
+    */
+    public void saveProfilePicture() {
+    	if(this.profilePicture != null) {
+			this.profilePicture.OwnerId = UserInfo.getUserId();
+			
+	    	if(this.profilePicture.Id != null) {
+			 	update this.profilePicture;
+	    	} else {
+	    		this.profilePicture.ParentId = contact.Id;
+	    		this.profilePicture.IsPrivate = true;
+	    		insert this.profilePicture;
+	    	}
+			
+			// Set this as the active profile picture for the contact
+			contact.Picture_Attachment_Id__c = this.profilePicture.Id;
+			upsert contact; // Save contact again
+			
+			ApexPages.addMessage(new ApexPages.message(ApexPages.severity.INFO,'Attachment uploaded successfully'));
+		}
     }
     
     /**

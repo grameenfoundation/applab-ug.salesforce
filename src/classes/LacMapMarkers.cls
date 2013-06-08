@@ -26,8 +26,8 @@ public with sharing class LacMapMarkers {
 	    	
 	    	//profile image
 	    	String imageUrl = '#';
-	    	if (this.farmer.Image_Document_Id__c != null) {
-	    		imageUrl = '/servlet/servlet.FileDownload?file=' + this.farmer.Image_Document_Id__c;
+	    	if (this.farmer.Contact__r.Picture_Attachment_Id__c != null) {
+	    		imageUrl = '/servlet/servlet.FileDownload?file=' + this.farmer.Contact__r.Picture_Attachment_Id__c;
 	    	}
 	    	profile += '<div id="pImage" style="width: 100px height: 100px; float: left;">';
 	    	profile += '<img src="'+ imageUrl +'" width="100px" height="100px"/>';
@@ -149,14 +149,33 @@ public with sharing class LacMapMarkers {
 	    }
 	    
 	    public override String getMarkerInfoContentString() {
-	    	String profile = 'Type: CKW <br/>';
-	    	profile += 'Id: ' + this.ckw.Name + '<br/>';
-	    	profile += 'Name: ' + this.ckw.Person__r.First_Name__c + ' ' + this.ckw.Person__r.Last_Name__c + '<br/>';
-	    	profile += (this.ckw.Person__r.Gender__c != NULL)?'Gender: ' + this.ckw.Person__r.Gender__c + '<br/>':'';
-	    	profile += (this.ckw.Person__r.Age__c != NULL)?'Age: ' + this.ckw.Person__r.Age__c + '<br/>':'';
+	    	String profile = '<div style="width: 304px;">';
+	    	
+	    	//profile image
+	    	String imageUrl = '#';
+	    	if (this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c != null) {
+				imageUrl = '/servlet/servlet.FileDownload?file=' + this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c;
+		    	profile += '<div id="pImage" style="width: 100px height: 100px; float: left;">';
+		    	profile += '<img src="'+ imageUrl +'" width="100px" height="100px"/>';
+		    	profile += '</div>';
+	    	}
+	    	
+	    	//profile details
+	    	profile += '<div id="pDetails" style="width: 200px; height: 100px; float: right;">';
+	    	profile += '<div>Type: CKW</div>';
 	    	
 	    	PageReference ref = new PageReference('/'+this.ckw.Id);
-	    	profile += '<a href="' + ref.getUrl() + '">Go to Profile</a>';
+	    	profile += '<div><a href="' + ref.getUrl() + '">Name: ' + this.ckw.Person__r.First_Name__c + 
+	    				  ' ' + this.ckw.Person__r.Last_Name__c + '</a></div>';
+	    	
+	    	if (this.ckw.Person__r.Gender__c != null) {
+	    		profile += '<div>Gender: ' + this.ckw.Person__r.Gender__c + '</div>';
+	    	}
+	    	
+	    	if (this.ckw.Person__r.Age__c != null) {
+	    		profile += '<div>Age: '+ this.ckw.Person__r.Age__c +'</div>';
+	    	}
+
 	    	return profile;
 	    }
 	    

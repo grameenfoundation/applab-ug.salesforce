@@ -9,6 +9,8 @@
                 <apex:commandButton action="{!delete}" value="{!$Label.DELETE}"/>
             </apex:form>
         </apex:pageBlockButtons>
+       	<apex:outputField value="{!CKW__c.Person__r.Contact__r.Picture__c}" rendered="{!IF(CKW__c.Person__r.Contact__r.Picture_Attachment_Id__c == null, false, true)}"/>
+       	<apex:outputText value="{!$Label.NO} {!$Label.PROFILE_PICTURE}" rendered="{!IF(CKW__c.Person__r.Contact__r.Picture_Attachment_Id__c == null, true, false)}"/>  
         <apex:pageBlockSection columns="2" title="{!$Label.BIO_INFORMATION}">
             <apex:outputField value="{!CKW__c.First_Name__c}"/>
             <apex:outputField value="{!CKW__c.Middle_Name__c}"/>

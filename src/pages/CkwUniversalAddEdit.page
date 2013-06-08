@@ -23,6 +23,12 @@
                 <apex:inputField value="{!person.Gender__c}"/>
                 <apex:inputField value="{!contact.ownerId}" />
             </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.PROFILE_PICTURE}">
+            	<apex:outputText style="font-weight: bold;" value="{!$Label.CHANGE_PROFILE_PICTURE_INSTRUCTIONS}"/><br/>
+                <apex:inputFile value="{!profilePicture.body}" filename="{!profilePicture.name}" id="profilePicture"/><br/>
+                <apex:outputField value="{!contact.Picture__c}" rendered="{!IF(contact.Picture_Attachment_Id__c == null, false, true)}"/>
+			    <apex:outputText value="{!$Label.NO} {!$Label.PROFILE_PICTURE}" rendered="{!IF(contact.Picture_Attachment_Id__c == null, true, false)}"/>
+            </apex:pageBlockSection>
             <apex:pageBlocksection title="{!$Label.CKW_INFORMATION}" collapsible="true">
                 <apex:inputfield value="{!ckw.Contract_Signed__c}"/>
                 <apex:inputfield value="{!ckw.Has_CKW_paid_the_commitment_fee__c}"/>

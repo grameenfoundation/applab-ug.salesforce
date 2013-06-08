@@ -242,6 +242,29 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+        <fullName>Picture_Attachment_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Stores the Id of the attachment that is used for the profile picture for this contact</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Stores the Id of the attachment that is used for the profile picture for this contact</inlineHelpText>
+        <label>Picture Attachment Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Picture__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), &quot;&quot;, IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Picture</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Spouse_Name__c</fullName>
         <externalId>false</externalId>
         <label>Spouse Name</label>
@@ -584,11 +607,61 @@
         </filters>
         <label>Surveyors</label>
     </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CONTACT.PHONE1</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
+        <lookupFilterFields>FULL_NAME</lookupFilterFields>
+        <lookupFilterFields>ACCOUNT.NAME</lookupFilterFields>
+        <lookupFilterFields>ACCOUNT.SITE</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE1</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE3</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE4</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE5</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE6</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTACT.PHONE1</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTACT.EMAIL</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <webLinks>
+        <fullName>Contact_Pledge</fullName>
+        <availability>online</availability>
+        <description>Setup pledge from contact</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Pledge</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>Donation_Set_up_Pledge_from_Contact</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>Contact_Recurring_Donation</fullName>
+        <availability>online</availability>
+        <description>Setup recurring donation from contact</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Recurring Donation</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>Donation_Setup_Recurring_from_Contact</scontrol>
+    </webLinks>
     <webLinks>
         <fullName>Contacts_in_this_Organization</fullName>
         <availability>online</availability>
         <description>generates report of all contacts within the organization</description>
         <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>All Contacts in this Organization</masterLabel>
@@ -596,6 +669,18 @@
         <protected>false</protected>
         <requireRowSelection>true</requireRowSelection>
         <url>/00O70000001KiYf?pv0={!Account.Id}&amp;isdtp=mo</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Create_Connection</fullName>
+        <availability>online</availability>
+        <description>used to create connection from contact to another contact and/or organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Create Connection</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>ContactConnectionCreatefromContact</scontrol>
     </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>
@@ -626,6 +711,7 @@
         <availability>online</availability>
         <description>used to view connections between contacts and orgainzations</description>
         <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>
@@ -734,6 +820,7 @@ alert(&quot;Please select at least one record to delete.&quot;); //alert the use
         <fullName>map</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>

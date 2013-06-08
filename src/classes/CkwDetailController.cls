@@ -1,5 +1,6 @@
 public with sharing class CkwDetailController {
 	private CKW__c obj;
+	
 	private ApexPages.StandardController controller = null;
 	public CkwDetailController(ApexPages.StandardController controller) {
 		this.obj = (CKW__c)controller.getRecord();
@@ -26,7 +27,7 @@ public with sharing class CkwDetailController {
 			return null;
 		}
 	}
-
+	
 	public static testMethod void test() {
 		CKW__c obj = new CKW__c();
 		ApexPages.StandardController sc = new ApexPages.StandardController(obj);
