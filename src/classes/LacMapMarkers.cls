@@ -69,7 +69,7 @@ public with sharing class LacMapMarkers {
 	    	//provert likelyhood
 	    	Integer ppiScore = (this.farmer.PPI_Score__c == null) ? 0 : this.farmer.PPI_Score__c.intValue();
 	    	String spanStyle = 'width: 40px; font-weight: bold; display: inline-block; padding-right: 3px;';
-	    	profile += '<div>';
+	    	profile += '<div style="clear:both;">';
 	    	profile += '<div style="' + headerStyle + '">Povery Likelyhood</div>';
 	    	profile += '<div><span style="'+ spanStyle +'">$1.25</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanOneAndQuarter(ppiScore) +'</span></div>';
 	    	profile += '<div><span style="'+ spanStyle +'"> $2.5</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanTwoAndHalf(ppiScore) +'</span></div>';
@@ -79,7 +79,7 @@ public with sharing class LacMapMarkers {
 	    	
 	    	//certification status
 	    	if(this.farmer.Certification_In_Progress__c != null && this.farmer.Certification_Obtained__c != null) {
-		    	profile += '<div>';
+		    	profile += '<div style="clear: both;">';
 		    	profile += '<div style="' + headerStyle + '">Certification Status</div>';
 		    	
 		    	if(this.farmer.Certification_Obtained__c != null) {
@@ -94,7 +94,7 @@ public with sharing class LacMapMarkers {
 	    	}
 	    	
 	    	//other section
-	    	profile += '<div>';
+	    	profile += '<div style="clear: both;">';
 	    	profile += '<div style="' + headerStyle + '">Others</div>';
 	    	profile += '<div>HA Under Production: '+ this.farmer.Planted_Area__c +'</div>';
 	    	//profile += '<div>Total Queries Asked: '+ getTotalQueriesAsked() +'</div>';
