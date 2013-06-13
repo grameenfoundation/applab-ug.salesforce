@@ -314,7 +314,7 @@ public class CkwUniversalAddEditController {
 	    				ApexPages.Message msg = new ApexPages.Message(ApexPages.severity.ERROR, msgStr);
 						ApexPages.addmessage(msg);
 						
-						return null;
+						return ApexPages.currentPage();
 		    		} else {
 	    				handset = p;
 	    				simcard = handset.SIM__r;
@@ -334,7 +334,7 @@ public class CkwUniversalAddEditController {
             return getCkwPage();
         }catch (Exception ex) {
            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, ex.getMessage()));
-           return null;
+           return ApexPages.currentPage();
         }
     }
     
@@ -342,10 +342,10 @@ public class CkwUniversalAddEditController {
     * Save profile picture
     */
     public void saveProfilePicture() {
-    	if(this.profilePicture != null) {
+    	if(this.profilePicture != null && this.profilePicture.Body != null) {
 			this.profilePicture.OwnerId = UserInfo.getUserId();
 			
-	    	if(this.profilePicture.Id != null) {
+	    	if(this.profilePicture.Id != null && this.profilePicture.ParentId != null) {
 			 	update this.profilePicture;
 	    	} else {
 	    		this.profilePicture.ParentId = contact.Id;
@@ -433,6 +433,9 @@ public class CkwUniversalAddEditController {
     static void testSave(){
         CkwUniversalAddEditController controller = initTestController();
         controller.save();
+        System.debug(ApexPages.getMessages());
+        
+        System.assertEquals(ApexPages.getMessages().size(), 0);
         
         Phone__c handset = [SELECT Id FROM Phone__c WHERE Id=:controller.handset.Id];
         System.assertEquals(controller.handset.Id, handset.Id);
