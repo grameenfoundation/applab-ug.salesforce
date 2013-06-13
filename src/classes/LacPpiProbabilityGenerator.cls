@@ -6,6 +6,11 @@ public with sharing class LacPpiProbabilityGenerator {
 	private static final Map<Integer, Double> ppProbabilityLessThanFive;
 	
 	static {
+		ppProbabilityLessThanOneAndQuarter = new Map<Integer, Double>();
+		ppProbabilityLessThanTwoAndHalf = new Map<Integer, Double>();
+		ppProbabilityLessThanThreeAndThreeQuarter = new Map<Integer, Double>();
+		ppProbabilityLessThanFive = new Map<Integer, Double>();
+		
 		initPpProbabilityForLessThanTwoAndHalf();
 		initPpProbabilityForLessThanOneAndQuarter();
 		initPpProbabilityForLessThanThreeAndThreeQuarter();
@@ -13,7 +18,6 @@ public with sharing class LacPpiProbabilityGenerator {
 	}
 	
 	private static void initPpProbabilityForLessThanFive() {
-		ppProbabilityLessThanFive = new Map<Integer, Double>();
 		ppProbabilityLessThanFive.put(0, 100);
 		ppProbabilityLessThanFive.put(5, 99.9);
 		ppProbabilityLessThanFive.put(10, 98.7);
@@ -38,7 +42,6 @@ public with sharing class LacPpiProbabilityGenerator {
 	}
 	
 	private static void initPpProbabilityForLessThanThreeAndThreeQuarter() {
-		ppProbabilityLessThanThreeAndThreeQuarter = new Map<Integer, Double>();
 		ppProbabilityLessThanThreeAndThreeQuarter.put(0, 100);
 		ppProbabilityLessThanThreeAndThreeQuarter.put(5, 99.1);
 		ppProbabilityLessThanThreeAndThreeQuarter.put(10, 97.6);
@@ -63,7 +66,6 @@ public with sharing class LacPpiProbabilityGenerator {
 	}
 	
 	private static void initPpProbabilityForLessThanOneAndQuarter() {
-		ppProbabilityLessThanOneAndQuarter = new Map<Integer, Double>();
 		ppProbabilityLessThanOneAndQuarter.put(0, 81.1);
 		ppProbabilityLessThanOneAndQuarter.put(5, 71.6);
 		ppProbabilityLessThanOneAndQuarter.put(10, 64.4);
@@ -88,44 +90,100 @@ public with sharing class LacPpiProbabilityGenerator {
 	}
 	
 	private static void initPpProbabilityForLessThanTwoAndHalf() {
-		ppProbailityLessThanTwoAndHalf = new Map<Integer, Double>();
-		ppProbailityLessThanTwoAndHalf.put(0, 100);
-		ppProbailityLessThanTwoAndHalf.put(5, 97.7);
-		ppProbailityLessThanTwoAndHalf.put(10, 93.8);
-		ppProbailityLessThanTwoAndHalf.put(15, 87.9);
-		ppProbailityLessThanTwoAndHalf.put(20, 74);
-		ppProbailityLessThanTwoAndHalf.put(25, 60.7);
-		ppProbailityLessThanTwoAndHalf.put(30, 42.6);
-		ppProbailityLessThanTwoAndHalf.put(35, 26.7);
-		ppProbailityLessThanTwoAndHalf.put(40, 16.8);
-		ppProbailityLessThanTwoAndHalf.put(45, 9.1);
-		ppProbailityLessThanTwoAndHalf.put(50, 3.6);
-		ppProbailityLessThanTwoAndHalf.put(55, 2.1);
-		ppProbailityLessThanTwoAndHalf.put(60, 1.1);
-		ppProbailityLessThanTwoAndHalf.put(65, 0.4);
-		ppProbailityLessThanTwoAndHalf.put(70, 0.4);
-		ppProbailityLessThanTwoAndHalf.put(75, 0.1);
-		ppProbailityLessThanTwoAndHalf.put(80, 0.3);
-		ppProbailityLessThanTwoAndHalf.put(85, 0);
-		ppProbailityLessThanTwoAndHalf.put(90, 0);
-		ppProbailityLessThanTwoAndHalf.put(95, 0);
-		ppProbailityLessThanTwoAndHalf.put(100, 0);	
+		ppProbabilityLessThanTwoAndHalf.put(0, 100);
+		ppProbabilityLessThanTwoAndHalf.put(5, 97.7);
+		ppProbabilityLessThanTwoAndHalf.put(10, 93.8);
+		ppProbabilityLessThanTwoAndHalf.put(15, 87.9);
+		ppProbabilityLessThanTwoAndHalf.put(20, 74);
+		ppProbabilityLessThanTwoAndHalf.put(25, 60.7);
+		ppProbabilityLessThanTwoAndHalf.put(30, 42.6);
+		ppProbabilityLessThanTwoAndHalf.put(35, 26.7);
+		ppProbabilityLessThanTwoAndHalf.put(40, 16.8);
+		ppProbabilityLessThanTwoAndHalf.put(45, 9.1);
+		ppProbabilityLessThanTwoAndHalf.put(50, 3.6);
+		ppProbabilityLessThanTwoAndHalf.put(55, 2.1);
+		ppProbabilityLessThanTwoAndHalf.put(60, 1.1);
+		ppProbabilityLessThanTwoAndHalf.put(65, 0.4);
+		ppProbabilityLessThanTwoAndHalf.put(70, 0.4);
+		ppProbabilityLessThanTwoAndHalf.put(75, 0.1);
+		ppProbabilityLessThanTwoAndHalf.put(80, 0.3);
+		ppProbabilityLessThanTwoAndHalf.put(85, 0);
+		ppProbabilityLessThanTwoAndHalf.put(90, 0);
+		ppProbabilityLessThanTwoAndHalf.put(95, 0);
+		ppProbabilityLessThanTwoAndHalf.put(100, 0);	
 	}
 	
 	public static Double getPpProbabilityForLessThanTwoAndHalf(Integer ppiScore){
-		return ppProbabilityLessThanOneAndQuarter.get(ppiScore);
+		Integer lowerLimit = getPpiLowerLimitValue(ppiScore);
+		return ppProbabilityLessThanTwoAndHalf.get(lowerLimit);
 	}
 
 
 	public static Double getPpProbabilityForLessThanOneAndQuarter(Integer ppiScore) {
-		return ppProbailityLessThanTwoAndHalf.get(ppiScore);		
+		Integer lowerLimit = getPpiLowerLimitValue(ppiScore);
+		return ppProbabilityLessThanOneAndQuarter.get(lowerLimit);		
 	}
 	
 	public static Double getPpProbabilityForLessThanThreeAndThreeQuarter(Integer ppiScore) {
-		return 	ppProbabilityLessThanThreeAndThreeQuarter.get(ppiScore);
+		Integer lowerLimit = getPpiLowerLimitValue(ppiScore);
+		return 	ppProbabilityLessThanThreeAndThreeQuarter.get(lowerLimit);
 	}
 	
 	public static Double getPpProbabilityForLessThanFive(Integer ppiScore) {
-		return ppProbabilityLessThanFive.get(ppiScore);
+		Integer lowerLimit = getPpiLowerLimitValue(ppiScore);
+		return ppProbabilityLessThanFive.get(lowerLimit);
+	}
+	
+	/**
+	 * gets the lower limit of the ppi score in it's index.
+	 * e.g. a value of 3 will get the lower limit of 0 because the ppi index for this 
+	 * score is 0 - 4 with 4 being the higher limit.
+	 */
+	private static Integer getPpiLowerLimitValue(Integer ppiScore) {
+		if (ppiScore >= 0 && ppiScore <= 4) {
+			return 0;
+		} else if (ppiScore >= 5 && ppiScore <= 9) {
+			return 5;
+		} else if (ppiScore >= 10 && ppiScore <= 14) {
+			return 10;
+		} else if (ppiScore >= 15 && ppiScore <= 19) {
+			return 15;
+		} else if (ppiScore >= 20 && ppiScore <= 24) {
+			return 20;
+		} else if (ppiScore >= 25 && ppiScore <= 29) {
+			return 25;
+		} else if (ppiScore >= 30 && ppiScore <= 34) {
+			return 30;
+		} else if (ppiScore >= 35 && ppiScore <= 39) {
+			return 35;
+		} else if (ppiScore >= 40 && ppiScore <= 44) {
+			return 40;
+		} else if (ppiScore >= 45 && ppiScore <= 49) {
+			return 45;
+		} else if (ppiScore >= 50 && ppiScore <= 54) {
+			return 50;
+		} else if (ppiScore >= 55 && ppiScore <= 59) {
+			return 55;
+		} else if (ppiScore >= 60 && ppiScore <= 64) {
+			return 60;
+		} else if (ppiScore >= 65 && ppiScore <= 69) {
+			return 65;
+		} else if (ppiScore >= 70 && ppiScore <= 74) {
+			return 70;
+		} else if (ppiScore >= 75 && ppiScore <= 75) {
+			return 75;
+		} else if (ppiScore >= 80 && ppiScore <= 84) {
+			return 80;
+		} else if (ppiScore >= 85 && ppiScore <= 89) {
+			return 85;
+		} else if (ppiScore >= 90 && ppiScore <= 94) {
+			return 90;
+		} else if (ppiScore >= 95 && ppiScore <= 99) {
+			return 95;
+		} else if (ppiScore >= 100) {
+			return 100;
+		}
+		
+		return 0;
 	}
 }

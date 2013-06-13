@@ -13,7 +13,16 @@ public with sharing class LacMapMarkerSources {
 							'Person__r.Gender__c, ' +
 							'Person__r.Age__c, ' + 
 							'Person__r.Current_Poverty_Scorecard__r.Poverty_Percentage__c, '+
-							'Contact__r.Picture_Attachment_Id__c ' +
+							'Contact__r.Picture_Attachment_Id__c, ' +
+							'Commercial_Crops__c, '+
+							'Farm_Area__c, '+
+							'Planted_Area__c, '+
+							'Quarterly_Sales__c, '+
+							'Quarterly_Production__c, '+
+							'Food_Security_Status__c, '+
+							'PPI_Score__c, '+
+							'Certification_Obtained__c, '+
+							'Certification_In_Progress__c '+
 							'from Lac_Farmer_Details__c';
 			
 			List<String> queryWhereClause = new List<String>();

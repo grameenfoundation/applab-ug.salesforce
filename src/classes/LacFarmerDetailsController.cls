@@ -1,6 +1,7 @@
 public with sharing class LacFarmerDetailsController {
 	private LAC_Farmer_Details__c obj;
 	private Attachment profilePicture;
+	private Integer ppiScore;
 	private ApexPages.StandardController stdController; 
 
 	public LacFarmerDetailsController(ApexPages.StandardController controller) {
@@ -72,16 +73,15 @@ public with sharing class LacFarmerDetailsController {
 		if(this.profilePicture != null) {
 			this.profilePicture.OwnerId = UserInfo.getUserId(); 
 			
-			if(this.profilePicture.Id != null) {
-			 	update this.profilePicture;
-	    	} else {
-	    		this.profilePicture.ParentId = this.obj.Contact__r.Id;
-	    		this.profilePicture.IsPrivate = true;
-	    		insert this.profilePicture;
-	    	}
+    		this.profilePicture.ParentId = this.obj.Contact__c;
+    		this.profilePicture.IsPrivate = true;
+    		
+    		if (this.profilePicture.Body != null) {
+    			insert this.profilePicture;
+    			this.obj.Contact__r.Picture_Attachment_Id__c = this.profilePicture.Id;
+    			upsert this.obj.Contact__r;
+    		}
 			
-			this.obj.Contact__r.Picture_Attachment_Id__c = this.profilePicture.Id;
-			upsert this.obj.Contact__r;
 			upsert this.obj;
 		}
 		
@@ -129,5 +129,37 @@ public with sharing class LacFarmerDetailsController {
 			
 			update farms;
 		}
+	}
+	
+	private Integer getLacFarmerPpiScore() {
+		if(this.ppiScore == null || this.ppiScore <= 0) {
+			List<LAC_Farmer_Details__c> farmer = [SELECT PPI_Score__c FROM LAC_Farmer_Details__c WHERE Id =: this.obj.Id];
+			if(!farmer.isEmpty()) {
+				Decimal score = farmer.get(0).PPI_Score__c;
+				if (score != null) {
+					this.ppiScore = score.intValue();
+				} else {
+					this.ppiScore = 0;
+				}
+			}
+		}
+		
+		return this.ppiScore;
+	}
+	
+	public Double getPovertyProbabilityLessThanOneQuarter() {
+		return LacPpiProbabilityGenerator.getPpProbabilityForLessThanOneAndQuarter(getLacFarmerPpiScore()); 
+	}
+	
+	public Double getPovertyProbabilityLessThanTwoAndHalf() {
+		return LacPpiProbabilityGenerator.getPpProbabilityForLessThanTwoAndHalf(getLacFarmerPpiScore());
+	}
+	
+	public Double getPovertyProbabilityLessThanOneThreeAndThreeQuarter() {
+		return LacPpiProbabilityGenerator.getPpProbabilityForLessThanThreeAndThreeQuarter(getLacFarmerPpiScore());
+	}
+	
+	public Double getPovertyProbabilityLessThanOneFive() {
+		return LacPpiProbabilityGenerator.getPpProbabilityForLessThanFive(getLacFarmerPpiScore());
 	}
 }

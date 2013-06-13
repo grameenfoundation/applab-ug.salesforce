@@ -25,14 +25,23 @@
             <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Model__c}" label="{!$Label.MODEL_OF_MOBILE_PHONE}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Phone}" label="{!$Label.MOBILE_PHONE} #"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Gender__c}" />
+            <apex:outputField value="{!LAC_Farmer_Details__c.Country__c}" />
+            <apex:outputField value="{!LAC_Farmer_Details__c.District__c}" />
+            <apex:outputField value="{!LAC_Farmer_Details__c.Municipality__c}" />
+            <apex:outputField value="{!LAC_Farmer_Details__c.Village__c}" />
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="2" title="{!$Label.SOCIAL_ECONOMIC_INFORMATION}">
-            <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__r.Registration_PPI_Score__c}" label="{!$Label.POVERTY_LEVEL_PPI}"/>
-            
             <apex:outputField value="{!LAC_Farmer_Details__c.Marginalized_Type__c}" label="{!$Label.MARGINALIZATION}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Financial_Access__c}" label="{!$Label.FINANCIAL_ACCESS}" />
             <apex:outputField value="{!LAC_Farmer_Details__c.Food_Security_Status__c}" label="{!$Label.FOOD_SECURITY_STATUS}" />
             <apex:outputfield value="{!LAC_Farmer_Details__c.Commercial_Crops__c}" label="{!$Label.COMMERCIAL_CROPS}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2" title="{!$Label.POVERTY_LEVEL_PPI}">
+        	<apex:outputfield value="{!LAC_Farmer_Details__c.PPI_Score__c}" label="{!$Label.PPI_SCORE}" />
+        	<apex:outputText value="{!povertyProbabilityLessThanOneQuarter}" label="{!$Label.LESS_THAN} $1.25"/>
+        	<apex:outputText value="{!povertyProbabilityLessThanTwoAndHalf}" label="{!$Label.LESS_THAN} $2.5"/>
+        	<apex:outputText value="{!povertyProbabilityLessThanOneThreeAndThreeQuarter}" label="{!$Label.LESS_THAN} $3.75"/>
+        	<apex:outputText value="{!povertyProbabilityLessThanOneFive}" label="{!$Label.LESS_THAN} $5"/>
         </apex:pageBlockSection>
         <!--<apex:pageBlockSection columns="1" title="{!$Label.HOUSEHOLD}">
             <apex:outputField value="{!LAC_Farmer_Details__c.LAC_Household__c}" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}"/>
@@ -40,17 +49,26 @@
             <apex:relatedList list="LAC_Farmer_Details__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}">
                 <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.MEMBERS}</h3></div></apex:facet>
             </apex:relatedList>
-        </apex:pageBlockSection>
+        </apex:pageBlockSection>-->
         <apex:pageBlockSection columns="1" title="{!$Label.AGRONOMIC}">
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Farm_Area__c}" label="{!$Label.FARM_AREA}"/>
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Planted_Area__c}" label="{!$Label.PLANTED_AREA}"/>
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Monthly_Production__c}" label="{!$Label.MONTHLY_PRODUCTION}"/>
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Certification_In_Progress__c}" label="{!$Label.CERTIFICATION_LABELS_IN_PROGRESS}"/>
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Certification_Obtained__c}" label="{!$Label.CERTIFICATION_LABELS_IN_OBTAINED}"/>
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Certification_Score__c}" label="{!$Label.CERTIFICATION_SCORE}"/>
+        	<!-- 
             <apex:relatedList list="LAC_Farms__r" subject="{!LAC_Farmer_Details__c.LAC_Household__c}"  rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, False, True)}">
                 <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.FARMS}</h3></div></apex:facet>
             </apex:relatedList>
             <apex:outputText value="No Information" rendered="{!IF(LAC_Farmer_Details__c.LAC_Household__c == NULL, True, False)}"></apex:outputText>
-        </apex:pageBlockSection>-->
+             -->
+        </apex:pageBlockSection>
         
         <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
         	<apex:variable var="ckw" value="{!associatedCkw}"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.CreatedDate}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Monthly_Sales__c}" label="{!$Label.MONTHLY_SALES}"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Entrance_Into_Programme__c}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
             <apex:outputtext rendered="{!IF(ckw == NULL, False, True)}" value="{!ckw.First_Name__c} {!ckw.Last_Name__c}" 
             	label="{!$Label.ASSOCIATED_CKW}"/>
             <apex:outputText value="{!SubmissionsNum}" label="{!$Label.NO_OF_SURVEYS_FILLED}"/>

@@ -46,6 +46,104 @@
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Annual_Income_From_Wages__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Income From Wages</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Annual_Income_from_Crop_Production__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Income from Crop Production</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Annual_Income_from__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Income from Farm Work</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Area_of_Coffee_Crop__c</fullName>
+        <externalId>false</externalId>
+        <label>Area of Coffee Crop</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Certification_In_Progress__c</fullName>
+        <externalId>false</externalId>
+        <label>Certification In Progress</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fairtrade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Organic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UTZ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rainforest Alliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Certification_Obtained__c</fullName>
+        <externalId>false</externalId>
+        <label>Certification Obtained</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fair Trade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Organic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UTZ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rainforest Alliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>Certification_Score__c</fullName>
         <externalId>false</externalId>
         <label>Certification Score</label>
@@ -98,6 +196,37 @@
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credit_Received__c</fullName>
+        <externalId>false</externalId>
+        <label>Credit Received</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>District__c</fullName>
+        <externalId>false</externalId>
+        <label>District</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Employment_Status__c</fullName>
@@ -166,6 +295,56 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Family_Members__c</fullName>
+        <externalId>false</externalId>
+        <label>Family Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farm_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Farm Area</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farm_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Farm Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farm_has_Management_Plan__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Farm has Management Plan</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Farmer_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Farmer Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Financial_Access__c</fullName>
@@ -293,6 +472,29 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Image_Document_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Store the Identifier of the document that represents an image for the Lac Farmer Detail</description>
+        <externalId>false</externalId>
+        <label>Image Document Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Image__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Image</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
         <externalId>false</externalId>
         <label>LAC Farmer Id Temp</label>
@@ -313,6 +515,32 @@
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Made_seedbed_in_the_last_year__c</fullName>
+        <externalId>false</externalId>
+        <label>Made seedbed in the last year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Production</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>The previous two</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Marginalized_Type__c</fullName>
@@ -351,8 +579,49 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+        <fullName>Monthly_Income_from_Coffee__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Quarterly_Income_from_Coffee__c == null, 0, ( Quarterly_Income_from_Coffee__c / 3))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Income from Coffee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Income_from_Labour__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( (Annual_Income_from__c  +  Annual_Income_From_Wages__c) &gt; 0, (Annual_Income_from__c  +  Annual_Income_From_Wages__c)/12 , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Income from Labour</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Income_from_other_Crops__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Quarterly_Income_from_other_Crops__c &gt; 0,  Quarterly_Income_from_other_Crops__c /3, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Income from other Crops</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Monthly_Production__c</fullName>
         <externalId>false</externalId>
+        <formula>IF( Quarterly_Production__c  == NULL  ||  Quarterly_Production__c  &lt;= 0, 0,  Quarterly_Production__c/3 )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Monthly Production</label>
         <precision>18</precision>
         <required>false</required>
@@ -364,7 +633,69 @@
     <fields>
         <fullName>Monthly_Sales__c</fullName>
         <externalId>false</externalId>
+        <formula>IF( Quarterly_Sales__c  == null ||  Quarterly_Sales__c &lt;= 0, 0.0,  Quarterly_Sales__c/3 )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Monthly Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Municipality__c</fullName>
+        <externalId>false</externalId>
+        <label>Municipality</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PPI_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>PPI Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Percentage_Monthly_Income_from_Labour__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Monthly_Income_from_Labour__c &gt; 0 &amp;&amp;  Total_Monthly_Income__c &gt; 0, (Monthly_Income_from_Labour__c /Total_Monthly_Income__c ) * 100, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Percentage Monthly Income from Labour</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Percentage_Monthly_Income_of_Coffee__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Monthly_Income_from_Coffee__c &gt; 0 &amp;&amp; Total_Monthly_Income__c &gt; 0,  (Monthly_Income_from_Coffee__c /  Total_Monthly_Income__c) * 100, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Percentage Monthly Income of Coffee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Percentage_Monthly_Income_of_other_Crops__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Monthly_Income_from_other_Crops__c &gt; 0 &amp;&amp;  Total_Monthly_Income__c &gt; 0, (Monthly_Income_from_other_Crops__c/Total_Monthly_Income__c) * 100  , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Percentage Monthly Income of other Crops</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -460,6 +791,85 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Production_of_Coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Production of Coffee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Production_of_Dried_Parchment_Coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Production of Dried Parchment Coffee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Productivity__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Production_of_Coffee__c  == null || Production_of_Coffee__c  &lt;= 0, 0, (Production_of_Coffee__c  / Area_of_Coffee_Crop__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Productivity</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quarterly_Income_from_Coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Quarterly Income from Coffee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quarterly_Income_from_other_Crops__c</fullName>
+        <externalId>false</externalId>
+        <label>Quarterly Income from other Crops</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quarterly_Production__c</fullName>
+        <externalId>false</externalId>
+        <label>Quarterly Production</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quarterly_Sales__c</fullName>
+        <externalId>false</externalId>
+        <label>Quarterly Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Registered_By__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -515,6 +925,62 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Total_Monthly_Income__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( (Annual_Income_from_Crop_Production__c +  Annual_Income_from__c + Annual_Income_From_Wages__c ) &lt;= 0, 0, (Annual_Income_from_Crop_Production__c +  Annual_Income_from__c + Annual_Income_From_Wages__c ) /12)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Monthly Income</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Village__c</fullName>
+        <externalId>false</externalId>
+        <label>Village</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_of_Fairtrade_Certification__c</fullName>
+        <externalId>false</externalId>
+        <label>Year of Fairtrade Certification</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_of_Organic_Certification__c</fullName>
+        <externalId>false</externalId>
+        <label>Year of Organic Certification</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Years_of_Education__c</fullName>
+        <externalId>false</externalId>
+        <label>Years of Education</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <label>LAC Farmer Details</label>
     <listViews>

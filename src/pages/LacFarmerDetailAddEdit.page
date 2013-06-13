@@ -18,6 +18,21 @@
 	            <apex:inputField value="{!LAC_Farmer_Details__c.Gender__c}" />
 	            <apex:inputField value="{!LAC_Farmer_Details__c.Ethnicity__c}"/>
 	            <apex:inputField value="{!LAC_Farmer_Details__c.Employment_Status__c}"/>
+	            <apex:inputField value="{!LAC_Farmer_Details__c.PPI_Score__c}"/>
+	            <apex:inputfield value="{!LAC_Farmer_Details__c.Commercial_Crops__c}"/>
+	            <apex:inputfield value="{!LAC_Farmer_Details__c.Food_Security_Status__c}" label="{!$Label.FOOD_SECURITY_STATUS}" />
+	        </apex:pageBlockSection>
+	        <apex:pageBlockSection columns="1" title="{!$Label.AGRONOMIC}">
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Farm_Area__c}" label="{!$Label.FARM_AREA}"/>
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Planted_Area__c}" label="{!$Label.PLANTED_AREA}"/>
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Monthly_Production__c}" label="{!$Label.MONTHLY_PRODUCTION}"/>
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Certification_In_Progress__c}" label="{!$Label.CERTIFICATION_LABELS_IN_PROGRESS}"/>
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Certification_Obtained__c}" label="{!$Label.CERTIFICATION_LABELS_IN_OBTAINED}"/>
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Certification_Score__c}" label="{!$Label.CERTIFICATION_SCORE}"/>
+	        </apex:pageBlockSection>
+	        <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Quarterly_Sales__c}" />
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Quarterly_Production__c}" />
 	        </apex:pageBlockSection>
 	        <apex:pageBlockSection columns="3" title="{!$Label.OTHER}">
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Contact__c}"/>
