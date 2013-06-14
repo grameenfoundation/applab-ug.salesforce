@@ -70,30 +70,35 @@ public with sharing class LacFarmerDetailsController {
 	}
 	
 	public PageReference save() {
-		if(this.profilePicture != null) {
-			this.profilePicture.OwnerId = UserInfo.getUserId(); 
-			
-			if(profilePicture.ParentId == null) {
-    			this.profilePicture.ParentId = this.obj.Contact__c;
+		try{
+			List<Contact> contacts = [SELECT Id, Picture_Attachment_Id__c FROM Contact WHERE Id =: this.obj.Contact__c];
+			if (!contacts.isEmpty()) {
+				if (this.profilePicture != null && this.profilePicture.Body != null) {
+					this.profilePicture.OwnerId = UserInfo.getUserId();
+					
+					if (this.profilePicture.Id == null) {
+						this.profilePicture.ParentId = contacts.get(0).Id;
+						this.profilePicture.IsPrivate = true;
+					}
+					
+					upsert this.profilePicture;
+					contacts.get(0).Picture_Attachment_Id__c = this.profilePicture.Id;
+					upsert contacts.get(0);
+				}
 			}
 			
-    		this.profilePicture.IsPrivate = true;
-    		
-    		if (this.profilePicture.Body != null) {
-    			upsert this.profilePicture;
-    			this.obj.Contact__r.Picture_Attachment_Id__c = this.profilePicture.Id;
-    			upsert this.obj.Contact__r;
-    		}
-			
 			upsert this.obj;
+			
+			changeOwner();
+			
+			PageReference pageReference = new PageReference('/apex/LacFarmerDetails?id='+this.obj.id);
+	        pageReference.setRedirect(true);
+	        
+	        return pageReference;
+		} catch(Exception ex) {
+			ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, ex.getMessage()));
+			return ApexPages.currentPage();
 		}
-		
-		changeOwner();
-		
-		PageReference pageReference = new PageReference('/apex/LacFarmerDetails?id='+this.obj.id);
-        pageReference.setRedirect(true);
-        
-        return pageReference;
 	}
 	
 	private void changeOwner(){

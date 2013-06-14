@@ -35,7 +35,7 @@
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Quarterly_Production__c}" />
 	        </apex:pageBlockSection>
 	        <apex:pageBlockSection columns="3" title="{!$Label.OTHER}">
-	        	<apex:inputField value="{!LAC_Farmer_Details__c.Contact__c}"/>
+	        	<apex:inputField value="{!LAC_Farmer_Details__c.Contact__c}" required="true"/>
 	        	<apex:inputfield value="{!LAC_Farmer_Details__c.Name}"/>
 	        	<apex:inputfield value="{!LAC_Farmer_Details__c.LAC_Farmer_Id_Temp__c}"/>
 	        	<apex:inputfield value="{!LAC_Farmer_Details__c.Person__c}"/>
