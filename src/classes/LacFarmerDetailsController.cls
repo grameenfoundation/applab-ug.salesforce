@@ -73,11 +73,14 @@ public with sharing class LacFarmerDetailsController {
 		if(this.profilePicture != null) {
 			this.profilePicture.OwnerId = UserInfo.getUserId(); 
 			
-    		this.profilePicture.ParentId = this.obj.Contact__c;
+			if(profilePicture.ParentId == null) {
+    			this.profilePicture.ParentId = this.obj.Contact__c;
+			}
+			
     		this.profilePicture.IsPrivate = true;
     		
     		if (this.profilePicture.Body != null) {
-    			insert this.profilePicture;
+    			upsert this.profilePicture;
     			this.obj.Contact__r.Picture_Attachment_Id__c = this.profilePicture.Id;
     			upsert this.obj.Contact__r;
     		}
@@ -139,7 +142,7 @@ public with sharing class LacFarmerDetailsController {
 				if (score != null) {
 					this.ppiScore = score.intValue();
 				} else {
-					this.ppiScore = 0;
+					this.ppiScore = -1;
 				}
 			}
 		}

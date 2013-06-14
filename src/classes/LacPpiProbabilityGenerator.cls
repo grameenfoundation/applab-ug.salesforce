@@ -184,6 +184,6 @@ public with sharing class LacPpiProbabilityGenerator {
 			return 100;
 		}
 		
-		return 0;
+		return -1;
 	}
 }
