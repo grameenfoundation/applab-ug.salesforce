@@ -345,9 +345,10 @@ public class CkwUniversalAddEditController {
     	if(this.profilePicture != null && this.profilePicture.Body != null) {
 			this.profilePicture.OwnerId = UserInfo.getUserId();
 			
-	    	if(this.profilePicture.Id != null && this.profilePicture.ParentId != null) {
+	    	if(this.profilePicture.Id != null) {
 			 	update this.profilePicture;
 	    	} else {
+	    		this.profilePicture.Name = 'Profile Picture';
 	    		this.profilePicture.ParentId = contact.Id;
 	    		this.profilePicture.IsPrivate = true;
 	    		insert this.profilePicture;
@@ -493,5 +494,19 @@ public class CkwUniversalAddEditController {
         controller.contact.gfsurveys__mobilesurveys_Password__c='password';
         
         return controller;
+    }
+    
+     @IsTest
+    static void testAttachmentSave() {
+    	CkwUniversalAddEditController controller = initTestController();
+    	controller.profilePicture.Body = Blob.valueOf('Unit Test Attachment Body'); 
+        controller.save();
+        System.debug(ApexPages.getMessages());
+        
+        System.assertEquals(ApexPages.getMessages().size(), 1); // Attachment uploaded successfully
+        System.assertNotEquals(controller.contact.Picture_Attachment_Id__c, null);
+        
+        Contact contact = [SELECT Id, Picture_Attachment_Id__c FROM Contact WHERE Id=:controller.contact.Id];
+        System.assertNotEquals(contact.Picture_Attachment_Id__c, null);
     }
 }

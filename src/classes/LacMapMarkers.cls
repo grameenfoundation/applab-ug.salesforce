@@ -161,7 +161,7 @@ public with sharing class LacMapMarkers {
 	        this.ckw = ckw;
 	        this.setLatitude(ckw.Person__r.GPS_Location_N__c);
 	        this.setLongitude(ckw.Person__r.GPS_Location_E__c);
-	        this.setDefaultColour('0000FF'); // Blue
+	        this.setMarkerColour('0000FF'); // Blue
 	    }
 	    
 	    public override String getMarkerInfoContentString() {
@@ -169,29 +169,42 @@ public with sharing class LacMapMarkers {
 	    	
 	    	//profile image
 	    	String imageUrl = '#';
+	    	String imageStyle = this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c != null?
+	    		'width: 100px height: 100px; float: left;' : 'display: none;';
+	    		
 	    	if (this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c != null) {
-				imageUrl = '/servlet/servlet.FileDownload?file=' + this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c;
-		    	profile += '<div id="pImage" style="width: 100px height: 100px; float: left;">';
-		    	profile += '<img src="'+ imageUrl +'" width="100px" height="100px"/>';
-		    	profile += '</div>';
+	    		imageUrl = '/servlet/servlet.FileDownload?file=' + this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c;
+		    	
 	    	}
 	    	
+	    	profile += '<div id="pImage" style="'+ imageStyle + '">';
+	    	profile += '<img src="'+ imageUrl +'" width="100px" height="100px"/>';
+		    profile += '</div>';
+	    	
 	    	//profile details
-	    	profile += '<div id="pDetails" style="width: 200px; height: 100px; float: right;">';
+	    	String profileDetailStyle = this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c != null? 
+	    		'width: 200px; height: 100px; float: right;' : '';
+	    	
+	    	profile += '<div id="pDetails" style="'+ profileDetailStyle +'">';
 	    	profile += '<div>Type: CKW</div>';
 	    	
 	    	PageReference ref = new PageReference('/'+this.ckw.Id);
-	    	profile += '<div><a href="' + ref.getUrl() + '">Name: ' + this.ckw.Person__r.First_Name__c + 
+	    	profile += '<div>Name: <a href="' + ref.getUrl() + '">' + this.ckw.Person__r.First_Name__c + 
 	    				  ' ' + this.ckw.Person__r.Last_Name__c + '</a></div>';
 	    	
-	    	if (this.ckw.Person__r.Gender__c != null) {
-	    		profile += '<div>Gender: ' + this.ckw.Person__r.Gender__c + '</div>';
+	    	profile += '<div>Gender: ' + ((this.ckw.Person__r.Gender__c != null) ? this.ckw.Person__r.Gender__c : 'N/A') + '</div>';
+
+			Decimal age = null;
+	    	if(this.ckw.Person__r.Age__c != null) {
+	    		age = this.ckw.Person__r.Age__c;
+	    	} else if (this.ckw.Person__r.Date_of_Birth__c != null) {
+	    		age = Math.floor(this.ckw.Person__r.Date_of_Birth__c.daysBetween(Date.today())/365.2425);
 	    	}
 	    	
-	    	if (this.ckw.Person__r.Age__c != null) {
-	    		profile += '<div>Age: '+ this.ckw.Person__r.Age__c +'</div>';
-	    	}
-
+	    	profile += '<div>Age: '+ ((age != null) ? String.valueOf(age) : 'N/A' ) +'</div>';
+	    	
+			profile += '</div>';
+			
 	    	return profile;
 	    }
 	    
@@ -217,7 +230,7 @@ public with sharing class LacMapMarkers {
 	        this.searchLog = searchLog;
 	        this.setLatitude(String.valueOf(searchLog.Submission_Latitude__c));
 	        this.setLongitude(String.valueOf(searchLog.Submission_Longitude__c));
-	        this.setDefaultColour('00FF00'); // Green
+	        this.setMarkerColour('00FF00'); // Green
 	    }
 	    
 	    public override String getMarkerInfoContentString() {
