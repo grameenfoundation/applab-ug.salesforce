@@ -3,7 +3,7 @@
 
   <h1 style="font-size: 15px;">CKW</h1>
   <apex:pageMessages escape="false"/>
-  <apex:form >
+  <apex:form enctype="multipart/form-data">
         <apex:pageBlock title="CKW" mode="edit">
             <apex:pageBlockButtons >
                 <apex:commandButton action="{!save}" value="{!$Label.SAVE}"/>

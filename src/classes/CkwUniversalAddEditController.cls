@@ -5,7 +5,7 @@
  * This controller extension handles the Universal page for creating a CKW along with the supporting 
  * records such as; Person, Contact, Handset and Simcard
  */
-public class CkwUniversalAddEditController {
+public with sharing class CkwUniversalAddEditController {
     ApexPages.StandardController sController = null;
     private Phone__c tempHandset;
     private Attachment profilePicture;
@@ -69,19 +69,18 @@ public class CkwUniversalAddEditController {
         }else{
             simcard = new SIM__c();
         }
-        
-        profilePicture = new Attachment();
     }
 
 	public Attachment getProfilePicture() {
+		this.profilePicture = new Attachment();
+		
 		if (contact.Picture_Attachment_Id__c != null) {
 			List<Attachment> attachments = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE Id = :contact.Picture_Attachment_Id__c ];
 			if (!attachments.isEmpty()) {
 				this.profilePicture = attachments.get(0);
 			}
-		} else {
-			return new Attachment();
 		}
+		
 		return this.profilePicture;
 	}
 	
@@ -342,7 +341,7 @@ public class CkwUniversalAddEditController {
     * Save profile picture
     */
     public void saveProfilePicture() {
-    	if(this.profilePicture != null && this.profilePicture.Body != null) {
+    	if(this.profilePicture.Body != null) {
 			this.profilePicture.OwnerId = UserInfo.getUserId();
 			
 	    	if(this.profilePicture.Id != null) {
@@ -352,12 +351,12 @@ public class CkwUniversalAddEditController {
 	    		this.profilePicture.ParentId = contact.Id;
 	    		this.profilePicture.IsPrivate = true;
 	    		insert this.profilePicture;
+	    		
+	    		// Set this as the active profile picture for the contact
+				contact.Picture_Attachment_Id__c = this.profilePicture.Id;
+				upsert contact; // Save contact again
 	    	}
-			
-			// Set this as the active profile picture for the contact
-			contact.Picture_Attachment_Id__c = this.profilePicture.Id;
-			upsert contact; // Save contact again
-			
+	    	
 			ApexPages.addMessage(new ApexPages.message(ApexPages.severity.INFO,'Attachment uploaded successfully'));
 		}
     }
