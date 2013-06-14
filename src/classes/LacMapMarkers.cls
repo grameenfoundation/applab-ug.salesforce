@@ -194,14 +194,8 @@ public with sharing class LacMapMarkers {
 	    	
 	    	profile += '<div>Gender: ' + ((this.ckw.Person__r.Gender__c != null) ? this.ckw.Person__r.Gender__c : 'N/A') + '</div>';
 
-			Decimal age = null;
-	    	if(this.ckw.Person__r.Age__c != null) {
-	    		age = this.ckw.Person__r.Age__c;
-	    	} else if (this.ckw.Person__r.Date_of_Birth__c != null) {
-	    		age = Math.floor(this.ckw.Person__r.Date_of_Birth__c.daysBetween(Date.today())/365.2425);
-	    	}
 	    	
-	    	profile += '<div>Age: '+ ((age != null) ? String.valueOf(age) : 'N/A' ) +'</div>';
+	    	profile += '<div>Birthdate: ' + ((this.ckw.Person__r.Contact_r.Birthdate != null) ? this.ckw.Person__r.Contact_r.Birthdate : 'N/A') + '</div>';
 	    	
 			profile += '</div>';
 			

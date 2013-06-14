@@ -22,7 +22,7 @@
             <apex:outputField value="{!CKW__c.Person__r.GPS_Location_N__c}"/>
             <apex:outputField value="{!CKW__c.Person__r.Contact__r.Phone}" label="{!$Label.MOBILE_PHONE}"/>
             <apex:outputField value="{!CKW__c.Person__r.Handset__r.IMEI__c}"/>
-            <apex:outputField value="{!CKW__c.Person__r.Age__c}"/>
+            <apex:outputField value="{!CKW__c.Person__r.Contact__r.Birthdate}"/>
             <apex:outputField value="{!CKW__c.Person__r.Raw_Mobile_Number__c}" label="{!$Label.ALTERNATIVE_MOBILE}"/>
             <apex:outputField label="{!$Label.OWNER}" value="{!CKW__c.Person__r.Owner.Name}"/>
         </apex:pageBlockSection>
@@ -40,6 +40,11 @@
             <apex:outputField value="" label="Financial access"/-->
         </apex:pageBlockSection>
         <apex:pageBlockSection columns="1" title="{!$Label.PERFORMANCE}">
+        	<apex:outputText value="{!totalFarmers}" label="{!$Label.REGISTERED_FARMER}"/>
+        	<apex:outputText value="{!totalSurveys}" label="{!$Label.SURVEYS_ADMINISTERED}"/>
+        	<apex:outputText value="{!totalSearches}" label="{!$Label.SEARCHES_ADMINISTERED}"/>
+        	<apex:outputText value="{!ckwToFarmerRadius}" label="{!$Label.CKW_TO_FARMER_RADIUS}"/>
+        	<apex:outputText value="{!interactionsPerFarmerPerQuarter}" label="{!$Label.INTERACTIONS_PER_FARMER_PER_QUARTER}"/>
             <apex:relatedList list="Farmers_Registered__r" subject="{!CKW__c.Person__c}">
                 <apex:facet name="header"><div class='pbTitle'><h3>{!$Label.REGISTERED_FARMER}</h3></div></apex:facet>
             </apex:relatedList>

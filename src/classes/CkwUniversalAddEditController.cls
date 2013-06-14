@@ -69,6 +69,8 @@ public with sharing class CkwUniversalAddEditController {
         }else{
             simcard = new SIM__c();
         }
+        
+        this.profilePicture = new Attachment();
     }
 
 	public Attachment getProfilePicture() {

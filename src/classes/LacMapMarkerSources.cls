@@ -102,8 +102,7 @@ public with sharing class LacMapMarkerSources {
 							'Person__r.First_Name__c, ' +
 							'Person__r.Last_Name__c, ' +
 							'Person__r.Gender__c, ' +
-							'Person__r.Age__c, ' +
-							'Person__r.Date_of_Birth__c, ' +
+							'Person__r.Contact_r.Birthdate, ' +
 							'Person__r.Contact__r.Picture_Attachment_Id__c ' +
 							'from CKW__c';
 			
