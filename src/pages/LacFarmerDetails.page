@@ -23,7 +23,7 @@
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.GPS_Location_N__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Brand__c}" label="{!$Label.TYPE_OF_MOBILE_PHONE}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Phone_Model__c}" label="{!$Label.MODEL_OF_MOBILE_PHONE}"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Phone}" label="{!$Label.MOBILE_PHONE} #"/>
+            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Raw_Mobile_Number__c}" label="{!$Label.MOBILE_PHONE} #"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Gender__c}" />
             <apex:outputField value="{!LAC_Farmer_Details__c.Country__c}" />
             <apex:outputField value="{!LAC_Farmer_Details__c.District__c}" />
@@ -67,7 +67,7 @@
         
         <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
         	<apex:variable var="ckw" value="{!associatedCkw}"/>
-        	<apex:outputField value="{!LAC_Farmer_Details__c.Monthly_Sales__c}" label="{!$Label.MONTHLY_SALES}"/>
+        	<apex:outputField value="{!LAC_Farmer_Details__c.Monthly_Income_from_Coffee__c}" label="{!$Label.MONTHLY_SALES}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Entrance_Into_Programme__c}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
             <apex:outputtext rendered="{!IF(ckw == NULL, False, True)}" value="{!ckw.First_Name__c} {!ckw.Last_Name__c}" 
             	label="{!$Label.ASSOCIATED_CKW}"/>

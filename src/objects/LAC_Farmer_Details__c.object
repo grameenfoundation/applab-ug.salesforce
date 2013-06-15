@@ -347,6 +347,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Farmer_Cooperative__c</fullName>
+        <description>The name of the cooperative associated with the farmer</description>
+        <externalId>false</externalId>
+        <label>Farmer Cooperative</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Financial_Access__c</fullName>
         <description>Used to determine whether a farmer has access to finance.</description>
         <externalId>false</externalId>
@@ -654,6 +665,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>No_of_Farms__c</fullName>
+        <description>The number of farms owned by the farmer</description>
+        <externalId>false</externalId>
+        <label>No of Farms</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>PPI_Score__c</fullName>
         <externalId>false</externalId>
         <label>PPI Score</label>
@@ -925,6 +948,15 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Smart_Phone__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Captures a value indicating whether the phone the farmer has is a smart phone.</description>
+        <externalId>false</externalId>
+        <label>Smart Phone</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Total_Monthly_Income__c</fullName>

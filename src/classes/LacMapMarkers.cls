@@ -100,7 +100,7 @@ public with sharing class LacMapMarkers {
 	    	//profile += '<div>Total Queries Asked: '+ getTotalQueriesAsked() +'</div>';
 	    	//profile += '<div>SMS Messages Received: ' + getSmsMessagesReceived() + '</div>';
 	    	//profile += '<div>Surveys Completed: ?</div>';
-	    	profile += '<div>Quarterly Sales: '+ this.farmer.Quarterly_Sales__c +'</div>';
+	    	profile += '<div>Quarterly Sales: '+ this.farmer.Quarterly_Income_from_Coffee__c +'</div>';
 	    	profile += '<div>Quarterly Production (Kilos): ' + this.farmer.Quarterly_Production__c + '</div>';
 	    	//profile += '<div>Food Security Status: '+ this.farmer.Food_Security_Status__c +'</div>';
 	    	profile += '</div>';
@@ -195,7 +195,7 @@ public with sharing class LacMapMarkers {
 	    	profile += '<div>Gender: ' + ((this.ckw.Person__r.Gender__c != null) ? this.ckw.Person__r.Gender__c : 'N/A') + '</div>';
 
 	    	
-	    	profile += '<div>Birthdate: ' + ((this.ckw.Person__r.Contact_r.Birthdate != null) ? this.ckw.Person__r.Contact_r.Birthdate : 'N/A') + '</div>';
+	    	profile += '<div>Birthdate: ' + ((this.ckw.Person__r.Contact__r.Birthdate != null) ? String.valueOf(this.ckw.Person__r.Contact__r.Birthdate) : 'N/A') + '</div>';
 	    	
 			profile += '</div>';
 			

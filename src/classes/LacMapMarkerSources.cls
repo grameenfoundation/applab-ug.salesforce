@@ -18,6 +18,7 @@ public with sharing class LacMapMarkerSources {
 							'Farm_Area__c, '+
 							'Planted_Area__c, '+
 							'Quarterly_Sales__c, '+
+							'Quarterly_Income_from_Coffee__c, '+
 							'Quarterly_Production__c, '+
 							'Food_Security_Status__c, '+
 							'PPI_Score__c, '+
@@ -102,7 +103,7 @@ public with sharing class LacMapMarkerSources {
 							'Person__r.First_Name__c, ' +
 							'Person__r.Last_Name__c, ' +
 							'Person__r.Gender__c, ' +
-							'Person__r.Contact_r.Birthdate, ' +
+							'Person__r.Contact__r.Birthdate, ' +
 							'Person__r.Contact__r.Picture_Attachment_Id__c ' +
 							'from CKW__c';
 			
