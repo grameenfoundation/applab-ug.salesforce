@@ -22,7 +22,7 @@ public with sharing class LacMapMarkers {
 	    }
 	    
 	    public override String getMarkerInfoContentString() {
-	    	String profile = '<div style="width: 304px;">';
+	    	String profile = '<div class="markerContainer" style="width: 304px;">';
 	    	
 	    	//profile image
 	    	String imageUrl = '#';
@@ -71,9 +71,9 @@ public with sharing class LacMapMarkers {
 	    	String spanStyle = 'width: 40px; font-weight: bold; display: inline-block; padding-right: 3px;';
 	    	profile += '<div style="clear:both;">';
 	    	profile += '<div style="' + headerStyle + '">Povery Likelyhood</div>';
-	    	profile += '<div><span style="'+ spanStyle +'">$1.25</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanOneAndQuarter(ppiScore) +'</span></div>';
+	    	//profile += '<div><span style="'+ spanStyle +'">$1.25</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanOneAndQuarter(ppiScore) +'</span></div>';
 	    	profile += '<div><span style="'+ spanStyle +'"> $2.5</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanTwoAndHalf(ppiScore) +'</span></div>';
-	    	profile += '<div><span style="'+ spanStyle +'"> $3.75</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanThreeAndThreeQuarter(ppiScore) +'</span></div>';
+	    	//profile += '<div><span style="'+ spanStyle +'"> $3.75</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanThreeAndThreeQuarter(ppiScore) +'</span></div>';
 	    	profile += '<div><span style="'+ spanStyle +'"> $5</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanFive(ppiScore) +'</span></div>';
 	    	profile += '</div>';
 	    	
@@ -95,7 +95,7 @@ public with sharing class LacMapMarkers {
 	    	
 	    	//other section
 	    	profile += '<div style="clear: both;">';
-	    	profile += '<div style="' + headerStyle + '">Others</div>';
+	    	profile += '<div style="' + headerStyle + '">Agronomics</div>';
 	    	profile += '<div>HA Under Production: '+ this.farmer.Planted_Area__c +'</div>';
 	    	//profile += '<div>Total Queries Asked: '+ getTotalQueriesAsked() +'</div>';
 	    	//profile += '<div>SMS Messages Received: ' + getSmsMessagesReceived() + '</div>';
@@ -103,6 +103,11 @@ public with sharing class LacMapMarkers {
 	    	profile += '<div>Quarterly Sales: '+ this.farmer.Quarterly_Income_from_Coffee__c +'</div>';
 	    	profile += '<div>Quarterly Production (Kilos): ' + this.farmer.Quarterly_Production__c + '</div>';
 	    	//profile += '<div>Food Security Status: '+ this.farmer.Food_Security_Status__c +'</div>';
+	    	profile += '</div>';
+	    	
+	    	profile += '<div id="' + this.farmer.Id + '" class="moreParentContainer" style="clear: both;">';
+	    	profile += '<div style="' + headerStyle + '">Other - <a farmerId="'+ this.farmer.Id +'" class="profileMoreLink" href="javascript:void(0);">More</a></div>';
+	    	profile += '<div class="moreContent"></div>';
 	    	profile += '</div>';
 	    	
 	    	profile += '</div>';
