@@ -99,12 +99,7 @@ public with sharing class LacMapMarkerSources {
 			
 			String query = 'SELECT Id, Name, ' +
 							'Person__r.GPS_Location_E__c,' + 
-							'Person__r.GPS_Location_N__c, ' +
-							'Person__r.First_Name__c, ' +
-							'Person__r.Last_Name__c, ' +
-							'Person__r.Gender__c, ' +
-							'Person__r.Contact__r.Birthdate, ' +
-							'Person__r.Contact__r.Picture_Attachment_Id__c ' +
+							'Person__r.GPS_Location_N__c ' +
 							'from CKW__c';
 			
 			List<String> queryWhereClause = new List<String>();

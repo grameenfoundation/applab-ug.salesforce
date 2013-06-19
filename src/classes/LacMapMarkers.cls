@@ -170,40 +170,9 @@ public with sharing class LacMapMarkers {
 	    }
 	    
 	    public override String getMarkerInfoContentString() {
-	    	String profile = '<div style="width: 304px;">';
-	    	
-	    	//profile image
-	    	String imageUrl = '#';
-	    	String imageStyle = this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c != null?
-	    		'width: 100px height: 100px; float: left;' : 'display: none;';
-	    		
-	    	if (this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c != null) {
-	    		imageUrl = '/servlet/servlet.FileDownload?file=' + this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c;
-		    	
-	    	}
-	    	
-	    	profile += '<div id="pImage" style="'+ imageStyle + '">';
-	    	profile += '<img src="'+ imageUrl +'" width="100px" height="100px"/>';
-		    profile += '</div>';
-	    	
-	    	//profile details
-	    	String profileDetailStyle = this.ckw.Person__r.Contact__r.Picture_Attachment_Id__c != null? 
-	    		'width: 200px; height: 100px; float: right;' : '';
-	    	
-	    	profile += '<div id="pDetails" style="'+ profileDetailStyle +'">';
-	    	profile += '<div>Type: CKW</div>';
-	    	
-	    	PageReference ref = new PageReference('/'+this.ckw.Id);
-	    	profile += '<div>Name: <a href="' + ref.getUrl() + '">' + this.ckw.Person__r.First_Name__c + 
-	    				  ' ' + this.ckw.Person__r.Last_Name__c + '</a></div>';
-	    	
-	    	profile += '<div>Gender: ' + ((this.ckw.Person__r.Gender__c != null) ? this.ckw.Person__r.Gender__c : 'N/A') + '</div>';
-
-	    	
-	    	profile += '<div>Birthdate: ' + ((this.ckw.Person__r.Contact__r.Birthdate != null) ? String.valueOf(this.ckw.Person__r.Contact__r.Birthdate) : 'N/A') + '</div>';
-	    	
-			profile += '</div>';
-			
+	    	// Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
+	    	PageReference ref = new PageReference('/apex/CkwDetailMini?id='+this.ckw.Id);
+	    	String profile = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
 	    	return profile;
 	    }
 	    
