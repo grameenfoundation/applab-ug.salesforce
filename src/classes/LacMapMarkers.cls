@@ -70,7 +70,7 @@ public with sharing class LacMapMarkers {
 	    	Integer ppiScore = (this.farmer.PPI_Score__c == null) ? 0 : this.farmer.PPI_Score__c.intValue();
 	    	String spanStyle = 'width: 40px; font-weight: bold; display: inline-block; padding-right: 3px;';
 	    	profile += '<div style="clear:both;">';
-	    	profile += '<div style="' + headerStyle + '">Povery Likelihood</div>';
+	    	profile += '<div style="' + headerStyle + '">Poverty Likelihood</div>';
 	    	//profile += '<div><span style="'+ spanStyle +'">$1.25</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanOneAndQuarter(ppiScore) +'</span></div>';
 	    	profile += '<div><span style="'+ spanStyle +'"> $2.5</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanTwoAndHalf(ppiScore) +'</span></div>';
 	    	//profile += '<div><span style="'+ spanStyle +'"> $3.75</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanThreeAndThreeQuarter(ppiScore) +'</span></div>';
