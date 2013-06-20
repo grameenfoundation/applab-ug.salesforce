@@ -22,96 +22,9 @@ public with sharing class LacMapMarkers {
 	    }
 	    
 	    public override String getMarkerInfoContentString() {
-	    	String profile = '<div class="markerContainer" style="width: 304px;">';
-	    	
-	    	//profile image
-	    	String imageUrl = '#';
-	    	String imageStyle= this.farmer.Contact__r.Picture_Attachment_Id__c != null?
-	    		'width: 100px height: 100px; float: left;' : 'display: none;';
-	    		
-	    	if (this.farmer.Contact__r.Picture_Attachment_Id__c != null) {
-	    		imageUrl = '/servlet/servlet.FileDownload?file=' + this.farmer.Contact__r.Picture_Attachment_Id__c;
-	    	}
-	    	profile += '<div id="pImage" style="'+ imageStyle +'">';
-	    		
-	    	profile += '<img src="'+ imageUrl +'" width="100px" height="100px"/>';
-	    	profile += '</div>';
-	    	
-	    	//profile details
-	    	String profileDetailStyle = this.farmer.Contact__r.Picture_Attachment_Id__c != null? 
-	    		'width: 200px; height: 100px; float: right;' : '';
-	    	profile += '<div id="pDetails" style="'+ profileDetailStyle +'">';
-	    	profile += '<div>Type: Farmer</div>';
-	    	
-	    	PageReference ref = new PageReference('/'+this.farmer.Id);
-	    	profile += '<div><a href="' + ref.getUrl() + '">Name: ' + this.farmer.Person__r.First_Name__c + 
-	    				  ' ' + this.farmer.Person__r.Last_Name__c + '</a></div>';
-	    	
-	    	if (this.farmer.Person__r.Gender__c != null) {
-	    		profile += '<div>Gender: ' + this.farmer.Person__r.Gender__c + '</div>';
-	    	}
-	    	
-	    	if (this.farmer.Person__r.Age__c != null) {
-	    		profile += '<div>Age: '+ this.farmer.Person__r.Age__c +'</div>';
-	    	}
-	    	
-	    	profile += '</div>';
-	    	
-	    	//certification crops
-	    	String headerStyle = 'height: 20px; background-color: #E5E5E5; color: #FFFFF; font-weight:bold';
-	    	if (this.farmer.Commercial_Crops__c != null) {
-		    	profile += '<div style="clear:both; min-height: 50px; padding-top: 3px; ">';
-		    	profile += '<div style="' + headerStyle + '">Certification Crops</div>';
-		    	profile += '<div>'+ this.farmer.Commercial_Crops__c + '</div>';
-		    	profile += '</div>';
-	    	}
-	    	
-	    	//provert likelyhood
-	    	Integer ppiScore = (this.farmer.PPI_Score__c == null) ? 0 : this.farmer.PPI_Score__c.intValue();
-	    	String spanStyle = 'width: 40px; font-weight: bold; display: inline-block; padding-right: 3px;';
-	    	profile += '<div style="clear:both;">';
-	    	profile += '<div style="' + headerStyle + '">Poverty Likelihood</div>';
-	    	//profile += '<div><span style="'+ spanStyle +'">$1.25</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanOneAndQuarter(ppiScore) +'</span></div>';
-	    	profile += '<div><span style="'+ spanStyle +'"> $2.5</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanTwoAndHalf(ppiScore) +'</span></div>';
-	    	//profile += '<div><span style="'+ spanStyle +'"> $3.75</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanThreeAndThreeQuarter(ppiScore) +'</span></div>';
-	    	profile += '<div><span style="'+ spanStyle +'"> $5</span><span>: '+ LacPpiProbabilityGenerator.getPpProbabilityForLessThanFive(ppiScore) +'</span></div>';
-	    	profile += '</div>';
-	    	
-	    	//certification status
-	    	if(this.farmer.Certification_In_Progress__c != null && this.farmer.Certification_Obtained__c != null) {
-		    	profile += '<div style="clear: both;">';
-		    	profile += '<div style="' + headerStyle + '">Certification Status</div>';
-		    	
-		    	if(this.farmer.Certification_Obtained__c != null) {
-		    		profile += '<div><span style="'+ spanStyle +' width: 60px;">Obtained:</span><span> '+ this.farmer.Certification_Obtained__c + '</span></div>';
-		    	}
-		    	
-		    	if(this.farmer.Certification_In_Progress__c != null) {
-		    		profile += '<div><span style="'+ spanStyle +' width: 60px;">InProgress:</span><span> '+ this.farmer.Certification_In_Progress__c + '</span></div>';
-		    	}
-		    	
-		    	profile += '</div>';
-	    	}
-	    	
-	    	//other section
-	    	profile += '<div style="clear: both;">';
-	    	profile += '<div style="' + headerStyle + '">Agronomics</div>';
-	    	profile += '<div>HA Under Production: '+ this.farmer.Planted_Area__c +'</div>';
-	    	//profile += '<div>Total Queries Asked: '+ getTotalQueriesAsked() +'</div>';
-	    	//profile += '<div>SMS Messages Received: ' + getSmsMessagesReceived() + '</div>';
-	    	//profile += '<div>Surveys Completed: ?</div>';
-	    	profile += '<div>Quarterly Sales: '+ this.farmer.Quarterly_Income_from_Coffee__c +'</div>';
-	    	profile += '<div>Quarterly Production (Kilos): ' + this.farmer.Quarterly_Production__c + '</div>';
-	    	//profile += '<div>Food Security Status: '+ this.farmer.Food_Security_Status__c +'</div>';
-	    	profile += '</div>';
-	    	
-	    	profile += '<div id="' + this.farmer.Id + '" class="moreParentContainer" style="clear: both;">';
-	    	profile += '<div style="' + headerStyle + '">Other - <a farmerId="'+ this.farmer.Id +'" class="profileMoreLink" href="javascript:void(0);">More</a></div>';
-	    	profile += '<div class="moreContent"></div>';
-	    	profile += '</div>';
-	    	
-	    	profile += '</div>';
-
+	    	// Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
+	    	PageReference ref = new PageReference('/apex/LacFarmerDetailMini?id='+this.farmer.Id);
+	    	String profile = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="yes" seamless="seamless" style="overflow:hidden"></iframe>';
 	    	return profile;
 	    }
 	    
