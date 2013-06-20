@@ -123,15 +123,22 @@ public with sharing class CkwUniversalAddEditController {
      */
     public gfsurveys__Device__c device{get;set;}
     
+    public Phone__c existingHandset{get;set;}
+    
     /**
      * inserts or updates the SIM__c record associated with the handset 
      * the current CKW is assigned to.
      */
     public void saveSimcard(){
-    	//if simcard is null, don't save/update
-    	if(simcard == null)
-    		return;
-    		
+        //if simcard is null, don't save/update
+        if(simcard == null)
+            return;
+            
+        if (simcard.SIM_Serial_Number__c == null) {
+            simcard.SIM_Serial_Number__c.addError(Label.MISSING_REQUIRED_FIELD);
+            return;
+        }
+            
         upsert simcard;
     }
     
@@ -140,9 +147,21 @@ public with sharing class CkwUniversalAddEditController {
      * CKW being edited/created.
      */
     public void saveHandset(){
-    	if (handset.SIM__c == null && simcard != null) {
-        	handset.SIM__c = simcard.Id;
-    	}
+        if (handset.SIM__c == null && simcard != null) {
+            handset.SIM__c = simcard.Id;
+        }
+        
+        if (handset.IMEI__c == null) {
+            handset.IMEI__c.addError(Label.MISSING_REQUIRED_FIELD);
+        }
+        
+        if (handset.Serial_Number__c == null) {
+            handset.Serial_Number__c.addError(Label.MISSING_REQUIRED_FIELD);
+        }
+        
+        if (handset.Purchase_Value_USD__c == null) {
+            handset.Purchase_Value_USD__c.addError(Label.MISSING_REQUIRED_FIELD);
+        }
         
         upsert handset;
     }
@@ -232,32 +251,32 @@ public with sharing class CkwUniversalAddEditController {
      * handset property.
      */
     private Phone__c getExistingDevice() {
-    	/**
-    	 * if the IMEI has been provided
-    	 * from the user interface, then we query for the existing 
-    	 * handset and assign it to the handset reference in this controller.
-    	 */
-    	if (handset.IMEI__c != null) {
-    		List<Phone__c> handsets = [
-    			SELECT 
-    				Id, 
-    				Serial_Number__c, 
-    				Brand__c, IMEI__c, 
-    				Battery_Type__c, 
-    				OS_Firmware_Version__c, 
-        			Purchase_Value_USD__c,
-    				SIM__r.Id, 
-    				SIM__r.Name, 
-    				SIM__r.Carrier__c, 
-    				SIM__r.SIM_Serial_Number__c
-    			FROM 
-    				Phone__c 
-    			WHERE IMEI__c = :handset.IMEI__c AND Id != :handset.Id];
-    			
-    		if(handsets != null && !handsets.isEmpty()){
-    			return handsets.get(0);
-    		}
-    	}
+        /**
+         * if the IMEI has been provided
+         * from the user interface, then we query for the existing 
+         * handset and assign it to the handset reference in this controller.
+         */
+        if (handset.IMEI__c != null) {
+            List<Phone__c> handsets = [
+                SELECT 
+                    Id, 
+                    Serial_Number__c, 
+                    Brand__c, IMEI__c, 
+                    Battery_Type__c, 
+                    OS_Firmware_Version__c, 
+                    Purchase_Value_USD__c,
+                    SIM__r.Id, 
+                    SIM__r.Name, 
+                    SIM__r.Carrier__c, 
+                    SIM__r.SIM_Serial_Number__c
+                FROM 
+                    Phone__c 
+                WHERE IMEI__c = :handset.IMEI__c];
+                
+            if(handsets != null && !handsets.isEmpty()){
+                return handsets.get(0);
+            }
+        }
 
     	return null;
     }
@@ -403,6 +422,39 @@ public with sharing class CkwUniversalAddEditController {
      */
     public PageReference cancel(){
         return sController.cancel();
+    }
+    
+    /**
+     * this method is called through an ajax request to assign an existing device.
+     *
+     * @return PageReference - page reference to which the user will be redirected.
+     */
+    public PageReference assignExistingDevice() {
+        List<Phone__c> handsets = [
+                SELECT 
+                    Id, 
+                    Serial_Number__c, 
+                    Brand__c, IMEI__c, 
+                    Battery_Type__c, 
+                    OS_Firmware_Version__c, 
+                    Purchase_Value_USD__c,
+                    SIM__r.Id, 
+                    SIM__r.Name, 
+                    SIM__r.Carrier__c, 
+                    SIM__r.SIM_Serial_Number__c
+                FROM 
+                    Phone__c 
+                WHERE Id = :person.Handset__c];
+                
+            if(handsets != null && !handsets.isEmpty()){
+                handset = handsets.get(0);
+                simcard = handsets.get(0).SIM__r;
+            } else {
+                handset = new Phone__c();
+                simcard = new SIM__c();
+            }
+            
+        return null;
     }
     
     /**
