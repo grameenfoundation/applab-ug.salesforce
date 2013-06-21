@@ -287,74 +287,90 @@ public with sharing class CkwUniversalAddEditController {
      * @return PageReference the page the will be displayed after the save operation.
      */
     public PageReference save() {
-        try {
-        	
-        	/*
-        	 * if the ckw status is changed to dropped, we don't save the handset
-        	 * details.
-        	 */
-        	if (ckw.Status__c != 'Dropped') {
-        		Phone__c p = getExistingDevice();
-        		
-        		if (p != null) {
-	    			/*List<Person__c> existingOwner = [
-	    				SELECT
-	    					Id,
-	    					First_Name__c,
-	    					Last_Name__c,
-	    					Handset__c
-	    				FROM
-	    					Person__c
-	    				WHERE Handset__c = :p.Id AND Id != :person.Id
-	    			];*/
-	    			List<CKW__c> existingOwner = [
-	    				SELECT
-	    					Id,
-	    					Person__r.Id,
-	    					Person__r.First_Name__c,
-	    					Person__r.Last_Name__c,
-	    					Person__r.Handset__c
-	    				FROM
-	    					CKW__c
-	    				WHERE
-	    					Person__r.Handset__c = :p.Id AND Person__r.Id != :person.Id
-	    			];
-	    			
-	    			
-					/*
-	    			 * if the device has an existing owner, report to the user about the 
-	    			 * assignee.
-	    			 */
-	    			if(existingOwner != null && !existingOwner.isEmpty()) {
-	    				PageReference personPageRef = new ApexPages.StandardController(existingOwner.get(0)).view();
-	    				
-	    				String msgStr = 'Handset Already assigned to <a href="'+ personPageRef.getUrl()+'" target="_blank">'+ 
-	    					existingOwner.get(0).Person__r.First_Name__c + ' ' + existingOwner.get(0).Person__r.Last_Name__c+'</a>';
-	    					
-	    				ApexPages.Message msg = new ApexPages.Message(ApexPages.severity.ERROR, msgStr);
-						ApexPages.addmessage(msg);
-						
-						return ApexPages.currentPage();
-		    		} else {
-	    				handset = p;
-	    				simcard = handset.SIM__r;
-		    		}
-	    		}
-    			
-            	saveSimcard();
-            	saveHandset();
-            	saveDevice();
-        	}
-        	
-            saveContact();
-            saveProfilePicture();
-            savePerson();
-            saveCkw();
+        try {    
+            /*
+             * if the ckw status is changed to dropped, we don't save the handset
+             * details.
+             */
+            if (ckw.Status__c != 'Dropped') {
+                Phone__c p = getExistingDevice();
+                
+                if (p != null) {
+                    /*List<Person__c> existingOwner = [
+                        SELECT
+                            Id,
+                            First_Name__c,
+                            Last_Name__c,
+                            Handset__c
+                        FROM
+                            Person__c
+                        WHERE Handset__c = :p.Id AND Id != :person.Id
+                    ];*/
+                    List<CKW__c> existingOwner = [
+                        SELECT
+                            Id,
+                            Person__r.Id,
+                            Person__r.First_Name__c,
+                            Person__r.Last_Name__c,
+                            Person__r.Handset__c
+                        FROM
+                            CKW__c
+                        WHERE
+                            Person__r.Handset__c = :p.Id AND Person__r.Id != :person.Id
+                    ];
+                    
+                    
+                    /*
+                     * if the device has an existing owner, report to the user about the 
+                     * assignee.
+                     */
+                    if(existingOwner != null && !existingOwner.isEmpty()) {
+                        PageReference personPageRef = new ApexPages.StandardController(existingOwner.get(0)).view();
+                        
+                        String msgStr = 'Handset Already assigned to <a href="'+ personPageRef.getUrl()+'" target="_blank">'+ 
+                            existingOwner.get(0).Person__r.First_Name__c + ' ' + existingOwner.get(0).Person__r.Last_Name__c+'</a>';
+                            
+                        ApexPages.Message msg = new ApexPages.Message(ApexPages.severity.ERROR, msgStr);
+                        ApexPages.addmessage(msg);
+                        
+                        return null;
+                    } else {
+                        /*
+                         * if the handset is new or when the handset identifier is not equal to the 
+                         * exising handset with the given IMEI
+                         */
+                        if (handset.Id == null || handset.Id != p.Id) {
+                            handset = p;
+                        }
+                        
+                        /*
+                         * if the handset doesn't have a simcard and only when the simcard is 
+                         * a new simcard
+                         */ 
+                        if (handset.SIM__r != null && simcard.Id == null) {
+                            simcard = handset.SIM__r;
+                        }
+                    }
+                }
+                
+                saveSimcard();
+                saveHandset();
+                saveDevice();
+            }
             
-            return getCkwPage();
-        }catch (Exception ex) {
+            if (!ApexPages.hasMessages()) {
+                saveContact();
+                saveProfilePicture();
+                savePerson();
+                saveCkw();
+                
+                return getCkwPage();
+            } else{
+                return null;
+            }
+        } catch (Exception ex) {
            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, ex.getMessage()));
-           return ApexPages.currentPage();
+           return null;
         }
     }
     
