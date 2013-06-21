@@ -1,4 +1,10 @@
 <apex:page standardController="CKW__c" extensions="CkwDetailController" showheader="false" sidebar="false">
+			<apex:form style="display:none;">
+	        	<!-- Hidden fields required to calculate ckwToFarmerRadius. Load them here to ensure they are pulled out of the database -->
+	        	<apex:inputHidden value="{!CKW__c.Person__r.Contact__c}" />
+	        	<apex:inputHidden value="{!CKW__c.Person__r.GPS_Location_E__c}" />
+	        	<apex:inputHidden value="{!CKW__c.Person__r.GPS_Location_N__c}" />
+        	</apex:form>
 			<br/><br/>
 			<div style="width: 345px;">
 				<div id="pImage" style="{!IF(CKW__c.Person__r.Contact__r.Picture_Attachment_Id__c == null, 'display:none', 'width: 100px height: 100px; float: left;')}">

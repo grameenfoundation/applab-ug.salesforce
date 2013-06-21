@@ -87,12 +87,12 @@ public with sharing class CkwDetailController {
 						}
 					}
 				}
-				return String.valueOf(distance);
+				return String.valueOf(distance.setScale(2));
 			} else {
 				return 'N/A';
 			}
 		} catch (Exception e) {
-			return 'ERROR';
+			return '[N/A]';
 		}
 	}
 	
@@ -131,9 +131,9 @@ public with sharing class CkwDetailController {
 		
 		// InteractionsPerFarmerPerQuarter
 		if(quarters > 0)
-			return interactionsPerFarmer / quarters;
-		
-		return 0.0;
+			return (interactionsPerFarmer / quarters).setScale(2);
+		else 
+			return interactionsPerFarmer.setScale(2);
 	}
 	
 	public static testMethod void test() {
