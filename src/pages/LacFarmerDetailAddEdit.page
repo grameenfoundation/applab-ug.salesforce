@@ -33,9 +33,22 @@
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Certification_In_Progress__c}" label="{!$Label.CERTIFICATION_LABELS_IN_PROGRESS}"/>
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Certification_Obtained__c}" label="{!$Label.CERTIFICATION_LABELS_IN_OBTAINED}"/>
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Certification_Score__c}" label="{!$Label.CERTIFICATION_SCORE}"/>
-	        	<apex:inputField value="{!LAC_Farmer_Details__c.Infrastructure__c}" label="{!$Label.INFRASTRUCTURE}"/>
-	        	<apex:inputField value="{!LAC_Farmer_Details__c.Best_Practices__c}" label="{!$Label.BEST_PRACTICES}"/>
 	        </apex:pageBlockSection>
+	        <apex:pageBlockSection columns="1" title="{!$Label.INFRASTRUCTURE}">
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Agrochemical_Warehouse__c}" label="{!$Label.AGROCHEMICAL_WAREHOUSE}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Crop_Warehouse__c}" label="{!$Label.CROP_WAREHOUSE}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Wet_Mill__c}" label="{!$Label.WET_MILL}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Water_Treatment__c}" label="{!$Label.WATER_TREATMENT}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" title="{!$Label.BEST_PRACTICES}">
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Seedbed__c}" label="{!$Label.SEEDBED}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Shadow_Management__c}" label="{!$Label.SHADOW_MANAGEMENT}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Pruning__c}" label="{!$Label.PRUNING}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Fertilization__c}" label="{!$Label.FERTILIZATION}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Plagues_and_Disease_Control__c}" label="{!$Label.PLAGUES_AND_DISEASE_CONTROL}"/>
+            	<apex:inputField value="{!LAC_Farmer_Details__c.Plantation_Age__c}" label="{!$Label.PLANTATION_AGE}"/>
+            </apex:pageBlockSection>
 	        <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Quarterly_Sales__c}" />
 	        	<apex:inputField value="{!LAC_Farmer_Details__c.Quarterly_Production__c}" />

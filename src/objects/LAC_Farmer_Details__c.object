@@ -46,6 +46,16 @@
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Agrochemical_Warehouse__c</fullName>
+        <externalId>false</externalId>
+        <label>Agrochemical Warehouse</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Annual_Income_From_Wages__c</fullName>
         <externalId>false</externalId>
         <label>Annual Income From Wages</label>
@@ -88,41 +98,6 @@
         <trackHistory>false</trackHistory>
         <type>Number</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Best_Practices__c</fullName>
-        <externalId>false</externalId>
-        <label>Best Practices</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Seedbed</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Shadow management</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Pruning</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Fertilization</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Plagues and Diseases control</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Plantation Age</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>MultiselectPicklist</type>
-        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Certification_In_Progress__c</fullName>
@@ -251,6 +226,16 @@
         <scale>2</scale>
         <trackHistory>false</trackHistory>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Crop_Warehouse__c</fullName>
+        <externalId>false</externalId>
+        <label>Crop Warehouse</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -386,6 +371,16 @@
         <description>The name of the cooperative associated with the farmer</description>
         <externalId>false</externalId>
         <label>Farmer Cooperative</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fertilization__c</fullName>
+        <externalId>false</externalId>
+        <label>Fertilization</label>
         <length>255</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -553,33 +548,6 @@
         <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Infrastructure__c</fullName>
-        <externalId>false</externalId>
-        <label>Infrastructure</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Agrochemical Warehouse</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Crop Warehouse</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Wet mill</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Water Treatment</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>MultiselectPicklist</type>
-        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
@@ -879,6 +847,26 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Plagues_and_Disease_Control__c</fullName>
+        <externalId>false</externalId>
+        <label>Plagues and Disease Control</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Plantation_Age__c</fullName>
+        <externalId>false</externalId>
+        <label>Plantation Age</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Planted_Area__c</fullName>
         <externalId>false</externalId>
         <label>Planted Area</label>
@@ -922,6 +910,16 @@
         <scale>2</scale>
         <trackHistory>false</trackHistory>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pruning__c</fullName>
+        <externalId>false</externalId>
+        <label>Pruning</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -1026,6 +1024,26 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Seedbed__c</fullName>
+        <externalId>false</externalId>
+        <label>Seedbed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shadow_Management__c</fullName>
+        <externalId>false</externalId>
+        <label>Shadow Management</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Smart_Phone__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Captures a value indicating whether the phone the farmer has is a smart phone.</description>
@@ -1061,6 +1079,26 @@
         <fullName>Village__c</fullName>
         <externalId>false</externalId>
         <label>Village</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Water_Treatment__c</fullName>
+        <externalId>false</externalId>
+        <label>Water Treatment</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Wet_Mill__c</fullName>
+        <externalId>false</externalId>
+        <label>Wet Mill</label>
         <length>255</length>
         <required>false</required>
         <trackHistory>false</trackHistory>

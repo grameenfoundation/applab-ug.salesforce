@@ -54,11 +54,19 @@
         	<apex:outputField value="{!LAC_Farmer_Details__c.Certification_Score__c}" label="{!$Label.CERTIFICATION_SCORE}"/>
              
             <apex:pageBlockSection columns="1" title="{!$Label.INFRASTRUCTURE}">
-            	<apex:outputField value="{!LAC_Farmer_Details__c.Infrastructure__c}" label=""/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Agrochemical_Warehouse__c}" label="{!$Label.AGROCHEMICAL_WAREHOUSE}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Crop_Warehouse__c}" label="{!$Label.CROP_WAREHOUSE}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Wet_Mill__c}" label="{!$Label.WET_MILL}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Water_Treatment__c}" label="{!$Label.WATER_TREATMENT}"/>
             </apex:pageBlockSection>
             
             <apex:pageBlockSection columns="1" title="{!$Label.BEST_PRACTICES}">
-            	<apex:outputField value="{!LAC_Farmer_Details__c.Best_Practices__c}" label=""/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Seedbed__c}" label="{!$Label.SEEDBED}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Shadow_Management__c}" label="{!$Label.SHADOW_MANAGEMENT}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Pruning__c}" label="{!$Label.PRUNING}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Fertilization__c}" label="{!$Label.FERTILIZATION}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Plagues_and_Disease_Control__c}" label="{!$Label.PLAGUES_AND_DISEASE_CONTROL}"/>
+            	<apex:outputField value="{!LAC_Farmer_Details__c.Plantation_Age__c}" label="{!$Label.PLANTATION_AGE}"/>
             </apex:pageBlockSection>
         </apex:pageBlockSection>
         
