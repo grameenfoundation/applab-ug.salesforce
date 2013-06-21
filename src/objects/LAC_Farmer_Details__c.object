@@ -90,6 +90,41 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Best_Practices__c</fullName>
+        <externalId>false</externalId>
+        <label>Best Practices</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Seedbed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shadow management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plagues and Diseases control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plantation Age</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>Certification_In_Progress__c</fullName>
         <externalId>false</externalId>
         <label>Certification In Progress</label>
@@ -358,6 +393,20 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Financial_Access_Source__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial Access Source</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Bank</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Financial_Access__c</fullName>
         <description>Used to determine whether a farmer has access to finance.</description>
         <externalId>false</externalId>
@@ -504,6 +553,33 @@
         <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Infrastructure__c</fullName>
+        <externalId>false</externalId>
+        <label>Infrastructure</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Agrochemical Warehouse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crop Warehouse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wet mill</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
@@ -957,6 +1033,16 @@
         <label>Smart Phone</label>
         <trackHistory>false</trackHistory>
         <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Strata__c</fullName>
+        <externalId>false</externalId>
+        <label>Strata</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Total_Monthly_Income__c</fullName>
