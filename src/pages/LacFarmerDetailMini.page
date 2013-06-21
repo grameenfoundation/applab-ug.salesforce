@@ -9,10 +9,9 @@
 				<apex:pageBlockSection columns="1">
 					<apex:outputText value="Farmer" label="Type" />
 					<apex:outputField value="{!LAC_Farmer_Details__c.Person__r.First_Name__c}" />
-					<apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Middle_Name__c}" />
 		          	<apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Last_Name__c}" />
 		          	<apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Gender__c}" />
-		          	<apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Contact__r.Birthdate}" />
+		          	<apex:outputField value="{!LAC_Farmer_Details__c.Entrance_Into_Programme__c}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
 				</apex:pageBlockSection>
 			</apex:pageBlock>
         </div>

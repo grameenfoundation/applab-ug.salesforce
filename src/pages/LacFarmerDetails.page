@@ -13,8 +13,8 @@
 	    <apex:outputText value="{!$Label.NO} {!$Label.PROFILE_PICTURE}" rendered="{!IF(LAC_Farmer_Details__c.Contact__r.Picture_Attachment_Id__c == null, true, false)}"/>
         <apex:pageBlockSection columns="2" title="{!$Label.BIO_DATA}">
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.First_Name__c}"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Middle_Name__c}"/>
-            <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Last_Name__c}"/>
+            <!--<apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Middle_Name__c}"/>
+            --><apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Last_Name__c}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Date_of_Birth__c}" />
             <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Account.Name}" label="{!$Label.GROUP_PARTNER}"/>
             <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.GPS_Location_E__c}"/>
