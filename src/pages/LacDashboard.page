@@ -26,7 +26,7 @@
             <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-ui-1.8.14.custom.min.js')}" />
             <apex:includeScript value="{!$Resource.CommonJS}" />
             <script src="/soap/ajax/15.0/connection.js" type="text/javascript"></script>
-			<script src="/soap/ajax/15.0/apex.js" type="text/javascript"></script>
+            <script src="/soap/ajax/15.0/apex.js" type="text/javascript"></script>
             <apex:includeScript value="{!URLFOR($Resource.nivoslider, 'nivo-slider/jquery.nivo.slider.pack.js')}" />
             <apex:stylesheet value="{!URLFOR($Resource.nivoslider, 'nivo-slider/themes/default/default.css')}" />
             <apex:stylesheet value="{!URLFOR($Resource.nivoslider, 'nivo-slider/nivo-slider.css')}" />
@@ -53,24 +53,21 @@
                 <div class="slider-wrapper theme-default">
                     <div class="ribbon"></div>
                     <div id="slider" class="nivoSlider">
-                        <apex:image url="{!$Resource.lacimage1}" title="#caption1" height="556px"/>
-                        <apex:image url="{!$Resource.lacimage2}" title="#caption2" height="556px"/>
-                        <apex:image url="{!$Resource.lacimage3}" title="#caption3" height="556px"/>
+                        <apex:image url="{!$Resource.lacimage3}" title="#caption3" height="774px"/>
+                        <apex:image url="{!$Resource.lacimage2}" title="#caption2" height="774px"/>
+                        <apex:image url="{!$Resource.lacimage1}" title="#caption1" height="774px"/>
                     </div>
                     <div id="caption1" class="nivo-html-caption">
-                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Coffee production in colombia</h3><br/>
-                        Grameen Foundation's connecting local coffee producers to major suppliers<br/>
-                        - Colombia
+                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Access to information is easier</h3><br/>
+                        SMS campaigns and CKW Search tools are making it easier for farmers to access agricultural information
                     </div>
                     <div id="caption2" class="nivo-html-caption">
-                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Improving banana quality</h3><br/>
-                        Information from Grameen Foundation is paramount in improving banana yeilds and quality<br/>
-                        - Rwanda
+                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">CKW's perfomance improves</h3><br/>
+                        CKWs keep visiting farmers, their performance numbers are up and farmers are excited to be receiving the services
                     </div>
                     <div id="caption3" class="nivo-html-caption">
-                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Large scale cacao production</h3><br/>
-                        Cacao is a major cash crop that could propel people out of poverty<br/>
-                        - Peru
+                        <h3 style="font-size:20px;color:white;text-shadow:0px 1px 0px #365B6D">Cocoa disease management training</h3><br/>
+                        The cocoa disease management training in the field keeps giving great results
                     </div>
                     <style type="text/css">
                         .slider-wrapper {
@@ -82,7 +79,7 @@
                             /*margin: 0 auto 0 auto; */ /* This would center the slider */
                             margin: 10px;
                             width: 833px; /* Make sure your images are the same size */
-                            height: 400px;
+                            height: 774px;
                         }
                         
                         .theme-default .nivo-controlNav { 
@@ -215,7 +212,7 @@
     </apex:tabPanel>
     <br/><br/>
     <apex:pageBlock >
-    	{!currentMapDescription}&nbsp;&nbsp;Show:&nbsp;
+        {!currentMapDescription}&nbsp;&nbsp;Show:&nbsp;
          <apex:selectList value="{!overviewMapOption}" multiselect="false" size="1">
              <apex:selectOptions value="{!overviewMapOptions}"></apex:selectOptions>
          </apex:selectList>
@@ -229,26 +226,26 @@
                 <script type="text/javascript"> 
                         var j$ = jQuery.noConflict();
                         j$(document).ready(function() {
-                        	sforce.connection.sessionId = '{!$Api.Session_ID}';
-                        	
+                            sforce.connection.sessionId = '{!$Api.Session_ID}';
+                            
                             j$('.profileMoreLink').live("click", function(){
-                            	var farmerId = j$(this).attr("farmerId");
-	                            var contentDiv = j$("#"+ farmerId + " .moreContent");
-	                            	
-                            	if(j$(this).text() == 'More') {
-                            		j$(this).text('Less');
-                            		contentDiv.slideDown();
-	                            	contentDiv.text("loading please wait...");
-	                            	var content = sforce.apex.execute("MiniProfileWebService", "getFarmerMiniProfile", {farmerId: farmerId});
-	                            	
-	                            	contentDiv.empty();
-	                            	contentDiv.html(''+content+'');
-                            	} else if(j$(this).text() == 'Less') {
-                            		j$(this).text('More');
-                            		contentDiv.slideUp();
-                            	}
-                            	
-                            	return false;
+                                var farmerId = j$(this).attr("farmerId");
+                                var contentDiv = j$("#"+ farmerId + " .moreContent");
+                                    
+                                if(j$(this).text() == 'More') {
+                                    j$(this).text('Less');
+                                    contentDiv.slideDown();
+                                    contentDiv.text("loading please wait...");
+                                    var content = sforce.apex.execute("MiniProfileWebService", "getFarmerMiniProfile", {farmerId: farmerId});
+                                    
+                                    contentDiv.empty();
+                                    contentDiv.html(''+content+'');
+                                } else if(j$(this).text() == 'Less') {
+                                    j$(this).text('More');
+                                    contentDiv.slideUp();
+                                }
+                                
+                                return false;
                             });
                         });
                     </script>
