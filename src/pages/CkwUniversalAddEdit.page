@@ -89,8 +89,8 @@
             </apex:pageBlocksection>
             <apex:pageBlocksection title="{!$Label.SURVEY_CREDENTIALS}" collapsible="true">
                 <apex:inputfield value="{!contact.gfsurveys__mobilesurveys_Id__c}"/>
-                <apex:inputfield value="{!contact.gfsurveys__mobilesurveys_Username__c}"/>
-                <apex:inputSecret redisplay="true" value="{!contact.gfsurveys__mobilesurveys_Password__c}"/>
+                <apex:inputfield value="{!mobileUser.gfsurveys__Username__c}"/>
+                <apex:inputSecret redisplay="true" value="{!mobileUser.gfsurveys__Password__c}"/>
             </apex:pageBlockSection>
             <apex:pageBlocksection title="{!$Label.TRAINING_EVALUATION}" collapsible="true">
                 <apex:inputfield value="{!ckw.Comprehension__c}"/>

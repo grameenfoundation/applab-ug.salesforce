@@ -9,6 +9,7 @@ public with sharing class CkwUniversalAddEditController {
     ApexPages.StandardController sController = null;
     private Phone__c tempHandset;
     private Attachment profilePicture;
+    private gfsurveys__Mobile_User__c mobileUser;
     
     public CkwUniversalAddEditController(ApexPages.StandardController controller) {
         ckw = (CKW__c)controller.getRecord();
@@ -25,8 +26,7 @@ public with sharing class CkwUniversalAddEditController {
             Person__r.Contact__r.Id, Person__r.Contact__r.AccountId, Person__r.Contact__r.OwnerId, Person__r.Contact__r.Salutation, Person__r.Contact__r.FirstName, 
             Person__r.Contact__r.LastName, Person__r.Contact__r.Birthdate, Person__r.Contact__r.Title, Person__r.Contact__r.Email, 
             Person__r.Contact__r.Phone, Person__r.Contact__r.MobilePhone,Person__r.Contact__r.Marital_Status__c, 
-            Person__r.Contact__r.Head_Of_Household__c, Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__c, 
-            Person__r.Contact__r.gfsurveys__mobilesurveys_Username__c,Person__r.Contact__r.gfsurveys__mobilesurveys_Password__c, 
+            Person__r.Contact__r.Head_Of_Household__c, Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__c,
             Person__r.Contact__r.gfsurveys__mobilesurveys_Id__c, Person__r.Contact__r.Country__c,
             Person__r.Handset__r.Id,Person__r.Handset__r.Serial_Number__c, Person__r.Handset__r.Brand__c, 
             Person__r.Handset__r.IMEI__c, Person__r.Handset__r.Battery_Type__c, Person__r.Handset__r.OS_Firmware_Version__c, 
@@ -71,6 +71,7 @@ public with sharing class CkwUniversalAddEditController {
         }
         
         this.profilePicture = new Attachment();
+        this.mobileUser = new gfsurveys__Mobile_User__c();
     }
 
 	public Attachment getProfilePicture() {
@@ -84,6 +85,18 @@ public with sharing class CkwUniversalAddEditController {
 		}
 		
 		return this.profilePicture;
+	}
+	
+	public gfsurveys__Mobile_User__c getMobileUser() {
+		this.mobileUser = new gfsurveys__Mobile_User__c();
+		if(contact.Id != null) {
+			gfsurveys__Mobile_User__c[] mobileUsers = [SELECT Id, gfsurveys__Contact__c, gfsurveys__Password__c, gfsurveys__Status__c, gfsurveys__Username__c from gfsurveys__Mobile_User__c WHERE gfsurveys__Contact__c = :contact.Id LIMIT 1];
+			if(!mobileUsers.isEmpty()) {
+				this.mobileUser = mobileUsers.get(0);
+			}
+		}
+		
+		return this.mobileUser;
 	}
 	
     /**
@@ -360,6 +373,7 @@ public with sharing class CkwUniversalAddEditController {
             
             if (!ApexPages.hasMessages()) {
                 saveContact();
+                saveMobileUser();
                 saveProfilePicture();
                 savePerson();
                 saveCkw();
@@ -372,6 +386,18 @@ public with sharing class CkwUniversalAddEditController {
            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, ex.getMessage()));
            return null;
         }
+    }
+    
+    /**
+    * Save mobile User
+    */
+    public void saveMobileUser() {
+    	if(this.mobileUser.Id != null) {
+    		update this.mobileUser;
+    	} else {
+    		this.mobileUser.gfsurveys__Contact__c = contact.Id;
+    		insert this.mobileUser;
+    	}
     }
     
     /**
@@ -471,111 +497,5 @@ public with sharing class CkwUniversalAddEditController {
             }
             
         return null;
-    }
-    
-    /**
-     * tests the removal of the device from a CKW when their status 
-     * changes to dropped.
-     */
-    @IsTest
-    static void testCkwStatusChangetoDropped(){
-    	CkwUniversalAddEditController controller = initTestController();
-        controller.save();
-        
-        Person__c person = [SELECT Id, Handset__c FROM Person__c WHERE Id=:controller.person.Id];
-        System.assertEquals(controller.person.Id, person.Id);
-        System.assertEquals(controller.handset.Id, person.Handset__c);
-        
-        CKW__c ckw = [SELECT Id, Status__c FROM CKW__c WHERE Id = :controller.ckw.Id];
-        System.assertEquals(controller.ckw.Id, ckw.Id);
-        
-       	controller.ckw.Status__c = 'Dropped';
-       	controller.save();
-       	
-       	ckw = [SELECT Id, Status__c FROM CKW__c WHERE Id = :controller.ckw.Id];
-       	System.assert(controller.person.Handset__c == null);
-    }
-    
-    /**
-     * tests the save action of this controller
-     */
-    @IsTest
-    static void testSave(){
-        CkwUniversalAddEditController controller = initTestController();
-        controller.save();
-        System.debug(ApexPages.getMessages());
-        
-        System.assertEquals(ApexPages.getMessages().size(), 0);
-        
-        Phone__c handset = [SELECT Id FROM Phone__c WHERE Id=:controller.handset.Id];
-        System.assertEquals(controller.handset.Id, handset.Id);
-        
-        gfsurveys__Device__c  device = [SELECT Id from gfsurveys__Device__c  where Id=:controller.device.Id];
-        System.assertEquals(controller.device.Id, device.Id);
-        
-        SIM__c simcard = [SELECT Id FROM SIM__c WHERE Id=:controller.simcard.Id];
-        System.assertEquals(controller.simcard.Id, simcard.Id);
-        
-        Person__c person = [SELECT Id FROM Person__c WHERE Id=:controller.person.Id];
-        System.assertEquals(controller.person.Id, person.Id);
-    }
-    
-    /**
-     * tests the SaveAndNew action of this controller
-     */
-    @IsTest
-    static void testSaveAndNew(){
-        CkwUniversalAddEditController controller = initTestController();
-        PageReference pageRef = controller.saveAndNew();
-        String url = pageRef.getUrl();
-        String ObjectPrefix = CKW__c.sObjectType.getDescribe().getKeyPrefix();
-        System.assertEquals(url, '/'+objectPrefix+'/e');
-    }
-    
-    /**
-     * initializes the CkwUniversalAddEditController used during the test.
-     *
-     * @return CkwUniversalAddEditController - the initialized controller to use 
-     * during testing.
-     */
-    static CkwUniversalAddEditController initTestController(){
-    	Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
-		system.assert(p != null);
-		
-		User user = new User(Alias = 'ckwtest', Email='ckwtest@testorg.com', 
-	    	EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-	     	LocaleSidKey='en_US', ProfileId = p.Id, 
-	     	TimeZoneSidKey='America/Los_Angeles', UserName='ckwtest@testorg.com');
-		insert user;
-		
-        CkwUniversalAddEditController controller = new CkwUniversalAddEditController(new ApexPages.StandardController(new CKW__c()));
-        controller.contact.LastName='Rambo';
-        controller.contact.FirstName='John';
-        controller.contact.OwnerId = user.Id;
-        controller.handset.Serial_Number__c='90000000';
-        controller.handset.IMEI__c = '9989989893dkdkeid';
-        controller.handset.Purchase_Value_USD__c = 450;
-        controller.handset.OS_Firmware_Version__c = '4.5';
-        controller.simcard.SIM_Serial_Number__c = '5566552241';
-        controller.simcard.Name ='839idkdiekd';
-        controller.contact.gfsurveys__mobilesurveys_Id__c='89e3938493oe3oe';
-        controller.contact.gfsurveys__mobilesurveys_Username__c='8348493894';
-        controller.contact.gfsurveys__mobilesurveys_Password__c='password';
-        
-        return controller;
-    }
-    
-     @IsTest
-    static void testAttachmentSave() {
-    	CkwUniversalAddEditController controller = initTestController();
-    	controller.profilePicture.Body = Blob.valueOf('Unit Test Attachment Body'); 
-        controller.save();
-        System.debug(ApexPages.getMessages());
-        
-        System.assertEquals(ApexPages.getMessages().size(), 1); // Attachment uploaded successfully
-        System.assertNotEquals(controller.contact.Picture_Attachment_Id__c, null);
-        
-        Contact contact = [SELECT Id, Picture_Attachment_Id__c FROM Contact WHERE Id=:controller.contact.Id];
-        System.assertNotEquals(contact.Picture_Attachment_Id__c, null);
     }
 }

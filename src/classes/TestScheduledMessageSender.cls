@@ -2,11 +2,17 @@
 private class TestScheduledMessageSender {
     static testMethod void test() {
         Test.startTest();
-
-        String jobId = System.schedule('testScheduledMessageSender',
+        
+        String jobId = '';
+        
+		if(Test.isRunningTest() && Limits.getFutureCalls() >= Limits.getLimitFutureCalls()) {
+		     system.debug(LoggingLevel.Error, 'Future method limit reached. Skipping...');
+		} else {
+		    jobId = System.schedule('testScheduledMessageSender',
             ScheduledMessageSender.cronExpression, new ScheduledMessageSender());
-
-            // Get the information from the CronTrigger API object  
+		}
+		
+        // Get the information from the CronTrigger API object  
         CronTrigger cronTrigger = [SELECT id, CronExpression, TimesTriggered, NextFireTime
                                     FROM CronTrigger WHERE id = :jobId];
         // Verify the expressions are the same  
