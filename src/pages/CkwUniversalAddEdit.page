@@ -68,20 +68,18 @@
                     <apex:actionRegion >
                         <apex:outputLabel value="{!$ObjectType.Person__c.fields.Handset__c.Label}" for="existingHandset"/>
                         <apex:inputfield id="existingHandset" value="{!person.Handset__c}">
-                            <apex:actionSupport event="onchange" action="{!assignExistingDevice}" reRender="deviceSection" status="loadingStatus"/>
+                            <apex:actionSupport event="onchange" action="{!assignExistingHandset}" reRender="handsetSection" status="loadingStatus"/>
                         </apex:inputfield>
                     </apex:actionRegion>
                     <apex:actionStatus startText=" (loading please wait...)" stopText=" (done)" id="loadingStatus"/>
                 </apex:outputpanel>
             </apex:pageBlocksection>
-            <apex:pageBlocksection id="deviceSection" collapsible="true">
+            <apex:pageBlocksection id="handsetSection" collapsible="true">
                 <apex:inputfield value="{!handset.IMEI__c}"/>
                 <apex:inputfield value="{!handset.Serial_Number__c}"/>
                 <apex:inputfield value="{!handset.Brand__c}"/>
                 <apex:inputfield value="{!handset.Battery_Type__c}"/>
                 <apex:inputfield value="{!handset.OS_Firmware_Version__c}"/>
-                <apex:inputfield value="{!device.gfsurveys__Status__c}"/>
-                <apex:inputfield value="{!device.gfsurveys__LastCheckInDate__c}"/>
                 <apex:inputfield value="{!handset.Purchase_Value_USD__c}"/>
                 <apex:inputfield value="{!simcard.Name}"/>
                 <apex:inputfield value="{!simcard.Carrier__c}"/>

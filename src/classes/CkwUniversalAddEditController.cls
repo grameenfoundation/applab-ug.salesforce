@@ -26,15 +26,12 @@ public with sharing class CkwUniversalAddEditController {
             Person__r.Contact__r.Id, Person__r.Contact__r.AccountId, Person__r.Contact__r.OwnerId, Person__r.Contact__r.Salutation, Person__r.Contact__r.FirstName, 
             Person__r.Contact__r.LastName, Person__r.Contact__r.Birthdate, Person__r.Contact__r.Title, Person__r.Contact__r.Email, 
             Person__r.Contact__r.Phone, Person__r.Contact__r.MobilePhone,Person__r.Contact__r.Marital_Status__c, 
-            Person__r.Contact__r.Head_Of_Household__c, Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__c,
+            Person__r.Contact__r.Head_Of_Household__c,
             Person__r.Contact__r.gfsurveys__mobilesurveys_Id__c, Person__r.Contact__r.Country__c,
             Person__r.Handset__r.Id,Person__r.Handset__r.Serial_Number__c, Person__r.Handset__r.Brand__c, 
             Person__r.Handset__r.IMEI__c, Person__r.Handset__r.Battery_Type__c, Person__r.Handset__r.OS_Firmware_Version__c, 
             Person__r.Handset__r.Purchase_Value_USD__c, Person__r.Handset__r.SIM__r.Id,
             Person__r.Handset__r.SIM__r.Name,Person__r.Handset__r.SIM__r.Carrier__c, Person__r.Handset__r.SIM__r.SIM_Serial_Number__c,
-            Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r.Id,
-            Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r.gfsurveys__LastCheckInDate__c,
-            Person__r.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r.gfsurveys__Status__c,
             Person__r.Contact__r.Picture__c,
             Person__r.Contact__r.Picture_Attachment_Id__c  
             FROM CKW__c WHERE Id=:ckw.Id];
@@ -50,12 +47,6 @@ public with sharing class CkwUniversalAddEditController {
             contact = ckw.Person__r.Contact__r;
         }else{
             contact = new Contact();
-        }
-        
-        if(contact.gfsurveys__mobilesurveys_LastCheckInDevice__c != null){
-            device = person.Contact__r.gfsurveys__mobilesurveys_LastCheckInDevice__r;
-        }else{
-            device = new gfsurveys__Device__c();
         }
             
         if(person.Handset__c != null){
@@ -130,12 +121,6 @@ public with sharing class CkwUniversalAddEditController {
      * gets or sets the Phone__c custom object
      */
     public Phone__c handset{get;set;}
-    
-    /**
-     * gets or sets the gfsurveys__Device__c custom object.
-     */
-    public gfsurveys__Device__c device{get;set;}
-    
     public Phone__c existingHandset{get;set;}
     
     /**
@@ -185,41 +170,8 @@ public with sharing class CkwUniversalAddEditController {
      */
     public void saveContact(){
         contact.MobilePhone = contact.Phone;
-        contact.gfsurveys__mobilesurveys_LastCheckInDevice__c = device.Id;
         
         upsert contact;
-    }
-    
-    /**
-     * inserts or updates gfsurveys__Device__c object/record associated with the 
-     * CKW being edited/created.
-     */
-    public void saveDevice(){
-    	List<gfsurveys__Device__c> existingDevice = [
-    		SELECT
-    			Id,
-    			gfsurveys__IMEI__c,
-    			gfsurveys__OS__c,
-    			gfsurveys__Model__c,
-    			gfsurveys__Device_Id__c,
-    			OwnerId 
-    		FROM 
-    			gfsurveys__Device__c 
-    		WHERE 
-    			gfsurveys__IMEI__c = :handset.IMEI__c
-    	];
-    	
-    	if(existingDevice != null && !existingDevice.isEmpty()){
-    		device = existingDevice.get(0);
-    	}
-    	
-        device.gfsurveys__IMEI__c = handset.IMEI__c;
-        device.gfsurveys__OS__c = handset.OS_Firmware_Version__c;
-        device.gfsurveys__Model__c = handset.Brand__c;
-        device.gfsurveys__Device_Id__c = handset.Serial_Number__c;
-        device.OwnerId = contact.OwnerId;
-        
-        upsert device;
     }
     
     /**
@@ -263,7 +215,7 @@ public with sharing class CkwUniversalAddEditController {
      * gets the existing handset with the IMEI specified by the user in the 
      * handset property.
      */
-    private Phone__c getExistingDevice() {
+    private Phone__c getExistingHandset() {
         /**
          * if the IMEI has been provided
          * from the user interface, then we query for the existing 
@@ -306,7 +258,7 @@ public with sharing class CkwUniversalAddEditController {
              * details.
              */
             if (ckw.Status__c != 'Dropped') {
-                Phone__c p = getExistingDevice();
+                Phone__c p = getExistingHandset();
                 
                 if (p != null) {
                     /*List<Person__c> existingOwner = [
@@ -334,7 +286,7 @@ public with sharing class CkwUniversalAddEditController {
                     
                     
                     /*
-                     * if the device has an existing owner, report to the user about the 
+                     * if the handset has an existing owner, report to the user about the 
                      * assignee.
                      */
                     if(existingOwner != null && !existingOwner.isEmpty()) {
@@ -368,7 +320,6 @@ public with sharing class CkwUniversalAddEditController {
                 
                 saveSimcard();
                 saveHandset();
-                saveDevice();
             }
             
             if (!ApexPages.hasMessages()) {
@@ -467,11 +418,11 @@ public with sharing class CkwUniversalAddEditController {
     }
     
     /**
-     * this method is called through an ajax request to assign an existing device.
+     * this method is called through an ajax request to assign an existing handset.
      *
      * @return PageReference - page reference to which the user will be redirected.
      */
-    public PageReference assignExistingDevice() {
+    public PageReference assignExistingHandset() {
         List<Phone__c> handsets = [
                 SELECT 
                     Id, 

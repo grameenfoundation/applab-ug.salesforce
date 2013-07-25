@@ -37,9 +37,6 @@ public with sharing class CkwUniversalAddEditControllerTest {
         Phone__c handset = [SELECT Id FROM Phone__c WHERE Id=:controller.handset.Id];
         System.assertEquals(controller.handset.Id, handset.Id);
         
-        gfsurveys__Device__c  device = [SELECT Id from gfsurveys__Device__c  where Id=:controller.device.Id];
-        System.assertEquals(controller.device.Id, device.Id);
-        
         SIM__c simcard = [SELECT Id FROM SIM__c WHERE Id=:controller.simcard.Id];
         System.assertEquals(controller.simcard.Id, simcard.Id);
         
