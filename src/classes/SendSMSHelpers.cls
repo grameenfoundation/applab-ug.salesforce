@@ -144,6 +144,8 @@ public class SendSMSHelpers {
                     Id IN :recipients
         ]) {
             for (Person__c person : people) {
+            System.debug(LoggingLevel.INFO, 'Person Id: ' + person.Id);
+            System.debug(LoggingLevel.INFO, 'Country Code: ' + person.Country__r.ISO_Standard_Code__c);
                 SendSMSHelpers.Recipient recipient = SendSMSHelpers.generateRecipient(
                     person.Id,
                     person.First_Name__c,
@@ -191,23 +193,33 @@ public class SendSMSHelpers {
     public static Boolean sendThroughGateways(Map<String, Map<String, Message>> messages, Boolean scheduleForResend) {
 
         Map<String, Boolean> resultMap = new Map<String, Boolean>();
+        String className;
 
         // Go through the created messages and send to the correct gateway
         for (String countryCode : orderGateway(messages.keySet())) {
-            SMS_Gateway_Country_Settings__c gatewaySetting = SMS_Gateway_Country_Settings__c.getInstance(countryCode);
-            if (gatewaySetting == null) {
-
+            Preferred_SMS_Gateway__c preferredGatewaySetting = Preferred_SMS_Gateway__c.getInstance(UserInfo.getName());
+            if (preferredGatewaySetting != null) {            
+                className = preferredGatewaySetting.Class_Name__c;
+                system.debug(LoggingLevel.WARN, 'Sending through preferred gateway : ' + className);
+            } else {
+                SMS_Gateway_Country_Settings__c gatewaySetting = SMS_Gateway_Country_Settings__c.getInstance(countryCode);
+                if (gatewaySetting != null) {
+                    className = gatewaySetting.Class_Name__c;
+                    system.debug(LoggingLevel.WARN, 'Sending through default gateway: ' + className);
+                }
+            }
+            if (className == null) {
                 // Gateway setting does not exist so skip. Send email to inform setup that this has happened
                 // TODO - SEND AN EMAIL TO TECH INFORMING THEM OF THIS
                 System.debug(LoggingLevel.INFO, 'Gateway for country: ' + countryCode + ' not set up');
                 continue;
             }
-            Type t = Type.forName('', gatewaySetting.Class_Name__c);
+            Type t = Type.forName('', className);
             if (t == null) {
 
                 // Country code does not have an implemented gateway associated with it
                 // TODO - SEND AN EMAIL TO TECH INFORMING THEM OF THIS
-                System.debug(LoggingLevel.INFO, 'ClassName for: ' + gatewaySetting.Class_Name__c + '. for country: ' + countryCode + ' not set up');
+                System.debug(LoggingLevel.INFO, 'ClassName for: ' + className + '. for country: ' + countryCode + ' not set up');
                 continue;
             }
             SendViaSMSGateway gateWay = (SendViaSMSGateway)t.newInstance();
@@ -326,6 +338,8 @@ public class SendSMSHelpers {
         SMS_Gateway_Country_Settings__c setting = SMS_Gateway_Country_Settings__c.getInstance(countryCode);
         if (setting != null) {
             countryDialingCode = setting.Country_Code__c;
+        } else {
+            System.debug(LoggingLevel.INFO, 'Country setting is empty');
         }
         return new SendSMSHelpers.Recipient(
             countryCode,
@@ -380,60 +394,4 @@ public class SendSMSHelpers {
             this.messages.put(EncodingUtil.base64Encode(Crypto.generateDigest('MD5', Blob.valueOf(message.Message__c))), message);
         }
     }
-
-    // DELETE THIS METHOD. USED BY ANNOYMOUS APEX TO CALL YP TEST ENV FOR TESTING
-    public static void sendToYp(List<Person__c> recipients, Id userId, String userName, String messageText, String subject, DateTime expirationTime,
-            DateTime sendTime
-    ) {
-
-        Message message = new Message(
-            subject,
-            messageText,
-            userId,
-            userName,
-            sendTime,
-            expirationTime,
-            'SMS'
-        );
-        for (Person__c person : recipients) {
-            Recipient recipient = generateRecipient(
-                person.Id,
-                person.First_Name__c,
-                person.Middle_Name__c,
-                person.Last_Name__c,
-                person.Mobile_Number__c,
-                person.Country__r.ISO_Standard_Code__c,
-                null
-            );
-            message.addRecipient(recipient);
-        }
-        SendSMSViaYellowPepper gateway = new SendSMSViaYellowPepper();
-        //gateway.loadSetting();
-        //String body = gateway.createBody(new List<Message>{ message }, recipients.size() == 1);
-        //System.debug(LoggingLevel.INFO, body);
-        //HttpResponse response = gateway.sendRequest(gateway.buildRequest(body, recipients.size() == 1));
-        //System.debug(LoggingLevel.INFO, response.getBody());
-        System.debug(gateway.execute(new List<Message>{ message }));
-    }
-/*
-    public static String sendMessage(String message, String countryCode) {
-
-        SMS_Gateway_Settings__c setting = SMS_Gateway_Settings__c.getInstance(countryCode);
-        Type t = Type.forName('', setting.Class_Name__c);
-        if (t == null) {
-            return 'FAIL';
-        }
-        SendViaSMSGateway gateWay = (SendViaSMSGateway)t.newInstance();
-        return gateWay.execute(message);
-    }
-
-    static testMethod void testKannel() {
-        Database.insert(new SMS_Gateway_Settings__c( Name = 'UG', ISO_Standard__c = 'UG', Country_Code__c = 256, Class_Name__c = 'SendSMSViaKannel' ));
-        System.debug(LoggingLevel.INFO, SendSMS.sendMessage('Testing Kannel', 'UG'));
-    }
-
-    static testMethod void testFailure() {
-        Database.insert(new SMS_Gateway_Settings__c( Name = 'UG', ISO_Standard__c = 'UG', Country_Code__c = 256, Class_Name__c = 'ThisDoesNotExist' ));
-        System.assert(SendSMS.sendMessage('Testing Kannel', 'UG').equals('FAIL'));
-    }*/
 }

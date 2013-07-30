@@ -24,7 +24,7 @@ public class SendMessageViaPulse implements SendViaSMSGateway {
 
         // May have to move this inside the outer for loop if groups get very very large
         try {
-            insert(messages);
+            insert messages;
         }
         catch (Exception e) {
             System.debug(LoggingLevel.INFO, e.getMessage());

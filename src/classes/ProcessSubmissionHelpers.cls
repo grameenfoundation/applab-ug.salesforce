@@ -239,6 +239,15 @@ public with sharing class ProcessSubmissionHelpers {
         return extractAnswer(answerMap, answerKey, null);
     }
 
+    /** 
+     * This is for the new IBT surveys
+     */
+    public static gfsurveys__Answer__c extractAnswer(Map<String, gfsurveys__Answer__c> answers, String key) {
+    	if(answers.containsKey(key)) {
+    		return answers.get(key);
+    	}
+    	return null;
+    }
     
     /**
      *  Create a submission meta data object. This will allow the submissions to be mapped
@@ -284,7 +293,80 @@ public with sharing class ProcessSubmissionHelpers {
         }
         return true;
     }
-    
+
+    /**
+     *  Get the District__c object using the districtName
+     *
+     *  @param districtName - A string of the districtname resolved from the survey submission
+     *
+     *  @return - District__c object
+     */
+    public static District__c getDistrict(String districtName) {
+        District__c[] district = database.query(SoqlHelpers.getDistrict(districtName));
+        if (district.isEmpty() || district.size() == 0) {
+            return null;
+        }
+        else {
+            return district[0];
+        }
+    }
+
+    /**
+     *  Translate the survey selection for the gender question
+     *
+     *  @param optionNumber - A string that represesnts the user'd selection for this question
+     *
+     *  @return - String representation pf the gender selected ('Male' or 'Female')
+     */
+    public static String translateGender(String optionNumber) {
+        if (optionNumber.equals('1')) {
+            return 'Male';
+        }
+        return 'Female';
+    }
+
+    /**
+     *  Calculate the age translated date of birth
+     *
+     *  @param dob - The date of birth (format YYYY-MM-dd (2011-09-30))
+     *
+     *  @return - A number representing the age of the interviewee 
+     */
+    public static Integer calculateAge(Date dob) {
+        Date now = date.today();
+        Integer yearsBetween = now.year() - dob.year();
+        Integer monthDifference = now.month() - dob.month();
+        if (monthDifference == 0) {
+            Integer dayOfMonth = now.day() - dob.day();
+            if (dayOfMonth <= 0) {
+                yearsBetween--;
+            }
+        }
+        else if (monthDifference < 0) {
+            yearsBetween++;
+        }
+        return yearsBetween;
+    }
+
+    /**
+     *  Calculate date of birth from the translated submission
+     *
+     *  @param dobString - A String that represents the date of birth (format YYYY-MM-dd (2011-09-30))
+     *
+     *  @return - date of birth
+     */
+    public static Date calculateDob(String dobString) {
+        Date dob = null;
+
+        // DOB comes in with the format YYYY-MM-dd (2011-09-30)
+        String[] dobParts = dobString.split('-');
+        if (dobParts.size() == 3) {
+            dobString = dobParts[1] + '/' + dobParts[2] + '/' + dobParts[0];
+            dob = Date.parse(dobString);
+        }
+        return dob;
+    }
+
     static testMethod void testAnswers() {        
         Submission_Answer__c answer = new Submission_Answer__c();
         answer.Answer__c = '1';
@@ -310,5 +392,29 @@ public with sharing class ProcessSubmissionHelpers {
         DateTime control = DateTime.newInstance(Date.today(), Time.newInstance(0, 0, 0, 0));
         test = getTimestamp(String.valueOf(control.getTime()));
         System.assertEquals(test, control);
+    }
+
+    /**
+     * Test method for calculateDob method
+     */
+    static testMethod void testCalculateDob() {
+        String testDobString = '2011-09-30';
+        Date testDob = calculateDob(testDobString);
+    }
+
+    /**
+     * Test method for translateGender method
+     */
+    static testMethod void testTranslateGender() {
+        String testGenderNumber = '2';
+        System.assertEquals(translateGender('2'), 'Female');
+    }
+
+    /**
+     * Test method for calculateAge method
+     */
+    static testMethod void testCalculateAge() {
+        Date testDob = calculateDob('2001-09-30');
+        System.assertEquals(calculateAge(testDob), 13);
     }
 }

@@ -93,6 +93,7 @@ public class BulkMessageController {
 
             Boolean sendNow = this.dummyMessage.Expiration_Time__c <= datetime.now();
             Boolean rescheduled = false;
+			System.debug(LoggingLevel.INFO, 'SEND NOW = ' + sendNow);
             if (sendNow) {
 
                 // Send the messages immediately through the relevant gateways
@@ -106,6 +107,7 @@ public class BulkMessageController {
             else {
 
                 // Add the messages to the queue
+				System.debug(LoggingLevel.INFO, 'SETTING THE SAVEPOINT');
                 Savepoint sp = Database.setSavepoint();
                 List<Scheduled_Message_Queue__c> messageQueue = new List<Scheduled_Message_Queue__c>();
                 for (Id recipient : recipients) {
