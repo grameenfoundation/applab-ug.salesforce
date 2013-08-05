@@ -3,16 +3,24 @@ public with sharing class LacFarmerDetailsController {
 	private Attachment profilePicture;
 	private Integer ppiScore;
 	private ApexPages.StandardController stdController; 
+	private Person__c farmerPersonObject;
 
 	public LacFarmerDetailsController(ApexPages.StandardController controller) {
 		this.stdController = controller;
 		this.obj = (LAC_Farmer_Details__c)controller.getRecord();
-
-		if (this.obj.Id == null) {
-			this.obj.OwnerId = UserInfo.getUserId();
-		}
 		
 		profilePicture = new Attachment();
+	}
+	
+	public Person__c getFarmerPersonObject() {
+		if(farmerPersonObject == null) {
+			Person__c[] people = [SELECT Id, OwnerId from Person__c where Contact__c =: obj.Contact__c LIMIT 1];
+			if(people.size() > 0) {
+				farmerPersonObject = people[0];
+			}
+		}
+		
+		return farmerPersonObject;
 	}
 	
 	public CKW__c getAssociatedCkw() {
@@ -44,11 +52,19 @@ public with sharing class LacFarmerDetailsController {
 	}
 
 	public Decimal getSearchesNum() {
-		return [SELECT COUNT() FROM Search_Log__c WHERE Interviewee__c = :this.obj.Person__c LIMIT 50000];
+		if(getFarmerPersonObject() != null) {
+			return [SELECT COUNT() FROM Search_Log__c WHERE Interviewee__c = :getFarmerPersonObject().Id LIMIT 50000];
+		} else {
+			return 0;
+		}
 	}
 
 	public Decimal getSubmissionsNum() {
-		return [SELECT COUNT() FROM Submission_Meta_Data__c WHERE Interviewee__c = :this.obj.Person__c LIMIT 50000];
+		if(getFarmerPersonObject() != null) {
+			return [SELECT COUNT() FROM Submission_Meta_Data__c WHERE Interviewee__c = :getFarmerPersonObject().Id LIMIT 50000];
+		} else {
+			return 0;
+		}
 	}
 	
 	public LAC_Farmer_Details__c getFarmer(){ 
@@ -66,7 +82,11 @@ public with sharing class LacFarmerDetailsController {
 	}
 
 	public Decimal getMessagesNum() {
-		return [SELECT COUNT() FROM Message__c WHERE Recipient__c = :this.obj.Person__c LIMIT 50000];
+		if(getFarmerPersonObject() != null) {
+			return [SELECT COUNT() FROM Message__c WHERE Recipient__c = :getFarmerPersonObject().Id LIMIT 50000];
+		} else {
+			return 0;
+		}
 	}
 	
 	public PageReference save() {
@@ -89,6 +109,15 @@ public with sharing class LacFarmerDetailsController {
 			
 			upsert this.obj;
 			
+			// If we have no personObject, we create one
+			if (getFarmerPersonObject() == null) {
+				Person__c person = new Person__c();
+				person.Last_Name__c = obj.Contact__r.LastName;
+				person.First_Name__c = obj.Contact__r.FirstName;
+				person.Contact__c = obj.Contact__r.Id;
+				upsert person;
+			}
+			
 			changeOwner();
 			
 			PageReference pageReference = new PageReference('/apex/LacFarmerDetails?id='+this.obj.id);
@@ -102,21 +131,15 @@ public with sharing class LacFarmerDetailsController {
 	}
 	
 	private void changeOwner(){
-		List<Contact> contacts = [SELECT Id, OwnerId FROM Contact WHERE Id = :this.obj.Contact__c];
-		if (!contacts.isEmpty()) {
-			contacts.get(0).OwnerId = obj.OwnerId;
-			update contacts;
-		}
-		
-		List<Person__c> persons = [SELECT Id, OwnerId FROM Person__c WHERE Id = :this.obj.Person__c];
-		if (!persons.isEmpty()) {
-			persons.get(0).OwnerId = this.obj.OwnerId;
-			update persons;
+		Person__c person = getFarmerPersonObject();
+		if(person != null) {
+			person.OwnerId = this.obj.Contact__r.OwnerId;
+			update person;
 		}
 		
 		List<LAC_Household__c> households = [SELECT Id, OwnerId FROM LAC_Household__c WHERE Id = :this.obj.LAC_Household__c];
 		if (!households.isEmpty()) {
-			households.get(0).OwnerId = this.obj.OwnerId;
+			households.get(0).OwnerId = this.obj.Contact__r.OwnerId;
 			update households;
 		}
 		
@@ -132,7 +155,7 @@ public with sharing class LacFarmerDetailsController {
 		
 		if (!farms.isEmpty()) {
 			for (LAC_Farm__c farm : farms) {
-				farm.OwnerId = this.obj.OwnerId;
+				farm.OwnerId = this.obj.Contact__r.OwnerId;
 			}
 			
 			update farms;

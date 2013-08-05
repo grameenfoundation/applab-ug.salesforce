@@ -23,12 +23,14 @@ public with sharing class LacMapMarkersTest {
 		insert person;
 		
 		LAC_Farmer_Details__c farmer = new LAC_Farmer_Details__c();
-		
-		farmer.Person__c = person.Id;
 		farmer.Contact__c = contact.Id;
 		insert farmer;
 		
-		new LacMapMarkers.LacFarmerMarker(farmer);
+		LacMapMarkers.LacFarmerMarker farmerMarker = new LacMapMarkers.LacFarmerMarker(farmer);
+		farmerMarker.getParentRegistered();
+		farmerMarker.getLocation();
+		farmerMarker.getMarkerInfoContentString();
+		farmerMarker.setParentRegistered('test');
 		
 		Contact contact2 = new Contact();
 		contact2.FirstName = 'Luke2';
@@ -45,6 +47,19 @@ public with sharing class LacMapMarkersTest {
 		ckw.Person__c = person2.Id;
 		insert ckw;
 		
-		new LacMapMarkers.LacCkwMarker(ckw);
+		LacMapMarkers.LacCkwMarker ckwMarker = new LacMapMarkers.LacCkwMarker(ckw);
+		ckwMarker.getParentRegistered();
+		ckwMarker.getLocation();
+		ckwMarker.getMarkerInfoContentString();
+		ckwMarker.setParentRegistered('test');
+		
+		Search_Log__c searchLog = new Search_Log__c();
+		insert searchLog;
+		
+		LacMapMarkers.LacSearchMarker searchMarker = new LacMapMarkers.LacSearchMarker(searchLog);
+		searchMarker.getParentRegistered();
+		searchMarker.getLocation();
+		searchMarker.getMarkerInfoContentString();
+		searchMarker.setParentRegistered('test');
 	}
 }

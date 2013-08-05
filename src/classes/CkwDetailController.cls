@@ -79,9 +79,9 @@ public with sharing class CkwDetailController {
 			if(obj.Person__r.Contact__c != null && obj.Person__r.GPS_Location_E__c != null && obj.Person__r.GPS_Location_N__c != null) {
 				// Get top 50000 farmers registered by this ckw, who have coordinates
 				Decimal distance = 0;
-				for(LAC_Farmer_Details__c[] farmers : [SELECT Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c FROM LAC_Farmer_Details__c WHERE Registered_By__c =: obj.Person__r.Contact__c AND Person__r.GPS_Location_E__c != null AND Person__r.GPS_Location_N__c != null]) {
-					for (LAC_Farmer_Details__c farmer : farmers) {
-						Decimal newDistance = Math.abs(utils.calcDistance(Decimal.valueOf(obj.Person__r.GPS_Location_N__c), Decimal.valueOf(obj.Person__r.GPS_Location_E__c), Decimal.valueOf(farmer.Person__r.GPS_Location_N__c), Decimal.valueOf(farmer.Person__r.GPS_Location_E__c)));
+				for(Person__c[] people : [SELECT GPS_Location_E__c, GPS_Location_N__c FROM Person__c where Contact__c in (SELECT Contact__c from LAC_Farmer_Details__c WHERE Registered_By__c =: obj.Person__r.Contact__c) AND GPS_Location_E__c != null AND GPS_Location_N__c != null LIMIT 50000]) {
+					for (Person__c person : people) {
+						Decimal newDistance = Math.abs(utils.calcDistance(Decimal.valueOf(obj.Person__r.GPS_Location_N__c), Decimal.valueOf(obj.Person__r.GPS_Location_E__c), Decimal.valueOf(person.GPS_Location_N__c), Decimal.valueOf(person.GPS_Location_E__c)));
 						if(newDistance > distance) {
 							distance = newDistance;
 						}

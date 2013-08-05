@@ -16,8 +16,11 @@ public with sharing class LacMapMarkers {
 	    
 		public LacFarmerMarker(Lac_Farmer_Details__c farmer) {
 	        this.farmer = farmer;
-	        this.setLatitude(farmer.Person__r.GPS_Location_N__c);
-	        this.setLongitude(farmer.Person__r.GPS_Location_E__c);
+	        Person__c person = [SELECT Id, GPS_Location_N__c, GPS_Location_E__c from Person__c where Contact__c =: farmer.Contact__c LIMIT 1];
+	        if (person != null) {
+		        this.setLatitude(person.GPS_Location_N__c);
+		        this.setLongitude(person.GPS_Location_E__c);
+	        }
 	        this.setMarkerColour('FF0000'); // Red
 	    }
 	    

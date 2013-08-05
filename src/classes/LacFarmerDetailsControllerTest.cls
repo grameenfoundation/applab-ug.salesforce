@@ -57,6 +57,7 @@ private class LacFarmerDetailsControllerTest {
     	contact.FirstName = 'Grameen';
     	contact.LastName = 'Foundation';
     	contact.AccountId = account.Id;
+    	contact.OwnerId = user.Id;
     	insert contact;
     	
     	Person__c person = new Person__c();
@@ -76,11 +77,9 @@ private class LacFarmerDetailsControllerTest {
 		insert farm;
 		
 		LAC_Farmer_Details__c farmerDetails = new LAC_Farmer_Details__c();
-		farmerDetails.Person__c = person.Id;
 		farmerDetails.Contact__c = contact.Id;
 		farmerDetails.Contact__r = contact;
 		farmerDetails.LAC_Household__c = household.Id;
-		farmerDetails.OwnerId = user.Id;
 		farmerDetails.PPI_Score__c = 2;
 		
 		return farmerDetails;
@@ -110,6 +109,7 @@ private class LacFarmerDetailsControllerTest {
     	contact.FirstName = 'Grameen';
     	contact.LastName = 'Foundation';
     	contact.AccountId = account.Id;
+    	contact.OwnerId = user.Id;
     	insert contact;
     	
     	Person__c person = new Person__c();
@@ -135,10 +135,8 @@ private class LacFarmerDetailsControllerTest {
 		
 		c.getProfilePicture().Name = 'TestProfilePic';
     	c.getProfilePicture().Body = Blob.valueOf('Unit Test Attachment Body');
-		c.getFarmer().Person__c = person.Id;
 		c.getFarmer().Contact__c = contact.Id;
 		c.getFarmer().LAC_Household__c = household.Id;
-		c.getFarmer().OwnerId = user.Id;
 		c.getFarmer().Contact__r = contact;
 		
 		c.save();
@@ -161,12 +159,24 @@ private class LacFarmerDetailsControllerTest {
 		System.assertEquals(0,c.getSubmissionsNum());
 		System.assertEquals(0,c.getMessagesNum());
 
-		Person__c person = new Person__c(
-			First_Name__c = 'test'
-		);
+		RecordType recordType = new RecordType();
+    	recordType.Name='Business';
+    	
+		Account account = new Account(Name='CKW', RecordType=recordType);
+    	account.BillingState='CA';
+    	insert account;
+    	
+		Contact contact = new Contact();
+    	contact.FirstName = 'Grameen';
+    	contact.LastName = 'Foundation';
+    	contact.AccountId = account.Id;
+    	insert contact;
+    	
+		Person__c person = new Person__c(First_Name__c = 'test');
+		person.Contact__c = contact.Id;
 		insert person;
 
-		LAC_Farmer_Details__c farmerDetails = new LAC_Farmer_Details__c(Person__c = person.Id);
+		LAC_Farmer_Details__c farmerDetails = new LAC_Farmer_Details__c(Contact__c = contact.Id);
 		insert farmerDetails;
 
 		Search_Log__c searchLog = new Search_Log__c(Interviewee__c = person.Id);

@@ -1,6 +1,6 @@
 global class MiniProfileWebService {
 	webService static String getFarmerMiniProfile(String farmerId) {
-		List<LAC_Farmer_Details__c> farmers = [SELECT Id, Person__c FROM LAC_Farmer_Details__c WHERE Id =: farmerId];
+		List<LAC_Farmer_Details__c> farmers = [SELECT Id, Contact__c FROM LAC_Farmer_Details__c WHERE Id =: farmerId];
 		if (!farmers.isEmpty()) {
 			ApexPages.StandardController sc = new ApexPages.StandardController(farmers.get(0));
 			LacFarmerDetailsController c = new LacFarmerDetailsController(sc);
