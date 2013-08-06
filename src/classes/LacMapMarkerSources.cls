@@ -6,13 +6,6 @@ public with sharing class LacMapMarkerSources {
 		public List<MapMarkers> loadMapMarkers(Map <String, String> parameters) {
 			String query = 'SELECT Id, ' +
 							'Name, ' +
-							'Person__r.GPS_Location_E__c,' + 
-							'Person__r.GPS_Location_N__c, ' +
-							'Person__r.First_Name__c, ' +
-							'Person__r.Last_Name__c, ' +
-							'Person__r.Gender__c, ' +
-							'Person__r.Age__c, ' + 
-							'Person__r.Current_Poverty_Scorecard__r.Poverty_Percentage__c, '+
 							'Contact__r.Picture_Attachment_Id__c, ' +
 							'Commercial_Crops__c, '+
 							'Farm_Area__c, '+
