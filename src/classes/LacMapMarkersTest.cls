@@ -26,7 +26,7 @@ public with sharing class LacMapMarkersTest {
 		farmer.Contact__c = contact.Id;
 		insert farmer;
 		
-		LacMapMarkers.LacFarmerMarker farmerMarker = new LacMapMarkers.LacFarmerMarker(farmer);
+		LacMapMarkers.LacFarmerMarker farmerMarker = new LacMapMarkers.LacFarmerMarker(farmer, person);
 		farmerMarker.getParentRegistered();
 		farmerMarker.getLocation();
 		farmerMarker.getMarkerInfoContentString();

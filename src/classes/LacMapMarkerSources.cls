@@ -4,22 +4,32 @@ public with sharing class LacMapMarkerSources {
 	// Returns a list of Lac Farmer Map Markers
 	public with sharing class Farmers implements MapComponentController.IMapMarkerSource {
 		public List<MapMarkers> loadMapMarkers(Map <String, String> parameters) {
-			String query = 'SELECT Id, ' +
-							'Name, ' +
-							'Contact__r.Picture_Attachment_Id__c, ' +
-							'Commercial_Crops__c, '+
-							'Farm_Area__c, '+
-							'Planted_Area__c, '+
-							'Quarterly_Sales__c, '+
-							'Quarterly_Income_from_Coffee__c, '+
-							'Quarterly_Production__c, '+
-							'Food_Security_Status__c, '+
-							'PPI_Score__c, '+
-							'Certification_Obtained__c, '+
-							'Certification_In_Progress__c '+
-							'from Lac_Farmer_Details__c';
-			
+							
+			String query = 'SELECT Id, Picture_Attachment_Id__c, ' + 
+								'(SELECT Id, ' + // Select the Farmer record(s)
+								'Name, ' +
+								'Commercial_Crops__c, '+
+								'Farm_Area__c, '+
+								'Planted_Area__c, '+
+								'Quarterly_Sales__c, '+
+								'Quarterly_Income_from_Coffee__c, '+
+								'Quarterly_Production__c, '+
+								'Food_Security_Status__c, '+
+								'PPI_Score__c, '+
+								'Certification_Obtained__c '+
+								' FROM Contact.LAC_Farmer_Details__r' +
+								'), ' +
+							 	'(SELECT Person__c.Id, ' +  // Select the Person record(s)
+							 	'Person__c.GPS_Location_N__c, ' +
+							 	'Person__c.GPS_Location_E__c '+ 
+							 	' FROM Contact.People__r)' +
+							' FROM Contact';
+							
 			List<String> queryWhereClause = new List<String>();
+			
+			// Only select contacts who have farmers
+			queryWhereClause.add('Id in (SELECT Contact__c from Lac_Farmer_Details__c)');
+			
 			if(parameters.containsKey('quarter')) {
 				String quarter = parameters.get('quarter');
 				Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
@@ -33,12 +43,26 @@ public with sharing class LacMapMarkerSources {
 			// Prevent over 1,000 (collection sizes cannot be above 1000, so the mapMarkers list returned is limited to 1000)
 			query += ' LIMIT 1000';
 			
-			Lac_Farmer_Details__c[] farmers = Database.query(query);
+			Contact[] farmerContacts = Database.query(query);
 			
 			List<MapMarkers> mapMarkers = new List<MapMarkers>();
-			for (Lac_Farmer_Details__c farmer : farmers) {
-    			mapMarkers.add(new LacMapMarkers.LacFarmerMarker(farmer));
+			if(farmerContacts.size() > 0) {
+				for(Contact farmerContact: farmerContacts) {
+					LAC_Farmer_Details__c farmer = null;
+					Person__c person = null;
+					
+					if(farmerContact.LAC_Farmer_Details__r.size() > 0) {
+						farmer = farmerContact.LAC_Farmer_Details__r[0];
+					}
+					
+					if(farmerContact.People__r.size() > 0) {
+						person = farmerContact.People__r[0];
+					}
+				
+					mapMarkers.add(new LacMapMarkers.LacFarmerMarker(farmer, person));	
+				}
 			}
+
     		return mapMarkers;	
 		}
 	}

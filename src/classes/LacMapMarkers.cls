@@ -3,7 +3,7 @@ public with sharing class LacMapMarkers {
 	
 	// Lac Farmer Map Marker
 	public with sharing class LacFarmerMarker extends MapMarkers {
-		private Lac_Farmer_Details__c farmer;
+		private Lac_Farmer_Details__c farmer; 
 		 
 		private String parentRegistered;
 	    public String getParentRegistered() {
@@ -14,10 +14,9 @@ public with sharing class LacMapMarkers {
 	        this.parentRegistered = value;
 	    }
 	    
-		public LacFarmerMarker(Lac_Farmer_Details__c farmer) {
+		public LacFarmerMarker(Lac_Farmer_Details__c farmer, Person__c person) {
 	        this.farmer = farmer;
-	        Person__c person = [SELECT Id, GPS_Location_N__c, GPS_Location_E__c from Person__c where Contact__c =: farmer.Contact__c LIMIT 1];
-	        if (person != null) {
+	        if(person != null) {
 		        this.setLatitude(person.GPS_Location_N__c);
 		        this.setLongitude(person.GPS_Location_E__c);
 	        }
