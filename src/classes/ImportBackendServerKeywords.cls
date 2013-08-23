@@ -5,11 +5,13 @@ global class ImportBackendServerKeywords {
       returns true if successful, false otherwise
      */
     webservice static boolean importBackendKeywords(List<MenuItemAdapter> menuItemAdapters, String menuLabel) {
+        if(menuItemAdapters == null || menuItemAdapters.size() == 0){
+            return false;
+        }
         Menu__c menu = getMenuByLabel(menuLabel);
         List<Menu_Item__c> updateMenuItems = new List<Menu_Item__c>();
-        for (MenuItemAdapter currentAdapter : menuItemAdapters) {
-            System.debug('Current adapter is ' + currentAdapter.Label);
-            
+        List<Menu_Item__c> insertMenuItems = new List<Menu_Item__c>();
+        for (MenuItemAdapter currentAdapter : menuItemAdapters) {            
             // Skip adapter if it has already been processed.
             if (currentAdapter.IsProcessed) {
                 continue;
@@ -29,10 +31,15 @@ global class ImportBackendServerKeywords {
                 }
                 continue;
             }
-            currentAdapter.MenuItem = createAndSaveMenuItem(currentAdapter, menu, menuItemAdapters);                      
+            currentAdapter.MenuItem = createAndSaveMenuItem(currentAdapter, menu, menuItemAdapters); 
+            insertMenuItems.add(currentAdapter.MenuItem);                     
         }        
-        // update List of items to be updated
-        database.update(updateMenuItems);
+        System.debug(Logginglevel.INFO, 'Count of menu items to update is ' + updateMenuItems.size());
+        System.debug(Logginglevel.INFO, 'Count of menu items to insert is ' + insertMenuItems.size());
+        if(updateMenuItems.size() > 0){
+            // update List of items to be updated
+            database.update(updateMenuItems);
+        }
         return true;
     }
     
@@ -82,7 +89,7 @@ global class ImportBackendServerKeywords {
        }
        
       if (menuItems != null && menuItems.size() != 0) {
-      	return menuItems.get(0);
+        return menuItems.get(0);
       }
       return null;   
     }
@@ -94,8 +101,7 @@ global class ImportBackendServerKeywords {
         menuItem.Content__c = adapter.Content;
         menuItem.Attribution__c = adapter.Attribution;
         menuItem.Is_Active__c = adapter.IsActive;
-        menuItem.Last_Modified_Date__c = adapter.LastModifiedDate; 
-        System.debug('Updating '+ menuItem.Label__c + ' with adapter ' + adapter.Label);
+        menuItem.Last_Modified_Date__c = adapter.LastModifiedDate;
         adapter.IsProcessed = true;
         return menuItem;
     }
@@ -206,6 +212,8 @@ global class ImportBackendServerKeywords {
         adapters.add(adapter3);
         
         boolean done = importBackendKeywords(adapters, 'CKW Search1');
-        System.assert(done);        
+        boolean failed = importBackendKeywords(null, 'CKW Search1');
+        System.assert(!failed);
+        System.assert(done);
     }
 }
