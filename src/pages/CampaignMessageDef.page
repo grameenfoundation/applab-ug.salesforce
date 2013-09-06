@@ -1,6 +1,5 @@
 <apex:page standardController="Campaign_Message_Def__c"
-	extensions="CampaignMessageDefController"
-	action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='System Administrator',null,URLFOR($Action.Campaign_Message_Def__c.View,Campaign_Message_Def__c.Id,null,true))}">
+	extensions="CampaignMessageDefController">
 	
 	<h1 style="font-size: 120%; margin: 10px 0px; display: block !important;">Campaign Message Details</h1>
 	

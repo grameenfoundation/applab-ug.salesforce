@@ -1,6 +1,5 @@
 <apex:page standardController="MessageCampaign__c"
-	extensions="MessageCampaignController"
-	action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='System Administrator',null,URLFOR($Action.MessageCampaign__c.View,MessageCampaign__c.Id,null,true))}">
+	extensions="MessageCampaignController">
 
 	<apex:pageBlock title="Message Campaigns" mode="maindetail"
 		tabStyle="MessageCampaign__c">
