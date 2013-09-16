@@ -46,6 +46,15 @@
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
     <fields>
+        <fullName>Content__c</fullName>
+        <description>The message content that is sent to the users that are enrolled to a campaign in which this message belongs to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text Message to send to the subscribers.</inlineHelpText>
+        <label>Content</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
         <fullName>Cron__c</fullName>
         <description>A valid cron expression that specifies the scheduling of the messages.</description>
         <externalId>false</externalId>

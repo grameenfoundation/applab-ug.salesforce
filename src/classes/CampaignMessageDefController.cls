@@ -21,6 +21,7 @@ public with sharing class CampaignMessageDefController {
 					Repeat_Every__c,
 					Cron__c,
 					Repeat_On__c,
+					Content__c,
 					Message_Campaign__r.Id,
 					Message_Campaign__r.Name,
 					Message_Campaign__r.Campaign_Type__c 
