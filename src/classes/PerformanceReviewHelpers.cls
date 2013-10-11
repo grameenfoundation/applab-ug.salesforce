@@ -427,14 +427,14 @@ public with sharing class PerformanceReviewHelpers {
         String endDateString = MetricHelpers.convertDateTimeToString(endDate, false);
 
         String query =
-            'SELECT '                                     +
-                'Count(id) numberOfFarmers, '             +
-                'Registered_By__c personId '              +
-            'FROM '                                       +
-                'Farmer__c '                              +
-            'WHERE '                                      +
-                'CreatedDate >= ' + startDateString + ' ' +
-                'AND CreatedDate <= ' + endDateString + ' ';
+            'SELECT '                                       +
+                'Count(id) numberOfFarmers, '               +
+                'Registered_By__c personId '                +
+            'FROM '                                         +
+                'Farmer__c '                                +
+            'WHERE '                                        +
+             'Performance_Date__c >=: startDate'            +
+             ' AND Performance_Date__c <=: endDate';
 
         // Add the person clause if needed
         if (personIds != null) {

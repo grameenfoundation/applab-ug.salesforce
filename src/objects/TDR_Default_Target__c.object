@@ -1,3 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Set the default target for a region for a given time period and a given start date. Will always take the most recent target set for a given period.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Corporate_Sales_Calls__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The default target for corporate sales calls made by a TDR in a given time period</description>
+        <externalId>false</externalId>
+        <label>Corporate Sales Calls</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Support__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The default number of customer support calls to make in this time frame for this region</description>
+        <externalId>false</externalId>
+        <label>Customer Support</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MM_Agent_Full_Report__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The default number of MM agent full reports to be made by a TDR in the given time period</description>
+        <externalId>false</externalId>
+        <label>MM Agent Full Report</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MM_Agent_Short_Report__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target number of MM Agent short reports a TDR needs to do in a given time</description>
+        <externalId>false</externalId>
+        <label>MM Agent Short Report</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Marketing_Event__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of marketing events that a TDR is supposed to do by default in this time period for the given region</description>
+        <externalId>false</externalId>
+        <label>Marketing Event</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The default target for other TDR activities for the given time period in this region</description>
+        <externalId>false</externalId>
+        <label>Other</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PA_Products__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>PA_Products</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <description>The region that this target is for</description>
+        <externalId>false</externalId>
+        <label>Region</label>
+        <referenceTo>Region__c</referenceTo>
+        <relationshipLabel>TDR Default Targets</relationshipLabel>
+        <relationshipName>TDR_Default_Targets</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>School_Sales_Calls__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target number of sales calls to schools for a TDR in a given period</description>
+        <externalId>false</externalId>
+        <label>School Sales Calls</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>The date that the target comes in to force</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>The type of target that this is for</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>DAILY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WEEKLY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MONTHLY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>YEARLY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>TDR Default Target</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>TDR-T-{YY}-{MM}-{DD}-{00000000}</displayFormat>
+        <label>TDR Default Target Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>TDR Default Targets</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

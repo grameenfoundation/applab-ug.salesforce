@@ -1,3 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>A list of words that should be shown in the tag cloud or as a keyword in the searches</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Should this word be used at all</description>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Display_Order__c</fullName>
+        <defaultValue>100</defaultValue>
+        <description>The order that the words should be chosen in. The lower the number earlier the display order</description>
+        <externalId>false</externalId>
+        <label>Display Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Category__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Is this keyword a top level category</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select if this keyword is a top level category</inlineHelpText>
+        <label>Is Category</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Crop__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Is this keyword a crop</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select if this keyword is a crop</inlineHelpText>
+        <label>Is Crop</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Keyword__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Is this a word to be used in the search graph as a default value to look for</description>
+        <externalId>false</externalId>
+        <label>Is Keyword</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Livestock__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Is this keyword for a type of livestock</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select if this keyword represents a type of live stock</inlineHelpText>
+        <label>Is Livestock</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Tag_Cloud_Word__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Should this word be used in the tag cloud display</description>
+        <externalId>false</externalId>
+        <label>Is Tag Cloud Word</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>Tag Cloud Word</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Display_Order__c</columns>
+        <columns>Is_Keyword__c</columns>
+        <columns>Is_Tag_Cloud_Word__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Tag Cloud Word Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Tag Cloud Words</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -24,7 +24,6 @@ global class ProcessSurveySubmission {
 
         webservice String errorMessage;
         webservice Boolean success;
-        webservice String returnVale;
 
         Transient Map<String, Id> parentIdMap;
     }
@@ -32,13 +31,14 @@ global class ProcessSurveySubmission {
     webservice static SurveySubmission processSurveySubmission(SurveySubmission surveySubmission) {
 
         surveySubmission.success = true;
-        surveySubmission.returnVale = '1';
+        
+        // TODO: Delete this after testing the system
+        System.debug('XML' + surveySubmission.xml);
 
         // Load the survey
         Survey__c survey = Utils.loadSurvey(surveySubmission.surveyId);
         if (survey == null) {
             surveySubmission.success = false;
-            surveySubmission.returnVale = '0';
             surveySubmission.errorMessage = 'Survey with id ' + surveySubmission.surveyId + ' does not exist on our system';
             return surveySubmission;
         }
@@ -47,7 +47,6 @@ global class ProcessSurveySubmission {
         Person__c interviewer = Utils.loadPersonImei(surveySubmission.imei);
         if (interviewer == null) {
             surveySubmission.success = false;
-            surveySubmission.returnVale = '0';
             surveySubmission.errorMessage = 'CKW with the imei: ' + surveySubmission.imei + ' does not exist on our system';
             return surveySubmission;
         }
@@ -59,7 +58,6 @@ global class ProcessSurveySubmission {
             Farmer__c[] farmers = Utils.loadFarmerFromId(surveySubmission.farmerId);
             if (farmers.size() > 1) {
                 surveySubmission.success = false;
-                surveySubmission.returnVale = '0';
                 surveySubmission.errorMessage = 'More than one farmer with id ' + surveySubmission.farmerId + ' exists on our system. There are actually ' + farmers.size();
                 return surveySubmission;
             }
@@ -83,17 +81,12 @@ global class ProcessSurveySubmission {
             // Parse the results
             String messageSubject;
             String messageBody;
-            surveySubmission.returnVale = results.get(0);
             if (results.get(0).equals('0')) {
                 messageSubject = survey.Survey_Name__c + ' failed to submit';
                 surveySubmission.success = false;
             }
             else if (results.get(0).equals('2')) {
                 messageSubject = survey.Survey_Name__c + ' failed to submit';
-                surveySubmission.success = true;
-            }
-            else if (results.get(0).equals('3')) {
-                messageSubject = survey.Survey_Name__c + ' failed validation';
                 surveySubmission.success = true;
             }
             else {
@@ -104,8 +97,6 @@ global class ProcessSurveySubmission {
             // Send Pulse and SMS feedback to the submitter
             if (!results.get(2).equals('SUPRESSMSG')) {
                 messageBody = results.get(2);
-                List<Recipient> recipients = new List<Recipient>();
-                recipients.add(new Recipient(interviewer.Id, Recipient.RecipientType.Person));
                 User sender = [
                     SELECT
                         Id,
@@ -115,27 +106,11 @@ global class ProcessSurveySubmission {
                     WHERE
                         Name = 'ckw admin'
                 ];
-                Server_Configuration__c configuration = [
-                    SELECT
-                        URL__c,
-                        Base_URL__c,
-                        Services_Path__c,
-                        Survey_Database__c,
-                        Search_Database__c
-                    FROM
-                        Server_Configuration__c
-                    LIMIT 1
-                ];
-                Message message = new Message(
-                    messageSubject,
-                    messageBody,
-                    recipients,
-                    sender,
-                    datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0)),
-                    configuration
+                SendSmsHelpers.sendThroughGateways(
+                    SendSmsHelpers.generateMessage(
+                        new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0))
+                    ), true
                 );
-                message.sendViaPulse();
-                message.sendViaSms();
             }
 
             // Return the completed submission
@@ -197,7 +172,6 @@ global class ProcessSurveySubmission {
             }
             else {
                 surveySubmission.success = false;
-                surveySubmission.returnVale = '0';
                 surveySubmission.errorMessage = 'Failed to save submissionMetaData object: ' + submissionMetaDataResult.getErrors()[0].getMessage();
             }
             return surveySubmission;
@@ -224,7 +198,6 @@ global class ProcessSurveySubmission {
         if (submissionAnswersLists.get(1).size() > 0) {
             hasChildren = true;
         }
-
         // First save all the answers that do not have parents.
         for (Submission_Answer__c submissionAnswer : submissionAnswersLists.get(0)) {
             if (!surveySubmission.success) {
@@ -284,8 +257,6 @@ global class ProcessSurveySubmission {
             System.debug(LoggingLevel.INFO, errorMsg);
             database.delete(submissionMetaData);
             surveySubmission.errorMessage = errorMsg;
-            surveySubmission.returnVale = '0';
-            surveySubmission.success = false;
             return surveySubmission;
         }
 
@@ -299,7 +270,6 @@ global class ProcessSurveySubmission {
 
         // Survey is fully saved so return a success message.
         surveySubmission.success = true;
-        surveySubmission.returnVale = '1';
         surveySubmission.errorMessage = 'Submission for IMEI: ' + surveySubmission.imei + ' of survey: ' + surveySubmission.surveyId + ' saved to salesforce';
         return surveySubmission;
     }
@@ -518,7 +488,7 @@ global class ProcessSurveySubmission {
      *  @param intervieweeId    - The Id for the interviewee. Can be null if no interviewee required
      *
      *  @return - A tuple list of Strings with the following format
-     *              element 1 - Binary indicator of success (0 = fail, 1 = success, 2 = treat as success but failed, 3 = mark as flagged in middletier)
+     *              element 1 - Binary indicator of success (0 = fail, 1 = success, 2 = treat as success but failed)
      *              element 2 - Error message if required
      *              element 3 - Error message to be sent to the submitter
      */
@@ -560,6 +530,69 @@ global class ProcessSurveySubmission {
             }
             else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE_REG')) {
                 return UDoMSurveyProcessing.registerRainGauge(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('MTN_CHANNELS')) {
+                return MtnChannelsHelpers.processChannelsFFPSSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FHI_GROUP_REGISTRATION')) {
+                return FHISurveysHelpers.processGroupRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FHI_HOUSEHOLD_REGISTRATION')) {
+                return FHISurveysHelpers.processHouseholdRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
+                return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_SPOT_CHECK')) {
+               return DataValidatorHelpers.processSpotCheck(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
+                return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
+                return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
+            }
+            if (survey.Post_Processing_Method__c.equals('BVAT_CIW_INFORMATION')) {
+                return BvatHelpers.processCiwInformationSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('BVAT_FARMER_REGISTRATION')) {
+                return BvatHelpers.processFarmerRegistrationSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('BVAT_CONTENT_SURVEY')) {
+                return BvatHelpers.processContentSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('EW_FARMER_REG')) {
+                return ProcessEwarehouseSurveys.processEwarehouseFarmerRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('EW_HARVEST_REG')) {
+                return ProcessEwarehouseSurveys.processEwarehouseHarvestSurvey(surveySubmission, answers, interviewer);
+            }
+			else if (survey.Post_Processing_Method__c.equals('EW_SALE_REG')) {
+                return ProcessEwarehouseSurveys.processSaleRegistration(answers);
+            }
+			else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
+                return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
+            }
+			else if (survey.Post_Processing_Method__c.equals('EADD_HUB')) {
+                return ProcessEADDSurveys.processEADDHubRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
+                return BracSurveysHelpers.processHealthProgrammeSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
+                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
+            }
+            else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
+                return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('TDR_PA_PRODUCTS')) {
+                return TdrHelpers.processTdrPaProductsSurvey(surveySubmission, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
+                return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
+            }
+        else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
+                return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
             }
         }
         catch (Exception e) {

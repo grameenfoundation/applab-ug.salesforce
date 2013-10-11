@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>AddToCampaign</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EnableCustomerPortal</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EnablePartnerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EnableSelfService</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Merge</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewContact</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewCustomerPortal</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewPartnerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewSelfService</actionName>
+        <type>Default</type>
+    </actionOverrides>
     <enableFeeds>true</enableFeeds>
+    <fields>
+        <fullName>AccountId</fullName>
+        <type>Lookup</type>
+    </fields>
     <fields>
         <fullName>Addressee__c</fullName>
         <externalId>false</externalId>
@@ -49,6 +117,18 @@
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <referenceTo>Country__c</referenceTo>
+        <relationshipLabel>Contacts</relationshipLabel>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Deceased__c</fullName>
@@ -168,6 +248,7 @@
     </fields>
     <fields>
         <fullName>ONEN_Household__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Household</label>
         <referenceTo>ONEN_Household__c</referenceTo>
@@ -175,6 +256,10 @@
         <relationshipName>R00N70000001ay0ZEAQ</relationshipName>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -229,6 +314,51 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+        <fullName>Picture_Attachment_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Stores the Id of the attachment that is used for the profile picture for this contact</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Stores the Id of the attachment that is used for the profile picture for this contact</inlineHelpText>
+        <label>Picture Attachment Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Picture_Url__c</fullName>
+        <description>URL for picture uploaded from a survey</description>
+        <externalId>false</externalId>
+        <label>Picture Url</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Picture__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 153, 153))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Picture</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReportsToId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Signature__c</fullName>
+        <description>Signature URL</description>
+        <externalId>false</externalId>
+        <label>Signature</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
         <fullName>Spouse_Name__c</fullName>
         <externalId>false</externalId>
         <label>Spouse Name</label>
@@ -269,6 +399,135 @@
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
+    <fields>
+        <fullName>gfsurveys__Age__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The age of the contact</description>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(Birthdate),0,FLOOR((TODAY()-Birthdate)/365.2425))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__IsClient__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Is Client</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__IsMobileUser__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Returns the number of Active Mobile User objects associated with this contact. The contact is considered to be a Mobile User if it has one (or more) related Mobile User objects.
+In this context 0 means false, and 1 or more means true.</description>
+        <externalId>false</externalId>
+        <label>Is Mobile User</label>
+        <summaryForeignKey>gfsurveys__Mobile_User__c.gfsurveys__Contact__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__Mobile_User__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( gfsurveys__IsMobileUser__c &gt; 0
+,
+IMAGE(&apos;/img/checkbox_checked.gif&apos;, &apos;Checked&apos;)
+,
+IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Mobile User Count</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__mobilesurveys_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Respondent ID</label>
+        <length>15</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__mobilesurveys_LastCheckInDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Check In Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__mobilesurveys_LastCheckInDevice__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>mobilesurveys Last Check In Device</label>
+        <referenceTo>gfsurveys__Device__c</referenceTo>
+        <relationshipLabel>Contacts</relationshipLabel>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__mobilesurveys_Password__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Surveyor Password</label>
+        <length>64</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__mobilesurveys_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Surveyor Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blocked</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>gfsurveys__mobilesurveys_Username__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Surveyor Username</label>
+        <length>64</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <listViews>
         <fullName>Africa</fullName>
         <columns>FULL_NAME</columns>
@@ -284,9 +543,6 @@
             <value>Africa</value>
         </filters>
         <label>Africa</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>Americas</fullName>
@@ -303,9 +559,6 @@
             <value>Americas</value>
         </filters>
         <label>Americas</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>Asia</fullName>
@@ -322,9 +575,6 @@
             <value>Asia</value>
         </filters>
         <label>Asia</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>Business</fullName>
@@ -342,9 +592,24 @@
             <value>business</value>
         </filters>
         <label>Business</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Colombia_Contacts</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>CONTACT.TITLE</columns>
+        <columns>CONTACT.PHONE1</columns>
+        <columns>CONTACT.EMAIL</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>Country__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ALIAS</field>
+            <operation>equals</operation>
+            <value>LAC</value>
+        </filters>
+        <label>Colombia Contacts</label>
+        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>General</fullName>
@@ -361,9 +626,6 @@
             <value>general</value>
         </filters>
         <label>General</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>MENA</fullName>
@@ -380,9 +642,6 @@
             <value>MENA</value>
         </filters>
         <label>MENA</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>NewThisWeek</fullName>
@@ -415,9 +674,6 @@
             <value>philanthropy</value>
         </filters>
         <label>Philanthropy</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>Technology</fullName>
@@ -434,9 +690,6 @@
             <value>technology</value>
         </filters>
         <label>Technology</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>Telecom</fullName>
@@ -453,9 +706,6 @@
             <value>telecom</value>
         </filters>
         <label>Telecom</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
     <listViews>
         <fullName>USA</fullName>
@@ -472,10 +722,33 @@
             <value>USA</value>
         </filters>
         <label>USA</label>
-        <sharedTo>
-            <groups>GF Marketing</groups>
-        </sharedTo>
     </listViews>
+    <listViews>
+        <fullName>gfsurveys__Surveyors</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>gfsurveys__mobilesurveys_Username__c</columns>
+        <columns>gfsurveys__mobilesurveys_Password__c</columns>
+        <columns>gfsurveys__mobilesurveys_Status__c</columns>
+        <columns>gfsurveys__mobilesurveys_LastCheckInDate__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>gfsurveys__mobilesurveys_Username__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Surveyors</label>
+    </listViews>
+    <namedFilters>
+        <fullName>gfsurveys__nf_01IE0000000kHoZMAU_00NE0000004AO1bMAG</fullName>
+        <active>false</active>
+        <field>gfsurveys__Client_Assignation__c.gfsurveys__Client__c</field>
+        <filterItems>
+            <field>Contact.gfsurveys__IsClient__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Client Assignation_Client</name>
+    </namedFilters>
     <webLinks>
         <fullName>Contact_Pledge</fullName>
         <availability>online</availability>
@@ -567,6 +840,96 @@
         <showsLocation>false</showsLocation>
         <showsStatus>false</showsStatus>
         <url>/00O70000001KiYi?pv0={!Contact.Id}&amp;pv1={!Contact.FirstName} {!Contact.LastName}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>gfsurveys__ActivateContact</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Activate</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.Contact)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to activate.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+
+      var toActivateContacts = new Array();
+      for( i = 0; i &lt; records.length; i ++){
+               var con = new sforce.SObject(&quot;Contact&quot;);
+               con.Id = records[i];
+               con.mobilesurveys_Status__c = &apos;Active&apos;;
+               toActivateContacts.push(con);
+      }
+      result = sforce.connection.update(toActivateContacts);
+      window.location.reload();
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>gfsurveys__DeactivateContact</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Deactivate</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.Contact)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to deactivate.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+
+      var toDeactivateContacts = new Array();
+      for( i = 0; i &lt; records.length; i ++){
+               var con = new sforce.SObject(&quot;Contact&quot;);
+               con.Id = records[i];
+               con.mobilesurveys_Status__c = &apos;Inactive&apos;;
+               toDeactivateContacts.push(con);
+      }
+      result = sforce.connection.update(toDeactivateContacts);
+      window.location.reload();
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>gfsurveys__DeleteContact</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Delete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/connection.js&quot;)}
+
+
+var records = {!GETRECORDIDS($ObjectType.Contact)};
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+alert(&quot;Please select at least one record to delete.&quot;); //alert the user that they didn&apos;t make a selection
+} else { //otherwise, there was a record selected
+   if(confirm(&apos;Are you sure you want to delete selected Contacts?&apos;)){
+      var delContacts = sforce.connection.deleteIds(records);
+      var validationMessage = &apos;&apos;;
+      for( i = 0; i &lt; delContacts.length; i ++){
+           if(!delContacts[i].getBoolean(&quot;success&quot;)){
+                validationMessage += delContacts[i].errors.message + &apos; \n\r &apos; ;
+           }
+      }
+      if( validationMessage != &apos;&apos; ){
+             alert(&apos;The following Contacts could not be deleted: \r\n \r\n &apos; + validationMessage );
+      }
+      window.location.reload();
+   }
+}</url>
     </webLinks>
     <webLinks>
         <fullName>map</fullName>

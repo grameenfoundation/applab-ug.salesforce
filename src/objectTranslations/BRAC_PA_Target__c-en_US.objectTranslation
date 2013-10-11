@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>BRAC PA Target</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>BRAC PA Targets</value>
+    </caseValues>
+    <fields>
+        <help><!-- Set this to be the date that the target starts. If left unset will default to today --></help>
+        <label><!-- Start Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the number of health visits that the PA is supposed to make this month --></help>
+        <label><!-- Target --></label>
+        <name>Health_Visits__c</name>
+    </fields>
+    <fields>
+        <help><!-- Please enter the number of households that the PA is supposed to visit in a month --></help>
+        <label><!-- Target --></label>
+        <name>Households_Visits__c</name>
+    </fields>
+    <fields>
+        <help><!-- Un-check this to de-activate the target --></help>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

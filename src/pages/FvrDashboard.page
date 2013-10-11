@@ -113,7 +113,7 @@
                 </apex:column>
                 <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
                     <apex:outputPanel rendered="{!NOT(item.isHeader)}">
-                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                             <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                                 Break Down
                             </a>
@@ -163,7 +163,7 @@
                 </apex:column>
                 <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
                     <apex:outputPanel rendered="{!NOT(item.isHeader)}">
-                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                             <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                                 Break Down
                             </a>
@@ -213,7 +213,7 @@
                 </apex:column>
                 <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
                     <apex:outputPanel rendered="{!NOT(item.isHeader)}">
-                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                             <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                                 Break Down
                             </a>
@@ -263,7 +263,7 @@
                 </apex:column>
                 <apex:column headerValue="Show Break Down" rendered="{!hideShowBreakDown==false}" width="50px">
                     <apex:outputPanel rendered="{!NOT(item.isHeader)}">
-                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                             <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                                 Break Down
                             </a>

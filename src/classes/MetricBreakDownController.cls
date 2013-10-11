@@ -61,11 +61,20 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
 
         // Get the url params
         this.dateToShow = pageRef.getParameters().get('date');
-         if (this.dateToShow != null && !this.dateToShow.equals('')) {
-                this.dateToShow = this.dateToShow.replace('sp', ' ');
+        
+        if (this.dateToShow != null && !this.dateToShow.equals('')) {
+            system.debug('Set from parameter : ' + this.dateToShow);
+            this.dateToShow = this.dateToShow.replace('sp', ' ');
         }
- 
+        else {
+            this.dateToShow = MetricHelpers.createDispRollOverString(Date.today(), getRollOverPeriod());
+            system.debug('Rollover Period : ' + getRollOverPeriod());
+            system.debug('Set from value call : ' + this.dateToShow);
+        }
+        
+        // Pick this from somewhere
         this.metricId = pageRef.getParameters().get('metricId');
+        system.debug('Metric Id : ' + this.metricId);
         this.districtId = pageRef.getParameters().get('district');
         this.personId = pageRef.getParameters().get('person');
 
@@ -119,7 +128,7 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
     }
 
     private void fetchSelector(String id) {
-
+        system.debug('Selector Id : ' + id);
         if (id == null || id.equals('') || this.section == null || !this.section.Show_Selector_On_Break_Down__c) {
             setShowSelector(false);
             return;
@@ -169,6 +178,7 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
         }
 
         // Check to see if we have a district to check.
+        system.debug('Display Type : ' + getDisplayType());
         String clause = '';
         if (getDisplayType().equals('District')) {
             clause = ' AND District__c != null ';
@@ -190,6 +200,7 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
                 'M_E_Metric__c, ' +
                 'Actual_Value__c, ' +
                 'Manual_Value__c, ' +
+                'Real_Value__c, ' +
                 'Projected_Value__c, ' +
                 'Comment__c, ' +
                 'Date__c, ' +
@@ -206,6 +217,7 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
                 'M_E_Metric__r.Is_Header__c,' +
                 'M_E_Metric__r.Further_Link_Url__c, ' +
                 'M_E_Metric__r.Further_Link_Text__c, ' +
+                'M_E_Metric__r.Calculation_Type__c, ' +
                 'M_E_Metric__r.Is_On_Fly__c, ' +
                 'M_E_Metric__r.On_The_Fly_Calculation_Type__c, ' +
                 'M_E_Metric__r.Reverse_Comparison__c ' +
@@ -260,12 +272,34 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
             if (dates[0].dayOfYear() <= metric.Date__c.dayOfYear() && dates[0].year() == metric.Date__c.year()) {
 
                 // Current quarter
-                metricDataWrapper.currentQuarter = metric;
+                metricDataWrapper.setHasCurrent(true);
+                metricDataWrapper.setCurrentId(metric.Id);
+                metricDataWrapper.setCurrentRealValue(metric.Real_Value__c);
+                metricDataWrapper.setCurrentNumerator(metric.Numerator__c);
+                metricDataWrapper.setCurrentDenumerator(metric.Denumerator__c);
+                metricDataWrapper.setCurrentTarget(metric.Projected_Value__c);
+                metricDataWrapper.setFurtherLinkText(metric.M_E_Metric__r.Further_Link_Text__c);
+                metricDataWrapper.setFurtherLinkUrl(metric.M_E_Metric__r.Further_Link_Url__c);
+                metricDataWrapper.setReverseComparison(metric.M_E_Metric__r.Reverse_Comparison__c);
+                metricDataWrapper.setComment(metric.Comment__c);
+                metricDataWrapper.setOnFly(metric.M_E_Metric__r.Is_On_Fly__c);
+                metricDataWrapper.setCalculation(metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c);
+                if (metric.District__c != null) {
+                    metricDataWrapper.setDistrictName(metric.District__r.Name);
+                }
+                else if (metric.Person__c != null) {
+                    metricDataWrapper.setFirstName(metric.Person__r.First_Name__c);
+                    metricDataWrapper.setLastName(metric.Person__r.Last_Name__c);
+                }
             }
             else {
 
                 // Previous quarter
-                metricDataWrapper.previousQuarter = metric;
+                metricDataWrapper.setPreviousId(metric.Id);
+                metricDataWrapper.setPreviousRealValue(metric.Real_Value__c);
+                metricDataWrapper.setPreviousNumerator(metric.Numerator__c);
+                metricDataWrapper.setPreviousDenumerator(metric.Denumerator__c);
+                metricDataWrapper.setPreviousTarget(metric.Projected_Value__c);
             }
         }
 
@@ -350,11 +384,11 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
     private String getRollOverPeriod() {
 
         if (this.section == null) {
-            return 'Yearly';
+            return 'Monthly';
         }
         String rollOverPeriod = this.section.RollOver_Time__c;
         if (rollOverPeriod == null || rollOverPeriod.equals('')) {
-            rollOverPeriod = 'Yearly';
+            rollOverPeriod = 'Monthly';
         }
         return rollOverPeriod;
     }

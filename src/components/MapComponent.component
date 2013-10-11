@@ -9,7 +9,7 @@
         }
         #{!$Component.mapId} { height: 100%; }
     </style>
-    <apex:includeScript value="http://maps.google.com/maps/api/js?sensor=false"/>
+    <apex:includeScript value="https://maps.google.com/maps/api/js?sensor=false&libraries=geometry"/>
     <apex:includeScript value="{!$Resource.infoBoxPackedJs}"/>
     <apex:includeScript value="{!$Resource.mapJs}"/>
     <apex:attribute name="sectionKey"
@@ -52,7 +52,6 @@
         addSectionRefreshStore("{!sectionKey}", "{!key}");
     </script>
 
-
     <apex:actionFunction action="{!refreshData}" name="{!key}" rerender="{!$Component.mapArea}"/>
     <apex:outputPanel id="mapArea">
 
@@ -87,6 +86,13 @@
                 if (!isNaN(latitude) && !isNaN(longitude)) {
                     addMarkerToMap("{!key}", new markerData(latitude, longitude, '{!marker.markerTitle}', '{!marker.markerColour}', '{!marker.markerInfoContentString}', '{!marker.markerLabel}'));
                 }
+            </script>
+        </apex:repeat>
+        <apex:repeat value="{!mapPolygon}" var="vertice">
+            <script type="text/javascript">
+                var latitude = parseFloat('{!vertice.latitude}');
+                var longitude = parseFloat('{!vertice.longitude}');
+                addVerticeToMap("{!key}", new verticeData(latitude, longitude));
             </script>
         </apex:repeat>
         <script type="text/javascript">

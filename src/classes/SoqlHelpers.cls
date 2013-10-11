@@ -123,6 +123,7 @@ public class SoqlHelpers {
             'FROM '                                                     +
                 'Person__c '                                            +
              'WHERE '                                                   +
+                 ' Current_Poverty_Scorecard__c != NULL AND '           +
                 addInWhereClause('Id', false, getNamedVariable(variables, 'persons'), null, false);
 
         System.debug(LoggingLevel.INFO, query);
@@ -1448,7 +1449,7 @@ public class SoqlHelpers {
     }
 
     public static testMethod void testGetFarmers() {
-
+       
         District__c district = [
             SELECT
                 Name,
@@ -1541,7 +1542,7 @@ public class SoqlHelpers {
     }
 
     public static testMethod void testTagCloud() {
-
+        
         District__c district = [
             SELECT
                 Name,
@@ -1652,4 +1653,96 @@ public class SoqlHelpers {
         Account[] orgs = database.query(getOrganisations());
         database.query(getProjects(null));
     }
+    
+    public static testMethod void testVariousResults(){
+    
+        Map<String, String> query_variables = new Map<String, String>();
+        query_variables.put('farmers', 'value1');
+        query_variables.put('ckws', 'value2');
+        query_variables.put('district', 'value3');
+        String farmers = getFarmers(query_variables, true);
+        System.Assert(farmers.equals(''));
+        
+        Decimal numberOfPeople = getNumberOfPeople(new Map<String, String>(), true);
+        System.Assert(0.0 == numberOfPeople);
+        
+        String querry = getProjects('NAADS');
+        System.Assert(querry.length() > 0);
+        
+        Map<String, String> variables2 = new Map<String, String>();
+        variables2.put('AllCat', 'true');
+        variables2.put('AllCrops', 'true');
+        variables2.put('AllLivestock', 'true');
+        String words = getTagCloudWords(variables2, 0);
+        System.Assert(words.contains('Is_Category__c'));
+        
+        String whereClause = getKeywordWhereClauses(variables2);
+        System.Assert(whereClause.contains('Is_Crop__c'));
+        
+        //Search_Log__c log = new Search_Log__c();
+        //log.Response__c = 'Test Log';
+        //database.insert(log);
+        //Map<String, String> variables3 = new Map<String, String>();
+        //variables3.put('Response__c', 'Test Log');
+        //Map<String, Integer> totals = getSearchTotals(variables3,  new Map<String, Integer>(), 'From_USSD__c');
+        //System.Assert(totals != null);
+        
+        String clauses = generateMultipleSelectClause('value1 value2');
+        System.Assert(clauses.contains('\'value1 %\''));
+        System.Assert(clauses.contains('\'% value1\''));
+        System.Assert(clauses.contains('\'% value1 %\''));
+        
+        Map<Id, User> users = getRoleSubordinateUsers('00570000002FSr1AAG');
+        System.Assert(users != null);
+        
+        Set<ID> ids = getAllSubRoleIds(new Set<ID>{'00570000002FSr1AAG'});
+        System.Assert(ids != null);
+        
+        Map<String, String> variables4 = new Map<String, String>();
+        variables4.put('orgName', 'NAADS');
+        variables4.put('org', 'GF');
+        variables4.put('SalesForceOnly', 'true');
+        String surveyQuery = getSurveys(variables4);
+        System.Assert(surveyQuery.contains('Account__r.Name'));
+        
+        String info = getCkwGroupMemberInfo('00570000002FSr1AAG');
+        System.Assert(info.contains('00570000002FSr1AAG'));
+    }
+    
+    /**
+     * Returns all the users who are below the current user in heirarchy
+     * @param userId The User Id of the User whose subordinates we want to get
+     */
+    public static Map<Id, User> getRoleSubordinateUsers(Id userId) {
+        // get requested user's role
+        Id roleId = [select UserRoleId from User where Id = :userId].UserRoleId;
+        
+        // get all of the roles underneath the user
+        Set<Id> allSubRoleIds = getAllSubRoleIds(new Set<ID>{roleId});
+        
+        // get all of the ids for the users in those roles
+        Map<Id,User> users = new Map<Id, User>([Select Id, Name From User where 
+          UserRoleId IN :allSubRoleIds]);
+          
+        return users;
+    }
+    
+    /**
+     * Returns all roles that are below a certain set of roles in heirarchy
+     * @param roleIds The Role Ids whose subordinates we want to get
+     */
+    private static Set<ID> getAllSubRoleIds(Set<ID> roleIds) {
+ 
+        Set<ID> currentRoleIds = new Set<ID>();
+ 
+        // get all of the roles underneath the passed roles
+        for(UserRole userRole :[select Id from UserRole where ParentRoleId IN :roleIds AND ParentRoleID != null])
+        currentRoleIds.add(userRole.Id);
+ 
+        // go fetch some more rolls!
+        if(currentRoleIds.size() > 0) {
+            currentRoleIds.addAll(getAllSubRoleIds(currentRoleIds));
+        }
+        return currentRoleIds;
+  }
 }

@@ -29,12 +29,14 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
          this.graphColumns = null;
          this.graphRows = null;
+         
+         String defaultJson = '{cols:[ {id:null,label:null,type:\'string\'}, {id:null,label:null,type:\'number\'}], rows:[{c:[{v:null},{v:0}]}]}';
 
         // Init the graph. Display error message if there was a failure
         if (!init()) {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Failed to initialise graph. If this problem persists contact support'));
             System.debug(LoggingLevel.INFO, 'Failed to init the graph');
-            return 'FAIL';
+            return defaultJson;
         }
 
         // Dig out the information to be displayed on the graph.
@@ -42,9 +44,9 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         if (!initDataTable()) {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Failed to initialise graph data table. If this problem persists contact support'));
             System.debug(LoggingLevel.INFO, 'Failed to init the data table');
-            return 'FAIL';
+            return defaultJson;
         }
-
+        system.debug('Graph data successfully initialised');
         // Set the dimensions of the graph
         setHeight('300');
         setWidth('700');
@@ -62,7 +64,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         if (numberOfColumns == 0 || numberOfRows == 0) {
             System.debug(LoggingLevel.INFO, 'Number of Columns = ' + numberOfColumns + '. Number of Rows = ' + numberOfRows);
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, 'There is no valid data for your chosen graph. Please ensure that some data has been submitted to the system'));
-            return 'FAIL';
+            return defaultJson;
         }
 
         // Generate the JSON string for the data table
@@ -96,6 +98,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         this.sObjectId = value.Id;
         this.sObjectRecord = value;
         this.sObjectName = 'Graph_Parameter__c';
+        this.setDatePeriodField('Date_Period__c');
         if (this.isLoaded == false) {
             init();
         }
@@ -147,11 +150,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
             if (this.getParentComponentController() != null) {
                 this.getParentComponentController().rebuildParameters();
-
-                // Rebuild the start times here so they are taken into account when rebuilding the axis
-                if (!getParentValue('datePicker').equals('')) {
-                    setDates(getParentValue('datePicker'));
-                }
+                setDates();
             }
 
             initAxis();
@@ -170,6 +169,9 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
     private List<GraphColumnWrapper> graphColumns;
     private List<GraphComponentController.GraphRowWrapper> graphRows;
+    
+    //Define custom key label for Column Chart
+    private String singleColumnChartKeyLabel;
 
     Transient List<String> rowOrder;
     Transient Map<String, GraphComponentController.GraphRowWrapper> rowMap;
@@ -179,7 +181,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
 
     private Boolean init() {
 
-        setDates(getParentValue('datePicker'));
+        setDates();
         initAxis();
         return true;
     }
@@ -252,7 +254,17 @@ public with sharing class GraphComponentController extends ChildComponentBase {
             this.graphColumns.add(new GraphColumnWrapper('number', getFieldValue('yAxis_Title__c'))); 
         }
         else {
-            this.graphColumns.add(new GraphColumnWrapper('number', 'Rain Fall MM')); 
+            String keyLabelName = 'Data';          
+            
+            if(singleColumnChartKeyLabel != null) {
+                keyLabelName = singleColumnChartKeyLabel;
+            }
+            
+            if(getFieldValue('yAxis_Title__c') != null) {
+                keyLabelName = getFieldValue('yAxis_Title__c');
+            }
+                      
+            this.graphColumns.add(new GraphColumnWrapper('number', keyLabelName )); 
        }
     }
 
@@ -261,7 +273,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         // Get the start and end dates.
         Date dateToIncrement = getStartDate(true);
         getEndDate(true);
-
+    system.debug('start date = '+dateToIncrement + ' and end date = ' + getEndDate(true));
         while (dateToIncrement.daysBetween(getEndDate(true)) >= 0) {
             String displayDate = formatDateDisplay(dateToIncrement);
             rowMap.put(displayDate, new GraphComponentController.GraphRowWrapper(displayDate));
@@ -322,14 +334,10 @@ public with sharing class GraphComponentController extends ChildComponentBase {
              success = initTrendDataTable();
         }
         else if (typeOfGraph.equalsIgnoreCase('ColumnChart')) {
-
-            // Not implemented yet so this type should not have been selected so fail
-            success = false;
+            success = initColumnDataTable();
         }
         else if (typeOfGraph.equalsIgnoreCase('BarChart')) {
-
-            // Not implemented yet so this type should not have been selected so fail
-            success = false;
+            success = initBarDataTable();
         }
         else if (typeOfGraph.equalsIgnoreCase('PieChart')) {
             success = initPieDataTable();
@@ -341,7 +349,112 @@ public with sharing class GraphComponentController extends ChildComponentBase {
     }
 
     /**
-     *  Each segment of pie is represented by a graph type
+     * Init a column chart
+     */
+    private Boolean initColumnDataTable() {
+
+        Boolean success = true;
+
+        // Get all the segments of the pie
+        Graph_Type__c[] segments = [
+            SELECT
+                Name,
+                Id,
+                Type_Of_sObject__c,
+                Label__c,
+                Keyword__c,
+                Is_Multiple__c,
+                Calculation__c,
+                Group_Field__c,
+                Person_Prefix__c
+            FROM
+                Graph_Type__c
+            WHERE
+                Graph_Parameter__c = :getsObjectRecord().Id]; System.debug(LoggingLevel.INFO, 'segments size ' +segments.size());
+
+        for (Graph_Type__c segment : segments) {
+            String sObjectName = segment.Type_Of_sObject__c;
+            System.debug(LoggingLevel.INFO, sObjectName);
+            if (segment.Is_Multiple__c) {
+                getMultipleColumnChart(segment);
+            }
+            else if(sObjectName.equalsIgnoreCase('BVAT Environment')) {
+                buildBvatSubCategoryColumnDataTable(sObjectName);
+            }
+            else if(sObjectName.equalsIgnoreCase('BVAT Crop Management')) {
+                buildBvatSubCategoryColumnDataTable(sObjectName);
+            }
+            else if(sObjectName.equalsIgnoreCase('BVAT Animal Keeping')) {
+                buildBvatSubCategoryColumnDataTable(sObjectName);
+            }
+            else if(sObjectName.equalsIgnoreCase('BVAT Human Health')) {
+                buildBvatSubCategoryColumnDataTable(sObjectName);
+            }
+            else if(sObjectName.equalsIgnoreCase('BVAT Other Content')) {
+                buildBvatSubCategoryColumnDataTable(sObjectName);
+            }
+            else {
+                system.debug('returning false');
+                return false;
+            }
+        }
+        return success;
+    }
+
+    private void getMultipleColumnChart(Graph_Type__c definition) {
+
+        Integer counter = 0;
+        Map<String, String> fieldStore = new Map<String, String>();
+        String query = 'SELECT ';
+        for (String field : definition.Label__c.split('_#splitter#_')) {
+            query += ' ' + definition.Calculation__c + '(' + field + ') field' + counter + ', ';
+            fieldStore.put('field' + counter, field);
+            counter++;
+            String objectName = definition.Type_Of_sObject__c.replace(' ', '_') + '__c';
+            if (field.contains('__r.')) {
+                List<String> names = field.split('__r.');
+                objectName = names[names.size() - 2] + '__c';
+                field = names[names.size() - 1];
+            }
+
+            // Add the column wrappers
+            Schema.DescribeFieldResult fieldRes = Schema.getGlobalDescribe().get(objectName).getDescribe().fields.getMap().get(field).getDescribe();
+            this.graphColumns.add(new GraphColumnWrapper('number', fieldRes.getLabel()));
+        }
+        query += getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false) + ' grouping ' +
+            ' FROM ' +
+                definition.Type_Of_sObject__c.replace(' ', '_') + '__c' +
+            ' WHERE ' +
+                generateWhereClause(definition.Person_Prefix__c) + 
+            ' GROUP BY ' +
+                getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false);
+        System.debug(LoggingLevel.INFO, query);
+        AggregateResult[] results = Database.query(query);
+        for (AggregateResult result : results) {
+            GraphComponentController.GraphRowWrapper wrapper = new GraphComponentController.GraphRowWrapper(String.valueOf(result.get('grouping')));
+            for (Integer i = 0; i < counter; i++) {
+                wrapper.addValue(String.valueOf(result.get('field' + i)));
+            }
+            System.debug('Wrapper:' + wrapper);
+            System.debug('Row order: ' + String.valueOf(result.get('grouping')));
+            this.rowOrder.add(String.valueOf(result.get('grouping')));
+            this.rowMap.put(String.valueOf(result.get('grouping')), wrapper);
+        }
+        system.debug('Number of rows: ' + this.rowMap.size());
+    }
+
+    /**
+     * Init a bar chart. Have not been asked for this yet so not implemented yet. This is a placeholder stub
+     */
+    private Boolean initBarDataTable() {
+
+        Boolean success = false;
+        return success;
+    }
+
+    /**
+     * Each segment of pie is represented by a graph type unless getting multiple records from the same sObject.
+     * Then is is one type for all the segments belonging to that sObject
      */
     private Boolean initPieDataTable() {
 
@@ -352,7 +465,11 @@ public with sharing class GraphComponentController extends ChildComponentBase {
                 Id,
                 Type_Of_sObject__c,
                 Label__c,
-                Keyword__c
+                Keyword__c,
+                Is_Multiple__c,
+                Calculation__c,
+                Group_Field__c,
+                Person_Prefix__c
             FROM
                 Graph_Type__c
             WHERE
@@ -361,7 +478,10 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         for (Graph_Type__c segment : segments) {
             String sObjectName = segment.Type_Of_sObject__c;
             System.debug(LoggingLevel.INFO, sObjectName);
-            if (sObjectName.equalsIgnoreCase('Search Log')) {
+            if (segment.Is_Multiple__c) {
+                getMultiplePieChart(segment);
+            }
+            else if (sObjectName.equalsIgnoreCase('Search Log')) {
                 this.rowOrder.add(segment.Keyword__c);
                 getPieSearchLogValue(segment);
             }
@@ -369,11 +489,352 @@ public with sharing class GraphComponentController extends ChildComponentBase {
                 this.rowOrder.add(segment.Label__c);
                 getPieSinglePointValue(segment);
             }
+            else if (sObjectName.equalsIgnoreCase('BVAT Farming Type')) {                
+                buildBvatFarmingTypesPieDataTable();
+            }
+            else if (sObjectName.equalsIgnoreCase('BVAT Content Area')) {                
+                buildBvatMajorCategoriesPieDataTable();
+            }
             else {
                 return false;
             }
         }
         return true;
+    }
+    
+ private void buildBvatFarmingTypesPieDataTable() {
+        String baseQuery = 'SELECT ' +
+            'Farming_Reason__c reason, COUNT(Id) reasonCount ' +
+        'FROM ' +
+            'BVAT_Farmer__c ';
+                
+        List<String> whereClauses = getBvatFarmerWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        String query = baseQuery + whereClause + 
+
+        ' GROUP BY ' +
+            'Farming_Reason__c';
+        System.debug(LoggingLevel.WARN, query);
+        List<AggregateResult> summary = database.query(query);
+        
+        
+        for (AggregateResult result : summary) {
+            if (result != null) {
+                String reasonType = String.valueOf(result.get('reason'));
+                this.rowOrder.add(reasonType);
+                Integer reasonCount = (Integer)result.get('reasonCount');
+                GraphComponentController.GraphRowWrapper wrapper = new GraphComponentController.GraphRowWrapper(reasonType);
+                wrapper.addValue(String.valueOf(reasonCount));
+                this.rowMap.put(reasonType, wrapper);
+            }
+        }        
+    }
+    
+        // Build the where cluse for the query. Values are taken from the children of the parent if there is one. If not then everything is loaded.
+    private List<String> getBvatFarmerWhereClause() {
+
+        //I will check the one of BVAT Farmer
+        List<String> whereClauses = new List<String>();
+        if (getStartDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'CreatedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), false), false));
+        }
+        if (getEndDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'CreatedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
+        }
+        if (!getParentValue('CIW__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Registered_By__c', getParentValue('CIW__c'), true));
+        }
+        if (!getParentValue('Kenyan_County__c').equals('')) {
+            whereClauses.add('Registered_By__c IN (SELECT CIW__c FROM CIW_County_Association__c WHERE Kenyan_County__c =\'' + getParentValue('Kenyan_County__c') + '\')');
+        }
+        return whereClauses;
+        
+    } 
+    
+    private void buildBvatMajorCategoriesPieDataTable() {
+        List<String> allKeyContentAreas = new List<String>();
+        Map<String, Integer> contentAreaCounts = new Map<String, Integer>();
+
+        //Get the Key_Content_Areas which will be a semi-colon separated list
+        String baseQuery = 'SELECT ' +
+                'Key_Content_Areas__c ' +
+            'FROM ' +
+                'BVAT_Content__c';
+            
+        List<String> whereClauses = getBvatWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        String query = baseQuery + whereClause;
+        System.debug(LoggingLevel.WARN, query);
+        
+        List<BVAT_Content__c> summary = database.query(query);       
+     
+        //Now Loop through the individual lists and split to retrieve the actual Key Content Areas
+        for (BVAT_Content__c content: summary) {
+            if (content!= null) {
+                String[] contentAreas = content.Key_Content_Areas__c.split(';');
+                for (String contentArea : contentAreas) {
+                    allKeyContentAreas.add(contentArea);
+                }               
+            }
+        }          
+        
+        //Then loop to aggregate the counts per contentArea
+        for (String contentArea : allKeyContentAreas) {
+            if(contentAreaCounts.containsKey(contentArea)) {
+                Integer currentValue = contentAreaCounts.get(contentArea);
+                contentAreaCounts.put(contentArea,++currentValue);
+            }
+            else {                
+                contentAreaCounts.put(contentArea,1);
+            }        
+        }
+        
+        //Now loop through the final Map<entry, count> to setup the data table
+        //Actually the Map is the data table
+        for (String contentAreaCountsKey : contentAreaCounts.keySet()) {
+            this.rowOrder.add(contentAreaCountsKey);            
+            GraphComponentController.GraphRowWrapper wrapper = new GraphComponentController.GraphRowWrapper(contentAreaCountsKey);
+            wrapper.addValue(String.valueOf(contentAreaCounts.get(contentAreaCountsKey)));
+            this.rowMap.put(contentAreaCountsKey, wrapper); 
+        }
+    }
+    
+    private void buildBvatSubCategoryColumnDataTable(String subCategoryName) {
+        List<String> allSubCategoryContents = new List<String>();
+        Map<String, Integer> contentAreaCounts = new Map<String, Integer>(); 
+         
+        //First set the Label
+        singleColumnChartKeyLabel = 'sub-category';     
+        
+        //Get the Key_Content_Areas in the given sub category which will be a semi-colon separated list       
+        if(subCategoryName.equalsIgnoreCase('BVAT Environment')) { 
+            String baseQuery = 'SELECT ' +
+                'Environment_Key_Areas__c ' +
+            'FROM ' +
+                'BVAT_Content__c';
+            
+            List<String> whereClauses = getBvatWhereClause();
+            String whereClause = '';
+
+            if (whereClauses.size() > 0) {
+                whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+            }
+            String query = baseQuery + whereClause;
+            System.debug(LoggingLevel.WARN, query);
+        
+            List<BVAT_Content__c> summary = database.query(query);
+            
+            //Now Loop through the individual lists and split to retrieve the actual Key Content Areas
+            for (BVAT_Content__c content: summary) {
+                if (content!= null) {
+                    if(content.Environment_Key_Areas__c != null) {
+                        String[] contentAreas = content.Environment_Key_Areas__c.split(';');
+                        for (String contentArea : contentAreas) {
+                            allSubCategoryContents.add(contentArea);
+                        }  
+                    }             
+                }
+            }
+        } 
+        else if(subCategoryName.equalsIgnoreCase('BVAT Crop Management')) { 
+            String baseQuery = 'SELECT ' +
+                'Crop_Management_Key_Areas__c ' +
+            'FROM ' +
+                'BVAT_Content__c';
+                        List<String> whereClauses = getBvatWhereClause();
+            String whereClause = '';
+
+            if (whereClauses.size() > 0) {
+                whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+            }
+            String query = baseQuery + whereClause;
+            System.debug(LoggingLevel.WARN, query);
+                
+            List<BVAT_Content__c> summary = database.query(query);
+            
+            //Now Loop through the individual lists and split to retrieve the actual Key Content Areas
+            for (BVAT_Content__c content: summary) {
+                if (content!= null) {
+                    if(content.Crop_Management_Key_Areas__c != null) {
+                        String[] contentAreas = content.Crop_Management_Key_Areas__c.split(';');
+                        for (String contentArea : contentAreas) {
+                            allSubCategoryContents.add(contentArea);
+                        }  
+                    }             
+                }
+            }
+        } 
+        else if(subCategoryName.equalsIgnoreCase('BVAT Animal Keeping')) { 
+            String baseQuery = 'SELECT ' +
+                'Animal_Keeping_Key_Areas__c ' +
+            'FROM ' +
+                'BVAT_Content__c';
+            List<String> whereClauses = getBvatWhereClause();
+            String whereClause = '';
+
+            if (whereClauses.size() > 0) {
+                whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+            }
+            String query = baseQuery + whereClause;
+            System.debug(LoggingLevel.WARN, query);
+            List<BVAT_Content__c> summary = database.query(query);
+            
+            //Now Loop through the individual lists and split to retrieve the actual Key Content Areas
+            for (BVAT_Content__c content: summary) {
+                if (content!= null) {
+                    if(content.Animal_Keeping_Key_Areas__c != null) {
+                        String[] contentAreas = content.Animal_Keeping_Key_Areas__c.split(';');
+                        for (String contentArea : contentAreas) {
+                            allSubCategoryContents.add(contentArea);
+                        }  
+                    }             
+                }
+            }
+        }
+        else if(subCategoryName.equalsIgnoreCase('BVAT Human Health')) { 
+            String baseQuery = 'SELECT ' +
+                'Human_Health_Key_Areas__c ' +
+            'FROM ' +
+                'BVAT_Content__c';
+            List<String> whereClauses = getBvatWhereClause();
+            String whereClause = '';
+
+            if (whereClauses.size() > 0) {
+                whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+            }
+            String query = baseQuery + whereClause;
+            System.debug(LoggingLevel.WARN, query);
+            List<BVAT_Content__c> summary = database.query(query);
+            
+            //Now Loop through the individual lists and split to retrieve the actual Key Content Areas
+            for (BVAT_Content__c content: summary) {
+                if (content!= null) {
+                    if(content.Human_Health_Key_Areas__c != null) {
+                        String[] contentAreas = content.Human_Health_Key_Areas__c.split(';');
+                        for (String contentArea : contentAreas) {
+                            allSubCategoryContents.add(contentArea);
+                        }  
+                    }             
+                }
+            }
+        }
+        else if(subCategoryName.equalsIgnoreCase('BVAT Other Content')) { 
+            //Funny: This graph actully displays the major categories according to spec!
+            Map<String, Integer> otherCategories = new Map<String,Integer>{'Value Addition'=>1,'Financial Management'=>2, 'Market Intelligence'=>3};
+                        
+            String baseQuery = 'SELECT ' +
+                'Key_Content_Areas__c ' +
+            'FROM ' +
+                'BVAT_Content__c';
+            List<String> whereClauses = getBvatWhereClause();
+            String whereClause = '';
+
+            if (whereClauses.size() > 0) {
+                whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+            }
+            String query = baseQuery + whereClause;
+            System.debug(LoggingLevel.WARN, query);                
+            List<BVAT_Content__c> summary = database.query(query);
+            
+            //Now Loop through the individual lists and split to retrieve the actual Key Content Areas
+            for (BVAT_Content__c content: summary) {
+                if (content != null) {
+                    if(content.Key_Content_Areas__c != null) {              
+                        String[] contentAreas = content.Key_Content_Areas__c.split(';');
+                        for (String contentArea : contentAreas) {
+                            //Add only the Other Categories
+                            if(otherCategories.containsKey(contentArea)) {                          
+                                allSubCategoryContents.add(contentArea);
+                            }
+                        } 
+                    }                           
+                }
+            }
+        }        
+                    
+        
+        //Then loop to aggregate the counts per contentArea
+        for (String contentArea : allSubCategoryContents ) {
+            if(contentAreaCounts.containsKey(contentArea)) {
+                Integer currentValue = contentAreaCounts.get(contentArea);
+                contentAreaCounts.put(contentArea,++currentValue);
+            }
+            else {                
+                contentAreaCounts.put(contentArea,1);
+            }        
+        }
+        
+        //Now loop through the final Map<entry, count> to setup the data table
+        //Actually the Map is the data table
+        for (String contentAreaCountsKey : contentAreaCounts.keySet()) {
+            this.rowOrder.add(contentAreaCountsKey);            
+            GraphComponentController.GraphRowWrapper wrapper = new GraphComponentController.GraphRowWrapper(contentAreaCountsKey);
+            wrapper.addValue(String.valueOf(contentAreaCounts.get(contentAreaCountsKey)));
+            this.rowMap.put(contentAreaCountsKey, wrapper); 
+        }
+    }
+    
+        // Build the where cluse for the query. Values are taken from the children of the parent if there is one. If not then everything is loaded.
+    private List<String> getBvatWhereClause() {
+        List<String> whereClauses = new List<String>();
+        
+        if (getStartDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'CreatedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), false), false));
+        }
+        if (getEndDate(true) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'CreatedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
+        }
+        if (!getParentValue('Kenyan_County__c').equals('')) {
+            whereClauses.add('CIW__c IN (SELECT CIW__c FROM CIW_County_Association__c WHERE Kenyan_County__c =\'' + getParentValue('Kenyan_County__c') + '\')');
+        }
+
+        if (!getParentValue('CIW__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'CIW__c', getParentValue('CIW__c'), true));
+        }
+
+        return whereClauses;        
+    }
+
+    private void getMultiplePieChart(Graph_Type__c definition) {
+
+        Integer counter = 0;
+        Map<String, String> fieldStore = new Map<String, String>();
+        String query = 'SELECT ';
+        for (String field : definition.Label__c.split('_#splitter#_')) {
+            query += ', ' + definition.Calculation__c + '(' + field + ') field' + counter ;
+            fieldStore.put('field' + counter, field);
+            counter++;  
+        }
+
+        // For scenarios where grouping may not be necessary
+        if (!String.isEmpty(definition.Group_Field__c)) {
+            query += ' ,' + getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false) + ' grouping ';
+        }
+        query += ' FROM ' + definition.Type_Of_sObject__c.replace(' ', '_') + '__c' +
+            ' WHERE ' + generateWhereClause(definition.Person_Prefix__c);
+        if (!String.isEmpty(definition.Group_Field__c)) {
+            query += ' GROUP BY ' + getGroupByClause(definition.Group_Field__c, definition.Person_Prefix__c, false);
+        }
+        query = query.replace('SELECT ,' ,'SELECT');
+        System.debug(LoggingLevel.INFO, query);
+        AggregateResult[] results = Database.query(query);
+        for (AggregateResult result : results) {
+            for (Integer i = 0; i < counter; i++) {
+                Schema.DescribeFieldResult field = Schema.getGlobalDescribe().get(definition.Type_Of_sObject__c.replace(' ', '_') + '__c').getDescribe().fields.getMap().get(fieldStore.get('field' + i)).getDescribe();
+                GraphComponentController.GraphRowWrapper wrapper = new GraphComponentController.GraphRowWrapper(field.getLabel());
+                wrapper.addValue(String.valueOf(result.get('field' + i)));
+                this.rowOrder.add(fieldStore.get('field' + i));
+                this.rowMap.put(fieldStore.get('field' + i), wrapper);
+            }
+        }
     }
 
     private void getPieSinglePointValue(Graph_Type__c segment) {
@@ -518,6 +979,86 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         }
         return whereClauses;
     }
+    
+    private String generateWhereClause(String personPrefix) {
+
+        return generateWhereClause(personPrefix, true);
+    }
+
+    private String generateWhereClause(String personPrefix, Boolean isDate) {
+
+        if (personPrefix == null) {
+            personPrefix = '';
+        }
+
+        List<String> whereClauses = new List<String>();
+
+        // Get the parameters if there are any
+        if (this.getParentComponentController() != null) {
+            if (!this.getParentValue('District__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__r.District__c', this.getParentValue('District__c'), true));
+            }
+            if (!this.getParentValue('Subcounty__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__r.Subcounty__r.Display_Name__c', this.getParentValue('Subcounty__c'), true));
+            }
+            if (!this.getParentValue('Village__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__r.Village__c', this.getParentValue('Village__c'), true));
+            }
+            if (!this.getParentValue('Person__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Person__c', this.getParentValue('Person__c'), true));
+            }
+            if (!this.getParentValue('Client_Location__c').equals('')) {
+                whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', personPrefix + 'Client_Location__c', this.getParentValue('Client_Location__c'), true));
+            }
+        }
+
+        // Distinguish by dates
+        if (getStartDate(true) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(true)), isDate), false));
+        }
+        if (getEndDate(true) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(true)), isDate), false));
+        }
+        String whereClause = '';
+        if (whereClauses.size() > 0) {
+            whereClause = SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        return whereClause;
+    }
+    
+    private String getGroupByClause(String returnValue, String prefix, Boolean forceDefault) {
+
+        if (forceDefault) {
+            return returnValue;
+        }
+        
+        if (null == prefix) {
+            prefix = '';
+        } else if (!prefix.endsWith('.')){
+            prefix += '.';
+        }
+
+        // Get the parameters if there are any
+        if (this.getParentComponentController() != null) {
+            if (!this.getParentValue('District__c').equals('')) {
+                returnValue = prefix + 'Person__r.District__c';
+            }
+            if (!this.getParentValue('Subcounty__c').equals('')) {
+                returnValue = prefix + 'Person__r.Subcounty__r.Display_Name__c';
+            }
+            if (!this.getParentValue('Village__c').equals('')) {
+                returnValue = prefix + 'Person__r.Village__c';
+            }
+            if (!this.getParentValue('Person__c').equals('')) {
+                if (prefix.containsIgnoreCase('BRAC')) {
+                    returnValue = prefix + 'Person__r.Village__c';
+                } else {
+                    returnValue = prefix + 'Person__c';
+                }
+            }
+        }
+        return returnValue;
+    }
 
     private String getGroupByClause() {
 
@@ -597,7 +1138,6 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         graphType.Graph_Parameter__c = graph.Id;
         Database.insert(graphType);
 
-
         List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
         Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
         sgp1.Person__c = person.Id;
@@ -620,7 +1160,6 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         sgp3.Value__c = 10.0;
         sgps.add(sgp3);
         Database.insert(sgps);
-
 
         GraphComponentController controller = new GraphComponentController();
         controller.setExpanded(true);
@@ -686,6 +1225,7 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         controller.getYAxisColor();
         controller.getYAxisTitle();
         controller.refreshData();
+        System.assert(null != controller.getsObjectRecord());
     }
 
     static testMethod void testJson() {
@@ -698,4 +1238,774 @@ public with sharing class GraphComponentController extends ChildComponentBase {
         System.debug(LoggingLevel.INFO, wrap.toJsonString());//{c:[{v:'ME'}, {v: 1 }, {v: 2 }, {v: 3 }]}
         System.debug(LoggingLevel.INFO, JSON.serialize(wrap));//{"values":["1","2","3"],"header":"ME"}
     }
+    
+    static testMethod void testGetFieldValue2() {
+
+        Person__c person = Utils.createTestPerson('This_is_a_Test', '_of_the_emerge', true, null, 'Male');
+        Database.insert(person);
+
+        Account account = new Account();
+        account.Name = 'Account';
+        account.BillingState = 'CA';
+        Database.insert(account);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = account.Id;
+        dash.Title__c = 'Title';
+        dash.Description__c = 'Description';
+        Database.insert(dash);
+
+        Dashboard_Section__c section = new Dashboard_Section__c();
+        section.Dashboard__c = dash.Id;
+        section.Title__c = 'Title';
+        Database.insert(section);
+
+        String title = 'Newer Graph';
+        Graph_Parameter__c graph = new Graph_Parameter__c();
+        graph.Dashboard_Section__c = section.Id;
+        graph.Title__c = title;
+        graph.Type_Of_Graph__c = 'ColumnChart';
+        graph.Is_Active__c = true;
+        graph.Date_Period__c = 'Week';
+        graph.xAxis_Series__c = 'Date';
+        graph.xAxis_Title__c = 'Hi';
+        graph.Show_Data_Inline__c = true;
+        Database.insert(graph);
+
+        Graph_Type__c graphType = new Graph_Type__c();
+        graphType.Graph_Parameter__c = graph.Id;
+        graphType.Type_Of_sObject__c = 'BVAT Environment';
+        Database.insert(graphType);
+
+        List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
+        sgp1.Person__c = person.Id;
+        sgp1.Graph_Type__c = graphType.Id;
+        sgp1.Date__c = Date.today();
+        sgp1.Value__c = 5.0;
+        sgps.add(sgp1);
+
+        Single_Graph_Point__c sgp2 = new Single_Graph_Point__c();
+        sgp2.Person__c = person.Id;
+        sgp2.Graph_Type__c = graphType.Id;
+        sgp2.Date__c = Date.today().addDays(-2);
+        sgp2.Value__c = 2.0;
+        sgps.add(sgp2);
+
+        Single_Graph_Point__c sgp3 = new Single_Graph_Point__c();
+        sgp3.Person__c = person.Id;
+        sgp3.Graph_Type__c = graphType.Id;
+        sgp3.Date__c = Date.today().addDays(-3);
+        sgp3.Value__c = 10.0;
+        sgps.add(sgp3);
+        Database.insert(sgps);
+
+        GraphComponentController controller = new GraphComponentController();
+        controller.setExpanded(true);
+        controller.setsObjectId(graph.Id);
+        Boolean loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        String json = controller.getJson();
+        System.debug(LoggingLevel.INFO, json);
+
+        Graph_Parameter__c graph2 = new Graph_Parameter__c();
+        graph2.Dashboard_Section__c = section.Id;
+        graph2.Title__c = title;
+        graph2.Type_Of_Graph__c = 'PieChart';
+        graph2.Is_Active__c = true;
+        graph2.Date_Period__c = 'Day';
+        graph2.xAxis_Series__c = 'Date';
+        graph2.xAxis_Title__c = 'Hi';
+        Database.insert(graph2);
+
+        Graph_Type__c graphType2 = new Graph_Type__c();
+        graphType2.Graph_Parameter__c = graph2.Id;
+        Database.insert(graphType2);
+
+        List<Single_Graph_Point__c> sgps2 = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp11 = new Single_Graph_Point__c();
+        sgp11.Person__c = person.Id;
+        sgp11.Graph_Type__c = graphType2.Id;
+        sgp11.Date__c = Date.today();
+        sgp11.Value__c = 5.0;
+        sgps2.add(sgp11);
+
+        Single_Graph_Point__c sgp21 = new Single_Graph_Point__c();
+        sgp21.Person__c = person.Id;
+        sgp21.Graph_Type__c = graphType2.Id;
+        sgp21.Date__c = Date.today().addDays(-2);
+        sgp21.Value__c = 2.0;
+        sgps2.add(sgp21);
+
+        Single_Graph_Point__c sgp31 = new Single_Graph_Point__c();
+        sgp31.Person__c = person.Id;
+        sgp31.Graph_Type__c = graphType2.Id;
+        sgp31.Date__c = Date.today().addDays(-3);
+        sgp31.Value__c = 10.0;
+        sgps2.add(sgp31);
+        Database.insert(sgps2);
+        loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        json = controller.getJson();
+        controller.getIsRefresh();
+        controller.getLegendColor();
+        controller.getShowDataInline();
+        controller.getTitle();
+        controller.getTitleColor();
+        controller.getTypeOfGraph();
+        controller.getXAxisColor();
+        controller.getHeight();
+        controller.getWidth();
+        controller.getXAxisTitle();
+        controller.getYAxisColor();
+        controller.getYAxisTitle();
+        controller.refreshData();
+        System.assert(null != controller.getsObjectRecord());
+    }
+
+    static testMethod void testGetFieldValue3() {
+
+        Person__c person = Utils.createTestPerson('This_is_a_Test', '_of_the_emerge', true, null, 'Male');
+        Database.insert(person);
+
+        Account account = new Account();
+        account.Name = 'Account';
+        account.BillingState = 'CA';
+        Database.insert(account);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = account.Id;
+        dash.Title__c = 'Title';
+        dash.Description__c = 'Description';
+        Database.insert(dash);
+
+        Dashboard_Section__c section = new Dashboard_Section__c();
+        section.Dashboard__c = dash.Id;
+        section.Title__c = 'Title';
+        Database.insert(section);
+
+        String title = 'Newer Graph';
+        Graph_Parameter__c graph = new Graph_Parameter__c();
+        graph.Dashboard_Section__c = section.Id;
+        graph.Title__c = title;
+        graph.Type_Of_Graph__c = 'ColumnChart';
+        graph.Is_Active__c = true;
+        graph.Date_Period__c = 'Month';
+        graph.xAxis_Series__c = 'Date';
+        graph.xAxis_Title__c = 'Hi';
+        graph.Show_Data_Inline__c = true;
+        Database.insert(graph);
+
+        Graph_Type__c graphType = new Graph_Type__c();
+        graphType.Graph_Parameter__c = graph.Id;
+        graphType.Type_Of_sObject__c = 'BVAT Crop Management';
+        Database.insert(graphType);
+
+        List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
+        sgp1.Person__c = person.Id;
+        sgp1.Graph_Type__c = graphType.Id;
+        sgp1.Date__c = Date.today();
+        sgp1.Value__c = 5.0;
+        sgps.add(sgp1);
+
+        Single_Graph_Point__c sgp2 = new Single_Graph_Point__c();
+        sgp2.Person__c = person.Id;
+        sgp2.Graph_Type__c = graphType.Id;
+        sgp2.Date__c = Date.today().addDays(-2);
+        sgp2.Value__c = 2.0;
+        sgps.add(sgp2);
+
+        Single_Graph_Point__c sgp3 = new Single_Graph_Point__c();
+        sgp3.Person__c = person.Id;
+        sgp3.Graph_Type__c = graphType.Id;
+        sgp3.Date__c = Date.today().addDays(-3);
+        sgp3.Value__c = 10.0;
+        sgps.add(sgp3);
+        Database.insert(sgps);
+
+        GraphComponentController controller = new GraphComponentController();
+        controller.setExpanded(true);
+        controller.setsObjectId(graph.Id);
+        Boolean loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        String json = controller.getJson();
+        System.debug(LoggingLevel.INFO, json);
+
+        Graph_Parameter__c graph2 = new Graph_Parameter__c();
+        graph2.Dashboard_Section__c = section.Id;
+        graph2.Title__c = title;
+        graph2.Type_Of_Graph__c = 'PieChart';
+        graph2.Is_Active__c = true;
+        graph2.Date_Period__c = 'Day';
+        graph2.xAxis_Series__c = 'Date';
+        graph2.xAxis_Title__c = 'Hi';
+        Database.insert(graph2);
+
+        Graph_Type__c graphType2 = new Graph_Type__c();
+        graphType2.Graph_Parameter__c = graph2.Id;
+        Database.insert(graphType2);
+
+        List<Single_Graph_Point__c> sgps2 = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp11 = new Single_Graph_Point__c();
+        sgp11.Person__c = person.Id;
+        sgp11.Graph_Type__c = graphType2.Id;
+        sgp11.Date__c = Date.today();
+        sgp11.Value__c = 5.0;
+        sgps2.add(sgp11);
+
+        Single_Graph_Point__c sgp21 = new Single_Graph_Point__c();
+        sgp21.Person__c = person.Id;
+        sgp21.Graph_Type__c = graphType2.Id;
+        sgp21.Date__c = Date.today().addDays(-2);
+        sgp21.Value__c = 2.0;
+        sgps2.add(sgp21);
+
+        Single_Graph_Point__c sgp31 = new Single_Graph_Point__c();
+        sgp31.Person__c = person.Id;
+        sgp31.Graph_Type__c = graphType2.Id;
+        sgp31.Date__c = Date.today().addDays(-3);
+        sgp31.Value__c = 10.0;
+        sgps2.add(sgp31);
+        Database.insert(sgps2);
+        loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        json = controller.getJson();
+        controller.getIsRefresh();
+        controller.getLegendColor();
+        controller.getShowDataInline();
+        controller.getTitle();
+        controller.getTitleColor();
+        controller.getTypeOfGraph();
+        controller.getXAxisColor();
+        controller.getHeight();
+        controller.getWidth();
+        controller.getXAxisTitle();
+        controller.getYAxisColor();
+        controller.getYAxisTitle();
+        controller.refreshData();
+        System.assert(null != controller.getsObjectRecord());
+    }
+
+    static testMethod void testGetFieldValue4() {
+
+        Person__c person = Utils.createTestPerson('This_is_a_Test', '_of_the_emerge', true, null, 'Male');
+        Database.insert(person);
+
+        Account account = new Account();
+        account.Name = 'Account';
+        account.BillingState = 'CA';
+        Database.insert(account);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = account.Id;
+        dash.Title__c = 'Title';
+        dash.Description__c = 'Description';
+        Database.insert(dash);
+
+        Dashboard_Section__c section = new Dashboard_Section__c();
+        section.Dashboard__c = dash.Id;
+        section.Title__c = 'Title';
+        Database.insert(section);
+
+        String title = 'Newer Graph';
+        Graph_Parameter__c graph = new Graph_Parameter__c();
+        graph.Dashboard_Section__c = section.Id;
+        graph.Title__c = title;
+        graph.Type_Of_Graph__c = 'ColumnChart';
+        graph.Is_Active__c = true;
+        graph.Date_Period__c = 'Quarter';
+        graph.xAxis_Series__c = 'Date';
+        graph.xAxis_Title__c = 'Hi';
+        graph.Show_Data_Inline__c = true;
+        Database.insert(graph);
+
+        Graph_Type__c graphType = new Graph_Type__c();
+        graphType.Graph_Parameter__c = graph.Id;
+        graphType.Type_Of_sObject__c = 'BVAT Animal Keeping';
+        Database.insert(graphType);
+
+        List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
+        sgp1.Person__c = person.Id;
+        sgp1.Graph_Type__c = graphType.Id;
+        sgp1.Date__c = Date.today();
+        sgp1.Value__c = 5.0;
+        sgps.add(sgp1);
+
+        Single_Graph_Point__c sgp2 = new Single_Graph_Point__c();
+        sgp2.Person__c = person.Id;
+        sgp2.Graph_Type__c = graphType.Id;
+        sgp2.Date__c = Date.today().addDays(-2);
+        sgp2.Value__c = 2.0;
+        sgps.add(sgp2);
+
+        Single_Graph_Point__c sgp3 = new Single_Graph_Point__c();
+        sgp3.Person__c = person.Id;
+        sgp3.Graph_Type__c = graphType.Id;
+        sgp3.Date__c = Date.today().addDays(-3);
+        sgp3.Value__c = 10.0;
+        sgps.add(sgp3);
+        Database.insert(sgps);
+
+        GraphComponentController controller = new GraphComponentController();
+        controller.setExpanded(true);
+        controller.setsObjectId(graph.Id);
+        Boolean loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        String json = controller.getJson();
+        System.debug(LoggingLevel.INFO, json);
+
+        Graph_Parameter__c graph2 = new Graph_Parameter__c();
+        graph2.Dashboard_Section__c = section.Id;
+        graph2.Title__c = title;
+        graph2.Type_Of_Graph__c = 'PieChart';
+        graph2.Is_Active__c = true;
+        graph2.Date_Period__c = 'Day';
+        graph2.xAxis_Series__c = 'Date';
+        graph2.xAxis_Title__c = 'Hi';
+        Database.insert(graph2);
+
+        Graph_Type__c graphType2 = new Graph_Type__c();
+        graphType2.Graph_Parameter__c = graph2.Id;
+        Database.insert(graphType2);
+
+        List<Single_Graph_Point__c> sgps2 = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp11 = new Single_Graph_Point__c();
+        sgp11.Person__c = person.Id;
+        sgp11.Graph_Type__c = graphType2.Id;
+        sgp11.Date__c = Date.today();
+        sgp11.Value__c = 5.0;
+        sgps2.add(sgp11);
+
+        Single_Graph_Point__c sgp21 = new Single_Graph_Point__c();
+        sgp21.Person__c = person.Id;
+        sgp21.Graph_Type__c = graphType2.Id;
+        sgp21.Date__c = Date.today().addDays(-2);
+        sgp21.Value__c = 2.0;
+        sgps2.add(sgp21);
+
+        Single_Graph_Point__c sgp31 = new Single_Graph_Point__c();
+        sgp31.Person__c = person.Id;
+        sgp31.Graph_Type__c = graphType2.Id;
+        sgp31.Date__c = Date.today().addDays(-3);
+        sgp31.Value__c = 10.0;
+        sgps2.add(sgp31);
+        Database.insert(sgps2);
+        loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        json = controller.getJson();
+        controller.getIsRefresh();
+        controller.getLegendColor();
+        controller.getShowDataInline();
+        controller.getTitle();
+        controller.getTitleColor();
+        controller.getTypeOfGraph();
+        controller.getXAxisColor();
+        controller.getHeight();
+        controller.getWidth();
+        controller.getXAxisTitle();
+        controller.getYAxisColor();
+        controller.getYAxisTitle();
+        controller.refreshData();
+        System.assert(null != controller.getsObjectRecord());
+    }
+
+    static testMethod void testGetFieldValue5() {
+
+        Person__c person = Utils.createTestPerson('This_is_a_Test', '_of_the_emerge', true, null, 'Male');
+        Database.insert(person);
+
+        Account account = new Account();
+        account.Name = 'Account';
+        account.BillingState = 'CA';
+        Database.insert(account);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = account.Id;
+        dash.Title__c = 'Title';
+        dash.Description__c = 'Description';
+        Database.insert(dash);
+
+        Dashboard_Section__c section = new Dashboard_Section__c();
+        section.Dashboard__c = dash.Id;
+        section.Title__c = 'Title';
+        Database.insert(section);
+
+        String title = 'Newer Graph';
+        Graph_Parameter__c graph = new Graph_Parameter__c();
+        graph.Dashboard_Section__c = section.Id;
+        graph.Title__c = title;
+        graph.Type_Of_Graph__c = 'ColumnChart';
+        graph.Is_Active__c = true;
+        graph.Date_Period__c = 'Quarter';
+        graph.xAxis_Series__c = 'Date';
+        graph.xAxis_Title__c = 'Hi';
+        graph.Show_Data_Inline__c = true;
+        Database.insert(graph);
+
+        Graph_Type__c graphType = new Graph_Type__c();
+        graphType.Graph_Parameter__c = graph.Id;
+        graphType.Type_Of_sObject__c = 'BVAT Human Health';
+        Database.insert(graphType);
+
+        List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
+        sgp1.Person__c = person.Id;
+        sgp1.Graph_Type__c = graphType.Id;
+        sgp1.Date__c = Date.today();
+        sgp1.Value__c = 5.0;
+        sgps.add(sgp1);
+
+        Single_Graph_Point__c sgp2 = new Single_Graph_Point__c();
+        sgp2.Person__c = person.Id;
+        sgp2.Graph_Type__c = graphType.Id;
+        sgp2.Date__c = Date.today().addDays(-2);
+        sgp2.Value__c = 2.0;
+        sgps.add(sgp2);
+
+        Single_Graph_Point__c sgp3 = new Single_Graph_Point__c();
+        sgp3.Person__c = person.Id;
+        sgp3.Graph_Type__c = graphType.Id;
+        sgp3.Date__c = Date.today().addDays(-3);
+        sgp3.Value__c = 10.0;
+        sgps.add(sgp3);
+        Database.insert(sgps);
+
+        GraphComponentController controller = new GraphComponentController();
+        controller.setExpanded(true);
+        controller.setsObjectId(graph.Id);
+        Boolean loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        String json = controller.getJson();
+        System.debug(LoggingLevel.INFO, json);
+
+        Graph_Parameter__c graph2 = new Graph_Parameter__c();
+        graph2.Dashboard_Section__c = section.Id;
+        graph2.Title__c = title;
+        graph2.Type_Of_Graph__c = 'PieChart';
+        graph2.Is_Active__c = true;
+        graph2.Date_Period__c = 'Day';
+        graph2.xAxis_Series__c = 'Date';
+        graph2.xAxis_Title__c = 'Hi';
+        Database.insert(graph2);
+
+        Graph_Type__c graphType2 = new Graph_Type__c();
+        graphType2.Graph_Parameter__c = graph2.Id;
+        Database.insert(graphType2);
+
+        List<Single_Graph_Point__c> sgps2 = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp11 = new Single_Graph_Point__c();
+        sgp11.Person__c = person.Id;
+        sgp11.Graph_Type__c = graphType2.Id;
+        sgp11.Date__c = Date.today();
+        sgp11.Value__c = 5.0;
+        sgps2.add(sgp11);
+
+        Single_Graph_Point__c sgp21 = new Single_Graph_Point__c();
+        sgp21.Person__c = person.Id;
+        sgp21.Graph_Type__c = graphType2.Id;
+        sgp21.Date__c = Date.today().addDays(-2);
+        sgp21.Value__c = 2.0;
+        sgps2.add(sgp21);
+
+        Single_Graph_Point__c sgp31 = new Single_Graph_Point__c();
+        sgp31.Person__c = person.Id;
+        sgp31.Graph_Type__c = graphType2.Id;
+        sgp31.Date__c = Date.today().addDays(-3);
+        sgp31.Value__c = 10.0;
+        sgps2.add(sgp31);
+        Database.insert(sgps2);
+        loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        json = controller.getJson();
+        controller.getIsRefresh();
+        controller.getLegendColor();
+        controller.getShowDataInline();
+        controller.getTitle();
+        controller.getTitleColor();
+        controller.getTypeOfGraph();
+        controller.getXAxisColor();
+        controller.getHeight();
+        controller.getWidth();
+        controller.getXAxisTitle();
+        controller.getYAxisColor();
+        controller.getYAxisTitle();
+        controller.refreshData();
+        System.assert(null != controller.getsObjectRecord());
+    }
+
+    static testMethod void testGetFieldValue6() {
+
+        Person__c person = Utils.createTestPerson('This_is_a_Test', '_of_the_emerge', true, null, 'Male');
+        Database.insert(person);
+
+        Account account = new Account();
+        account.Name = 'Account';
+        account.BillingState = 'CA';
+        Database.insert(account);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = account.Id;
+        dash.Title__c = 'Title';
+        dash.Description__c = 'Description';
+        Database.insert(dash);
+
+        Dashboard_Section__c section = new Dashboard_Section__c();
+        section.Dashboard__c = dash.Id;
+        section.Title__c = 'Title';
+        Database.insert(section);
+
+        String title = 'Newer Graph';
+        Graph_Parameter__c graph = new Graph_Parameter__c();
+        graph.Dashboard_Section__c = section.Id;
+        graph.Title__c = title;
+        graph.Type_Of_Graph__c = 'ColumnChart';
+        graph.Is_Active__c = true;
+        graph.Date_Period__c = 'Quarter';
+        graph.xAxis_Series__c = 'Date';
+        graph.xAxis_Title__c = 'Hi';
+        graph.Show_Data_Inline__c = true;
+        Database.insert(graph);
+
+        Graph_Type__c graphType = new Graph_Type__c();
+        graphType.Graph_Parameter__c = graph.Id;
+        graphType.Type_Of_sObject__c = 'BVAT Other Content';
+        Database.insert(graphType);
+
+        List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
+        sgp1.Person__c = person.Id;
+        sgp1.Graph_Type__c = graphType.Id;
+        sgp1.Date__c = Date.today();
+        sgp1.Value__c = 5.0;
+        sgps.add(sgp1);
+
+        Single_Graph_Point__c sgp2 = new Single_Graph_Point__c();
+        sgp2.Person__c = person.Id;
+        sgp2.Graph_Type__c = graphType.Id;
+        sgp2.Date__c = Date.today().addDays(-2);
+        sgp2.Value__c = 2.0;
+        sgps.add(sgp2);
+
+        Single_Graph_Point__c sgp3 = new Single_Graph_Point__c();
+        sgp3.Person__c = person.Id;
+        sgp3.Graph_Type__c = graphType.Id;
+        sgp3.Date__c = Date.today().addDays(-3);
+        sgp3.Value__c = 10.0;
+        sgps.add(sgp3);
+        Database.insert(sgps);
+
+        GraphComponentController controller = new GraphComponentController();
+        controller.setExpanded(true);
+        controller.setsObjectId(graph.Id);
+        Boolean loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        String json = controller.getJson();
+        System.debug(LoggingLevel.INFO, json);
+
+        Graph_Parameter__c graph2 = new Graph_Parameter__c();
+        graph2.Dashboard_Section__c = section.Id;
+        graph2.Title__c = title;
+        graph2.Type_Of_Graph__c = 'PieChart';
+        graph2.Is_Active__c = true;
+        graph2.Date_Period__c = 'Other';
+        graph2.xAxis_Series__c = 'Date';
+        graph2.xAxis_Title__c = 'Hi';
+        Database.insert(graph2);
+
+        Graph_Type__c graphType2 = new Graph_Type__c();
+        graphType2.Graph_Parameter__c = graph2.Id;
+        Database.insert(graphType2);
+
+        List<Single_Graph_Point__c> sgps2 = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp11 = new Single_Graph_Point__c();
+        sgp11.Person__c = person.Id;
+        sgp11.Graph_Type__c = graphType2.Id;
+        sgp11.Date__c = Date.today();
+        sgp11.Value__c = 5.0;
+        sgps2.add(sgp11);
+
+        Single_Graph_Point__c sgp21 = new Single_Graph_Point__c();
+        sgp21.Person__c = person.Id;
+        sgp21.Graph_Type__c = graphType2.Id;
+        sgp21.Date__c = Date.today().addDays(-2);
+        sgp21.Value__c = 2.0;
+        sgps2.add(sgp21);
+
+        Single_Graph_Point__c sgp31 = new Single_Graph_Point__c();
+        sgp31.Person__c = person.Id;
+        sgp31.Graph_Type__c = graphType2.Id;
+        sgp31.Date__c = Date.today().addDays(-3);
+        sgp31.Value__c = 10.0;
+        sgps2.add(sgp31);
+        Database.insert(sgps2);
+        loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        json = controller.getJson();
+        controller.getIsRefresh();
+        controller.getLegendColor();
+        controller.getShowDataInline();
+        controller.getTitle();
+        controller.getTitleColor();
+        controller.getTypeOfGraph();
+        controller.getXAxisColor();
+        controller.getHeight();
+        controller.getWidth();
+        controller.getXAxisTitle();
+        controller.getYAxisColor();
+        controller.getYAxisTitle();
+        controller.refreshData();
+        System.assert(null != controller.getsObjectRecord());
+    }
+
+    static testMethod void testGetFieldValue7() {
+
+        Person__c person = Utils.createTestPerson('This_is_a_Test', '_of_the_emerge', true, null, 'Male');
+        Database.insert(person);
+
+        Account account = new Account();
+        account.Name = 'Account';
+        account.BillingState = 'CA';
+        Database.insert(account);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = account.Id;
+        dash.Title__c = 'Title';
+        dash.Description__c = 'Description';
+        Database.insert(dash);
+
+        Dashboard_Section__c section = new Dashboard_Section__c();
+        section.Dashboard__c = dash.Id;
+        section.Title__c = 'Title';
+        Database.insert(section);
+
+        String title = 'Newer Graph';
+        Graph_Parameter__c graph = new Graph_Parameter__c();
+        graph.Dashboard_Section__c = section.Id;
+        graph.Title__c = title;
+        graph.Type_Of_Graph__c = 'PieChart';
+        graph.Is_Active__c = true;
+        graph.Date_Period__c = 'Quarter';
+        graph.xAxis_Series__c = 'Date';
+        graph.xAxis_Title__c = 'Hi';
+        graph.Show_Data_Inline__c = true;
+        Database.insert(graph);
+
+        Graph_Type__c graphType = new Graph_Type__c();
+        graphType.Graph_Parameter__c = graph.Id;
+        graphType.Type_Of_sObject__c = 'BVAT Human Health';
+        Database.insert(graphType);
+
+        List<Single_Graph_Point__c> sgps = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp1 = new Single_Graph_Point__c();
+        sgp1.Person__c = person.Id;
+        sgp1.Graph_Type__c = graphType.Id;
+        sgp1.Date__c = Date.today();
+        sgp1.Value__c = 5.0;
+        sgps.add(sgp1);
+
+        Single_Graph_Point__c sgp2 = new Single_Graph_Point__c();
+        sgp2.Person__c = person.Id;
+        sgp2.Graph_Type__c = graphType.Id;
+        sgp2.Date__c = Date.today().addDays(-2);
+        sgp2.Value__c = 2.0;
+        sgps.add(sgp2);
+
+        Single_Graph_Point__c sgp3 = new Single_Graph_Point__c();
+        sgp3.Person__c = person.Id;
+        sgp3.Graph_Type__c = graphType.Id;
+        sgp3.Date__c = Date.today().addDays(-3);
+        sgp3.Value__c = 10.0;
+        sgps.add(sgp3);
+        Database.insert(sgps);
+
+        GraphComponentController controller = new GraphComponentController();
+        controller.setExpanded(true);
+        controller.setsObjectId(graph.Id);
+        Boolean loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        String json = controller.getJson();
+        System.debug(LoggingLevel.INFO, json);
+
+        Graph_Parameter__c graph2 = new Graph_Parameter__c();
+        graph2.Dashboard_Section__c = section.Id;
+        graph2.Title__c = title;
+        graph2.Type_Of_Graph__c = 'PieChart';
+        graph2.Is_Active__c = true;
+        graph2.Date_Period__c = 'Day';
+        graph2.xAxis_Series__c = 'Date';
+        graph2.xAxis_Title__c = 'Hi';
+        Database.insert(graph2);
+
+        Graph_Type__c graphType2 = new Graph_Type__c();
+        graphType2.Graph_Parameter__c = graph2.Id;
+        Database.insert(graphType2);
+
+        List<Single_Graph_Point__c> sgps2 = new List<Single_Graph_Point__c>();
+        Single_Graph_Point__c sgp11 = new Single_Graph_Point__c();
+        sgp11.Person__c = person.Id;
+        sgp11.Graph_Type__c = graphType2.Id;
+        sgp11.Date__c = Date.today();
+        sgp11.Value__c = 5.0;
+        sgps2.add(sgp11);
+
+        Single_Graph_Point__c sgp21 = new Single_Graph_Point__c();
+        sgp21.Person__c = person.Id;
+        sgp21.Graph_Type__c = graphType2.Id;
+        sgp21.Date__c = Date.today().addDays(-2);
+        sgp21.Value__c = 2.0;
+        sgps2.add(sgp21);
+
+        Single_Graph_Point__c sgp31 = new Single_Graph_Point__c();
+        sgp31.Person__c = person.Id;
+        sgp31.Graph_Type__c = graphType2.Id;
+        sgp31.Date__c = Date.today().addDays(-3);
+        sgp31.Value__c = 10.0;
+        sgps2.add(sgp31);
+        Database.insert(sgps2);
+        loaded = controller.loadGraphParameter();
+        System.assert(loaded);
+        System.assert(controller.getFieldValue('Title__c').equals(title));
+
+        json = controller.getJson();
+        controller.getIsRefresh();
+        controller.getLegendColor();
+        controller.getShowDataInline();
+        controller.getTitle();
+        controller.getTitleColor();
+        controller.getTypeOfGraph();
+        controller.getXAxisColor();
+        controller.getHeight();
+        controller.getWidth();
+        controller.getXAxisTitle();
+        controller.getYAxisColor();
+        controller.getYAxisTitle();
+        controller.refreshData();
+        System.assert(null != controller.getsObjectRecord());
+    }
+
+
 }

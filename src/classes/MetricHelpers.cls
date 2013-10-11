@@ -261,6 +261,57 @@ public with sharing class MetricHelpers {
         System.debug(LoggingLevel.INFO, 'Metric Created Successfully');
         return metricData;
     }
+	
+    public static M_E_Metric_Data__c createNewMetric(
+            String metricName,
+            Date startDate,
+            Decimal actualValue,
+            Decimal target,
+            Id districtId,
+            Id subcountyId,
+            String orgName,
+            Boolean isCumulative
+    ) {
+
+        // Create the new metric_data
+        System.debug(LoggingLevel.INFO, 'METRIC NAME = ' + metricName + ' District ID - ' + districtId);
+        M_E_Metric_Data__c metricData = new M_E_Metric_Data__c();
+        M_E_Metric__c[] metrics = getMetrics(metricName, orgName);
+        if (metrics == null || metrics.size() == 0) {
+            System.debug(LoggingLevel.INFO, 'Metric Creation Failed');
+            return null;
+        }
+        M_E_Metric__c metric = metrics[0];
+
+        // Add the details required.
+        metricData.M_E_Metric__c = metric.Id;
+        metricData.Name = metricData.Id;
+        metricData.Date__c = startDate;
+        metricData.Actual_Value__c = actualValue;
+        metricData.Is_Cumulative__c = isCumulative;
+		metricData.Denumerator__c = 0;
+		metricData.Numerator__c = 0;
+        if (districtId != null) {
+            metricData.District__c = districtId;
+        }
+		metricData.Subcounty__c = subcountyId;
+        // If no target supplied get the target from the parent metric
+        if (target == null) {
+            if (metric != null) {
+                metricData.Projected_Value__c = metric.Projected_Value__c;
+            }
+            else {
+
+                // If we cant get a value then set the target to 1
+                metricData.Projected_Value__c = 1.0;
+            }
+        }
+        else {
+            metricData.Projected_Value__c = target;
+        }
+        System.debug(LoggingLevel.INFO, 'Metric Created Successfully');
+        return metricData;
+    }
 
     /**
      *  Update the Actual_Value__c for a given metric in a quarter.
@@ -364,20 +415,26 @@ public with sharing class MetricHelpers {
 
         Date qDate = null;
         if(monthParts[0].equals('Jan')) {
-            qDate = Date.parse('01/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 1, 1);
         }
         else if(monthParts[0].equals('Apr')) {
-            qDate = Date.parse('04/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 4, 1);
         }
         else if(monthParts[0].equals('Jul')) {
-            qDate = Date.parse('07/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 07, 1);
         }
         else if(monthParts[0].equals('Oct')) {
-            qDate = Date.parse('10/01/' + year);
+            qDate = Date.newInstance(Integer.valueOf(year), 10, 1);
         }
         return qDate;   
     }
-
+    
+    public static Date getQuarterFirstDay(Date dateInQuarter) {
+        // Change date to 'Jan - Mar 2010' format
+        String quarterAsString = getQuarterAsString(dateInQuarter);
+        return getQuarterFirstDay(quarterAsString);
+    }
+    
     // quarterString is in format 'Jan - Mar 2010';
     public static Date getQuarterLastDay(String quarterString) {
 
@@ -387,18 +444,24 @@ public with sharing class MetricHelpers {
 
         Date qDate = null;
         if(monthParts[0].equals('Jan')) {
-            qDate = Date.parse('03/31/' + year);
+            qDate =Date.newInstance(Integer.valueOf(year), 3, 31);
         }
         else if(monthParts[0].equals('Apr')) {
-            qDate = Date.parse('06/30/' + year);
+            qDate =Date.newInstance(Integer.valueOf(year), 6, 30);
         }
         else if(monthParts[0].equals('Jul')) {
-            qDate = Date.parse('09/30/' + year);
+            qDate =Date.newInstance(Integer.valueOf(year), 9, 30);
         }
         else if(monthParts[0].equals('Oct')) {
-            qDate = Date.parse('12/31/' + year);
+            qDate =Date.newInstance(Integer.valueOf(year), 12, 31);
         }
         return qDate;   
+    }
+    
+    public static Date getQuarterLastDay(Date dateInQuarter) {
+        // Change date to 'Jan - Mar 2010' format
+        String quarterAsString = getQuarterAsString(dateInQuarter);
+        return getQuarterLastDay(quarterAsString);
     }
 
     public static String getQuarterLastDayAsString(String quarterString) {
@@ -422,10 +485,43 @@ public with sharing class MetricHelpers {
         }
         return dateString;   
     }
+    
+    /**
+    * Added this to replace getQuarterLastDayAsString since the Date.parse format it uses is locale specific
+    */
+    public static String getInstanceQuarterLastDayAsString(String quarterString) {
+
+        String[] monthParts = quarterString.split(' - ');
+        String[] yearParts = monthParts[1].split(' ');
+        String year = yearParts[1];
+
+        String dateString = null;
+        if(monthParts[0].equals('Jan')) {
+            dateString = year + '-03-31 00:00:00';
+        }
+        else if(monthParts[0].equals('Apr')) {
+            dateString = year + '-06-30 00:00:00';
+        }
+        else if(monthParts[0].equals('Jul')) {
+            dateString = year + '-09-30 00:00:00';
+        }
+        else if(monthParts[0].equals('Oct')) {
+            dateString = year + '-12-31 00:00:00';
+        }
+        return dateString;   
+    }
 
     public static String parseDateToString(Date qDate) {
 
         return String.valueOf(qDate.month()) + '/' + String.valueOf(qDate.day()) + '/' + String.valueOf(qDate.year());
+    }
+    
+    /**
+    * Added this to replace getQuarterLastDayAsString since the Date.parse format it uses is locale specific
+    */
+    public static String parseInstanceDateToString(Date qDate) {
+
+        return String.valueOf(qDate.year()) + '-' + String.valueOf(qDate.month()) + '-' + String.valueOf(qDate.day()) + ' 00:00:00';
     }
 
     public static Integer getQuarter(Date qDate) {
@@ -530,13 +626,15 @@ public with sharing class MetricHelpers {
 
     public static M_E_Metric_Data__c[] loadAllMetricData(String metricId) {
 
+        M_E_Metric_Data__c[] metricDatas = new M_E_Metric_Data__c[]{};
         Date quarterLastDay = MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0));
-        M_E_Metric_Data__c[] metricData = [
+        for (M_E_Metric_Data__c[] metricData : [
             SELECT
                 Id,
                 Date__c,
                 M_E_Metric__r.Label__c,
                 Actual_Value__c,
+                Real_Value__c,
                 Projected_Value__c, 
                 M_E_Metric__r.M_E_Area__c,
                 Comment__c 
@@ -547,9 +645,10 @@ public with sharing class MetricHelpers {
                 AND M_E_Metric__r.Id =:metricId
             ORDER BY
                 Date__c ASC
-        ];
-
-        return metricData;
+        ]) {
+            metricDatas = metricData;
+        }
+        return metricDatas;
     }
 
     /**
@@ -1128,9 +1227,12 @@ public with sharing class MetricHelpers {
 
     // Remember that this will only work for dates that are in the same format as the users
     // locale. I hate SF sometimes.
+    // **NOTE: Changed this to use Date.newInstance() instead
     public static Date convertStringToDate(String dateString) {
-        return Date.parse(dateString);
+        String[] dateArray = dateString.split('/');
+        return Date.newInstance(Integer.valueOf(dateArray[2]), Integer.valueOf(dateArray[0]), Integer.valueOf(dateArray[1]));       
     }
+
     public static Date convertSoqlStringToDate(String dateString) {
         String[] dateArray = dateString.split('-');
         return convertStringToDate(dateArray[1] + '/' + dateArray[2] + '/' + dateArray[0]);
@@ -1516,7 +1618,7 @@ public with sharing class MetricHelpers {
         MetricHelpers.calculateAverageMetric('TEST_THIS_CODE');
 
         // Check the date manipulations
-        Date testDate1 = date.newInstance(2012, 2, 1);
+        Date testDate1 = date.newInstance(2013, 2, 1);
         Integer firstQuarter = getQuarter(testDate1);
         String firstQuarterStartMonth = getQuarterStartMonth(firstQuarter);
         String firstQuarterEndMonth = getQuarterEndMonth(firstQuarter);
@@ -1554,7 +1656,7 @@ public with sharing class MetricHelpers {
         Date quarterIntStringLast = getQuarterLastDay(quarterString);
         Date quarterDateStringFirst = getQuarterFirstDay(quarterDateString);
         Date quarterDateStringLast = getQuarterLastDay(quarterDateString);
-        System.AssertEquals(quarterString,'Jan - Mar 2012');
+        System.AssertEquals(quarterString,'Jan - Mar 2013');
         System.assertEquals(quarterString, quarterDateString);
         System.assertEquals(quarterIntStringFirst, quarterDateStringFirst);
         System.assertEquals(quarterIntStringLast, quarterDateStringLast);

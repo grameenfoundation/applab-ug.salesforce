@@ -5,8 +5,8 @@
 public with sharing class UDoMDashboardController extends DynamicDashboardBaseController {
 
     public UDoMDashboardController() {
-        //setDashboardName('UDoM Dashboard');
-        //setSections(loadSections());
+        setDashboardName('UDoM Dashboard');
+        setSections(loadSections());
     }
 
     // Remove the below and uncomment the above when the bug in SFDC is fixed by them.

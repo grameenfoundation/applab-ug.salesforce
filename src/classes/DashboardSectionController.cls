@@ -13,8 +13,10 @@ public with sharing class DashboardSectionController extends ParentComponentBase
     }
 
     public override void rebuildParameters() {
-        this.getParentMap().get('DashboardSelector' + dashboardSection.Id).rebuildParameters();
-        this.setParameters(this.getParentMap().get('DashboardSelector' + dashboardSection.Id).getParameters());
+        if (this.getParentMap() != null && this.getParentMap().get('DashboardSelector' + dashboardSection.Id) != null) {
+            this.getParentMap().get('DashboardSelector' + dashboardSection.Id).rebuildParameters();
+            this.setParameters(this.getParentMap().get('DashboardSelector' + dashboardSection.Id).getParameters());
+        }
     }
 
     private List<Graph_Parameter__c> graphs;
@@ -54,6 +56,7 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Latitude__c,
                 Longitude__c,
                 Type_Of_sObject__c,
+                Map_Marker_Source_Class__c,
                 Zoom__c,
                 Splitter__c
             FROM
@@ -83,7 +86,9 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Show_Break_Down__c,
                 Show_Spark_Line__c,
                 Show_Further_Link__c,
-                Allow_Update__c
+                Default_Show__c,
+                Allow_Update__c,
+                View_Mode__c
             FROM
                 Metric_Section__c
             WHERE
@@ -92,6 +97,49 @@ public with sharing class DashboardSectionController extends ParentComponentBase
     }
     public void setMetrics(List<Metric_Section__c> metrics) {
         this.metrics = metrics;
+    }
+
+    // Should only every be one selector per section. Therefore will use the most recent active one for the section
+    private Dashboard_Selector__c selector;
+    public Dashboard_Selector__c getSelector() {
+
+        List<Dashboard_Selector__c> selectors = 
+            [SELECT
+                Show_Dates__c,
+                Show_Metric_Date_Selector__c,
+                Show_Country__c,
+                Show_Region__c,
+                Show_District__c,
+                Show_Subcounty__c,
+                Show_Person__c,
+                Show_Opportunity_Farmer__c,
+                Show_Data_Validator__c,
+                Show_CKW__c,
+                Show_Farmer__c,
+                Show_Field_Officer__c,
+                Show_MTN_Chan__c,
+                Date_Period__c,
+                Start_Date__c,
+                Show_Submit_Button__c,
+                Show_Brac_PA__c,
+                Show_Brac_Area__c,
+                Show_Kenyan_County__c,
+                Show_BVAT_CIW__c
+            FROM
+                Dashboard_Selector__c
+            WHERE
+                Is_Active__c = true
+                AND Dashboard_Section__r.Name = :dashboardSection.Name
+            ORDER BY
+                CreatedDate DESC];
+
+        if (selectors.size() == 0) {
+            return null;
+        }
+        return selectors[0];
+    }
+    public void setSelector(Dashboard_Selector__c value) {
+        this.selector = value;
     }
 
     public override String getHandle() {

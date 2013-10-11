@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddToCampaign</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Convert</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>FindDup</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
     <businessProcesses>
         <fullName>Master</fullName>
         <isActive>true</isActive>
@@ -13,6 +61,10 @@
         </values>
     </businessProcesses>
     <enableFeeds>true</enableFeeds>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <type>Lookup</type>
+    </fields>
     <fields>
         <fullName>Donation_Amount__c</fullName>
         <externalId>false</externalId>
@@ -210,6 +262,10 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Rating</fullName>
         <picklist>
             <picklistValues>
@@ -285,7 +341,7 @@
         <fullName>TestLeadQueue</fullName>
         <filterScope>Queue</filterScope>
         <label>Test Lead Queue</label>
-        <queue>Test Lead Queue</queue>
+        <queue>TestLeadQueue</queue>
     </listViews>
     <listViews>
         <fullName>TodaysLeads</fullName>

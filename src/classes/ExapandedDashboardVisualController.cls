@@ -2,7 +2,10 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
 
     public String id { get; set; }
     public String currentDate { get; set; }
+
+    public Dashboard_Selector__c selector { get; set; }
     private Boolean showSelector = true;
+    private String sectionId;
     public Boolean getShowSelector() {
         return this.showSelector;
     }
@@ -49,12 +52,12 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
             else if (typeOfPage.equals('map')) {
                 loadMap();
             }
-            else if (typeOfPage.equals('metric')) {
-                loadMetric();
-            }
             else {
                 System.debug(LoggingLevel.INFO, 'Unrecognised type: ' + typeOfPage);
             }
+        }
+        if (getShowSelector()) {
+            loadSelector();
         }
     }
 
@@ -67,15 +70,20 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
                 Latitude__c,
                 Longitude__c,
                 Type_Of_sObject__c,
+                Map_Marker_Source_Class__c,
                 Zoom__c,
                 Splitter__c,
-                Dashboard_Section__r.Dashboard__r.Account__r.Name
+                Dashboard_Section__r.Dashboard__r.Account__r.Name,
+                Dashboard_Section__r.Has_Selector__c,
+                Dashboard_Section__c
             FROM
                 Map_Parameter__c
             WHERE
                 id = :this.id];
         this.accountName = loadedMapParameter.Dashboard_Section__r.Dashboard__r.Account__r.Name;
         this.mapParameter = loadedMapParameter;
+        setShowSelector(loadedMapParameter.Dashboard_Section__r.Has_Selector__c);
+        this.sectionId = loadedMapParameter.Dashboard_Section__c;
         this.showMap = true;
     }
 
@@ -96,6 +104,8 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
                 Date_Period__c,
                 Default_Show__c,
                 Show_Data_Inline__c,
+                Dashboard_Section__r.Has_Selector__c,
+                Dashboard_Section__c,
                 Dashboard_Section__r.Dashboard__r.Account__r.Name
             FROM 
                 Graph_Parameter__c
@@ -103,10 +113,48 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
                 id = :this.id];
         this.accountName = loadedGraphParameter.Dashboard_Section__r.Dashboard__r.Account__r.Name;
         this.graphParameter = loadedGraphParameter;
+        setShowSelector(loadedGraphParameter.Dashboard_Section__r.Has_Selector__c);
+        this.sectionId = loadedGraphParameter.Dashboard_Section__c;
         this.showGraph = true;
     }
 
-    private void loadMetric() {
+    private void loadSelector() {
+
+        Dashboard_Selector__c[] selectors = [
+            SELECT
+                Name,
+                Id,
+                Show_Dates__c,
+                Show_Metric_Date_Selector__c,
+                Show_Country__c,
+                Show_Region__c,
+                Show_District__c,
+                Show_Subcounty__c,
+                Show_Person__c,
+                Show_Data_Validator__c,
+                Show_CKW__c,
+                Show_Farmer__c,
+                Show_Opportunity_Farmer__c,
+                Show_Field_Officer__c,
+                Show_MTN_Chan__c,
+                Date_Period__c,
+                Show_Submit_Button__c,
+                Start_Date__c,
+                Show_Brac_Area__c,
+                Show_Brac_PA__c,
+                Show_BVAT_CIW__c,
+                Show_Kenyan_County__c
+            FROM
+                Dashboard_Selector__c
+            WHERE
+                Dashboard_Section__c = :this.sectionId];
+
+        if (selectors.size() == 0) {
+            setShowSelector(false);
+        }
+        else {
+            this.selector = selectors[0];
+        }
     }
 
     static testMethod void testGetMap() {

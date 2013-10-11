@@ -15,6 +15,10 @@ global class UpdateKeywords {
         List<LocalMenu> menus = new List<localMenu>();
         List<LocalMenuItem> menuItems = new List<LocalMenuItem>();
         List<ObjectId> deletedMenuItems = new List<ObjectId>();
+        
+        // Add Id for old weather information
+        deletedMenuItems.add(new ObjectId('a0r70000000Su0OAAS'));
+        
         List<ObjectId> updatedImages = new List<ObjectId>();
         List<ObjectId> deletedImages = new List<ObjectId>();
 
@@ -38,8 +42,84 @@ global class UpdateKeywords {
         returnValues[3] = JSON.serialize(deletedMenuItems);
         returnValues[4] = JSON.serialize(updatedImages);
         returnValues[5] = JSON.serialize(deletedImages);
+        
+        menus.clear();
+        menuItems.clear();
+        deletedMenuItems.clear();
+        updatedImages.clear();
+        deletedImages.clear();
 
         return returnValues;
+    }
+    
+    /*
+     *This is used to schedule saving of data from a given Menu
+     *This was to overcome the issue of heap size limitation in CKW Search particularly
+     */
+    @Future(callout=true)
+    public static void saveMenuItemsToStaticResource(String menuName, String fileName) {
+        // required variables
+        String[] returnValues = new String[6];
+        Integer total = 0;
+        List<LocalMenu> menus = new List<localMenu>();
+        List<LocalMenuItem> menuItems = new List<LocalMenuItem>();
+        List<ObjectId> deletedMenuItems = new List<ObjectId>();
+        
+        List<ObjectId> updatedImages = new List<ObjectId>();
+        List<ObjectId> deletedImages = new List<ObjectId>();
+        
+        // create dummy JsonRequest Object
+        JsonRequest  request = new JsonRequest();
+        request.MenuIds = new List<String>();
+        request.KeywordsLastUpdatedDate = '2010-04-04 00:00:00';
+        request.ImagesLastUpdatedDate = '2010-04-04 00:00:00';
+
+        // get permitted Menus basing on Person Group | Menu Group associations
+        menus = getMenusByName(menuName);
+
+        // get new, deleted and update Menu Items linked to the person's allowed menus
+        getNewUpdatedAndDeletedMenuItems(menus, menuItems, deletedMenuItems, request);
+
+        // get new, updated and deleted images
+        // *** Current assumption is that when an attachment is "updated", even the menu item is "updated"
+        getNewUpdatedAndDeletedImages(menuItems, deletedMenuItems, updatedImages, deletedImages, request);
+
+        // compute totals
+        total = menus.size() + menuItems.size() + deletedMenuItems.size() + updatedImages.size() + deletedImages.size();
+
+        // serialize return values to Json
+        returnValues[0] = String.valueOf(total);
+        returnValues[1] = JSON.serialize(menus);
+        returnValues[2] = JSON.serialize(menuItems);
+        returnValues[3] = '[]';
+        returnValues[4] = JSON.serialize(updatedImages);
+        returnValues[5] = '[]';
+        
+        //Clear collections to avoid governor limits
+        menus.clear();
+        menuItems.clear();
+        deletedMenuItems.clear();
+        updatedImages.clear();
+        deletedImages.clear();
+
+        createAndSaveJsonStringsAsAttachement(returnValues, fileName);
+    }
+    
+    private static List<LocalMenu> getMenusByName(String menuName) {      
+       List<LocalMenu> localMenus = new List<LocalMenu>();
+        List<Menu__c> menus = [
+            SELECT
+                Id,
+                Label__c
+            FROM
+                Menu__c
+            WHERE
+                Label__c = :menuName
+            ];
+        for(Menu__c menu : menus) {
+            localMenus.add(new LocalMenu(menu.Id, menu.Label__c));
+        }
+        return localMenus;
     }
 
     private static List<LocalMenu> getMenus(JsonRequest request) {
@@ -111,7 +191,6 @@ global class UpdateKeywords {
         if (updatedMenuIds.size() > 0) {
         
             DateTime lastUpdated = datetime.valueOf(keywordsLastUpdatedDate);
-            DateTime lastDeleteDate = lastUpdated.addDays(-5);
             for (Menu_Item__c menuItem : [
                 SELECT
                     Id,
@@ -132,7 +211,7 @@ global class UpdateKeywords {
                     (
                         Last_Modified_Date__c > :lastUpdated
                       OR                       
-                        LastModifiedDate > :lastDeleteDate
+                        LastModifiedDate > :lastUpdated
                     )
                 ALL ROWS]) {
 
@@ -161,7 +240,7 @@ global class UpdateKeywords {
         }
 
         if (newMenuIds.size() > 0) {
-
+        LocalMenuItem mItem;
             for (Menu_Item__c menuItem : [
                  SELECT
                      Id,
@@ -189,7 +268,7 @@ global class UpdateKeywords {
                      itemToArticleMap.put(menuItem.Article_Id__c, menuItemIdList);
                  }
 
-                 LocalMenuItem mItem = new LocalMenuItem(menuItem.Label__c, menuItem.Id,
+                 mItem = new LocalMenuItem(menuItem.Label__c, menuItem.Id,
                                                             menuItem.Parent_Item__c, menuItem.Menu__c,
                                                             menuItem.Content__c, menuItem.Position__c,
                                                             menuItem.Attribution__c, menuItem.Last_Modified_Date__c);
@@ -273,6 +352,47 @@ global class UpdateKeywords {
             }
         }
     }
+    
+    /**
+     * This concatenates JsonString arrays and saves them as Document
+     */
+    private static void createAndSaveJsonStringsAsAttachement(String[] jsonResults, String fileName) {
+        DateTime versionDate = System.now();
+        String versionDateString = versionDate.format('yyyy-MM-dd HH:mm:ss');
+        String attachementString = 
+            '{"Total":' + jsonResults[0] +
+            ',"Version":"' + versionDateString +
+            '","Menus":' + jsonResults[1] +
+            ',"MenuItems":' + jsonResults[2] +
+            ',"DeletedMenuItems":' + jsonResults[3] + 
+            ',"Images":' + jsonResults[4] +
+            ',"DeletedImages":' + jsonResults[5] + '}';
+        
+        List<Document> docs = 
+            [SELECT 
+                Id, 
+                Body
+            FROM
+                Document
+            WHERE 
+                Name = :fileName
+            ];
+   
+        if (docs == null || docs.size() == 0) {
+            Document doc = new Document();
+            doc.Name = fileName;
+            doc.Body = Blob.valueOf(attachementString);
+            doc.ContentType = 'text/plain';
+            Folder f = [Select Id from Folder where Name = 'Search' LIMIT 1];
+            doc.FolderId= f.Id;
+            doc.Type = 'txt';
+            insert doc;
+        }
+        else {
+            docs.get(0).Body = Blob.valueOf(attachementString);
+            update docs.get(0);
+        }       
+    } 
 
     // Helper classes
      global class JsonRequest {

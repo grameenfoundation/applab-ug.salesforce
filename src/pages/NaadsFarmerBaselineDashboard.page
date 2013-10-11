@@ -181,7 +181,7 @@
                 <apex:column value="{!item.comment}" headerValue="Comment"/>
                 <apex:column width="50px">
                     <apex:facet name="header">Show Break Down</apex:facet>
-                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                         <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                             Break Down
                         </a>
@@ -223,7 +223,7 @@
                 <apex:column value="{!item.comment}" headerValue="Comment"/>
                 <apex:column width="50px">
                     <apex:facet name="header">Show Break Down</apex:facet>
-                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                         <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                             Break Down
                         </a>
@@ -265,7 +265,7 @@
                 <apex:column value="{!item.comment}" headerValue="Comment"/>
                 <apex:column width="50px">
                     <apex:facet name="header">Show Break Down</apex:facet>
-                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                    <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                         <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                             Break Down
                         </a>
@@ -307,7 +307,7 @@
                 <apex:column value="{!item.comment}" headerValue="Comment"/>
                 <apex:column width="50px">
                     <apex:facet name="header">Show Break Down</apex:facet>
-                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent == 'true'),'visible','hidden')}">
+                        <div style="display:inline;padding-left:2px;visibility:{!IF((item.hasCurrent),'visible','hidden')}">
                             <a href="javascript:void(0)" onclick="openBreakDown('{!item.name}', '{!quarter}')">
                                 Break Down
                             </a>

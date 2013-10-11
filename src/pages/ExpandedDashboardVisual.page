@@ -13,7 +13,7 @@
     <apex:pageBlock >
             <apex:form >
                  <apex:outputPanel rendered="{!showSelector}">
-                    <c:DashboardSelector sectionKey="key" key="DashboardSelectorKey" pageController="{!this}" accountName="{!accountName}" expanded="true"/>
+                    <c:DashboardSelector sectionKey="key" key="DashboardSelectorKey" pageController="{!this}" selector="{!selector}" accountName="{!accountName}" expanded="true"/>
                 </apex:outputPanel>
                 <apex:outputPanel rendered="{!showMap}" >
                     <div id="mapExtendedDiv" class="extendedDiv">

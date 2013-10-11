@@ -59,10 +59,10 @@ public class MetricMapController {
             gap = -60;
         }
         if (getNamedVariable('searchStartDate').equals('')) {
-            this.variables.put('searchStartDate', MetricHelpers.parseDateToString(now.addDays(gap)));
+            this.variables.put('searchStartDate', MetricHelpers.parseInstanceDateToString(now.addDays(gap)));
         }
         if (getNamedVariable('searchEndDate').equals('')) {
-            this.variables.put('searchEndDate', MetricHelpers.parseDateToString(now));
+            this.variables.put('searchEndDate', MetricHelpers.parseInstanceDateToString(now));
         }
 
         this.defaultedSubmissionStartDate = false;
@@ -173,6 +173,18 @@ public class MetricMapController {
             setStats('There are ' + metricMapMarkers.size() + ' metrics who match your search<br/>');
             markers.addAll(metricMapMarkers);
             metricMapMarkers.clear();
+        }
+        if(mapObject.equals('HARVEST')){
+            List<MetricMapWrapper> harvestMapMarkers = EWarehouseMEDashboardController.getHarvestMapMarkers();
+            setStats('There are ' + harvestMapMarkers.size() + ' metrics who match your search<br/>');
+            markers.addAll(harvestMapMarkers);
+            harvestMapMarkers.clear();
+        }
+        if(mapObject.equals('HUB')){
+            List<MetricMapWrapper> diaryHubsMapMarkers = EADDDashboardController.getDairyHubMapMarkers();
+            setStats('There are ' + diaryHubsMapMarkers.size() + ' metrics who match your search<br/>');
+            markers.addAll(diaryHubsMapMarkers);
+            diaryHubsMapMarkers.clear();
         }
         System.debug('Should show ' + markers.size() + ' map markers');
         if (markers.size() == 0) {

@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>AddInfluence</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
     <businessProcesses>
         <fullName>Donations</fullName>
         <description>used to track standard donations</description>
@@ -125,6 +157,10 @@
     </businessProcesses>
     <enableFeeds>true</enableFeeds>
     <fields>
+        <fullName>AccountId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Anonymous__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
@@ -139,6 +175,10 @@
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Check_Date__c</fullName>
@@ -433,6 +473,10 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Payment_Type__c</fullName>
         <externalId>false</externalId>
         <label>Payment Type</label>
@@ -456,6 +500,7 @@
     </fields>
     <fields>
         <fullName>Pledge__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <description>Look up relationship for pledge payments</description>
         <externalId>false</externalId>
         <label>Pledge</label>
@@ -486,6 +531,7 @@
     </fields>
     <fields>
         <fullName>Recurring_Donation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Recurring Donation</label>
         <referenceTo>Recurring_Donation__c</referenceTo>

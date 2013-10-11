@@ -41,6 +41,8 @@ global class FarmerRegistration {
     }
 
     webservice static AddFarmerRegistration registerFarmer(AddFarmerRegistration farmerRegistration) {
+    
+        Boolean updatePerformance = true;
 
         if (farmerRegistration.farmerId.toUpperCase().startsWith('GF')) {
             farmerRegistration.success = true;
@@ -57,21 +59,32 @@ global class FarmerRegistration {
         }
 
         // Load the new farmer to see if this is an update or not.
-        List<Farmer__c> farmers = Utils.loadFarmerFromId(farmerRegistration.farmerId);
+        List<Farmer__c> farmers = Utils.loadFarmerFromId(farmerRegistration.farmerId, ckw.Id);
         Farmer__c farmer;
         Person__c person;
         if (farmers.isEmpty()) {
             farmer = new Farmer__c();
             farmer.Name = farmerRegistration.farmerId.toUpperCase();
             farmer.Registered_By__c = ckw.Id;
+            farmer.Registered_Date__c = date.today();
             person = new Person__c();
             person.District__c = ckw.District__c;
             farmerRegistration.isUpdate = false;
         }
         else if (farmers.size() == 1) {
             farmer = farmers[0];
-            person = Utils.loadPersonId(farmer.Person__c);
-            farmerRegistration.isUpdate = true;
+            if (farmer.Person__r.First_Name__c.equalsIgnoreCase('Not Registered')) {
+                person = Utils.loadPersonId(farmer.Person__c);
+                farmer.Registered_Date__c = date.today();
+                farmerRegistration.isUpdate = true;
+            } else if (farmerRegistration.isUpdate == true) {
+                person = Utils.loadPersonId(farmer.Person__c);
+                updatePerformance = false;
+            } else {        
+                farmerRegistration.success = false;
+                farmerRegistration.errorMessage = 'The farmer id ' + farmerRegistration.farmerId + ' has already been used';
+                return farmerRegistration;
+            }
         }
         else {
 
@@ -150,7 +163,8 @@ global class FarmerRegistration {
         database.insert(addFarmerGroups(farmer, farmerRegistration, linkedFarmer));
 
         // Done so update the metric
-        if (!farmerRegistration.isUpdate) {
+        //if (!farmerRegistration.isUpdate) {
+        if (updatePerformance) {
             MetricHelpers.updateMetric('total_farmers_reached', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
         }
 

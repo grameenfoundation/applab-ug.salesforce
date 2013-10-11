@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Encuestador</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Encuestadores</value>
+    </caseValues>
+    <fields>
+        <label>Fecha de activos</label>
+        <name>Active_Date__c</name>
+    </fields>
+    <fields>
+        <help>Por favor agregue un numero donde podamos contactarlo</help>
+        <label>Numero de contacto alternativo</label>
+        <name>Alternative_Contact_Number__c</name>
+    </fields>
+    <fields>
+        <label>Asigando en</label>
+        <name>Assigned_On__c</name>
+    </fields>
+    <fields>
+        <help>Actitud del CKW durante el entrenamiento</help>
+        <label>Actitud</label>
+        <name>Attitude__c</name>
+        <picklistValues>
+            <masterLabel>Critic</masterLabel>
+            <translation>Critica</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Player</masterLabel>
+            <translation>Jugador</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Spectator</masterLabel>
+            <translation>Espectador</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Establezca el nivel de habilidades del CKW</help>
+        <label>Rango de CKW</label>
+        <name>CKW_Rank__c</name>
+        <picklistValues>
+            <masterLabel>Standard</masterLabel>
+            <translation>Estandar</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Super CKW</masterLabel>
+            <translation>CKW super</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Tipo de CKW</label>
+        <name>CKW_Type__c</name>
+        <picklistValues>
+            <masterLabel>CKW</masterLabel>
+            <translation>CKW</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Data Validator</masterLabel>
+            <translation>Validante de informacion</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Demo Account</masterLabel>
+            <translation>Probador de cuenta</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Developer</masterLabel>
+            <translation>Desarrollador</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GF/Applab Staff</masterLabel>
+            <translation>GF/Applab miembro</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trainee</masterLabel>
+            <translation>Entrenador</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Componentes aprovechados para CKW</help>
+        <label>Componentes de solucion de carga</label>
+        <name>Charging_Solution__c</name>
+        <picklistValues>
+            <masterLabel>Battery</masterLabel>
+            <translation>Bateria</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Charging Pins</masterLabel>
+            <translation>Cargando Pins</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mains power charger (UMEME)</masterLabel>
+            <translation>Principal cargador de energia</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Solar charger</masterLabel>
+            <translation>Cargador solar</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Comprension del material de entrenamiento</help>
+        <label>Compresion</label>
+        <name>Comprehension__c</name>
+        <picklistValues>
+            <masterLabel>Excellent</masterLabel>
+            <translation>Excelente</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fair</masterLabel>
+            <translation>Justa</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Good</masterLabel>
+            <translation>Buena</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Needs more support</masterLabel>
+            <translation>Necesita mas apoyo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Very good</masterLabel>
+            <translation>Muy buena</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Asimilacion del contenido del entrenamiento</help>
+        <label>Absorcion de contenido</label>
+        <name>Content_Absorption__c</name>
+        <picklistValues>
+            <masterLabel>Excellent</masterLabel>
+            <translation>Excelente</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fair</masterLabel>
+            <translation>Justa</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Good</masterLabel>
+            <translation>Buena</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Needs more support</masterLabel>
+            <translation>Necesita mas apoyo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Very good</masterLabel>
+            <translation>Muy buena</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Seleecione SI, si el contrato ha sido firmado</help>
+        <label>Contrato firmado ?</label>
+        <name>Contract_Signed__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>No</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation>Si</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Rendimiento actual</label>
+        <name>Current_Performance_Review__c</name>
+        <relationshipLabel>CKWs</relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- First Name --></label>
+        <name>First_Name__c</name>
+    </fields>
+    <fields>
+        <help>Alguna otra informacion co respecto al CKW durante el entreamieto</help>
+        <label>Notas generales</label>
+        <name>General_Notes__c</name>
+    </fields>
+    <fields>
+        <help>Comportamiento del CKW durante el entrenamiento</help>
+        <label>Dinamicas de grupo</label>
+        <name>Group_Dynamics__c</name>
+        <picklistValues>
+            <masterLabel>Does better</masterLabel>
+            <translation>Va mejor</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reserved</masterLabel>
+            <translation>Reservado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Social</masterLabel>
+            <translation>Social</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Seleccione SI, si el CKW ha cumplido con los compromisos</help>
+        <label>Cuota de compromiso pagadas ?</label>
+        <name>Has_CKW_paid_the_commitment_fee__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>No</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation>Si</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Name --></label>
+        <name>Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Middle Name --></label>
+        <name>Middle_Name__c</name>
+    </fields>
+    <fields>
+        <label>Numero movil</label>
+        <name>Mobile_Number__c</name>
+    </fields>
+    <fields>
+        <label>Perfil de Pulse</label>
+        <name>My_Profile__c</name>
+    </fields>
+    <fields>
+        <help>Notas-soluciones de carga</help>
+        <label>Notas solucion de carga</label>
+        <name>Notes_Charging_Solution__c</name>
+    </fields>
+    <fields>
+        <label>Oportunidad</label>
+        <name>Opportunity__c</name>
+        <relationshipLabel>CKWs</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Persona</label>
+        <name>Person__c</name>
+        <relationshipLabel>Detalles de CKW</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Estados de la pobreza</label>
+        <name>Poverty_Status__c</name>
+        <picklistValues>
+            <masterLabel>Not Poor</masterLabel>
+            <translation>No pobre</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Poor</masterLabel>
+            <translation>Pobre</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation>Desconocido</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Rendimiento del mes anterior</label>
+        <name>Previous_Performance_Review__c</name>
+        <relationshipLabel>CKW (Rendimiento del mes anterior)</relationshipLabel>
+    </fields>
+    <fields>
+        <help>Seleccione una cuenta de un socio que tenga</help>
+        <label>Reclutador</label>
+        <name>Recruiter__c</name>
+        <relationshipLabel>CKWs</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Reclutador secudario</label>
+        <name>Secondary_Recruiter__c</name>
+        <relationshipLabel>CKW (reclutador secundario)</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Numero serial</label>
+        <name>Serial_Number__c</name>
+    </fields>
+    <fields>
+        <help>El CKW tiene alguna necesidad especial?</help>
+        <label><!-- Special Needs --></label>
+        <name>Special_Needs__c</name>
+    </fields>
+    <fields>
+        <label>Estado de CKW</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dropped</masterLabel>
+            <translation>Reducido</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hired</masterLabel>
+            <translation>Contratado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Training</masterLabel>
+            <translation>En entrenamiento</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On vacation</masterLabel>
+            <translation>En vacaciones</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suspended</masterLabel>
+            <translation>Suspendido</translation>
+        </picklistValues>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>CKW Layout</layout>
+        <sections>
+            <label><!-- Active Case Status --></label>
+            <section>Active Case Status</section>
+        </sections>
+        <sections>
+            <label><!-- Bio data --></label>
+            <section>Bio data</section>
+        </sections>
+        <sections>
+            <label><!-- CKW Kit --></label>
+            <section>CKW Kit</section>
+        </sections>
+        <sections>
+            <label><!-- CKW Pulse Info --></label>
+            <section>CKW Pulse Info</section>
+        </sections>
+        <sections>
+            <label><!-- CKW contractual obligations --></label>
+            <section>CKW contractual obligations</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Location --></label>
+            <section>Location</section>
+        </sections>
+        <sections>
+            <label><!-- Training Evaluation --></label>
+            <section>Training Evaluation</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>CKW ID</nameFieldLabel>
+    <webLinks>
+        <label>Edicion masiva</label>
+        <name>Mass_Edit</name>
+    </webLinks>
+    <webLinks>
+        <label>Actualizacion masiva</label>
+        <name>Mass_Update</name>
+    </webLinks>
+</CustomObjectTranslation>

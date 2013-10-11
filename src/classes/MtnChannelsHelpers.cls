@@ -250,7 +250,9 @@ public with sharing class MtnChannelsHelpers {
             if (company.equals('Other')) {
                 activity.put(fieldName + '_Other_Name__c', getAnswerString(otherAnswers));
             }
-            activity = addBinary(activity, fieldName + '_' + company + '__c');
+            if (!((company.equals('null') || company == null))) {
+            	activity = addBinary(activity, fieldName + '_' + company + '__c');
+            }
         }
         return activity;
     }
@@ -300,9 +302,11 @@ public with sharing class MtnChannelsHelpers {
 
         for (String merch : answer) {
             String xlatedAnswer = translateMerchandise(merch);
-            activity.put(fieldName + '_' + xlatedAnswer + '__c', 1.0);
-            if (xlatedAnswer.equals('Other')) {
-                activity.put(fieldName + '_' + xlatedAnswer + '_Name__c', getAnswerString(otherAnswer));
+            if (xlatedAnswer != null && !xlatedAnswer.equals('null')) {
+            	activity.put(fieldName + '_' + xlatedAnswer + '__c', 1.0);
+            	if (xlatedAnswer.equals('Other')) {
+                	activity.put(fieldName + '_' + xlatedAnswer + '_Name__c', getAnswerString(otherAnswer));
+            	}
             }
         }
         return activity;
@@ -1143,5 +1147,33 @@ public with sharing class MtnChannelsHelpers {
         // Submit the survey
         List<String> returnValues = processChannelsFFPSSurvey(submission, answers, person);
         System.assert(returnValues.get(0).equals('1'));
+    }
+    
+    static testmethod void testOthers() {
+        Country__c country = new Country__c();
+        country.ISO_Standard_Code__c = 'SQ';
+        country.Name = 'Molongia';
+        database.insert(country);
+        
+        Region__c region  = new Region__c();
+        region.Country__c = country.Id;
+        region.Display_Name__c = 'Eastern';
+        database.insert(region);
+        
+        Person__c person = new Person__c();
+        person.First_Name__c = 'No body MTN';
+        person.Last_Name__c = 'MTN';
+        database.insert(person);
+        
+        MTN_Channels_Target__c target = new MTN_Channels_Target__c();
+        target.Person__c = person.Id;
+        target.Region__c = region.Id;
+        target.Start_Date__c = Date.today();
+        target.Outlet_Visits__c = 1;
+        
+        database.insert(target);
+        
+        target.Outlet_Visits__c = 0;
+        database.update(target);
     }
 }
