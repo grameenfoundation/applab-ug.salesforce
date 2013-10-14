@@ -9,6 +9,30 @@
         <value>LAC Farms</value>
     </caseValues>
     <fields>
+        <label><!-- Area Unit --></label>
+        <name>Area_Unit__c</name>
+        <picklistValues>
+            <masterLabel>Cuadras</masterLabel>
+            <translation><!-- Cuadras --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cuerdas (25x25)</masterLabel>
+            <translation><!-- Cuerdas (25x25) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cuerdas (40x40)</masterLabel>
+            <translation><!-- Cuerdas (40x40) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ha</masterLabel>
+            <translation><!-- Ha --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manzanas</masterLabel>
+            <translation><!-- Manzanas --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Area --></label>
         <name>Area__c</name>
     </fields>
@@ -369,8 +393,20 @@
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- Farm Code --></label>
+        <name>Farm_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Farm Name --></label>
+        <name>Farm_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Farm Number --></label>
         <name>Farm_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- GPS Data --></label>
+        <name>GPS_Data__c</name>
     </fields>
     <fields>
         <label><!-- GeoCode --></label>
@@ -945,5 +981,12 @@
             <translation><!-- C --></translation>
         </picklistValues>
     </fields>
+    <layouts>
+        <layout>LAC Farm Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

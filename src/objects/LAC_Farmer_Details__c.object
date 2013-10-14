@@ -100,6 +100,144 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>BPA__c</fullName>
+        <externalId>false</externalId>
+        <label>BPA</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Almácigo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilización</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Control de plagas y enfermedades</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conservación de suelos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Beneficio_h_medo__c</fullName>
+        <externalId>false</externalId>
+        <label>Beneficio húmedo</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Best_Practices__c</fullName>
+        <externalId>false</externalId>
+        <label>Best Practices</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Seedbed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shadow management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plagues and Diseases control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plantation Age</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Bodega_agroinsumos__c</fullName>
+        <externalId>false</externalId>
+        <label>Bodega agroinsumos</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Bodega_cosecha__c</fullName>
+        <externalId>false</externalId>
+        <label>Bodega cosecha</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Certificado__c</fullName>
+        <externalId>false</externalId>
+        <label>Certificado</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Comercion Justo (FLO)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Orgánico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rainforest Alliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
         <fullName>Certification_In_Progress__c</fullName>
         <externalId>false</externalId>
         <label>Certification In Progress</label>
@@ -196,16 +334,91 @@
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
+        <fullName>Community__c</fullName>
+        <externalId>false</externalId>
+        <label>Community</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conservaci_n_de_suelo__c</fullName>
+        <externalId>false</externalId>
+        <label>Conservación de suelo</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Contact__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>LAC Farmer Details</relationshipLabel>
         <relationshipName>LAC_Farmer_Details</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Control_de_enfermedades__c</fullName>
+        <externalId>false</externalId>
+        <label>Control de enfermedades</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Control_de_plagas__c</fullName>
+        <externalId>false</externalId>
+        <label>Control de plagas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Cooperative__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooperative</label>
+        <length>100</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <type>Lookup</type>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Country__c</fullName>
@@ -239,6 +452,51 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Department__c</fullName>
+        <externalId>false</externalId>
+        <label>Department</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Diseases__c</fullName>
+        <externalId>false</externalId>
+        <label>Diseases</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muerte Recurrente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mancha de Hierro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Roya</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Volcamiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mal Rosado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ojo de gallo o Gotera</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>District__c</fullName>
         <externalId>false</externalId>
         <label>District</label>
@@ -247,6 +505,33 @@
         <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Education__c</fullName>
+        <description>Deprecated. Moved to HH</description>
+        <externalId>false</externalId>
+        <label>Education (Deprecated)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ninguna</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primaria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Secundaria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Superior</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Employment_Status__c</fullName>
@@ -271,6 +556,36 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Desempleado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Enfermedades__c</fullName>
+        <externalId>false</externalId>
+        <label>Enfermedades</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Roya</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mancha de hierro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mal rosado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muerte recurrente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguna</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -378,6 +693,24 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Fertilizacion__c</fullName>
+        <externalId>false</externalId>
+        <label>Fertilizacion</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Fertilization__c</fullName>
         <externalId>false</externalId>
         <label>Fertilization</label>
@@ -454,7 +787,38 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Fuente_de_financiaci_n__c</fullName>
+        <externalId>false</externalId>
+        <label>Fuente de financiación</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cooperativa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Familiares</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguna</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Gender__c</fullName>
+        <description>We have a gender field here because the options in LAC surveys are in Spanish and IBT doesn&apos;t yet (v 2.22 and earlier) support different labels and values for options</description>
         <externalId>false</externalId>
         <label>Gender</label>
         <picklist>
@@ -472,10 +836,48 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Health_Care_System__c</fullName>
-        <description>Health care systems (current values are specific to Colombia)</description>
+        <fullName>Has_Cellphone__c</fullName>
         <externalId>false</externalId>
-        <label>Health Care System</label>
+        <label>Has Cellphone</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Has_Data_Plan__c</fullName>
+        <externalId>false</externalId>
+        <label>Has Data Plan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Health_Care_System__c</fullName>
+        <description>Health care systems (current values are specific to Colombia)
+
+Deprecated. Moved to Household</description>
+        <externalId>false</externalId>
+        <label>Health Care System (Deprecated)</label>
         <picklist>
             <picklistValues>
                 <fullName>Sisben</fullName>
@@ -550,7 +952,61 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Infraestructura__c</fullName>
+        <externalId>false</externalId>
+        <label>Infraestructura</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Bodega agroquímicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bodega cosecha</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beneficio húmedo individual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tratamiento de agua</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Infrastructure__c</fullName>
+        <externalId>false</externalId>
+        <label>Infrastructure</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Agrochemical Warehouse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crop Warehouse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wet mill</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
+        <description>Deprecated: July 2013 - This field isn&apos;t needed since TaroWorks now supports related object mapping.</description>
         <externalId>false</externalId>
         <label>LAC Farmer Id Temp</label>
         <length>15</length>
@@ -599,9 +1055,11 @@
     </fields>
     <fields>
         <fullName>Marginalized_Type__c</fullName>
-        <description>Type of population in which a person might be classified</description>
+        <description>Type of population in which a person might be classified
+
+Deprecated. Moved to HH</description>
         <externalId>false</externalId>
-        <label>Marginalized Type</label>
+        <label>Marginalized Type (Deprecated)</label>
         <picklist>
             <picklistValues>
                 <fullName>Desplazado</fullName>
@@ -632,6 +1090,17 @@
         <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Miembros__c</fullName>
+        <externalId>false</externalId>
+        <label>Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Monthly_Income_from_Coffee__c</fullName>
@@ -771,18 +1240,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Person__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Person</label>
-        <referenceTo>Person__c</referenceTo>
-        <relationshipLabel>LAC Farmer Details</relationshipLabel>
-        <relationshipName>LAC_Farmer_Details</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <type>Lookup</type>
-    </fields>
-    <fields>
         <fullName>Phone_Brand__c</fullName>
         <externalId>false</externalId>
         <label>Phone Brand</label>
@@ -847,6 +1304,79 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Plagas__c</fullName>
+        <externalId>false</externalId>
+        <label>Plagas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Broca</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Palomilla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Minador</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arañita roja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguna</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Plagues__c</fullName>
+        <externalId>false</externalId>
+        <label>Plagues</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Broca</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Minador</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arañita roja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Palomilla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cochinilla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>chinche de la chamusquina</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Babosas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nemátodos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>Plagues_and_Disease_Control__c</fullName>
         <externalId>false</externalId>
         <label>Plagues and Disease Control</label>
@@ -878,6 +1408,65 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Podas__c</fullName>
+        <externalId>false</externalId>
+        <label>Podas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proceso_certificacion__c</fullName>
+        <externalId>false</externalId>
+        <label>Proceso certificacion</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CAFE practices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rainforest Alliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Orgánico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UTZ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Producer_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Producer Code</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Production_of_Coffee__c</fullName>
         <externalId>false</externalId>
         <label>Production of Coffee</label>
@@ -895,6 +1484,17 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Productividad__c</fullName>
+        <externalId>false</externalId>
+        <label>Productividad</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
         <trackHistory>false</trackHistory>
         <type>Number</type>
         <unique>false</unique>
@@ -967,6 +1567,28 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Quintales_acopiados__c</fullName>
+        <externalId>false</externalId>
+        <label>Coffee quintals stored</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quintales_producidos__c</fullName>
+        <externalId>false</externalId>
+        <label>Coffee quintals sold</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Registered_By__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -997,6 +1619,17 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Registration_GPS_Data__c</fullName>
+        <description>Raw GPS String from direct mapping (includes lat, lng, altitude, accuracy)</description>
+        <externalId>false</externalId>
+        <label>Registration GPS Data</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Registration_Location__c</fullName>
         <description>Where was the registration done?</description>
         <externalId>false</externalId>
@@ -1016,6 +1649,24 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Otro lugar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SMS_Consent__c</fullName>
+        <externalId>false</externalId>
+        <label>SMS Consent</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -1074,6 +1725,24 @@
         <trackHistory>false</trackHistory>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tratamiento_de_aguas__c</fullName>
+        <externalId>false</externalId>
+        <label>Tratamiento de aguas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Village__c</fullName>
@@ -1138,6 +1807,24 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>manejo_sombra__c</fullName>
+        <externalId>false</externalId>
+        <label>manejo sombra</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
     <label>LAC Farmer Details</label>
     <listViews>
         <fullName>All</fullName>
@@ -1145,7 +1832,6 @@
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
         <columns>Contact__c</columns>
-        <columns>Person__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>
@@ -1157,5 +1843,5 @@
     </nameField>
     <pluralLabel>LAC Farmer Details</pluralLabel>
     <searchLayouts/>
-    <sharingModel>Private</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

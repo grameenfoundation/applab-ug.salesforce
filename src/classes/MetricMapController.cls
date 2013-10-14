@@ -174,6 +174,18 @@ public class MetricMapController {
             markers.addAll(metricMapMarkers);
             metricMapMarkers.clear();
         }
+        if(mapObject.equals('HARVEST')){
+            List<MetricMapWrapper> harvestMapMarkers = EWarehouseMEDashboardController.getHarvestMapMarkers();
+            setStats('There are ' + harvestMapMarkers.size() + ' metrics who match your search<br/>');
+            markers.addAll(harvestMapMarkers);
+            harvestMapMarkers.clear();
+        }
+        if(mapObject.equals('HUB')){
+            List<MetricMapWrapper> diaryHubsMapMarkers = EADDDashboardController.getDairyHubMapMarkers();
+            setStats('There are ' + diaryHubsMapMarkers.size() + ' metrics who match your search<br/>');
+            markers.addAll(diaryHubsMapMarkers);
+            diaryHubsMapMarkers.clear();
+        }
         System.debug('Should show ' + markers.size() + ' map markers');
         if (markers.size() == 0) {
             setFeedbackMessage('No map markers match your selection. Please refine your search to see a map');

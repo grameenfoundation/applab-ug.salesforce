@@ -90,6 +90,16 @@
                     <c:BracPASelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showBracPa}" sectionKey="{!sectionKey}"/>
                 </div>
             </apex:outputPanel>
+                        <apex:outputPanel id="bvatCiw" rendered="{!showBvatCiw}">
+                <div class="tableColumnDropDown">
+                    <c:CiwSelector key="CIW__c{!sectionKey}" pageController="{!this}" show="{!showBvatCiw}" sectionKey="{!sectionKey}"/> 
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel id="kenyanCounty" rendered="{!showKenyanCounty}">
+                <div class="tableColumnDropDown">
+                    <c:KenyanCountySelector key="Kenyan_County__c{!sectionKey}" pageController="{!this}" show="{!showKenyanCounty}" sectionKey="{!sectionKey}"/> 
+                </div>
+            </apex:outputPanel>
             <apex:outputPanel id="datePicker" rendered="{!showDates}">
                 <c:StartEndDateSelector key="datePicker{!sectionKey}" pageController="{!this}" show="{!showDates}" sectionKey="{!sectionKey}"/>
             </apex:outputPanel>

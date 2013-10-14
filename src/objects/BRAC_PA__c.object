@@ -35,7 +35,6 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A programme assistant for BRAC</description>
     <enableActivities>false</enableActivities>
-    <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
@@ -96,7 +95,7 @@
     <fields>
         <fullName>Full_Name__c</fullName>
         <externalId>false</externalId>
-        <formula>Person__r.First_Name__c &amp; &quot;, &quot; &amp;  Person__r.Last_Name__c</formula>
+        <formula>Person__r.First_Name__c  &amp; &quot;, &quot; &amp;  Person__r.Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Full Name</label>
         <required>false</required>
@@ -154,10 +153,13 @@
         <label>All</label>
     </listViews>
     <nameField>
+        <displayFormat>BPA{0000000000}</displayFormat>
         <label>BRAC PA Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>BRAC PAs</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <customTabListAdditionalFields>Person__c</customTabListAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

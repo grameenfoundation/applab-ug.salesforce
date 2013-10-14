@@ -2,7 +2,7 @@
  * Controller class that facilitates display of 
  * the NAADS ASP performance records
  */
-public with sharing class NaadsAspPerformanceController {
+global with sharing class NaadsAspPerformanceController {
 
     // A list of performance data stats by each ASP
     public List<PerformanceStats> performanceStats { get; set; }
@@ -17,6 +17,7 @@ public with sharing class NaadsAspPerformanceController {
      */       
     public List<PerformanceStats> showAspPerformance() {
         performanceStats = createAspPerformanceStats(getNaadsAspMetrics()).values();
+		performanceStats.sort();
         return performanceStats;
     }
 
@@ -79,7 +80,7 @@ public with sharing class NaadsAspPerformanceController {
     }
 
     // Class to represent an individual ASP's performance
-    class PerformanceStats {
+    global class PerformanceStats implements Comparable{
         String aspName;
         Decimal monthlyVisits;
         Decimal groupTrainings;
@@ -106,6 +107,14 @@ public with sharing class NaadsAspPerformanceController {
         }
         public String getSubcounty() {
             return subcounty;
-        }      
+        }
+
+        // Implement the compareTo() method
+        global Integer compareTo(Object compareTo) {
+            PerformanceStats compareToEmp = (PerformanceStats)compareTo;
+            if (subcounty == compareToEmp.subcounty) return 0;
+            if (subcounty > compareToEmp.subcounty) return 1;
+            return -1;        
+        }     
     }
 }

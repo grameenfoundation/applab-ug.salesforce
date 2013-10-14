@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <excludeButtons>DataDotComClean</excludeButtons>
+    <customButtons>Create_Connection</customButtons>
+    <customButtons>View_Connections</customButtons>
+    <customButtons>Contact_Pledge</customButtons>
+    <customButtons>Contact_Recurring_Donation</customButtons>
     <excludeButtons>EnableSelfService</excludeButtons>
-    <excludeButtons>RequestUseSfdc</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <excludeButtons>ViewSelfService</excludeButtons>
     <layoutSections>
@@ -43,6 +45,26 @@
                 <behavior>Edit</behavior>
                 <field>Interest__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Country__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Picture_Attachment_Id__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Picture__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Signature__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Picture_Url__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -77,6 +99,28 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Mobile Survey Information</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>gfsurveys__mobilesurveys_Username__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>gfsurveys__mobilesurveys_Password__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>gfsurveys__mobilesurveys_Id__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>gfsurveys__mobilesurveys_LastCheckInDevice__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>gfsurveys__Mobile_User__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
@@ -219,11 +263,23 @@
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
-      <relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>gfsurveys__ContactGroupMember__c.gfsurveys__Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>NAME</fields>
         <relatedList>LAC_Farmer_Details__c.Contact__c</relatedList>
     </relatedLists>
-     <relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>gfsurveys__Submission__c.gfsurveys__Interviewee__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>gfsurveys__Submission__c.gfsurveys__Surveyor__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHAT_NAME</fields>
         <fields>ACTIVITY.TASK</fields>
@@ -243,6 +299,10 @@
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
+        <customButtons>Contact_Donation</customButtons>
+        <customButtons>Contact_Membership</customButtons>
+        <customButtons>Contact_Pledge_Payment</customButtons>
+        <customButtons>Contact_Donation_History</customButtons>
         <excludeButtons>New</excludeButtons>
         <fields>OPPORTUNITY.NAME</fields>
         <fields>OPPORTUNITY.STAGE_NAME</fields>
@@ -273,6 +333,23 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>LAC_Farmer_Details__c.Registered_By__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Last_Name__c</fields>
+        <fields>Middle_Name__c</fields>
+        <fields>First_Name__c</fields>
+        <fields>Mobile_Number__c</fields>
+        <fields>Raw_Mobile_Number__c</fields>
+        <relatedList>Person__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Farmer__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>LAC_Household__c.Household_Head__c</relatedList>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

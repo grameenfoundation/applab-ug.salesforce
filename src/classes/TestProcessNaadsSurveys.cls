@@ -14,15 +14,22 @@ private class TestProcessNaadsSurveys {
         database.SaveResult accountSaveResult = database.insert(testAccount);
 
         M_E_Metric__c metric1 = new M_E_Metric__c();
-        metric1.Name = 'Farmer_group_trainings_meetings_or_attended';
+        metric1.Name = 'Percentage_of_beneficiaries_satisfied_with_advisory_services';
         metric1.Organisation__c = accountSaveResult.getId();
         M_E_Metric__c metric2= new M_E_Metric__c();
-        metric2.Name = 'Number_of_farmer_supervisory_visits_conducted';
+        metric2.Name = 'Percentage_of_farmers_noticing_improvement_in_NAADS_extension_services';
         metric2.Organisation__c = accountSaveResult.getId();
         M_E_Metric__c metric3= new M_E_Metric__c();
-        metric3.Name = 'Number_of_farmers_attending_group_trainings_meetings';
+        metric3.Name = 'Percentage_of_farmers_reporting_a_feedback_channel_for_NAADS';
         metric3.Organisation__c = accountSaveResult.getId();
-        database.insert(new M_E_Metric__c[] { metric1,  metric2, metric3});
+        M_E_Metric__c metric4= new M_E_Metric__c();
+        metric4.Name = 'Percentage_of_farmers_satisfied_with_feedback_channel_for_NAADS';
+        metric4.Organisation__c = accountSaveResult.getId();
+        M_E_Metric__c metric5= new M_E_Metric__c();
+        metric5.Name = 'Percentage_of_beneficiaries_perceiving_involvement_in_group_decision_making';
+        metric5.Organisation__c = accountSaveResult.getId();
+
+        database.insert(new M_E_Metric__c[] { metric1,  metric2, metric3, metric4, metric5});
 
         ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
         submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
@@ -74,7 +81,7 @@ private class TestProcessNaadsSurveys {
         District__c district = new District__c();
         district.Name = 'Serere';
         database.SaveResult saveResult = database.insert(district);
-        
+
         // Create subcounty
         Subcounty__c kateta = new Subcounty__c();
         kateta.District__c = saveResult.getId();
@@ -86,22 +93,17 @@ private class TestProcessNaadsSurveys {
         database.SaveResult accountSaveResult = database.insert(testAccount);
 
         M_E_Metric__c metric1 = new M_E_Metric__c();
-        metric1.Name = 'Percentage_of_beneficiaries_satisfied_with_advisory_services';
+        metric1.Name = 'Farmer_group_trainings_meetings_or_attended';
         metric1.Organisation__c = accountSaveResult.getId();
         M_E_Metric__c metric2= new M_E_Metric__c();
-        metric2.Name = 'Percentage_of_farmers_noticing_improvement_in_NAADS_extension_services';
+        metric2.Name = 'Number_of_farmer_supervisory_visits_conducted';
         metric2.Organisation__c = accountSaveResult.getId();
         M_E_Metric__c metric3= new M_E_Metric__c();
-        metric3.Name = 'Percentage_of_farmers_reporting_a_feedback_channel_for_NAADS';
+        metric3.Name = 'Number_of_farmers_attending_group_trainings_meetings';
         metric3.Organisation__c = accountSaveResult.getId();
-        M_E_Metric__c metric4= new M_E_Metric__c();
-        metric4.Name = 'Percentage_of_farmers_satisfied_with_feedback_channel_for_NAADS';
-        metric4.Organisation__c = accountSaveResult.getId();
-        M_E_Metric__c metric5= new M_E_Metric__c();
-        metric5.Name = 'Percentage_of_beneficiaries_perceiving_involvement_in_group_decision_making';
-        metric5.Organisation__c = accountSaveResult.getId();
-        
-        database.insert(new M_E_Metric__c[] { metric1,  metric2, metric3, metric4, metric5});
+        database.insert(new M_E_Metric__c[] { metric1,  metric2, metric3});
+
+
         
         ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
         submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');

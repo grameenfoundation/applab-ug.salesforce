@@ -51,6 +51,10 @@ public with sharing class BracSurveysHelpers {
         
         if (isHouseholdVisit) {
             healthVisit.Health_Visits__c += 1;
+            Boolean isPregnant = answers.get('wom_category_0').Answer__c.equals('1') ? true : false;
+            if (isPregnant) {
+                healthVisit.Pregnant_Women__c += 1;
+            }
             
             // Check if there was any patient in the household
             if (answers.get('q13_0').Answer__c.equals('1')) {

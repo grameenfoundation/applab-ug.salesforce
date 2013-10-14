@@ -1,11 +1,11 @@
 <apex:page standardController="MessageCampaign__c"
-	extensions="MessageCampaignController">
+    extensions="MessageCampaignController">
 
-	<apex:pageBlock title="Message Campaigns" mode="maindetail"
-		tabStyle="MessageCampaign__c">
-		<apex:pageBlockSection columns="1" title="">
+    <apex:pageBlock title="{!$ObjectType.MessageCampaign__c.Label}" mode="maindetail"
+        tabStyle="MessageCampaign__c">
+        <apex:pageBlockSection columns="1" title="">
             <apex:detail relatedList="true" />
         </apex:pageBlockSection>
-	</apex:pageBlock>
-	
+    </apex:pageBlock>
+    
 </apex:page>

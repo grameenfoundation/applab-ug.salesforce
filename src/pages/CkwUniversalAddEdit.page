@@ -1,5 +1,5 @@
 <apex:page standardController="CKW__c" extensions="CkwUniversalAddEditController" tabStyle="CKW__c" sideBar="false"
- action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile',null,URLFOR(IF(CKW__c.Id == null,$Action.CKW__c.New, $Action.CKW__c.Edit),CKW__c.Id,null,true))}">
+ action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='MANA Admin Profile'||$Profile.Name=='MANA Self Serve Sub Profile',null,URLFOR(IF(CKW__c.Id == null,$Action.CKW__c.New, $Action.CKW__c.Edit),CKW__c.Id,null,true))}">
   <style type="text/css">
     .ckw-required{
         border-left: 3px solid #c00;
@@ -29,10 +29,10 @@
                 <apex:inputField value="{!contact.ownerId}" />
             </apex:pageBlockSection>
             <apex:pageBlockSection title="{!$Label.PROFILE_PICTURE}">
-            	<apex:outputText style="font-weight: bold;" value="{!$Label.CHANGE_PROFILE_PICTURE_INSTRUCTIONS}"/><br/>
+                <apex:outputText style="font-weight: bold;" value="{!$Label.CHANGE_PROFILE_PICTURE_INSTRUCTIONS}"/><br/>
                 <apex:inputFile value="{!profilePicture.body}" filename="{!profilePicture.name}" id="profilePicture"/><br/>
                 <apex:outputField value="{!contact.Picture__c}" rendered="{!IF(contact.Picture_Attachment_Id__c == null, false, true)}"/>
-			    <apex:outputText value="{!$Label.NO} {!$Label.PROFILE_PICTURE}" rendered="{!IF(contact.Picture_Attachment_Id__c == null, true, false)}"/>
+                <apex:outputText value="{!$Label.NO} {!$Label.PROFILE_PICTURE}" rendered="{!IF(contact.Picture_Attachment_Id__c == null, true, false)}"/>
             </apex:pageBlockSection>
             <apex:pageBlocksection title="{!$Label.CKW_INFORMATION}" collapsible="true">
                 <apex:inputfield value="{!ckw.Contract_Signed__c}"/>

@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EnableCustomerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewCustomerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>AccountSource</fullName>
@@ -302,6 +338,10 @@
         <type>Currency</type>
     </fields>
     <fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Ownership</fullName>
         <picklist>
             <picklistValues>
@@ -323,6 +363,10 @@
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Rating</fullName>
@@ -1994,10 +2038,32 @@
         <errorMessage>A valid 2 letter state abbreviation is required</errorMessage>
     </validationRules>
     <webLinks>
+        <fullName>Create_Connection</fullName>
+        <availability>online</availability>
+        <description>used to create connection from organization to other contacts outside of that organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Create Connection</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>ContactConnectionCreatefromOrganization</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>GenerateMailingLabels</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>750</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Generate Mailing Labels</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>GenerateMailingLabels</scontrol>
+    </webLinks>
+    <webLinks>
         <fullName>Mass_Edit</fullName>
         <availability>online</availability>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>page</linkType>
         <masterLabel>Mass Edit</masterLabel>
@@ -2010,7 +2076,6 @@
         <fullName>Mass_Update</fullName>
         <availability>online</availability>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>page</linkType>
         <masterLabel>Mass Update</masterLabel>
@@ -2020,11 +2085,34 @@
         <requireRowSelection>true</requireRowSelection>
     </webLinks>
     <webLinks>
+        <fullName>Organization_Pledge</fullName>
+        <availability>online</availability>
+        <description>setup pledge from organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Pledge</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>DonationSetupPledgefromOrganization</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>Organization_Recurring_Donation</fullName>
+        <availability>online</availability>
+        <description>setup recurring donation from organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Recurring Donation</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>DonationSetupRecurringfromOrganization</scontrol>
+    </webLinks>
+    <webLinks>
         <fullName>View_Connections</fullName>
         <availability>online</availability>
         <description>used to view connections between contacts and orgainzations</description>
         <displayType>button</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>
@@ -2043,7 +2131,6 @@
         <fullName>map</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>
@@ -2062,7 +2149,6 @@
         <fullName>news</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>true</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>true</hasToolbar>

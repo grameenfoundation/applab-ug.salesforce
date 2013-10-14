@@ -129,7 +129,7 @@ public with sharing virtual class ChildComponentBase {
                     this.startDate = Date.today().addMonths(-defaultShow * 3).toStartOfMonth();
                 }
                 else {
-                	this.endDate = Date.newInstance(this.getEndDate(true).year(), 1, 1).addMonths(-defaultShow * 12);
+                    this.startDate = Date.newInstance(this.getEndDate(true).year(), 1, 1).addMonths(-defaultShow * 12);
                 }
             }
         }
@@ -180,7 +180,7 @@ public with sharing virtual class ChildComponentBase {
                 this.endDate = this.endDate.toStartOfMonth().addMonths(3).addDays(-1);
             }
             else if (datePeriod.equalsIgnoreCase('Yearly')) {
-            	this.endDate = Date.newInstance(this.endDate.year(), 1, 1).addMonths(12).addDays(-1);
+                this.endDate = Date.newInstance(this.endDate.year(), 1, 1).addMonths(12).addDays(-1);
            }
         }
         return this.endDate;

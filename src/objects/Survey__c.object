@@ -73,6 +73,16 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Defer_Post_Processing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used in cases where a survey has post processing but you do not want it to run immediately for each submission. Current use case is for post processing to run when a submission has been approved</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Post processing should not be run immediately until a submission has been approved</inlineHelpText>
+        <label>Defer Post Processing</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>End_Date__c</fullName>
         <description>End date of survey</description>
         <externalId>false</externalId>
@@ -131,7 +141,7 @@
         <description>The URL to export a survey to</description>
         <externalId>false</externalId>
         <label>Export URL</label>
-        <required>false</required>
+        <required>true</required>
         <trackHistory>false</trackHistory>
         <type>Url</type>
     </fields>
@@ -266,6 +276,14 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>EADD_FARMER_EXTRA_INFO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EADD_HUB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Colombia_Farmer_Registration</fullName>
                 <default>false</default>
             </picklistValues>
@@ -299,6 +317,42 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
             </picklistValues>
             <picklistValues>
                 <fullName>MTN_WEEKLY_REPORT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NAADS_BASELINE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NAADS_ADVISORY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPPORTUNITY_CLIENT_PROFILE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EW_FARMER_REG</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EW_HARVEST_REG</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EW_SALE_REG</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BVAT_CIW_INFORMATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BVAT_FARMER_REGISTRATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BVAT_CONTENT_SURVEY</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -446,7 +500,7 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
         <trackHistory>true</trackHistory>
         <type>Picklist</type>
     </fields>
-    <label>Survey (CKW)</label>
+    <label>Survey</label>
     <listViews>
         <fullName>All_Surveys</fullName>
         <columns>NAME</columns>
@@ -467,7 +521,7 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
         <trackHistory>true</trackHistory>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Surveys (CKW)</pluralLabel>
+    <pluralLabel>Surveys</pluralLabel>
     <searchLayouts>
         <customTabListAdditionalFields>Survey_Name__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Start_Date__c</customTabListAdditionalFields>

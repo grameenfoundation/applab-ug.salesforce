@@ -216,11 +216,19 @@ public class MetricMapWrapper {
                         'Value for this quarter = ' + this.thisMonthsPerformance + '.<br />' +
                         'Target for this quarter = ' + this.performanceLevel + '.<br />';
         }
+        else if (this.markerType.equals('Harvest')) {
+            content = this.name;
+            content += '<a href=\\"javascript\\:void(0)\\" onclick=\\"window.open(\\\'/' + this.id + '\\\',\\\'_blank\\\');\\">See harvest details</a><br/>';
+        }
         markerInfoContentString = content + '</div>';
 
     }
 
     public static testMethod void testConstructor() {
+        
+        District__c d = new District__c();
+        d.Name = 'Gulu';
+        insert d;
 
         District__c district = [
             SELECT
@@ -229,7 +237,7 @@ public class MetricMapWrapper {
             FROM
                 District__c
             WHERE
-                Name = 'Gulu'];
+                Name = 'Gulu' order by CreatedDate desc limit 1];
 
         // Create a 2nd CKW who is inactive
         Phone__c testHandset = new Phone__c();

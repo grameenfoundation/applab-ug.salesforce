@@ -35,7 +35,6 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Defines the starting point for a map that can be shown on a dashboard</description>
     <enableActivities>false</enableActivities>
-    <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
@@ -163,7 +162,19 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>FarmerLand</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Custom Class</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BVAT CIW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BVAT Farmer</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -183,21 +194,6 @@
         <unique>false</unique>
     </fields>
     <label>Map Parameter</label>
-    <listViews>
-        <fullName>All</fullName>
-        <columns>NAME</columns>
-        <columns>Dashboard_Section__c</columns>
-        <columns>Keyword__c</columns>
-        <columns>Latitude__c</columns>
-        <columns>Longitude__c</columns>
-        <columns>Splitter__c</columns>
-        <columns>Title__c</columns>
-        <columns>Type_Of_sObject__c</columns>
-        <columns>Zoom__c</columns>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-        <language>en_US</language>
-    </listViews>
     <nameField>
         <displayFormat>MP{0000000000}</displayFormat>
         <label>Map Parameter Name</label>

@@ -166,7 +166,7 @@
         <defaultValue>0</defaultValue>
         <description>The total number of health forums visited in the given time period</description>
         <externalId>false</externalId>
-        <label>Health Forums</label>
+        <label>Attended</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -178,7 +178,7 @@
         <defaultValue>0</defaultValue>
         <description>The total number of households visited in a given time period</description>
         <externalId>false</externalId>
-        <label>Households Visited</label>
+        <label>Visited</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -264,8 +264,14 @@
     <label>BRAC Health Visit</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <label>BRAC Health Visit Name</label>

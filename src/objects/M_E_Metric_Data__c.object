@@ -53,6 +53,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>BVAT_CIW__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>BVAT CIW</label>
+        <referenceTo>CIW__c</referenceTo>
+        <relationshipLabel>M&amp;E Metric Data</relationshipLabel>
+        <relationshipName>M_E_Metric_Data</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Comment__c</fullName>
         <description>Comment for this particular metric for this quarter</description>
         <externalId>false</externalId>

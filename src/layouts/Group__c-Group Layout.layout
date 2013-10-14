@@ -27,6 +27,10 @@
                 <behavior>Edit</behavior>
                 <field>Need_Update__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Group_ID__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -66,17 +70,18 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>Person__c.NAME</fields>
         <fields>Person__c.Last_Name__c</fields>
         <fields>Person__c.Middle_Name__c</fields>
         <fields>Person__c.First_Name__c</fields>
+        <fields>Person__c.NAME</fields>
         <fields>NAME</fields>
         <fields>Person__c.Mobile_Number__c</fields>
         <fields>Person__c.Raw_Mobile_Number__c</fields>
         <fields>Person__c.CREATED_DATE</fields>
         <fields>Owner.CUSTENT_OWNER_NAME</fields>
+        <fields>User.CREATED</fields>
         <relatedList>Person_Group_Association__c.Group__c</relatedList>
-        <sortField>NAME</sortField>
+        <sortField>Person__c.Last_Name__c</sortField>
         <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>

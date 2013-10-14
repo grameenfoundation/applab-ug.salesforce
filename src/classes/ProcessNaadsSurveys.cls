@@ -25,7 +25,7 @@ public with sharing class ProcessNaadsSurveys {
             'Percentage_of_farmers_satisfied_with_feedback_channel_for_NAADS',
             'Percentage_of_beneficiaries_perceiving_involvement_in_group_decision_making'
         };
-		
+    
         String subcountyName = naadsBaselineSubcountyMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')));
         if (subcountyName == null) {
             return new String[]{ '0', 'Subcounty does not exist!!', 'SUPRESSMSG' };
@@ -137,7 +137,7 @@ public with sharing class ProcessNaadsSurveys {
                  totalNewData.Actual_Value__c = 100*(totalNewData.Numerator__c/totalNewData.Denumerator__c);
             }
             else {
-            	continue;
+              continue;
             }
             dataMap.put(key, totalNewData);
         }
@@ -207,11 +207,12 @@ public with sharing class ProcessNaadsSurveys {
             'Farmer_group_trainings_meetings_or_attended',
             'Number_of_farmer_supervisory_visits_conducted', 
             'Number_of_farmers_attending_group_trainings_meetings'
-        };		 
+        };     
 
          String subcountyName = advisorySubcountyMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')));
          Decimal farmerCount = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q19_0'), 'q19_0', true);
-         Set<String> visitType = ProcessSubmissionHelpers.getAnswerSet(answers.get('q1_0'));
+         String visitType = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0'));
+		 System.debug('Visit Type ' + visitType);
          Subcounty__c subcounty = [Select Id from Subcounty__c where Display_Name__c =:subcountyName];
          DateTime handsetSubmitTime = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime);
          Date currentDate = handsetSubmitTime.date();
@@ -220,7 +221,7 @@ public with sharing class ProcessNaadsSurveys {
          Naads_Asp_Daily_Visit_Metric__c naadsMetric = getNaadsAspDailyVisitMetric(visitDate, subcountyName);
          if (naadsMetric == null) {
              naadsMetric = new Naads_Asp_Daily_Visit_Metric__c();
-             naadsMetric.Visit_Date__c = currentDate;
+             naadsMetric.Visit_Date__c = visitDate;
              naadsMetric.Person__c = person.Id;
              naadsMetric.Subcounty__c = subcountyName;
              naadsMetric.Supervisory_Visit_Count__c = 0;
@@ -258,7 +259,7 @@ public with sharing class ProcessNaadsSurveys {
              WHERE
                  Subcounty__c = :subcounty.Id
              AND 
-                 Date__c = :currentDate
+                 Date__c = :visitDate
              AND 
                  M_E_Metric__r.Name 
              IN :metricNames
@@ -266,7 +267,7 @@ public with sharing class ProcessNaadsSurveys {
         if (datas == null) {
             datas = new M_E_Metric_Data__c[]{};
             for (String metricName : metricNames) {
-                M_E_Metric_Data__c mData = MetricHelpers.createNewMetric(metricName, currentDate, 0.0, null, null, subcounty.Id, 'NAADS', false);
+                M_E_Metric_Data__c mData = MetricHelpers.createNewMetric(metricName, visitDate, 0.0, null, null, subcounty.Id, 'NAADS', false);
                 datas.add(mdata);
             }
         }
@@ -284,7 +285,7 @@ public with sharing class ProcessNaadsSurveys {
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug('Checking for metric name: ' + key);
             if (totalNewData == null) {
-                totalNewData = MetricHelpers.createNewMetric(key, currentDate, 0.0, null, null, subcounty.Id, 'NAADS', false);
+                totalNewData = MetricHelpers.createNewMetric(key, visitDate, 0.0, null, null, subcounty.Id, 'NAADS', false);
             }
 
             // Update the metric based on the key
@@ -301,7 +302,7 @@ public with sharing class ProcessNaadsSurveys {
                  totalNewData.Actual_Value__c = totalNewData.Denumerator__c;
             }
             else {
-            	continue;
+              continue;
             }
             dataMap.put(key, totalNewData);
         }

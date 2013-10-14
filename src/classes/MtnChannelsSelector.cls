@@ -27,6 +27,7 @@ public with sharing class MtnChannelsSelector extends ParentComponentBase {
                     Show_Submit_Button__c,
                     Show_Brac_Area__c,
                     Show_Brac_PA__c,
+                    Show_Opportunity_Farmer__c,
                     Start_Date__c
                 FROM
                     Dashboard_Selector__c

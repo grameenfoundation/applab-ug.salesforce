@@ -97,8 +97,6 @@ global class ProcessSurveySubmission {
             // Send Pulse and SMS feedback to the submitter
             if (!results.get(2).equals('SUPRESSMSG')) {
                 messageBody = results.get(2);
-                List<Recipient> recipients = new List<Recipient>();
-                recipients.add(new Recipient(interviewer.Id, Recipient.RecipientType.Person));
                 User sender = [
                     SELECT
                         Id,
@@ -108,27 +106,11 @@ global class ProcessSurveySubmission {
                     WHERE
                         Name = 'ckw admin'
                 ];
-                Server_Configuration__c configuration = [
-                    SELECT
-                        URL__c,
-                        Base_URL__c,
-                        Services_Path__c,
-                        Survey_Database__c,
-                        Search_Database__c
-                    FROM
-                        Server_Configuration__c
-                    LIMIT 1
-                ];
-                Message message = new Message(
-                    messageSubject,
-                    messageBody,
-                    recipients,
-                    sender,
-                    datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0)),
-                    configuration
+                SendSmsHelpers.sendThroughGateways(
+                    SendSmsHelpers.generateMessage(
+                        new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0))
+                    ), true
                 );
-                message.sendViaPulse();
-                message.sendViaSms();
             }
 
             // Return the completed submission
@@ -570,8 +552,32 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
                 return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
             }
+            if (survey.Post_Processing_Method__c.equals('BVAT_CIW_INFORMATION')) {
+                return BvatHelpers.processCiwInformationSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('BVAT_FARMER_REGISTRATION')) {
+                return BvatHelpers.processFarmerRegistrationSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('BVAT_CONTENT_SURVEY')) {
+                return BvatHelpers.processContentSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('EW_FARMER_REG')) {
+                return ProcessEwarehouseSurveys.processEwarehouseFarmerRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('EW_HARVEST_REG')) {
+                return ProcessEwarehouseSurveys.processEwarehouseHarvestSurvey(surveySubmission, answers, interviewer);
+            }
+			else if (survey.Post_Processing_Method__c.equals('EW_SALE_REG')) {
+                return ProcessEwarehouseSurveys.processSaleRegistration(answers);
+            }
             else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
                 return BracSurveysHelpers.processHealthProgrammeSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
+                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
+            }
+            else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
+                return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
             }
             else if (survey.Post_Processing_Method__c.equals('TDR_PA_PRODUCTS')) {
                 return TdrHelpers.processTdrPaProductsSurvey(surveySubmission, interviewer);
@@ -579,14 +585,8 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
                 return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
             }
-            else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
+        else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
                 return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
-                return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
-                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
             }
         }
         catch (Exception e) {
@@ -617,11 +617,11 @@ global class ProcessSurveySubmission {
     static testMethod void testSubmission() {
 
         // Create a CKW
-        CKW__c ckw = Utils.createTestCkw(null, 'TestCKW7', true, null, null);
+        CKW__c ckw = Utils.createTestCkw(null, 'TestCKW1', true, null, null);
         database.insert(ckw);
 
         // Create a farmer
-        Farmer__c farmer1 = Utils.createTestFarmer('OD99996', null, 'TestFarmer7', true, null, null);
+        Farmer__c farmer1 = Utils.createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
 
@@ -634,8 +634,8 @@ global class ProcessSurveySubmission {
         Survey__c survey2 = [SELECT Name FROM Survey__c WHERE Id = :survey.Id];
 
         SurveySubmission surveySubmission = new SurveySubmission();
-        surveySubmission.imei = 'TestCKW7';
-        surveySubmission.farmerId = 'OD99996';
+        surveySubmission.imei = ckw.Person__r.Handset__r.IMEI__c;
+        surveySubmission.farmerId = 'OD99999';
         surveySubmission.surveyId = survey2.Name;
         surveySubmission.surveySize = '2345';
         surveySubmission.resultHash = 'cr2EC8B3B70D991F74A8CF10270A28A787CABC28';
@@ -643,12 +643,11 @@ global class ProcessSurveySubmission {
         surveySubmission.interviewLongitude = '32.58986';
         surveySubmission.interviewAltitude = '55.00000';
         surveySubmission.interviewAccuracy = '0.00000';
-        surveySubmission.interviewGPSTimestamp = '1365774487';
         surveySubmission.submissionLatitude = '0.31950';
         surveySubmission.submissionLongitude = '32.58986';
         surveySubmission.submissionAltitude = '55.00000';
         surveySubmission.submissionAccuracy = '0.00000';
-        surveySubmission.submissionGPSTimestamp = '1365774487';
+        surveySubmission.submissionGPSTimestamp = '';
         surveySubmission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
 
         surveySubmission.json = '{ "answers" : [ {"answer":"35","binding":"age","type":"Input","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"2","questionText":"Age"}, {"answer":"owen","binding":"name","type":"Input","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"1","questionText":"Name"}, {"answer":"2","binding":"gender","type":"Select1","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"3","questionText":"Gender"}, {"answer":"0","binding":"kids_age","type":"Input","parentBinding":"kids_details","parentInstance":"0","instance":"0","questionNumber":"6","questionText":"Age"}, {"answer":"Sammy","binding":"kids_name","type":"Input","parentBinding":"kids_details","parentInstance":"0","instance":"0","questionNumber":"5","questionText":"Name"}, {"answer":"null","binding":"kids_details","type":"Repeat","parentBinding":"null","parentInstance":"0","instance":"0","questionNumber":"4","questionText":"Kids Details"}, {"answer":"null","binding":"kids_details","type":"Repeat","parentBinding":"null","parentInstance":"0","instance":"1","questionNumber":"4","questionText":"Kids Details"}, {"answer":"9","binding":"kids_age","type":"Input","parentBinding":"kids_details","parentInstance":"1","instance":"1","questionNumber":"6","questionText":"Age"}, {"answer":"Bobby","binding":"kids_name","type":"Input","parentBinding":"kids_details","parentInstance":"1","instance":"1","questionNumber":"5","questionText":"Name"} ] }';
@@ -659,11 +658,11 @@ global class ProcessSurveySubmission {
     static testMethod void testXmlSubmission() {
 
         // Create a CKW
-        CKW__c ckw = Utils.createTestCkw(null, 'TestCKW8', true, null, null);
+        CKW__c ckw = Utils.createTestCkw(null, 'TestCKW1', true, null, null);
         database.insert(ckw);
 
         // Create a farmer
-        Farmer__c farmer1 = Utils.createTestFarmer('OD99997', null, 'TestFarmer8', true, null, null);
+        Farmer__c farmer1 = Utils.createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
         farmer1.Registered_By__c = ckw.Person__c;
         database.insert(farmer1);
 
@@ -676,8 +675,8 @@ global class ProcessSurveySubmission {
         Survey__c survey2 = [SELECT Name FROM Survey__c WHERE Id = :survey.Id];
 
         SurveySubmission surveySubmission = new SurveySubmission();
-        surveySubmission.imei = 'TestCKW8';
-        surveySubmission.farmerId = 'OD99997';
+        surveySubmission.imei = ckw.Person__r.Handset__r.IMEI__c;
+        surveySubmission.farmerId = 'OD99999';
         surveySubmission.surveyId = survey2.Name;
         surveySubmission.surveySize = '2345';
         surveySubmission.resultHash = 'cr2EC8B3B70D991F74A8CF10270A28A787CABC28';
@@ -685,12 +684,11 @@ global class ProcessSurveySubmission {
         surveySubmission.interviewLongitude = '32.58986';
         surveySubmission.interviewAltitude = '55.00000';
         surveySubmission.interviewAccuracy = '0.00000';
-        surveySubmission.interviewGPSTimestamp = '1365774487';
         surveySubmission.submissionLatitude = '0.31950';
         surveySubmission.submissionLongitude = '32.58986';
         surveySubmission.submissionAltitude = '55.00000';
         surveySubmission.submissionAccuracy = '0.00000';
-        surveySubmission.submissionGPSTimestamp = '1365774487';
+        surveySubmission.submissionGPSTimestamp = '';
         surveySubmission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
 
         surveySubmission.xml = '<?xml version="1.0"?><answers><answer><binding>subcounty</binding><answerText>Benet</answerText><instance>0</instance><questionNumber>8</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>partner</binding><answerText>WFP NAADS</answerText><instance>0</instance><questionNumber>11</questionNumber><questionType>Select</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>fathers_name</binding><answerText>Bobby</answerText><instance>0</instance><questionNumber>4</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>first_name</binding><answerText>Simon</answerText><instance>0</instance><questionNumber>1</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>village</binding><answerText>There</answerText><instance>0</instance><questionNumber>10</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>district</binding><answerText>Gulu</answerText><instance>0</instance><questionNumber>7</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>gender</binding><answerText>1</answerText><instance>0</instance><questionNumber>5</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>parish</binding><answerText>Here</answerText><instance>0</instance><questionNumber>9</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>last_name</binding><answerText>Cook</answerText><instance>0</instance><questionNumber>3</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>middle_name</binding><answerText>Boris</answerText><instance>0</instance><questionNumber>2</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>dob</binding><answerText>null</answerText><instance>0</instance><questionNumber>6</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer></answers>';
@@ -733,12 +731,11 @@ global class ProcessSurveySubmission {
         surveySubmission.interviewLongitude = '32.58986';
         surveySubmission.interviewAltitude = '55.00000';
         surveySubmission.interviewAccuracy = '0.00000';
-        surveySubmission.interviewGPSTimestamp = '1365774487';
         surveySubmission.submissionLatitude = '0.31950';
         surveySubmission.submissionLongitude = '32.58986';
         surveySubmission.submissionAltitude = '55.00000';
         surveySubmission.submissionAccuracy = '0.00000';
-        surveySubmission.submissionGPSTimestamp = '1365774487';
+        surveySubmission.submissionGPSTimestamp = '';
         surveySubmission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
         surveySubmission.submissionStartTime = Datetime.now().addMinutes(20).getTime().format().replace(',', '');
 
@@ -802,4 +799,5 @@ global class ProcessSurveySubmission {
         surveySubmission.json = 'none';
         SurveySubmission resultSurveySubmission = processSurveySubmission(surveySubmission);
     }
+
 }

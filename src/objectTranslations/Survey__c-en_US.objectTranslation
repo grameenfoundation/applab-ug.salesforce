@@ -2,11 +2,11 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Survey (CKW)</value>
+        <value>Survey</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Surveys (CKW)</value>
+        <value>Surveys</value>
     </caseValues>
     <fields>
         <help><!-- Select the customer who ordered to run the survey --></help>
@@ -22,6 +22,11 @@
         <help><!-- Check this to stop the a submission from being saved to Salesforce once they have been sent to SF. Leave unchecked if you do not know what this does --></help>
         <label><!-- Block Submission Saving --></label>
         <name>Block_Submission_Saving__c</name>
+    </fields>
+    <fields>
+        <help><!-- Post processing should not be run immediately until a submission has been approved --></help>
+        <label><!-- Defer Post Processing --></label>
+        <name>Defer_Post_Processing__c</name>
     </fields>
     <fields>
         <help><!-- End date of survey --></help>
@@ -105,6 +110,18 @@
         <label><!-- Post Processing Method --></label>
         <name>Post_Processing_Method__c</name>
         <picklistValues>
+            <masterLabel>BVAT_CIW_INFORMATION</masterLabel>
+            <translation><!-- BVAT_CIW_INFORMATION --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>BVAT_CONTENT_SURVEY</masterLabel>
+            <translation><!-- BVAT_CONTENT_SURVEY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>BVAT_FARMER_REGISTRATION</masterLabel>
+            <translation><!-- BVAT_FARMER_REGISTRATION --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>CKW_Baseline</masterLabel>
             <translation><!-- CKW_Baseline --></translation>
         </picklistValues>
@@ -129,8 +146,28 @@
             <translation><!-- DATA_VALIDATOR_SPOT_CHECK --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>EADD_FARMER_EXTRA_INFO</masterLabel>
+            <translation><!-- EADD_FARMER_EXTRA_INFO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EADD_HUB</masterLabel>
+            <translation><!-- EADD_HUB --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>EQUIPMENT_TRACKING</masterLabel>
             <translation><!-- EQUIPMENT_TRACKING --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EW_FARMER_REG</masterLabel>
+            <translation><!-- EW_FARMER_REG --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EW_HARVEST_REG</masterLabel>
+            <translation><!-- EW_HARVEST_REG --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EW_SALE_REG</masterLabel>
+            <translation><!-- EW_SALE_REG --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>FHI_GROUP_REGISTRATION</masterLabel>
@@ -153,8 +190,20 @@
             <translation><!-- MTN_WEEKLY_REPORT --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>NAADS_ADVISORY</masterLabel>
+            <translation><!-- NAADS_ADVISORY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NAADS_BASELINE</masterLabel>
+            <translation><!-- NAADS_BASELINE --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>None</masterLabel>
             <translation><!-- None --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OPPORTUNITY_CLIENT_PROFILE</masterLabel>
+            <translation><!-- OPPORTUNITY_CLIENT_PROFILE --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>PA_HEALTH_PROGRAMME</masterLabel>

@@ -104,6 +104,19 @@
         <label>Titulo</label>
         <name>Title__c</name>
     </fields>
+    <fields>
+        <help><!-- Determine if the metric datas in this section should be displayed from the start of the data collection period(Aggregated) or if they should only be displayed for the current defined period(Disaggregated) --></help>
+        <label><!-- View Mode --></label>
+        <name>View_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Aggregated</masterLabel>
+            <translation><!-- Aggregated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disaggregated</masterLabel>
+            <translation><!-- Disaggregated --></translation>
+        </picklistValues>
+    </fields>
     <gender><!-- Feminine --></gender>
     <nameFieldLabel><!-- Metric Section Name --></nameFieldLabel>
 </CustomObjectTranslation>

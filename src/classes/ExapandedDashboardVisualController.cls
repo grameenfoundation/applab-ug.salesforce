@@ -70,6 +70,7 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
                 Latitude__c,
                 Longitude__c,
                 Type_Of_sObject__c,
+                Map_Marker_Source_Class__c,
                 Zoom__c,
                 Splitter__c,
                 Dashboard_Section__r.Dashboard__r.Account__r.Name,
@@ -140,7 +141,9 @@ public with sharing class ExapandedDashboardVisualController extends ParentCompo
                 Show_Submit_Button__c,
                 Start_Date__c,
                 Show_Brac_Area__c,
-                Show_Brac_PA__c
+                Show_Brac_PA__c,
+                Show_BVAT_CIW__c,
+                Show_Kenyan_County__c
             FROM
                 Dashboard_Selector__c
             WHERE

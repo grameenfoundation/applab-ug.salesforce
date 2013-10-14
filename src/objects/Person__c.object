@@ -52,6 +52,16 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Contact__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -208,7 +218,7 @@
         <description>GPS Location E. Must be in Decimal format</description>
         <externalId>false</externalId>
         <label>GPS Location E</label>
-        <length>18</length>
+        <length>25</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
@@ -219,7 +229,7 @@
         <description>GPS Location N. Must be in Decimal forma</description>
         <externalId>false</externalId>
         <label>GPS Location N</label>
-        <length>18</length>
+        <length>25</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
@@ -258,7 +268,18 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>ID_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>ID Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
+        <description>Deprecated: July 2013 - This field isn&apos;t needed since TaroWorks now supports related object mapping.</description>
         <externalId>false</externalId>
         <label>LAC Farmer Id Temp</label>
         <length>15</length>
@@ -306,6 +327,26 @@ IF( NOT( ISBLANK( Handset__c)),
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Next_Of_Kin_Telephone__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Of Kin Telephone</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Next_Of_Kin__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Of Kin</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Parish__c</fullName>
         <description>Parish</description>
         <externalId>false</externalId>
@@ -328,6 +369,16 @@ IF( NOT( ISBLANK( Handset__c)),
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Picture_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>Picture URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Raw_Mobile_Number__c</fullName>
@@ -433,6 +484,18 @@ IF( NOT( ISBLANK( Handset__c)),
                 <fullName>BVAT</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Opportunity Farmer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AASP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VKW</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -497,6 +560,30 @@ IF( NOT( ISBLANK( Handset__c)),
         <columns>Gender__c</columns>
         <filterScope>Everything</filterScope>
         <label>Overview</label>
+    </listViews>
+    <listViews>
+        <fullName>eWarehouse_People</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Gender__c</columns>
+        <columns>Mobile_Number__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Kenya</value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Farmer</value>
+        </filters>
+        <label>eWarehouse People</label>
+        <language>en_US</language>
+        <sharedTo>
+            <role>SalesforceAdministrator</role>
+        </sharedTo>
     </listViews>
     <nameField>
         <displayFormat>Person-{000000}</displayFormat>

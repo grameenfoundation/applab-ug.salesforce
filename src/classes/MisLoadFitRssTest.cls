@@ -11,6 +11,25 @@
 @isTest(SeeAllData=true)
 public class MisLoadFitRssTest {
     static MisLoadFitRss batchKeywordsExporter = new MisLoadFitRss();
+    /**
+    *   tests scheduling of the data loading operation
+    
+    static testmethod void testSchedule() {
+        Test.StartTest();
+        Menu__c menu = new Menu__c(Label__c = 'CKW Search');
+        insert(menu);
+        Country__c country = new Country__c();
+        insert(country);
+        Region__c region = new Region__c(Country__c=country.Id, Display_Name__c='North_Region');
+        insert(region);
+        Market__c market = new Market__c(Market__c='AmuruMarket', Region__c='North_Region');
+        insert(market);
+        
+        ScheduledMisLoadFitRss shedule = new ScheduledMisLoadFitRss();
+        String cronExpression = '0 0 7 * * ?';
+        system.schedule('Import FIT market prices', cronExpression, shedule);
+        Test.stopTest();
+    }*/
     
     static testmethod void testBatchScheduling(){
     	//test scheduling

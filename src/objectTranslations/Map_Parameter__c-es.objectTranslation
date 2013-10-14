@@ -30,6 +30,11 @@
         <name>Longitude__c</name>
     </fields>
     <fields>
+        <help><!-- Defines the Visualforce class that will be used to retrieve the Map Markers for this Map Parameter. This will be used if the Type_Of_sObject__c is set to None. The class must implement MapComponentController.IMapMarkerSource --></help>
+        <label><!-- Map Marker Source --></label>
+        <name>Map_Marker_Source_Class__c</name>
+    </fields>
+    <fields>
         <help>Seleccione el campo que los mercados</help>
         <label>Separador</label>
         <name>Splitter__c</name>
@@ -56,6 +61,14 @@
         <label>Tipo de Objetos</label>
         <name>Type_Of_sObject__c</name>
         <picklistValues>
+            <masterLabel>BVAT CIW</masterLabel>
+            <translation><!-- BVAT CIW --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>BVAT Farmer</masterLabel>
+            <translation><!-- BVAT Farmer --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>CKW</masterLabel>
             <translation><!-- CKW --></translation>
         </picklistValues>
@@ -64,8 +77,16 @@
             <translation><!-- Client Location --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Custom Class</masterLabel>
+            <translation><!-- Custom Class --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Farmer</masterLabel>
             <translation><!-- Farmer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FarmerLand</masterLabel>
+            <translation><!-- FarmerLand --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Metric</masterLabel>

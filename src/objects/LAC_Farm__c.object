@@ -39,6 +39,36 @@
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Area_Unit__c</fullName>
+        <externalId>false</externalId>
+        <label>Area Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ha</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manzanas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas (40x40)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas (25x25)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuadras</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Area__c</fullName>
         <externalId>false</externalId>
         <label>Area</label>
@@ -497,6 +527,26 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>Farm_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Farm Code</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farm_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Farm Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Farm_Number__c</fullName>
         <externalId>false</externalId>
         <label>Farm Number</label>
@@ -505,6 +555,17 @@
         <scale>0</scale>
         <trackHistory>false</trackHistory>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GPS_Data__c</fullName>
+        <description>Raw GPS Data from mapped survey. Includes Lat, Lng, Altitude and Accuracy</description>
+        <externalId>false</externalId>
+        <label>GPS Data</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -541,6 +602,7 @@
     </fields>
     <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
+        <description>Deprecated: July 2013 - This field isn&apos;t needed since TaroWorks now supports related object mapping.</description>
         <externalId>false</externalId>
         <label>LAC Farmer Id Temp</label>
         <length>15</length>

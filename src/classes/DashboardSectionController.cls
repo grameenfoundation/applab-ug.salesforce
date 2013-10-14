@@ -56,6 +56,7 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Latitude__c,
                 Longitude__c,
                 Type_Of_sObject__c,
+                Map_Marker_Source_Class__c,
                 Zoom__c,
                 Splitter__c
             FROM
@@ -86,7 +87,8 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Show_Spark_Line__c,
                 Show_Further_Link__c,
                 Default_Show__c,
-                Allow_Update__c
+                Allow_Update__c,
+                View_Mode__c
             FROM
                 Metric_Section__c
             WHERE
@@ -110,17 +112,19 @@ public with sharing class DashboardSectionController extends ParentComponentBase
                 Show_District__c,
                 Show_Subcounty__c,
                 Show_Person__c,
+                Show_Opportunity_Farmer__c,
                 Show_Data_Validator__c,
                 Show_CKW__c,
                 Show_Farmer__c,
-                Show_Opportunity_Farmer__c,
                 Show_Field_Officer__c,
                 Show_MTN_Chan__c,
                 Date_Period__c,
                 Start_Date__c,
                 Show_Submit_Button__c,
                 Show_Brac_PA__c,
-                Show_Brac_Area__c
+                Show_Brac_Area__c,
+                Show_Kenyan_County__c,
+                Show_BVAT_CIW__c
             FROM
                 Dashboard_Selector__c
             WHERE

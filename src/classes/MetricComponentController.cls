@@ -1,7 +1,10 @@
 public with sharing class MetricComponentController extends ChildComponentBase {
 
-    private String isRefresh = 'false';
+    private String isRefresh;
     public String getIsRefresh() {
+        if (isRefresh == null) {
+            isRefresh = 'false';
+        }
         return this.isRefresh;
     }
     public void setIsRefresh(String value) {
@@ -166,9 +169,15 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         }
 
         this.metricDatas = new List<MetricDataWrapper>();
-        this.metricIds = new List<String>();
+        this.metricIds = new List<String>();       
 
-        if (setDates()) {
+         if ((String.valueOf(getFieldValue('View_Mode__c')).equalsIgnoreCase('Aggregated')) && !(Boolean.valueOf(getIsRefresh()))) {
+            String[] startDateArray = getFieldValue('Start_Date__c').split('==');
+            setStartDate((DateTime.newInstance(integer.valueOf(startDateArray[0]), integer.valueOf(startDateArray[1]), integer.valueOf(startDateArray[2]))).date());
+            setEndDate((datetime.now()).date());
+            return loadAggregateMetrics();
+        } 
+         else if (setDates()) {
             return loadAggregateMetrics();
         }
         else {
@@ -420,6 +429,16 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         else {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__c', 'null', false));
         }
+        
+                // Add a CIW clause if required
+        if (!getParentValue('CIW__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'BVAT_CIW__c', getParentValue('CIW__c'), true));
+        }
+        
+        //Add a Kenyan county if required
+        if (!getParentValue('Kenyan_County__c').equals('')) {
+            whereClauses.add('BVAT_CIW__c IN (SELECT CIW__c FROM CIW_County_Association__c WHERE Kenyan_County__c =\'' + getParentValue('Kenyan_County__c') + '\')');
+        }
 
         whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
         return whereClause;
@@ -443,6 +462,16 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         }
         else {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__c', 'null', false));
+        }
+        
+        // Add a CIW clause if required
+        if (!getParentValue('CIW__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'BVAT_CIW__c', getParentValue('CIW__c'), true));
+        }
+        
+        //Add a Kenyan county if required
+        if (!getParentValue('Kenyan_County__c').equals('')) {
+            whereClauses.add('BVAT_CIW__c IN (SELECT CIW__c FROM CIW_County_Association__c WHERE Kenyan_County__c =\'' + getParentValue('Kenyan_County__c') + '\')');
         }
         whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
         return whereClause;
@@ -557,6 +586,7 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         mSection.RollOver_Time__c = 'Quarterly';
         mSection.Start_Date__c = Date.today().addMonths(-12);
         mSection.Show_RollOver_Selector__c = true;
+        mSection.View_Mode__c = 'Disaggregated';
         Database.insert(mSection);
 
         M_E_Metric__c metric = Utils.createTestMetric(account, 'sum', 'scale', false, 'grabbed');

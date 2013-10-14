@@ -11,17 +11,17 @@ public with sharing class MapComponentController extends ChildComponentBase {
     Transient Set<String> usedColours;
     private Map_Parameter__c mapParameter;
 
-	// Interface for custom Map Marker Sources (any class that wants to provide a list of MapMarkers should implement this)
+    // Interface for custom Map Marker Sources (any class that wants to provide a list of MapMarkers should implement this)
     public interface IMapMarkerSource { 
-    	List<MapMarkers> loadMapMarkers(Map<String, String> parameters);
+        List<MapMarkers> loadMapMarkers(Map<String, String> parameters);
     }
     
     
-	// Instantiate a Map Marker Source class from the className
+    // Instantiate a Map Marker Source class from the className
     public static IMapMarkerSource getMapMarkerSourceInstance(String className) {
         Type t = Type.forName(className);
         if(t != null) {
-        	return (IMapMarkerSource) t.newInstance();
+            return (IMapMarkerSource) t.newInstance();
         }
         
         throw new MapComponentControllerException('Map Marker Source class called ' + className + ' does not exist!');
@@ -104,6 +104,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
                 Latitude__c,
                 Longitude__c,
                 Keyword__c,
+                Map_Marker_Source_Class__c,
                 Type_Of_sObject__c,
                 Zoom__c,
                 Splitter__c
@@ -269,29 +270,33 @@ public with sharing class MapComponentController extends ChildComponentBase {
             //markers.addAll(getMetricMarkers());
         }
         else if (sObjectType.equalsIgnoreCase('Person') || !getParentValue('ShowPerson').equals('')) {
-            //markers.addAll(getPersonMarkers());
+            markers.addAll(getPersonMarkers());
+        } else if (sObjectType.equalsIgnoreCase('BVAT CIW')) {
+            markers.addAll(getBvatCiwMarkers());
+        } else if (sObjectType.equalsIgnoreCase('BVAT Farmer')) {
+            markers.addAll(getBvatFarmerMarkers());
         } else if (sObjectType.equalsIgnoreCase('Custom Class')) {
-        	// Try to get the Map_Marker_Source_Class__c to see if a custom Map Marker Source Class was defined
-        	String sObjectMapMarkerSource = getFieldvalue('Map_Marker_Source_Class__c');
-        	if(sObjectMapMarkerSource != null && sObjectMapMarkerSource != '') {
-        		// Try to load the class defined in Map_Marker_Source_Class__c
-        		IMapMarkerSource mapMarkerSource = getMapMarkerSourceInstance(sObjectMapMarkerSource);
-        		
-        		// Call loadMapMarkers, and pass in any parameters that can be used for filtering the results
-        		Map<String, String> parameters = new Map<String, String>();
-        		ParentComponentBase parent = getParentComponentController();
-        		if(parent != null) {
-        			parameters = parent.getParameters();
-        		}
-        		
-        		// Also just add parameters from the page (Added this because in one case the above code wasn't getting the parameters)
-        		parameters.putAll(ApexPages.currentPage().getParameters());
-        		
-        		markers.addAll(mapMarkerSource.loadMapMarkers(parameters));
-        		
-        	} else {
-        		throw new MapComponentControllerException('Map_Marker_Source_Class__c is not set on the Map Parameter Object. Unable to load Map Markers');
-        	}
+            // Try to get the Map_Marker_Source_Class__c to see if a custom Map Marker Source Class was defined
+            String sObjectMapMarkerSource = getFieldvalue('Map_Marker_Source_Class__c');
+            if(sObjectMapMarkerSource != null && sObjectMapMarkerSource != '') {
+                // Try to load the class defined in Map_Marker_Source_Class__c
+                IMapMarkerSource mapMarkerSource = getMapMarkerSourceInstance(sObjectMapMarkerSource);
+                
+                // Call loadMapMarkers, and pass in any parameters that can be used for filtering the results
+                Map<String, String> parameters = new Map<String, String>();
+                ParentComponentBase parent = getParentComponentController();
+                if(parent != null) {
+                    parameters = parent.getParameters();
+                }
+                
+                // Also just add parameters from the page (Added this because in one case the above code wasn't getting the parameters)
+                parameters.putAll(ApexPages.currentPage().getParameters());
+                
+                markers.addAll(mapMarkerSource.loadMapMarkers(parameters));
+                
+            } else {
+                throw new MapComponentControllerException('Map_Marker_Source_Class__c is not set on the Map Parameter Object. Unable to load Map Markers');
+            }
         }
         return markers;
     }
@@ -477,12 +482,19 @@ public with sharing class MapComponentController extends ChildComponentBase {
         if (!getParentValue('Subcounty__c').equals('')) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Person__r.Subcounty__c', getParentValue('Subcounty__c'), true));
         }
-        
-        //Distinguish by the type of location
+
+    //Distinguish by the type of location
         if (this.mapParameter.Keyword__c != null && !this.mapParameter.Keyword__c.equals('')) {
            whereClauses.add(SoqlHelpers.addInWhereClause('Type__c', false, this.mapParameter.Keyword__c, null, true));
         }
-
+    
+        // Distinguish by dates
+        if (getStartDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Active_Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), false), false));
+        }
+        if (getEndDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Active_Date__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
+        }
         return whereClauses;
     }
 
@@ -495,12 +507,12 @@ public with sharing class MapComponentController extends ChildComponentBase {
         
         Submission_Meta_Data__c[] submissions = Database.query(getSubmissionMarkersQuery());
         for (Submission_Meta_Data__c submission : submissions) {
-            if (submission.Submission_Latitude__c == null || submission.Submission_Longitude__c == null) {
+            if ((submission.Submission_Latitude__c == null || submission.Submission_Longitude__c == null) ||
+                (submission.Submission_Latitude__c == 0 && submission.Submission_Longitude__c == 0)) {
                 continue;
             }
             SubmissionMapMarker marker = new SubmissionMapMarker(submission);
             marker.generateMarkerName(submission.Survey_Name__c);
-            
             marker.setMarkerColour(getColour(marker.getColour(), marker.getMarkerName()));
             markers.add(marker);
             if (surveyMarkersMap.containsKey(submission.Survey_Name__c)) {
@@ -544,26 +556,28 @@ public with sharing class MapComponentController extends ChildComponentBase {
         if (whereClauses.size() > 0) {
             whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
         }
-        String query = baseQuery + whereClause;
+        String query = baseQuery + whereClause + ' LIMIT 1000';
         System.debug(LoggingLevel.INFO, query);
         return query;
     }
 
     private List<String> getSubmissionWhereClause() {
-        
-        System.debug('Reached begining of where clause');
+
         List<String> whereClauses = new List<String>();
         if (!getParentValue('District__c').equals('')) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Interviewer__r.District__c', getParentValue('District__c'), true));
         }
         if (!getParentValue('Subcounty__c').equals('')) {
-            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Interviewer__r.Subcounty__c', getParentValue('Subcounty__c'), true));
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Interviewer__r.Subcounty__r.Display_Name__c', getParentValue('Subcounty__c'), true));
+        }
+        if (!getParentValue('Person__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Interviewer__c', getParentValue('Person__c'), true));
         }
         if (this.mapParameter.Keyword__c != null && !this.mapParameter.Keyword__c.equals('')) {
-           System.debug('Keyword: ' + this.mapParameter.Keyword__c);
            whereClauses.add(SoqlHelpers.addInWhereClause('Survey_Name__c', false, this.mapParameter.Keyword__c, null, true));
            //whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Survey_Name__c', this.mapParameter.Keyword__c, true));
         }
+
 
         // Distinguish by dates
         if (getStartDate(false) != null) {
@@ -572,7 +586,6 @@ public with sharing class MapComponentController extends ChildComponentBase {
         if (getEndDate(false) != null) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Handset_Submit_Time__c', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
         }
-        System.debug('Reached end of where clause');
         return whereClauses;
     }
 
@@ -657,14 +670,14 @@ public with sharing class MapComponentController extends ChildComponentBase {
         if (!getParentValue('Region__c').equals('')) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Region__c', getParentValue('Region__c'), true));
         }
-        
+
         if (!getParentValue('District__c').equals('')) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'District__c', getParentValue('District__c'), true));
         }
         if (!getParentValue('Subcounty__c').equals('')) {
             whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Subcounty__c', getParentValue('Subcounty__c'), true));
         }
-        
+
         //Distinguish by the type of person
         if (this.mapParameter.Keyword__c != null && !this.mapParameter.Keyword__c.equals('')) {
            whereClauses.add(SoqlHelpers.addInWhereClause('Type__c', false, this.mapParameter.Keyword__c, null, true));
@@ -678,20 +691,207 @@ public with sharing class MapComponentController extends ChildComponentBase {
     }
 
     /**
+     *  Load BVAT CIW Markers for this map
+     */
+    private List<MapMarkers> getBvatCiwMarkers() {
+
+        Map<String, MapMarkers> markers = new Map<String, MapMarkers>();
+
+        CIW__c[] ciws = database.query(getBvatCiwMarkersQuery());
+        if (ciws.size() == 0) {
+            return markers.values();
+        }
+
+        List<String> personIds = new List<String>();
+        for (CIW__c ciw: ciws) {
+
+            // Dont include if we are missing the location
+            if (ciw.Person__r.GPS_Location_N__c == null || ciw.Person__r.GPS_Location_E__c == null) {
+                continue;
+            }
+
+            personIds.add(ciw.person__c);
+            BvatCiwMapMarker marker = new BvatCiwMapMarker(ciw);
+            marker.generateMarkerName(getFieldvalue('Splitter__c'));
+            marker.setMarkerColour(getColour(marker.getColour(), marker.getMarkerName()));
+            markers.put(ciw.Person__r.Name, marker);
+        }
+
+        // If there is only one CKW the center the map around them and zoom to a better level
+        if (markers.size() == 1) {
+            this.zoom = '10';
+            this.latitude = ciws[0].Person__r.GPS_Location_N__c;
+            this.longitude = ciws[0].Person__r.GPS_Location_E__c;
+        }
+ 
+        // Tidy up the created lists so to keep the heap size down.
+        ciws.clear();
+        setStats('There are ' + markers.size() + ' CIWs who match your search<br/>');
+        return markers.values();
+    }
+
+    // Create the SOQL query that gets the CKW objects for the map markers
+    private String getBvatCiwMarkersQuery() {
+
+        String baseQuery = 'SELECT ' +
+                'Id, '   +
+                'Name, ' +                
+                'Person__r.Name, ' +
+                'Person__c, ' +
+                'Person__r.Gender__c,'    + 
+                'Person__r.GPS_Location_N__c,' + 
+                'Person__r.GPS_Location_E__c,' +   
+                'Person__r.First_Name__c,' +
+                'Person__r.Last_Name__c ' +          
+            'FROM ' +
+                'CIW__c';
+
+        List<String> whereClauses = getBvatCiwWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        String query = baseQuery + whereClause;
+        //String query = baseQuery;
+        System.debug(LoggingLevel.INFO, query);
+        return query;
+    }
+
+    // Build the where cluse for the query. Values are taken from the children of the parent if there is one. If not then everything is loaded.
+    private List<String> getBvatCiwWhereClause() {
+        List<String> whereClauses = new List<String>();
+        
+        if (getStartDate(false) != null) {
+            //Datetime startDate = MetricHelpers.convertToStartDate(getStartDate(false));
+            //whereClauses.add('Updated_Date__c >= ' + Date.newInstance(startDate.year(), startDate.month(), startDate.day()));
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'LastModifiedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), false), false));
+            //whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'Updated_Date__c', Date.newInstance(startDate.year(), startDate.month(), startDate.day()), false));
+        }
+        if (getEndDate(false) != null) {
+            //Datetime endDate = MetricHelpers.convertToEndDate(getEndDate(false));
+            //whereClauses.add('Updated_Date__c <= ' + Date.newInstance(endDate.year(), endDate.month(), endDate.day()));
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'LastModifiedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getEndDate(false)), false), false));
+//          whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'Updated_Date__c', Date.newInstance(endDate.year(), endDate.month(), endDate.day()), false));
+        }
+       
+        if (!getParentValue('Kenyan_County__c').equals('')) {
+            whereClauses.add('Id IN (SELECT CIW__c FROM CIW_County_Association__c WHERE Kenyan_County__c =\'' + getParentValue('Kenyan_County__c') + '\')');
+        }
+
+        if (!getParentValue('CIW__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Id', getParentValue('CIW__c'), true));
+        }
+
+        System.debug(LoggingLevel.WARN, getParentValue('Kenyan_County__c'));
+        return whereClauses;        
+    }
+    
+     /**
+     *  Load BVAT Farmer Markers for this map
+     */
+    private List<MapMarkers> getBvatFarmerMarkers() {
+
+        Map<String, MapMarkers> markers = new Map<String, MapMarkers>();
+
+        BVAT_Farmer__c[] farmers = database.query(getBvatFarmerMarkersQuery());
+        if (farmers.size() == 0) {
+            return markers.values();
+        }
+
+        List<String> personIds = new List<String>();
+        for (BVAT_Farmer__c farmer: farmers) {
+
+            // Dont include if we are missing the location
+            if (farmer.Person__r.GPS_Location_N__c == null || farmer.Person__r.GPS_Location_E__c == null) {
+                continue;
+            }
+
+            personIds.add(farmer.person__c);
+            BvatFarmerMapMarker marker = new BvatFarmerMapMarker(farmer);
+            marker.generateMarkerName(getFieldvalue('Splitter__c'));
+            marker.setMarkerColour(getColour(marker.getColour(), marker.getMarkerName()));
+            markers.put(farmer.Person__r.Name, marker);
+        }
+
+        // If there is only one BVAT Farmer then center the map around them and zoom to a better level
+        if (markers.size() == 1) {
+            this.zoom = '10';
+            this.latitude = farmers[0].Person__r.GPS_Location_N__c;
+            this.longitude = farmers[0].Person__r.GPS_Location_E__c;
+        }
+ 
+        // Tidy up the created lists so to keep the heap size down.
+        farmers.clear();
+        setStats('There are ' + markers.size() + ' Farmers who match your search<br/>');
+        return markers.values();
+    }
+
+    // Create the SOQL query that gets the BVAT Farmer objects for the map markers
+    private String getBvatFarmerMarkersQuery() {
+
+        String baseQuery = 'SELECT ' +
+                'Id, '   +
+                'Name, ' +                
+                'Person__r.Name, ' +
+                'Person__c, ' +
+                'Person__r.Gender__c,'    + 
+                'Person__r.GPS_Location_N__c,' + 
+                'Person__r.GPS_Location_E__c,' +   
+                'Person__r.First_Name__c,' +
+                'Person__r.Last_Name__c ' +          
+            'FROM ' +
+                'BVAT_Farmer__c';
+
+        List<String> whereClauses = getBvatFarmerWhereClause();
+        String whereClause = '';
+
+        if (whereClauses.size() > 0) {
+            whereClause = ' WHERE ' + SoqlHelpers.joinWhereClause(whereClauses, false);
+        }
+        String query = baseQuery + whereClause;
+        //String query = baseQuery;
+        System.debug(LoggingLevel.WARN, query);
+        return query;
+    }
+
+    // Build the where cluse for the query. Values are taken from the children of the parent if there is one. If not then everything is loaded.
+    private List<String> getBvatFarmerWhereClause() {
+
+        //I will check the one of BVAT Farmer
+        List<String> whereClauses = new List<String>();
+        if (getStartDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('>=', 'CreatedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToStartDate(getStartDate(false)), false), false));
+        }
+        if (getEndDate(false) != null) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('<=', 'CreatedDate', MetricHelpers.convertDateTimeToString(MetricHelpers.convertToEndDate(getEndDate(false)), false), false));
+        }
+        if (!getParentValue('CIW__c').equals('')) {
+            whereClauses.add(SoqlHelpers.buildStandardWhereClause('=', 'Registered_By__c', getParentValue('CIW__c'), true));
+        }
+        if (!getParentValue('Kenyan_County__c').equals('')) {
+            whereClauses.add('Registered_By__c IN (SELECT CIW__c FROM CIW_County_Association__c WHERE Kenyan_County__c =\'' + getParentValue('Kenyan_County__c') + '\')');
+        }
+        return whereClauses;
+        
+    } 
+       
+    /**
      *  Load FarmerLand Polygon coordinates for this map
      *
      *  @return - a list of vertice coordinates
      */
     private List<MapPolygon> getFarmerLandPolygon() {
 
-        Map<String, MapPolygon> polygon = new Map<String, MapPolygon>();
+        List<MapPolygon> polygon = new List<MapPolygon>();
 
         // Get the FarmerLand object for corresponding opportunity Farmer 
         FarmerLand__c[] farmerLand = database.query(getFarmerLandPolygonQuery());
         if ((farmerLand.size() == 0) || (farmerLand == null)) {
-            return polygon.values();
+            return polygon;
         }
 
+        System.debug(String.valueOf(farmerLand[0].Coordinates__c));
         List<Coordinates> farmerLandCoords = new List<Coordinates>();
 
         // Normalize coordinates string into List of Coordinates
@@ -705,7 +905,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
             for (integer i = 0; i<farmerLandCoords.size(); i++){
                 if ((farmerLandCoords[i].Latitude != null) && (farmerLandCoords[i].Longitude != null)) { 
                     FarmerLandMapPolygon vertice = new FarmerLandMapPolygon(farmerLandCoords[i]);
-                    polygon.put(farmerLand[0].Name + i, vertice);
+                    polygon.add(vertice);    
                 }
                 else {
                     continue;
@@ -715,7 +915,7 @@ public with sharing class MapComponentController extends ChildComponentBase {
 
         // Tidy up the created lists so to keep the heap size down.
         farmerLandCoords.clear();
-        return polygon.values();
+        return polygon;
     }
 
     /**
@@ -952,10 +1152,10 @@ public with sharing class MapComponentController extends ChildComponentBase {
     
     // Test MapMarker class for use in above test. Just implements MapComponentController.IMapMarkerSource and returns a List<MapMarkers> with one item
     public with sharing class testMapMarkerSourceClass implements MapComponentController.IMapMarkerSource {
-    	public List<MapMarkers> loadMapMarkers(Map<String, String> parameters) {
-    		List<MapMarkers> mapMarkers = new List<MapMarkers>();
-    		mapMarkers.add(new MapMarkers());
-    		return mapMarkers;
-    	}
+        public List<MapMarkers> loadMapMarkers(Map<String, String> parameters) {
+            List<MapMarkers> mapMarkers = new List<MapMarkers>();
+            mapMarkers.add(new MapMarkers());
+            return mapMarkers;
+        }
     }
 }

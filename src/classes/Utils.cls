@@ -16,6 +16,7 @@ public class Utils {
                 District__r.Name,
                 GPS_Location_E__c,
                 GPS_Location_N__c,
+                Handset__r.SIM__r.Name,
                 Region__r.Id
             FROM
                 Person__c
@@ -43,7 +44,7 @@ public class Utils {
             [SELECT
                 Id,
                 Village__c,
-		Person_Household__c,        //LAC_Household__c,
+        Person_Household__c,        //LAC_Household__c,
                 GPS_Location_N__c,
                 GPS_Location_E__c
             FROM
@@ -86,7 +87,7 @@ public class Utils {
                 Age__c,
                 Date_of_Birth__c,
                 Gender__c,
-		Person_Household__c
+        Person_Household__c
                 //LAC_Household__c
             FROM
                 Person__c
@@ -157,6 +158,39 @@ public class Utils {
                 Farmer__c
             WHERE
                 Name = :id];
+        return farmer;
+    }
+
+    /**
+     *  Load a farmer from their unique Id number and the person ID of the CKW to whom this ID
+     *  was assigned in the new auto-farmer id registration system
+     *
+     * @param  id - The farmer id that we are trying to load 
+     * @param personId - The Salesforce ID of the person of the CKW who was assigned this ID
+     *
+     * @return - List of farmers matching id. Should only be one
+     */
+    public static List<Farmer__c> loadFarmerFromId(String id, String personId) {
+
+        Farmer__c[] farmer =
+            [SELECT
+                id,
+                Name,
+                Person__c,
+                Person__r.First_Name__c,
+                Person__r.GPS_Location_E__c,
+                Person__r.GPS_Location_N__c,
+                Crops__c,
+                Land_Size__c,
+                Livestock__c,
+                Topics_of_Interest__c
+            FROM
+                Farmer__c
+            WHERE
+                Name = :id
+            AND
+                Registered_By__c = :personId
+            LIMIT 1];
         return farmer;
     }
 
@@ -485,7 +519,7 @@ public class Utils {
                 Id
             FROM
                 Person__c
-	    WHERE
+        WHERE
                 Person_Household__c = :personHouseholdId];
            // WHERE
             //    LAC_Household__c = :personHouseholdId];

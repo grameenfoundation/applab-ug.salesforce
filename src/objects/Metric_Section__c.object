@@ -208,6 +208,24 @@
         <required>true</required>
         <type>TextArea</type>
     </fields>
+    <fields>
+        <fullName>View_Mode__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Determine if the metric datas in this section should be displayed from the start of the data collection period(Aggregated) or if they should only be displayed for the current defined period(Disaggregated)</inlineHelpText>
+        <label>View Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Disaggregated</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aggregated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
     <label>Metric Section</label>
     <nameField>
         <displayFormat>MS{0000000000}</displayFormat>

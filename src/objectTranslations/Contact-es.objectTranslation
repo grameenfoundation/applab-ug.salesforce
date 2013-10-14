@@ -21,6 +21,11 @@
         <name>Contact_Name_Dashboard__c</name>
     </fields>
     <fields>
+        <label>Pais</label>
+        <name>Country__c</name>
+        <relationshipLabel>Contactos</relationshipLabel>
+    </fields>
+    <fields>
         <label>Fallecido?</label>
         <name>Deceased__c</name>
     </fields>
@@ -145,6 +150,23 @@
         </picklistValues>
     </fields>
     <fields>
+        <help><!-- Stores the Id of the attachment that is used for the profile picture for this contact --></help>
+        <label><!-- Picture Attachment Id --></label>
+        <name>Picture_Attachment_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Picture Url --></label>
+        <name>Picture_Url__c</name>
+    </fields>
+    <fields>
+        <label><!-- Picture --></label>
+        <name>Picture__c</name>
+    </fields>
+    <fields>
+        <label><!-- Signature --></label>
+        <name>Signature__c</name>
+    </fields>
+    <fields>
         <label>Nombre del conyuge</label>
         <name>Spouse_Name__c</name>
     </fields>
@@ -172,12 +194,97 @@
             <translation>Administración de programa</translation>
         </picklistValues>
     </fields>
+    <fields>
+        <label><!-- Age --></label>
+        <name>gfsurveys__Age__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Client --></label>
+        <name>gfsurveys__IsClient__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Mobile User --></label>
+        <name>gfsurveys__IsMobileUser__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile User Count --></label>
+        <name>gfsurveys__Mobile_User__c</name>
+    </fields>
+    <fields>
+        <label><!-- Respondent ID --></label>
+        <name>gfsurveys__mobilesurveys_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Check In Date --></label>
+        <name>gfsurveys__mobilesurveys_LastCheckInDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- mobilesurveys Last Check In Device --></label>
+        <name>gfsurveys__mobilesurveys_LastCheckInDevice__c</name>
+        <relationshipLabel><!-- Contacts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Surveyor Password --></label>
+        <name>gfsurveys__mobilesurveys_Password__c</name>
+    </fields>
+    <fields>
+        <label><!-- Surveyor Status --></label>
+        <name>gfsurveys__mobilesurveys_Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Blocked</masterLabel>
+            <translation>Bloqueado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation>Inactivo</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Surveyor Username --></label>
+        <name>gfsurveys__mobilesurveys_Username__c</name>
+    </fields>
     <layouts>
         <layout>Contact Layout</layout>
-     </layouts>
+        <sections>
+            <label><!-- Mailing Information --></label>
+            <section>Mailing Information</section>
+        </sections>
+        <sections>
+            <label><!-- Mobile Survey Information --></label>
+            <section>Mobile Survey Information</section>
+        </sections>
+        <sections>
+            <label><!-- Personal Information --></label>
+            <section>Personal Information</section>
+        </sections>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+        <sections>
+            <label><!-- Volunteer Information --></label>
+            <section>Volunteer Information</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label>Configurar garantia</label>
+        <name>Contact_Pledge</name>
+    </webLinks>
+    <webLinks>
+        <label>Configurar donacion recurrente</label>
+        <name>Contact_Recurring_Donation</name>
+    </webLinks>
     <webLinks>
         <label>Todos los contactos en esta organizacion</label>
         <name>Contacts_in_this_Organization</name>
+    </webLinks>
+    <webLinks>
+        <label>Crear conexion</label>
+        <name>Create_Connection</name>
     </webLinks>
     <webLinks>
         <label>Edicion masiva</label>
@@ -190,6 +297,18 @@
     <webLinks>
         <label>Ver conexiones</label>
         <name>View_Connections</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- ActivateContact --></label>
+        <name>gfsurveys__ActivateContact</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- DeactivateContact --></label>
+        <name>gfsurveys__DeactivateContact</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- DeleteContact --></label>
+        <name>gfsurveys__DeleteContact</name>
     </webLinks>
     <webLinks>
         <label>Mapa de google</label>

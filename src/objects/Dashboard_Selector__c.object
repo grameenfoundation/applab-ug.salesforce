@@ -35,7 +35,6 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Controls what selectors are to go on a dashboard selector</description>
     <enableActivities>false</enableActivities>
-    <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
@@ -47,6 +46,7 @@
         <relationshipLabel>Dashboard Selectors</relationshipLabel>
         <relationshipName>Dashboard_Selectors</relationshipName>
         <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -78,6 +78,15 @@
         <defaultValue>true</defaultValue>
         <externalId>false</externalId>
         <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_BVAT_CIW__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Displays a dropdown box to select the CIW for the BVAT Dashboard</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Displays a dropdown box to select the CIW for the BVAT Dashboard</inlineHelpText>
+        <label>Show BVAT CIW</label>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -155,6 +164,15 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the field officer selector in the dashboard selector</inlineHelpText>
         <label>Show Field Officer</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Kenyan_County__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Displays Kenyan Counties used for the BVAT Dashboard</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Displays Kenyan Counties used for the BVAT Dashboard</inlineHelpText>
+        <label>Show Kenyan County</label>
         <type>Checkbox</type>
     </fields>
     <fields>

@@ -59,7 +59,7 @@ global class FarmerRegistration {
         }
 
         // Load the new farmer to see if this is an update or not.
-        List<Farmer__c> farmers = Utils.loadFarmerFromId(farmerRegistration.farmerId);
+        List<Farmer__c> farmers = Utils.loadFarmerFromId(farmerRegistration.farmerId, ckw.Id);
         Farmer__c farmer;
         Person__c person;
         if (farmers.isEmpty()) {

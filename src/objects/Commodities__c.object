@@ -38,6 +38,16 @@
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Effective_date__c</fullName>
+        <description>The date from which the entered prices are effective. A price for the same commodity with a later date will supersede any previous prices.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the date from which these prices will be effective for this commodity. A price for the same commodity with a later date will supersede any previous prices.</inlineHelpText>
+        <label>Effective date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
         <fullName>Highest_Retail_Price__c</fullName>
         <externalId>false</externalId>
         <label>Highest Retail Price</label>

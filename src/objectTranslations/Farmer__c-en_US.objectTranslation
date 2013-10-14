@@ -9,6 +9,55 @@
         <value>Farmers</value>
     </caseValues>
     <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Farmers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Crop Storage Location --></label>
+        <name>Crop_Storage_Location__c</name>
+        <picklistValues>
+            <masterLabel>Granary off ground</masterLabel>
+            <translation><!-- Granary off ground --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Granary on ground</masterLabel>
+            <translation><!-- Granary on ground --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>House off ground</masterLabel>
+            <translation><!-- House off ground --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>House on ground</masterLabel>
+            <translation><!-- House on ground --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Crop Storage Material --></label>
+        <name>Crop_Storage_Material__c</name>
+        <picklistValues>
+            <masterLabel>Clay Pots</masterLabel>
+            <translation><!-- Clay Pots --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dedicated room</masterLabel>
+            <translation><!-- Dedicated room --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gunney bags</masterLabel>
+            <translation><!-- Gunney bags --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jute bags</masterLabel>
+            <translation><!-- Jute bags --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Plastic bags</masterLabel>
+            <translation><!-- Plastic bags --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Crops --></label>
         <name>Crops__c</name>
         <picklistValues>
@@ -75,6 +124,14 @@
             <masterLabel>Wheat</masterLabel>
             <translation><!-- Wheat --></translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Had Credit Access --></label>
+        <name>Had_Credit_Access__c</name>
+    </fields>
+    <fields>
+        <label><!-- Had Post Harvest Handling Training --></label>
+        <name>Had_Post_Harvest_Handling_Training__c</name>
     </fields>
     <fields>
         <label><!-- Household Status --></label>
@@ -155,6 +212,34 @@
         <name>Registered_Date__c</name>
     </fields>
     <fields>
+        <label><!-- Sale Status --></label>
+        <name>Sale_Status__c</name>
+        <picklistValues>
+            <masterLabel>Paid</masterLabel>
+            <translation><!-- Paid --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unpaid</masterLabel>
+            <translation><!-- Unpaid --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Duplicate</masterLabel>
+            <translation><!-- Duplicate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Failed</masterLabel>
+            <translation><!-- Failed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Processed</masterLabel>
+            <translation><!-- Processed --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Topics of Interest --></label>
         <name>Topics_of_Interest__c</name>
         <picklistValues>
@@ -210,5 +295,12 @@
             <translation><!-- Weather --></translation>
         </picklistValues>
     </fields>
+    <layouts>
+        <layout>Farmer Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

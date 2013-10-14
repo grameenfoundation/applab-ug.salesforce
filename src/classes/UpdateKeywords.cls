@@ -42,6 +42,12 @@ global class UpdateKeywords {
         returnValues[3] = JSON.serialize(deletedMenuItems);
         returnValues[4] = JSON.serialize(updatedImages);
         returnValues[5] = JSON.serialize(deletedImages);
+        
+        menus.clear();
+        menuItems.clear();
+        deletedMenuItems.clear();
+        updatedImages.clear();
+        deletedImages.clear();
 
         return returnValues;
     }
@@ -88,6 +94,13 @@ global class UpdateKeywords {
         returnValues[3] = '[]';
         returnValues[4] = JSON.serialize(updatedImages);
         returnValues[5] = '[]';
+        
+        //Clear collections to avoid governor limits
+        menus.clear();
+        menuItems.clear();
+        deletedMenuItems.clear();
+        updatedImages.clear();
+        deletedImages.clear();
 
         createAndSaveJsonStringsAsAttachement(returnValues, fileName);
     }

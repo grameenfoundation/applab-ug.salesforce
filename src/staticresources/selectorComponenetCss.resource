@@ -122,3 +122,8 @@
 .selectorButton{
     margin-top:7px
 }
+.mapContainer{
+    width:310px;
+    float:left;
+    padding-right: 20px
+}

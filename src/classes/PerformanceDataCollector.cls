@@ -1226,9 +1226,13 @@ public with sharing class PerformanceDataCollector {
         Date startOfMonth = date.today().toStartOfMonth();
         
         //TODO: remember to change this back to 1s
-        if (todayDate.isSameDay(startOfMonth)) {
+        if (todayDate.isSameDay(startOfMonth) && (todayDate.month() == entryTime.month())) {
             System.assertEquals(1, test.totalSearches);
             System.assertEquals(1, test.totalTestSearches);
+        }
+        else if (todayDate.isSameDay(startOfMonth) && (todayDate.month() != entryTime.month())) {
+            System.assertEquals(0, test.totalSearches);
+            System.assertEquals(0, test.totalTestSearches);
         }
         else {
             System.assertEquals(1, test.totalSearches);

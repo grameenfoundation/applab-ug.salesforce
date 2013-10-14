@@ -69,6 +69,16 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Message_Key__c</fullName>
+        <externalId>false</externalId>
+        <formula>Campaign_Message__r.Message_Key__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Message Key</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Value__c</fullName>
         <description>The value of the message content</description>
         <externalId>false</externalId>

@@ -82,6 +82,14 @@ public with sharing class DashboardSelectorComponentController extends ParentCom
         return this.selector.Show_Submit_Button__c;
     }
 
+    public Boolean getShowKenyanCounty() {
+        return this.selector.Show_Kenyan_County__c;
+    }
+    
+    public Boolean getShowBvatCiw() {
+        return this.selector.Show_BVAT_CIW__c;
+    }
+
     private String accountName;
     public String getAccountName() {
         return this.accountName;

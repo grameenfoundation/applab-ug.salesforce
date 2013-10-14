@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddToCampaign</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Convert</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>FindDup</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
     <businessProcesses>
         <fullName>Master</fullName>
         <isActive>true</isActive>
@@ -13,6 +61,10 @@
         </values>
     </businessProcesses>
     <enableFeeds>true</enableFeeds>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <type>Lookup</type>
+    </fields>
     <fields>
         <fullName>Donation_Amount__c</fullName>
         <externalId>false</externalId>
@@ -127,7 +179,11 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Not For Profit</fullName>
+                <fullName>Nonprofit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -159,6 +215,45 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>Individual/Household</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LeadSource</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Public Relations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Word of mouth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Other</fullName>
                 <default>false</default>
             </picklistValues>
@@ -167,32 +262,9 @@
         <type>Picklist</type>
     </fields>
     <fields>
-		<fullName>LeadSource</fullName>
-		<picklist>
-			<picklistValues>
-				<fullName>Web</fullName>
-				<default>false</default>
-			</picklistValues>
-			<picklistValues>
-				<fullName>Phone Inquiry</fullName>
-				<default>false</default>
-			</picklistValues>
-			<picklistValues>
-				<fullName>Partner Referral</fullName>
-				<default>false</default>
-			</picklistValues>
-			<picklistValues>
-				<fullName>Purchased List</fullName>
-				<default>false</default>
-			</picklistValues>
-			<picklistValues>
-				<fullName>Other</fullName>
-				<default>false</default>
-			</picklistValues>
-			<sorted>false</sorted>
-		</picklist>
-		<type>Picklist</type>
-	</fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
     <fields>
         <fullName>Rating</fullName>
         <picklist>
@@ -264,6 +336,12 @@
             <value>1</value>
         </filters>
         <label>My Unread Leads</label>
+    </listViews>
+    <listViews>
+        <fullName>TestLeadQueue</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Test Lead Queue</label>
+        <queue>TestLeadQueue</queue>
     </listViews>
     <listViews>
         <fullName>TodaysLeads</fullName>
@@ -502,7 +580,6 @@
         <fullName>Mass_Edit</fullName>
         <availability>online</availability>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>page</linkType>
         <masterLabel>Mass Edit</masterLabel>
@@ -515,7 +592,6 @@
         <fullName>Mass_Update</fullName>
         <availability>online</availability>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>page</linkType>
         <masterLabel>Mass Update</masterLabel>
@@ -528,7 +604,6 @@
         <fullName>financialprofile</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>true</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>true</hasToolbar>
@@ -547,7 +622,6 @@
         <fullName>map</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>true</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>true</hasToolbar>
@@ -566,7 +640,6 @@
         <fullName>news</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>true</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>true</hasToolbar>
