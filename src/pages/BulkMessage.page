@@ -80,7 +80,7 @@
 
     <apex:form >
         <apex:pageMessages id="feedback"/>
-        <apex:pageBlock title="{!$Label.BULK_MESSAGE_PAGE_TITLE}">
+        <apex:pageBlock id="parent_container" title="{!$Label.BULK_MESSAGE_PAGE_TITLE}">
             <apex:outputText value="{!$Label.BULK_MESSAGE_PAGE_INSTRUCTIONS}" escape="false"/>
             <br/>
             <br/>
@@ -119,7 +119,7 @@
                         </div>
                     </td>
                     <td>
-                        <ul id="j_id0:j_id7:j_id34:group_selectedItems"/>
+                        <ul id="{!$Component.parent_container}:group_selectedItems"/>
                     </td>
                 </tr>
                 <tr>
@@ -151,7 +151,7 @@
                         </div>
                     </td>
                     <td>
-                        <ul id="j_id0:j_id7:j_id34:sendee_selectedItems"/>
+                        <ul id="{!$Component.parent_container}:sendee_selectedItems"/>
                     </td>
                 </tr>
                 <tr>
