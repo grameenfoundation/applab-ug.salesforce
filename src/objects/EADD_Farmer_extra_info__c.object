@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Extra information from an EADD Farmer</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Access_AH__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has access to Animal Health services</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Access_farmer_trainings__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has access to farmer trainings</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Access_financial_services__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Does farmer have access to financial services/SACCO</description>
+        <externalId>false</externalId>
+        <label>Do you Has access to financial services</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Access_transport_services__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has access to transport services</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Accesses_AI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has access to artificial insemination</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Accesses_checkoff_services__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has access to check-off services</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Accesses_farm_inputs__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has access to farm inputs</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Accesses_feeds__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has access to feeds supplies</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Age__c</fullName>
+        <externalId>false</externalId>
+        <label>Age</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>District__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>District of the dairy farmer</description>
+        <externalId>false</externalId>
+        <label>District</label>
+        <referenceTo>District__c</referenceTo>
+        <relationshipLabel>EADD Farmer extra info</relationshipLabel>
+        <relationshipName>EADD_Farmer_extra_info</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Farmer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Farmer object of the farmer giving these details</description>
+        <externalId>false</externalId>
+        <label>Farmer</label>
+        <referenceTo>Farmer__c</referenceTo>
+        <relationshipLabel>EADD Farmer extra info</relationshipLabel>
+        <relationshipName>EADD_Farmer_extra_info</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Gender__c</fullName>
+        <externalId>false</externalId>
+        <label>Gender</label>
+        <length>7</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <description>GPS location of the farmer</description>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <length>70</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Name__c</fullName>
+        <description>The name of the farmer</description>
+        <externalId>false</externalId>
+        <label>Name</label>
+        <length>70</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subcounty__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Subcounty of the dairy farmer</description>
+        <externalId>false</externalId>
+        <label>Subcounty</label>
+        <referenceTo>Subcounty__c</referenceTo>
+        <relationshipLabel>EADD Farmer extra info</relationshipLabel>
+        <relationshipName>EADD_Farmer_extra_info</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Uses_AI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Uses artificial insemination</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Uses_dryseason_feeding__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Uses dry season feeding</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Uses_highquality_feeds__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Uses high quality feeds</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Uses_supplementary_feeding__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Uses supplementary feeding</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>EADD Farmer extra info</label>
+    <nameField>
+        <label>EADD Farmer extra info Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>EADD Farmer extra info</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

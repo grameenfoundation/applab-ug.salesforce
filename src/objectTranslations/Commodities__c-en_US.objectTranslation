@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Commodities</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Commodities</value>
+    </caseValues>
+    <fields>
+        <help><!-- Enter the date from which these prices will be effective for this commodity. A price for the same commodity with a later date will supersede any previous prices. --></help>
+        <label><!-- Effective date --></label>
+        <name>Effective_date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Highest Retail Price --></label>
+        <name>Highest_Retail_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- Highest Wholesale Price --></label>
+        <name>Highest_Wholesale_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lowest Retail Price --></label>
+        <name>Lowest_Retail_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lowest Wholesale Price --></label>
+        <name>Lowest_Wholesale_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- Market --></label>
+        <name>Market__c</name>
+        <relationshipLabel><!-- Commodities --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
