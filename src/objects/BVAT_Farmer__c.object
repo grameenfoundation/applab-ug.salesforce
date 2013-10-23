@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>BVAT Farmer</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Education_Level__c</fullName>
+        <description>Education Level</description>
+        <externalId>false</externalId>
+        <label>Education Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Secondary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>University</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tertiary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Farm_Size__c</fullName>
+        <description>Size of Farm</description>
+        <externalId>false</externalId>
+        <label>Farm Size</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farming_Reason__c</fullName>
+        <description>Farm for Food or Market</description>
+        <externalId>false</externalId>
+        <label>Farming Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Consumption</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Selling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consumption and Selling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GPS_Location__c</fullName>
+        <description>GPS Location</description>
+        <externalId>false</externalId>
+        <label>GPS Location</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Activity__c</fullName>
+        <description>Main Group Activity</description>
+        <externalId>false</externalId>
+        <label>Group Activity</label>
+        <length>250</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Name__c</fullName>
+        <description>Name of the Farmer Group</description>
+        <externalId>false</externalId>
+        <label>Group Name</label>
+        <length>250</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Receives_TOF__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Does the group receive the TOF Magazine</description>
+        <externalId>false</externalId>
+        <label>Group Receives TOF</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Group_Size__c</fullName>
+        <description>No of members in the group</description>
+        <externalId>false</externalId>
+        <label>Group Size</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Has_Farmer_Group__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Belongs to a Farmer Group</description>
+        <externalId>false</externalId>
+        <label>Has Farmer Group</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <description>Personal Details of the Farmer</description>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>BVAT Farmers</relationshipLabel>
+        <relationshipName>BVAT_Farmers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Registered_By__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Registered By</label>
+        <referenceTo>CIW__c</referenceTo>
+        <relationshipLabel>BVAT Farmers</relationshipLabel>
+        <relationshipName>BVAT_Farmers</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Years_Of_Farming__c</fullName>
+        <description>Length of Farming</description>
+        <externalId>false</externalId>
+        <label>Years Of Farming</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>BVAT Farmer</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Person__c</columns>
+        <columns>Education_Level__c</columns>
+        <columns>Farming_Reason__c</columns>
+        <columns>Farm_Size__c</columns>
+        <columns>Years_Of_Farming__c</columns>
+        <columns>Has_Farmer_Group__c</columns>
+        <columns>Group_Name__c</columns>
+        <columns>Group_Activity__c</columns>
+        <columns>Group_Size__c</columns>
+        <columns>Group_Receives_TOF__c</columns>
+        <columns>GPS_Location__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>BF-{0000000}</displayFormat>
+        <label>BVAT Farmer Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>BVAT Farmers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

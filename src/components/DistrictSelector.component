@@ -1,0 +1,45 @@
+<apex:component controller="DistrictSelectorController">
+
+    <apex:attribute name="key"
+        type="String"
+        assignTo="{!key}"
+        required="true"
+        description="The key given to this component so the parent can easily get access to it"
+    />
+    <apex:attribute name="pageController"
+        type="ParentComponentBase"
+        assignTo="{!parentComponentController}"
+        required="true"
+        description="The controller for the parent controller"
+    />
+    <apex:attribute name="show"
+        type="Boolean"
+        assignTo="{!showData}"
+        required="true"
+        description="Is this component displayed. Will stop init if it is not"
+    />
+    <apex:attribute name="sectionKey"
+        type="String"
+        assignTo="{!sectionKey}"
+        required="true"
+        description="The key given to the section component so it can be easily identified what is in a section"
+    />
+
+    <apex:includeScript value="{!$Resource.DashboardSelectorJS}"/>
+    <script type="text/javascript">
+        addRefreshVariable("{!key}", "{!refreshList}");
+        addActionFunction("{!key}", "{!actionFunctionName}{!key}");
+    </script>
+    <apex:outputPanel id="dummy"/>
+    <apex:actionFunction action="{!refreshData}" name="{!actionFunctionName}{!key}" rerender="{!$Component.districtSelector}"/>
+    <apex:selectList id="districtSelector"
+            value="{!district}"
+            multiselect="false"
+            size="1" 
+            title="Select the district you would like to see data for"
+            styleClass="apexDropDown"
+    >
+        <apex:selectOptions value="{!districts}"></apex:selectOptions>
+        <apex:actionSupport action="{!bounce}" rerender="{!$Component.dummy}"  event="onchange" onsubmit="refreshComponents('{!key}', '')" oncomplete="addError('Selector has changed but section not refreshed');addErrorViaSF();closeGenericModal()"/>
+    </apex:selectList>
+</apex:component>

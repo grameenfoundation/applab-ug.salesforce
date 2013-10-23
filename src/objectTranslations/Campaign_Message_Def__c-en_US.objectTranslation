@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Campaign Message</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Campaign Messages</value>
+    </caseValues>
+    <fields>
+        <help><!-- Text Message to send to the subscribers. --></help>
+        <label><!-- Content --></label>
+        <name>Content__c</name>
+    </fields>
+    <fields>
+        <help><!-- A valid cron expression that specifies the scheduling of the messages. --></help>
+        <label><!-- Cron --></label>
+        <name>Cron__c</name>
+    </fields>
+    <fields>
+        <help><!-- The date on which the absolute message will be sent. --></help>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- The format of the campaign message e.g. SMS, IVR etc --></help>
+        <label><!-- Format --></label>
+        <name>Format__c</name>
+        <picklistValues>
+            <masterLabel>SMS</masterLabel>
+            <translation><!-- SMS --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The language(s) for the message, in this case, en (English). --></help>
+        <label><!-- Language --></label>
+        <name>Language__c</name>
+        <picklistValues>
+            <masterLabel>EN</masterLabel>
+            <translation><!-- EN --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The message campaign related to this message. --></help>
+        <label><!-- Message Campaign --></label>
+        <name>Message_Campaign__c</name>
+        <relationshipLabel><!-- Campaign Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- A key uniquely identifying this message. --></help>
+        <label><!-- Message Key --></label>
+        <name>Message_Key__c</name>
+    </fields>
+    <fields>
+        <help><!-- The amount of time from the reference date or current date that will elapse before the message is sent. --></help>
+        <label><!-- Offset Time --></label>
+        <name>Offset_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- An interval that determines how often the message is sent until the maxDuration period has elapsed. --></help>
+        <label><!-- Repeat Every --></label>
+        <name>Repeat_Every__c</name>
+    </fields>
+    <fields>
+        <help><!-- The day of the week on which the message will be sent until the maxDuration period has elapsed. --></help>
+        <label><!-- Repeat On --></label>
+        <name>Repeat_On__c</name>
+        <picklistValues>
+            <masterLabel>Friday</masterLabel>
+            <translation><!-- Friday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monday</masterLabel>
+            <translation><!-- Monday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Saturday</masterLabel>
+            <translation><!-- Saturday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sunday</masterLabel>
+            <translation><!-- Sunday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Thursday</masterLabel>
+            <translation><!-- Thursday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tuesday</masterLabel>
+            <translation><!-- Tuesday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Wednesday</masterLabel>
+            <translation><!-- Wednesday --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The time at which the message will be sent. --></help>
+        <label><!-- Start Time --></label>
+        <name>Start_Time__c</name>
+    </fields>
+    <layouts>
+        <layout>Campaign Message Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,444 @@
+<apex:page controller="DashboardSelectorController" sidebar="false">
+
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+    <style type="text/css">
+        .dateFormat {
+            display:none;
+            width:0px
+        }
+        .inputStyle {
+            width:250px
+        }
+        .ckwContainer {
+            float:left;
+            width:500px
+        }
+        .submit {
+            margin:2px 2px 2px 250px
+        }
+    </style>
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <script type="text/javascript">
+        var idStore = new Object();
+        var idPrefix = '{!$Component.thePageBlock.thePageBlockSection.detailSelectorForm}' + ":";
+        var resetFarmersBoolean = false;
+
+        function setPageLayoutOptions(id, ids) {
+            idStore[id] = ids;
+        }
+
+        function getPageLayoutOptions(id) {
+            return idStore[id];
+        }
+
+        function changePageLayout(list, form) {
+
+            // Hide All fields
+            var form = document.getElementById(form).elements;
+            for (j=0; j < form.length; j++) {
+                var id = form[j].id;
+                if (id != "") {
+                    var lId = form[j].id + "Label";
+                    var elem = document.getElementById(id);
+                    var elem2 = document.getElementById(lId);
+                    if (elem != null) {
+                        elem.disabled = true;
+                    }
+                    if (elem2 != null) {
+                        elem2.disabled = true;
+                    }
+                }
+            }
+
+            // Show fields
+            var ids = idStore[list].split(',');
+            for (var i = 0; i < ids.length; i++) {
+                var elem = document.getElementById(idPrefix + ids[i]);
+                var elem2 = document.getElementById(idPrefix + ids[i] + "Label");
+                if (elem != null) {
+                    elem.disabled = false;
+                }
+                if (elem2 != null) {
+                    elem2.disabled = false;
+                }
+            }
+
+            // Have to do the submit button separetly due to SF fun way of identifying dom elements
+            document.getElementById('submit').disabled = false;
+
+            if (list != 'FARMER') {
+                showFarmerDetails(document.getElementById(idPrefix + 'incFarmers'));
+            }
+        }
+
+        function showFarmerDetails(farmerCheckBox) {
+
+            if (farmerCheckBox.checked) {
+                document.getElementById(idPrefix + "farmers").disabled = false;
+                document.getElementById(idPrefix + "farmerDateStart").disabled = false;
+                document.getElementById(idPrefix + "farmerDateEnd").disabled = false;
+            }
+            else {
+                document.getElementById(idPrefix + "farmers").disabled = true;
+                document.getElementById(idPrefix + "farmerDateStart").disabled = true;
+                document.getElementById(idPrefix + "farmerDateEnd").disabled = true;
+            }
+        }
+
+        function toggleDisable(bool) {
+
+            if (bool == true) {
+                var ids = idStore['ALL'].split(',');
+                for (var i = 0; i < ids.length; i++) {
+                    var elem = document.getElementById(idPrefix + ids[i]);
+                    if (elem != null) {
+                        elem.disabled = bool;
+                    }
+                }
+            }
+            else {
+                changePageLayout(getSingleSelectValue(document.getElementById(idPrefix + 'detailType')), '{!$Component.thePageBlock.thePageBlockSection.detailSelectorForm}');
+            }
+
+            // Have to do the submit button separetly due to SF fun way of identifying dom elements
+            document.getElementById('submit').disabled = bool;
+        }
+
+        function validateCKWs(field) {
+
+            if (field.checked) {
+                if (countMultipleSelectEntries(document.getElementById(idPrefix + 'ckws')) != 1) {
+                    showErrorMsg('You must select only one CKW with this option.', true);
+                }
+            }
+            else {
+                showErrorMsg('', false);
+            } 
+        };
+
+        function submitForm() {
+
+            toggleDisable(true);
+            showErrorMsg('', false);
+            if (!validateForm()) {
+                toggleDisable(false);
+                return false;
+            }
+            var incSearchSubLoc = document.getElementById(idPrefix + 'incSearchSubLoc').checked ? 'true' : 'false';
+            var incFarmers = document.getElementById(idPrefix + 'incFarmers').checked ? 'true' : 'false';
+            var incSearches = document.getElementById(idPrefix + 'incSearches').checked ? 'true' : 'false';
+            var hideMap = document.getElementById(idPrefix + 'hideMap').checked ? 'false' : 'true';
+            var hideGraph = document.getElementById(idPrefix + 'hideGraph').checked ? 'false' : 'true';
+            var hideTagCloud = document.getElementById(idPrefix + 'hideTagCloud').checked ? 'false' : 'true';
+
+            // If the advanced options are not displayed then set as follows.
+            if (document.getElementById(idPrefix + 'hideGraph').style.display == 'none') {
+                hideMap = 'true';
+                hideGraph = 'false';
+                hideTagCloud = 'false';
+            }
+
+            loadNewVisuals(
+                getSingleSelectValue(document.getElementById(idPrefix + 'detailType')),
+                getSingleSelectValue(document.getElementById(idPrefix + 'district')),
+                getSingleSelectValue(document.getElementById(idPrefix + 'organisations')),
+                getSingleSelectValue(document.getElementById(idPrefix + 'projects')),
+                getMultipleSelectValue(document.getElementById(idPrefix + 'ckws')),
+                getMultipleSelectValue(document.getElementById(idPrefix + 'farmers')),
+                getSingleSelectValue(document.getElementById(idPrefix + 'surveys')),
+                document.getElementById(idPrefix + 'ckwDateStart').value,
+                document.getElementById(idPrefix + 'ckwDateEnd').value,
+                document.getElementById(idPrefix + 'farmerDateStart').value,
+                document.getElementById(idPrefix + 'farmerDateEnd').value,
+                document.getElementById(idPrefix + 'searchDateStart').value,
+                document.getElementById(idPrefix + 'searchDateEnd').value,
+                document.getElementById(idPrefix + 'surveyDateStart').value,
+                document.getElementById(idPrefix + 'surveyDateEnd').value,
+                incSearchSubLoc,
+                getMultipleSelectValue(document.getElementById(idPrefix + 'keyword')),
+                incFarmers,
+                incSearches,
+                hideMap,
+                hideGraph,
+                hideTagCloud
+            );
+        }
+
+        function checkResetFarmers(bool) {
+            resetFarmersBoolean = bool;
+        }
+
+        function resetFarmerParams() {
+
+            if (resetFarmersBoolean) {
+                toggleDisable(true);
+                loadFarmerList (
+                    getSingleSelectValue(document.getElementById(idPrefix + 'district')),
+                    getSingleSelectValue(document.getElementById(idPrefix + 'organisations')),
+                    getSingleSelectValue(document.getElementById(idPrefix + 'projects')),
+                    getMultipleSelectValue(document.getElementById(idPrefix + 'ckws'))
+                );
+                checkResetFarmers(false);
+            }
+        }
+
+        function validateForm() {
+
+            // Check that the form validates depending on the detail type
+            switch (getSingleSelectValue(document.getElementById(idPrefix + 'detailType'))) {
+                case 'CKW':
+                    break;
+                case 'FARMER':
+                    break;
+                case 'SEARCHES':
+                    break;
+                case 'SURVEYS':
+                    if (countMultipleSelectEntries(document.getElementById(idPrefix + 'ckws')) != 1 && (countMultipleSelectEntries(document.getElementById(idPrefix + 'surveys')) != 1 || getMultipleSelectValue(document.getElementById(idPrefix + 'surveys')) == '')) {
+                        showErrorMsg('You must select one survey OR one CKW', true);
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+    </script> 
+ 
+    <apex:pageBlock id="thePageBlock">
+        <apex:pageBlockSection id="thePageBlockSection" title="Analytics Options" columns="1">
+            <div class="tableContainer">
+                <apex:form id="detailSelectorForm">
+                    <apex:actionFunction name="loadNewVisuals" action="{!loadPage}" rerender="out" oncomplete="toggleDisable(false)">
+                        <apex:param name="detailTypeParam" value=""/>
+                        <apex:param name="districtParam" value=""/>
+                        <apex:param name="organisationParam" value=""/>
+                        <apex:param name="projectParam" value=""/>
+                        <apex:param name="ckwsParam" value=""/>
+                        <apex:param name="farmersParam" value=""/>
+                        <apex:param name="surveysParam" value=""/>
+                        <apex:param name="ckwDateStartParam" value=""/>
+                        <apex:param name="ckwDateEndParam" value=""/>
+                        <apex:param name="farmerDateStartParam" value=""/>
+                        <apex:param name="farmerDateEndParam" value=""/>
+                        <apex:param name="searchDateStartParam" value=""/>
+                        <apex:param name="searchDateEndParam" value=""/>
+                        <apex:param name="surveyDateStartParam" value=""/>
+                        <apex:param name="surveyDateEndParam" value=""/>
+                        <apex:param name="incSeachSubLocParam" value=""/>
+                        <apex:param name="keywordParam" value=""/>
+                        <apex:param name="incFarmersParam" value=""/>
+                        <apex:param name="incSearchesParam" value=""/>
+                        <apex:param name="hideMapParam" value=""/>
+                        <apex:param name="hideGraphParam" value=""/>
+                        <apex:param name="hideTagCloudParam" value=""/>
+                    </apex:actionFunction>
+
+                    <apex:actionFunction name="loadFarmerList" action="{!resetFarmerLists}" status="listStatus" rerender="farmers" oncomplete="toggleDisable(false)">
+                        <apex:param name="districtParam" value=""/>
+                        <apex:param name="organisationParam" value=""/>
+                        <apex:param name="projectParam" value=""/>
+                        <apex:param name="ckwsParam" value=""/>
+                    </apex:actionFunction>
+
+                    <div id="infoRow" class="tableRow" style="display:none">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                            <apex:actionStatus id="listStatus" startStyleClass="startAjax" styleClass="center" startText="fetching new values. Please wait"
+                                stopText="" onstart="toggleDisplay(document.getElementById('infoRow'), 'block')" onstop="toggleDisplay(document.getElementById('infoRow'), 'none')"/>
+                        </div>
+                        <div id="errorMsg" class="errorMessage" style="width:500px">
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelNarrow right">
+                            Show
+                        </div>
+                        <div class="tableColumnDropDown">
+                            <apex:selectList id="detailType" value="{!detailType}" styleClass="apexDropDown" size="1" onchange="changePageLayout(this.value, '{!$Component.detailSelectorForm}')">
+                                <apex:selectOptions value="{!detailTypes}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                        <div class="tableColumnDropDown">
+                            <apex:selectList id="district" value="{!district}" styleClass="apexDropDown" size="1" >
+                                <apex:selectOptions value="{!districtList}"></apex:selectOptions>
+                                <apex:actionSupport event="onchange" rerender="ckws" status="listStatus" onsubmit="toggleDisable(true)" oncomplete="toggleDisable(false)"/>
+                            </apex:selectList>
+                        </div>
+                        <div class="tableColumnDropDown">
+                            <apex:selectList id="organisations" value="{!organisations}" styleClass="apexDropDown" size="1">
+                                <apex:selectOptions value="{!organisationList}"></apex:selectOptions>
+                                <apex:actionSupport event="onchange" rerender="projects, ckws" status="listStatus"  onsubmit="toggleDisable(true)" oncomplete="toggleDisable(false)"/>
+                            </apex:selectList>
+                        </div>
+                        <div class="tableColumnDropDown">
+                            <apex:selectList id="projects" value="{!projects}" styleClass="apexDropDown" size="1">
+                                <apex:selectOptions value="{!projectList}"></apex:selectOptions>
+                                <apex:actionSupport event="onchange" rerender="ckws" status="listStatus"  onsubmit="toggleDisable(true)" oncomplete="toggleDisable(false)"/>
+                            </apex:selectList>
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableColumnRowLabelBlock" style="width:470px">
+                            <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                                Choose CKW options
+                            </div>
+                            <div class="tableColumnDropDown">
+                                <apex:selectList id="ckws" value="{!selectedCkws}" styleClass="apexDropDown"  multiselect="true"  size="6" onclick="checkResetFarmers(true)">
+                                    <apex:selectOptions value="{!ckwList}"></apex:selectOptions>
+                                </apex:selectList>
+                            </div>
+                        </div>
+                        <div class="tableColumnRowLabelInline ckwContainer">
+                            <div class="dateContainer tableColumnRowLabelInline">
+                                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                                    Active Between
+                                </div>
+                                <div class="tableColumnDateEntry">
+                                    <apex:inputField id="ckwDateStart" value="{!ckwDatePicker.Start_Date__c}"/>
+                                </div>
+                                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelNarrow center">
+                                    And
+                                </div>
+                                <div class="tableColumnDateEntry">
+                                    <apex:inputField id="ckwDateEnd" value="{!ckwDatePicker.End_Date__c}"/>
+                                </div>
+                            </div>
+                            <div class="tableColumnRowLabelBlock checkBoxContainer checkBoxContainerMedium">
+                                <div class="tableColumnSelectBox">
+                                    <apex:inputCheckbox id="incFarmers" title="Select to include farmer markers on map. Must select an individual CKW." onchange="showFarmerDetails(this);validateCKWs(this)"/>
+                                </div>
+                                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelWide left">
+                                    Show farmers registered
+                                </div>
+                            </div>
+                            <div class="tableColumnRowLabelBlock checkBoxContainer checkBoxContainerMedium">
+                                <div class="tableColumnSelectBox">
+                                    <apex:inputCheckbox id="incSearches" title="Select to include search markers on map. Must select an individual CKW." onchange="validateCKWs(this)"/>
+                                </div>
+                                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelWide left">
+                                    Show searches done
+                                </div>
+                            </div>
+                            <div class="tableColumnRowLabelBlock checkBoxContainer checkBoxContainerWide">
+                                <div class="tableColumnSelectBox">
+                                    <apex:inputCheckbox id="incSearchSubLoc" title="Select to include search submission markers on map. Must select an individual CKW." onchange="validateCKWs(this)"/>
+                                </div>
+                                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelWide left">
+                                    Show search submission location as well
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            Choose Farmer options
+                        </div>
+                        <div class="tableColumnDropDown">
+                            <apex:selectList id="farmers" value="{!farmers}" styleClass="apexDropDown" multiselect="true"  size="3" onfocus="resetFarmerParams()">
+                                <apex:selectOptions value="{!farmerList}"></apex:selectOptions>
+                            </apex:selectList>
+                         </div>
+                         <div class="dateContainer tableColumnRowLabelInline">
+                            <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                                Registered Between
+                            </div>
+                            <div class="tableColumnDateEntry">
+                                <apex:inputField id="farmerDateStart" value="{!farmerDatePicker.Start_Date__c}"/>
+                            </div>
+                            <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelNarrow center">
+                                And
+                            </div>
+                            <div class="tableColumnDateEntry">
+                                <apex:inputField id="farmerDateEnd" value="{!farmerDatePicker.End_Date__c}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tableRow" style="display:{!IF(showSearches == true,'block','none')}">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            Choose Keyword options
+                        </div>
+                        <div class="tableColumnDropDown">
+                            <apex:selectList id="keyword" value="{!keyword}" styleClass="apexDropDown" multiselect="true" size="3" title="Select the keywords for the Tag Cloud, Graphs and Map Markers">
+                                <apex:selectOptions value="{!keywords}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            Searches Between
+                        </div>
+                        <div class="tableColumnDateEntry">
+                            <apex:inputField id="searchDateStart" value="{!searchDatePicker.Start_Date__c}"/>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelNarrow center">
+                            And
+                        </div>
+                        <div class="tableColumnDateEntry">
+                            <apex:inputField id="searchDateEnd" value="{!searchDatePicker.End_Date__c}"/>
+                        </div>
+                    </div>
+                    <div class="tableRow" style="display:{!IF(showSurveys == true,'block','none')}">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            Select Survey
+                        </div>
+                        <div class="tableColumnDropDown">
+                            <apex:selectList id="surveys" value="{!survey}" styleClass="apexDropDown" size="3" title="Select the surveys that you would like to see">
+                                <apex:selectOptions value="{!surveyList}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            Surveys Between
+                        </div>
+                        <div class="tableColumnDateEntry">
+                            <apex:inputField id="surveyDateStart" value="{!surveyDatePicker.Start_Date__c}"/>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelNarrow center">
+                            And
+                        </div>
+                        <div class="tableColumnDateEntry">
+                            <apex:inputField id="surveyDateEnd" value="{!surveyDatePicker.End_Date__c}"/>
+                        </div>
+                    </div>
+                    <div id ="advancedOptions" class="tableRow" style="display:{!IF(showSearches == true,'block','none')}">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            Advanced options
+                        </div>
+                        <div class="tableColumnSelectBox">
+                            <apex:inputCheckbox id="hideMap"/>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium  left">
+                            Hide Map
+                        </div>
+                        <div class="tableColumnSelectBox">
+                            <apex:inputCheckbox id="hideTagCloud"/>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium  left">
+                            Hide Tag Cloud
+                        </div>
+                        <div class="tableColumnSelectBox">
+                            <apex:inputCheckbox id="hideGraph"/>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                            Hide Graphs
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div>
+                            <button id="submit" class="submit" type="button" onclick="submitForm()">Submit</button>
+                        </div>
+                    </div>
+                </apex:form>
+            </div>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:insert name="panel"/>
+    <apex:repeat value="{!formDetails}" var="single">
+        <script type="text/javascript">
+            setPageLayoutOptions('{!single.id}', '{!single.ids}');
+        </script>
+    </apex:repeat>
+    <script type="text/javascript">
+        window.onload = function() {
+           changePageLayout('{!detailType}', '{!$Component.thePageBlock.thePageBlockSection.detailSelectorForm}');
+           document.getElementById(idPrefix + 'detailType').focus();
+        }
+    </script>
+</apex:page>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Metricas M&amp;E</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Metricas M&amp;E</value>
+    </caseValues>
+    <fields>
+        <help>Este valor esta automatizado o no?</help>
+        <label>Automatizado</label>
+        <name>Automated__c</name>
+        <picklistValues>
+            <masterLabel>False</masterLabel>
+            <translation><!-- False --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>True</masterLabel>
+            <translation><!-- True --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Tipo de cálculo</label>
+        <name>Calculation_Type__c</name>
+        <picklistValues>
+            <masterLabel>Average</masterLabel>
+            <translation><!-- Average --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cumulative</masterLabel>
+            <translation><!-- Cumulative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation><!-- None --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Ponga algo significativo y humano</help>
+        <label><!-- Further Link Text --></label>
+        <name>Further_Link_Text__c</name>
+    </fields>
+    <fields>
+        <help>Solo necesita extensiones del archivo</help>
+        <label><!-- Further Link Url --></label>
+        <name>Further_Link_Url__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Header --></label>
+        <name>Is_Header__c</name>
+    </fields>
+    <fields>
+        <help>Marque si esta medida es parte de</help>
+        <label><!-- Is Lickert --></label>
+        <name>Is_Lickert__c</name>
+    </fields>
+    <fields>
+        <help><!-- Only check this if you know what you are doing --></help>
+        <label><!-- Is On Fly --></label>
+        <name>Is_On_Fly__c</name>
+    </fields>
+    <fields>
+        <help>La etiqueta para esta medida aparecera</help>
+        <label>Etiqueta</label>
+        <name>Label__c</name>
+    </fields>
+    <fields>
+        <help>En que area de M&amp;E esta medida</help>
+        <label>Area M&amp;E</label>
+        <name>M_E_Area__c</name>
+        <picklistValues>
+            <masterLabel>Impact</masterLabel>
+            <translation><!-- Impact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quality</masterLabel>
+            <translation><!-- Quality --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scale</masterLabel>
+            <translation><!-- Scale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Services</masterLabel>
+            <translation><!-- Services --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sustainability</masterLabel>
+            <translation><!-- Sustainability --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technology</masterLabel>
+            <translation><!-- Technology --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Deje en blanco si esta medida esta en la vieja</help>
+        <label>Sección métrica</label>
+        <name>Metric_Section__c</name>
+        <relationshipLabel>Indicadores de seguimiento y evaluación</relationshipLabel>
+    </fields>
+    <fields>
+        <help>Seleccione Verdad si esta medida no debe ser publica</help>
+        <label>No para el público</label>
+        <name>Not_For_Public__c</name>
+    </fields>
+    <fields>
+        <help><!-- Choose one of these if the metric is to be calculated on the fly --></help>
+        <label><!-- On The Fly Calculation Type --></label>
+        <name>On_The_Fly_Calculation_Type__c</name>
+        <picklistValues>
+            <masterLabel>Average</masterLabel>
+            <translation><!-- Average --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Count</masterLabel>
+            <translation><!-- Count --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Percentage</masterLabel>
+            <translation><!-- Percentage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sum</masterLabel>
+            <translation><!-- Sum --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Orden</label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label>Organización</label>
+        <name>Organisation__c</name>
+        <relationshipLabel>Indicadores de seguimiento y evaluación</relationshipLabel>
+    </fields>
+    <fields>
+        <help>El valor del proyecto para esta medida</help>
+        <label>Valor proyectado</label>
+        <name>Projected_Value__c</name>
+    </fields>
+    <fields>
+        <help><!-- Leave this alone unless you are told to change it --></help>
+        <label><!-- Propagate Targets --></label>
+        <name>Propagate_Targets__c</name>
+    </fields>
+    <fields>
+        <label>Revertir la comparación</label>
+        <name>Reverse_Comparison__c</name>
+    </fields>
+    <fields>
+        <help>En que area del tablero de de mando</help>
+        <label><!-- Scorecard Area --></label>
+        <name>Scorecard__c</name>
+        <picklistValues>
+            <masterLabel>Customer</masterLabel>
+            <translation><!-- Customer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financial</masterLabel>
+            <translation><!-- Financial --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>People</masterLabel>
+            <translation><!-- People --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Process</masterLabel>
+            <translation><!-- Process --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Sub Area --></label>
+        <name>Sub_Area__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sub Divide --></label>
+        <name>Sub_Divide__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select what the metrics are to be subdivided by --></help>
+        <label><!-- Subdivider --></label>
+        <name>Subdivider__c</name>
+        <picklistValues>
+            <masterLabel>District</masterLabel>
+            <translation><!-- District --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Person</masterLabel>
+            <translation><!-- Person --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Subcounty</masterLabel>
+            <translation><!-- Subcounty --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Actualizar periodo</label>
+        <name>Update_Period__c</name>
+        <picklistValues>
+            <masterLabel>Biannually</masterLabel>
+            <translation><!-- Biannually --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Daily</masterLabel>
+            <translation><!-- Daily --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monthly</masterLabel>
+            <translation><!-- Monthly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarterly</masterLabel>
+            <translation><!-- Quarterly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TBC</masterLabel>
+            <translation><!-- TBC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ticker</masterLabel>
+            <translation><!-- Ticker --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Weekly</masterLabel>
+            <translation><!-- Weekly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yearly</masterLabel>
+            <translation><!-- Yearly --></translation>
+        </picklistValues>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>M&amp;E Metrics Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>M&amp;E Metric Name</nameFieldLabel>
+</CustomObjectTranslation>
