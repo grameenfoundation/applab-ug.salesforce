@@ -8,7 +8,7 @@
     <apex:includeScript value="{!$Resource.CommonJS}"/>
     <script>
         function openEditWindow(recordId) {
-             popup = window.open("{!$Page.MetricEdit}?district={!district}&subcounty={!subcounty}&dateFrom={!dateFrom}&dateTo={!dateTo}&sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
+             popup = window.open("{!$Page.MetricEdit}?operation=eadd&sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
              popup.focus(); 
         };
         
@@ -145,7 +145,7 @@
                 <apex:column value="{!item.comment}" headerValue="Further Info"/>
                 <apex:column rendered="{!isEditMode}" width="50px">
                     <apex:facet name="header">Update</apex:facet>
-                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}');return false;">
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
                         Update
                     </a>
                 </apex:column>
@@ -171,7 +171,7 @@
                 <apex:column value="{!item.comment}" headerValue="Further Info"/>
                 <apex:column rendered="{!isEditMode}" width="50px">
                     <apex:facet name="header">Update</apex:facet>
-                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}');return false;">
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
                         Update
                     </a>
                 </apex:column>
@@ -198,7 +198,7 @@
                  <!--
                 <apex:column rendered="{!isEditMode}" width="50px">
                     <apex:facet name="header">Update</apex:facet>
-                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}');return false;">
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.getMetricId()}');return false;">
                         Update
                     </a>
                 </apex:column>
@@ -226,7 +226,7 @@
                 <!--
                 <apex:column rendered="{!isEditMode}" width="50px">
                     <apex:facet name="header">Update</apex:facet>
-                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.currentQuarter.Id}');return false;">
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.getMetricId()}');return false;">
                         Update
                     </a>
                 </apex:column>

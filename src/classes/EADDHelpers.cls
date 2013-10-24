@@ -88,11 +88,24 @@
  	public static final String YOUTH_FARMERS_USING_HIGH_QUALITY = 'EADD_youth_farmers_using_high_quality';
  	
 	public static String getSubcounties(){
+		String inclause =
+                ' AND '                                           	+
+                    'District__c IN ('                             	+
+                        'SELECT '                                   +
+                            'District__c '                          +
+                        'FROM '                                     +
+                            'Organisation_District_Association__c ' +
+                        'WHERE '                                    +
+                            'Organisation__r.Name = \'EADD\''		+
+                    ') ';
 		return 'SELECT Id, '					+
-					'Display_Name__c '			+
+					'Display_Name__c, '			+
+					'District__c '				+
 				'FROM Subcounty__c '			+
 				'WHERE District__c != NULL '	+
-				'	AND  District__c != \'\'';
+				'	AND  District__c != \'\' '	+
+					inclause					+
+				'ORDER BY Display_Name__c ';
 	}
     
     public static Map<String, M_E_Metric__c> getAllMetrics(){
@@ -115,7 +128,9 @@
     }
     
     public static String getFarmersActualValueQuery(String district, String subcounty, String dateFrom, String dateTo){
-    	return	getCountAllQuery(district, subcounty, dateFrom, dateTo);
+    	String query =	getCountAllQuery(district, subcounty, dateFrom, dateTo);
+    	System.debug(query);
+    	return query;
     }
     
     public static String getGenderFarmersQuery(String district, String subcounty, String dateFrom, String dateTo){

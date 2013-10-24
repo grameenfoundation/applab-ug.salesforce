@@ -210,7 +210,7 @@ public with sharing class ProcessEADDSurveys {
         '8' => 'Lyantonde',
         '9' => 'Sembabule',
         '10' => 'Mityaana',
-        '11' => 'Luwero',
+        '11' => 'Luwero Nakaseke',
         '12' => 'Masindi',
         '13' => 'Mukono'
     };

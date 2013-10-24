@@ -220,6 +220,10 @@ public class MetricMapWrapper {
             content = this.name;
             content += '<a href=\\"javascript\\:void(0)\\" onclick=\\"window.open(\\\'/' + this.id + '\\\',\\\'_blank\\\');\\">See harvest details</a><br/>';
         }
+        else if (this.markerType.equals('DairyHub')) {
+            content = this.name;
+            content += '<a href=\\"javascript\\:void(0)\\" onclick=\\"window.open(\\\'/' + this.id + '\\\',\\\'_blank\\\');\\">See hub details</a><br/>';
+        }
         markerInfoContentString = content + '</div>';
 
     }

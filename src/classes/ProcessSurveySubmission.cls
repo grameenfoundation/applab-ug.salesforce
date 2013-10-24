@@ -570,6 +570,12 @@ global class ProcessSurveySubmission {
 			else if (survey.Post_Processing_Method__c.equals('EW_SALE_REG')) {
                 return ProcessEwarehouseSurveys.processSaleRegistration(answers);
             }
+			else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
+                return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
+            }
+			else if (survey.Post_Processing_Method__c.equals('EADD_HUB')) {
+                return ProcessEADDSurveys.processEADDHubRegistration(surveySubmission, answers, interviewer);
+            }
             else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
                 return BracSurveysHelpers.processHealthProgrammeSurvey(surveySubmission, answers, interviewer);
             }
