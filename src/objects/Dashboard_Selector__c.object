@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Controls what selectors are to go on a dashboard selector</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Dashboard_Section__c</fullName>
+        <externalId>false</externalId>
+        <label>Dashboard Section</label>
+        <referenceTo>Dashboard_Section__c</referenceTo>
+        <relationshipLabel>Dashboard Selectors</relationshipLabel>
+        <relationshipName>Dashboard_Selectors</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Date_Period__c</fullName>
+        <description>The time period that each metric data lasts for</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select how often you want the metrics to change</inlineHelpText>
+        <label>Date Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_BVAT_CIW__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Displays a dropdown box to select the CIW for the BVAT Dashboard</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Displays a dropdown box to select the CIW for the BVAT Dashboard</inlineHelpText>
+        <label>Show BVAT CIW</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Brac_Area__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Show Brac Area</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Brac_PA__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Show Brac PA</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_CKW__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the CKW selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the CKW selector in the dashboard selector</inlineHelpText>
+        <label>Show CKW</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Country__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the country selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to display the country selector</inlineHelpText>
+        <label>Show Country</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Data_Validator__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the data validator selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the Data Validator selector in the dashboard selector</inlineHelpText>
+        <label>Show Data Validator</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Dates__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the date selectors</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to show the date range selectors</inlineHelpText>
+        <label>Show Dates</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_District__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check to include the district selector.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show the district selector</inlineHelpText>
+        <label>Show District</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Farmer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the farmer selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the farmer selector in the dashboard selector</inlineHelpText>
+        <label>Show Farmer</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Field_Officer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the field officer selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the field officer selector in the dashboard selector</inlineHelpText>
+        <label>Show Field Officer</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Kenyan_County__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Displays Kenyan Counties used for the BVAT Dashboard</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Displays Kenyan Counties used for the BVAT Dashboard</inlineHelpText>
+        <label>Show Kenyan County</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_MTN_Chan__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the MTN Channels selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the MTN Channels selector</inlineHelpText>
+        <label>Show MTN Chan</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Metric_Date_Selector__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the metric date selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to show the metric date selector. Only check if not showing the normal date selector</inlineHelpText>
+        <label>Show Metric Date Selector</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Opportunity_Farmer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the opportunity farmer selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the opportunity farmer selector in the dashboard selector</inlineHelpText>
+        <label>Show Opportunity Farmer</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Person__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check to show the person selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to show the person selector</inlineHelpText>
+        <label>Show Person</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Region__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the region selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to include the region selector</inlineHelpText>
+        <label>Show Region</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Subcounty__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Show the subcounty selector</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to show the subcounty selector</inlineHelpText>
+        <label>Show Subcounty</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Submit_Button__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Show the submit button on the selector. Not always needed if the selector is embedded on none dashboard page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Uncheck to hide the submit button on the selector</inlineHelpText>
+        <label>Show Submit Button</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>The date that the selector should start from. Will not allow any dates to be input earlier that this</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose the date that is the earliest you wish to see data from</inlineHelpText>
+        <label>Start Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <label>Dashboard Selector</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>DSC{0000000000}</displayFormat>
+        <label>Dashboard Selector Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Dashboard Selectors</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

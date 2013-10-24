@@ -1,0 +1,228 @@
+<apex:page controller="BulkMessageController">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-ui-1.8.14.custom.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}" />
+    <apex:includeScript value="{!URLFOR($Resource.ToChecklistJs)}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ToChecklistCss)}" />
+
+    <style type='text/css'>
+         div.checklist li.even, div.checklist li.odd {
+            width: 228px;!important
+        }
+    </style>
+    <script type="text/javascript">
+
+        var j$ = jQuery.noConflict();
+        j$(document).ready(function() {
+            j$('[id$=group]').toChecklist({
+                addScrollBar : true,
+                addSearchBox : true,
+                showCheckboxes : true,
+                showSelectedItems : true
+            });
+            j$('[id$=sendee]').toChecklist({
+                addScrollBar : true,
+                addSearchBox : true,
+                showCheckboxes : true,
+                showSelectedItems : true
+            });
+
+            j$('#reloadBtn').click(function() {
+                var groupString = '';
+                j$('[id$=group_selectedItems]').children().each(function(index) {
+                    groupString = groupString + j$(this).attr('id') + ',';
+                });
+
+                groupString = groupString.substring(0, groupString.lastIndexOf(",")); 
+                getPeopleInGroups(groupString);
+            });
+        });
+
+        function rerenderPeopleSelect() {
+            j$('[id$=sendee]').toChecklist({
+                addScrollBar : true,
+                addSearchBox : true,
+                showCheckboxes : true,
+                showSelectedItems : true
+            });
+        }
+
+        function clearInputElements(ele) {
+            j$(ele).find(':input').each(function() {
+                var type = this.type.toLowerCase();
+                switch(type) {
+                    case 'field':
+                    case 'text':
+                    case 'textarea':
+                        j$(this).val('');
+                        break;
+                    case 'checkbox':
+                        this.checked = false;
+                }
+            });
+         }
+
+        function submitBtn() {
+            var groupStr = new String('');
+            j$('[id$=group_selectedItems]').children().each(function(index) {
+                groupStr = groupStr + j$(this).attr('id') + ',';
+            });
+            groupStr = groupStr.substring(0, groupStr.lastIndexOf(","));
+
+            var peopleStr = new String('');
+            j$('[id$=sendee_selectedItems]').children().each(function(index) {
+                peopleStr = peopleStr + j$(this).attr('id') + ',';
+            });
+            peopleStr = peopleStr.substring(0, peopleStr.lastIndexOf(","));
+            getGroupsAndPeople(groupStr, peopleStr);
+        };
+    </script>
+
+    <apex:form >
+        <apex:pageMessages id="feedback"/>
+        <apex:pageBlock id="parent_container" title="{!$Label.BULK_MESSAGE_PAGE_TITLE}">
+            <apex:outputText value="{!$Label.BULK_MESSAGE_PAGE_INSTRUCTIONS}" escape="false"/>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td style="font-weight:bold;width:370px;">
+                        <div style="width:70px;float:left;">{!$Label.From}</div>
+                        <div style="float:left">
+                            <apex:selectList id="from" value="{!senderId}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!useritems}"/>
+                            </apex:selectList>
+                        </div>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold;">{!$Label.BULK_MESSAGE_PAGE_SEND_TO_GROUPS}:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="padding-left:20px;">
+                            <input type="button" onclick="j$('[id$=group]').toChecklist('checkAll');" class="smallButton" value="{!$Label.SELECT} {!$Label.ALL}"/>
+                            <input type="button" onclick="j$('[id$=group]').toChecklist('clearAll');" class="smallButton" value="{!$Label.CLEAR} {!$Label.ALL}"/>
+                            <br/>
+                            <span style="font-size:10px;">&nbsp;&nbsp;{!$Label.BULK_MESSAGE_PAGE_SEARCH_LIST_INSTRUCTION}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="padding-left:22px">
+                            <apex:selectList id="group" value="{!groups}" multiselect="true" size="10" style="width:228px;">
+                                <apex:actionSupport event="onchange" rerender="sendee" />
+                                <apex:selectOptions value="{!groupitems}" />
+                            </apex:selectList>
+                        </div>
+                    </td>
+                    <td>
+                        <ul id="{!$Component.parent_container}:group_selectedItems"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold;">{!$Label.BULK_MESSAGE_PAGE_SEND_TO_GROUPS} {!$Label.MEMBERS}:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="padding-left:20px">
+                            <p>{!$Label.BULK_MESSAGE_PAGE_MEMBERS_REFRESH_INSTRUCTIONS}</p><br/>
+                            <input type="button" id="reloadBtn" class="smallButton" value="{!$Label.REFRESH}"/>
+                            <input type="button" onclick="j$('[id$=sendee]').toChecklist('checkAll');" class="smallButton" value="{!$Label.SELECT} {!$Label.ALL}"/>
+                            <input type="button" onclick="j$('[id$=sendee]').toChecklist('clearAll');" class="smallButton" value="{!$Label.CLEAR} {!$Label.ALL}"/>
+                            <br/>
+                            <span style="font-size:10px;">&nbsp;&nbsp;{!$Label.BULK_MESSAGE_PAGE_SEARCH_LIST_INSTRUCTION}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="padding-left:22px">
+                            <apex:selectList id="sendee" value="{!sendees}" multiselect="true" size="10" style="width:228px;">
+                                <apex:selectOptions value="{!sendeeItems}" />
+                            </apex:selectList>
+                            <p></p>
+                        </div>
+                    </td>
+                    <td>
+                        <ul id="{!$Component.parent_container}:sendee_selectedItems"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.Subject}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputText value="{!subject}"/>
+                        </div>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.MESSAGE}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputTextArea value="{!messageText}"/>
+                        </div>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.SEND_DATE}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputField value="{!dummyMessage.Expiration_Time__c}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="width:100px;float:left;font-weight:bold">
+                            {!$Label.EXPIRATION_DATE}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputField value="{!dummyMessage2.Expiration_Time__c}"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.Send} {!$Label.VIA}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputCheckbox id="Pulse" value="{!sendViaPulse}"/>
+                            &nbsp;Pulse&nbsp;&nbsp;&nbsp;
+                            <apex:inputCheckbox id="SMS" value="{!sendViaSms}"/>
+                            &nbsp;SMS
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="button" id="sendBtn" onclick="submitBtn(), j$('[id$=group]').toChecklist('clearAll'), j$('[id$=sendee]').toChecklist('clearAll'), clearInputElements(this.form);" class="smallButton" value="{!$Label.Send}"/>
+                    </td>
+                </tr>
+            </table>
+        </apex:pageBlock>
+        <apex:actionFunction name="getPeopleInGroups" action="{!getSelectedGroups}" oncomplete="rerenderPeopleSelect()" rerender="sendee">
+            <apex:param name="groups" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="getGroupsAndPeople" action="{!submit}" rerender="feedback" >
+            <apex:param name="groupsParam" value=""/>
+            <apex:param name="peopleParam" value=""/>
+        </apex:actionFunction>
+    </apex:form>
+</apex:page>

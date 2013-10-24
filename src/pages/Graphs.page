@@ -1,0 +1,118 @@
+<apex:page controller="GraphController" showHeader="false" sidebar="false">
+    <script type="text/javascript">
+
+        var pieColumns = [];
+        var pieRows = [];
+        var trendColumns = [];
+        var trendRows = [];
+
+        function column(name, type) {
+            this.name = name;
+            this.type = type;
+        };
+
+        function row(name, value) {
+            this.name = name;
+            this.value = value;
+        };
+
+        function showError(msg) {
+
+            elem = document.getElementById('errorMsg');
+            elem.innerHTML = msg;
+            elem.style.display = 'block';
+        };
+    </script>
+    <apex:repeat value="{!graphPieColumns}" var="column">
+        <script type="text/javascript">
+            pieColumns.push(new column('{!column.columnName}', '{!column.columnType}'));
+        </script>
+    </apex:repeat>
+    <apex:repeat value="{!graphPieRows}" var="row">
+        <script type="text/javascript">
+            pieRows.push(new row('{!row.rowName}', '{!row.rowValue}'));
+        </script>
+    </apex:repeat>
+    <apex:repeat value="{!graphTrendColumns}" var="column">
+        <script type="text/javascript">
+            trendColumns.push(new column('{!column.columnName}', '{!column.columnType}'));
+        </script>
+    </apex:repeat>
+    <apex:repeat value="{!graphTrendRows}" var="row">
+        <script type="text/javascript">
+            trendRows.push(new row('{!row.rowName}', '{!row.rowValue}'));
+        </script>
+    </apex:repeat>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            // Check that there is not an error message to display
+            var feedbackMessage = '{!feedbackMessage}';
+            if (feedbackMessage != "") {
+                showError(feedbackMessage);
+                if (feedbackMessage.search('Error:') > -1) {
+                    return;
+                }
+            }
+
+            // Create our pie data table.
+            var pieData = new google.visualization.DataTable();
+
+            // Add the columns to the pie data table
+            for (i = 0; i < pieColumns.length; i++) {
+                pieData.addColumn(pieColumns[i].type, pieColumns[i].name);
+            }
+
+            // Add the rows to the pie data table
+            for (i = 0; i < pieRows.length; i++) {
+                pieData.addRow([pieRows[i].name, parseInt(pieRows[i].value)]);
+            }
+
+            // Instantiate and draw the pie chart
+            var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+            pieChart.draw(pieData, {width: 550, height: 550, is3D: true, title: 'Instances of keywords selected in given time period'});
+
+            // Create our trend data table.
+            var trendData = new google.visualization.DataTable();
+            var hasData = false;
+
+            // Add the columns to the trend data table
+            for (i = 0; i < trendColumns.length; i++) {
+                trendData.addColumn(trendColumns[i].type, trendColumns[i].name);
+            }
+
+            // Add the rows to the trend data table
+            trendData.addRows(trendRows.length);
+            for (i = 0; i < trendRows.length; i++) {
+                hasData = true;
+                trendData.setValue(i, 0, trendRows[i].name);
+                var cells = trendRows[i].value.split(':');
+                for (j = 0; j < cells.length; j++) {
+                    trendData.setValue(i, j + 1, parseInt(cells[j]));
+                }
+            }
+
+            // Instantiate and draw the trend chart
+            if (hasData) {
+                var trendChart = new google.visualization.LineChart(document.getElementById('trend_chart_div'));
+                trendChart.draw(trendData, {width: 550, height: 550, title: 'Instances of keywords selected in given time period'});
+            }
+        }
+    </script>
+    <body>
+        <div id="errorMsg" class="error" style="display:none"></div>
+        <div>
+            <div id="pie_chart_div" style="display:inline"></div>
+            <div id="trend_chart_div" style="display:inline"></div>
+        </div>
+    </body>
+</apex:page>
