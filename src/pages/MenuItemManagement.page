@@ -1,0 +1,32 @@
+<apex:page standardController="Menu_Item__c" tabstyle="Menu_Item__c" extensions="MenuItemManagement">    
+    <apex:detail relatedList="false" title="true" inlineEdit="true"/>
+    <apex:pageBlock title="Menu Path" >
+          <apex:outputText value="{!Path}" escape="false" />
+    </apex:pageBlock>
+    <apex:pageBlock title="Article Preview" >
+          <apex:pageBlockTable value="{!ArticleInfo}" var="item" cellpadding="10" border="0" styleClass="list">
+              <apex:column headerValue="Field" width="80px"><strong><apex:outputText value="{!item.Name}" escape="false" /></strong></apex:column>
+              <apex:column headerValue="Value"><apex:outputText value="{!item.Value}" escape="false" /></apex:column>
+          </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:relatedList id="noteslist" list="NotesAndAttachments" subject="{!Menu_Item__c.id}" />
+    <apex:form id="MenuForm">
+      <apex:pageBlock title="Sub Menu Items" >
+          <apex:pageBlockButtons >
+            <apex:commandButton action="{!URLFOR($Action.Menu_Item__c.New, null, [CF00N70000002rv5r=currentMenuItem.Menu__r.Name, CF00N70000002rv61=currentMenuItem.Name, retURL=URLFOR("/apex/MenuItemManagement", null, [id=currentMenuItem.Id])])}" value="New Sub Menu Item"/>  
+          </apex:pageBlockButtons>
+          <apex:pageBlockTable value="{!SubMenuItems}" var="item" cellpadding="10" border="0" styleClass="list">
+              <apex:column headerValue="Action" width="50px" styleClass="actionColumn">
+                  <apex:outputLink value="{!URLFOR($Action.Menu_Item__c.Edit, item.id)}" styleClass="actionLink" target="_top">Edit</apex:outputLink> |&nbsp; 
+                  <apex:outputLink value="/apex/MenuItemDelete?id={!item.id}" onclick="return window.confirm('Are you sure? This will delete all items under this one! (Not yet implemented)');" styleClass="actionLink" target="_top">Del</apex:outputLink>
+              </apex:column>
+              <apex:column headerValue="Position" width="50px">{!item.Position__c}</apex:column>
+              <apex:column headerValue="Menu Item Number" width="110px"><a href="/apex/MenuItemManagement?id={!item.Id}" target="_top">{!item.Name}</a></apex:column>
+              <apex:column headerValue="Label">{!item.Label__c}</apex:column>
+              <apex:column headerValue="Article Number">{!item.Article_Id__c}</apex:column>
+              <apex:column headerValue="Content">{!item.Content__c}</apex:column>
+              <apex:column headerValue="Attribution">{!item.Attribution__c}</apex:column>
+          </apex:pageBlockTable>
+      </apex:pageBlock>
+    </apex:form>
+</apex:page>

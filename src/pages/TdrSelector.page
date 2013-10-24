@@ -1,0 +1,162 @@
+<apex:page controller="TdrSelectorController" sidebar="false">
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+    <apex:stylesheet value="{!$Resource.MTN_CSS}"/>
+    <c:AddCommonJavaScript />
+    <c:ModalComponent />
+    <apex:pageBlock id="tdrPageBlock">
+        <c:ErrorMessage />
+        <a id="selectorFormAnchor"></a>
+        <apex:pageBlockSection id="tdrSelectorSection" title="{!pageBlockTitle}" columns="1">
+            <apex:form id="tdrSelectorForm">
+                <div class="tableRow">
+                    <div class="tableColumnDropDown">
+                        <apex:selectList id="country" value="{!country}" styleClass="apexDropDown" multiselect="false" size="1" title="Select the country you would like to see data for">
+                            <apex:selectOptions value="{!countrys}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>
+                    <div class="tableColumnDropDown">
+                        <apex:selectList id="region" value="{!region}" styleClass="apexDropDown" multiselect="false" size="1" title="Select the region you would like to see data for">
+                            <apex:selectOptions value="{!regions}"></apex:selectOptions>
+                            <apex:actionSupport event="onchange" rerender="tdrs" onsubmit="openModal('dialog', 'Getting new Sales Rep List. Please wait')" oncomplete="closeModal()"/>
+                        </apex:selectList>
+                    </div>
+                    <div class="tableColumnDropDown" style="display:{!IF(hideForDefaultTargets == true,'none','block')}">
+                        <apex:selectList id="tdrs" value="{!tdrs}" styleClass="apexDropDown" multiselect="true" size="3" title="Select the Sales Reps that you would like to see data for">
+                            <apex:selectOptions value="{!tdrList}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableColumnDropDown">
+                        <apex:selectList id="year" value="{!year}" styleClass="apexDropDown" multiselect="false" size="1" title="Select the year you would like to see data for">
+                            <apex:selectOptions value="{!years}"></apex:selectOptions>
+                            <apex:actionSupport event="onchange" rerender="month" status="listStatus" onsubmit="openModal('dialog', 'Getting months. Please wait')" oncomplete="closeModal()"/>
+                        </apex:selectList>
+                    </div>
+                    <div class="tableColumnDropDown">
+                        <apex:selectList id="month" value="{!month}" styleClass="apexDropDown" multiselect="false" size="1" title="Select the month that you would like to see for the choosen year">
+                            <apex:selectOptions value="{!months}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelSmall right">
+                        <span style="font-weight:bold">Date Range</span>
+                    </div>
+                    <div class="tableColumnDateEntry">
+                        <apex:inputField id="weekRangeStart" value="{!weekRangeDatePicker.Start_Date__c}" onchange="alterDates(this)"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelNarrow center">
+                        <span style="font-weight:bold">And</span>
+                    </div>
+                    <div class="tableColumnDateEntry">
+                        <apex:inputField id="weekRangeEnd" value="{!weekRangeDatePicker.End_Date__c}" onchange="alterDates(this)"/>
+                    </div>
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showWeekly" onClick="alterDates(document.getElementById(idPrefix + 'weekRangeStart')); alterDates(document.getElementById(idPrefix + 'weekRangeEnd'));"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelNarrow left">
+                        <span style="font-weight:bold">Show Weekly</span>
+                    </div>
+                </div>
+                <div class="tableRow" style="display:{!IF(hideForTargets == true,'none','block')}">
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showDailyActivityReport"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left" onclick="toggleCheckBox(idPrefix + 'showDailyActivityReport')">
+                        <span style="font-weight:bold">Show Daily Activity Report</span>
+                    </div>
+<!--
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showActivitySummary"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left" onclick="toggleCheckBox(idPrefix + 'showActivitySummary')">
+                        Show Daily Activity Summary
+                    </div>
+-->
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showBarGraph"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left" onclick="toggleCheckBox(idPrefix + 'showBarGraph')">
+                        <span style="font-weight:bold">Show overall graph</span>
+                    </div>
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showTopTwelve" onchange="showTopTwelveComparisonDiv(this)"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left" onclick="toggleCheckBox(idPrefix + 'showTopTwelve')">
+                        <span style="font-weight:bold">Show Top Twelve</span>
+                    </div>
+                    <div id="topTwelveComparision" style="display:none">
+                        <div class="tableColumnSelectBox">
+                            <apex:inputCheckbox id="showTopTwelveComparison"/>
+                        </div>
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left" onclick="toggleCheckBox(idPrefix + 'showTopTwelveComparison')">
+                            <span style="font-weight:bold">Show Top Twelve Comparison</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="radionButtonsTopTwelve" class="tableRowNoBoarder tableRowHeight" style="display:{!IF(hideForTargets == true,'none','block')}">
+                    <div id="radioButtonsWrapper" style="display:none">
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="topTwelveSelectors" value="1" checked="checked" onchange="setTopTwelveType(this)"/><span style="font-weight:bold">Full Reports</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="topTwelveSelectors" value="2" onchange="setTopTwelveType(this)"/><span style="font-weight:bold">Short Reports</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="topTwelveSelectors" value="3" onchange="setTopTwelveType(this)"/><span style="font-weight:bold">Corporate Sales Calls</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="topTwelveSelectors" value="4" onchange="setTopTwelveType(this)"/><span style="font-weight:bold">School Sales Calls</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="topTwelveSelectors" value="5" onchange="setTopTwelveType(this)"/><span style="font-weight:bold">Customer Support</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="topTwelveSelectors" value="6" onchange="setTopTwelveType(this)"/><span style="font-weight:bold">Marketing Event</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="topTwelveSelectors" value="7" onchange="setTopTwelveType(this)"/><span style="font-weight:bold">Other</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tableRow" style="display:{!IF(hideForTargets == true,'none','block')}">
+                    <div class="submitButtonGeneralWrapper submitButtonOneWrapper">
+                        <div class="submitButtonWrapper">
+                            <button id="submit" class="submitButton mtnBackgroundTwo" type="button" onclick="submitForm()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </apex:form>
+        </apex:pageBlockSection>
+        <apex:insert name="panel"/>
+    </apex:pageBlock>
+    <script type="text/javascript">
+
+        // Add the stuff that cannot be in a static resource
+        var idPrefix = '{!$Component.tdrPageBlock.tdrSelectorSection.tdrSelectorForm}' + ":";
+        function setFocus() {
+            document.getElementById(idPrefix + 'country').focus();
+        }
+    </script>
+    <apex:includeScript value="{!$Resource.googleCharts}"/>
+    <apex:includeScript value="{!$Resource.MTN_TDR_JS}"/>
+    <script type="text/javascript">
+        addEvent(window, 'load', setFocus(), false);
+        addEvent(window, 'load', scrollTo(anchorId), false);
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock.tdrSelectorSection}') + ' >div:first'), 'mtnPageBlockSection');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock.tdrSelectorSection}') + ' >div:first'), 'mtnPageBlockSectionFirst');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock.tdrSelectorSection}') + ' >div:first'), 'pbSubheader');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock.tdrSelectorSection}') + ' >div:first'), 'first');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock.tdrSelectorSection}') + ' >div:first'), 'tertiaryPalette');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock.tdrSelectorSection}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock}')), 'bPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock}')), 'apexDefaultPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock}')), 'secondaryPalette');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.tdrPageBlock}')), 'mtnPageBlock');
+    </script>
+    <apex:repeat value="{!formDetails}" var="single">
+        <script type="text/javascript">
+            setPageLayoutOptions('{!single.id}', '{!single.ids}');
+        </script>
+    </apex:repeat>
+</apex:page>

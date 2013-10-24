@@ -1,0 +1,58 @@
+<apex:page sidebar="true" controller="PaymentAllocationReportController" >
+    <script type="text/javascript">
+    
+        window.onload=function() {
+            document.getElementById('{!$Component.mainPage.mainForm.theButton}').focus();
+           
+        }
+    
+        function focus(id){
+            
+        }
+    </script>
+    <apex:sectionHeader title="SMEP Payment Allocation report"/>
+        <apex:pagemessages />
+        <apex:form >
+            <div style="margin-bottom:10px;">
+                Sale date: <apex:inputText value="{!formDate}" size="10" id="demo" onfocus="DatePicker.pickDate(false, this , false);" /> 
+                <apex:commandButton value="Refresh" action="{!refresh}"/><br />
+            </div>
+            <apex:pageBlock rendered="{!NOT(Payments.empty)}">
+                <h2>List of all sales made by members of the e-Warehouse</h2>
+                <apex:pageblocktable value="{!Payments}" var="data" >
+                     <apex:column headerValue="Name">
+                         <apex:outputText value="{!data.Name}"/> 
+                     </apex:column>
+                     <apex:column headerValue="FCI ID">
+                         <apex:outputText value="{!data.FciID}"/> 
+                     </apex:column>
+                     <apex:column headerValue="VKW">
+                         <apex:outputText value="{!data.Vkw}"/> 
+                     </apex:column>
+                     <apex:column headerValue="National ID">
+                         <apex:outputText value="{!data.NationalID}"/> 
+                     </apex:column>
+                     <apex:column headerValue="Sale reference">
+                         <apex:outputLink value="/{!data.SaleRefID}" id="salelink">{!data.SaleID}</apex:outputLink>
+                     </apex:column>
+                     <apex:column headerValue="Sale Farmer reference">
+                         <apex:outputLink value="/{!data.SaleFarmerRefID}" id="salefarmerlink">{!data.SaleFarmerID}</apex:outputLink>
+                     </apex:column>
+                     <apex:column headerValue="Total sale amount">
+                         <apex:outputText value="{!data.TotalAmount}"/> 
+                     </apex:column>
+                     <apex:column headerValue="Farmer sale amount">
+                         <apex:outputText value="{!data.FarmerAmount}"/> 
+                     </apex:column>
+                     
+                </apex:pageblocktable>
+            </apex:pageBlock>
+        
+        
+            <apex:commandButton action="{!exportPage}" value="Export" id="theButton" style="width:70px;" rendered="{!NOT(Payments.empty)}"/>
+        </apex:form>
+        
+        <apex:pageBlock rendered="{!(Payments.empty)}">
+            <h2>No sales are found for date:&nbsp;<apex:outputText value="{!CurrentDate}"/></h2>
+        </apex:pageBlock>
+</apex:page>

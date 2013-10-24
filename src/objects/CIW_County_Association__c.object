@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Many to Many Association between a CIW and a County</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>CIW__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>The CIW</description>
+        <externalId>false</externalId>
+        <label>CIW</label>
+        <referenceTo>CIW__c</referenceTo>
+        <relationshipLabel>CIW County Associations</relationshipLabel>
+        <relationshipName>CIW_County_Associations</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Kenyan_County__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>The County</description>
+        <externalId>false</externalId>
+        <label>Kenyan County</label>
+        <referenceTo>Kenyan_County__c</referenceTo>
+        <relationshipLabel>CIW County Associations</relationshipLabel>
+        <relationshipName>CIW_County_Associations</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <label>CIW County Association</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CIW__c</columns>
+        <columns>Kenyan_County__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CCA-{0000000}</displayFormat>
+        <label>CIW County Association Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CIW County Associations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -1,0 +1,367 @@
+<apex:page controller="MetricMapController" showHeader="false" sidebar="false" title="{!mapTitle}">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html { height: 100% }
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        #{!$Component.map_canvas} { height: 100%; }
+        .error {
+            width:100%;
+            text-align:center;
+            color:red;
+            font-size:16px;
+            font-weight:bold
+        }
+    </style>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
+    </script>
+    <script type="text/javascript" src="http://ckwapps.applab.org/downloads/infobox_packed.js">
+    </script>
+    <script>
+        // objectType must be present. The rest can be null
+        function openMap(
+                objectType,
+                type,
+                ckws,
+                farmers,
+                incFarmers,
+                incSearches,
+                incSearchLocations,
+                keyword,
+                surveyName,
+                incSurveys
+        ) {
+
+             if (objectType == null) {
+                 return false;
+             }
+             var url = "{!$Page.MetricMap}?mapObject=" + objectType + "&quarter={!quarter}";
+             if (type != null) {
+                 url = url + "&colourType=" + type;
+             }
+             if (ckws != null) {
+                 url = url + "&ckws=" + ckws;
+             }
+             if (farmers != null) {
+                 url = url + "&farmers=" + farmers;
+             }
+             if (incFarmers != null) {
+                 url = url + "&incFarmers=" + incFarmers;
+             }
+             if (incSearches != null) {
+                 url = url + "&incSearches=" + incSearches;
+             }
+             if (incSearchLocations != null) {
+                 url = url + "&incSeachSubLoc=" + incSearchLocations;
+             }
+             if (keyword != null) {
+                 url = url + "&keyword=" + keyword;
+             }
+             if (surveyName != null) {
+                 url = url + "&surveyName=" + surveyName;
+             }
+             if (incSurveys != null) {
+                 url = url + "&incSurveys=" + incSearchLocations;
+             }
+
+             popup = window.open(url,"_blank");
+             popup.focus(); 
+        };
+
+        // Must include atleast one of the vars, rest can be null
+        function openGraph(ckws, farmers, keyword) {
+
+             if (ckws == null && farmers == null && keyword == null) {
+                return;
+             }
+             var url = "{!$Page.Graphs}?";
+             if (ckws != null) {
+                 url = url + "&ckws=" + ckws;
+             }
+             if (farmers != null) {
+                 url = url + "&farmers=" + farmers;
+             }
+             if (keyword != null) {
+                 url = url + "&keyword=" + keyword;
+             }
+             popup = window.open(url,"_blank");
+             popup.focus(); 
+        };
+
+        // Must include atleast one of the vars, rest can be null
+        function openTagCloud(ckws, farmers, keyword) {
+
+             if (ckws == null && farmers == null && keyword == null) {
+                return;
+             }
+             var url = "{!$Page.TagCloud}?";
+             if (ckws != null) {
+                 url = url + "&ckws=" + ckws;
+             }
+             if (farmers != null) {
+                 url = url + "&farmers=" + farmers;
+             }
+             if (keyword != null) {
+                 url = url + "&keyword=" + keyword;
+             }
+             popup = window.open(url,"_blank");
+             popup.focus(); 
+        };
+
+        // Open the SF page for a given id
+        function openPage(id) {
+             popup = window.open("/" + id, "_blank");
+             popup.focus(); 
+        };
+    </script>
+    <script type="text/javascript">
+
+        var markers = [];
+        var infoWindows = [];
+        var startLatitude = parseFloat('{!startLatitude}');
+        var startLongitude = parseFloat('{!startLongitude}');
+        var map;
+
+        function markerData(gpsLatitude, gpsLongitude, title, colour, contentString, label) {
+
+            this.markerCoordinates = new google.maps.LatLng(gpsLatitude, gpsLongitude);
+            this.markerTitle = title;
+            this.markerColour = colour;
+            this.infoWindowContentString = contentString
+            this.markerLabel = label
+        };
+
+        function initialize() {
+
+            // Check that there is not an error message to display
+            var feedbackMessage = '{!feedbackMessage}';
+            if (feedbackMessage != "") {
+                if ('{!suppressFeedback}' != 'true') {
+                    showError(feedbackMessage);
+                    if (feedbackMessage.search('Error:') > -1) {
+                        return;
+                    }
+                }
+            }
+
+            var myOptions = {
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            // Allow us to set zoom (for thumbnail view)
+            var zoom = parseFloat('{!zoom}');
+            myOptions['zoom'] = zoom;
+            myOptions['center'] = new google.maps.LatLng(startLatitude, startLongitude);  
+
+            // Calculate the position of the key
+            var keyLatLng;
+            if (zoom == 7) {
+                keyLatLng = new google.maps.LatLng(0.5, 33.25);
+            }
+            else {
+                keyLatLng = new google.maps.LatLng(startLatitude - 0.2, startLongitude + 0.2);
+            }
+
+            // Disable Zoom controls if requested
+            var disableControls= '{!disableControls}';
+            if(disableControls == "true") {
+                myOptions['disableDoubleClickZoom'] = true;
+                myOptions['mapTypeControl'] = false;
+                myOptions['zoomControl'] = false;
+            }
+
+            map = new google.maps.Map(document.getElementById("{!$Component.map_canvas}"), myOptions);
+
+            var disableInfoWindows = '{!disableInfoWindows}';
+
+            for (i = 0; i < markers.length; i++) {
+                var markerUrl = "https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=" + markers[i].markerLabel + "|" + markers[i].markerColour + "|000000"
+                var markerImage = new google.maps.MarkerImage(markerUrl);
+                var marker = new google.maps.Marker({
+                    position: markers[i].markerCoordinates, 
+                    map: map, 
+                    title: markers[i].markerTitle,
+                    icon: markerImage
+                });
+
+                if(disableInfoWindows != "true") {
+                    attachInfoWindow(marker, markers[i].infoWindowContentString);
+                 }
+            };
+
+            var keyText = '{!keyText}';
+            var disableKey = '{!disableKey}';
+
+            if(keyText != "" && disableKey != "true") {
+                var boxText = document.createElement("div");
+                boxText.innerHTML = keyText  + '<br/>{!stats}' + '<br />Double click any part of the map to zoom in';
+                var myOptions = {
+                   content: boxText,
+                   boxStyle: {
+                       border: "1px solid #A8B8CF",
+                       textAlign: "left",
+                       fontSize: "9pt",
+                       width: "200px",
+                       height: "100%",
+                       background: "#FFFFFF",
+                       fontFamily: "Verdana",
+                       padding:"5px"
+                   },
+                   disableAutoPan: true,
+                   pixelOffset: new google.maps.Size(-25, 0),
+                   position: keyLatLng,
+                   closeBoxURL: "",
+                   isHidden: false,
+                   pane: "mapPane",
+                   enableEventPropagation: true
+                };
+
+                var infoLabel = new InfoBox(myOptions);
+                infoLabel.open(map);
+            }
+
+            var extendHeight = '{!extendHeight}';
+            if (extendHeight == "true") {
+                var dimensions = getWindowDimensions().split(":");
+                var height = dimensions[0];
+                var width = dimensions[1];
+                document.getElementById("{!$Component.map_canvas}").style.height = height - 200 + "px"; 
+            }
+        };
+
+        function getWindowDimensions() {
+
+            var myWidth = 0, myHeight = 0;
+            if (typeof(window.innerWidth) == 'number') {
+
+                //Non-IE
+                myWidth = window.innerWidth;
+                myHeight = window.innerHeight;
+            }
+            else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+
+                //IE 6+ in 'standards compliant mode'
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            }
+            else if(document.body && (document.body.clientWidth || document.body.clientHeight)) {
+
+                //IE 4 compatible
+                myWidth = document.body.clientWidth;
+                myHeight = document.body.clientHeight;
+            }
+            return myHeight + ":" + myWidth;
+        };
+
+        function showError(msg) {
+
+            elem = document.getElementById('errorMsg');
+            elem.innerHTML = msg;
+            elem.style.display = 'block';
+        }
+
+        function attachInfoWindow(marker, contentString) {
+            var infoWindow = new google.maps.InfoWindow({ content: contentString });
+            google.maps.event.addListener(marker, 'click', function() {
+                infoWindow.open(map,marker);
+            });
+            setCloseWindow(infoWindow);
+        };
+
+        function setCloseWindow(infoWindow) {
+            google.maps.event.addListener(infoWindow, 'closeclick', closeMarker);
+        }
+
+        function closeMarker() {
+            if (map.getZoom() <= 7) {
+                map.panTo(new google.maps.LatLng(startLatitude, startLongitude));
+            }
+        }
+
+        function getUrlParam( name ) {
+          name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+          var regexS = "[\\?&]"+name+"=([^&#]*)";
+          var regex = new RegExp( regexS );
+          var results = regex.exec( window.location.href );
+          if( results == null )
+            return "";
+          else
+            return results[1];
+        }
+
+        // This specifically converts kapchorwa data to dd
+        // From Example: N01 23.2345 (NDD MM SS.SSSSS...)
+        // Note: this function assumes all the data is unsigned and represents positive numbers
+        // Converts gps from Degress, Minutes, Seconds format to the Decimal format that google maps api expects
+        function dmsToDd(dmsString) {
+
+            // Try to split into Degrees, Minutes, Seconds
+            // Trim
+            dmsString = dmsString.replace(/^\s+|\s+$/g,'');
+
+            // 1. Get rid of E or N
+            dmsString = dmsString.replace('E','');
+            dmsString = dmsString.replace('N','');
+
+            // Split on decimal space
+            dmsStringParts = dmsString.split('.');
+
+            var seconds = '';
+            if(!isNaN(dmsStringParts[1])) {
+
+                // We've got seconds. Insert a decimal point after the first two characters 
+                seconds = dmsStringParts[1].substr(0,2);
+                secondsDecimalPoints = dmsStringParts[1].substring(2,dmsStringParts.length - 1);
+                seconds = seconds + '.' + secondsDecimalPoints;
+            }
+
+            var degrees = '';
+            var minutes = '';
+            dmsStringParts[0] = dmsStringParts[0].replace(/^\s+|\s+$/g,'');
+
+            // Make the last two the minutes and the rest the degrees
+            minutes = dmsStringParts[0].substring(dmsStringParts[0].length - 2, dmsStringParts[0].length - 1);
+            degrees = dmsStringParts[0].substring(0, dmsStringParts[0].length - 2);
+
+            // Now do the converstion
+            var degrees = parseFloat(degrees.replace(/^\s+|\s+$/g,''));
+            var minutes = parseFloat(minutes.replace(/^\s+|\s+$/g,''));
+            var seconds = parseFloat(seconds.replace(/^\s+|\s+$/g,''));
+            var dd;
+            if(!isNaN(degrees) && !isNaN(minutes) && !isNaN(seconds)) {
+                dd = degrees + (minutes / 60) + (seconds / 3600)
+            }
+
+            return dd + '';
+        }
+    </script>
+    <apex:repeat value="{!ckwMarkers}" var="detail">
+        <script type="text/javascript">
+            var latitude = parseFloat('{!detail.gpsLatitude}');
+            var longitude = parseFloat('{!detail.gpsLongitude}');
+            if(isNaN(latitude)) {
+
+                // Try to convert from DMS to Dd
+                latitude = parseFloat(dmsToDd('{!detail.gpsLatitude}'));
+            }
+            if(isNaN(longitude)) {
+
+                // Try to convert from DMS to Dd
+                longitude = parseFloat(dmsToDd('{!detail.gpsLongitude}'));
+            }
+            if (!isNaN(latitude) && !isNaN(longitude)) {
+                markers.push(new markerData(latitude, longitude, '{!detail.markerTitle}', '{!detail.markerColour}', '{!detail.markerInfoContentString}', '{!detail.markerLabel}'));
+            }
+        </script>
+    </apex:repeat>
+    <body>
+        <div id="errorMsg" class="error" style="display:none"></div>
+        <apex:outputPanel id="map_canvas" style="width:100%; height:100%" layout="block"></apex:outputPanel>
+    </body>
+        <script type="text/javascript">
+            window.onload = initialize;
+        </script>
+</apex:page>

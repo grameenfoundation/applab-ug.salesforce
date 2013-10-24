@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The target record for the BRAC PAs. These are set country wide at the moment hence the</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <description>The date that this target comes into affect</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set this to be the date that the target starts. If left unset will default to today</inlineHelpText>
+        <label>Start Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Health_Visits__c</fullName>
+        <description>The target for the number of health visits for this month</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the number of health visits that the PA is supposed to make this month</inlineHelpText>
+        <label>Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Households_Visits__c</fullName>
+        <description>Number of households the PA is supposed to visit in a month</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the number of households that the PA is supposed to visit in a month</inlineHelpText>
+        <label>Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Indicates if a target is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Un-check this to de-activate the target</inlineHelpText>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>BRAC PA Target</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>BRAC PA Target Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>BRAC PA Targets</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

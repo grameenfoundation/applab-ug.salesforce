@@ -1,0 +1,12 @@
+<apex:page controller="NaadsAspPerformanceController" >
+    <apex:pageBlock title="NAADS AASP Performance">
+     <apex:pageBlockTable title="NAADS AASP Performance" value="{!performanceStats }" var="performanceStat">
+         <apex:column value="{!performanceStat.aspName}" headerValue="Name"/>
+         <apex:column value="{!performanceStat.subcounty}" headerValue="Subcounty"/>
+         <apex:column value="{!performanceStat.monthlyVisits}" headerValue="Monthly Visits"/>
+         <apex:column value="{!performanceStat.supervisoryVisits}" headerValue="Supervisory Visits"/>
+         <apex:column value="{!performanceStat.groupTrainings}" headerValue="Group Trainings"/>
+     </apex:pageBlockTable>
+    </apex:pageBlock>
+
+</apex:page>

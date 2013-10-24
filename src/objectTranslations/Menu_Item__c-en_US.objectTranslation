@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Menu Item</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Menu Items</value>
+    </caseValues>
+    <fields>
+        <label><!-- Article Id --></label>
+        <name>Article_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- The individual or organization from whom the content was sourced. --></help>
+        <label><!-- Attribution --></label>
+        <name>Attribution__c</name>
+    </fields>
+    <fields>
+        <help><!-- Add content here that will not be stored as articles in knowledge base --></help>
+        <label><!-- Content --></label>
+        <name>Content__c</name>
+    </fields>
+    <fields>
+        <help><!-- set if the menu item should be shown in search client --></help>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Label --></label>
+        <name>Label__c</name>
+    </fields>
+    <fields>
+        <help><!-- Last date when object was modified --></help>
+        <label><!-- Last Modified Date --></label>
+        <name>Last_Modified_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Menu --></label>
+        <name>Menu__c</name>
+        <relationshipLabel><!-- Menu Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Parent Item --></label>
+        <name>Parent_Item__c</name>
+        <relationshipLabel><!-- Menu Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Position --></label>
+        <name>Position__c</name>
+    </fields>
+    <layouts>
+        <layout>Menu Item Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Vowel</startsWith>
+</CustomObjectTranslation>

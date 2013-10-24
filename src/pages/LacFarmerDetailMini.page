@@ -1,0 +1,44 @@
+<apex:page standardController="LAC_Farmer_Details__c" extensions="LacFarmerDetailsController" showheader="false" sidebar="false">
+    <br/><br/>
+    <div style="width: 345px;">
+        <div id="pImage" style="{!IF(LAC_Farmer_Details__c.Contact__r.Picture_Attachment_Id__c == null, 'display:none', 'width: 100px height: 100px; float: left;')}">
+            <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.Picture__c}" rendered="{!IF(LAC_Farmer_Details__c.Contact__r.Picture_Attachment_Id__c == null, false, true)}" style="width:100px;height:100px;"/>
+        </div>
+        <div id="pDetails" style="{!IF(LAC_Farmer_Details__c.Contact__r.Picture_Attachment_Id__c == null, '', 'width: 200px; height: 100px; float: right;')}">
+            <apex:pageBlock mode="maindetail" tabStyle="CKW__c">
+                <apex:pageBlockSection columns="1">
+                    <apex:outputText value="Farmer" label="Type" />
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.FirstName}" />
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Contact__r.LastName}" />
+                    <!--
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Person__r.Gender__c}" />
+                    -->
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Entrance_Into_Programme__c}" label="{!$Label.DATE_OF_START_IN_THE_PROGRAM}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </div>
+        <div style="width:304px;{!IF(LAC_Farmer_Details__c.Contact__r.Picture_Attachment_Id__c == null, '', 'padding-top:170px;')}">
+            <apex:pageBlock tabStyle="LAC_Farmer_Details__c">
+                <apex:pageBlockSection columns="1" title="{!$Label.POVERTY_LEVEL_PPI}">
+                    <apex:outputfield value="{!LAC_Farmer_Details__c.PPI_Score__c}" label="{!$Label.PPI_SCORE}" />
+                    <apex:outputText value="{!povertyProbabilityLessThanTwoAndHalf}" label="{!$Label.LESS_THAN} $2.5"/>
+                    <apex:outputText value="{!povertyProbabilityLessThanOneFive}" label="{!$Label.LESS_THAN} $5"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1" title="{!$Label.AGRONOMIC}">
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Planted_Area__c}" label="{!$Label.PLANTED_AREA}"/>
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Quarterly_Sales__c}" label="{!$Label.QUARTERLY_SALES}"/>
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Quarterly_Production__c}" label="{!$Label.QUARTERLY_PRODUCTION}"/>
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Certification_In_Progress__c}" label="{!$Label.CERTIFICATION_LABELS_IN_PROGRESS}"/>
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Certification_Obtained__c}" label="{!$Label.CERTIFICATION_LABELS_IN_OBTAINED}"/>
+                    <apex:outputField value="{!LAC_Farmer_Details__c.Certification_Score__c}" label="{!$Label.CERTIFICATION_SCORE}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1" title="{!$Label.PROGRAM}">
+                    <apex:outputText value="{!SubmissionsNum}" label="{!$Label.NO_OF_SURVEYS_FILLED}"/>
+                    <apex:outputText value="{!SearchesNum}" label="{!$Label.NO_OF_INFORMATION_SEARCHES}"/>
+                    <apex:outputText value="{!(MessagesNum)}" label="{!$Label.NO_OF_MESSAGES_RECEIVED}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </div>
+        <a href="{!URLFOR($Action.LAC_Farmer_Details__c.View, LAC_Farmer_Details__c.id)}" target="_parent">Go to detailed profile</a>
+    </div>
+</apex:page>
