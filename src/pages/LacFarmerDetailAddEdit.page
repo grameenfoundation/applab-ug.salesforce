@@ -59,7 +59,7 @@
                 <apex:inputfield value="{!LAC_Farmer_Details__c.LAC_Farmer_Id_Temp__c}"/>
                 <apex:inputfield value="{!LAC_Farmer_Details__c.Registered_By__c}"/>
                 <apex:inputfield value="{!LAC_Farmer_Details__c.LAC_Household__c}"/>
-                <apex:inputfield value="{!LAC_Farmer_Details__c.ownerId}" />
+				<apex:inputfield value="{!LAC_Farmer_Details__c.Contact__r.ownerId}" />
             </apex:pageBlockSection>
             <apex:pageBlockButtons location="bottom">
                 <apex:commandButton action="{!save}" value="{!$Label.SAVE}"/>
