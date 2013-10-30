@@ -753,6 +753,31 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <isOptional>false</isOptional>
         <name>Client Assignation_Client</name>
     </namedFilters>
+    <searchLayouts>
+        <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CONTACT.PHONE1</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
+        <lookupFilterFields>FULL_NAME</lookupFilterFields>
+        <lookupFilterFields>ACCOUNT.NAME</lookupFilterFields>
+        <lookupFilterFields>ACCOUNT.SITE</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE1</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE3</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE4</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE5</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE6</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTACT.PHONE1</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTACT.EMAIL</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
     <webLinks>
         <fullName>Contact_Pledge</fullName>
         <availability>online</availability>
@@ -782,6 +807,7 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <availability>online</availability>
         <description>generates report of all contacts within the organization</description>
         <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>All Contacts in this Organization</masterLabel>
@@ -831,6 +857,7 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <availability>online</availability>
         <description>used to view connections between contacts and orgainzations</description>
         <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>
@@ -939,6 +966,7 @@ alert(&quot;Please select at least one record to delete.&quot;); //alert the use
         <fullName>map</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>

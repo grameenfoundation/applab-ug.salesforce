@@ -1687,6 +1687,23 @@
             </values>
         </picklistValues>
     </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>OPPORTUNITY.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OPPORTUNITY.CLOSE_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>OPPORTUNITY.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>OPPORTUNITY.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>OPPORTUNITY.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OPPORTUNITY.STAGE_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OPPORTUNITY.CLOSE_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
     <webLinks>
         <fullName>Contact_Donation</fullName>
         <availability>online</availability>
@@ -1705,6 +1722,7 @@
         <availability>online</availability>
         <description>used to run report on contact donation history</description>
         <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>Contact Donation History</masterLabel>
@@ -1821,6 +1839,7 @@
         <availability>online</availability>
         <description>runs report of donation history for this organization</description>
         <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>Organization Donation History</masterLabel>
