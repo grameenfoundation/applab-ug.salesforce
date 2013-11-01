@@ -31,6 +31,20 @@ public with sharing class CampaignMessageDefController {
 			campaign = campaignMessage.Message_Campaign__r;
 		} else {
 			campaignMessage = new Campaign_Message_Def__c();
+			String campaignId = ApexPages.currentPage().getParameters().get('CampaignId');
+			if(campaignId != null ){
+				campaign = [SELECT
+								Id,
+								Name,
+								Campaign_Type__c,
+								Max_Duration__c,
+								Description__c
+							FROM MessageCampaign__c 
+							WHERE Id =: campaignId];
+							
+				
+				campaignMessage.Message_Campaign__c = campaign.Id;
+			}
 		}
 	}
 	

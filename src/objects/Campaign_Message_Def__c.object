@@ -50,7 +50,7 @@
         <description>The message content that is sent to the users that are enrolled to a campaign in which this message belongs to.</description>
         <externalId>false</externalId>
         <inlineHelpText>Text Message to send to the subscribers.</inlineHelpText>
-        <label>Content</label>
+        <label>Text</label>
         <required>false</required>
         <type>TextArea</type>
     </fields>
@@ -112,7 +112,6 @@
         <inlineHelpText>The message campaign related to this message.</inlineHelpText>
         <label>Message Campaign</label>
         <referenceTo>MessageCampaign__c</referenceTo>
-        <relationshipLabel>Campaign Messages</relationshipLabel>
         <relationshipName>Campaign_Messages</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
@@ -121,12 +120,11 @@
     </fields>
     <fields>
         <fullName>Message_Key__c</fullName>
-        <description>A key uniquely identifying this message.</description>
         <externalId>false</externalId>
-        <inlineHelpText>A key uniquely identifying this message.</inlineHelpText>
+        <formula>Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Message Key</label>
-        <length>80</length>
-        <required>true</required>
+        <required>false</required>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -203,12 +201,25 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    <label>Campaign Message</label>
+    <label>Message</label>
     <nameField>
-        <label>Name</label>
+        <label>Label</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Campaign Messages</pluralLabel>
+    <pluralLabel>Messages</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>New_Message</fullName>
+        <availability>online</availability>
+        <description>Button to create a new message</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Message</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!URLFOR( $Action.Campaign_Message_Def__c.New , null, [saveURL=MessageCampaign__c.Link, retURL=MessageCampaign__c.Link, CampaignId=MessageCampaign__c.Id , CampaignName=MessageCampaign__c.Name])}</url>
+    </webLinks>
 </CustomObject>

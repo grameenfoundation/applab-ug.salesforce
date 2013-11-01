@@ -19,6 +19,10 @@
                 <behavior>Edit</behavior>
                 <field>Max_Duration__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Description__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -58,14 +62,16 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
+        <customButtons>New_Message</customButtons>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>CREATEDBY_USER</fields>
         <fields>UPDATEDBY_USER</fields>
         <relatedList>Campaign_Message_Def__c.Message_Campaign__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>OBJECT_ID</fields>
         <fields>Group__c</fields>
+        <fields>Reference_Date__c</fields>
         <fields>CREATEDBY_USER</fields>
         <fields>UPDATEDBY_USER</fields>
         <relatedList>Campaign_Enrollment__c.MessageCampaign__c</relatedList>
@@ -76,7 +82,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00hi0000000FUZq</masterLabel>
+        <masterLabel>00hi0000000Ob6j</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
