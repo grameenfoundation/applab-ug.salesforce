@@ -120,10 +120,11 @@
     </fields>
     <fields>
         <fullName>Message_Key__c</fullName>
+        <description>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</description>
         <externalId>false</externalId>
-        <formula>Id</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</inlineHelpText>
         <label>Message Key</label>
+        <length>80</length>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
