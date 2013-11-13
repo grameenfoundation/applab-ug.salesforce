@@ -1,4 +1,4 @@
-public with sharing class PaymentAllocationReportController {
+﻿public with sharing class PaymentAllocationReportController {
 	public Contact objectWithDate {get; set;}
 	private String gfAccountNo = 'ABC';
 	/* 
@@ -126,14 +126,14 @@ public with sharing class PaymentAllocationReportController {
         public String SaleRefID { get; set; }
         public String SaleFarmerID { get; set; }
         public String SaleFarmerRefID { get; set; }
-        //public String LoanBalance { get; set; }
-        //public String LoanAccountNo { get; set; }
-    	//public String SavingAccountNo { get; set; }
-    	//public String GFAccountNo { get; set; }
+        public String LoanBalance { get; set; }
+        public String LoanAccountNo { get; set; }
+    	public String SavingAccountNo { get; set; }
+    	public String GFAccountNo { get; set; }
     	public String FarmerAmount { get; set; }
         public String TotalAmount { get; set; }
-        //public String CreditGFFee { get; set; }
-    	//public String CreditAccounts { get; set; }
+        public String CreditGFFee { get; set; }
+    	public String CreditAccounts { get; set; }
     }
     
     
