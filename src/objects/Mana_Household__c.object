@@ -159,6 +159,32 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Latitude__c</fullName>
+        <description>This lets one set the gps_y coordinate manually. It&apos;s used in the gps_y formula if the linked submission doesn&apos;t have coordinates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This lets one set the gps_y coordinate manually. It&apos;s used in the gps_y formula if the linked submission doesn&apos;t have coordinates</inlineHelpText>
+        <label>Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longitude__c</fullName>
+        <description>This lets one set the gps_x coordinate manually. It&apos;s used in the gps_x fomula if the linked submission doesn&apos;t have coordinates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This lets one set the gps_x coordinate manually. It&apos;s used in the gps_x fomula if the linked submission doesn&apos;t have coordinates</inlineHelpText>
+        <label>Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Municipio__c</fullName>
         <externalId>false</externalId>
         <label>Municipio</label>
@@ -372,35 +398,12 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
-    <fields>
-        <fullName>gps_x__c</fullName>
-        <description>The GPS X coordinate for the submission</description>
-        <externalId>false</externalId>
-        <formula>IF(ISBLANK(Registration_Submission_Record__c),0, Registration_Submission_Record__r.gfsurveys__gps_x__c)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>gps x</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>6</scale>
-        <trackHistory>false</trackHistory>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>gps_y__c</fullName>
-        <description>The GPS y coordinate from the submission that created this household</description>
-        <externalId>false</externalId>
-        <formula>IF(ISBLANK(Registration_Submission_Record__c),0, Registration_Submission_Record__r.gfsurveys__gps_y__c)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>gps y</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>6</scale>
-        <trackHistory>false</trackHistory>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
     <label>Mana Household</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <label>Id</label>
         <trackHistory>false</trackHistory>
