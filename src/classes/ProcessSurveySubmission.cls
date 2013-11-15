@@ -594,6 +594,9 @@ global class ProcessSurveySubmission {
         else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
                 return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('IG_CBT_VISITS')) {
+                return ProcessNUSAFSurveys.registerNusafActivityVisit(surveySubmission, answers, interviewer);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');

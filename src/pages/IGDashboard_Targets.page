@@ -1,0 +1,27 @@
+<apex:page controller="IGDashboardTargetsController" showHeader="false" sidebar="false" title="Update CBT Targets">
+    <script>
+        if({!saved}) {
+            var winMain=window.opener;
+            if (null==winMain) {
+                winMain=window.parent.opener;
+            }
+            winMain.closeEditPopup();
+        }
+    </script>
+    <apex:form >
+        <apex:pageBlock title="Update CBT Targets">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Update"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Select the Community Based Trainer, then the activity(Survey) and provide the target value" columns="1">
+                <apex:selectList value="{!trainer.Id}" label="Community Based Trainer" multiselect="false" size="1" >
+                    <apex:selectOptions value="{!communityBasedTrainers}"></apex:selectOptions>
+                </apex:selectList>
+                <apex:selectList value="{!target.Survey__c}" label="Activity/Survey" multiselect="false" size="1" required="true">
+                    <apex:selectOptions value="{!activities}"></apex:selectOptions>
+                </apex:selectList>
+                <apex:inputField value="{!target.Target_Value__c}" required="true"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
