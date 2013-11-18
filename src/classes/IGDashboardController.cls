@@ -9,19 +9,19 @@ public class IGDashboardController {
 
     private List<SelectOption> districtList;  
     private List<SelectOption> subcountiesList;    
-	private List<SelectOption> regionsList;
-	private List<SelectOption> communityBasedTrainers;
+    private List<SelectOption> regionsList;
+    private List<SelectOption> communityBasedTrainers;
     private String isUpdateable = 'false';
-	private String orgName = 'CKW';
-	private String country = 'Uganda';
+    private String orgName = 'CKW';
+    private String country = 'Uganda';
     private List<MetricDataWrapper> metricsData = new List<MetricDataWrapper>();
     private List<List<IGDashboardHelpers.Data>> barChartData;
-	
-	public IGDashboardController(){
-		setUp(ApexPages.currentPage());
-	}
-	
-	public Region__c region { get; set; }
+
+    public IGDashboardController(){
+        setUp(ApexPages.currentPage());
+    }
+
+    public Region__c region { get; set; }
     public District__c district { get; set; }
     public Subcounty__c subcounty { get; set; }
     public Date_Picker__c dummyObject { get; set; }
@@ -31,41 +31,41 @@ public class IGDashboardController {
     public String tabName { get; set; }
     
     public void setUp(PageReference pageRef){
-    	dummyObject = new Date_Picker__c();
-    	district = new District__c();
-    	subcounty = new Subcounty__c();
-    	region = new Region__c();
-    	cbt = new Person__c();
-		// Try to keep the tab we're on
-		String tabName = pageRef.getParameters().get('sfdc.tabName');
-		if(tabName != null) {
-		    this.tabName = tabName;
-		}
-		if(pageRef.getParameters().get('region') != null){
-			this.region.Display_Name__c = pageRef.getParameters().get('region');
-		}
-		if(pageRef.getParameters().get('district') != null){
-		  	this.district.Name = pageRef.getParameters().get('district');
-		}
-		if(pageRef.getParameters().get('subcounty') != null){
-		  	this.subcounty.Display_Name__c = pageRef.getParameters().get('subcounty');
-		}
-		if(pageRef.getParameters().get('dateFrom') != null){
-		  	this.dateFrom = pageRef.getParameters().get('dateFrom');
-		}
-		if(pageRef.getParameters().get('dateTo') != null){
-		  	this.dateTo = pageRef.getParameters().get('dateTo');
-		}
-		if(pageRef.getParameters().get('cbt') != null){
-		  	this.cbt.Id = Id.valueOf(pageRef.getParameters().get('cbt'));
-		}
+        dummyObject = new Date_Picker__c();
+        district = new District__c();
+        subcounty = new Subcounty__c();
+        region = new Region__c();
+        cbt = new Person__c();
+        // Try to keep the tab we're on
+        String tabName = pageRef.getParameters().get('sfdc.tabName');
+        if(tabName != null) {
+            this.tabName = tabName;
+        }
+        if(pageRef.getParameters().get('region') != null){
+            this.region.Display_Name__c = pageRef.getParameters().get('region');
+        }
+        if(pageRef.getParameters().get('district') != null){
+            this.district.Name = pageRef.getParameters().get('district');
+        }
+        if(pageRef.getParameters().get('subcounty') != null){
+            this.subcounty.Display_Name__c = pageRef.getParameters().get('subcounty');
+        }
+        if(pageRef.getParameters().get('dateFrom') != null){
+            this.dateFrom = pageRef.getParameters().get('dateFrom');
+        }
+        if(pageRef.getParameters().get('dateTo') != null){
+            this.dateTo = pageRef.getParameters().get('dateTo');
+        }
+        if(pageRef.getParameters().get('cbt') != null){
+            this.cbt.Id = Id.valueOf(pageRef.getParameters().get('cbt'));
+        }
     }
-    	
-	/*
-	* Fetches all regions in uganda and avails them for 
-	* the dropdown list on the dashboard as list-options
-	*/	
-	public List<SelectOption> getRegionsList(){
+
+    /*
+    * Fetches all regions in uganda and avails them for 
+    * the dropdown list on the dashboard as list-options
+    */
+    public List<SelectOption> getRegionsList(){
         List<SelectOption> options = new List<SelectOption>();
         Region__c[] regions = database.query(IGDashboardHelpers.getRegions(this.country));
         options.add(new SelectOption('','-- In All Regions --'));
@@ -73,7 +73,7 @@ public class IGDashboardController {
            options.add(new SelectOption(a_region.Display_Name__c, a_region.Display_Name__c));
         } 
         return options;
-	}
+    }
     public void setRegionsList(List<SelectOption> option) {
         this.regionsList = option;
     }
@@ -111,12 +111,12 @@ public class IGDashboardController {
     public void setSubcountiesList(List<SelectOption> option) {
         this.districtList = option;
     }
-	
-	/*
-	* Fetches all Person__c objects of type IG/NUSAF - these are the Field Staff 
-	* and avails then to the dropdown list on the dashboard as list-options
-	*/
-	public List<SelectOption> getCommunityBasedTrainers(){
+
+    /*
+    * Fetches all Person__c objects of type IG/NUSAF - these are the Field Staff 
+    * and avails then to the dropdown list on the dashboard as list-options
+    */
+    public List<SelectOption> getCommunityBasedTrainers(){
         List<SelectOption> options = new List<SelectOption>();
         Person__c[] trainers = database.query(IGDashboardHelpers.getCommunityBasedTrainers());
         options.add(new SelectOption('','-- In All Community Based Trainers --'));
@@ -124,61 +124,61 @@ public class IGDashboardController {
            options.add(new SelectOption(string.valueOf(trainer.Id), trainer.First_Name__c + ' ' + trainer.Last_Name__c));
         } 
         return options;
-	}
+    }
     public void setCommunityBasedTrainers(List<SelectOption> option) {
         this.communityBasedTrainers = option;
     }
     
     public String getRegion(){
-    	return this.region == null ? '' : this.region.Display_Name__c;
+        return this.region == null ? '' : this.region.Display_Name__c;
     }
-    
+
     public void setCountry(String country){
-    	this.country = country;
+        this.country = country;
     }
-    
+
     public void setOrgName(String org){
-    	this.orgName = org;
+        this.orgName = org;
     }
-	
-	/*
-	* aggregates metrics into MetricDataWrapper\'s for display  
-	* any other new metrics will be added herein upon computation
-	*/
-	public List<MetricDataWrapper> getMetricsData(){		
-	    List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
-	    metrics.add(IGDashboardHelpers.getTotalNumberOfFieldVisitsMetric(region.Display_Name__c, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id));
-	    return metrics;
-	}
-	
-	/*
-	* An event for the change filters button on the dashboard
-	* initialises the process of filtering displayed data
-	*/
-	public PageReference changeFilters(){ 
-		PageReference resultPage = ApexPages.currentPage(); 
-		resultPage.getParameters().put('region', region.Display_Name__c);
-		resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
-		resultPage.getParameters().put('district', district.Name);
-		resultPage.getParameters().put('cbt', cbt.Id);
-		resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': 
-			Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd'));
-		resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': 
-			Datetime.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd'));
-		resultPage.getParameters().put('sfdc.tabName', this.tabName);
-		resultPage.setRedirect(true);
-		return resultPage;		
-	}
-	
-	public List<List<IGDashboardHelpers.Data>> getBarChartData(){
-    	barChartData = new List<List<IGDashboardHelpers.Data>>();
-		Survey__c[] surveys = database.query(IGDashboardHelpers.getActivities());
-		for(Survey__c activity : surveys){
-			List<IGDashboardHelpers.Data> barGraphData = IGDashboardHelpers.getBarGraphFieldVisitsMetrics(activity, region.Display_Name__c, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
-			if(!barGraphData.isEmpty()){
-				barChartData.add(barGraphData);
-			}
-		}
-		return barChartData;
-	}
+
+    /*
+    * aggregates metrics into MetricDataWrapper\'s for display  
+    * any other new metrics will be added herein upon computation
+    */
+    public List<MetricDataWrapper> getMetricsData(){		
+        List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
+        metrics.add(IGDashboardHelpers.getTotalNumberOfFieldVisitsMetric(region.Display_Name__c, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id));
+        return metrics;
+    }
+
+    /*
+    * An event for the change filters button on the dashboard
+    * initialises the process of filtering displayed data
+    */
+    public PageReference changeFilters(){ 
+        PageReference resultPage = ApexPages.currentPage(); 
+        resultPage.getParameters().put('region', region.Display_Name__c);
+        resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
+        resultPage.getParameters().put('district', district.Name);
+        resultPage.getParameters().put('cbt', cbt.Id);
+        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': 
+            Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd'));
+        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': 
+            Datetime.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd'));
+        resultPage.getParameters().put('sfdc.tabName', this.tabName);
+        resultPage.setRedirect(true);
+        return resultPage;		
+    }
+
+    public List<List<IGDashboardHelpers.Data>> getBarChartData(){
+        barChartData = new List<List<IGDashboardHelpers.Data>>();
+        Survey__c[] surveys = database.query(IGDashboardHelpers.getActivities());
+        for(Survey__c activity : surveys){
+            List<IGDashboardHelpers.Data> barGraphData = IGDashboardHelpers.getBarGraphFieldVisitsMetrics(activity, region.Display_Name__c, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+            if(!barGraphData.isEmpty()){
+                barChartData.add(barGraphData);
+            }
+        }
+        return barChartData;
+    }
 }
