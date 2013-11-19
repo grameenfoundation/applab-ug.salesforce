@@ -86,6 +86,16 @@
         <relationshipLabel><!-- Registered Households --></relationshipLabel>
     </fields>
     <fields>
+        <help><!-- This lets one set the gps_y coordinate manually. It&apos;s used in the gps_y formula if the linked submission doesn&apos;t have coordinates --></help>
+        <label><!-- Latitude --></label>
+        <name>Latitude__c</name>
+    </fields>
+    <fields>
+        <help><!-- This lets one set the gps_x coordinate manually. It&apos;s used in the gps_x fomula if the linked submission doesn&apos;t have coordinates --></help>
+        <label><!-- Longitude --></label>
+        <name>Longitude__c</name>
+    </fields>
+    <fields>
         <label><!-- Municipio --></label>
         <name>Municipio__c</name>
     </fields>
@@ -202,13 +212,16 @@
         <label><!-- gps approximation --></label>
         <name>gps_approximation__c</name>
     </fields>
-    <fields>
-        <label><!-- gps x --></label>
-        <name>Latitude__c</name>
-    </fields>
-    <fields>
-        <label><!-- gps y --></label>
-        <name>Longitude__c</name>
-    </fields>
+    <layouts>
+        <layout>Mana Household Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Ubicación --></label>
+            <section>Ubicación</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

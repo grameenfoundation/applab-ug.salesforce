@@ -21,9 +21,73 @@
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- Centro de Recuperación Nutricional --></label>
+        <name>Centro_de_Recuperacion_Nutricional__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Contact --></label>
         <name>Contact__c</name>
         <relationshipLabel><!-- Mana Beneficiaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Control prenatal --></label>
+        <name>Control_prenatal__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Crecimiento y desarrollo --></label>
+        <name>Crecimiento_y_desarrollo__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Date of Birth --></label>
+        <name>Date_of_Birth__c</name>
+    </fields>
+    <fields>
+        <label><!-- Desmovilizados --></label>
+        <name>Desmovilizados__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Discapacitados --></label>
+        <name>Discapacitados__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- Education Level --></label>
@@ -61,6 +125,74 @@
         <label><!-- Household --></label>
         <name>Household__c</name>
         <relationshipLabel><!-- Mana Beneficiaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- LGTBI --></label>
+        <name>LGTBI__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Maná infantil --></label>
+        <name>Mana_infantil__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Otros programas --></label>
+        <name>Otros_programas__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- PAE --></label>
+        <name>PAE__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Población diferencial --></label>
+        <name>Poblacion_diferencial__c</name>
+        <picklistValues>
+            <masterLabel>Afrocolombiano(a)</masterLabel>
+            <translation><!-- Afrocolombiano(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Indígena</masterLabel>
+            <translation><!-- Indígena --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ninguno</masterLabel>
+            <translation><!-- Ninguno --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation><!-- Otro --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- Poblacion vulnerable - Desmovilizados --></label>
@@ -110,5 +242,48 @@
             <translation><!-- Sí --></translation>
         </picklistValues>
     </fields>
+    <fields>
+        <label><!-- Red unidos --></label>
+        <name>Red_unidos__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Registration Date --></label>
+        <name>Registration_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Victimas del conflicto --></label>
+        <name>Victimas_del_conflicto__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Mana Beneficiary Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Población vulnerable --></label>
+            <section>Población vulnerable</section>
+        </sections>
+        <sections>
+            <label><!-- Programas a los que pertenece --></label>
+            <section>Programas a los que pertenece</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

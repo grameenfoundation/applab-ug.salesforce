@@ -407,6 +407,46 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Fecha_Entrega_de_Insumos__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha Entrega de Insumos</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fecha_Taller__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha Taller</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fecha_entrega_material_educativo__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha entrega material educativo</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fecha_recepci_n_de_insumos__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha recepción de insumos</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fecha_y_hora_de_inicio_del_taller__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha y hora de inicio del taller</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
         <fullName>Food_Security_Classification__c</fullName>
         <externalId>false</externalId>
         <label>Food Security Classification</label>
@@ -473,6 +513,119 @@ IF(TEXT(FS_15__c)==&apos;Sí&apos;,1,0)</formula>
         <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Nombre_del_taller__c</fullName>
+        <externalId>false</externalId>
+        <label>Nombre del taller</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Taller 1. Planeación de la huerta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taller 2. Sembrando la huerta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taller 3. Sostenibilidad de la huerta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taller 4. SAN y manejo del agua</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taller 5. BPA en la huerta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taller 6. Aves;Taller 7. Gestión Social</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taller 8. Preparaciones</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Taller 9. Feria agroalimentaria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Que_se_entregar__c</fullName>
+        <externalId>false</externalId>
+        <label>Qué se entregará</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Dotación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Material educativo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Tipo_de_Entrega_de_Insumos__c</fullName>
+        <externalId>false</externalId>
+        <label>Tipo de Entrega de Insumos</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Única</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primera</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segunda</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tercera</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tipo_de_Recepci_n_de_Insumos__c</fullName>
+        <externalId>false</externalId>
+        <label>Tipo de Recepción de Insumos</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Única</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primera</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segunda</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tercera</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Weekly_Food_Spend__c</fullName>
