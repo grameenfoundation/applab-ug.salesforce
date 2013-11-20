@@ -29,7 +29,6 @@ public class MetricMapController {
     public Boolean defaultedSubmissionEndDate;
 
     public MetricMapController() {
-
         setUpPage();
     }
 
