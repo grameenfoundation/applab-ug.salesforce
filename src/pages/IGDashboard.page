@@ -49,8 +49,8 @@
                 <tr>
                     <td>
                         <strong>Region: </strong>
-                        <apex:selectList value="{!region.Display_Name__c}" multiselect="false" size="1">
-                            <apex:selectOptions value="{!regionsList}"></apex:selectOptions>
+                        <apex:selectList value="{!subregion}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!subregionsList}"></apex:selectOptions>
                         </apex:selectList>
                     </td>
                     <td>

@@ -6,8 +6,8 @@
  *  Its test methods are in the NUSAFDashboardTests class
  **/
 public with sharing class ProcessNUSAFSurveys {
-	
-	/**
+    
+    /**
     *  Registers a NUSAF Visit: the location, type of visit,
     *  the date and time of visit and the trainer's name
     *
@@ -20,276 +20,280 @@ public with sharing class ProcessNUSAFSurveys {
     *              element 1 - Binary indicator of success (0 = fail, 1 = success)
     *              element 2 - Error message if required for the logs and tech team
     *              element 3 - Message body to the CKW if required.
-    */	
-	public static List<String> registerNusafActivityVisit(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c interviewer) {
-		
-		String trainersName = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0')).trim();
-		System.debug('Registering a visit by ' + trainersName);
-		Date dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')));
-		String trainingTime = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')).trim();
-		String subRegionSelectedNumber = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
-		
-		String districtName = '';		
-		//based on the answered sub-region, we get the district's answer
-		String subcountySelected = '';
-		//based on the answered district, we get the district's selected subcounty answer
-		
-		//acholi sub-region
-		if(subRegionSelectedNumber.equals('1')){
-			districtName = acholiDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0'));
-			if(districtIndex == '1'){
-				//agago
-				subcountySelected = agagoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q13_0')));
-			} else if(districtIndex == '2'){
-				//amuru
-				subcountySelected = amuruSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q14_0')));
-			}else if(districtIndex == '3'){
-				//gulu
-				subcountySelected = guluSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q15_0')));
-			}else if(districtIndex == '4'){
-				//kitgum
-				subcountySelected = kitgumSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q16_0')));
-			}else if(districtIndex == '5'){
-				//lamwo
-				subcountySelected = lamwoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q17_0')));
-			}else if(districtIndex == '6'){
-				//nwoya
-				subcountySelected = nwoyaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q18_0')));
-			}else if(districtIndex == '7'){
-				//pader
-				subcountySelected = paderSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q19_0')));
-			}			
-		} else if(subRegionSelectedNumber.equals('2')){
-			//bukedi sub-region
-			districtName = bukediDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q6_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q6_0'));
-			if(districtIndex == '1'){
-				//budaka
-				subcountySelected = budakaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q20_0')));
-			} else if(districtIndex == '2'){
-				//busia
-				subcountySelected = busiaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q21_0')));
-			}else if(districtIndex == '3'){
-				//butaleja
-				subcountySelected = butalejaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q22_0')));
-			}else if(districtIndex == '4'){
-				//kibuku
-				subcountySelected = kibukuSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q23_0')));
-			}else if(districtIndex == '5'){
-				//pallisa
-				subcountySelected = pallisaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q24_0')));
-			}else if(districtIndex == '6'){
-				//tororo
-				subcountySelected = tororoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q25_0')));
-			}
-		} else if(subRegionSelectedNumber.equals('3')){
-			//bunyoro sub-region
-			districtName = bunyoroDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q7_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q7_0'));
-			if(districtIndex == '1'){
-				//buliisa
-				subcountySelected = bulisaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q26_0')));
-			} else if(districtIndex == '2'){
-				//masindi
-				subcountySelected = masindiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q27_0')));
-			}else if(districtIndex == '3'){
-				//kiryandongo
-				subcountySelected = kiryandongoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q28_0')));
-			}
-		} else if(subRegionSelectedNumber.equals('4')){
-			//elgon sub-region
-			districtName = elgonDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0'));
-			if(districtIndex == '1'){
-				//bududa
-				subcountySelected = bududaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q29_0')));
-			} else if(districtIndex == '2'){
-				//bukwo
-				subcountySelected = bukwoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q30_0')));
-			}else if(districtIndex == '3'){
-				//bulambuli
-				subcountySelected = bulambuliSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q31_0')));
-			}else if(districtIndex == '4'){
-				//kapchorwa
-				subcountySelected = kapchorwaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q32_0')));
-			}else if(districtIndex == '5'){
-				//kween
-				subcountySelected = kweenSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q33_0')));
-			}else if(districtIndex == '6'){
-				//manafwa
-				subcountySelected = manafwaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q34_0')));
-			}else if(districtIndex == '7'){
-				//mbale
-				subcountySelected = mbaleSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q35_0')));
-			}else if(districtIndex == '8'){
-				//sironko
-				subcountySelected = sironkoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q36_0')));
-			}
-		} else if(subRegionSelectedNumber.equals('5')){
-			//lanog sub-region
-			districtName = langoDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0'));
-			if(districtIndex == '1'){
-				//aleptong
-				subcountySelected = aleptongSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q37_0')));
-			} else if(districtIndex == '2'){
-				//amolatar
-				subcountySelected = amolatarSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q38_0')));
-			}else if(districtIndex == '3'){
-				//kole
-				subcountySelected = koleSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q39_0')));
-			}else if(districtIndex == '4'){
-				//apac
-				subcountySelected = apacSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q40_0')));
-			}else if(districtIndex == '5'){
-				//dokolo
-				subcountySelected = dokoloSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q41_0')));
-			}else if(districtIndex == '6'){
-				//lira
-				subcountySelected = liraSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q42_0')));
-			}else if(districtIndex == '7'){
-				//otuke
-				subcountySelected = otukeSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q43_0')));
-			}else if(districtIndex == '8'){
-				//oyam
-				subcountySelected = oyamSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q44_0')));
-			}
-		} else if(subRegionSelectedNumber.equals('6')){
-			//teso sub-region
-			districtName = tesoDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q10_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q10_0'));
-			if(districtIndex == '1'){
-				//amuria
-				subcountySelected = amuriaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q45_0')));
-			} else if(districtIndex == '2'){
-				//bukedea
-				subcountySelected = bukedeaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q46_0')));
-			}else if(districtIndex == '3'){
-				//kaberamaido
-				subcountySelected = kaberamaidoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q47_0')));
-			}else if(districtIndex == '4'){
-				//katakwi
-				subcountySelected = katakwiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q48_0')));
-			}else if(districtIndex == '5'){
-				//kumi
-				subcountySelected = kumiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q49_0')));
-			}else if(districtIndex == '6'){
-				//ngora
-				subcountySelected = ngoraSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q50_0')));
-			}else if(districtIndex == '7'){
-				//serere
-				subcountySelected = serereSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q51_0')));
-			}else if(districtIndex == '8'){
-				//soroti
-				subcountySelected = sorotiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q52_0')));
-			}
-		} else if(subRegionSelectedNumber.equals('7')){
-			//west nile sub-region
-			districtName = westNileDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q11_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q11_0'));
-			if(districtIndex == '1'){
-				//adjumani
-				subcountySelected = adjumaniSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q53_0')));
-			} else if(districtIndex == '2'){
-				//arua
-				subcountySelected = aruaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q54_0')));
-			}else if(districtIndex == '3'){
-				//koboko
-				subcountySelected = kobokoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q55_0')));
-			}else if(districtIndex == '4'){
-				//maracha
-				subcountySelected = marachaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q56_0')));
-			}else if(districtIndex == '5'){
-				//moyo
-				subcountySelected = moyoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q57_0')));
-			}else if(districtIndex == '6'){
-				//zombo
-				subcountySelected = zomboSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q58_0')));
-			}else if(districtIndex == '7'){
-				//nebbi
-				subcountySelected = nebbiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q59_0')));
-			}else if(districtIndex == '8'){
-				//yumbe
-				subcountySelected = yumbeSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q60_0')));
-			}
-		} else if(subRegionSelectedNumber.equals('8')){
-			//karamoja sub-region
-			districtName = karamojaDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q12_0')));
-			String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q12_0'));
-			if(districtIndex == '1'){
-				//abim
-				subcountySelected = abimSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q61_0')));
-			} else if(districtIndex == '2'){
-				//kaabong
-				subcountySelected = kaabongSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q62_0')));
-			}else if(districtIndex == '3'){
-				//kotido
-				subcountySelected = kotidoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q63_0')));
-			}else if(districtIndex == '4'){
-				//moroto
-				subcountySelected = morotoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q64_0')));
-			}else if(districtIndex == '5'){
-				//napak
-				subcountySelected = napakSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q65_0')));
-			}else if(districtIndex == '6'){
-				//nakapiripirit
-				subcountySelected = nakapiripiritSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q66_0')));
-			}else if(districtIndex == '7'){
-				//amudat
-				subcountySelected = amudatSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q67_0')));
-			}
-		}
-		
-		District__c[] district = [SELECT Id, Name FROM District__c WHERE Name = :districtName];
-		if(district.isEmpty()){
-			return new String[]{ '0', 'The district ' + districtName + ' provided is not in salesforce', 'SUPRESSMSG' };
-		}
-		Id districtId = district[0].Id;
-		Subcounty__c[] subcounty = [SELECT
-										Id,
-										Display_Name__c
-									FROM
-										Subcounty__c
-									WHERE
-										Display_Name__c = :subcountySelected
-										AND District__c = :districtId
-									];
-		if(subcounty.isEmpty()){
-			return new String[]{ '0', 'The subcounty ' + subcountySelected + ' provided is not in salesforce or the district specified', 'SUPRESSMSG' };
-		}
-		
-		Community_Based_Trainer_Field_Visit__c visit = new Community_Based_Trainer_Field_Visit__c();
-		visit.District__c =  districtId;
-		visit.Subcounty__c = subcounty[0].Id;
-		visit.Date_of_Visit__c = dateOfVisit;
-		visit.Time__c = trainingTime;
-		visit.Interview_Latitude__c = submission.interviewLatitude;
-		visit.Interview_Longitude__c = submission.interviewLongitude;
-		
-		Survey__c survey = [SELECT Name FROM Survey__c WHERE Id = :submission.surveyId];
-		visit.Type_of_Visit__c = survey.Survey_Name__c;
-		visit.Name_of_Trainer__c = trainersName;
-		visit.Survey__c = survey.Id;
-		visit.Person__c = interviewer.Id; 
-		
-		insert visit;
-				
-		return new String[]{ '1', 'IG/NUSAF submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' };	
-	}
-	
+    */    
+    public static List<String> registerNusafActivityVisit(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c interviewer) {
+        
+        String trainersName = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0')).trim();
+        System.debug(Logginglevel.INFO, 'Registering a visit by ' + trainersName);
+        Date dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')));
+        String trainingTime = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')).trim();
+        String subRegionSelectedNumber = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
+        
+        String districtName = '';        
+        //based on the answered sub-region, we get the district's answer
+        String subcountySelected = '';
+        //based on the answered district, we get the district's selected subcounty answer
+        
+        //acholi sub-region
+        if(subRegionSelectedNumber.equals('1')){
+            districtName = acholiDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0'));
+            if(districtIndex == '1'){
+                //agago
+                subcountySelected = agagoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q13_0')));
+            } else if(districtIndex == '2'){
+                //amuru
+                subcountySelected = amuruSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q14_0')));
+            }else if(districtIndex == '3'){
+                //gulu
+                subcountySelected = guluSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q15_0')));
+            }else if(districtIndex == '4'){
+                //kitgum
+                subcountySelected = kitgumSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q16_0')));
+            }else if(districtIndex == '5'){
+                //lamwo
+                subcountySelected = lamwoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q17_0')));
+            }else if(districtIndex == '6'){
+                //nwoya
+                subcountySelected = nwoyaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q18_0')));
+            }else if(districtIndex == '7'){
+                //pader
+                subcountySelected = paderSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q19_0')));
+            }            
+        } else if(subRegionSelectedNumber.equals('2')){
+            //bukedi sub-region
+            districtName = bukediDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q6_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q6_0'));
+            if(districtIndex == '1'){
+                //budaka
+                subcountySelected = budakaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q20_0')));
+            } else if(districtIndex == '2'){
+                //busia
+                subcountySelected = busiaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q21_0')));
+            }else if(districtIndex == '3'){
+                //butaleja
+                subcountySelected = butalejaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q22_0')));
+            }else if(districtIndex == '4'){
+                //kibuku
+                subcountySelected = kibukuSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q23_0')));
+            }else if(districtIndex == '5'){
+                //pallisa
+                subcountySelected = pallisaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q24_0')));
+            }else if(districtIndex == '6'){
+                //tororo
+                subcountySelected = tororoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q25_0')));
+            }
+        } else if(subRegionSelectedNumber.equals('3')){
+            //bunyoro sub-region
+            districtName = bunyoroDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q7_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q7_0'));
+            if(districtIndex == '1'){
+                //buliisa
+                subcountySelected = bulisaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q26_0')));
+            } else if(districtIndex == '2'){
+                //masindi
+                subcountySelected = masindiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q27_0')));
+            }else if(districtIndex == '3'){
+                //kiryandongo
+                subcountySelected = kiryandongoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q28_0')));
+            }
+        } else if(subRegionSelectedNumber.equals('4')){
+            //elgon sub-region
+            districtName = elgonDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0'));
+            if(districtIndex == '1'){
+                //bududa
+                subcountySelected = bududaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q29_0')));
+            } else if(districtIndex == '2'){
+                //bukwo
+                subcountySelected = bukwoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q30_0')));
+            }else if(districtIndex == '3'){
+                //bulambuli
+                subcountySelected = bulambuliSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q31_0')));
+            }else if(districtIndex == '4'){
+                //kapchorwa
+                subcountySelected = kapchorwaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q32_0')));
+            }else if(districtIndex == '5'){
+                //kween
+                subcountySelected = kweenSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q33_0')));
+            }else if(districtIndex == '6'){
+                //manafwa
+                subcountySelected = manafwaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q34_0')));
+            }else if(districtIndex == '7'){
+                //mbale
+                subcountySelected = mbaleSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q35_0')));
+            }else if(districtIndex == '8'){
+                //sironko
+                subcountySelected = sironkoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q36_0')));
+            }
+        } else if(subRegionSelectedNumber.equals('5')){
+            //lanog sub-region
+            districtName = langoDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0'));
+            if(districtIndex == '1'){
+                //aleptong
+                subcountySelected = aleptongSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q37_0')));
+            } else if(districtIndex == '2'){
+                //amolatar
+                subcountySelected = amolatarSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q38_0')));
+            }else if(districtIndex == '3'){
+                //kole
+                subcountySelected = koleSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q39_0')));
+            }else if(districtIndex == '4'){
+                //apac
+                subcountySelected = apacSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q40_0')));
+            }else if(districtIndex == '5'){
+                //dokolo
+                subcountySelected = dokoloSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q41_0')));
+            }else if(districtIndex == '6'){
+                //lira
+                subcountySelected = liraSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q42_0')));
+            }else if(districtIndex == '7'){
+                //otuke
+                subcountySelected = otukeSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q43_0')));
+            }else if(districtIndex == '8'){
+                //oyam
+                subcountySelected = oyamSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q44_0')));
+            }
+        } else if(subRegionSelectedNumber.equals('6')){
+            //teso sub-region
+            districtName = tesoDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q10_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q10_0'));
+            if(districtIndex == '1'){
+                //amuria
+                subcountySelected = amuriaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q45_0')));
+            } else if(districtIndex == '2'){
+                //bukedea
+                subcountySelected = bukedeaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q46_0')));
+            }else if(districtIndex == '3'){
+                //kaberamaido
+                subcountySelected = kaberamaidoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q47_0')));
+            }else if(districtIndex == '4'){
+                //katakwi
+                subcountySelected = katakwiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q48_0')));
+            }else if(districtIndex == '5'){
+                //kumi
+                subcountySelected = kumiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q49_0')));
+            }else if(districtIndex == '6'){
+                //ngora
+                subcountySelected = ngoraSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q50_0')));
+            }else if(districtIndex == '7'){
+                //serere
+                subcountySelected = serereSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q51_0')));
+            }else if(districtIndex == '8'){
+                //soroti
+                subcountySelected = sorotiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q52_0')));
+            }
+        } else if(subRegionSelectedNumber.equals('7')){
+            //west nile sub-region
+            districtName = westNileDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q11_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q11_0'));
+            if(districtIndex == '1'){
+                //adjumani
+                subcountySelected = adjumaniSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q53_0')));
+            } else if(districtIndex == '2'){
+                //arua
+                subcountySelected = aruaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q54_0')));
+            }else if(districtIndex == '3'){
+                //koboko
+                subcountySelected = kobokoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q55_0')));
+            }else if(districtIndex == '4'){
+                //maracha
+                subcountySelected = marachaSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q56_0')));
+            }else if(districtIndex == '5'){
+                //moyo
+                subcountySelected = moyoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q57_0')));
+            }else if(districtIndex == '6'){
+                //zombo
+                subcountySelected = zomboSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q58_0')));
+            }else if(districtIndex == '7'){
+                //nebbi
+                subcountySelected = nebbiSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q59_0')));
+            }else if(districtIndex == '8'){
+                //yumbe
+                subcountySelected = yumbeSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q60_0')));
+            }
+        } else if(subRegionSelectedNumber.equals('8')){
+            //karamoja sub-region
+            districtName = karamojaDistrictsMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q12_0')));
+            String districtIndex = ProcessSubmissionHelpers.getAnswerString(answers.get('q12_0'));
+            if(districtIndex == '1'){
+                //abim
+                subcountySelected = abimSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q61_0')));
+            } else if(districtIndex == '2'){
+                //kaabong
+                subcountySelected = kaabongSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q62_0')));
+            }else if(districtIndex == '3'){
+                //kotido
+                subcountySelected = kotidoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q63_0')));
+            }else if(districtIndex == '4'){
+                //moroto
+                subcountySelected = morotoSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q64_0')));
+            }else if(districtIndex == '5'){
+                //napak
+                subcountySelected = napakSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q65_0')));
+            }else if(districtIndex == '6'){
+                //nakapiripirit
+                subcountySelected = nakapiripiritSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q66_0')));
+            }else if(districtIndex == '7'){
+                //amudat
+                subcountySelected = amudatSubcountiesMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q67_0')));
+            }
+        }
+        
+        District__c[] district = [SELECT Id, Name FROM District__c WHERE Name = :districtName];
+        if(district.isEmpty()){
+            return new String[]{ '0', 'The district ' + districtName + ' provided is not in salesforce', 'SUPRESSMSG' };
+        }
+        Id districtId = district[0].Id;
+        Subcounty__c[] subcounty = [SELECT
+                                        Id,
+                                        Display_Name__c
+                                    FROM
+                                        Subcounty__c
+                                    WHERE
+                                        Display_Name__c = :subcountySelected
+                                        AND District__c = :districtId
+                                    ];
+        if(subcounty.isEmpty()){
+            return new String[]{ '0', 'The subcounty ' + subcountySelected + ' provided is not in salesforce or the district specified', 'SUPRESSMSG' };
+        }
+        
+        Community_Based_Trainer_Field_Visit__c visit = new Community_Based_Trainer_Field_Visit__c();
+        visit.District__c =  districtId;
+        visit.Subcounty__c = subcounty[0].Id;
+        visit.Subregion__c = northernUgandaSubregions.get(subRegionSelectedNumber);
+        visit.Date_of_Visit__c = dateOfVisit;
+        visit.Time__c = trainingTime;
+        visit.Interview_Latitude__c = submission.interviewLatitude;
+        visit.Interview_Longitude__c = submission.interviewLongitude;
+        
+        Survey__c survey = [SELECT Name FROM Survey__c WHERE Id = :submission.surveyId];
+        visit.Type_of_Visit__c = survey.Survey_Name__c;
+        visit.Name_of_Trainer__c = trainersName;
+        visit.Survey__c = survey.Id;
+        visit.Person__c = interviewer.Id; 
+        
+        insert visit;
+                
+        return new String[]{ '1', 'IG/NUSAF submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' };    
+    }
+    
     /*
+    * A map of the IG/NUSAF sub-regions
     * Based on the sub-region (question 4) chosen below, we can determine
     * which one of next questions 5, 6, 7, 8, 9, 10, 11 and 12 was answered
-        '1' => 'acholi',
-        '2' => 'bukedi',
-        '3' => 'bunyoro',
-        '4' => 'elgon',
-        '5' => 'lango',
-        '6' => 'teso',
-        '7' => 'west nile',
-        '8' => 'karamoja'
-    */    
+    */
+    public static Map<String, String> northernUgandaSubregions = new Map<String, String> {
+        '1' => 'Acholi',
+        '2' => 'Bukedi',
+        '3' => 'Bunyoro',
+        '4' => 'Elgon',
+        '5' => 'Lango',
+        '6' => 'Teso',
+        '7' => 'West Nile',
+        '8' => 'Karamoja'
+    };
     private static Map<String, String> acholiDistrictsMap = new Map<String, String> {
         '1' => 'agago',
         '2' => 'amuru',
@@ -298,7 +302,7 @@ public with sharing class ProcessNUSAFSurveys {
         '5' => 'lamwo',
         '6' => 'nwoya',
         '7' => 'pader'
-    };	  
+    };      
     private static Map<String, String> bukediDistrictsMap = new Map<String, String> {
         '1' => 'budaka',
         '2' => 'busia',
@@ -361,6 +365,19 @@ public with sharing class ProcessNUSAFSurveys {
         '6' => 'nakapiripirit',
         '7' => 'amudat'
     }; 
+    /*
+    * A map matching sub-regions to the districts maps
+    */
+    public static Map<String, Map<String, String>> subregionsDistrictsMap = new Map<String, Map<String, String>>{
+        '1' => acholiDistrictsMap,
+        '2' => bukediDistrictsMap,
+        '3' => bunyoroDistrictsMap,
+        '4' => elgonDistrictsMap,
+        '5' => langoDistrictsMap,
+        '6' => tesoDistrictsMap,
+        '7' => westNileDistrictsMap,
+        '8' => karamojaDistrictsMap
+    };
     
     /*
     * subcounty maps based on district
@@ -376,7 +393,7 @@ public with sharing class ProcessNUSAFSurveys {
         '8' => 'parabongo',
         '9' => 'patongo',
         '10' => 'wol'
-    };	  
+    };      
     private static Map<String, String> amuruSubcountiesMap = new Map<String, String> {
         '1' => 'amuru',
         '2' => 'Amuru Town Council',
@@ -442,7 +459,7 @@ public with sharing class ProcessNUSAFSurveys {
         '9' => 'puranga'
     }; 
     private static Map<String, String> budakaSubcountiesMap = new Map<String, String> {
-        '1' => 'budaka',    	
+        '1' => 'budaka',        
         '2' => 'budaka tc',
         '3' => 'iki-iki',
         '4' => 'kaderuna',
@@ -479,7 +496,7 @@ public with sharing class ProcessNUSAFSurveys {
         '13' => 'nawanjofu'
     };  
     private static Map<String, String> kibukuSubcountiesMap = new Map<String, String> {
-        '1' => 'bulangira',    	
+        '1' => 'bulangira',        
         '2' => 'buseta',
         '3' => 'kadama',
         '4' => 'kagumu',

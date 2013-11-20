@@ -19,7 +19,7 @@ private class IGDashboardTests {
         
         //test setup
         PageReference resultPage =  new PageReference('/a00/e');
-        resultPage.getParameters().put('region', 'TestRegion');
+        resultPage.getParameters().put('subregion', 'Bunyoro');
         resultPage.getParameters().put('district', 'TestDistrict');
         resultPage.getParameters().put('subcounty', 'TestSubcounty');
         resultPage.getParameters().put('dateFrom', '1987-12-18');
@@ -27,7 +27,7 @@ private class IGDashboardTests {
         resultPage.getParameters().put('cbt', String.valueOf(testPerson.Id));
         resultPage.getParameters().put('sfdc.tabName', 'a00');
         controller.setUp(resultPage);
-        System.assert(controller.getRegion() != '');
+        System.assert(controller.getSubregion() != '');
         System.assert(controller.district != null);
         System.assert(controller.subcounty != null);
         System.assert(controller.dummyObject != null);
@@ -59,9 +59,9 @@ private class IGDashboardTests {
         region.Country__c = ((Country__c)[select Id from Country__c where Name = :country.Name]).Id;
         insert region;
         
-        List<SelectOption> regions = controller.getRegionsList();
-        System.assert(regions.size() == 2);	//including the default --select all		
-        controller.setRegionsList(null);
+        List<SelectOption> regions = controller.getSubregionsList();
+        System.assert(regions.size() == 9);	//including the default --select all		
+        controller.setSubregionsList(null);
         
         //test districts list box
         District__c testDistrict = new District__c();
@@ -127,6 +127,7 @@ private class IGDashboardTests {
         v.Person__c = ([select Id from Person__c where First_Name__c = :testPerson.First_Name__c])[0].Id;
         v.Subcounty__c = ((Subcounty__c)[select Id from Subcounty__c where Display_Name__c = :testSubcounty.Display_Name__c]).Id;
         v.Survey__c = ((Survey__c)[select Id from Survey__c where Survey_Name__c = :survey.Survey_Name__c]).Id;
+        v.Subregion__c = 'Bunyoro';
         v.Time__c = '4.30pm';
         v.Type_of_Visit__c = ((Survey__c)[select Id, Survey_Name__c from Survey__c where Survey_Name__c = :survey.Survey_Name__c]).Survey_Name__c;
         insert v;
@@ -165,6 +166,7 @@ private class IGDashboardTests {
         visit.Person__c = ([select Id from Person__c where First_Name__c = :testPerson.First_Name__c])[0].Id;
         visit.Subcounty__c = ((Subcounty__c)[select Id from Subcounty__c where Display_Name__c = :testSubcounty.Display_Name__c]).Id;
         visit.Survey__c = ((Survey__c)[select Id from Survey__c where Survey_Name__c = :survey.Survey_Name__c]).Id;
+        visit.Subregion__c = 'Bunyoro';
         visit.Time__c = '4.30pm';
         visit.Type_of_Visit__c = ((Survey__c)[select Id, Survey_Name__c from Survey__c where Survey_Name__c = :survey.Survey_Name__c]).Survey_Name__c;
         insert visit;

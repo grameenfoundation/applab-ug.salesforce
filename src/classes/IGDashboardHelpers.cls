@@ -15,7 +15,7 @@ public class IGDashboardHelpers {
     /*
     * Returns a query that fetches all regions in uganda
     * Districts lie under these regions
-    */
+    *
     public static string getRegions(String country){
         return 'SELECT '                    +
                     'Country__r.Name, '     +
@@ -25,7 +25,7 @@ public class IGDashboardHelpers {
                 'WHERE '                    +
                     'Country__r.Name = \'' + country + '\'';
     }
-    
+    */
     /*
     * returns a query that fetches all subcounties from a given organisation
     *
@@ -88,7 +88,7 @@ public class IGDashboardHelpers {
                             'Community_Based_Trainer_Field_Visit__c '   +
                         'WHERE '                                        +
                             'Name_of_Trainer__c != NULL ';
-        query += String.isNotEmpty(region)? ' AND District__r.Region__c = \'' + region + '\' ': '';
+        query += String.isNotEmpty(region)? ' AND Subregion__c = \'' + region + '\' ': '';
         query += String.isNotEmpty(district)? ' AND District__r.Name = \'' + district + '\' ': '';
         query += String.isNotEmpty(district)? ' AND Subcounty__r.Display_Name__c = \'' + subcounty + '\' ': '';
         query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? ' AND (Date_of_Visit__c >= ' + dateFrom + ' AND Date_of_Visit__c <= ' +dateTo + ') ': '';
@@ -133,6 +133,7 @@ public class IGDashboardHelpers {
                           'Id, '                                    +
                           'District__r.Name, '                      +
                           'Subcounty__r.Display_Name__c, '          +
+                          'Subregion__c, '                          +
                           'Date_of_Visit__c, '                      +
                           'Interview_Latitude__c, '                 +
                           'Interview_Longitude__c, '                +
@@ -142,7 +143,7 @@ public class IGDashboardHelpers {
                           'Community_Based_Trainer_Field_Visit__c ' +
                         'WHERE '                                    +
                             'Name_of_Trainer__c != NULL ';
-        query += String.isNotEmpty(region)? ' AND District__r.Region__c = \'' + region + '\' ': '';
+        query += String.isNotEmpty(region)? ' AND Subregion__c = \'' + region + '\' ': '';
         query += String.isNotEmpty(district)? ' AND District__r.Name = \'' + district + '\' ': '';
         query += String.isNotEmpty(district)? ' AND Subcounty__r.Display_Name__c = \'' + subcounty + '\' ': '';
         query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? ' AND (Date_of_Visit__c >= ' + dateFrom + ' AND Date_of_Visit__c <= ' +dateTo + ') ': '';
@@ -178,11 +179,11 @@ public class IGDashboardHelpers {
             marker.gpsLatitude = visit.Interview_Latitude__c;
             marker.gpsLongitude = visit.Interview_Longitude__c;
              
-            String content =    '<div>'                                                             +
-                                '  CBT Visit Details <br/>'                                         +
-                                '  Date:&ensp;' + visit.Date_of_Visit__c + '<br/>'                  +
-                                '  Trainer\'s Name:&ensp;' + visit.Name_of_Trainer__c + '<br/>'     +
-                                '  Visit Type:&ensp;' + visit.Type_of_Visit__c + '<br/>';
+            String content =    '<div>'                                                                 +
+                                    'Visit Details<br/>'                                                +
+                                    'Date:       ' + String.valueOf(visit.Date_of_Visit__c) + '<br/>'   +
+                                    'Trainer:    ' + visit.Name_of_Trainer__c + '<br/>'                 +
+                                    'Visit Type: ' + visit.Type_of_Visit__c + '<br/>';
             
             marker.addName(content);
             marker.markerTitle = name;
@@ -295,7 +296,7 @@ public class IGDashboardHelpers {
                             'Community_Based_Trainer_Field_Visit__c '   +
                         'WHERE '                                        +
                             'Survey__r.Id = \'' + survey.Id + '\' ';
-        query += String.isNotEmpty(region)? ' AND District__r.Region__c = \'' + region + '\' ': '';
+        query += String.isNotEmpty(region)? ' AND Subregion__c = \'' + region + '\' ': '';
         query += String.isNotEmpty(district)? ' AND District__r.Name = \'' + district + '\' ': '';
         query += String.isNotEmpty(district)? ' AND Subcounty__r.Display_Name__c = \'' + subcounty + '\' ': '';
         query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? ' AND (Date_of_Visit__c >= ' + dateFrom + ' AND Date_of_Visit__c <= ' +dateTo + ') ': '';
