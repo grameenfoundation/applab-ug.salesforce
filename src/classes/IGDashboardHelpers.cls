@@ -13,43 +13,18 @@ public class IGDashboardHelpers {
     public static final String IG_PERSON_TYPE_NAME = 'IG/NUSAF';
     
     /*
-    * Returns a query that fetches all regions in uganda
-    * Districts lie under these regions
-    *
-    public static string getRegions(String country){
-        return 'SELECT '                    +
-                    'Country__r.Name, '     +
-                    'Display_Name__c '      +
-                'FROM '                     +
-                    'Region__c '            +
-                'WHERE '                    +
-                    'Country__r.Name = \'' + country + '\'';
-    }
-    */
-    /*
     * returns a query that fetches all subcounties from a given organisation
     *
     * @param	organisation the org whose subcounties to return
     * @return query string
     */
     public static String getSubcounties(String organisation){
-        String inclause =
-                ' AND '                                                         +
-                    'District__c IN ('                                          +
-                        'SELECT '                                               +
-                            'District__c '                                      +
-                        'FROM '                                                 +
-                            'Organisation_District_Association__c '             +
-                        'WHERE '                                                +
-                            'Organisation__r.Name = \'' + organisation + '\''   +
-                    ') ';
         return 'SELECT Id, '                    +
                     'Display_Name__c, '         +
                     'District__c '              +
                 'FROM Subcounty__c '            +
                 'WHERE District__c != NULL '    +
                     'AND  District__c != \'\' ' +
-                    inclause                    +
                 'ORDER BY Display_Name__c ';
     }
     

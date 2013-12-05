@@ -84,7 +84,7 @@ public class IGDashboardController {
     */
     public List<SelectOption> getDistrictList() {
         List<SelectOption> options = new List<SelectOption>();
-        District__c[] districts = database.query(SoqlHelpers.getDistricts(orgName));
+        District__c[] districts = database.query(SoqlHelpers.getDistricts(''));
         options.add(new SelectOption('','-- In All Districts --'));
         for (District__c district : districts) {
                options.add(new SelectOption(district.Name, district.Name));
