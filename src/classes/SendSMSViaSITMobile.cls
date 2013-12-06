@@ -79,6 +79,9 @@ public with sharing class SendSMSViaSITMobile implements SendViaSMSGateway {
         String sb = '';
         boolean first = true;
         for (SendSMSHelpers.Recipient recipient : message.recipients.values()) {
+        	if(!recipient.optedIn)
+        		continue;
+        		
             if (first) {
                 first = false;
             } else {

@@ -29,7 +29,8 @@ public class SendSMSHelpers {
                     Person__r.Middle_Name__c,
                     Person__r.First_Name__c,
                     Person__r.Country__r.ISO_Standard_Code__c,
-                    Person__r.Mobile_Number__c
+                    Person__r.Mobile_Number__c,
+                    Person__r.Contact__r.DoNotCall
                 FROM
                     Person_Group_Association__c
                 WHERE
@@ -52,6 +53,7 @@ public class SendSMSHelpers {
                             pga.Person__r.Last_Name__c,
                             pga.Person__r.Mobile_Number__c,
                             pga.Person__r.Country__r.ISO_Standard_Code__c,
+                            pga.Person__r.Contact__r.DoNotCall,
                             null
                         )
                     );
@@ -65,6 +67,7 @@ public class SendSMSHelpers {
                             pga.Person__r.Last_Name__c,
                             pga.Person__r.Mobile_Number__c,
                             pga.Person__r.Country__r.ISO_Standard_Code__c,
+                            pga.Person__r.Contact__r.DoNotCall,
                             null
                         )
                     });
@@ -137,7 +140,8 @@ public class SendSMSHelpers {
                     Middle_Name__c,
                     Last_Name__c,
                     Mobile_Number__c,
-                    Country__r.ISO_Standard_Code__c
+                    Country__r.ISO_Standard_Code__c,
+                    Contact__r.DoNotCall
                 FROM
                     Person__c
                 WHERE
@@ -153,6 +157,7 @@ public class SendSMSHelpers {
                     person.Last_Name__c,
                     person.Mobile_Number__c,
                     person.Country__r.ISO_Standard_Code__c,
+                    person.Contact__r.DoNotCall,
                     null
                 );
                 if (sendViaSms) {
@@ -326,6 +331,7 @@ public class SendSMSHelpers {
             String lastName,
             String mobileNumber,
             String countryCode,
+            Boolean optedIn,
             Scheduled_Message_Queue__c message
     ) {
 
@@ -349,6 +355,7 @@ public class SendSMSHelpers {
             mobileNumber,
             countryDialingCode,
             personId,
+            optedIn,
             message
        );
     }
@@ -365,6 +372,7 @@ public class SendSMSHelpers {
         public Integer countryDialingCode;
         public String personId;
         public Map<String, Scheduled_Message_Queue__c> messages;
+        public Boolean optedIn;
 
         public Recipient(
                 String countryCode,
@@ -374,6 +382,7 @@ public class SendSMSHelpers {
                 String phoneNumber,
                 Decimal countryDialingCode,
                 String personId,
+                Boolean optedIn,
                 Scheduled_Message_Queue__c message
         ) {
             this.countryCode = countryCode;
@@ -384,6 +393,7 @@ public class SendSMSHelpers {
             this.phoneNumber = phoneNumber;
             this.countryDialingCode = countryDialingCode.intValue();
             this.personId = personId;
+            this.optedIn = optedIn;
             this.messages = new Map<String, Scheduled_Message_Queue__c>();
             if (message != null) {
                 this.messages.put(EncodingUtil.base64Encode(Crypto.generateDigest('MD5', Blob.valueOf(message.Message__c))), message);
