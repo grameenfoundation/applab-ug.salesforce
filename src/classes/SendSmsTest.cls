@@ -138,7 +138,7 @@ public class SendSmsTest {
         addCountrySetting('JJ', 'SendSMSViaYellowPepper', 256, 'JJ');
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', true, null
             )
         };
         messages = new List<Message>{
@@ -168,7 +168,7 @@ public class SendSmsTest {
         addCountrySetting('JJ', 'SendSMSViaYellowPepper', 256, 'JJ');
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ',true, null
             )
         };
         messages = new List<Message>{
@@ -187,10 +187,10 @@ public class SendSmsTest {
         addCountrySetting('JJ', 'SendSMSViaYellowPepper', 256, 'JJ');
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', true, null
             ),
             SendSMSHelpers.generateRecipient(
-                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ',true, null
             )
         };
         messages = new List<Message>{
@@ -248,10 +248,10 @@ public class SendSmsTest {
 
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                p1.id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                p1.id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', true, null
             ),
             SendSMSHelpers.generateRecipient(
-                p2.id, 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+                p2.id, 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', true, null
             )
         };
         List<Message> message = new List<Message>{
@@ -276,10 +276,10 @@ public class SendSmsTest {
 
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                p1.id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                p1.id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', true, null
             ),
             SendSMSHelpers.generateRecipient(
-                p2.id, 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+                p2.id, 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', true, null
             )
         };
         messages = new List<Message>{
@@ -313,10 +313,10 @@ public class SendSmsTest {
 
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', true, null
             ),
             SendSMSHelpers.generateRecipient(
-                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ',true,null
             )
         };
         messages = new List<Message>{
@@ -369,10 +369,10 @@ public class SendSmsTest {
 
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', true,null
             ),
             SendSMSHelpers.generateRecipient(
-                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', true, null
             )
         };
         messages = new List<Message>{
@@ -398,10 +398,10 @@ public class SendSmsTest {
 
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient>{
             SendSMSHelpers.generateRecipient(
-                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null
+                'id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', true,null
             ),
             SendSMSHelpers.generateRecipient(
-                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', null
+                'id2', 'firstName2', 'middleName2', 'lastName2', '987654321', 'JJ', true,null
             )
         };
         messages = new List<Message>{

@@ -117,6 +117,7 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
                         message.Person__r.Last_Name__c,
                         message.Person__r.Mobile_Number__c,
                         message.Person__r.Country__r.ISO_Standard_Code__c,
+                        message.Person__r.Contact__r.DoNotCall,
                         message
                     );
                     recipientMap.put(message.Person__c, recipient);
