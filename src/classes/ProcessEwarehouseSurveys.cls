@@ -567,6 +567,40 @@ public with sharing class ProcessEwarehouseSurveys {
             return new String[]{'0', 'Farmer does not exist in our system' , 'SUPPRESSMSG'};    
         }
         Farmer__c farmer = farmers[0];
+        
+        //Extra ewarehouse validations..
+        //JIRA Task https://applab.atlassian.net/browse/EW-1
+        //Added December 2013
+        //@ John L
+        //Check if harvest registration exists in the last 6 months for this farmer
+        Harvest__c[] harvestRegistrations = [Select Id, Crop__c, Date_Harvested__c, Quantity_Harvested__c from Harvest__c
+                                                        Where Farmer__c =:farmer.Id and Date_Harvested__c>=LAST_N_DAYS:180];
+                                                                                           
+		 if (harvestRegistrations.isEmpty()) {
+		 	
+            return new String[]{'0', 'No Harvest Registrations Found For this Farmer in the past 6 Months, Sale Registration can not continue' , 'SUPPRESSMSG'};    
+        }
+                                                               
+        //Also for each sale crop check if grain amounts in sales do exceed the harvest amounts
+        for (String answer : answers.keySet()) {
+            if (answer.startsWith('q5')) {
+                String instance = answer.substring(3);
+                String crop = ProcessSubmissionHelpers.getAnswerString(answers.get(answer));
+                
+                for (Harvest__c harvestRegistration : harvestRegistrations) {
+                		String harvestCrop = harvestRegistration.Crop__c;
+                		Decimal saleCropAmount  = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q6_' + instance), 'q6', 0.0);
+                		
+                		if(harvestCrop.equalsIgnoreCase(crop) && saleCropAmount>harvestRegistration.Quantity_Harvested__c) {
+                			//Sale amount can not exceed harvest amount
+                			return new String[]{'0', 'Sale Quantity '+saleCropAmount+' can not exceed Harvest Quantity '+harvestRegistration.Quantity_Harvested__c+' For Crop '+crop , 'SUPPRESSMSG'};
+                		}
+            		}
+
+            }
+        }
+        
+		
 
         // Check whether the bank ref number already exists, if true, then update 
         // the currently existing harvest
