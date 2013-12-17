@@ -23,11 +23,27 @@ public with sharing class ProcessNUSAFSurveys {
     */    
     public static List<String> registerNusafActivityVisit(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c interviewer) {
         
-        String trainersName = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0')).trim();
-        System.debug(Logginglevel.INFO, 'Registering a visit by ' + trainersName);
-        Date dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')));
-        String trainingTime = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')).trim();
-        String subRegionSelectedNumber = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
+        Survey__c survey = Utils.loadSurvey(submission.surveyId);
+        String activity = '';
+        String subRegionSelectedNumber = '';
+        Date dateOfVisit = null;
+        String trainingTime = '';
+        String trainersName = '';
+        if(survey.Name.containsIgnoreCase('SACM')) {
+            trainersName = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0')).trim();
+            System.debug(Logginglevel.INFO, 'Registering a visit by ' + trainersName);
+            dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')));
+            trainingTime = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')).trim();
+            subRegionSelectedNumber = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
+        }
+        else if(survey.Name.containsIgnoreCase('enroll')) {
+            trainersName = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')).trim();
+            System.debug(Logginglevel.INFO, 'Registering an enrollment by ' + trainersName);
+            dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0')));
+            trainingTime = ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0')).trim();
+            subRegionSelectedNumber = ProcessSubmissionHelpers.getAnswerString(answers.get('q11_0'));
+            activity = 'Enrollment';
+        }
         
         String districtName = '';        
         //based on the answered sub-region, we get the district's answer
@@ -268,7 +284,7 @@ public with sharing class ProcessNUSAFSurveys {
         visit.Interview_Latitude__c = submission.interviewLatitude;
         visit.Interview_Longitude__c = submission.interviewLongitude;
         
-        Survey__c survey = [SELECT Name FROM Survey__c WHERE Id = :submission.surveyId];
+        //Survey__c survey = Utils.loadSurvey(submission.surveyId);
         visit.Type_of_Visit__c = survey.Survey_Name__c;
         visit.Name_of_Trainer__c = trainersName;
         visit.Survey__c = survey.Id;
