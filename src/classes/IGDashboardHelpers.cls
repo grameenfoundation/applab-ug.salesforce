@@ -12,6 +12,19 @@ public class IGDashboardHelpers {
     public static final String IG_CBT_VISITS_POSTPROCESSING_METHOD = 'IG_CBT_VISITS';
     public static final String IG_PERSON_TYPE_NAME = 'IG/NUSAF';
     
+    public static String getDistricts(String orgName) {
+        String selectClause =
+            'SELECT '           +
+                'Name, '        +
+                'Latitude__c, ' +
+                'Longitude__c ' +
+            'FROM '             +
+                'District__c '  +
+            'ORDER BY '         +
+                'Name';
+        return selectClause;
+    }
+    
     /*
     * returns a query that fetches all subcounties from a given organisation
     *
@@ -43,7 +56,10 @@ public class IGDashboardHelpers {
                 'FROM '                     +
                     'Person__c '            +
                 'WHERE '                    +
-                    'Type__c = \'' + IG_PERSON_TYPE_NAME + '\'';
+                    'Type__c = \'' + IG_PERSON_TYPE_NAME + '\' '    +
+                'ORDER BY '                 +
+                    'First_Name__c, Last_Name__c';
+                    
     }
     
     /*
@@ -290,7 +306,7 @@ public class IGDashboardHelpers {
                                         'Survey__r.Id = \'' + survey.Id + '\' '                     +
                                         'AND Person__r.Id = \'' + result.get('Id') + '\' ';
             List<AggregateResult> targetResult = database.query(targets_query);
-            metric = new IGDashboardHelpers.Data(survey.Survey_Name__c, result.get('First_Name__c') + ' ' + result.get('Last_Name__c'), (Decimal)result.get('realValue'), (Decimal)targetResult[0].get('expr0'), URL.getSalesforceBaseUrl().toExternalForm() + '/' + survey.id);
+            metric = new IGDashboardHelpers.Data(survey.Survey_Name__c, result.get('First_Name__c') + ' ' + result.get('Last_Name__c'), (Decimal)result.get('realValue'), (Decimal)targetResult[0].get('expr0') == null? 0:(Decimal)targetResult[0].get('expr0'), URL.getSalesforceBaseUrl().toExternalForm() + '/' + survey.id);
             metrics.add(metric);
         }
         return metrics;

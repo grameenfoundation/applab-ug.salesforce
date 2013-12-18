@@ -68,6 +68,7 @@ public class IGDashboardController {
     public List<SelectOption> getSubregionsList(){
         List<SelectOption> options = new List<SelectOption>();
         String[] subregions = ProcessNUSAFSurveys.northernUgandaSubregions.values();
+        subregions.sort();
         options.add(new SelectOption('','-- In All Sub-Regions --'));
         for (String a_region : subregions) {
            options.add(new SelectOption(a_region, a_region));
@@ -84,7 +85,7 @@ public class IGDashboardController {
     */
     public List<SelectOption> getDistrictList() {
         List<SelectOption> options = new List<SelectOption>();
-        District__c[] districts = database.query(SoqlHelpers.getDistricts(''));
+        District__c[] districts = database.query(IGDashboardHelpers.getDistricts(''));
         options.add(new SelectOption('','-- In All Districts --'));
         for (District__c district : districts) {
                options.add(new SelectOption(district.Name, district.Name));
@@ -103,7 +104,6 @@ public class IGDashboardController {
         List<SelectOption> options = new List<SelectOption>();
         Subcounty__c[] subcounties = database.query(IGDashboardHelpers.getSubcounties(orgName));
         options.add(new SelectOption('','-- In All Subcounties --'));
-        subcounties.sort();
         for (Subcounty__c subcounty : subcounties) {
            options.add(new SelectOption(subcounty.Display_Name__c, subcounty.Display_Name__c));
         } 
