@@ -103,6 +103,7 @@ public class IGDashboardController {
         List<SelectOption> options = new List<SelectOption>();
         Subcounty__c[] subcounties = database.query(IGDashboardHelpers.getSubcounties(orgName));
         options.add(new SelectOption('','-- In All Subcounties --'));
+        subcounties.sort();
         for (Subcounty__c subcounty : subcounties) {
            options.add(new SelectOption(subcounty.Display_Name__c, subcounty.Display_Name__c));
         } 

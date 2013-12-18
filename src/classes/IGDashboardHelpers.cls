@@ -90,6 +90,7 @@ public class IGDashboardHelpers {
                                     'Survey__r.Post_Processing_Method__c = \'' + IG_CBT_VISITS_POSTPROCESSING_METHOD + '\' ';
         targets_query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? 
                                     ' AND (Survey__r.Start_Date__c <= ' + dateFrom + ' AND Survey__r.End_Date__c >= ' + dateTo + ')': '';
+        targets_query += cbt != null? ' AND Person__r.Id = \'' + cbt + '\' ': '';
         
         List<AggregateResult> result1 = database.query(targets_query);
         metric.setCurrentTarget((Decimal)result1[0].get('expr0'));
@@ -147,9 +148,9 @@ public class IGDashboardHelpers {
             if (!String.isNotEmpty(visit.Interview_Latitude__c) || !String.isNotEmpty(visit.Interview_Longitude__c)) {
                 continue;
             }
-          	String name = String.valueOf(visit.Date_of_Visit__c);
+            String name = String.valueOf(visit.Date_of_Visit__c);
           
-          	MetricMapWrapper marker = null;
+            MetricMapWrapper marker = null;
             marker = new MetricMapWrapper('CBTFieldVisit', 'FFD801', visit.Id, true);
             marker.gpsLatitude = visit.Interview_Latitude__c;
             marker.gpsLongitude = visit.Interview_Longitude__c;

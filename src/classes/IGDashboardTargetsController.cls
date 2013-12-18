@@ -116,12 +116,31 @@ public class IGDashboardTargetsController {
                 }
                 else{
                     //for one CBT
-                    Community_Based_Trainer_Target__c updateTarget = currentTargets[0];
-                    updateTarget.Target_Value__c = target.Target_Value__c;
-                    update updateTarget;
-                    this.saved = true;
+                    Community_Based_Trainer_Target__c updateTarget = getTarget(currentTargets, trainer.Id);
+                    if(updateTarget == null){
+                        updateTarget = new Community_Based_Trainer_Target__c();
+                        updateTarget.Person__c = trainer.Id;
+                        updateTarget.Survey__c = target.Survey__c;
+                        updateTarget.Target_Value__c = target.Target_Value__c;
+                        insert updateTarget;
+                        this.saved = true;
+                    }
+                    else{
+                        updateTarget.Target_Value__c = target.Target_Value__c;
+                        update updateTarget;
+                        this.saved = true;                        
+                    }
                 }
             }
         }
+    }
+    
+    private Community_Based_Trainer_Target__c getTarget(Community_Based_Trainer_Target__c[] targets, Id trainer){
+        for(Community_Based_Trainer_Target__c t : targets){
+            if(t.Person__c == trainer){
+                return t;
+            }
+        }
+        return null;
     }
 }

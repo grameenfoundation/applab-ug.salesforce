@@ -102,13 +102,13 @@
             </apex:pageBlockSection>
             <apex:pageBlockSection columns="1">
                 <apex:pageBlockSectionItem >
-                    <strong>CBT Field Visits</strong><br />
+                    <strong>CTs Field Visits</strong><br />
                     <a href="javascript:openMap('IG', 'CKW');">Enlarge Map</a>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
         </apex:pageBlock>
         
-        <apex:pageBlock title="CBT Field Visit Details" id="metrics">
+        <apex:pageBlock title="CTs Field Visit Details" id="metrics">
             <br/>
             <apex:pageBlockTable value="{!metricsData}" var="item">
                 <apex:column headerValue="Indicator" width="400px">
@@ -129,7 +129,7 @@
             </apex:pageBlockTable>
         </apex:pageBlock>
          
-        <apex:pageBlock title="CBT Targets" id="targets">
+        <apex:pageBlock title="CTs Targets" id="targets">
 			<apex:repeat value="{!barChartData}" var="chartData">
 				<apex:pageBlock title="Submissions for {!chartData[0].name}" id="submissions">
 					<apex:chart height="400" width="900" data="{!chartData}">
