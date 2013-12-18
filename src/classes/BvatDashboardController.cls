@@ -15,9 +15,9 @@ public with sharing class BvatDashboardController extends ParentComponentBase {
 
     public override void rebuildParameters() {
 
-        if (this.getParentMap() != null && this.getParentMap().get('DashboardSelectora14S0000001CZW6IAO') != null) {
-            this.getParentMap().get('DashboardSelectora14S0000001CZW6IAO').rebuildParameters();
-            this.setParameters(this.getParentMap().get('DashboardSelectora14S0000001CZW6IAO').getParameters());
+        if (this.getParentMap() != null && this.getParentMap().get('DashboardSelectora1470000001U00QAAS') != null) {
+            this.getParentMap().get('DashboardSelectora1470000001U00QAAS').rebuildParameters();
+            this.setParameters(this.getParentMap().get('DashboardSelectora1470000001U00QAAS').getParameters());
         }
     }
  
