@@ -17,8 +17,8 @@ public with sharing class Message {
             String body,
             Id senderId,
             String senderName,
-            DateTime expirationTime,
             DateTime sentTime,
+	    DateTime expirationTime,
             String medium
     ) {
 
