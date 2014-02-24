@@ -213,6 +213,9 @@ public with sharing class FHISurveysHelpers {
     
      /**
      *  Process the household registration survey submission and create the metrics for the data validators
+     *  This method processes surveys of the naming "CCHH Register North final" and "CCHH Register South final",
+     *  "CCHH Register Northfinal2" and "CCHH Register Southfinal2"
+     *  For newer surveys (with names "HH_register*"), a different method is dedicated to that and called as required
      *
      *  @param submission - The submission object being processed
      *  @param answers    - A map containing the values for the registration
@@ -244,7 +247,7 @@ public with sharing class FHISurveysHelpers {
         //ProcessSubmissionHelpers.createSubmissionMetaData(submission, submitter);
 
         // Dig out the values that are to be added to the metrics
-        String registrationDate = answers.get('q1_0').Answer__c;
+        String registrationDate = answers.get('q2_0').Answer__c;
         System.debug('Registration date: ' + registrationDate);
         
         String districtValue = answers.get('q3_0').Answer__c;
