@@ -277,6 +277,8 @@ public with sharing class FHISurveysHelpers {
         
         Integer numberFemaleHouseHeads = isNorth ? ProcessSubmissionHelpers.getCount(ProcessSubmissionHelpers.getSingleSelectAnswersByMatchingBindings('q50_', answers), '2') : ProcessSubmissionHelpers.getCount(ProcessSubmissionHelpers.getSingleSelectAnswersByMatchingBindings('q37_', answers), '2');
         System.debug('Number female househeads: ' + numberFemaleHouseHeads);
+
+        boolean isHouseHeadFemale = isNorth ? isThereAfemaleHouseHead(answers, 'q33_', 'q37_') : isThereAfemaleHouseHead(answers, 'q46_', 'q50_');
         
         boolean haveCcFruitTrees = getValue('q86_0', 'q73_0',answers, isNorth);
         System.debug('Has CC Fruit Tree: ' + haveCcFruitTrees);
@@ -357,8 +359,8 @@ public with sharing class FHISurveysHelpers {
                 totalNewData.Denumerator__c += selectionIndexVSLA.equals('1') ? 1 : 0;
             }
             else if (key.equals('FHI_HH_percentage_female_headed_households')) {
-                 totalNewData.Denumerator__c += numberOfHouseholdMemebers;
-                 totalNewData.Numerator__c += numberFemaleHouseHeads; 
+                 totalNewData.Denumerator__c += isConsentGiven ? 1 : 0;
+                 totalNewData.Numerator__c += isHouseHeadFemale ? 1 : 0;
             }
             else if (key.equals('FHI_HH_percentage_households_with_cc_fruit_trees_x')) {
                  totalNewData.Denumerator__c += isConsentGiven ? 1 : 0;
@@ -688,6 +690,25 @@ public with sharing class FHISurveysHelpers {
         }
         return new String[] { '1', 'All metric data updated for FHI Dashboard  with IMEI: ' + submission.imei, 'SUPRESSMSG' }; 
     }    
+
+    /**
+     * Loops through all the members whilst checking to see if there exists a household head whos is female
+     *
+     * @param answers - a map containing all answers in the submission
+     * @param houseHeadBinding - binding for the question whose answer determines whether the member is a house head
+     * @param houseHeadSexBinding - binding for the question whose answer determines the sex of the member
+     */
+    private static boolean isThereAfemaleHouseHead(Map<String, Submission_Answer__c> answers, String houseHeadBinding, String houseHeadSexBinding){
+        Integer counter = 0;
+        while(answers.containsKey(houseHeadBinding + counter)){
+            if(answers.get(houseHeadBinding + counter).Answer__c.equals('1') && answers.get(houseHeadSexBinding + counter).Answer__c.equals('2')){
+                return true;
+            }
+            counter++;
+        }
+        return false;
+    }
+
 
     private static boolean getValue(String northBinding, String southBinding, Map<String, Submission_Answer__c> answers, boolean isNorth) {
         try {
