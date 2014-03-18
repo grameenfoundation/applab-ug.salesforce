@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the organization services information for a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -51,10 +51,31 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>ReaseonVisitNotUseful__c</fullName>
+        <externalId>false</externalId>
+        <label>ReaseonVisitNotUseful</label>
+        <picklist>
+            <picklistValues>
+                <fullName>El objetivo de la visita no fue claro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Al técnco le faltaban conocimientos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fue muy rápida y poco útil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>anualTecnicoVisits__c</fullName>
         <externalId>false</externalId>
         <label>anualTecnicoVisits</label>
-        <precision>2</precision>
+        <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
@@ -127,6 +148,23 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>contractsToSell_BuyCoffee__c</fullName>
+        <externalId>false</externalId>
+        <label>contractsToSell&amp;BuyCoffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>creditServiceImprovements__c</fullName>
         <externalId>false</externalId>
         <label>creditServiceImprovements</label>
@@ -183,8 +221,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>gatheringServiceImprovements__c</fullName>
@@ -239,6 +276,23 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Pésimo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mechanismsComplaints__c</fullName>
+        <externalId>false</externalId>
+        <label>mechanismsComplaints</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -605,13 +659,13 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <label>CBL_Service</label>
     <nameField>
+        <displayFormat>SV-{0000000}</displayFormat>
         <label>CBL_Service Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_Services</pluralLabel>
     <searchLayouts/>

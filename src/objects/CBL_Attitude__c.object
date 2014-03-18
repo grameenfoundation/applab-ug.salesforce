@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents the farmer attitude information for a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -231,7 +231,7 @@
             <sorted>false</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <visibleLines>7</visibleLines>
     </fields>
     <fields>
         <fullName>happyToBeFarmer__c</fullName>
@@ -339,15 +339,6 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>possibleImprovementPerc__c</fullName>
-        <externalId>false</externalId>
-        <label>possibleImprovementPerc</label>
-        <precision>3</precision>
-        <required>false</required>
-        <scale>0</scale>
-        <type>Percent</type>
-    </fields>
-    <fields>
         <fullName>productivityImprovmntLimitations__c</fullName>
         <externalId>false</externalId>
         <label>productivityImprovmntLimitations</label>
@@ -400,31 +391,6 @@
             </picklistValues>
             <picklistValues>
                 <fullName>La productividad ha disminuido</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>satisfiedToBeCoffeeProducer__c</fullName>
-        <externalId>false</externalId>
-        <label>satisfiedToBeCoffeeProducer</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Muy contento y satisfecho</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Contento y satisfecho</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Prefiero tener otra actividad agrícola</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Preferiría tener un empleo no agrícola</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -520,8 +486,9 @@
     </fields>
     <label>CBL_Attitude</label>
     <nameField>
+        <displayFormat>AT-{0000000}</displayFormat>
         <label>CBL_Attitude Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_Attitudes</pluralLabel>
     <searchLayouts/>

@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the commercialization information for a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -49,6 +49,27 @@
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>bargainingPower__c</fullName>
+        <externalId>false</externalId>
+        <label>bargainingPower</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Bajo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alto</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>buysCoffee__c</fullName>
@@ -105,6 +126,32 @@
         <scale>0</scale>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>enoughInformation__c</fullName>
+        <externalId>false</externalId>
+        <label>enoughInformation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Precios del café</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Formación del precio del café</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tendencia del mercado de café</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fuentes de información sobre el mercado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>farmsNotRegisteredInCoop__c</fullName>
@@ -254,8 +301,9 @@
     </fields>
     <label>CBL_Commercialization</label>
     <nameField>
+        <displayFormat>CM-{0000000}</displayFormat>
         <label>CBL_Commercialization Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_Commercializations</pluralLabel>
     <searchLayouts/>

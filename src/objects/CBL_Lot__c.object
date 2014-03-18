@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the information for a farm lot on a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -40,15 +40,28 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Farm__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Farm</label>
         <referenceTo>CBL_Farm__c</referenceTo>
         <relationshipLabel>CBL_Lots</relationshipLabel>
         <relationshipName>CBL_Lots</relationshipName>
-        <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lot_area_Ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( lotAreaUnits__c ) = &quot;Cuadras&quot;, lotArea__c *1.5625, 
+IF(text( lotAreaUnits__c ) = &quot;Manzanas&quot;, lotArea__c *0.6988, 
+IF(text( lotAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, lotArea__c *22.89, 
+IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotArea__c ))))</formula>
+        <label>Lot area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>lotAreaUnits__c</fullName>
@@ -256,7 +269,7 @@
         <fullName>lotName__c</fullName>
         <externalId>false</externalId>
         <label>lotName</label>
-        <length>40</length>
+        <length>20</length>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
@@ -265,7 +278,7 @@
         <fullName>lotNumberOfPlants__c</fullName>
         <externalId>false</externalId>
         <label>lotNumberOfPlants</label>
-        <precision>4</precision>
+        <precision>6</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
@@ -280,10 +293,11 @@
     </fields>
     <label>CBL_Lot</label>
     <nameField>
+        <displayFormat>LT-{0000000}</displayFormat>
         <label>CBL_Lot Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_Lots</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
+    <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

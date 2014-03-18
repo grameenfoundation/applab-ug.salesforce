@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
@@ -48,6 +48,39 @@
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Latitude_wetmill__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
+        <label>Latitude_wetmill</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longitude_wetmill__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <label>Longitude_wetmill</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL_WetMills</relationshipLabel>
+        <relationshipName>CBL_WetMills</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>baseUsedForStorage__c</fullName>
@@ -121,7 +154,7 @@
         <fullName>cleanWaterRestingTime__c</fullName>
         <externalId>false</externalId>
         <label>cleanWaterRestingTime</label>
-        <precision>4</precision>
+        <precision>12</precision>
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
@@ -184,7 +217,8 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>coffeeHarvestedMore6Hours__c</fullName>
@@ -446,8 +480,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fermentationTanksStatus__c</fullName>
@@ -670,6 +703,23 @@
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ownsWetMill__c</fullName>
+        <externalId>false</externalId>
+        <label>ownsWetMill</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>patioAndMecanicDryerStatus__c</fullName>
@@ -1224,6 +1274,23 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>wetMillAlreadyRegistered__c</fullName>
+        <externalId>false</externalId>
+        <label>wetMillAlreadyRegistered</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>wetMillCode__c</fullName>
         <externalId>false</externalId>
         <label>wetMillCode</label>
@@ -1231,6 +1298,33 @@
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wetMillCountry__c</fullName>
+        <externalId>false</externalId>
+        <label>wetMillCountry</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wetMillDepartment__c</fullName>
+        <externalId>false</externalId>
+        <label>wetMillDepartment</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wetMillDistrict__c</fullName>
+        <externalId>false</externalId>
+        <label>wetMillDistrict</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -1257,8 +1351,9 @@
     </fields>
     <label>CBL_WetMill</label>
     <nameField>
+        <displayFormat>WM-{0000000}</displayFormat>
         <label>CBL_WetMill Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_WetMills</pluralLabel>
     <searchLayouts/>

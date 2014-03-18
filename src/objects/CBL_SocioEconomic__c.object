@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents the socio economic information for a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -88,92 +88,6 @@
         <scale>0</scale>
         <type>Number</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>agriculturalActivities__c</fullName>
-        <externalId>false</externalId>
-        <label>agriculturalActivities</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Caballos, mulas, burros</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Toros, vacas, terneros</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Cerdos, ovejas, cabras, alpacas</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Aves, conejos, cuyes</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Apicultura</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Piscicultura</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Cacao</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Cardamomo</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banano/plátano</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Aguacate/palta</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Hortalizas</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Citricos</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Granos básicos</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Caña de azúcar</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Pimienta</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Leña, madera, subproductos del bosque</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Pastos y forrajes</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Otros</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Ninguna de las anteriores</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>bananaPlantainAreaUnits__c</fullName>
@@ -330,6 +244,23 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>childrenStudying__c</fullName>
+        <externalId>false</externalId>
+        <label>childrenStudying</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí, TODOS están asistiendo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No TODOS están asistiendo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>citrusAreaUnits__c</fullName>
         <externalId>false</externalId>
         <label>citrusAreaUnits</label>
@@ -467,7 +398,7 @@
         <fullName>daysOfWageAgriculture__c</fullName>
         <externalId>false</externalId>
         <label>daysOfWageAgriculture</label>
-        <precision>3</precision>
+        <precision>7</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
@@ -488,8 +419,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>debtPaymentSituation__c</fullName>
@@ -506,8 +436,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>debtsFinancingSource__c</fullName>
@@ -691,7 +620,7 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Ocupante de hecho o poseedor</fullName>
+                <fullName>Ocupante</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -839,40 +768,105 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>naturalGas__c</fullName>
-        <externalId>false</externalId>
-        <label>naturalGas</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Si</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>numberOfBedrooms__c</fullName>
         <externalId>false</externalId>
         <label>numberOfBedrooms</label>
-        <precision>2</precision>
+        <precision>9</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>otherAgriculturalActivities__c</fullName>
+        <fullName>otherActivities__c</fullName>
         <externalId>false</externalId>
-        <label>otherAgriculturalActivities</label>
+        <label>otherActivities</label>
         <length>100</length>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>otherAgriculturalActivities__c</fullName>
+        <externalId>false</externalId>
+        <label>otherAgriculturalActivities</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Caballos, mulas, burros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Toros, vacas, terneros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cerdos, ovejas, cabras, alpacas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aves, conejos, cuyes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apicultura</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Piscicultura</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cacao</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cardamomo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banano/plátano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aguacate/palta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hortalizas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frutales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granos básicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Caña de azúcar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leña, madera, subproductos del bosque</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pastos y forrajes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguna de las anteriores</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>pepperAreaUnits__c</fullName>
@@ -935,7 +929,7 @@
         <fullName>personsInHousehold__c</fullName>
         <externalId>false</externalId>
         <label>personsInHousehold</label>
-        <precision>2</precision>
+        <precision>15</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
@@ -1038,7 +1032,8 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>10</visibleLines>
     </fields>
     <fields>
         <fullName>schoolingYears__c</fullName>
@@ -1106,6 +1101,35 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>sourceOfEnergyCook__c</fullName>
+        <externalId>false</externalId>
+        <label>sourceOfEnergyCook</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Gas en cilindro, pipeta o de red</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Energía eléctrica</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leña, madera, carbón</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Petróleo, gasolina, kerosene o alcohol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros materiales o deshechos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>sugarCainAreaUnits__c</fullName>
         <externalId>false</externalId>
         <label>sugarCainAreaUnits</label>
@@ -1161,22 +1185,9 @@
                 <fullName>Fogon de leña mejorado/ahorrador</fullName>
                 <default>false</default>
             </picklistValues>
-            <picklistValues>
-                <fullName>Estufa de gas</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Estufa eléctrica</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Ninguno</fullName>
-                <default>false</default>
-            </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>vegetablesAreaUnits__c</fullName>
@@ -1203,7 +1214,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -1243,6 +1254,56 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>whoDoesntStudy__c</fullName>
+        <externalId>false</externalId>
+        <label>whoDoesntStudy</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Los varones y las mujeres no asisten</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solo los varones no asisten</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solo las mujeres no asisten</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quienes deberían cursar bachillerato no</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>whoRecievesIncomeAndDecides__c</fullName>
+        <externalId>false</externalId>
+        <label>whoRecievesIncomeAndDecides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hombre recibe ingresos y toma decisiones</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mujer recibe ingresos y toma decisiones</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hombre: ingresos y Mujer: decisiones</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mujer: ingresos y hombre: decisiones</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>woodStoveLocation__c</fullName>
         <externalId>false</externalId>
         <label>woodStoveLocation</label>
@@ -1261,8 +1322,9 @@
     </fields>
     <label>CBL_SocioEconomic</label>
     <nameField>
+        <displayFormat>SE-{0000000}</displayFormat>
         <label>CBL_SocioEconomic Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_SocioEconomic</pluralLabel>
     <searchLayouts/>

@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents the Seedbed information for a Coffee Basline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -49,6 +49,56 @@
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Latitude_seedbed__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
+        <label>Latitude_seedbed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longitude_seedbed__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <label>Longitude_seedbed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MgmtPlanPestsDiseas__c</fullName>
+        <externalId>false</externalId>
+        <label>MgmtPlanPestsDiseas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL_Seedbed</relationshipLabel>
+        <relationshipName>CBL_Seedbed</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>adecquatePlantsSelection__c</fullName>
@@ -575,7 +625,7 @@
         <label>fertilizationPlan</label>
         <picklist>
             <picklistValues>
-                <fullName>Si</fullName>
+                <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -760,6 +810,27 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>seedbedUsage__c</fullName>
+        <externalId>false</externalId>
+        <label>seedbedUsage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sembrar en sus parcelas/fincas/chacras</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vender a otros productores</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Todas las anteriores</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>thisYearBoughtMadeSeedbed__c</fullName>
         <externalId>false</externalId>
         <label>thisYearBoughtMadeSeedbed</label>
@@ -782,12 +853,14 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <label>CBL_Seedbed</label>
     <nameField>
+        <displayFormat>SB-{0000000}</displayFormat>
         <label>CBL_Seedbed Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_Seedbed</pluralLabel>
     <searchLayouts/>

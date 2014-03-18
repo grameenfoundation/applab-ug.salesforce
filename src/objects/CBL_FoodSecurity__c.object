@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the food security information for a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -49,6 +49,66 @@
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>FS_Chronic_score__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(text(howOftenWorried__c)=&quot;Muy rara vez&quot;,0,if(text(worriedBuyingFood__c)=&quot;Sí&quot;,1,0))
++if(text( howOfterNotEnoughFood__c )=&quot;Muy rara vez&quot;,0,if(text(notEnoughFoodLackMoney__c)=&quot;Sí&quot;,1,0))
++if(text( howOftenAteTheSame__c )=&quot;Muy rara vez&quot;,0,if(text(ateTheSameLackMoney__c)=&quot;Sí&quot;,1,0))
++if(text( howOftenLessFood__c )=&quot;Muy rara vez&quot;,0,if(text(lessFoodLackMoney__c)=&quot;Sí&quot;,1,0))
++if(text( howOftenSkippedMeals__c )=&quot;Muy rara vez&quot;,0,if(text(skippedMealsLackMoney__c)=&quot;Sí&quot;,1,0))
++if(text( howOftenAteLessFood__c )=&quot;Muy rara vez&quot;,0,if(text(thinkAteLessFood__c)=&quot;Sí&quot;,1,0))
++if(text( howOftenHungryDidntAte__c )=&quot;Muy rara vez&quot;,0,if(text(hungryDidnEatLackMoney__c)=&quot;Sí&quot;,1,0))
++if(text(lostWeightLackMoney__c)=&quot;Sí&quot;,1,0)
++if(text( howOftenStoppedEating__c )=&quot;Muy rara vez&quot;,0,if(text(stoppedEatingLackMoney__c)=&quot;Sí&quot;,1,0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FS - Chronic score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FS_Prevalence_score__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(text(worriedBuyingFood__c)=&quot;Sí&quot;,1,0)
++if(text(notEnoughFoodLackMoney__c)=&quot;Sí&quot;,1,0)
++if(text(ateTheSameLackMoney__c)=&quot;Sí&quot;,1,0)
++if(text(lessFoodLackMoney__c)=&quot;Sí&quot;,1,0)
++if(text(skippedMealsLackMoney__c)=&quot;Sí&quot;,1,0)
++if(text(thinkAteLessFood__c)=&quot;Sí&quot;,1,0)
++if(text(hungryDidnEatLackMoney__c)=&quot;Sí&quot;,1,0)
++if(text(lostWeightLackMoney__c)=&quot;Sí&quot;,1,0)
++if(text(stoppedEatingLackMoney__c)=&quot;Sí&quot;,1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FS - Prevalence score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Food_security_status_chronic__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(  FS_Chronic_score__c  &lt; 3, &quot;Food-secure&quot;, if (FS_Chronic_score__c &lt;6,&quot;Moderately food-insecure&quot;, &quot;Severely food-insecure&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Food security status (chronic)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Food_security_status_prevalence__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( FS_Prevalence_score__c &lt; 3, &quot;Food-secure&quot;, if (FS_Prevalence_score__c&lt;6,&quot;Moderately food-insecure&quot;, &quot;Severely food-insecure&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Food security status (prevalence)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>ateTheSameLackMoney__c</fullName>
@@ -373,8 +433,9 @@
     </fields>
     <label>CBL_FoodSecurity</label>
     <nameField>
+        <displayFormat>FS-{0000000}</displayFormat>
         <label>CBL_FoodSecurity Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_FoodSecurities</pluralLabel>
     <searchLayouts/>

@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the farm information for a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -46,9 +46,139 @@
         <relationshipLabel>CBL_Farms</relationshipLabel>
         <relationshipName>CBL_Farms</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Coffee_planted_area_Ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( coffeePlantedAreaUnits__c ) = &quot;Cuadras&quot;, coffeePlantedArea__c *1.5625, 
+IF(text( coffeePlantedAreaUnits__c ) = &quot;Manzanas&quot;, coffeePlantedArea__c *0.6988, 
+IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *22.89, 
+IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *8.94,  coffeePlantedArea__c ))))</formula>
+        <label>Coffee planted area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Forest_Area_Ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( unitForestArea__c ) = &quot;Cuadras&quot;, forestArea__c *1.5625, 
+IF(text( unitForestArea__c ) = &quot;Manzanas&quot;, forestArea__c *0.6988, 
+IF(text( unitForestArea__c ) = &quot;Cuerdas (25x25)&quot;, forestArea__c *22.89, 
+IF(text( unitForestArea__c ) = &quot;Cuerdas (40x40)&quot;, forestArea__c *8.94,forestArea__c))))</formula>
+        <label>Forest Area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latitude_farm__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <label>Latitude_farm</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longitude_farm__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <label>Longitude_farm</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_planted_area_ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( newPlantedAreaUnits__c ) = &quot;Cuadras&quot;,  newPlantedArea__c  *1.5625, 
+IF(text( newPlantedAreaUnits__c ) = &quot;Manzanas&quot;, newPlantedArea__c *0.6988, 
+IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, newPlantedArea__c *22.89, 
+IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c *8.94, newPlantedArea__c ))))</formula>
+        <label>New planted area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_agricultural_activities_area_Ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( otherActivitiesAreaUnits__c ) = &quot;Cuadras&quot;, otherActivitiesArea__c *1.5625, 
+IF(text( otherActivitiesAreaUnits__c ) = &quot;Manzanas&quot;, otherActivitiesArea__c *0.6988, 
+IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, otherActivitiesArea__c *22.89, 
+IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, otherActivitiesArea__c *8.94, otherActivitiesArea__c ))))</formula>
+        <label>Other agricultural activities area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Production_last_year_Kg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( prodLastHarvestUnits__c ) = &quot;Quintales&quot;, productionLastHarvest__c *45.3592,
+IF(text( prodLastHarvestUnits__c ) = &quot;Arrobas&quot;, productionLastHarvest__c *11.5,  
+IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c *0.453597024, productionLastHarvest__c )))</formula>
+        <label>Production last year (Kg)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pruned_area_Ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( pruneAreaLastYearUnits__c ) = &quot;Cuadras&quot;, pruneAreaLastyear__c *1.5625, 
+IF(text( pruneAreaLastYearUnits__c ) = &quot;Manzanas&quot;, pruneAreaLastyear__c *0.6988, 
+IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (25x25)&quot;, pruneAreaLastyear__c *22.89, 
+IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (40x40)&quot;, pruneAreaLastyear__c *8.94, pruneAreaLastyear__c ))))</formula>
+        <label>Pruned area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Renewed_area_ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( areaRenewedCoffeeUnits__c ) = &quot;Cuadras&quot;, areaRenewedCoffee__c *1.5625, 
+IF(text( areaRenewedCoffeeUnits__c ) = &quot;Manzanas&quot;, areaRenewedCoffee__c *0.6988, 
+IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (25x25)&quot;, areaRenewedCoffee__c *22.89, 
+IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCoffee__c *8.94, areaRenewedCoffee__c ))))</formula>
+        <label>Renewed area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL_Farms</relationshipLabel>
+        <relationshipName>CBL_Farms</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>agrochemElimin100MtsAwayWater__c</fullName>
@@ -77,23 +207,15 @@
         <label>agrochemOriginalContainerProperUse</label>
         <picklist>
             <picklistValues>
-                <fullName>Embases orginales bien identificados</fullName>
+                <fullName>Cumple</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Respeta dósis y frecuencia</fullName>
+                <fullName>Cumple parcialmente</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Respeta períodos de reingreso</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Respeta los períódos de la cosecha</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple con ninguno</fullName>
+                <fullName>No cumple</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -140,7 +262,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -153,6 +275,23 @@
         <scale>2</scale>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>biologicalDiversityContrib__c</fullName>
+        <externalId>false</externalId>
+        <label>biologicalDiversityContrib</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>chemicalFertilizersUseLastYr__c</fullName>
@@ -247,7 +386,8 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>coffeCuttingPolicy__c</fullName>
@@ -300,10 +440,35 @@
                 <fullName>Vende en cereza/uva/fruta</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>coffeeInvoicesRegistered__c</fullName>
+        <externalId>false</externalId>
+        <label>coffeeInvoicesRegistered</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí, con toda la información requerida</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí, pero NO con toda la información</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cuenta con registro facturas/recibos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No aplica</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>coffeePlantedAreaUnits__c</fullName>
@@ -546,6 +711,27 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>discrimination__c</fullName>
+        <externalId>false</externalId>
+        <label>discrimination</label>
+        <picklist>
+            <picklistValues>
+                <fullName>De acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medianamente de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>En desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>diseaseControlAgrochemicals__c</fullName>
         <externalId>false</externalId>
         <label>diseaseControlAgrochemicals</label>
@@ -736,11 +922,15 @@
         <label>entranceProhibited48Hours</label>
         <picklist>
             <picklistValues>
-                <fullName>Sí</fullName>
+                <fullName>Cumple</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>No</fullName>
+                <fullName>Cumple parcialmente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -752,9 +942,9 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>erosionZoneRisk__c</fullName>
+        <fullName>erosionRiskLevel__c</fullName>
         <externalId>false</externalId>
-        <label>erosionZoneRisk</label>
+        <label>erosionRiskLevel</label>
         <picklist>
             <picklistValues>
                 <fullName>Riesgo muy alto de erosión</fullName>
@@ -777,6 +967,15 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>erosionRiskPercentage_porcentajeRiesgoEr__c</fullName>
+        <externalId>false</externalId>
+        <label>erosionRiskPercentage	porcentajeRiesgoEr</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
         <fullName>erosionZonesIdentified__c</fullName>
         <externalId>false</externalId>
         <label>erosionZonesIdentified</label>
@@ -787,10 +986,6 @@
             </picklistValues>
             <picklistValues>
                 <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No aplica</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -873,6 +1068,33 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>farmCountry__c</fullName>
+        <externalId>false</externalId>
+        <label>farmCountry</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>farmDepartment__c</fullName>
+        <externalId>false</externalId>
+        <label>farmDepartment</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>farmDistrict__c</fullName>
+        <externalId>false</externalId>
+        <label>farmDistrict</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>farmLocation__c</fullName>
         <externalId>false</externalId>
         <label>farmLocation</label>
@@ -881,7 +1103,7 @@
                 <fullName>dpto</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -895,15 +1117,19 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Plan de Fertilización</fullName>
+                <fullName>Plan y registro de Fertilización</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Plan de Podas de café</fullName>
+                <fullName>Plan y registro de Podas de café</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Plan Renovación de cafetales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plan de conservación de suelos</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -931,11 +1157,11 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Registro ventas (facturas o recibos)</fullName>
+                <fullName>Registro ventas</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Registro compras (facturas o recibos)</fullName>
+                <fullName>Registro compras</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -977,6 +1203,15 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>farmMunicipality__c</fullName>
+        <externalId>false</externalId>
+        <label>farmMunicipality</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>farmName__c</fullName>
         <externalId>false</externalId>
         <label>farmName</label>
@@ -991,7 +1226,7 @@
         <label>farmOwnership</label>
         <picklist>
             <picklistValues>
-                <fullName>Con escritura</fullName>
+                <fullName>Propia con escritura</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -1043,6 +1278,21 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>farm_Area_Ha__c</fullName>
+        <description>Converts all the farm sizes to Hectares, by using farm area and the chosen unit</description>
+        <externalId>false</externalId>
+        <formula>IF(text(totalFarmAreaUnits__c) = &quot;Cuadras&quot;, totalFarmArea__c*1.5625,
+   IF(text(totalFarmAreaUnits__c) = &quot;Manzanas&quot;,totalFarmArea__c*0.6988,
+      IF(text(totalFarmAreaUnits__c)=&quot;Cuerdas (25x25)&quot;,totalFarmArea__c*22.89,
+        IF(text(totalFarmAreaUnits__c)=&quot;Cuerdas (40x40)&quot;,totalFarmArea__c*8.94,totalFarmArea__c))))</formula>
+        <label>Farm area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>fertAcordingSoilAnalysis__c</fullName>
         <externalId>false</externalId>
         <label>fertAcordingSoilAnalysis</label>
@@ -1061,8 +1311,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fertilizerApplicationsLastYr__c</fullName>
@@ -1119,6 +1368,10 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Lixiviados de lombricompost</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Foliares en base a químicos</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -1179,6 +1432,56 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>forcedLabor__c</fullName>
+        <externalId>false</externalId>
+        <label>forcedLabor</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hay trabajo forzado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No hay trabajo forzado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hay prácticas de retención</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No hay prácticas de retención</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hay empleados ilegales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No hay empleados ilegales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Se les retiene su identificación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No se les retiene su identificación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pagan un depósito para poder trabajar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No pagan depósitos para poder trabajar</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -1253,6 +1556,10 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Roya</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otras</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -1428,7 +1735,7 @@
                 <fullName>Uso de injerto sobre patrón robusta</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
@@ -1456,7 +1763,8 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>lastSoilSampling__c</fullName>
@@ -1501,16 +1809,6 @@
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>majorNonConformancePic__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(  ISBLANK(nonConformancePicId__c ) ||  ISNULL(nonConformancePicId__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; nonConformancePicId__c ,&quot;Non Conformance Pic&quot;, 153, 143))</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>majorNonConformancePic</label>
-        <required>false</required>
-        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -1578,16 +1876,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>minimumDailyWage__c</fullName>
-        <externalId>false</externalId>
-        <label>minimumDailyWage</label>
-        <precision>8</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>newPlantedAreaUnits__c</fullName>
         <externalId>false</externalId>
         <label>newPlantedAreaUnits</label>
@@ -1612,7 +1900,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -1620,18 +1908,24 @@
         <fullName>newPlantedArea__c</fullName>
         <externalId>false</externalId>
         <label>newPlantedArea</label>
-        <precision>6</precision>
+        <precision>12</precision>
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>nonConformancePicId__c</fullName>
+        <fullName>nonConformancePicURL__c</fullName>
         <externalId>false</externalId>
-        <inlineHelpText>Id for the pic related to the major non conformance</inlineHelpText>
-        <label>nonConformancePicId</label>
-        <length>255</length>
+        <label>nonConformancePicURL</label>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>nonConformancePic__c</fullName>
+        <externalId>false</externalId>
+        <formula>IMAGE( nonConformancePicURL__c , &quot;&quot;)</formula>
+        <label>nonConformancePic</label>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
@@ -1640,7 +1934,7 @@
         <fullName>numberOfShadeSpecies__c</fullName>
         <externalId>false</externalId>
         <label>numberOfShadeSpecies</label>
-        <precision>2</precision>
+        <precision>10</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
@@ -1681,7 +1975,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -1746,41 +2040,16 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>organicStatus__c</fullName>
+        <fullName>organicFertilizersLastYr__c</fullName>
         <externalId>false</externalId>
-        <label>organicStatus</label>
-        <picklist>
-            <picklistValues>
-                <fullName>T1</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>T2</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>T3</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Certificado</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>organizFertilizersLastYr__c</fullName>
-        <externalId>false</externalId>
-        <label>organizFertilizersLastYr</label>
+        <label>organicFertilizersLastYr</label>
         <picklist>
             <picklistValues>
                 <fullName>No aplica fertilizantes orgánicos</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Compost</fullName>
+                <fullName>Compost (de deshechos animal o vegetal)</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -1789,6 +2058,10 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Bocashi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deshechos animal/vegetal sin compostear</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -1821,6 +2094,45 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>organicStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>organicStatus</label>
+        <picklist>
+            <picklistValues>
+                <fullName>T1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Certificado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>organic_fertilized_area_ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(text( organicFertAreaThisYrUnits__c ) = &quot;Cuadras&quot;,  organicFertAreaThisYr__c *1.5625, 
+IF(text( organicFertAreaThisYrUnits__c ) = &quot;Manzanas&quot;, organicFertAreaThisYr__c *0.6988, 
+IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *22.89, 
+IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *8.94, organicFertAreaThisYr__c ))))</formula>
+        <label>Organic fertilized area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>otherActivitiesAreaUnits__c</fullName>
         <externalId>false</externalId>
         <label>otherActivitiesAreaUnits</label>
@@ -1845,7 +2157,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -1857,6 +2169,15 @@
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>otherChemicalFertilizers__c</fullName>
+        <externalId>false</externalId>
+        <label>otherChemicalFertilizers</label>
+        <length>220</length>
+        <required>false</required>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -2022,6 +2343,37 @@
         <type>Percent</type>
     </fields>
     <fields>
+        <fullName>permWorkersMinimumMonthWage__c</fullName>
+        <externalId>false</externalId>
+        <label>permWorkersMinimumMonthWage</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>physicalOralSexualAbuse__c</fullName>
+        <externalId>false</externalId>
+        <label>physicalOralSexualAbuse</label>
+        <picklist>
+            <picklistValues>
+                <fullName>De acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medianamente de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>En desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>plagueControlAgroChemicals__c</fullName>
         <externalId>false</externalId>
         <label>plagueControlAgroChemicals</label>
@@ -2139,7 +2491,7 @@
                 <fullName>Quintales</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2246,7 +2598,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2294,7 +2646,7 @@
                 <fullName>Recepa por surco</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
@@ -2378,21 +2730,17 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>signatureId__c</fullName>
-        <description>Id for he signature pic</description>
+        <fullName>signatureURL__c</fullName>
         <externalId>false</externalId>
-        <label>signatureId</label>
-        <length>255</length>
+        <label>signatureURL</label>
         <required>false</required>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Url</type>
     </fields>
     <fields>
-        <fullName>Signature__c</fullName>
+        <fullName>signature__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(  ISBLANK(signatureId__c ) ||  ISNULL(signatureId__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; signatureId__c ,&quot;Signature&quot;, 153, 143))</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>signature</label>
+        <formula>IMAGE( signatureURL__c , &quot;&quot;, 200, 400)</formula>
+        <label>Signature</label>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
@@ -2422,7 +2770,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2431,6 +2779,62 @@
         <externalId>false</externalId>
         <label>soilConservationArea</label>
         <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>soilConservationPractices__c</fullName>
+        <externalId>false</externalId>
+        <label>soilConservationPractices</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Curvas a nivel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terrazas individuales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terrazas de banco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Barreras vivas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Barreras físicas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Acequias</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cultivos de cobertura de suelo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulch (colchon de materia orgánica)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No realiza ninguna de esas prácticas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>tempWorkersMinimumDailyWage__c</fullName>
+        <externalId>false</externalId>
+        <label>tempWorkersMinimumDailyWage</label>
+        <precision>8</precision>
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
@@ -2461,7 +2865,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2509,7 +2913,7 @@
                 <fullName>Pergamino seco</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2527,6 +2931,10 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>No sobrepasan las horas de trabajo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Ponen en riesgo salud y crecimiento</fullName>
                 <default>false</default>
             </picklistValues>
@@ -2534,10 +2942,35 @@
                 <fullName>No ponen en riego salud y crecimiento</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Ninguna de las anteriores se cumplen</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>underagePregnantProtected__c</fullName>
+        <externalId>false</externalId>
+        <label>underagePregnantProtected</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí se cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Se cumple parcialmente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No se cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>unitForestArea__c</fullName>
@@ -2564,7 +2997,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2608,6 +3041,27 @@
             </picklistValues>
             <picklistValues>
                 <fullName>No utiliza especies leguminosas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wasteDisposedSafeWay__c</fullName>
+        <externalId>false</externalId>
+        <label>wasteDisposedSafeWay</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Se cumple parcialmente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No se cumple</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -2736,10 +3190,45 @@
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
+    <fields>
+        <fullName>workersPaidRegularly__c</fullName>
+        <externalId>false</externalId>
+        <label>workersPaidRegularly</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cumple parcialmente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No aplica, no usa agroquímicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
     <label>CBL_Farm</label>
+    <listViews>
+        <fullName>CBL_Farms</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>farmName__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>CBL Farms</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
+        <displayFormat>FM-{0000000}</displayFormat>
         <label>CBL_Farm Id</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_Farms</pluralLabel>
     <searchLayouts/>
