@@ -34,9 +34,7 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <content>LacFarmerDetails</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
+        <type>Default</type>
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Custom fields for LAC farmers</description>
@@ -215,6 +213,26 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>CKW__c</fullName>
+        <externalId>false</externalId>
+        <formula>submision__r.gfsurveys__Surveyor__r.FirstName + &apos; &apos; +  submision__r.gfsurveys__Surveyor__r.LastName</formula>
+        <label>CKW</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cell_Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Cell Phone Number</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Certificado__c</fullName>
         <externalId>false</externalId>
         <label>Certificado</label>
@@ -369,7 +387,7 @@
         <relationshipLabel>LAC Farmer Details</relationshipLabel>
         <relationshipName>LAC_Farmer_Details</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
@@ -693,6 +711,16 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Farmer_Picture__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.Picture__c</formula>
+        <label>Picture</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Fertilizacion__c</fullName>
         <externalId>false</externalId>
         <label>Fertilizacion</label>
@@ -752,6 +780,17 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>First_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Food_Security_Crops__c</fullName>
@@ -943,7 +982,7 @@ Deprecated. Moved to Household</description>
     <fields>
         <fullName>Image__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
+        <formula>IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;Profile Picture&quot;, 300, 300))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Image</label>
         <required>false</required>
@@ -1028,6 +1067,41 @@ Deprecated. Moved to Household</description>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>submision__r.gfsurveys__gps_y__c</formula>
+        <label>Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>submision__r.gfsurveys__gps_x__c</formula>
+        <label>Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Made_seedbed_in_the_last_year__c</fullName>
         <externalId>false</externalId>
         <label>Made seedbed in the last year</label>
@@ -1052,6 +1126,26 @@ Deprecated. Moved to Household</description>
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Map_Image__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( Map_Link__c )),IMAGE(Map_Link__c , &quot;&quot;, 300, 300),&quot;&quot;)</formula>
+        <label>Location</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Map_Link__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( NOT( ISNULL( Latitude__c )), &quot;http://maps.googleapis.com/maps/api/staticmap?center=&quot; &amp; TEXT( Latitude__c ) &amp; &quot;,&quot; &amp; TEXT(  Longitude__c  ) &amp; &quot;&amp;zoom=12&amp;size=300x300&amp;sensor=true&amp;markers=color:red%7Clabel:A%7C&quot;&amp; TEXT(Latitude__c) &amp; &quot;,&quot; &amp; TEXT( Longitude__c ), &quot;&quot;)</formula>
+        <label>Map Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Marginalized_Type__c</fullName>
@@ -1824,6 +1918,18 @@ Deprecated. Moved to HH</description>
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>submision__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>LAC Farmer Details</relationshipLabel>
+        <relationshipName>LAC_Farmer_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
     </fields>
     <label>LAC Farmer Details</label>
     <listViews>

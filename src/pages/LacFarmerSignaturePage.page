@@ -1,0 +1,12 @@
+<apex:page standardController="LAC_Farmer_Details__c" sidebar="false" showHeader="false" extensions="LacFarmerProfilePageController" language="{!PageLanguage}">
+    <apex:form >
+    <apex:pageBlock mode="maindetail">
+    
+    <apex:pageBlockSection showHeader="false">
+    <apex:outputText value="{!$Label.NO_SIGNATURE_AVAILABLE}" rendered="{!ISNULL(SignatureFarm.signature__c)}"/>
+    <apex:outputField value="{!SignatureFarm.signature__c}" rendered="{!ShowSignaturePage}" />
+    </apex:pageBlockSection>
+    
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

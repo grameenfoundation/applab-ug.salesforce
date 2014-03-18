@@ -2388,7 +2388,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>signature__c</fullName>
+        <fullName>Signature__c</fullName>
         <externalId>false</externalId>
         <formula>IF(  ISBLANK(signatureId__c ) ||  ISNULL(signatureId__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; signatureId__c ,&quot;Signature&quot;, 153, 143))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

@@ -342,7 +342,7 @@
     <fields>
         <fullName>Picture__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 153, 153))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
+        <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 300, 300))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 300, 300))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Picture</label>
         <required>false</required>

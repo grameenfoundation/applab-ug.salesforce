@@ -32,7 +32,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <description>This object represents a Coffee Basline, t groups all the information related to a baseline</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
@@ -40,21 +40,76 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Farmer__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Farmer</label>
         <referenceTo>LAC_Farmer_Details__c</referenceTo>
         <relationshipLabel>CBL_CoffeeBaselines</relationshipLabel>
         <relationshipName>CBL_CoffeeBaselines</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Productivity__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Coffee_Planted_Area__c/Total_Production_Last_Year__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Productivity</label>
+        <precision>18</precision>
         <required>false</required>
-        <type>Lookup</type>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Coffee_Planted_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Coffee Planted Area</label>
+        <summarizedField>CBL_Farm__c.Coffee_planted_area_Ha__c</summarizedField>
+        <summaryForeignKey>CBL_Farm__c.Baseline__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Farm_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Farm Area</label>
+        <summarizedField>CBL_Farm__c.totalFarmArea__c</summarizedField>
+        <summaryForeignKey>CBL_Farm__c.Baseline__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Production_Last_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Production Last Year</label>
+        <summarizedField>CBL_Farm__c.Production_last_year_Kg__c</summarizedField>
+        <summaryForeignKey>CBL_Farm__c.Baseline__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>baselineName__c</fullName>
+        <externalId>false</externalId>
+        <label>baselineName</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <label>CBL_CoffeeBaseline</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
-        <label>CBL_CoffeeBaseline Date</label>
-        <type>Text</type>
+        <displayFormat>BL-{00000000}</displayFormat>
+        <label>CBL_CoffeeBaselineId</label>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CBL_CoffeeBaselines</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>
