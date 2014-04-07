@@ -10,9 +10,10 @@
  **/
 global class VisualKeywordsController {
 
-    //we are using recursion - meaning we have to keep querying as we descend down the 
-    //tree, this will hit governor limits hence the control variable "limit"
-    private static Integer limit_val = 0;
+    //there is only so much you can display on a VF page. we are going to set a limit of
+    //MAX_TREE_DEPTH nodes to plot. we expect not to reach this before hitting governor limits
+    private static Integer MAX_TREE_DEPTH = 200;
+    private static List<Cluster> clusters_parent_with_children = new List<Cluster>();
     public String selectedTopMenu { get; set; }
     
     public VisualKeywordsController() {
@@ -26,38 +27,104 @@ global class VisualKeywordsController {
     @remoteAction
     global static List<MenuItem> getKeywords(String menuId, String menuLabel){
         String json_string = '';
+        //top menu and its children (forms the first cluster)
         MenuItem topItem = new MenuItem(menuLabel, null);
         List<Menu_Item__c> topMenuChildren = [SELECT Id, Label__c, Menu__c FROM Menu_Item__c WHERE Is_Active__c = true AND Parent_Item__c = null AND Menu__r.Id = :menuId];
-        limit_val++;
-        for(Menu_Item__c item : topMenuChildren){
-            topItem.addChild(getChildItems(item));
-        } 
-        return new List<MenuItem> { topItem };
+         
+        clusters_parent_with_children.add(new Cluster(topItem, wrapMenuItems(topMenuChildren), menuId));
+        buildClusters();
+        return new List<MenuItem>{ buildNodes(clusters_parent_with_children.get(0)) };
+    }
+    
+    /**
+    * Takes one cluster and recursively builds more clusters from child nodes
+    * @param  Cluster   the top cluster
+    * @return MenuItem  a top level node with all its child nodes inside it
+    */
+    private static MenuItem buildNodes(Cluster cluster){
+        if(cluster == null) {
+            return null;
+        }
+        MenuItem node = cluster.node;
+        if(cluster.children != null){
+            for(MenuItem child : cluster.children){
+                node.addChild(buildNodes(getCluster(child)));
+            }
+        }
+        if(node.children != null && node.children.size() == 0){
+            node.setChildren(null);
+        }
+        return node;
     }
 
     /**
-     * Recursively returns all child menu items of a given menu item following the parent-child
-     * relationships.
-     * During recursion, a new wrapper (MenuItem) is created for each menu item (node).
-     * @return MenuItem a wrapper for the passed menu item
-     */
-    public static MenuItem getChildItems(Menu_Item__c currentLevel){
-        MenuItem currentItemWrapper = new MenuItem(currentLevel.Label__c, null);
-        List<Menu_Item__c> currentLevelChildren = [SELECT Id, Label__c, Menu__c FROM Menu_Item__c WHERE Is_Active__c = true AND Parent_Item__c = :currentLevel.Id];
-        limit_val++;
-        for(Menu_Item__c item : currentLevelChildren){
-            if(limit_val == 80) {
-                System.debug(LoggingLevel.WARN, 'Building Tree is stopping ascent due to the tree being too long');
-                break;
-            } else {
-                currentItemWrapper.addChild(getChildItems(item));
+    * All the clusters we keep building are kept in a list. This method
+    * helps search a retrieve a given cluster based on its parent node
+    * @param  MenuItem  a node whose cluster we are looking up
+    * @return Cluster   a cluster found in our pile of all clusters
+    */
+    private static Cluster getCluster(MenuItem parent){
+        Cluster item = null;
+        for(Cluster c : clusters_parent_with_children){
+            if(c.id == parent.id){
+                item = c;
             }
         }
-        currentLevelChildren.clear();
-        if(currentItemWrapper.getChildrenCount() == 0) {
-            currentItemWrapper.setChildren(null);
+        return item;
+    }
+
+    /**
+    * We only start with the top level cluster (i.e menu and its children)
+    * this method reads the n-children in this cluster and creates n more 
+    * clusters, adding them to the same general collection of clusters.
+    * The process is repeated for the newly created clusters' children
+    */
+    private static void buildClusters(){
+        Boolean stop = false;
+        for(Integer i = 0; i < MAX_TREE_DEPTH; i++) {
+            System.debug(LoggingLevel.INFO, 'processing cluster number ' + i + ' of ' + clusters_parent_with_children.size());
+            if(clusters_parent_with_children.size() > i){
+                Cluster cluster = clusters_parent_with_children.get(i);
+                if(cluster.children != null){
+                    for(MenuItem child : cluster.children){
+                        if(Limits.getQueries() < Limits.getLimitQueries()) {
+                            List<Menu_Item__c> childsChildren = [SELECT Id, Label__c, Menu__c FROM Menu_Item__c WHERE Is_Active__c = true AND Parent_Item__c = :child.id];
+                            clusters_parent_with_children.add(new Cluster(child, wrapMenuItems(childsChildren), child.id));
+                        } else {
+                            System.debug(LoggingLevel.WARN, i + ' breaking, clusters too many');
+                            stop = true;
+                            break;
+                        }
+                    }
+                } else {
+                    System.debug(LoggingLevel.INFO, i + ' there were no children in cluster');
+                }
+                if(stop){
+                    break;
+                }
+            } else {
+                System.debug(LoggingLevel.WARN, i + ' no more clusters to process');
+                stop = true;
+                break;
+            }
         }
-        return currentItemWrapper;  
+    }
+    
+    /**
+    * wraps items of SObjects into MenuItem wrappers which is what the VF page
+    * requires for visualization
+    * @param  List of menu items SObjects
+    * @return List of MenuItems
+    */
+    private static List<MenuItem> wrapMenuItems(List<Menu_Item__c> menuItems){
+        List<MenuItem> items = new List<MenuItem>();
+        for(Menu_Item__c m : menuItems){
+            items.add(new MenuItem(m.Label__c, null, String.valueOf(m.Id)));
+        }
+        if(menuItems.size() == 0){
+            return null;
+        }
+        return items;
     }
 
     /**
@@ -75,7 +142,7 @@ global class VisualKeywordsController {
     
     //set query limit - we will use this in tests only
     public void setLimit(Integer val){
-        limit_val = val;
+        MAX_TREE_DEPTH = val;
     }
 
     /**
@@ -86,6 +153,7 @@ global class VisualKeywordsController {
     global class MenuItem {
         private String name;
         private List<MenuItem> children;
+        public String id { get; set; }
         
         public MenuItem(){
             this.children = new List<MenuItem>();
@@ -93,6 +161,12 @@ global class VisualKeywordsController {
 
         public MenuItem(String name, List<MenuItem> children){
             this.name = name;
+            this.children = children == null ? new List<MenuItem>() : children;
+        }
+
+        public MenuItem(String name, List<MenuItem> children, String id){
+            this.name = name;
+            this.id = id;
             this.children = children == null ? new List<MenuItem>() : children;
         }
         
@@ -107,5 +181,21 @@ global class VisualKeywordsController {
         public void setChildren(List<MenuItem> children){
             this.children = children;
         }
-    }       
+    }   
+
+    /**
+     * a wrapper class for a cluster:
+     * a cluster is a group consisting of a parent node and all its children
+     * this should help us pass the nodes around 
+     */
+    global class Cluster {
+        public Cluster(MenuItem parent, List<MenuItem> children, String id){
+            this.node = parent;
+            this.children = children;
+            this.id = id;
+        }
+        public MenuItem node { get; set; }
+        public List<MenuItem> children { get; set; }
+        public String id { get; set; }
+    }    
 }
