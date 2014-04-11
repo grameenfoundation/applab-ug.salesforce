@@ -1525,6 +1525,27 @@ public with sharing class MetricHelpers {
         return endDate;
     }
 
+    /**
+     * sends email to tech there there happens to be errors in the scheduled job or
+     * the job's status is not 'Completed'
+     * 
+     * @param jobResult object containing execution status details
+     * @param subject   subject for the email  
+     */
+    public static void sendMetricsCalculationEmailNotification(AsyncApexJob jobResult, String subject) {
+            Integer totalJobItems = jobResult.TotalJobItems;
+            Integer numberOfErrors = jobResult.NumberOfErrors;
+            if(!jobResult.Status.equals('Completed') || numberOfErrors > 0){
+                String[] toAddress = new String[]{};
+                toAddress.add(EmailHelpers.getTechEmailAddress());                
+                String message = 'Status = ' + jobResult.Status + ' \n';
+                message += 'NumberOfErrors = ' + numberOfErrors + ' \n\n';
+                message += 'Description = ' + jobResult.ExtendedStatus + ' \n';
+                Messaging.SingleEmailMessage[] mail = new Messaging.SingleEmailMessage[] { EmailHelpers.createEmail(toAddress, subject, message) };
+                EmailHelpers.sendEmails(mail);
+            }
+    }
+
     // END OF METHODS USED BY NEW COMPONENT DASHBOARD
 
     static testMethod void testGetSMS() {
@@ -1618,7 +1639,7 @@ public with sharing class MetricHelpers {
         MetricHelpers.calculateAverageMetric('TEST_THIS_CODE');
 
         // Check the date manipulations
-        Date testDate1 = date.newInstance(2013, 2, 1);
+        Date testDate1 = date.newInstance(Datetime.now().year(), 2, 1);
         Integer firstQuarter = getQuarter(testDate1);
         String firstQuarterStartMonth = getQuarterStartMonth(firstQuarter);
         String firstQuarterEndMonth = getQuarterEndMonth(firstQuarter);
@@ -1656,7 +1677,7 @@ public with sharing class MetricHelpers {
         Date quarterIntStringLast = getQuarterLastDay(quarterString);
         Date quarterDateStringFirst = getQuarterFirstDay(quarterDateString);
         Date quarterDateStringLast = getQuarterLastDay(quarterDateString);
-        System.AssertEquals(quarterString,'Jan - Mar 2013');
+        System.AssertEquals(quarterString,'Jan - Mar ' + Datetime.now().year());
         System.assertEquals(quarterString, quarterDateString);
         System.assertEquals(quarterIntStringFirst, quarterDateStringFirst);
         System.assertEquals(quarterIntStringLast, quarterDateStringLast);

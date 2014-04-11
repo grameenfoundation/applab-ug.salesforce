@@ -110,74 +110,135 @@ global class CKWMetrics implements Database.Batchable<sObject>, Database.Statefu
 
     global void finish(Database.BatchableContext BC) {
 
-        if (ckwMetricValues.get('total_ckws') == 0.0) {
-            return;
-        }
+        try {
+            if (ckwMetricValues.get('total_ckws') == 0.0) {
+                return;
+            }
 
-        // List of cumulative metrics that require us to look at last quarter to get the results
-        List<String> previousMetricsRequired = new List<String>();
-        previousMetricsRequired.add('total_interactions_surveys');
-        previousMetricsRequired.add('total_interactions_searches');           
+            // List of cumulative metrics that require us to look at last quarter to get the results
+            List<String> previousMetricsRequired = new List<String>();
+            previousMetricsRequired.add('total_interactions_surveys');
+            previousMetricsRequired.add('total_interactions_searches');           
 
-        // List of the metric names that are used to calculate the total info services
-        List<String> totalMetrics = new List<String>();
-        totalMetrics.add('total_interactions_surveys');
-        totalMetrics.add('total_interactions_searches');
-        totalMetrics.add('total_complete_interactions_ussd_searches');
-        totalMetrics.add('total_complete_interactions_call_center');
-        totalMetrics.add('total_interactions_channels');
-        
-        // Lists to store the metric data for the DML actions
-        List<M_E_Metric_Data__c> updateMetrics = new List<M_E_Metric_Data__c>();
-        List<M_E_Metric_Data__c> newMetrics = new List<M_E_Metric_Data__c>();
+            // List of the metric names that are used to calculate the total info services
+            List<String> totalMetrics = new List<String>();
+            totalMetrics.add('total_interactions_surveys');
+            totalMetrics.add('total_interactions_searches');
+            totalMetrics.add('total_complete_interactions_ussd_searches');
+            totalMetrics.add('total_complete_interactions_call_center');
+            totalMetrics.add('total_interactions_channels');
+            
+            // Lists to store the metric data for the DML actions
+            List<M_E_Metric_Data__c> updateMetrics = new List<M_E_Metric_Data__c>();
+            List<M_E_Metric_Data__c> newMetrics = new List<M_E_Metric_Data__c>();
 
-        // If required update the previous quarter
-        if (updateLastQuarter) {
+            // If required update the previous quarter
+            if (updateLastQuarter) {
+
+                // Get the SMS interactions
+                ckwPreviousMetricValues.put('total_interactions_channels', MetricHelpers.getSmsInteractions(ckwPreviousQuarterStartDate, ckwPreviousQuarterEndDate));
+
+                // Calculate the remaining metrics
+                // Convert to a %
+                ckwPreviousMetricValues.put('percent_ckws_high_performance', (ckwPreviousMetricValues.get('percent_ckws_high_performance')/ckwPreviousMetricValues.get('total_ckws'))*100);
+                ckwPreviousMetricValues.put('percent_poor_ckws', ckwPreviousMetricValues.get('percent_poor_ckws')/ckwPreviousMetricValues.get('total_ckws'));
+                ckwPreviousMetricValues.put('percent_woman_ckws', (ckwPreviousMetricValues.get('percent_woman_ckws')/ckwPreviousMetricValues.get('total_ckws'))*100);
+
+                // Get the baseline numbers from the previous quarter if required.
+                Map<String, Decimal> previous2Totals = MetricHelpers.getMetricValues(previousMetricsRequired, ckwPrevious2QuarterStartDate, ckwPrevious2QuarterEndDate);
+                ckwPreviousMetricValues.put('total_info_services_offered', MetricHelpers.calculateTotal(totalMetrics, ckwPreviousMetricValues, previous2Totals, ckwPreviousQuarterStartDate, ckwPreviousQuarterEndDate));
+
+                // Check that we have the M_E_Metric_Data__c object created already
+                M_E_Metric_Data__c[] previousMetrics = MetricHelpers.getMetricDatas(ckwMetricsList, ckwPreviousQuarterStartDate, ckwPreviousQuarterEndDate, null);
+
+                // Generate the metrics that need to be updated
+                Map<String, M_E_Metric_Data__c> updatePreviousMetricMap = MetricHelpers.generateUpdateMetricMap(previousMetrics, ckwPreviousMetricValues, previous2Totals);
+
+                // Generate any new metric if required
+                Map<String, M_E_Metric_Data__c> newPreviousMetricMap = new Map<String, M_E_Metric_Data__c>();
+                for (String id : ckwMetricsList) {
+                    M_E_Metric_Data__c metric = updatePreviousMetricMap.get(id);
+                    if (metric == null) {
+                        Decimal prevValue = previous2Totals.get(id);
+                        Decimal value = ckwPreviousMetricValues.get(id);
+                        if (prevValue != null) {
+                            value = value + prevValue;
+                        }
+                        M_E_Metric_Data__c newMetric = MetricHelpers.createNewMetric(id, ckwPreviousQuarterStartDate, value, 0.0, null, null, false);
+                        if (newMetric != null) {
+                            newPreviousMetricMap.put(id, newMetric);
+                        }
+                    }
+                }
+                for (String id : updatePreviousMetricMap.keySet()) {
+                    updateMetrics.add(updatePreviousMetricMap.get(id));
+                }
+                for (String id : newPreviousMetricMap.keySet()) {
+                    newMetrics.add(newPreviousMetricMap.get(id));
+                }
+
+                // Save previous quarters data. Must do here so that the calculations for the next quarter
+                // pick up the changes.
+                if (updateMetrics.size() > 0) {
+                    update updateMetrics;
+                }
+                if (newMetrics.size() > 0) {
+                    insert newMetrics;
+                }
+            }
+
+            // Sort out the current quarters data
+            // Clear the DML lists
+            updateMetrics.clear();
+            newMetrics.clear();
 
             // Get the SMS interactions
-            ckwPreviousMetricValues.put('total_interactions_channels', MetricHelpers.getSmsInteractions(ckwPreviousQuarterStartDate, ckwPreviousQuarterEndDate));
+            ckwMetricValues.put('total_interactions_channels', MetricHelpers.getSmsInteractions(ckwQuarterStartDate, ckwQuarterEndDate));
 
-            // Calculate the remaining metrics
             // Convert to a %
-            ckwPreviousMetricValues.put('percent_ckws_high_performance', (ckwPreviousMetricValues.get('percent_ckws_high_performance')/ckwPreviousMetricValues.get('total_ckws'))*100);
-            ckwPreviousMetricValues.put('percent_poor_ckws', ckwPreviousMetricValues.get('percent_poor_ckws')/ckwPreviousMetricValues.get('total_ckws'));
-            ckwPreviousMetricValues.put('percent_woman_ckws', (ckwPreviousMetricValues.get('percent_woman_ckws')/ckwPreviousMetricValues.get('total_ckws'))*100);
+            ckwMetricValues.put('percent_ckws_high_performance', (ckwMetricValues.get('percent_ckws_high_performance')/ckwMetricValues.get('total_ckws'))*100);
+            ckwMetricValues.put('percent_poor_ckws', ckwMetricValues.get('percent_poor_ckws')/ckwMetricValues.get('total_ckws'));
+            ckwMetricValues.put('percent_woman_ckws', (ckwMetricValues.get('percent_woman_ckws')/ckwMetricValues.get('total_ckws'))*100);
 
-            // Get the baseline numbers from the previous quarter if required.
-            Map<String, Decimal> previous2Totals = MetricHelpers.getMetricValues(previousMetricsRequired, ckwPrevious2QuarterStartDate, ckwPrevious2QuarterEndDate);
-            ckwPreviousMetricValues.put('total_info_services_offered', MetricHelpers.calculateTotal(totalMetrics, ckwPreviousMetricValues, previous2Totals, ckwPreviousQuarterStartDate, ckwPreviousQuarterEndDate));
+            // Get the baseline numbers from the previous quarter if the metric is cumulative since the start
+            // of the project
+            Map<String, Decimal> previousTotals = MetricHelpers.getMetricValues(previousMetricsRequired, ckwPreviousQuarterStartDate, ckwQuarterStartDate);
 
             // Check that we have the M_E_Metric_Data__c object created already
-            M_E_Metric_Data__c[] previousMetrics = MetricHelpers.getMetricDatas(ckwMetricsList, ckwPreviousQuarterStartDate, ckwPreviousQuarterEndDate, null);
+            M_E_Metric_Data__c[] metrics = MetricHelpers.getMetricDatas(ckwMetricsList, ckwQuarterStartDate, ckwQuarterEndDate, null);
+
+            // Calculate the total interactions.
+            ckwMetricValues.put('total_info_services_offered', MetricHelpers.calculateTotal(totalMetrics, ckwMetricValues, previousTotals, ckwQuarterStartDate, ckwQuarterEndDate));
 
             // Generate the metrics that need to be updated
-            Map<String, M_E_Metric_Data__c> updatePreviousMetricMap = MetricHelpers.generateUpdateMetricMap(previousMetrics, ckwPreviousMetricValues, previous2Totals);
+            Map<String, M_E_Metric_Data__c> updateMetricMap = MetricHelpers.generateUpdateMetricMap(metrics, ckwMetricValues, previousTotals);
 
             // Generate any new metric if required
-            Map<String, M_E_Metric_Data__c> newPreviousMetricMap = new Map<String, M_E_Metric_Data__c>();
+            Map<String, M_E_Metric_Data__c> newMetricMap = new Map<String, M_E_Metric_Data__c>();
             for (String id : ckwMetricsList) {
-                M_E_Metric_Data__c metric = updatePreviousMetricMap.get(id);
+                M_E_Metric_Data__c metric = updateMetricMap.get(id);
                 if (metric == null) {
-                    Decimal prevValue = previous2Totals.get(id);
-                    Decimal value = ckwPreviousMetricValues.get(id);
+                    Decimal prevValue = previousTotals.get(id);
+                    Decimal value = ckwMetricValues.get(id);
                     if (prevValue != null) {
                         value = value + prevValue;
                     }
-                    M_E_Metric_Data__c newMetric = MetricHelpers.createNewMetric(id, ckwPreviousQuarterStartDate, value, 0.0, null, null, false);
+                    M_E_Metric_Data__c newMetric = MetricHelpers.createNewMetric(id, ckwQuarterStartDate, value, 0.0, null, null, false);
                     if (newMetric != null) {
-                        newPreviousMetricMap.put(id, newMetric);
+                        newMetricMap.put(id, newMetric);
                     }
                 }
             }
-            for (String id : updatePreviousMetricMap.keySet()) {
-                updateMetrics.add(updatePreviousMetricMap.get(id));
+
+            // Add the metrics to the correct list
+            for (String id : updateMetricMap.keySet()) {
+                updateMetrics.add(updateMetricMap.get(id));
             }
-            for (String id : newPreviousMetricMap.keySet()) {
-                newMetrics.add(newPreviousMetricMap.get(id));
+            for (String id : newMetricMap.keySet()) {
+                newMetrics.add(newMetricMap.get(id));
             }
 
-            // Save previous quarters data. Must do here so that the calculations for the next quarter
-            // pick up the changes.
+            // Save the new details to the database
             if (updateMetrics.size() > 0) {
                 update updateMetrics;
             }
@@ -185,64 +246,22 @@ global class CKWMetrics implements Database.Batchable<sObject>, Database.Statefu
                 insert newMetrics;
             }
         }
-
-        // Sort out the current quarters data
-        // Clear the DML lists
-        updateMetrics.clear();
-        newMetrics.clear();
-
-        // Get the SMS interactions
-        ckwMetricValues.put('total_interactions_channels', MetricHelpers.getSmsInteractions(ckwQuarterStartDate, ckwQuarterEndDate));
-
-        // Convert to a %
-        ckwMetricValues.put('percent_ckws_high_performance', (ckwMetricValues.get('percent_ckws_high_performance')/ckwMetricValues.get('total_ckws'))*100);
-        ckwMetricValues.put('percent_poor_ckws', ckwMetricValues.get('percent_poor_ckws')/ckwMetricValues.get('total_ckws'));
-        ckwMetricValues.put('percent_woman_ckws', (ckwMetricValues.get('percent_woman_ckws')/ckwMetricValues.get('total_ckws'))*100);
-
-        // Get the baseline numbers from the previous quarter if the metric is cumulative since the start
-        // of the project
-        Map<String, Decimal> previousTotals = MetricHelpers.getMetricValues(previousMetricsRequired, ckwPreviousQuarterStartDate, ckwQuarterStartDate);
-
-        // Check that we have the M_E_Metric_Data__c object created already
-        M_E_Metric_Data__c[] metrics = MetricHelpers.getMetricDatas(ckwMetricsList, ckwQuarterStartDate, ckwQuarterEndDate, null);
-
-        // Calculate the total interactions.
-        ckwMetricValues.put('total_info_services_offered', MetricHelpers.calculateTotal(totalMetrics, ckwMetricValues, previousTotals, ckwQuarterStartDate, ckwQuarterEndDate));
-
-        // Generate the metrics that need to be updated
-        Map<String, M_E_Metric_Data__c> updateMetricMap = MetricHelpers.generateUpdateMetricMap(metrics, ckwMetricValues, previousTotals);
-
-        // Generate any new metric if required
-        Map<String, M_E_Metric_Data__c> newMetricMap = new Map<String, M_E_Metric_Data__c>();
-        for (String id : ckwMetricsList) {
-            M_E_Metric_Data__c metric = updateMetricMap.get(id);
-            if (metric == null) {
-                Decimal prevValue = previousTotals.get(id);
-                Decimal value = ckwMetricValues.get(id);
-                if (prevValue != null) {
-                    value = value + prevValue;
-                }
-                M_E_Metric_Data__c newMetric = MetricHelpers.createNewMetric(id, ckwQuarterStartDate, value, 0.0, null, null, false);
-                if (newMetric != null) {
-                    newMetricMap.put(id, newMetric);
-                }
-            }
-        }
-
-        // Add the metrics to the correct list
-        for (String id : updateMetricMap.keySet()) {
-            updateMetrics.add(updateMetricMap.get(id));
-        }
-        for (String id : newMetricMap.keySet()) {
-            newMetrics.add(newMetricMap.get(id));
-        }
-
-        // Save the new details to the database
-        if (updateMetrics.size() > 0) {
-            update updateMetrics;
-        }
-        if (newMetrics.size() > 0) {
-            insert newMetrics;
+        finally{
+            //fetch the status of the scheduled job and analyse for errors
+            AsyncApexJob jobResult = [
+                SELECT 
+                        Id, 
+                        Status, 
+                        NumberOfErrors, 
+                        JobItemsProcessed, 
+                        TotalJobItems,
+                        ExtendedStatus 
+                FROM 
+                        AsyncApexJob 
+                WHERE 
+                        Id = :BC.getJobId()
+            ];
+            MetricHelpers.sendMetricsCalculationEmailNotification(jobResult, 'CKW Metrics aggregation completed with errors on ' + DateTime.now().format());
         }
     }
 

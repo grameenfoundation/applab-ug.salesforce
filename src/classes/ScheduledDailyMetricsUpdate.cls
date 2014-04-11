@@ -47,7 +47,7 @@ global class ScheduledDailyMetricsUpdate implements Schedulable {
                 'Person__r.First_Name__c != \'Not Registered\' ' +
                 'AND Name LIKE \'U%\'';
 
-        ID batchprocessid = Database.executeBatch(new FarmerMetrics(farmerQuery, farmerMetricList, calculateRepeats, partner));
+        ID batchprocessid = Database.executeBatch(new FarmerMetrics(farmerQuery, farmerMetricList, calculateRepeats, partner), 200);
 
         // Start the Batch Apex for the CKW metrics
         String ckwQuery = 
@@ -122,6 +122,6 @@ global class ScheduledDailyMetricsUpdate implements Schedulable {
         for (Survey__c survey : surveys ) {
             surveyMap.put(survey.Id, survey);
         }
-        ID naadsBatchProcessId = Database.executeBatch(new PartnerMetrics(naadsQuery, naads, NaadsMAndEDashboardParameters.getParameters(false), surveyMap));
+        ID naadsBatchProcessId = Database.executeBatch(new PartnerMetrics(naadsQuery, naads, NaadsMAndEDashboardParameters.getParameters(false), surveyMap), 200);
     }
 }
