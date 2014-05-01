@@ -497,6 +497,11 @@
         <startsWith>Consonant</startsWith>
     </fields>
     <fields>
+        <help><!-- This field should be hidden from page layouts. It is used to count the number cases on reports. --></help>
+        <label><!-- Case Count --></label>
+        <name>Case_Count__c</name>
+    </fields>
+    <fields>
         <help><!-- Please select a category for the support request based on the content of support --></help>
         <label><!-- Category --></label>
         <name>Category__c</name>
@@ -707,6 +712,10 @@
             <translation><!-- CKW Performance --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Extension Tool</masterLabel>
+            <translation><!-- Extension Tool --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>FVR-Suggestion</masterLabel>
             <translation><!-- FVR-Suggestion --></translation>
         </picklistValues>
@@ -735,24 +744,6 @@
             <translation><!-- Test --></translation>
         </picklistValues>
     </fields>
-    <layouts>
-        <layout>Case Layout</layout>
-        <sections>
-            <label><!-- Jira Issue Section --></label>
-            <section>Jira Issue Section</section>
-        </sections>
-        <sections>
-            <label><!-- Useful Links --></label>
-            <section>Useful Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Self Serve Case Layout</layout>
-        <sections>
-            <label><!-- Useful Links --></label>
-            <section>Useful Links</section>
-        </sections>
-    </layouts>
     <recordTypes>
         <label><!-- MoTeCH Support Case --></label>
         <name>MoTeCH_Support_Case</name>
@@ -781,5 +772,9 @@
     <webLinks>
         <label><!-- Sync_to_JIRA --></label>
         <name>Sync_to_JIRA</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Zendesk_Ticket_View_Link --></label>
+        <name>Zendesk__Zendesk_Ticket_View_Link</name>
     </webLinks>
 </CustomObjectTranslation>

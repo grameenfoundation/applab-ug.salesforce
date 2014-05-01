@@ -65,6 +65,26 @@ IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedA
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>FarmerId__c</fullName>
+        <externalId>false</externalId>
+        <formula>Baseline__r.Farmer__r.Id</formula>
+        <label>FarmerId</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>LAC Farmer Details</label>
+        <referenceTo>LAC_Farmer_Details__c</referenceTo>
+        <relationshipLabel>CBL_Farms</relationshipLabel>
+        <relationshipName>CBL_Farms</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Forest_Area_Ha__c</fullName>
         <externalId>false</externalId>
         <formula>IF(text( unitForestArea__c ) = &quot;Cuadras&quot;, forestArea__c *1.5625, 
@@ -79,9 +99,19 @@ IF(text( unitForestArea__c ) = &quot;Cuerdas (40x40)&quot;, forestArea__c *8.94,
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Last_FMP_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Last FMP Year</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Latitude_farm__c</fullName>
         <externalId>false</externalId>
-        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
         <label>Latitude_farm</label>
         <precision>18</precision>
         <required>false</required>
@@ -135,6 +165,17 @@ IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, otherActivit
 IF(text( prodLastHarvestUnits__c ) = &quot;Arrobas&quot;, productionLastHarvest__c *11.5,  
 IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c *0.453597024, productionLastHarvest__c )))</formula>
         <label>Production last year (Kg)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Productivity_Kg_Ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>Production_last_year_Kg__c/Coffee_planted_area_Ha__c</formula>
+        <label>Productivity (Kg/Ha)</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -262,7 +303,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -440,7 +481,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
                 <fullName>Vende en cereza/uva/fruta</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
@@ -1103,7 +1144,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
                 <fullName>dpto</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -1735,7 +1776,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
                 <fullName>Uso de injerto sobre patrón robusta</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
@@ -1795,7 +1836,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <fullName>lastYearTemporaryWages__c</fullName>
         <externalId>false</externalId>
         <label>lastYearTemporaryWages</label>
-        <precision>4</precision>
+        <precision>6</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
@@ -1900,7 +1941,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -1975,7 +2016,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2157,7 +2198,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2491,7 +2532,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Quintales</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2598,7 +2639,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2646,7 +2687,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Recepa por surco</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
@@ -2723,7 +2764,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
         <fullName>shadowLevelsNumber__c</fullName>
         <externalId>false</externalId>
         <label>shadowLevelsNumber</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <type>Number</type>
@@ -2770,7 +2811,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2865,7 +2906,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2913,7 +2954,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Pergamino seco</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
@@ -2997,7 +3038,7 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>

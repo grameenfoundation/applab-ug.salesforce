@@ -97,24 +97,29 @@
         <externalId>false</externalId>
         <label>Market</label>
         <referenceTo>Markets__c</referenceTo>
-        <relationshipLabel>Commodities</relationshipLabel>
         <relationshipName>Commodities</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
-    <label>Commodities</label>
+    <label>Market Prices(Commodities)</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Market__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Commodity Name</label>
         <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Commodities</pluralLabel>
+    <pluralLabel>Market Prices(Commodities)</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

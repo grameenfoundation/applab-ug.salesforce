@@ -389,8 +389,10 @@
         <columns>State__c</columns>
         <columns>Serial_Number__c</columns>
         <columns>Notes__c</columns>
+        <columns>OBJECT_ID</columns>
         <filterScope>Everything</filterScope>
         <label>All Handsets</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>PH-{000000}</displayFormat>
@@ -400,6 +402,7 @@
     </nameField>
     <pluralLabel>Handsets</pluralLabel>
     <searchLayouts>
+        <customTabListAdditionalFields>IMEI__c</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>SIM__c</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>SIM__c</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>SIM__c</searchResultsAdditionalFields>

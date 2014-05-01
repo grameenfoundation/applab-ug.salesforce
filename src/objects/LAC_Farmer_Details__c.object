@@ -14,9 +14,7 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
-        <content>LacFarmerDetailAddEdit</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
+        <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>List</actionName>
@@ -24,9 +22,7 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <content>LacFarmerDetailAddEdit</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
+        <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Tab</actionName>
@@ -211,16 +207,6 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>CKW__c</fullName>
-        <externalId>false</externalId>
-        <formula>submision__r.gfsurveys__Surveyor__r.FirstName + &apos; &apos; +  submision__r.gfsurveys__Surveyor__r.LastName</formula>
-        <label>CKW</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Cell_Phone_Number__c</fullName>
@@ -711,16 +697,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Farmer_Picture__c</fullName>
-        <externalId>false</externalId>
-        <formula>Contact__r.Picture__c</formula>
-        <label>Picture</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>Fertilizacion__c</fullName>
         <externalId>false</externalId>
         <label>Fertilizacion</label>
@@ -982,7 +958,12 @@ Deprecated. Moved to Household</description>
     <fields>
         <fullName>Image__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;Profile Picture&quot;, 300, 300))</formula>
+        <formula>IF(ISBLANK( Contact__r.Picture_Attachment_Id__c) ||  ISNULL(Contact__r.Picture_Attachment_Id__c), &quot;&quot;,  IMAGE(Contact__r.Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 263, 223))
+
+
+/*
+IF(  ISBLANK(Image_Document_Id__c ) ||  ISNULL(Image_Document_Id__c), &quot;&quot;,  IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Image_Document_Id__c ,&quot;Profile Picture&quot;, 153, 143))
+*/</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Image</label>
         <required>false</required>
@@ -1090,6 +1071,17 @@ Deprecated. Moved to Household</description>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Link_To_Map__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEFT($Api.Partner_Server_URL_260, FIND( &apos;/services&apos;, $Api.Partner_Server_URL_260))+ &apos;apex/LacFarmerDynamicMapPage?Id=&apos;+Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Link To Map</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Longitude__c</fullName>
         <externalId>false</externalId>
         <formula>submision__r.gfsurveys__gps_x__c</formula>
@@ -1131,7 +1123,7 @@ Deprecated. Moved to Household</description>
         <fullName>Map_Image__c</fullName>
         <externalId>false</externalId>
         <formula>IF(NOT(ISBLANK( Map_Link__c )),IMAGE(Map_Link__c , &quot;&quot;, 300, 300),&quot;&quot;)</formula>
-        <label>Location</label>
+        <label>Map Image</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
@@ -1140,7 +1132,7 @@ Deprecated. Moved to Household</description>
     <fields>
         <fullName>Map_Link__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( NOT( ISNULL( Latitude__c )), &quot;http://maps.googleapis.com/maps/api/staticmap?center=&quot; &amp; TEXT( Latitude__c ) &amp; &quot;,&quot; &amp; TEXT(  Longitude__c  ) &amp; &quot;&amp;zoom=12&amp;size=300x300&amp;sensor=true&amp;markers=color:red%7Clabel:A%7C&quot;&amp; TEXT(Latitude__c) &amp; &quot;,&quot; &amp; TEXT( Longitude__c ), &quot;&quot;)</formula>
+        <formula>IF( NOT( ISNULL( Latitude__c )), &quot;http://maps.googleapis.com/maps/api/staticmap?center=&quot; &amp; TEXT( Latitude__c ) &amp; &quot;,&quot; &amp; TEXT(  Longitude__c  ) &amp; &quot;&amp;zoom=13&amp;size=300x300&amp;sensor=true&amp;markers=color:red%7Clabel:A%7C&quot;&amp; TEXT(Latitude__c) &amp; &quot;,&quot; &amp; TEXT( Longitude__c ), &quot;&quot;)</formula>
         <label>Map Link</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -1937,6 +1929,7 @@ Deprecated. Moved to HH</description>
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
         <columns>Contact__c</columns>
+        <columns>CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>

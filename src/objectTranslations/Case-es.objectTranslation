@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <fields>
+        <help><!-- This field should be hidden from page layouts. It is used to count the number cases on reports. --></help>
+        <label><!-- Case Count --></label>
+        <name>Case_Count__c</name>
+    </fields>
+    <fields>
         <help>Porfavor seleccione una categoria para los proveedores</help>
         <label>Categoria</label>
         <name>Category__c</name>
@@ -211,6 +216,10 @@
             <translation>Rendimiento</translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Extension Tool</masterLabel>
+            <translation><!-- Extension Tool --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>FVR-Suggestion</masterLabel>
             <translation>FVR Sugerencia</translation>
         </picklistValues>
@@ -239,24 +248,6 @@
             <translation>Prueba</translation>
         </picklistValues>
     </fields>
-    <layouts>
-        <layout>Case Layout</layout>
-        <sections>
-            <label><!-- Jira Issue Section --></label>
-            <section>Jira Issue Section</section>
-        </sections>
-        <sections>
-            <label><!-- Useful Links --></label>
-            <section>Useful Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Self Serve Case Layout</layout>
-        <sections>
-            <label><!-- Useful Links --></label>
-            <section>Useful Links</section>
-        </sections>
-    </layouts>
     <recordTypes>
         <label>MoTeCH caso de asistencia</label>
         <name>MoTeCH_Support_Case</name>
@@ -284,5 +275,9 @@
     <webLinks>
         <label>Sincronizar con JIRA</label>
         <name>Sync_to_JIRA</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Zendesk_Ticket_View_Link --></label>
+        <name>Zendesk__Zendesk_Ticket_View_Link</name>
     </webLinks>
 </CustomObjectTranslation>

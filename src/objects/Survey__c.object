@@ -355,6 +355,10 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
                 <fullName>BVAT_CONTENT_SURVEY</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>IG_CBT_VISITS</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -502,18 +506,16 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
     </fields>
     <label>Survey</label>
     <listViews>
-        <fullName>All_Surveys</fullName>
-        <columns>NAME</columns>
+        <fullName>List_of_All_Surveys</fullName>
         <columns>Survey_Name__c</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Number_of_Questions__c</columns>
         <columns>CREATED_DATE</columns>
-        <columns>Start_Date__c</columns>
-        <columns>End_Date__c</columns>
-        <columns>OWNER.ALIAS</columns>
         <columns>CREATEDBY_USER</columns>
-        <columns>OWNER.FIRST_NAME</columns>
-        <columns>OWNER.LAST_NAME</columns>
         <filterScope>Everything</filterScope>
-        <label>All Surveys</label>
+        <label>List of All Surveys</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>{YYYY}{MM}{0000}</displayFormat>

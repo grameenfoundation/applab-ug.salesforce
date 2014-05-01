@@ -680,6 +680,26 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <label>Philanthropy</label>
     </listViews>
     <listViews>
+        <fullName>Salgar_Contacts</fullName>
+        <columns>CONTACT.TITLE</columns>
+        <columns>CONTACT.FIRST_NAME</columns>
+        <columns>CONTACT.LAST_NAME</columns>
+        <columns>CONTACT.PHONE1</columns>
+        <columns>CONTACT.EMAIL</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ALIAS</field>
+            <operation>equals</operation>
+            <value>salgar</value>
+        </filters>
+        <label>Salgar Contacts</label>
+        <language>en_US</language>
+        <sharedTo>
+            <role>LAC_Admin_User</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
         <fullName>Technology</fullName>
         <columns>FULL_NAME</columns>
         <columns>ACCOUNT.NAME</columns>
@@ -753,11 +773,61 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <isOptional>false</isOptional>
         <name>Client Assignation_Client</name>
     </namedFilters>
+    <searchLayouts>
+        <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CONTACT.PHONE1</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
+        <lookupFilterFields>FULL_NAME</lookupFilterFields>
+        <lookupFilterFields>ACCOUNT.NAME</lookupFilterFields>
+        <lookupFilterFields>ACCOUNT.SITE</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE1</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE3</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE4</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE5</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE6</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTACT.PHONE1</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTACT.EMAIL</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <webLinks>
+        <fullName>Contact_Pledge</fullName>
+        <availability>online</availability>
+        <description>Setup pledge from contact</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Pledge</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>Donation_Set_up_Pledge_from_Contact</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>Contact_Recurring_Donation</fullName>
+        <availability>online</availability>
+        <description>Setup recurring donation from contact</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Setup Recurring Donation</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>Donation_Setup_Recurring_from_Contact</scontrol>
+    </webLinks>
     <webLinks>
         <fullName>Contacts_in_this_Organization</fullName>
         <availability>online</availability>
         <description>generates report of all contacts within the organization</description>
         <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>All Contacts in this Organization</masterLabel>
@@ -765,6 +835,18 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <protected>false</protected>
         <requireRowSelection>true</requireRowSelection>
         <url>/00O70000001KiYf?pv0={!Account.Id}&amp;isdtp=mo</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Create_Connection</fullName>
+        <availability>online</availability>
+        <description>used to create connection from contact to another contact and/or organization</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Create Connection</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>ContactConnectionCreatefromContact</scontrol>
     </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>
@@ -795,6 +877,7 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <availability>online</availability>
         <description>used to view connections between contacts and orgainzations</description>
         <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>
@@ -903,6 +986,7 @@ alert(&quot;Please select at least one record to delete.&quot;); //alert the use
         <fullName>map</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>

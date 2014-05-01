@@ -29,14 +29,14 @@ public with sharing class ProcessNUSAFSurveys {
         Date dateOfVisit = null;
         String trainingTime = '';
         String trainersName = '';
-        if(survey.Name.containsIgnoreCase('SACM')) {
+        if(survey.Survey_Name__c.containsIgnoreCase('SACM')) {
             trainersName = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0')).trim();
             System.debug(Logginglevel.INFO, 'Registering a visit by ' + trainersName);
             dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')));
             trainingTime = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')).trim();
             subRegionSelectedNumber = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
         }
-        else if(survey.Name.containsIgnoreCase('enroll')) {
+        else if(survey.Survey_Name__c.containsIgnoreCase('enroll')) {
             trainersName = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0')).trim();
             System.debug(Logginglevel.INFO, 'Registering an enrollment by ' + trainersName);
             dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0')));

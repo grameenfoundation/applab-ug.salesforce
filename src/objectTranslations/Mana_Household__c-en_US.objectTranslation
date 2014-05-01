@@ -69,6 +69,10 @@
         <name>Corrigimiento__c</name>
     </fields>
     <fields>
+        <label><!-- Fase de la huerta --></label>
+        <name>Fase_de_la_huerta__c</name>
+    </fields>
+    <fields>
         <label><!-- Has_Backyard_Garden --></label>
         <name>Has_Backyard_Garden__c</name>
         <picklistValues>
@@ -96,84 +100,16 @@
         <name>Longitude__c</name>
     </fields>
     <fields>
+        <label><!-- Miembros del hogar --></label>
+        <name>Miembros_del_hogar__c</name>
+    </fields>
+    <fields>
         <label><!-- Municipio --></label>
         <name>Municipio__c</name>
     </fields>
     <fields>
-        <label><!-- Programas - Centro de Recuperacion Nutri --></label>
-        <name>Programas_Centro_de_Recuperacion_Nutri__c</name>
-        <picklistValues>
-            <masterLabel>No</masterLabel>
-            <translation><!-- No --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sí</masterLabel>
-            <translation><!-- Sí --></translation>
-        </picklistValues>
-    </fields>
-    <fields>
-        <label><!-- Programas - Control prenatal --></label>
-        <name>Programas_Control_prenatal__c</name>
-        <picklistValues>
-            <masterLabel>No</masterLabel>
-            <translation><!-- No --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sí</masterLabel>
-            <translation><!-- Sí --></translation>
-        </picklistValues>
-    </fields>
-    <fields>
-        <label><!-- Programas - Crecimiento y desarrollo --></label>
-        <name>Programas_Crecimiento_y_desarrollo__c</name>
-        <picklistValues>
-            <masterLabel>No</masterLabel>
-            <translation><!-- No --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sí</masterLabel>
-            <translation><!-- Sí --></translation>
-        </picklistValues>
-    </fields>
-    <fields>
-        <label><!-- Programas - Mana infantil --></label>
-        <name>Programas_Mana_infantil__c</name>
-        <picklistValues>
-            <masterLabel>No</masterLabel>
-            <translation><!-- No --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sí</masterLabel>
-            <translation><!-- Sí --></translation>
-        </picklistValues>
-    </fields>
-    <fields>
-        <label><!-- Programas - Otros --></label>
-        <name>Programas_Otros__c</name>
-        <picklistValues>
-            <masterLabel>No</masterLabel>
-            <translation><!-- No --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sí</masterLabel>
-            <translation><!-- Sí --></translation>
-        </picklistValues>
-    </fields>
-    <fields>
-        <label><!-- Programas - PAE --></label>
-        <name>Programas_PAE__c</name>
-        <picklistValues>
-            <masterLabel>No</masterLabel>
-            <translation><!-- No --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sí</masterLabel>
-            <translation><!-- Sí --></translation>
-        </picklistValues>
-    </fields>
-    <fields>
-        <label><!-- Programas - Red unidos --></label>
-        <name>Programas_Red_unidos__c</name>
+        <label><!-- Permitir SMS --></label>
+        <name>Permitir_SMS__c</name>
         <picklistValues>
             <masterLabel>No</masterLabel>
             <translation><!-- No --></translation>
@@ -197,12 +133,24 @@
         <name>Sisben_Score__c</name>
     </fields>
     <fields>
-        <label><!-- Vereda --></label>
-        <name>Vereda__c</name>
+        <label><!-- Survey Place --></label>
+        <name>Survey_Place__c</name>
+        <picklistValues>
+            <masterLabel>Otro lugar</masterLabel>
+            <translation><!-- Otro lugar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Residencia de la familia</masterLabel>
+            <translation><!-- Residencia de la familia --></translation>
+        </picklistValues>
     </fields>
     <fields>
-        <label><!-- Weekly Food Spend --></label>
-        <name>Weekly_Food_Spend__c</name>
+        <label><!-- Teléfono --></label>
+        <name>Telefono__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vereda --></label>
+        <name>Vereda__c</name>
     </fields>
     <fields>
         <label><!-- Zona --></label>
@@ -212,16 +160,5 @@
         <label><!-- gps approximation --></label>
         <name>gps_approximation__c</name>
     </fields>
-    <layouts>
-        <layout>Mana Household Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Ubicación --></label>
-            <section>Ubicación</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

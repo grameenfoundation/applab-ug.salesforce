@@ -1,5 +1,5 @@
 <apex:page standardController="LAC_Farmer_Details__c" extensions="LacFarmerDetailsController"
-    action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='System Administrator',null,URLFOR($Action.LAC_Farmer_Details__c.View,LAC_Farmer_Details__c.Id,null,true))}">
+    action="{!IF($Profile.Name=='LAC Demo Profile'||$Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='System Administrator'||$Profile.Name=='Salgar Self Serve Profile',null,URLFOR($Action.LAC_Farmer_Details__c.View,LAC_Farmer_Details__c.Id,null,true))}">
     <apex:sectionHeader title="{!$Label.FARMER}" subtitle="{!LAC_Farmer_Details__c.Name}"/>
     <apex:form >
         <apex:pageBlock title="{!$Label.FARMER_DETAILS}" mode="maindetail" tabStyle="LAC_Farmer_Details__c">
@@ -59,7 +59,7 @@
                 <apex:inputfield value="{!LAC_Farmer_Details__c.LAC_Farmer_Id_Temp__c}"/>
                 <apex:inputfield value="{!LAC_Farmer_Details__c.Registered_By__c}"/>
                 <apex:inputfield value="{!LAC_Farmer_Details__c.LAC_Household__c}"/>
-				<apex:inputfield value="{!LAC_Farmer_Details__c.Contact__r.ownerId}" />
+                <apex:inputfield value="{!LAC_Farmer_Details__c.Contact__r.ownerId}" />
             </apex:pageBlockSection>
             <apex:pageBlockButtons location="bottom">
                 <apex:commandButton action="{!save}" value="{!$Label.SAVE}"/>

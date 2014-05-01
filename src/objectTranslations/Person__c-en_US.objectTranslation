@@ -150,6 +150,11 @@
         <name>Parish__c</name>
     </fields>
     <fields>
+        <help><!-- This field should be hidden from all page layouts.  It is used to count the number of Persons on Reports --></help>
+        <label><!-- Person Count --></label>
+        <name>Person_Count__c</name>
+    </fields>
+    <fields>
         <label><!-- Person Household --></label>
         <name>Person_Household__c</name>
         <relationshipLabel><!-- People --></relationshipLabel>
@@ -217,6 +222,10 @@
             <translation><!-- Field Officer --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>IG/NUSAF</masterLabel>
+            <translation><!-- IG/NUSAF --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>IITA</masterLabel>
             <translation><!-- IITA --></translation>
         </picklistValues>
@@ -253,32 +262,6 @@
         <label><!-- Village --></label>
         <name>Village__c</name>
     </fields>
-    <layouts>
-        <layout>MTN TDR People</layout>
-        <sections>
-            <label><!-- Bio Details --></label>
-            <section>Bio Details</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Fields --></label>
-            <section>Fields</section>
-        </sections>
-        <sections>
-            <label><!-- Handset Details --></label>
-            <section>Handset Details</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Person Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <namedFilters>
         <errorMessage><!-- Please select a Person that has a type of BRAC PA --></errorMessage>
         <name>nf_01I70000000QP4fEAG_00N70000002sjTTEAY</name>

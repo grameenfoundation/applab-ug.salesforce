@@ -37,7 +37,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td id="svg_container">
+                    <td id="svg_container" width="100%">
+                    <div id="div_container" style="width:960px; overflow: scroll;">
                         <script type="text/javascript">
 
                             /**
@@ -48,7 +49,7 @@
                             function visualizeData(){       
                                                        
                                 var margin = {top: 20, right: 120, bottom: 20, left: 120};
-                                var width = 960 - margin.right - margin.left;
+                                var width = 1300 - margin.right - margin.left;
                                 var height = 800 - margin.top - margin.bottom;
                             
                                 var i = 0;
@@ -58,7 +59,7 @@
                                                                         
                                 var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
                                 d3.select("svg").remove();
-                                var svg = d3.select("#svg_container")
+                                var svg = d3.select("#div_container")
                                     .append("svg")
                                         .attr("width", width + margin.right + margin.left)
                                         .attr("height", height + margin.top + margin.bottom)
@@ -210,6 +211,7 @@
                                 }                             
                             }
                         </script>
+                    </div>
                     </td>
                 </tr>
             </table>

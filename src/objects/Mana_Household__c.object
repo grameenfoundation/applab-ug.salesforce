@@ -129,6 +129,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Fase_de_la_huerta__c</fullName>
+        <description>This field get it&apos;s value from the backyard garden stage field on the household production record, whenever a new household production record is created.</description>
+        <externalId>false</externalId>
+        <label>Fase de la huerta</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Has_Backyard_Garden__c</fullName>
         <externalId>false</externalId>
         <label>Has_Backyard_Garden</label>
@@ -185,6 +196,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Miembros_del_hogar__c</fullName>
+        <externalId>false</externalId>
+        <label>Miembros del hogar</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Municipio__c</fullName>
         <externalId>false</externalId>
         <label>Municipio</label>
@@ -195,127 +217,19 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Programas_Centro_de_Recuperacion_Nutri__c</fullName>
+        <fullName>Permitir_SMS__c</fullName>
         <externalId>false</externalId>
-        <label>Programas - Centro de Recuperacion Nutri</label>
+        <label>Permitir SMS</label>
         <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
             <picklistValues>
                 <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Control_prenatal__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Control prenatal</label>
-        <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Crecimiento_y_desarrollo__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Crecimiento y desarrollo</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Mana_infantil__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Mana infantil</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Otros__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Otros</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_PAE__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - PAE</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Red_unidos__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Red unidos</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
@@ -355,20 +269,38 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Vereda__c</fullName>
+        <fullName>Survey_Place__c</fullName>
         <externalId>false</externalId>
-        <label>Vereda</label>
-        <length>50</length>
+        <label>Survey Place</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Residencia de la familia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro lugar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Telefono__c</fullName>
+        <externalId>false</externalId>
+        <label>Teléfono</label>
+        <length>20</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Weekly_Food_Spend__c</fullName>
+        <fullName>Vereda__c</fullName>
         <externalId>false</externalId>
-        <label>Weekly Food Spend</label>
-        <length>20</length>
+        <label>Vereda</label>
+        <length>50</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
@@ -400,9 +332,20 @@
     </fields>
     <label>Mana Household</label>
     <listViews>
-        <fullName>All</fullName>
+        <fullName>Mana_Households</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Municipio__c</columns>
+        <columns>Vereda__c</columns>
+        <columns>Zona__c</columns>
+        <columns>Miembros_del_hogar__c</columns>
+        <columns>Fase_de_la_huerta__c</columns>
+        <columns>Registration_Submission_Record__c</columns>
+        <columns>CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
-        <label>All</label>
+        <label>Mana Households</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Id</label>

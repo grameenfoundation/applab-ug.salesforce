@@ -100,6 +100,16 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>CKW_Picture__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Contact__r.Picture__c</formula>
+        <label>CKW Picture</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>CKW_Rank__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Set skill level of CKW</inlineHelpText>
@@ -540,11 +550,11 @@ BR()&amp;
         <label>CKW Status</label>
         <picklist>
             <picklistValues>
-                <fullName>Hired</fullName>
+                <fullName>Nominee</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>In Training</fullName>
+                <fullName>Predeployment</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -552,15 +562,47 @@ BR()&amp;
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Suspended</fullName>
+                <fullName>On Performance Improvement Plan</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>On vacation</fullName>
+                <fullName>Sick leave</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Dropped</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Made Field Officer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive due to faulty phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive because phone was stolen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Made Data Validator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive due to faulty charging solution</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive because charging solution was stolen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contract expired</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -569,19 +611,6 @@ BR()&amp;
         <type>Picklist</type>
     </fields>
     <label>CKW</label>
-    <listViews>
-        <fullName>tabitha</fullName>
-        <columns>NAME</columns>
-        <columns>First_Name__c</columns>
-        <columns>Middle_Name__c</columns>
-        <columns>Last_Name__c</columns>
-        <columns>Mobile_Number__c</columns>
-        <columns>Status__c</columns>
-        <columns>Active_Date__c</columns>
-        <filterScope>Everything</filterScope>
-        <label>All CKWs</label>
-        <language>en_US</language>
-    </listViews>
     <nameField>
         <displayFormat>CKW-{YY}-{000000}</displayFormat>
         <label>CKW ID</label>

@@ -61,21 +61,42 @@
     </fields>
     <fields>
         <fullName>CPA_Order_Allocation__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>CPA Order Allocation</label>
         <referenceTo>CPA_Order_Allocation__c</referenceTo>
         <relationshipLabel>Farmer Order Allocations</relationshipLabel>
         <relationshipName>Farmer_Order_Allocations</relationshipName>
-        <required>false</required>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
-        <type>Lookup</type>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Client__c</fullName>
         <externalId>false</externalId>
         <formula>CPA_Order_Allocation__r.Client__c</formula>
         <label>Client</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Delivery_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <externalId>false</externalId>
+        <label>Delivery Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Farmer_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Alsur_Farmer__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Name</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
@@ -115,6 +136,24 @@
         <unique>false</unique>
     </fields>
     <label>Farmer Order Allocation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Client__c</columns>
+        <columns>CPA_Order_Allocation__c</columns>
+        <columns>Alsur_Farmer__c</columns>
+        <columns>Farmer_Name__c</columns>
+        <columns>Assigned_Unit_of_Presentation__c</columns>
+        <columns>Delivery_Date__c</columns>
+        <columns>Number_of_baskets__c</columns>
+        <columns>Number_of_Kilos__c</columns>
+        <columns>Number_of_Units_of_Presentation__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <displayFormat>FOAN-{00000000}</displayFormat>
         <label>Farmer Order Allocation Number</label>
@@ -123,5 +162,5 @@
     </nameField>
     <pluralLabel>Farmer Order Allocations</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

@@ -125,6 +125,26 @@
         </filters>
         <label>My Active Appeals</label>
     </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>CAMPAIGN.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CAMPAIGN.STATUS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CAMPAIGN.START_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CAMPAIGN.NAME</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CAMPAIGN.NAME</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <webLinks>
+        <fullName>GenerateMailingLabels</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>750</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Generate Mailing Labels</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>GenerateMailingLabels</scontrol>
+    </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>
         <availability>online</availability>
@@ -153,6 +173,7 @@
         <fullName>ViewAllCampaignMembers</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
         <hasToolbar>false</hasToolbar>

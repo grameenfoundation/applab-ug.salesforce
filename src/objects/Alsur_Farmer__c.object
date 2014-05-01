@@ -39,20 +39,45 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Association__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Association</label>
         <referenceTo>Association__c</referenceTo>
         <relationshipLabel>Alsur Farmers</relationshipLabel>
         <relationshipName>Alsur_Farmers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Farmer_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Farmer Code</label>
+        <length>15</length>
         <required>false</required>
-        <type>Lookup</type>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone Number</label>
+        <length>15</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <label>Alsur Farmer</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Farmer_Code__c</columns>
+        <columns>Phone_Number__c</columns>
+        <columns>Association__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Alsur Farmer Name</label>
@@ -60,6 +85,6 @@
     </nameField>
     <pluralLabel>Alsur Farmers</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>
 </CustomObject>

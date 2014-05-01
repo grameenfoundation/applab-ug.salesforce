@@ -103,6 +103,15 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Delivery_Receipt_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Delivery Receipt Number</label>
+        <length>20</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Number_of_Baskets__c</fullName>
         <externalId>false</externalId>
         <label>Number of Baskets</label>
@@ -159,6 +168,23 @@
         <type>Picklist</type>
     </fields>
     <label>Association CPA Order Delivery</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>CPA_Order_Allocation__c</columns>
+        <columns>Delivery_Date__c</columns>
+        <columns>Delivery_Receipt_Number__c</columns>
+        <columns>Number_of_Baskets__c</columns>
+        <columns>Number_of_Kilos__c</columns>
+        <columns>Number_of_Units_of_Presentation__c</columns>
+        <columns>Product__c</columns>
+        <columns>Unit_of_Presentation__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <displayFormat>ACODN-{00000}</displayFormat>
         <label>Association CPA Order Delivery Number</label>

@@ -120,10 +120,15 @@ public with sharing class FHISurveysHelpers {
         
         // Load the metrics for the month that the submission is for
         List<String> metricNames = new List<String> { 
-            'FHI_CC_number_producer_slash_farmer_groups',
-            'FHI_CC_number_women_groups',
+            'FHI_CC_number_groups',
             'FHI_CC_number_youth_members',
             'FHI_CC_number_total_group_members',
+
+            'FHI_CC_number_women_and_women_with_men_groups',
+            'FHI_CC_number_youth_groups',
+            'FHI_CC_number_producer_slash_farmer_groups',
+            'FHI_CC_number_other_groups',
+
             'FHI_CC_percentage_female_members'
         };
         
@@ -147,10 +152,15 @@ public with sharing class FHISurveysHelpers {
                 )
                 AND Date__c = :currentDate
                 AND M_E_Metric__r.Name IN (
-                    'FHI_CC_number_producer_slash_farmer_groups',
-                    'FHI_CC_number_women_groups',
+                    'FHI_CC_number_groups',
                     'FHI_CC_number_youth_members',
                     'FHI_CC_number_total_group_members',
+
+                    'FHI_CC_number_women_and_women_with_men_groups',
+                    'FHI_CC_number_youth_groups',
+                    'FHI_CC_number_producer_slash_farmer_groups',
+                    'FHI_CC_number_other_groups',
+
                     'FHI_CC_percentage_female_members')
             ];
 
@@ -173,13 +183,27 @@ public with sharing class FHISurveysHelpers {
             system.debug('Actual Value ' + totalNewData.Actual_Value__c);
             
             // Update the metric based on the key
-            if (key.equals('FHI_CC_number_producer_slash_farmer_groups')) {
-                if (!groupType.equals('Other') && !groupType.equals('Youth') && !groupType.equals('Women only')) {
-                    totalNewData.Denumerator__c++;
-                }  
+            if (key.equals('FHI_CC_number_groups')) {
+                totalNewData.Denumerator__c++;
             }
-            else if(key.equals('FHI_CC_number_women_groups')){
-                if(groupType.equals('Women only')){
+            else if(key.equals('FHI_CC_number_women_and_women_with_men_groups')){
+                if(groupType.equals('Women only') || groupType.equals('Women group with males')){
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if(key.equals('FHI_CC_number_youth_groups')){
+                if(groupType.equals('Youth')){
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if(key.equals('FHI_CC_number_producer_slash_farmer_groups')){
+                if(groupType.equals('Church') || groupType.equals('Elderly') || groupType.equals('Men only') || 
+                    groupType.equals('Mixed group') || groupType.equals('PLHIV') || groupType.equals('Farmers group')){
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if(key.equals('FHI_CC_number_other_groups')){
+                if(groupType.equals('Other')){
                     totalNewData.Denumerator__c++;
                 }
             }
@@ -266,8 +290,8 @@ public with sharing class FHISurveysHelpers {
         //vulnerable and opharns
         boolean isThereAnOvc = isNorth ?  ProcessSubmissionHelpers.checkIfYes(answers.get('q70_0').Answer__c) : ProcessSubmissionHelpers.checkIfYes(answers.get('q57_0').Answer__c);
 
-        //does VSLA
-        String selectionIndexVSLA = isNorth ? answers.get('q84_0').Answer__c : answers.get('q71_0').Answer__c; 
+        //does VSLA, the selectio index for vsla is 1, return index of 2 if no answer
+        String selectionIndexVSLA = isNorth ? ( answers.containsKey('q84_0') ? answers.get('q84_0').Answer__c : '2' ): ( answers.containsKey('q71_0') ? answers.get('q71_0').Answer__c : '2'); 
         
         boolean isHouseHead = isNorth ?  ProcessSubmissionHelpers.checkIfYes(answers.get('q46_0').Answer__c) : ProcessSubmissionHelpers.checkIfYes(answers.get('q33_0').Answer__c);
         
@@ -417,7 +441,7 @@ public with sharing class FHISurveysHelpers {
         String districtName = translateDistrictName(districtValue, isNorth);
         System.debug(LoggingLevel.INFO, 'District: ' + districtName);
         
-        String subcountyName = answers.get('subcounty_0').Answer__c;
+        String subcountyName = answers.get('subcounty_0').Answer__c.trim();
         System.debug(LoggingLevel.INFO, 'Subcounty: ' + subcountyName);
         
         //get group type
@@ -441,6 +465,35 @@ public with sharing class FHISurveysHelpers {
                 Display_Name__c = :subcountyName
             LIMIT 1
         ];
+        //we have a problem with subcounties with the words 'Town Council', their naming is not standardised
+        //oh, and the survey captures subcounty from text input by CKW, hence possible mistakes expected
+        if(subcounty.isEmpty() && (subcountyName.containsIgnoreCase('town council') || subcountyName.containsIgnoreCase(' TC')) ){
+            System.debug(LoggingLevel.INFO, 'subcounty not found. trying variant of *town council');
+            subcountyName = subcountyName.containsIgnoreCase('town council') ? subcountyName.toLowerCase().replace('town council', 'TC') :
+                subcountyName.toLowerCase().replace(' TC', ' town council');
+            subcounty = [
+                SELECT
+                    Id
+                FROM
+                    Subcounty__c
+                WHERE
+                    Display_Name__c = :subcountyName
+                LIMIT 1
+            ];
+        }
+        if(subcounty.isEmpty()){
+            System.debug(LoggingLevel.INFO, 'subcounty not found. trying wild card at the end');
+            subcounty = [
+                SELECT
+                    Id
+                FROM
+                    Subcounty__c
+                WHERE
+                    Display_Name__c LIKE :subcountyName + '%'
+                LIMIT 1
+            ];
+        }
+
         if(subcounty.isEmpty()){
             return new String[]{ '0', 'The subcounty provided is not in salesforce', 'SUPRESSMSG' };
         }
@@ -450,10 +503,15 @@ public with sharing class FHISurveysHelpers {
         
         // Load the metrics for the month that the submission is for
         List<String> metricNames = new List<String> { 
-            'FHI_CC_number_producer_slash_farmer_groups',
-            'FHI_CC_number_women_groups',
+            'FHI_CC_number_groups',
             'FHI_CC_number_youth_members',
             'FHI_CC_number_total_group_members',
+
+            'FHI_CC_number_women_and_women_with_men_groups',
+            'FHI_CC_number_youth_groups',
+            'FHI_CC_number_producer_slash_farmer_groups',
+            'FHI_CC_number_other_groups',
+
             'FHI_CC_percentage_female_members'
             };
         
@@ -477,10 +535,15 @@ public with sharing class FHISurveysHelpers {
                 )
                 AND Date__c = :currentDate
                 AND M_E_Metric__r.Name IN (
-                    'FHI_CC_number_producer_slash_farmer_groups',
-                    'FHI_CC_number_women_groups',
+                    'FHI_CC_number_groups',
                     'FHI_CC_number_youth_members',
                     'FHI_CC_number_total_group_members',
+
+                    'FHI_CC_number_women_and_women_with_men_groups',
+                    'FHI_CC_number_youth_groups',
+                    'FHI_CC_number_producer_slash_farmer_groups',
+                    'FHI_CC_number_other_groups',
+
                     'FHI_CC_percentage_female_members')
         ];
 
@@ -502,13 +565,26 @@ public with sharing class FHISurveysHelpers {
             }
             system.debug(LoggingLevel.INFO, 'Actual Value ' + totalNewData.Actual_Value__c);
             // Update the metric based on the key
-            if (key.equals('FHI_CC_number_producer_slash_farmer_groups')) {
+            if (key.equals('FHI_CC_number_groups')) {
+                totalNewData.Denumerator__c++;
+            }
+            else if(key.equals('FHI_CC_number_women_and_women_with_men_groups')){
+                if(groupType.equals('Women')){
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if(key.equals('FHI_CC_number_youth_groups')){
+                if(groupType.equals('Youth')){
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if(key.equals('FHI_CC_number_producer_slash_farmer_groups')){
                 if(groupType.equals('Producer/Farmers')){
                     totalNewData.Denumerator__c++;
                 }
             }
-            else if(key.equals('FHI_CC_number_women_groups')){
-                if(groupType.equals('Women')){
+            else if(key.equals('FHI_CC_number_other_groups')){
+                if(groupType.equals('Other')){
                     totalNewData.Denumerator__c++;
                 }
             }

@@ -51,6 +51,50 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>Financing_source_Banco__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Banco&quot;), 1, 0)</formula>
+        <label>Financing source: Banco</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financing_source_Family__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Crédito familiar&quot;), 1, 0)</formula>
+        <label>Financing source: Family</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financing_source_coop__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Cooperativa de productores&quot;), 1, 0)</formula>
+        <label>Financing source: coop</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financing_source_informal__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Prestamista&quot;), 1, 0)</formula>
+        <label>Financing source: Informal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>advocadoAreaUnits__c</fullName>
         <externalId>false</externalId>
         <label>advocadoAreaUnits</label>
@@ -1214,7 +1258,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>

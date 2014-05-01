@@ -113,6 +113,9 @@ function closeUpdateModal() {
 
 function assignUpdateModalFunctions() {
 
+
+
+
     // If save button is clicked
     j$('#updateSaveButton').click(function (e) {
 

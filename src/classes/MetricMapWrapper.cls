@@ -224,10 +224,6 @@ public class MetricMapWrapper {
             content = this.name;
             content += '<a href=\\"javascript\\:void(0)\\" onclick=\\"window.open(\\\'/' + this.id + '\\\',\\\'_blank\\\');\\">See hub details</a><br/>';
         }
-        else if (this.markerType.equals('CBTFieldVisit')) {
-            content = this.name;
-            content += '<a href=\\"javascript\\:void(0)\\" onclick=\\"window.open(\\\'/' + this.id + '\\\',\\\'_blank\\\');\\">See visit details</a><br/>';
-        }
         markerInfoContentString = content + '</div>';
 
     }

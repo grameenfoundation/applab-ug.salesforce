@@ -89,25 +89,10 @@ global class DeleteSurveyController {
         // Update them so they are not published and the published date is blanked
         // This allows them to be deleted without failing the validation rules
         for (gfsurveys__Survey__c survey : surveys) {
-            //survey.gfsurveys__Status__c = 'Draft';
-            //survey.gfsurveys__PublishedDate__c = null;
+            survey.gfsurveys__Status__c = 'Draft';
+            survey.gfsurveys__PublishedDate__c = null;
         }
         update(surveys);
-
-gfsurveys__Survey__c[] updatedSurveys = [
-            SELECT
-                Id,
-                gfsurveys__Status__c,
-                gfsurveys__PublishedDate__c
-            FROM
-                gfsurveys__Survey__c
-            WHERE
-                Id IN :idsToDelete
-        ];
-        for (gfsurveys__Survey__c survey : updatedSurveys ) {
-            System.debug(LoggingLevel.INFO, survey.gfsurveys__Status__c);
-            System.debug(LoggingLevel.INFO, survey.gfsurveys__PublishedDate__c);
-        }
 
         // Delete the surveys
         delete(surveys);

@@ -2,15 +2,15 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Campaign Message</value>
+        <value>Message</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Campaign Messages</value>
+        <value>Messages</value>
     </caseValues>
     <fields>
         <help><!-- Text Message to send to the subscribers. --></help>
-        <label><!-- Content --></label>
+        <label><!-- Text --></label>
         <name>Content__c</name>
     </fields>
     <fields>
@@ -45,10 +45,10 @@
         <help><!-- The message campaign related to this message. --></help>
         <label><!-- Message Campaign --></label>
         <name>Message_Campaign__c</name>
-        <relationshipLabel><!-- Campaign Messages --></relationshipLabel>
+        <relationshipLabel><!-- Messages --></relationshipLabel>
     </fields>
     <fields>
-        <help><!-- A key uniquely identifying this message. --></help>
+        <help><!-- a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers. --></help>
         <label><!-- Message Key --></label>
         <name>Message_Key__c</name>
     </fields>
@@ -100,12 +100,9 @@
         <label><!-- Start Time --></label>
         <name>Start_Time__c</name>
     </fields>
-    <layouts>
-        <layout>Campaign Message Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- New_Message --></label>
+        <name>New_Message</name>
+    </webLinks>
 </CustomObjectTranslation>

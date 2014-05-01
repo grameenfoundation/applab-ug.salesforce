@@ -67,6 +67,16 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Farmer_Code__c</fullName>
+        <description>If this delivery has been rejected due to quality issues and if one of the farmers who contributed to this delivery has been previously flagged for quality issues</description>
+        <externalId>false</externalId>
+        <label>Farmer Code</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Number_of_Baskets__c</fullName>
         <externalId>false</externalId>
         <label>Number of Baskets</label>
@@ -160,6 +170,25 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+        <fullName>Rejected__c</fullName>
+        <description>Whether this delivery has been accepted</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Whether this delivery has been accepted</inlineHelpText>
+        <label>Rejected?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Unit_of_Presentation__c</fullName>
         <externalId>false</externalId>
         <label>Unit of Presentation</label>
@@ -177,6 +206,27 @@
         <type>Picklist</type>
     </fields>
     <label>CPA Order Delivery</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>CPA_Order_Dispatch__c</columns>
+        <columns>Delivery_Date__c</columns>
+        <columns>Delivery_Receipt_Number__c</columns>
+        <columns>Number_of_Baskets__c</columns>
+        <columns>Number_of_Kilos__c</columns>
+        <columns>Number_of_Rejected_Baskets__c</columns>
+        <columns>Farmer_Code__c</columns>
+        <columns>Rejected__c</columns>
+        <columns>Reason_for_Rejection__c</columns>
+        <columns>Number_of_Rejected_Kilos__c</columns>
+        <columns>Number_of_Rejected_Units_of_Presentation__c</columns>
+        <columns>Number_of_Units_of_Presentation__c</columns>
+        <columns>Unit_of_Presentation__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <displayFormat>CODN-{00000}</displayFormat>
         <label>CPA Order Delivery Number</label>

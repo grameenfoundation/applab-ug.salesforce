@@ -1,5 +1,5 @@
 <apex:page standardController="CKW__c" extensions="CkwUniversalAddEditController" tabStyle="CKW__c" sideBar="false"
- action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='MANA Admin Profile'||$Profile.Name=='MANA Self Serve Sub Profile',null,URLFOR(IF(CKW__c.Id == null,$Action.CKW__c.New, $Action.CKW__c.Edit),CKW__c.Id,null,true))}">
+ action="{!IF($Profile.Name=='LAC Demo Profile'||$Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name=='MANA Admin Profile'||$Profile.Name=='MANA Self Serve Sub Profile' ||$Profile.Name='Salgar Self Serve Profile' ,null,URLFOR(IF(CKW__c.Id == null,$Action.CKW__c.New, $Action.CKW__c.Edit),CKW__c.Id,null,true))}">
   <style type="text/css">
     .ckw-required{
         border-left: 3px solid #c00;

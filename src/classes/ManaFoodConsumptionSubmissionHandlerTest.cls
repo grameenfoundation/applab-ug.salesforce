@@ -1,8 +1,8 @@
 @IsTest
 public class ManaFoodConsumptionSubmissionHandlerTest{
-    static Id setupSubmission() {
-    	String foodName = 'ahuyama';
-    	
+    static Mana_Food_Consumption_Submission__c setupSubmission() {
+        String foodName = 'ahuyama';
+        
         // Set up a Survey
         gfsurveys__Survey__c survey = new gfsurveys__Survey__c();
         survey.name = 'Test Survey';
@@ -36,17 +36,17 @@ public class ManaFoodConsumptionSubmissionHandlerTest{
         answer.gfsurveys__Submission__c = submission.Id;
         answer.gfsurveys__Value__c = '3';
         insert answer;
-       	
-       	// Set up a Mana Food record
-       	Mana_Food__c food = new Mana_Food__c();
-       	food.name = foodName;
-       	food.Units__c = 'Grams';
-       	insert food;
-       	
-       	// Update config to have this food's id
-       	ManaFoodConsumptionConfig.foodMap.put(food.name, food.Id);
-       	
-       	
+        
+        // Set up a Mana Food record
+        Mana_Food__c food = new Mana_Food__c();
+        food.name = foodName;
+        food.Units__c = 'Grams';
+        insert food;
+        
+        // Update config to have this food's id
+        ManaFoodConsumptionConfig.foodMap.put(food.name, food.Id);
+        
+        
         // Set up a Mana Food Quantity Code record
         Mana_Food_Quantity_Code__c code = new Mana_Food_Quantity_Code__c();
         code.Code__c = '13x2';
@@ -64,17 +64,21 @@ public class ManaFoodConsumptionSubmissionHandlerTest{
         consumptionSubmission.Submission__c = submission.Id;
         insert consumptionSubmission;
         
-        return consumptionSubmission.Id;
+        return consumptionSubmission;
     }
     
     @IsTest
     static void testHandler() {
-        Id submissionId = setupSubmission(); // This should triggler ManaFoodConsumptionSubmissionHandler.handle()
+        Mana_Food_Consumption_Submission__c submission = setupSubmission(); 
+        
+        // Trigger ManaFoodConsumptionSubmissionHandler.handle()
+        ManaFoodConsumptionSubmissionHandler handler = new ManaFoodConsumptionSubmissionHandler(submission);
+        handler.handle();
         
         // This should create a Mana_Food_Consumption_Record__c object with this submission Id
-        Mana_Food_Consumption_Record__c record = [Select Id from Mana_Food_Consumption_Record__c where Submission__c =: submissionId];
+        Mana_Food_Consumption_Record__c record = [Select Id from Mana_Food_Consumption_Record__c where Submission__c =: submission.Id];
         
-		// Run some checks
+        // Run some checks
         System.assert(record != null);
     }
 }

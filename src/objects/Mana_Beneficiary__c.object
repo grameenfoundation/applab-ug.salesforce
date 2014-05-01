@@ -38,6 +38,19 @@
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Age__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(Date_of_Birth__c),0,FLOOR((TODAY()-Date_of_Birth__c)/365.2425))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Attends_School__c</fullName>
         <externalId>false</externalId>
         <label>Attends School</label>
@@ -298,6 +311,17 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Permitir_SMS_Household__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(Household__r.Permitir_SMS__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Permitir_SMS_Household</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Poblacion_diferencial__c</fullName>
         <externalId>false</externalId>
         <label>Población diferencial</label>
@@ -323,78 +347,6 @@
         <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
-    </fields>
-    <fields>
-        <fullName>Poblacion_vulnerable_Desmovilizados__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - Desmovilizados</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Poblacion_vulnerable_Discapacitados__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - Discapacitados</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Poblacion_vulnerable_LGTBI__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - LGTBI</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Poblacion_vulnerable_Victimas_del_conf__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - Victimas del conf</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Red_unidos__c</fullName>
@@ -425,6 +377,17 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Reported_Age__c</fullName>
+        <externalId>false</externalId>
+        <label>Reported Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Victimas_del_conflicto__c</fullName>
         <externalId>false</externalId>
         <label>Victimas del conflicto</label>
@@ -445,6 +408,21 @@
     <label>Mana Beneficiary</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>Household__c</columns>
+        <columns>Date_of_Birth__c</columns>
+        <columns>Age__c</columns>
+        <columns>Reported_Age__c</columns>
+        <columns>Attends_School__c</columns>
+        <columns>Registration_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

@@ -102,6 +102,16 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Farmer_Code__c</fullName>
+        <description>Farmer Code if the farmer is being tracked due to historical rejections</description>
+        <externalId>false</externalId>
+        <label>Farmer Code</label>
+        <length>10</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Farmer_Order_Allocation__c</fullName>
         <externalId>false</externalId>
         <label>Farmer Order Allocation</label>
@@ -152,7 +162,121 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Unit_of_Presentation__c</fullName>
+        <externalId>false</externalId>
+        <label>Unit of Presentation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>250 Gr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>400 Gr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>500 Gr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 al día</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>a $2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Desgranada</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Desgranada a Granel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Desgranada x 250 Gr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ekono</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granel económica/Kg.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granel/Kg.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kg.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Paquete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solo a mil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Todo a $2000 x 1000g</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Todo a $2000 x 1200g</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Todo a $2000 x 800g</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Und.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Und/220Gr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
     <label>Farmer Product Delivery</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Client__c</columns>
+        <columns>Assigned_Number_of_Baskets__c</columns>
+        <columns>Assigned_Number_of_Kilos__c</columns>
+        <columns>Assigned_Number_of_Units_of_Presentation__c</columns>
+        <columns>Assigned_Unit_of_Presentation__c</columns>
+        <columns>Farmer_Code__c</columns>
+        <columns>Farmer_Order_Allocation__c</columns>
+        <columns>Number_of_Baskets__c</columns>
+        <columns>Number_of_Kilos__c</columns>
+        <columns>Number_of_Units_of_Presentation__c</columns>
+        <columns>Unit_of_Presentation__c</columns>
+        <columns>Receipt_Number__c</columns>
+        <columns>Delivery_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <displayFormat>FPD-{00000000}</displayFormat>
         <label>Farmer Product Delivery Name</label>

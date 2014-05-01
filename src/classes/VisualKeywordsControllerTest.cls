@@ -56,12 +56,27 @@ private class VisualKeywordsControllerTest {
         item11.Parent_Item__c = item1.Id;
         insert item11;
         
+        //create a great great grand child
+        Menu_Item__c item111 = new Menu_Item__c();
+        item111.Label__c = 'Great Grand Child';
+        item111.Menu__c = menu.Id;
+        item111.Parent_Item__c = item11.Id;
+        insert item111;
+
+        //create a great great great grand child
+        //we should hit an expected limit: we cant build a tree forever
+        Menu_Item__c item1111 = new Menu_Item__c();
+        item1111.Label__c = 'Great Grand Child';
+        item1111.Menu__c = menu.Id;
+        item1111.Parent_Item__c = item111.Id;
+        insert item1111;
+        
         //instantiate controller and set the label (as would be with selection a menu in VF)
         VisualKeywordsController controller = new VisualKeywordsController();
         controller.selectedTopMenu = menu.Label__c;
         
-        //we set the query limit to 87, at 90, building the tree stops
-        controller.setLimit(87);
+        //we set the query limit to 77, at 90, building the tree stops
+        controller.setLimit(77);
 
         //call the remote action passing the name and id of top menu whose tree we are building
         //here, we expect one item back

@@ -325,23 +325,6 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>DS_7__c</fullName>
-        <externalId>false</externalId>
-        <label>DS_7</label>
-        <picklist>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>true</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>De_Sostenibilidad_Score__c</fullName>
         <externalId>false</externalId>
         <formula>IF(TEXT(DS_1__c)==&apos;Sí&apos;,1,0)+
@@ -349,10 +332,9 @@ IF(TEXT(DS_2__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(DS_3__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(DS_4__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(DS_5__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_7__c)==&apos;Sí&apos;,1,0)</formula>
+IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>De Sostenibilidad Score</label>
+        <label>Sostenibilidad Score</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -384,7 +366,7 @@ IF(TEXT(DS_7__c)==&apos;Sí&apos;,1,0)</formula>
         <externalId>false</externalId>
         <label>Family Visits</label>
         <precision>18</precision>
-        <required>true</required>
+        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
         <unique>false</unique>
@@ -485,6 +467,40 @@ IF(TEXT(DS_7__c)==&apos;Sí&apos;,1,0)</formula>
         <fullName>PC_10__c</fullName>
         <externalId>false</externalId>
         <label>PC_10</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PC_11__c</fullName>
+        <externalId>false</externalId>
+        <label>PC_11</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PC_12__c</fullName>
+        <externalId>false</externalId>
+        <label>PC_12</label>
         <picklist>
             <picklistValues>
                 <fullName>No</fullName>
@@ -703,7 +719,9 @@ IF(TEXT(PC_6__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_7__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_8__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_9__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(PC_10__c)==&apos;Sí&apos;,1,0)</formula>
+IF(TEXT(PC_10__c)==&apos;Sí&apos;,1,0)+
+IF(TEXT(PC_11__c)==&apos;Sí&apos;,1,0)+
+IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Planning Carried Out Score</label>
         <precision>18</precision>
@@ -751,6 +769,17 @@ IF(TEXT(PC_10__c)==&apos;Sí&apos;,1,0)</formula>
         <scale>2</scale>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Mana Household Production Records</relationshipLabel>
+        <relationshipName>Mana_Household_Production_Records</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Tomate_Alino__c</fullName>
@@ -810,6 +839,16 @@ IF(TEXT(PC_10__c)==&apos;Sí&apos;,1,0)</formula>
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>categoria_sostenibilidad__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(De_Sostenibilidad_Score__c&lt;5,&apos;Insuficiente&apos;, IF(De_Sostenibilidad_Score__c&gt;4 &amp;&amp; De_Sostenibilidad_Score__c&lt;9, &apos;Aceptable&apos;, &apos;Suficiente&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Categoria sostenibilidad</label>
+        <required>false</required>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <label>Mana Household Production Record</label>
