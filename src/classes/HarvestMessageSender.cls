@@ -117,11 +117,11 @@ global class HarvestMessageSender implements Database.Batchable<sObject>, Databa
 
         //Send email to the ewarehouse group notifying of job completion and statistics
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        String[] toAddresses = new String[] {'ekamara@grameenfoundation.org'};
+        String[] toAddresses = new String[] {'ewarehouse@grameenfoundation.org'};
         mail.setToAddresses(toAddresses);
         mail.setSubject('Ewarehouse harvest notification message ' + harvestMessageJob.Status);
         mail.setPlainTextBody('The harvest message sender job processed ' + harvestMessageJob.TotalJobItems +
-            'batches with '+ harvestMessageJob.NumberOferrors + ' failures.');
+            ' batches with '+ harvestMessageJob.NumberOferrors + ' failures.');
         Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
     }
     
