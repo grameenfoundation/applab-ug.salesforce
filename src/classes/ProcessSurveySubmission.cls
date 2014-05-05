@@ -93,7 +93,7 @@ global class ProcessSurveySubmission {
                 messageSubject = survey.Survey_Name__c + ' submitted successfully';
                 surveySubmission.success = true;
             }
-
+            System.debug(results);
             // Send Pulse and SMS feedback to the submitter
             if (!results.get(2).equals('SUPRESSMSG')) {
                 messageBody = results.get(2);
@@ -386,6 +386,7 @@ global class ProcessSurveySubmission {
                     submissionAnswersWithParent.add(submissionAnswer);
                 }
             }
+
         }
 
         returnValues.add(submissionAnswersWithoutParent);
@@ -405,7 +406,7 @@ global class ProcessSurveySubmission {
      *           The answers are split like this so the links can be made between them to allow for drilldown.
      *           Need to know the SF ids of the parents before saving the child
      */
-    private static List<List<Submission_Answer__c>> parseJsonString(SurveySubmission surveySubmission, Id submissionMetaDataId) {
+    public static List<List<Submission_Answer__c>> parseJsonString(SurveySubmission surveySubmission, Id submissionMetaDataId) {
 
         System.debug(LoggingLevel.INFO, surveySubmission.json);
         JSONObject jsonObject = new JSONObject(surveySubmission.json);
@@ -455,7 +456,7 @@ global class ProcessSurveySubmission {
      *
      *  @return - The answer map
      */
-    private static Map<String, Submission_Answer__c> parseSubmissionToMap(SurveySubmission surveySubmission) {
+    public static Map<String, Submission_Answer__c> parseSubmissionToMap(SurveySubmission surveySubmission) {
 
         Map<String, Submission_Answer__c> answerMap = new Map<String, Submission_Answer__c>();
 
@@ -600,6 +601,14 @@ global class ProcessSurveySubmission {
             else if(survey.Post_Processing_Method__c.equals('GUMUTINDO_GCCE_FARM_ENTRANCE'))
             {
                 return GumutindoHelpers.processGCCEFarmEntranceSurvey(surveySubmission, answers, interviewer);
+            }
+             else if(survey.Post_Processing_Method__c.equals('GUMUTINDO_GROUP_SURVEY'))
+            {
+                return GumutindoHelpers.processGumutindoGroupSurvey(surveySubmission, answers, interviewer);
+            }
+             else if(survey.Post_Processing_Method__c.equals('GCCE_FARMER_GROUP_ASSESSMENT'))
+            {
+                return GumutindoHelpers.processGroupFarmerMemberAssessmentSurvey(surveySubmission, answers, interviewer);
             }
         }
         catch (Exception e) {
