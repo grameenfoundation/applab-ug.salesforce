@@ -9,7 +9,8 @@ public with sharing class GumutindoDashboardController extends ParentComponentBa
     private Dashboard_Section__c section;
     
     public GumutindoDashboardController() {
-        setDashboardName('a13b0000000lZem');
+        //setDashboardName('a13b0000000lZem');
+        setDashboardName('a0G7000001N5KZf');
         setSections(loadSections());
     }
 
