@@ -47,6 +47,8 @@ public with sharing class MetricComponentController extends ChildComponentBase {
                 Show_Break_Down__c,
                 Show_Further_Link__c,
                 Default_Show__c,
+                Allow_Update__c,
+                View_Mode__c
                 Allow_Update__c
             FROM
                 Metric_Section__c
@@ -58,6 +60,7 @@ public with sharing class MetricComponentController extends ChildComponentBase {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'No active metric section found for id ' + this.sObjectId + '. Please check your set up. Contact support if this persists'));
             return false;
         }
+        System.debug('View Mode is '+section[0].View_Mode__c);
         setsObjectRecord((sObject)section[0]);
         return true;
     }

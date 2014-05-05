@@ -597,6 +597,10 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('IG_CBT_VISITS')) {
                 return ProcessNUSAFSurveys.registerNusafActivityVisit(surveySubmission, answers, interviewer);
             }
+            else if(survey.Post_Processing_Method__c.equals('GUMUTINDO_GCCE_FARM_ENTRANCE'))
+            {
+                return GumutindoHelpers.processGCCEFarmEntranceSurvey(surveySubmission, answers, interviewer);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');
