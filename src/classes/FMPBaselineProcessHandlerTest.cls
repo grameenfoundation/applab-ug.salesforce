@@ -34,8 +34,7 @@ public with sharing class FMPBaselineProcessHandlerTest {
 		CBL_Farm__c farm = [Select Id from CBL_Farm__c where Id = :testFarm.Id];
 		Farm_Management_Plan__c fmp = [Select Id from Farm_Management_Plan__c where Farm__c = :farm.Id];
 		PMF_Finca_Categoria_1__c cat1 = [Select Id, Nivel_categor_a__c from PMF_Finca_Categoria_1__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-		cat1.Nivel_categor_a__c = 'Bajo';
-		System.assert(cat1.Nivel_categor_a__c == 'Bajo');
+		//System.assert(cat1.Nivel_categor_a__c == 'Bajo');
 	}
 
 }
