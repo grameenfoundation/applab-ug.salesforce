@@ -249,7 +249,7 @@
         <fullName>Avoid_edit_target_details</fullName>
         <active>true</active>
         <description>Only phone submissions should change this value</description>
-        <errorConditionFormula>AND( NOT($Setup.IGTargetsValidationRule__c.Allow_Edit_Field__c) ,  OR(IsChanged( DateFollowupVisit1__c ),IsChanged(  DateFollowupVisit2__c  ),IsChanged(DateFollowupVisit3__c ),IsChanged(DateMobilization__c ),IsChanged(DatePreliminaryTrainingDay1__c ),IsChanged(DatePreliminaryTrainingDay2__c ),IsChanged(DatePreliminaryTrainingDay3__c)) )</errorConditionFormula>
+        <errorConditionFormula>AND( NOT($Setup.IGTargetsValidationRule__c.Allow_Edit_Field__c), OR(IsChanged( DateFollowupVisit1__c ),IsChanged(  DateFollowupVisit2__c  ),IsChanged(DateFollowupVisit3__c ),IsChanged(DateMobilization__c ),IsChanged(DatePreliminaryTrainingDay1__c ),IsChanged(DatePreliminaryTrainingDay2__c ),IsChanged(DatePreliminaryTrainingDay3__c)) )</errorConditionFormula>
         <errorMessage>Only phone submissions can change this value</errorMessage>
     </validationRules>
 </CustomObject>
