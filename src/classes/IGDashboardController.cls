@@ -12,10 +12,12 @@ public class IGDashboardController {
     private List<SelectOption> subregionsList;
     private List<SelectOption> communityBasedTrainers;
     private String isUpdateable = 'false';
-    private String orgName = 'CKW';
+    private String orgName = 'IG NUSAF';
     private String country = 'Uganda';
-    private List<MetricDataWrapper> metricsData = new List<MetricDataWrapper>();
-    private List<List<IGDashboardHelpers.Data>> barChartData;
+    private List<IGDashboardHelpers.Data> regionsData;
+    private List<IGDashboardHelpers.Data> cTData;
+    private Boolean isRegionalManager = false;
+    private Boolean isOversight = false;
 
     public IGDashboardController(){
         setUp(ApexPages.currentPage());
@@ -59,6 +61,33 @@ public class IGDashboardController {
         if(pageRef.getParameters().get('cbt') != null){
             this.cbt.Id = Id.valueOf(pageRef.getParameters().get('cbt'));
         }
+
+        //we check the profile so as to filter what is shown on the dashboard
+        Profile profile = [Select Name from Profile where Id =: userinfo.getProfileid()];
+        if(profile.name.toLowerCase().contains('nusaf oversight')){
+            isRegionalManager = false;
+            isOversight = true;
+        }
+        else if(profile.name.toLowerCase().contains('regional manager')){
+            isRegionalManager = true;
+            isOversight = false;          
+        }
+        else{
+            //other profiles default to oversight
+            isRegionalManager = false;
+            isOversight = true;            
+        }
+    }
+
+    //getters for acquiring category of current user
+    public Boolean getIsRegionalManager(){
+        return this.isRegionalManager;
+    }
+    public void setIsRegionalManager(Boolean val){
+        this.isRegionalManager = val;
+    }
+    public Boolean getIsOversight(){
+        return this.isOversight;
     }
 
     /*
@@ -67,11 +96,11 @@ public class IGDashboardController {
     */
     public List<SelectOption> getSubregionsList(){
         List<SelectOption> options = new List<SelectOption>();
-        String[] subregions = ProcessNUSAFSurveys.northernUgandaSubregions.values();
+        IG_Region__c[] subregions = database.query(IGDashboardHelpers.getIGRegions());
         subregions.sort();
         options.add(new SelectOption('','-- In All Sub-Regions --'));
-        for (String a_region : subregions) {
-           options.add(new SelectOption(a_region, a_region));
+        for (IG_Region__c a_region : subregions) {
+           options.add(new SelectOption(a_region.Id, a_region.Name));
         } 
         return options;
     }
@@ -85,10 +114,10 @@ public class IGDashboardController {
     */
     public List<SelectOption> getDistrictList() {
         List<SelectOption> options = new List<SelectOption>();
-        District__c[] districts = database.query(IGDashboardHelpers.getDistricts(''));
+        IG_Region_District_Association__c[] districts = database.query(IGDashboardHelpers.getDistricts(this.subregion));
         options.add(new SelectOption('','-- In All Districts --'));
-        for (District__c district : districts) {
-               options.add(new SelectOption(district.Name, district.Name));
+        for (IG_Region_District_Association__c district : districts) {
+               options.add(new SelectOption(district.District__r.Id, district.District__r.Name));
         } 
         return options;
     }
@@ -102,10 +131,10 @@ public class IGDashboardController {
     */
     public List<SelectOption> getSubcountiesList() {
         List<SelectOption> options = new List<SelectOption>();
-        Subcounty__c[] subcounties = database.query(IGDashboardHelpers.getSubcounties(orgName));
+        Subcounty__c[] subcounties = database.query(IGDashboardHelpers.getSubcounties(this.district.Id));
         options.add(new SelectOption('','-- In All Subcounties --'));
         for (Subcounty__c subcounty : subcounties) {
-           options.add(new SelectOption(subcounty.Display_Name__c, subcounty.Display_Name__c));
+           options.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
         } 
         return options;
     }
@@ -119,10 +148,15 @@ public class IGDashboardController {
     */
     public List<SelectOption> getCommunityBasedTrainers(){
         List<SelectOption> options = new List<SelectOption>();
-        Person__c[] trainers = database.query(IGDashboardHelpers.getCommunityBasedTrainers());
+        IG_Subproject_Target__c[] targets = database.query(IGDashboardHelpers.getCommunityBasedTrainers(this.subcounty.Id));
+        Map<String, IG_Subproject_Target__c> mapTargets = new Map<String, IG_Subproject_Target__c>();
+        for(IG_Subproject_Target__c target: targets){
+            mapTargets.put(target.Person__r.Id, target);//This is map and hence it will always have unique values 
+        }
+        targets = mapTargets.values();
         options.add(new SelectOption('','-- In All Community Based Trainers --'));
-        for (Person__c trainer : trainers) {
-           options.add(new SelectOption(string.valueOf(trainer.Id), trainer.First_Name__c + ' ' + trainer.Last_Name__c));
+        for (IG_Subproject_Target__c target : targets) {
+           options.add(new SelectOption(string.valueOf(target.Person__r.Id), target.Person__r.First_Name__c + ' ' + target.Person__r.Last_Name__c));
         } 
         return options;
     }
@@ -142,14 +176,31 @@ public class IGDashboardController {
         this.orgName = org;
     }
 
-    /*
-    * aggregates metrics into MetricDataWrapper\'s for display  
-    * any other new metrics will be added herein upon computation
-    */
-    public List<MetricDataWrapper> getMetricsData(){		
-        List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
-        metrics.add(IGDashboardHelpers.getTotalNumberOfFieldVisitsMetric(subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id));
-        return metrics;
+    /**
+     * event fired when region changes on the dashboard
+     */
+    public PageReference onRegionChanged(){
+        PageReference resultPage = ApexPages.currentPage(); 
+        String subcountyId = resultPage.getParameters().get('subregion');
+        return null;
+    }
+
+    /**
+     * event fired when district changes on the dashboard
+     */
+    public PageReference onDistrictChanged(){
+        PageReference resultPage = ApexPages.currentPage(); 
+        String districtId = resultPage.getParameters().get('district');
+        return null;
+    }
+
+    /**
+     * event fired when subcounty changes on the dashboard
+     */
+    public PageReference onSubcountyChanged(){
+        PageReference resultPage = ApexPages.currentPage(); 
+        String districtId = resultPage.getParameters().get('subcounty');
+        return null;
     }
 
     /*
@@ -171,15 +222,30 @@ public class IGDashboardController {
         return resultPage;		
     }
 
-    public List<List<IGDashboardHelpers.Data>> getBarChartData(){
-        barChartData = new List<List<IGDashboardHelpers.Data>>();
-        Survey__c[] surveys = database.query(IGDashboardHelpers.getActivities());
-        for(Survey__c activity : surveys){
-            List<IGDashboardHelpers.Data> barGraphData = IGDashboardHelpers.getBarGraphFieldVisitsMetrics(activity, subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
-            if(!barGraphData.isEmpty()){
-                barChartData.add(barGraphData);
-            }
+    /*
+    * Returns aggregated metrics by region  
+    * @return List of IGDashboardHelpers.Data each of which is for a Region
+    */
+    public List<IGDashboardHelpers.Data> getRegionalMetricsData(){        
+        regionsData = new List<IGDashboardHelpers.Data>();
+        regionsData = IGDashboardHelpers.getMetricsForRegion(subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+        return regionsData;
+    }
+
+    /**
+     * Returns metric datas for Community Trainers in a given IG region
+     * This is only possible for users of profile IG Regional Manager which resolves to a fair number of records
+     * @return List of IGDashboardHelpers.Data each of which is for a CT
+     */
+    public List<IGDashboardHelpers.Data> getCTMetricsData(){
+        cTData = new List<IGDashboardHelpers.Data>();
+        if(isRegionalManager){
+            IG_Region__c regionthis = IGDashboardHelpers.getUserRegion();
+            cTData = IGDashboardHelpers.getIndividualMetrics( regionthis == null ? null : regionthis.Id, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
         }
-        return barChartData;
+        else {
+            cTData = IGDashboardHelpers.getIndividualMetrics(subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+        }
+        return cTData;
     }
 }

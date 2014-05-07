@@ -7,112 +7,100 @@
  *	class is not clogged.
  *  Its test methods are in the IGDashboardTests class 
  **/
-public class IGDashboardHelpers {
-    
-    public static final String IG_CBT_VISITS_POSTPROCESSING_METHOD = 'IG_CBT_VISITS';
+public class IGDashboardHelpers {    
     public static final String IG_PERSON_TYPE_NAME = 'IG/NUSAF';
-    
-    public static String getDistricts(String orgName) {
+       
+       /**
+        * IG has regions differing from ours, this query returns
+        * IG regions registered
+        */
+    public static String getIGRegions() {
         String selectClause =
-            'SELECT '           +
-                'Name, '        +
-                'Latitude__c, ' +
-                'Longitude__c ' +
-            'FROM '             +
-                'District__c '  +
-            'ORDER BY '         +
+            'SELECT '               +
+                'Id, '              +
+                'Name '             +
+            'FROM '                 +
+                'IG_Region__c '     +
+            'ORDER BY '             +
                 'Name';
+        return selectClause;
+    }
+
+    /**
+     * @param region    the region whose districts to get: if empty returns all
+     * @return a string query that fetches desired districts
+     */
+    public static String getDistricts(String region) {
+        String selectClause =
+            'SELECT '                                   +
+                'District__r.Name, '                    +
+                'District__r.Latitude__c, '             +
+                'District__r.Longitude__c '             +
+            'FROM '                                     +
+                'IG_Region_District_Association__c ';
+
+        String whereClause =
+            'WHERE '                                    +
+                'IG_Region__r.Id = \'' + region + '\' ';
+        String orderByClause =
+            'ORDER BY '                                 +
+                'District__r.Name ';
+
+        selectClause = String.isEmpty(region) ? selectClause + orderByClause : selectClause + whereClause + orderByClause;
         return selectClause;
     }
     
     /*
-    * returns a query that fetches all subcounties from a given organisation
+    * returns a query that fetches all subcounties from a given district
     *
-    * @param	organisation the org whose subcounties to return
+    * @param	district the org whose subcounties to return
     * @return query string
     */
-    public static String getSubcounties(String organisation){
-        return 'SELECT Id, '                    +
-                    'Display_Name__c, '         +
-                    'District__c '              +
-                'FROM Subcounty__c '            +
-                'WHERE District__c != NULL '    +
-                    'AND  District__c != \'\' ' +
-                'ORDER BY Display_Name__c ';
+    public static String getSubcounties(String district){
+        String selectClause = 
+                'SELECT '                           + 
+                    'Id, '                          +
+                    'Display_Name__c, '             +
+                    'District__c '                  +
+                'FROM '                             +
+                    'Subcounty__c ';
+        String whereClause =
+                'WHERE '                            +
+                    'District__r.Id = \'' + district + '\' ';
+        String orderByClause =
+                'ORDER BY '                         +
+                    'Display_Name__c ';
+        selectClause = String.isEmpty(district) ? selectClause + orderByClause : selectClause + whereClause + orderByClause;
+        return selectClause;
     }
     
     /*
-    * Returns a query that fetches all Community Based Trainers 
-    * These are CKWs of type IG/NUSAF
+    * Returns a query that fetches all Community Based Trainers in a given subcounty 
+    * These are Persons of type IG/NUSAF attached to target objects of this subcounty
     *
     * @return - a query that fetches person objects
     */
-    public static string getCommunityBasedTrainers(){
-        return 'SELECT '                    +
-                    'Id, '                  +
-                    'First_Name__c, '       +
-                    'Last_Name__c, '        +
-                    'Type__c '              +
-                'FROM '                     +
-                    'Person__c '            +
-                'WHERE '                    +
-                    'Type__c = \'' + IG_PERSON_TYPE_NAME + '\' '    +
-                'ORDER BY '                 +
-                    'First_Name__c, Last_Name__c';
-                    
-    }
-    
-    /*
-    * Gets the total number of field visits made including targets
-    * where targets are available, they will be summed up
-    * @params - filters for the field visits made
-    * @return - A metric data wrapper object with the aggregate data
-    */
-    public static MetricDataWrapper getTotalNumberOfFieldVisitsMetric(String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
-        MetricDataWrapper metric = new MetricDataWrapper();
-        metric.setLabel('Total Number of field visits');
-        
-        //set the actual value
-        String query = 'SELECT '                                        +
-                            'Count(Id) '                                +
-                        'FROM '                                         +
-                            'Community_Based_Trainer_Field_Visit__c '   +
-                        'WHERE '                                        +
-                            'Name_of_Trainer__c != NULL ';
-        query += String.isNotEmpty(region)? ' AND Subregion__c = \'' + region + '\' ': '';
-        query += String.isNotEmpty(district)? ' AND District__r.Name = \'' + district + '\' ': '';
-        query += String.isNotEmpty(district)? ' AND Subcounty__r.Display_Name__c = \'' + subcounty + '\' ': '';
-        query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? ' AND (Date_of_Visit__c >= ' + dateFrom + ' AND Date_of_Visit__c <= ' +dateTo + ') ': '';
-        query += cbt != null? ' AND Person__r.Id = \'' + cbt + '\' ': '';
-        
-        List<AggregateResult> result = database.query(query);
-        metric.setCurrentRealValue((Decimal)result[0].get('expr0'));
-        
-        String surveys = 'SELECT '                                                  +
-                                'Id '                                               +
-                            'FROM '                                                 +
-                                'Survey__c '                                        +
-                            'WHERE '                                                +
-                                'Post_Processing_Method__c = \'' + IG_CBT_VISITS_POSTPROCESSING_METHOD + '\' ';
-        surveys += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? 
-                            ' (AND Start_Date__c <= ' + dateFrom + ' AND End_Date__c >= ' + dateTo + ') ': '';
-        
-        //set the target
-        String targets_query = 'SELECT '                                                                                        +
-                                    'Sum(Target_Value__c) '                                                                     +
-                                'FROM '                                                                                         +
-                                    'Community_Based_Trainer_Target__c '                                                        +
-                                'WHERE '                                                                                        +
-                                    'Survey__r.Post_Processing_Method__c = \'' + IG_CBT_VISITS_POSTPROCESSING_METHOD + '\' ';
-        targets_query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? 
-                                    ' AND (Survey__r.Start_Date__c <= ' + dateFrom + ' AND Survey__r.End_Date__c >= ' + dateTo + ')': '';
-        targets_query += cbt != null? ' AND Person__r.Id = \'' + cbt + '\' ': '';
-        
-        List<AggregateResult> result1 = database.query(targets_query);
-        metric.setCurrentTarget((Decimal)result1[0].get('expr0'));
-        
-        return metric;
-    }
+    public static string getCommunityBasedTrainers(String subcounty){
+        String selectClause = 
+                'SELECT '                               +
+                    'Id, '                              +
+                    'Person__r.Id, '                    +
+                    'Person__r.First_Name__c, '         +
+                    'Person__r.Last_Name__c, '          +
+                    'Person__r.Type__c '                +
+                'FROM '                                 +
+                    'IG_Subproject_Target__c '          +
+                'WHERE '                                +
+                    'Person__c != NULL ';
+        String whereClause = 
+                    'AND Subcounty__r.Id = \'' + subcounty + '\' ';
+        String orderByClause =
+                'ORDER BY '                             +
+                    'Person__r.First_Name__c, Person__r.Last_Name__c';
+
+        selectClause = String.isEmpty(subcounty) ? selectClause + orderByClause : selectClause + whereClause + orderByClause;
+        return selectClause;           
+    }    
     
     /*
     * returns a query that gets all field visits based on provided filters
@@ -121,25 +109,26 @@ public class IGDashboardHelpers {
     * @return - a query returning field visits for given filters
     */
     public static String getFieldVisitDetails(String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
-        String query = 'SELECT '                                    +
-                          'Id, '                                    +
-                          'District__r.Name, '                      +
-                          'Subcounty__r.Display_Name__c, '          +
-                          'Subregion__c, '                          +
-                          'Date_of_Visit__c, '                      +
-                          'Interview_Latitude__c, '                 +
-                          'Interview_Longitude__c, '                +
-                          'Type_of_Visit__c, '                      +
-                          'Name_of_Trainer__c '                     +
-                        'FROM '                                     +
-                          'Community_Based_Trainer_Field_Visit__c ' +
-                        'WHERE '                                    +
-                            'Name_of_Trainer__c != NULL ';
-        query += String.isNotEmpty(region)? ' AND Subregion__c = \'' + region + '\' ': '';
-        query += String.isNotEmpty(district)? ' AND District__r.Name = \'' + district + '\' ': '';
-        query += String.isNotEmpty(district)? ' AND Subcounty__r.Display_Name__c = \'' + subcounty + '\' ': '';
-        query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? ' AND (Date_of_Visit__c >= ' + dateFrom + ' AND Date_of_Visit__c <= ' +dateTo + ') ': '';
-        query += cbt != null? ' AND Person__r.Id = \'' + cbt + '\' ': '';
+        String query = 
+                'SELECT '                                               +
+                    'Id, '                                              +
+                    'Name, '                                            +
+                    'Person__r.Id, '                                    +
+                    'Person__r.First_Name__c, '                         +
+                    'Person__r.Last_Name__c, '                          +
+                    'DatePreliminaryTrainingDay1__c, '                  +
+                    'DatePreliminaryTrainingDay2__c, '                  +
+                    'DatePreliminaryTrainingDay3__c, '                  +
+                    'DateFollowupVisit1__c, '                           +
+                    'DateFollowupVisit2__c, '                           +
+                    'DateFollowupVisit3__c, '                           +
+                    'LocationMobilization__c, '                         +
+                    'DateMobilization__c, '                             +
+                    'IG_Region__r.Name '                                +
+                'FROM '                                                 +
+                    'IG_Subproject_Target__c '                          +
+                'WHERE '                                                +
+                    'Person__c != NULL ';
         return query;
     }
     
@@ -153,30 +142,71 @@ public class IGDashboardHelpers {
     * @return - an array of markers 
     */
     public static MetricMapWrapper[] getFieldVisitsMapMarkers(String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
-        Community_Based_Trainer_Field_Visit__c[] visits = database.query(IGDashboardHelpers.getFieldVisitDetails(region, district, subcounty, dateFrom, dateTo, cbt));      
+        IG_Subproject_Target__c[] visits = database.query(IGDashboardHelpers.getFieldVisitDetails(region, district, subcounty, dateFrom, dateTo, cbt));
+
         Map<String, MetricMapWrapper> markers = new Map<String, MetricMapWrapper>();
         if (visits.size() == 0) {
             return markers.values();
         }
 
-        for (Community_Based_Trainer_Field_Visit__c visit : visits) {
+        for (IG_Subproject_Target__c visit : visits) {
             // Dont include if we are missing the location
-            if (!String.isNotEmpty(visit.Interview_Latitude__c) || !String.isNotEmpty(visit.Interview_Longitude__c)) {
+            if (!String.isNotEmpty(visit.LocationMobilization__c)) {
                 continue;
             }
-            String name = String.valueOf(visit.Date_of_Visit__c);
+            String name = String.valueOf(visit.Name);
           
             MetricMapWrapper marker = null;
-            marker = new MetricMapWrapper('CBTFieldVisit', 'FFD801', visit.Id, true);
-            marker.gpsLatitude = visit.Interview_Latitude__c;
-            marker.gpsLongitude = visit.Interview_Longitude__c;
+            if(visit.IG_Region__r.Name.containsIgnoreCase('acholi')){
+                marker = new MetricMapWrapper('CBTFieldVisit', '606060', visit.Id, true);//blackish
+            }
+            else if(visit.IG_Region__r.Name.containsIgnoreCase('bukedi')){
+                marker = new MetricMapWrapper('CBTFieldVisit', 'A00000 ', visit.Id, true);//reddish
+            }
+            else if(visit.IG_Region__r.Name.containsIgnoreCase('elgon')){
+                marker = new MetricMapWrapper('CBTFieldVisit', '33CC00', visit.Id, true);//greenish
+            }
+            else if(visit.IG_Region__r.Name.containsIgnoreCase('south karamoja')){
+                marker = new MetricMapWrapper('CBTFieldVisit', '0000FF', visit.Id, true);//blue
+            }
+            else if(visit.IG_Region__r.Name.containsIgnoreCase('north karamoja')){
+                marker = new MetricMapWrapper('CBTFieldVisit', 'FFFF00', visit.Id, true);//yellow
+            }
+            else if(visit.IG_Region__r.Name.containsIgnoreCase('lango')){
+                marker = new MetricMapWrapper('CBTFieldVisit', 'FF00FF', visit.Id, true);//pinkish
+            }
+            else if(visit.IG_Region__r.Name.containsIgnoreCase('west nile')){
+                marker = new MetricMapWrapper('CBTFieldVisit', 'FFFFFF', visit.Id, true);//white
+            }
+            else {
+                marker = new MetricMapWrapper('CBTFieldVisit', 'FFA500', visit.Id, true);//orange                
+            }
+            marker.gpsLatitude = visit.LocationMobilization__c.split(' ')[0];
+            marker.gpsLongitude = visit.LocationMobilization__c.split(' ')[1];
              
-            String content =    '<div>'                                                                 +
-                                    'Visit Details<br/>'                                                +
-                                    'Date:       ' + String.valueOf(visit.Date_of_Visit__c) + '<br/>'   +
-                                    'Trainer:    ' + visit.Name_of_Trainer__c + '<br/>'                 +
-                                    'Visit Type: ' + visit.Type_of_Visit__c + '<br/>';
-            
+            String content =    '<div style="min-width:300px">' +
+                                    'Name:    ' + visit.Name + '<br/>' +
+                                    'Trainer:    ' + visit.Person__r.First_Name__c + ' ' + visit.Person__r.Last_Name__c + '<br/>' +
+                                    'Enrollment:       ' + String.valueOf(visit.DateMobilization__c) + '<br/>';
+            if(visit.DatePreliminaryTrainingDay1__c != null){
+                content += 'Training Day1:       ' + String.valueOf(visit.DatePreliminaryTrainingDay1__c) + '<br/>';
+            }
+            if(visit.DatePreliminaryTrainingDay2__c != null){
+                content += 'Training Day2:       ' + String.valueOf(visit.DatePreliminaryTrainingDay2__c) + '<br/>';
+            }            
+            if(visit.DatePreliminaryTrainingDay3__c != null){
+                content += 'Training Day3:       ' + String.valueOf(visit.DatePreliminaryTrainingDay3__c) + '<br/>';
+            }
+            if(visit.DateFollowupVisit1__c != null){
+                content += 'Followup Visit 1:       ' + String.valueOf(visit.DateFollowupVisit1__c) + '<br/>';
+            } 
+            if(visit.DateFollowupVisit2__c != null){
+                content += 'Followup Visit 2:       ' + String.valueOf(visit.DateFollowupVisit2__c) + '<br/>';
+            } 
+            if(visit.DateFollowupVisit3__c != null){
+                content += 'Followup Visit 3:       ' + String.valueOf(visit.DateFollowupVisit3__c) + '<br/>';
+            } 
+
             marker.addName(content);
             marker.markerTitle = name;
             markers.put(visit.Id, marker);
@@ -184,149 +214,233 @@ public class IGDashboardHelpers {
         // Tidy up the created lists so to keep the heap size down.
         visits.clear();
         return markers.values();
+    }    
+
+    public static IG_Region__c getUserRegion(){
+        String lName = userinfo.getLastName();
+        IG_Region__c[] region = [SELECT Id, Name from IG_Region__c WHERE Name = :lName LIMIT 1];
+        if(region.isEmpty()){
+            return null;
+        }
+        return  region[0];
     }
-    
-    /*
-    * returns a query that gets surveys for the various IG/NUSAF activities to monitor
-    * All shuch surveys have the same post-processing method
-    * 
-    * @params - filters for the field visits made
-    * @return - a query that fetches survey objects
-    */
-    public static String getActivities(){
-        return 	'SELECT '                   +
-                    'Id, '                  +
-                    'Survey_Name__c '       +
-                'FROM '                     +
-                    'Survey__c '            +
-                'WHERE '                    +
-                    'Post_Processing_Method__c = \'' + IG_CBT_VISITS_POSTPROCESSING_METHOD + '\''; 
-    }
-    
-    public static String getCurrentTargets(Id survey){
-        return  'SELECT '                                   +
-                    'Id, '                                  +
-                    'Survey__c, '                           +
-                    'Person__c, '                           +
-                    'Target_Value__c '                      +
-                'FROM '                                     +
-                    'Community_Based_Trainer_Target__c '    +
-                'WHERE '                                    +
-                    'Survey__c = \'' + survey + '\'';
-    }
-    
-    /*
-    * Creates a new target for every CBT for a given activity(survey)
-    *
-    * @param -	the survey whose target we are setting
-    * @param -	the target value
-    */
-    public static void setNewTargetsForAll(Id survey, Decimal targetValue){
-        List<Community_Based_Trainer_Target__c> newTargets = new List<Community_Based_Trainer_Target__c>();
-        for(Person__c[] cbts : [SELECT Id FROM Person__c WHERE Type__c = :IG_PERSON_TYPE_NAME]){
-            for(Person__c cbt : cbts){
-                Community_Based_Trainer_Target__c newTarget = new Community_Based_Trainer_Target__c();
-                newTarget.Survey__c = survey;
-                newTarget.Person__c = cbt.Id;
-                newTarget.Target_Value__c = targetValue;
-                newTargets.add(newTarget);
+
+    public static List<Data> getMetricsForRegion(String subregion, String districtName, String subcountyDisplayName, String dateFrom, String dateTo, Id cbt){
+        Map<String, Data> data = new Map<String, Data>();
+        String selectClause = 
+            'SELECT '                                       +
+                'DateMobilization__c,'                      +
+                'DateFollowupVisit1__c,'                    +
+                'DateFollowupVisit2__c,'                    +
+                'DateFollowupVisit3__c,'                    +
+                'DatePreliminaryTrainingDay1__c,'           +
+                'DatePreliminaryTrainingDay2__c,'           +
+                'DatePreliminaryTrainingDay3__c,'           +
+                'IG_Region__c,'                             +
+                'IG_Region__r.Name,'                        +
+                'District__c,'                              +
+                'Subcounty__c,'                             +
+                'Person__c,'                                +
+                'Person__r.First_Name__c,'                  +
+                'Person__r.Last_Name__c '                   +
+            'FROM '                                         +
+                'IG_Subproject_Target__c '                  +
+            'WHERE '                                        +
+                'Person__c != NULL ';
+                selectClause += String.isEmpty(subregion) ? '' : 
+                'AND IG_Region__r.Name = \'' + subregion + '\' ';
+                selectClause += String.isEmpty(districtName) ? '' : 
+                'AND District__r.Name = \'' + districtName + '\' ';
+                selectClause += String.isEmpty(subcountyDisplayName) ? '' : 
+                'AND Subcounty__r.Display_Name__c = \'' + subcountyDisplayName + '\' ';
+                selectClause += String.isEmpty(cbt) ? '' : 
+                'AND Person__r.Id = \'' + cbt + '\' ';
+        System.debug(LoggingLevel.WARN, selectClause);
+        IG_Subproject_Target__c[] targets = database.query(selectClause);
+        for(IG_Subproject_Target__c target : targets){
+            Id person = target.IG_Region__c;
+            Data datum = data.get(String.valueOf(person));
+            if(datum == null){
+                String name = target.IG_Region__r.Name;
+                datum = new Data(String.valueOf(target.IG_Region__r.Id), name, '','','','');
             }
-        }
-        insert newTargets;
-    }
-    
-    /*
-    * Creates a new target for one CBT for a given activity(survey)
-    *
-    * @param -	the survey whose target we are setting
-    * @param -	the target value
-    * @param -	the CBT's Id whose target is being set
-    */
-    public static void setNewTargetForCBT(Id survey, Decimal targetValue, Id cbt){
-        Community_Based_Trainer_Target__c newTarget = new Community_Based_Trainer_Target__c();
-        newTarget.Survey__c = survey;
-        newTarget.Person__c = cbt;
-        newTarget.Target_Value__c = targetValue;
-    
-        insert newTarget;
-    }
-    
-    /*
-    * Searches through a list of targets and returns a target that belongs
-    * to a specified person
-    *
-    * @param  -	Id of a person__c whose target we are searching for
-    * @param  -	List of targets we are searching from
-    * @return -	Target found or null if nothing found	
-    */
-    public static Community_Based_Trainer_Target__c getTarget(Id cbt, List<Community_Based_Trainer_Target__c> currentTargets){
-        for(Community_Based_Trainer_Target__c target : currentTargets){
-            if(target.Person__c == cbt){
-                return target;
+            //we keep this count for use in counting total targets
+            datum.count = datum.count + 1;
+            //mobilzation
+            if(target.DateMobilization__c != null){
+                datum.mobilization_count = datum.mobilization_count + 1;
             }
+            //preliminary training
+            if(target.DatePreliminaryTrainingDay1__c != null){
+                datum.preliminary_count = datum.preliminary_count + 1;
+            }
+            if(target.DatePreliminaryTrainingDay2__c != null){
+                datum.preliminary_count = datum.preliminary_count + 1;
+            }
+            if(target.DatePreliminaryTrainingDay3__c != null){
+                datum.preliminary_count = datum.preliminary_count + 1;
+            }
+            //followups
+            if(target.DateFollowupVisit1__c != null){
+                datum.followup_visits_count = datum.followup_visits_count + 1;
+            }
+            if(target.DateFollowupVisit2__c != null){
+                datum.followup_visits_count = datum.followup_visits_count + 1;
+            }
+            if(target.DateFollowupVisit3__c != null){
+                datum.followup_visits_count = datum.followup_visits_count + 1;
+            }
+            double current_completion = 0;
+            //recalculate average %ge completion
+            //%ge of mobilization completed
+            double completionMob = 0;
+            completionMob = (datum.mobilization_count / datum.count * 1) * 100 ; 
+            current_completion += completionMob;
+            
+            //%ge of training done
+            double completionPre = 0;                                       
+            completionPre = (datum.preliminary_count / datum.count * 3) * 100;
+            current_completion += completionPre;
+            
+            //%ge of followups done      
+            double completionFollo = 0;       
+            completionFollo = (datum.followup_visits_count / datum.count * 3) * 100;   
+            current_completion += completionFollo;
+
+            //%ge current completion
+            current_completion = current_completion / 3;
+
+            //average
+            System.debug(LoggingLevel.WARN, datum.completion);
+            datum.completion = datum.completion + current_completion / 2;
+
+            data.put(String.valueOf(person), datum);
         }
-        return null;
+        return data.values();
+    }
+
+    public static List<Data> getIndividualMetrics(String subregion, String districtName, String subcountyDisplayName, String dateFrom, String dateTo, Id cbt){
+        Map<String, Data> data = new Map<String, Data>();
+        String selectClause = 
+            'SELECT '                                       +
+                'DateMobilization__c,'                      +
+                'DateFollowupVisit1__c,'                    +
+                'DateFollowupVisit2__c,'                    +
+                'DateFollowupVisit3__c,'                    +
+                'DatePreliminaryTrainingDay1__c,'           +
+                'DatePreliminaryTrainingDay2__c,'           +
+                'DatePreliminaryTrainingDay3__c,'           +
+                'IG_Region__c,'                             +
+                'District__c,'                              +
+                'Subcounty__c,'                             +
+                'Person__c,'                                +
+                'Person__r.First_Name__c,'                  +
+                'Person__r.Last_Name__c '                   +
+            'FROM '                                         +
+                'IG_Subproject_Target__c '                  +
+            'WHERE '                                        +
+                'Person__c != NULL ';
+                selectClause += String.isEmpty(subregion) ? '' : 
+                'AND IG_Region__r.Name = \'' + subregion + '\' ';
+                selectClause += String.isEmpty(districtName) ? '' : 
+                'AND District__r.Name = \'' + districtName + '\' ';
+                selectClause += String.isEmpty(subcountyDisplayName) ? '' : 
+                'AND Subcounty__r.Display_Name__c = \'' + subcountyDisplayName + '\' ';
+                selectClause += String.isEmpty(cbt) ? '' : 
+                'AND Person__r.Id = \'' + cbt + '\' ';
+        System.debug(LoggingLevel.WARN, selectClause);
+        IG_Subproject_Target__c[] targets = database.query(selectClause);
+        for(IG_Subproject_Target__c target : targets){
+            Id person = target.Person__c;
+            Data datum = data.get(String.valueOf(person));
+            if(datum == null){
+                String name = target.Person__r.First_Name__c + ' ' + target.Person__r.Last_Name__c;
+                datum = new Data(String.valueOf(target.Person__r.Id), name, '','','','');
+            }
+            //we keep this count for use in counting total targets
+            datum.count = datum.count + 1;
+            //mobilzation
+            if(target.DateMobilization__c != null){
+                datum.mobilization_count = datum.mobilization_count + 1;
+            }
+            //preliminary training
+            if(target.DatePreliminaryTrainingDay1__c != null){
+                datum.preliminary_count = datum.preliminary_count + 1;
+            }
+            if(target.DatePreliminaryTrainingDay2__c != null){
+                datum.preliminary_count = datum.preliminary_count + 1;
+            }
+            if(target.DatePreliminaryTrainingDay3__c != null){
+                datum.preliminary_count = datum.preliminary_count + 1;
+            }
+            //followups
+            if(target.DateFollowupVisit1__c != null){
+                datum.followup_visits_count = datum.followup_visits_count + 1;
+            }
+            if(target.DateFollowupVisit2__c != null){
+                datum.followup_visits_count = datum.followup_visits_count + 1;
+            }
+            if(target.DateFollowupVisit3__c != null){
+                datum.followup_visits_count = datum.followup_visits_count + 1;
+            }
+            double current_completion = 0;
+            //recalculate average %ge completion
+            //%ge of mobilization completed
+            double completionMob = 0;
+            completionMob = (datum.mobilization_count / datum.count * 1) * 100 ; 
+            current_completion += completionMob;
+            
+            //%ge of training done
+            double completionPre = 0;                                       
+            completionPre = (datum.preliminary_count / datum.count * 3) * 100;
+            current_completion += completionPre;
+            
+            //%ge of followups done      
+            double completionFollo = 0;       
+            completionFollo = (datum.followup_visits_count / datum.count * 3) * 100;   
+            current_completion += completionFollo;
+
+            //%ge current completion
+            current_completion = current_completion / 3;
+
+            //average
+            System.debug(LoggingLevel.WARN, datum.completion);
+            datum.completion = datum.completion + current_completion / 2;
+
+            data.put(String.valueOf(person), datum);
+        }
+        return data.values();
     }
     
     /*
-    * Gets the sum of field visits made per CBT using the parameters passed as filters.
-    * It also sums up targets values available, they will be summed up
-    * @params - filters for the field visits made
-    * @return - A metric data wrapper object with the aggregate data
-    */
-    public static List<IGDashboardHelpers.Data> getBarGraphFieldVisitsMetrics(Survey__c survey, String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
-        List<IGDashboardHelpers.Data> metrics = new List<IGDashboardHelpers.Data>();
-        IGDashboardHelpers.Data metric;
-        //MetricDataWrapper metricTarget;
-        
-        String query =  'SELECT '                                       +
-                            'Person__r.Id, '                            +
-                            'Person__r.First_Name__c, '                 +
-                            'Person__r.Last_Name__c, '                  +
-                            'Count(Id) realValue '                      +
-                        'FROM '                                         +
-                            'Community_Based_Trainer_Field_Visit__c '   +
-                        'WHERE '                                        +
-                            'Survey__r.Id = \'' + survey.Id + '\' ';
-        query += String.isNotEmpty(region)? ' AND Subregion__c = \'' + region + '\' ': '';
-        query += String.isNotEmpty(district)? ' AND District__r.Name = \'' + district + '\' ': '';
-        query += String.isNotEmpty(district)? ' AND Subcounty__r.Display_Name__c = \'' + subcounty + '\' ': '';
-        query += (String.isNotEmpty(dateFrom) && String.isNotEmpty(dateTo))? ' AND (Date_of_Visit__c >= ' + dateFrom + ' AND Date_of_Visit__c <= ' +dateTo + ') ': '';
-        query += cbt != null? ' AND Person__r.Id = \'' + cbt + '\' ': '';
-        query +=        ' GROUP BY Person__r.Id, Person__r.First_Name__c, Person__r.Last_Name__c ';
-        
-        List<AggregateResult> results = database.query(query);
-        for(AggregateResult result : results){
-            //FETCH target (only one value should be available)
-            String targets_query = 'SELECT '                                                        +
-                                        'Sum(Target_Value__c) '                                     +
-                                    'FROM '                                                         +
-                                        'Community_Based_Trainer_Target__c '                        +
-                                    'WHERE '                                                        +
-                                        'Survey__r.Id = \'' + survey.Id + '\' '                     +
-                                        'AND Person__r.Id = \'' + result.get('Id') + '\' ';
-            List<AggregateResult> targetResult = database.query(targets_query);
-            metric = new IGDashboardHelpers.Data(survey.Survey_Name__c, result.get('First_Name__c') + ' ' + result.get('Last_Name__c'), (Decimal)result.get('realValue'), (Decimal)targetResult[0].get('expr0') == null? 0:(Decimal)targetResult[0].get('expr0'), URL.getSalesforceBaseUrl().toExternalForm() + '/' + survey.id);
-            metrics.add(metric);
-        }
-        return metrics;
-    }
-    
-    /*
-    * A class that carries data reflecting chart points
+    * A class that carries dashboard metrics data
     */
     public class Data{
         public String name { get; set; }
         public String label { get; set; }
-        public Decimal Actual_Submissions { get; set; }
-        public Decimal Target_Submissions { get; set; }
-        public String location { get; set; }
-        public Data(String name, String label, Decimal data1, Decimal data2, String location){
+        public String mobilization { get; set; }
+        public String preliminary { get; set; }
+        public String followup_visits{ get; set; }
+        public String percentage_completion{ get; set; }
+
+        public Integer count { get; set; }
+        public Integer mobilization_count { get; set; }
+        public Integer preliminary_count { get; set; }
+        public Integer followup_visits_count { get; set; }
+        public double completion { get; set; }
+
+        public Data(String name, String label, String mobilization, String preliminary, String followup_visits, String percentage_completion){
             this.name = name;
             this.label = label;
-            this.Actual_Submissions = data1;
-            this.Target_Submissions = data2;
-            this.location = location;
+            this.mobilization = mobilization;
+            this.preliminary = preliminary;
+            this.followup_visits = followup_visits;
+            this.percentage_completion = percentage_completion;
+            count = 0;
+            mobilization_count = 0;
+            preliminary_count = 0;
+            followup_visits_count = 0;
+            completion = 0.0;
         }
     }
 }
