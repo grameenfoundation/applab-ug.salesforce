@@ -60,6 +60,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>CPA Orders</relationshipLabel>
+        <relationshipName>CPA_Orders</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Expected_Delivery_Date__c</fullName>
         <defaultValue>TODAY() + 2</defaultValue>
         <externalId>false</externalId>
@@ -118,7 +129,7 @@
         <externalId>false</externalId>
         <label>Preferred Delivery City</label>
         <length>20</length>
-        <required>true</required>
+        <required>false</required>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -127,9 +138,54 @@
         <externalId>false</externalId>
         <label>Preferred Delivery Location</label>
         <length>20</length>
-        <required>true</required>
+        <required>false</required>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Presentacion__c</fullName>
+        <externalId>false</externalId>
+        <label>Presentación</label>
+        <picklist>
+            <picklistValues>
+                <fullName>5 al día</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bandeja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bolsa transparente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ekono</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Malla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Por paquete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solo a mil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Todo a 2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vitafilado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Price_per_Kilo__c</fullName>

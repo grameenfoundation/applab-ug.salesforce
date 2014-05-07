@@ -127,6 +127,15 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Presentacion__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(CPA_Order__r.Presentacion__c)</formula>
+        <label>Presentación</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Price_per_Kilo__c</fullName>
         <externalId>false</externalId>
         <formula>CPA_Order__r.Price_per_Kilo__c</formula>
