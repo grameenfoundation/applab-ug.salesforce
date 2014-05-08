@@ -109,6 +109,8 @@ public class IGDashboardHelpers {
     * @return - a query returning field visits for given filters
     */
     public static String getFieldVisitDetails(String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
+        //if a regional manager is logged in, override
+        IG_Region__c userRegion = getUserRegion();
         String query = 
                 'SELECT '                                               +
                     'Id, '                                              +
@@ -129,6 +131,8 @@ public class IGDashboardHelpers {
                     'IG_Subproject_Target__c '                          +
                 'WHERE '                                                +
                     'Person__c != NULL ';
+        query = userRegion == null ? query : query + 
+                    'AND IG_Region__r.Name = \'' + userRegion.Name + '\'';
         return query;
     }
     
@@ -258,8 +262,8 @@ public class IGDashboardHelpers {
         System.debug(LoggingLevel.WARN, selectClause);
         IG_Subproject_Target__c[] targets = database.query(selectClause);
         for(IG_Subproject_Target__c target : targets){
-            Id person = target.IG_Region__c;
-            Data datum = data.get(String.valueOf(person));
+            Id regionId = target.IG_Region__c;
+            Data datum = data.get(String.valueOf(regionId));
             if(datum == null){
                 String name = target.IG_Region__r.Name;
                 datum = new Data(String.valueOf(target.IG_Region__r.Id), name, '','','','');
@@ -312,9 +316,9 @@ public class IGDashboardHelpers {
 
             //average
             System.debug(LoggingLevel.WARN, datum.completion);
-            datum.completion = datum.completion + current_completion / 2;
+            datum.completion = current_completion;
 
-            data.put(String.valueOf(person), datum);
+            data.put(String.valueOf(regionId), datum);
         }
         return data.values();
     }
@@ -405,7 +409,7 @@ public class IGDashboardHelpers {
 
             //average
             System.debug(LoggingLevel.WARN, datum.completion);
-            datum.completion = datum.completion + current_completion / 2;
+            datum.completion = current_completion;
 
             data.put(String.valueOf(person), datum);
         }
