@@ -425,15 +425,20 @@ private static CKW__c loadCkw(Person__c person) {
 
 		
 		//Select Gumutindo Ckws from db
-		CKW__c[] ckws = Database.query('SELECT Id, Name, ' +
+		/*CKW__c[] ckws = Database.query('SELECT Id, Name, ' +
 							'Person__r.GPS_Location_E__c,' + 
 							'Person__r.GPS_Location_N__c ' +
-							'from CKW__c');
+							'from CKW__c'); */
 
 		//For Live, select from group
-		//CKW__c[] ckws = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name='GCCE' and Person__r.Type__c='CKW');
+		Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'GCCE\' and Person__r.Type__c=\'CKW\'');
+        List<String> personIds = new List<String>();
+        for(Person_Group_Association__c assoc : associations) {
+            personIds.add(assoc.Person__r.Id);
+        }
 
 		
+        CKW__c[] ckws = [SELECT id, Name, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c from CKW__c where Person__r.Id in :personIds];
 			for (CKW__c ckw : ckws) {
     			mapMarkers.add(new GumutindoCkwMarker(ckw));
 			}
