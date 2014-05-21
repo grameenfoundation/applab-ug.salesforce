@@ -64,11 +64,7 @@ public class IGDashboardController {
 
         //we check the profile so as to filter what is shown on the dashboard
         Profile profile = [Select Name from Profile where Id =: userinfo.getProfileid()];
-        if(profile.name.toLowerCase().contains('nusaf oversight')){
-            isRegionalManager = false;
-            isOversight = true;
-        }
-        else if(profile.name.toLowerCase().contains('regional manager')){
+        if(profile.name.toLowerCase().contains('regional manager')){
             isRegionalManager = true;
             isOversight = false;          
         }
@@ -241,7 +237,7 @@ public class IGDashboardController {
         cTData = new List<IGDashboardHelpers.Data>();
         if(isRegionalManager){
             IG_Region__c regionthis = IGDashboardHelpers.getUserRegion();
-            cTData = IGDashboardHelpers.getIndividualMetrics( regionthis == null ? null : regionthis.Id, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+            cTData = IGDashboardHelpers.getIndividualMetrics( regionthis == null ? null : regionthis.Name, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
         }
         else {
             cTData = IGDashboardHelpers.getIndividualMetrics(subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);

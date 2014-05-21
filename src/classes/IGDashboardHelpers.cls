@@ -111,6 +111,8 @@ public class IGDashboardHelpers {
     public static String getFieldVisitDetails(String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
         //if a regional manager is logged in, override
         IG_Region__c userRegion = getUserRegion();
+        String subregion = (userRegion != null && userRegion.Name.containsIgnoreCase('karamoja')) ? '%KARAMOJA%' : null;
+        subregion = (subregion == null && userRegion != null) ? userRegion.Name : null;
         String query = 
                 'SELECT '                                               +
                     'Id, '                                              +
@@ -131,8 +133,9 @@ public class IGDashboardHelpers {
                     'IG_Subproject_Target__c '                          +
                 'WHERE '                                                +
                     'Person__c != NULL ';
-        query = userRegion == null ? query : query + 
-                    'AND IG_Region__r.Name = \'' + userRegion.Name + '\'';
+        query = subregion == null ? query : query + 
+                    'AND IG_Region__r.Name LIKE \'' + subregion + '\'';
+        //note that karamoja regions are fused here since they view eachothers data (due to one login)
         return query;
     }
     
@@ -222,7 +225,7 @@ public class IGDashboardHelpers {
 
     public static IG_Region__c getUserRegion(){
         String lName = userinfo.getLastName();
-        IG_Region__c[] region = [SELECT Id, Name from IG_Region__c WHERE Name = :lName LIMIT 1];
+        IG_Region__c[] region = [SELECT Id, Name from IG_Region__c WHERE Name LIKE :'%'+lName + '%' LIMIT 1];
         if(region.isEmpty()){
             return null;
         }
@@ -231,6 +234,9 @@ public class IGDashboardHelpers {
 
     public static List<Data> getMetricsForRegion(String subregion, String districtName, String subcountyDisplayName, String dateFrom, String dateTo, Id cbt){
         Map<String, Data> data = new Map<String, Data>();
+        IG_Region__c regionthis = IGDashboardHelpers.getUserRegion();
+        subregion = regionthis != null ? regionthis.Name : subregion;
+        subregion = (subregion != null && subregion.containsIgnoreCase('karamoja')) ? '%KARAMOJA%' : subregion;
         String selectClause = 
             'SELECT '                                       +
                 'DateMobilization__c,'                      +
@@ -252,7 +258,7 @@ public class IGDashboardHelpers {
             'WHERE '                                        +
                 'Person__c != NULL ';
                 selectClause += String.isEmpty(subregion) ? '' : 
-                'AND IG_Region__r.Name = \'' + subregion + '\' ';
+                'AND IG_Region__r.Name LIKE \'' + subregion + '\' ';
                 selectClause += String.isEmpty(districtName) ? '' : 
                 'AND District__r.Name = \'' + districtName + '\' ';
                 selectClause += String.isEmpty(subcountyDisplayName) ? '' : 
@@ -295,28 +301,11 @@ public class IGDashboardHelpers {
                 datum.followup_visits_count = datum.followup_visits_count + 1;
             }
             double current_completion = 0;
-            //recalculate average %ge completion
-            //%ge of mobilization completed
-            double completionMob = 0;
-            completionMob = (datum.mobilization_count / datum.count * 1) * 100 ; 
-            current_completion += completionMob;
-            
-            //%ge of training done
-            double completionPre = 0;                                       
-            completionPre = (datum.preliminary_count / datum.count * 3) * 100;
-            current_completion += completionPre;
-            
-            //%ge of followups done      
-            double completionFollo = 0;       
-            completionFollo = (datum.followup_visits_count / datum.count * 3) * 100;   
-            current_completion += completionFollo;
-
-            //%ge current completion
-            current_completion = current_completion / 3;
-
-            //average
-            System.debug(LoggingLevel.WARN, datum.completion);
-            datum.completion = current_completion;
+            //average completion is count of submissions done in relation to expected submissions
+            //having in mind that we expect 1 mobilzation, 3 trainings and 3 followups (i.e. 7 submissions) for 1 subproject 
+            current_completion = ((datum.mobilization_count + datum.preliminary_count + datum.followup_visits_count) /
+                (datum.count * 1 + datum.count * 3 + datum.count * 3)) * 100;
+            datum.completion = current_completion.round();
 
             data.put(String.valueOf(regionId), datum);
         }
@@ -388,28 +377,11 @@ public class IGDashboardHelpers {
                 datum.followup_visits_count = datum.followup_visits_count + 1;
             }
             double current_completion = 0;
-            //recalculate average %ge completion
-            //%ge of mobilization completed
-            double completionMob = 0;
-            completionMob = (datum.mobilization_count / datum.count * 1) * 100 ; 
-            current_completion += completionMob;
-            
-            //%ge of training done
-            double completionPre = 0;                                       
-            completionPre = (datum.preliminary_count / datum.count * 3) * 100;
-            current_completion += completionPre;
-            
-            //%ge of followups done      
-            double completionFollo = 0;       
-            completionFollo = (datum.followup_visits_count / datum.count * 3) * 100;   
-            current_completion += completionFollo;
-
-            //%ge current completion
-            current_completion = current_completion / 3;
-
-            //average
-            System.debug(LoggingLevel.WARN, datum.completion);
-            datum.completion = current_completion;
+            //average completion is count of submissions done in relation to expected submissions
+            //having in mind that we expect 1 mobilzation, 3 trainings and 3 followups (i.e. 7 submissions) for 1 subproject 
+            current_completion = ((datum.mobilization_count + datum.preliminary_count + datum.followup_visits_count) /
+                (datum.count * 1 + datum.count * 3 + datum.count * 3)) * 100;
+            datum.completion = current_completion.round();
 
             data.put(String.valueOf(person), datum);
         }

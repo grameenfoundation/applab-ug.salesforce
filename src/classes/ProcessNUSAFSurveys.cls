@@ -46,46 +46,46 @@ public with sharing class ProcessNUSAFSurveys {
 
         //determine the region
         if(survey.Survey_Name__c.containsIgnoreCase('acholi')){
-            region = [SELECT Id, Name FROM IG_Region__c WHERE Name = 'ACHOLI%' LIMIT 1];
+            region = [SELECT Id, Name FROM IG_Region__c WHERE Name LIKE 'ACHOLI%' LIMIT 1];
         }
         else if(survey.Survey_Name__c.containsIgnoreCase('bukedi')){
-            region = [SELECT Id, Name FROM IG_Region__c WHERE Name = 'BUKEDI%' LIMIT 1];
+            region = [SELECT Id, Name FROM IG_Region__c WHERE Name LIKE 'BUKEDI%' LIMIT 1];
         }
         else if(survey.Survey_Name__c.containsIgnoreCase('elgon')){
-            region = [SELECT Id, Name FROM IG_Region__c WHERE Name = 'ELGON%' LIMIT 1];
+            region = [SELECT Id, Name FROM IG_Region__c WHERE Name LIKE 'ELGON%' LIMIT 1];
         }
         else if(survey.Survey_Name__c.containsIgnoreCase('south karamoja')){
-            region = [SELECT Id, Name FROM IG_Region__c WHERE Name = '%SOUTH KARAMOJA%' LIMIT 1];
+            region = [SELECT Id, Name FROM IG_Region__c WHERE Name LIKE '%SOUTH KARAMOJA%' LIMIT 1];
         }
         else if(survey.Survey_Name__c.containsIgnoreCase('north karamoja')){
-            region = [SELECT Id, Name FROM IG_Region__c WHERE Name = 'NORTH KARAMOJA%' LIMIT 1];
+            region = [SELECT Id, Name FROM IG_Region__c WHERE Name LIKE 'NORTH KARAMOJA%' LIMIT 1];
         }
         else if(survey.Survey_Name__c.containsIgnoreCase('lango')){
-            region = [SELECT Id, Name FROM IG_Region__c WHERE Name = 'LANGO%' LIMIT 1];
+            region = [SELECT Id, Name FROM IG_Region__c WHERE Name LIKE 'LANGO%' LIMIT 1];
         }
         else if(survey.Survey_Name__c.containsIgnoreCase('west nile')){
-            region = [SELECT Id, Name FROM IG_Region__c WHERE Name = 'WEST NILE%' LIMIT 1];
+            region = [SELECT Id, Name FROM IG_Region__c WHERE Name LIKE 'WEST NILE%' LIMIT 1];
         }
 
         //for SACM visits, some records may be null i.e submission wasn't for project monitoring - here, we end processing
         if(type == SubmissionType.SACM_VISIT){
-            String activity_type = ProcessSubmissionHelpers.getAnswerString(answers.get('activity_type'));
+            String activity_type = ProcessSubmissionHelpers.getAnswerString(answers.get('activity_type_0'));
             if(String.isEmpty(activity_type) || !activity_type.equals('project')){
                 return new String[]{ '1', 'IG/NUSAF SACM non-monitoring submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' }; 
             }
         }
 
         //read the district
-        String district_str = ProcessSubmissionHelpers.getAnswerString(answers.get('district'));
+        String district_str = ProcessSubmissionHelpers.getAnswerString(answers.get('district_0'));
         District__c[] district_all = [SELECT Id, Name FROM District__c WHERE Name = :district_str];
         if(district_all.isEmpty()){
-            return new String[]{ '0', 'The district ' + district_str + ' provided is not in salesforce', 'SUPRESSMSG' };
+            return new String[]{ '0', 'The district ' + district_str + ' provided is not in out system, please inform your support', 'PULSE' };
         }
         district = district_all[0];
 
         //read subcounty
         //add "_subs" to the district to get its subcounty binding. this is how the bindings were created
-        String subcounty_str = ProcessSubmissionHelpers.getAnswerString(answers.get(district_str + '_subs'));
+        String subcounty_str = ProcessSubmissionHelpers.getAnswerString(answers.get(district_str + '_subs_0'));
         Subcounty__c[] subcounty_all = 
             [SELECT
                 Id,
@@ -122,7 +122,7 @@ public with sharing class ProcessNUSAFSurveys {
                         ];
                 }
             }
-            else if(subcounty_str.contains('_')){
+            if(subcounty_all.isEmpty() && subcounty_str.contains('_')){
                 //some subcounties have hiphens instead of spaces
                 subcounty_str = subcounty_str.replace('_', '-');
                 subcounty_all = 
@@ -144,11 +144,12 @@ public with sharing class ProcessNUSAFSurveys {
 
         //here we can get the target name
         //add "_subprojects" to the subcounty to get its subproject binding. this is how the bindings were created
-        String subproject_index = ProcessSubmissionHelpers.getAnswerString(answers.get( subcounty_str.replace(' ', '_').replace('-', '_') + '_subprojects' ));
+        String subproject_index = ProcessSubmissionHelpers.getAnswerString(answers.get( subcounty_str.replace(' ', '_').replace('-', '_') + '_subprojects_0' ));
 
         //get target object to be updated
         IG_Subproject_Target__c[] targetsToUpdate = 
-            [SELECT                                        
+            [SELECT       
+                Name,                                 
                 DateMobilization__c,                      
                 DateFollowupVisit1__c,                    
                 DateFollowupVisit2__c,                    
@@ -172,7 +173,7 @@ public with sharing class ProcessNUSAFSurveys {
             FROM                                          
                 IG_Subproject_Target__c                   
             WHERE                                         
-                Person__c != :interviewer.Id
+                Person__c = :interviewer.Id
                 AND IG_Region__c = :region.Id
                 AND District__c = :district.Id
                 AND Subcounty__c = :subcounty.Id
@@ -182,8 +183,8 @@ public with sharing class ProcessNUSAFSurveys {
         }
         target = targetsToUpdate[0];
 
-        dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('date')));
-        gps = ProcessSubmissionHelpers.getAnswerString(answers.get('gps'));
+        dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('date_0')));
+        gps = ProcessSubmissionHelpers.getAnswerString(answers.get('gps_0'));
         if(String.isNotEmpty(gps)){
             gps = gps.split(' ')[0] + ' ' + gps.split(' ')[1];
         }
@@ -193,20 +194,20 @@ public with sharing class ProcessNUSAFSurveys {
 
         //if enrollment, update gps and date
         if(type == SubmissionType.ENROLLMENT){
-            Boolean completed = ProcessSubmissionHelpers.getAnswerString(answers.get('completed')).equals('1');
+            Boolean completed = ProcessSubmissionHelpers.getAnswerString(answers.get('completed_0')).equals('1');
+            target.DateMobilization__c = dateOfVisit;
+            target.LocationMobilization__c = gps;
+            update target;
             if(completed){
-                target.DateMobilization__c = dateOfVisit;
-                target.LocationMobilization__c = gps;
-                update target;
                 return new String[]{ '1', 'IG/NUSAF enrollment submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' };  
             }
             else{
-                return new String[]{ '0', 'IG/NUSAF enrollment submission FAILED for IMEI: ' + submission.imei + ' ' + target.Name + ' training was marked as Not-Completed. Please complete and resubmit.', 'PULSE' };     
+                return new String[]{ '1', 'IG/NUSAF enrollment submission for IMEI: ' + submission.imei + ' ' + target.Name + ' training was marked as Not-Completed. Please complete and resubmit.', 'PULSE' };     
             }
         }
         else {
             //if(type == SubmissionType.SACM_VISIT){
-            String meeting_type = ProcessSubmissionHelpers.getAnswerString(answers.get('meeting_type'));
+            String meeting_type = ProcessSubmissionHelpers.getAnswerString(answers.get('meeting_type_0'));
             if(meeting_type == null){
                 return new String[]{ '0', target.Name + ': IG/NUSAF SACM FAILED. Answer on main activity of the day is missing - for IMEI: ' + submission.imei, 'PULSE' };                
             }
@@ -235,7 +236,7 @@ public with sharing class ProcessNUSAFSurveys {
                 target.LocationFollowupVisit3__c = gps;
             }
             //check if followup visits are completed
-            String project_status = ProcessSubmissionHelpers.getAnswerString(answers.get('project_status'));
+            String project_status = ProcessSubmissionHelpers.getAnswerString(answers.get('project_status_0'));
             if(project_status != null && project_status.equals('completed')){
                 target.Monitoring_Concluded__c = true;
             }
