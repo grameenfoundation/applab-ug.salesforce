@@ -6,87 +6,94 @@
     </style>
     <apex:stylesheet value="{!$Resource.CommonCSS}"/>
     <apex:includeScript value="{!$Resource.CommonJS}"/>
-    <script>
-        function openEditWindow() {
-             //popup = window.open("{!$Page.IGDashboard_Targets}?sfdc.tabName={!tabName}","lookup","width=600,height=360");
-             //popup.focus(); 
-        };
-        
+    <script>       
         function openGraph(recordId) {
              popup = window.open("{!$Page.MetricGraph}?metricId=" + recordId,"lookup","width=710,height=310");
              popup.focus(); 
         };
 
-        function closeEditPopup() {
-            if(null != popup) {
-                popup.close()
-                popup = null;
-                window.location.reload();
-            }
+        function injectOnclickJs(iframe, type, region, district, subcounty, startdate, enddate, cbt) {
+            iframe.contentWindow.document.body.onclick=function() { openMap(type, null, region, district, subcounty, startdate, enddate, cbt); }
         };
 
-        function injectOnclickJs(iframe, type, nameVar) {
-            iframe.contentWindow.document.body.onclick=function() { openMap(type, null, null, null, null, null, null, null, null, null); }
-        }
-
         // objectType must be present. The rest can be null
-        function openMap(objectType, orgName) {
-             if (objectType == null) {
-                 return false;
-             }
-             var url = "{!$Page.MetricMap}?mapObject=" + objectType;
-             if (orgName != null) {
-                 url = url + "&orgName=" + orgName;
-             }
-             popup = window.open(url,"lookup");
-             popup.focus(); 
+        function openMap(objectType, orgName, region, district, subcounty, startdate, enddate, cbt) {
+            if (objectType == null) {
+                return false;
+            }
+            var fromdate = document.getElementById("{!$Component.TheForm.filters_block.fromdate}");
+            var todate = document.getElementById("{!$Component.TheForm.filters_block.todate}");
+            var personcbt = document.getElementById("{!$Component.TheForm.filters_block.cbt}");
+            var url = "{!$Page.MetricMap}?mapObject=" + objectType;
+
+            if (region != null && region.length > 0) {
+                url = url + "&ig_region=" + region;
+            }
+            if (district != null && district.length > 0) {
+                url = url + "&ig_district=" + district;
+            }
+            if (subcounty != null && subcounty.length > 0) {
+                url = url + "&ig_subcounty=" + subcounty;
+            }
+            if(fromdate != null && fromdate.value.length > 0){
+                var dateTokens = fromdate.value.split('/');
+                url = url + "&ig_startdate=" + dateTokens[2] + "-" + dateTokens[1] + "-" +  dateTokens[0];
+            }
+            if(todate != null && todate.value.length > 0){
+                var dateTokens = todate.value.split('/');
+                url = url + "&ig_enddate=" + dateTokens[2] + "-" + dateTokens[1] + "-" +  dateTokens[0];
+            }
+            if (personcbt != null && personcbt.value.length > 0) {
+                url = url + "&ig_cbt=" + personcbt.value;
+            }
+            popup = window.open(url,"lookup");
+            popup.focus(); 
         };
     </script>
 
-    <apex:form >
-        <apex:pageBlock title="Field Activity Filters">
+    <apex:form id="TheForm">
+        <apex:pageBlock id="filters_block" title="Field Activity Filters">
             <table>
                 <tr>
                     <td>
                         <strong>Region: </strong>
                         <apex:selectList value="{!subregion}" multiselect="false" size="1">
                             <apex:selectOptions value="{!subregionsList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onRegionChanged}" rerender="TheForm" event="onchange"/>
                         </apex:selectList>
                     </td>
                     <td>
                         <strong>District: </strong>
-                        <apex:selectList value="{!district.Name}" multiselect="false" size="1">
+                        <apex:selectList value="{!district.Id}" multiselect="false" size="1" id="districtsListBox">
                             <apex:selectOptions value="{!districtList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onDistrictChanged}" rerender="TheForm" event="onchange"/>
                         </apex:selectList>
                     </td>
                     <td align="right">
                          <strong>Subcounty: </strong>
-                         <apex:selectList value="{!subcounty.Display_Name__c}" multiselect="false" size="1">
+                         <apex:selectList value="{!subcounty.Id}" multiselect="false" size="1" id="subcountiesListbox">
                             <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onSubcountyChanged}" rerender="TheForm" event="onchange"/>
                         </apex:selectList>                  
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <strong>Date Range: </strong><apex:inputField value="{!dummyObject.Start_Date__c}"></apex:inputField>
+                        <strong>Date Range: </strong><apex:inputField id="fromdate" value="{!dummyObject.Start_Date__c}"></apex:inputField>
                     </td>
                     <td>
-                        <strong>And </strong><apex:inputField value="{!dummyObject.End_Date__c}"></apex:inputField>                        
+                        <strong>to </strong><apex:inputField id="todate" value="{!dummyObject.End_Date__c}"></apex:inputField>                        
                     </td>  
                     <td align="right">
                         <strong>&nbsp;&nbsp;&nbsp;Trainer: </strong>
-                        <apex:selectList value="{!cbt.Id}" multiselect="false" size="1">
+                        <apex:selectList value="{!cbt.Id}" multiselect="false" size="1" id="cbt">
                             <apex:selectOptions value="{!communityBasedTrainers}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onCbtChanged}" rerender="TheForm" event="onchange"/>
                         </apex:selectList>                       
                     </td>                  
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div>
-		                    <a href="javascript:void(0)" onclick="openEditWindow();return false;">
-		                        Update Targets
-		                    </a>
-	                    </div>
                     </td>
                     <td align="right">
                         <apex:commandButton value="Refresh Section" action="{!changeFilters}"></apex:commandButton>                     
@@ -97,59 +104,46 @@
         <apex:pageBlock id="map">
             <apex:pageBlockSection title="Maps" columns="1">
                 <apex:pageBlockSectionItem >
-                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=IG&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'IG', null);" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=IG&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'IG', '{!subregion}', '{!district.Id}', '{!subcounty.Id}', '{!dummyObject.Start_Date__c}', '{!dummyObject.End_Date__c}', '{!cbt.Id}');" scrolling="no" style="border:1px solid #A8B8CF;"/>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
             <apex:pageBlockSection columns="1">
                 <apex:pageBlockSectionItem >
                     <strong>CTs Field Visits</strong><br />
-                    <a href="javascript:openMap('IG', 'CKW');">Enlarge Map</a>
+                    <a href="javascript:openMap('IG', 'CKW', '{!subregion}', '{!district.Id}', '{!subcounty.Id}', '{!dummyObject.Start_Date__c}', '{!dummyObject.End_Date__c}', '{!cbt.Id}');">Enlarge Map</a>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
         </apex:pageBlock>
         
-        <apex:pageBlock title="CTs Field Visit Details" id="metrics">
+        <apex:pageBlock title="Regional Targets" id="metrics">
             <br/>
-            <apex:pageBlockTable value="{!metricsData}" var="item">
-                <apex:column headerValue="Indicator" width="400px">
+            <apex:pageBlockTable value="{!regionalMetricsData}" var="item">
+                <apex:column headerValue="Region" width="200px">
                     <apex:outputText escape="false">
                         {!item.label}
                     </apex:outputText>
                 </apex:column>
-                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
-                <apex:column width="70px">
-                    <apex:facet name="header">Actual</apex:facet>
-                    <div style="width:100%;height:100%">
-                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
-                            &nbsp;<apex:param value="{!item.currentValue}"/>
-                        </apex:outputText>
-                    </div>
+                <apex:column width="90px" value="{!item.mobilization_count}/{!item.count}" headerValue="Mobilization"/>
+                <apex:column width="90px" value="{!item.preliminary_count}/{!item.count * 3}" headerValue="Preliminary training"/>
+                <apex:column width="90px" value="{!item.followup_visits_count}/{!item.count * 3}" headerValue="Followup Visits"/>
+                <apex:column width="90px" value="{!item.completion} %" headerValue="Percentage Completed"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Individual Targets" id="metricsCTs" rendered="{!isRegionalManager}">
+            <br/>
+            <apex:pageBlockTable value="{!cTMetricsData}" var="item">
+                <apex:column headerValue="Community Trainer" width="200px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
                 </apex:column>
-                <apex:column value="{!item.comment}" headerValue="Further Info"/>
+                <apex:column width="90px" value="{!item.mobilization_count}/{!item.count}" headerValue="Mobilization"/>
+                <apex:column width="90px" value="{!item.preliminary_count}/{!item.count * 3}" headerValue="Preliminary training"/>
+                <apex:column width="90px" value="{!item.followup_visits_count}/{!item.count * 3}" headerValue="Followup Visits"/>
+                <apex:column width="90px" value="{!item.completion} %" headerValue="Percentage Completed"/>
             </apex:pageBlockTable>
         </apex:pageBlock>
          
-        <apex:pageBlock title="CTs Targets" id="targets">
-			<apex:repeat value="{!barChartData}" var="chartData">
-				<apex:pageBlock title="Submissions for {!chartData[0].name}" id="submissions">
-					<apex:chart height="400" width="900" data="{!chartData}">
-						<apex:legend position="right"/>
-						<apex:axis type="Numeric" position="left" minimum="0" dashSize="1" steps="10" fields="Target_Submissions,Actual_Submissions" title="Number of Submissions" grid="true"/>
-					    <apex:axis type="Category" position="bottom" fields="label" title="Activity vs Target"> 
-					    	<apex:chartLabel rotate="315"/>
-					    </apex:axis>
-						<apex:barSeries orientation="vertical" axis="left" xField="label" yField="Target_Submissions,Actual_Submissions" gutter="0" groupGutter="2" xPadding="1" yPadding="1">
-							<apex:chartLabel display="insideEnd" color="#333"/>
-						</apex:barSeries>
-					</apex:chart>  
-				</apex:pageBlock>       
-			</apex:repeat>
-        </apex:pageBlock>
-         
-        <apex:pageBlock title="Submission Details" id="submissionDetails">
-			<apex:repeat value="{!barChartData}" var="chartData">
-				<apex:outputlink value="{!chartData[0].location}">Click here to view submissions for the activity "{!chartData[0].name}"</apex:outputlink><br/>
-			</apex:repeat>
-        </apex:pageBlock>
 	</apex:form>
 </apex:page>

@@ -47,10 +47,10 @@ public class IGDashboardController {
             this.subregion = pageRef.getParameters().get('subregion');
         }
         if(pageRef.getParameters().get('district') != null){
-            this.district.Name = pageRef.getParameters().get('district');
+            this.district.Id = pageRef.getParameters().get('district');
         }
         if(pageRef.getParameters().get('subcounty') != null){
-            this.subcounty.Display_Name__c = pageRef.getParameters().get('subcounty');
+            this.subcounty.Id = pageRef.getParameters().get('subcounty');
         }
         if(pageRef.getParameters().get('dateFrom') != null){
             this.dateFrom = pageRef.getParameters().get('dateFrom');
@@ -144,7 +144,7 @@ public class IGDashboardController {
     */
     public List<SelectOption> getCommunityBasedTrainers(){
         List<SelectOption> options = new List<SelectOption>();
-        IG_Subproject_Target__c[] targets = database.query(IGDashboardHelpers.getCommunityBasedTrainers(this.subcounty.Id));
+        IG_Subproject_Target__c[] targets = database.query(IGDashboardHelpers.getCommunityBasedTrainers(this.district.Id, this.subcounty.Id));
         Map<String, IG_Subproject_Target__c> mapTargets = new Map<String, IG_Subproject_Target__c>();
         for(IG_Subproject_Target__c target: targets){
             mapTargets.put(target.Person__r.Id, target);//This is map and hence it will always have unique values 
@@ -199,6 +199,15 @@ public class IGDashboardController {
         return null;
     }
 
+    /**
+     * event fired when subcounty changes on the dashboard
+     */
+    public PageReference onCbtChanged(){
+        PageReference resultPage = ApexPages.currentPage(); 
+        String cbtId = resultPage.getParameters().get('cbt');
+        return null;
+    }
+
     /*
     * An event for the change filters button on the dashboard
     * initialises the process of filtering displayed data
@@ -206,8 +215,8 @@ public class IGDashboardController {
     public PageReference changeFilters(){ 
         PageReference resultPage = ApexPages.currentPage(); 
         resultPage.getParameters().put('subregion', subregion);
-        resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
-        resultPage.getParameters().put('district', district.Name);
+        resultPage.getParameters().put('subcounty', subcounty.Id);
+        resultPage.getParameters().put('district', district.Id);
         resultPage.getParameters().put('cbt', cbt.Id);
         resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': 
             Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd'));
@@ -224,7 +233,7 @@ public class IGDashboardController {
     */
     public List<IGDashboardHelpers.Data> getRegionalMetricsData(){        
         regionsData = new List<IGDashboardHelpers.Data>();
-        regionsData = IGDashboardHelpers.getMetricsForRegion(subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+        regionsData = IGDashboardHelpers.getMetricsForRegion(subregion, district.Id, subcounty.Id, dateFrom, dateTo, cbt.Id);
         return regionsData;
     }
 
@@ -237,10 +246,10 @@ public class IGDashboardController {
         cTData = new List<IGDashboardHelpers.Data>();
         if(isRegionalManager){
             IG_Region__c regionthis = IGDashboardHelpers.getUserRegion();
-            cTData = IGDashboardHelpers.getIndividualMetrics( regionthis == null ? null : regionthis.Name, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+            cTData = IGDashboardHelpers.getIndividualMetrics(isRegionalManager, regionthis == null ? null : regionthis.Id, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
         }
         else {
-            cTData = IGDashboardHelpers.getIndividualMetrics(subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+            cTData = IGDashboardHelpers.getIndividualMetrics(isRegionalManager, subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
         }
         return cTData;
     }
