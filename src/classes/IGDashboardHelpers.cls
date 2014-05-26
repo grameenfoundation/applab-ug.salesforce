@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2013 AppLab, Grameen Foundation
+ * Copyright (c) 2014 AppLab, Grameen Foundation
  *
  *  This is a helper class for IG/NUSAF Dashboard page
  *	A better way to make sure the dashboard controller
