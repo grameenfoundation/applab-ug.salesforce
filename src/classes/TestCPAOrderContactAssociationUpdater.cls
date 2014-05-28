@@ -2,8 +2,21 @@
 private class TestCPAOrderContactAssociationUpdater {
 
     static testMethod void testUpdateContactAssociations() {
+    
+        Association__c association = new Association__c(Name='ALSUR MAIN');
+        insert association;
         Contact testContact = new Contact(FirstName='test', LastName='contact');
         insert testContact;
+        Contact testContact2 = new Contact(FirstName='test2', LastName='contact2');
+        insert testContact2;
+        Association_Contact_Association__c assoc = new Association_Contact_Association__c();
+        assoc.Association__c = association.Id;
+        assoc.Contact__c = testContact.Id;
+        insert assoc;
+        Association_Contact_Association__c assoc2 = new Association_Contact_Association__c();
+        assoc2.Association__c = association.Id;
+        assoc2.Contact__c = testContact2.Id;
+        insert assoc2;
         Client__c client = new Client__c(Name='testClient');
         insert client;
         Product__c product = new Product__c(Name='testProduct');
@@ -31,6 +44,7 @@ private class TestCPAOrderContactAssociationUpdater {
         List<gfsurveys__SObjectContactAssociation__c> scas = [Select Id, gfsurveys__AssociatedIds__c from 
                                                                     gfsurveys__SObjectContactAssociation__c
                                                                  where gfsurveys__Contact__c=:testContact.id];
+        System.debug('ids are '+scas[0].gfsurveys__AssociatedIds__c.split(','));
         System.assertEquals(1, 1);
         System.assertEquals(5, scas[0].gfsurveys__AssociatedIds__c.split(',').size());
         
