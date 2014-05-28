@@ -261,7 +261,7 @@ public with sharing class MetricHelpers {
         System.debug(LoggingLevel.INFO, 'Metric Created Successfully');
         return metricData;
     }
-	
+    
     public static M_E_Metric_Data__c createNewMetric(
             String metricName,
             Date startDate,
@@ -289,12 +289,12 @@ public with sharing class MetricHelpers {
         metricData.Date__c = startDate;
         metricData.Actual_Value__c = actualValue;
         metricData.Is_Cumulative__c = isCumulative;
-		metricData.Denumerator__c = 0;
-		metricData.Numerator__c = 0;
+        metricData.Denumerator__c = 0;
+        metricData.Numerator__c = 0;
         if (districtId != null) {
             metricData.District__c = districtId;
         }
-		metricData.Subcounty__c = subcountyId;
+        metricData.Subcounty__c = subcountyId;
         // If no target supplied get the target from the parent metric
         if (target == null) {
             if (metric != null) {
@@ -595,31 +595,34 @@ public with sharing class MetricHelpers {
 
         List<M_E_Metric_Data__c> dataArray = new List<M_E_Metric_Data__c>();
 
-        for(M_E_Metric__c metric : getMetrics(null, orgName)) {
-
-            // Check that the metric has not already been created for this quarter
-            List<AggregateResult> metricCount = 
-                [SELECT 
-                    COUNT(Id) num
-                FROM
-                    M_E_Metric_Data__c
-                WHERE 
-                    Date__c >= :startDate
-                    AND Date__c <= :endDate
-                    AND M_E_Metric__c = :metric.Id
-                ];
-
-            if(metricCount[0].get('num') == 0) {
+        M_E_Metric__c[] metrics = getMetrics(null, orgName); 
+        Map<String, M_E_Metric__c> metricsMap = new Map<String, M_E_Metric__c>();
+        for (M_E_Metric__c metric : metrics) {
+            metricsMap.put(metric.Id, metric);
+        }
+        List<M_E_Metric_Data__c> metricsData = [Select Id, M_E_Metric__c 
+                                                FROM M_E_Metric_Data__c WHERE
+                                                Date__c >= :startDate AND 
+                                                Date__c <= :endDate];
+                                                
+        List<M_E_Metric_Data__c> metricDatasToCreate = new List<M_E_Metric_Data__c>();
+        Map<String, M_E_Metric_Data__c> metricDataMap = new Map<String, M_E_Metric_Data__c>();
+        for (M_E_Metric_Data__c metricData : metricsData) {
+            metricDataMap.put(metricData.M_E_Metric__c, metricData);
+        }
+        for (String metricId : metricsMap.keyset()) {
+            M_E_Metric_Data__c metricData = metricDataMap.get(metricId);
+            if (null == metricData) {
                 M_E_Metric_Data__c data = new M_E_Metric_Data__c();
                 data.Date__c = startDate;
-                data.M_E_Metric__c = metric.Id;
-                data.Projected_Value__c = metric.Projected_Value__c;
-                dataArray.add(data);
+                data.M_E_Metric__c = metricId;
+                data.Projected_Value__c = metricsMap.get(metricId).Projected_Value__c;
+                metricDatasToCreate.add(data);
             }
         }
 
-        if(dataArray.size() > 0) {
-            Database.insert(dataArray);
+        if(metricDatasToCreate.size() > 0) {
+            Database.insert(metricDatasToCreate);
         }
         return true;
     }
