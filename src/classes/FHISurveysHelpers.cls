@@ -636,7 +636,7 @@ public with sharing class FHISurveysHelpers {
             return new String[] { '0', 'No handset submit time in this submission', 'SUPRESSMSG' };
         }
         
-        if (surveyName.contains('North') || surveyName.contains('north')) {
+        if (surveyName.containsIgnoreCase('North')) {
             isNorth = true;
         }
         //Commented out to save space
@@ -687,7 +687,7 @@ public with sharing class FHISurveysHelpers {
             'FHI_HH_number_households_with_member_in_vsla',//new
             'FHI_HH_percentage_female_headed_households',//new
             'FHI_HH_percentage_households_with_cc_fruit_trees_x'
-            };
+        };
         
         Date currentDate = handsetSubmitTime.date();
         M_E_Metric_Data__c[] datas = [
@@ -768,6 +768,334 @@ public with sharing class FHISurveysHelpers {
     }    
 
     /**
+     *  Process the CKW monitoring submissions
+     *
+     *  @param submission - The submission object being processed
+     *  @param answers    - A map containing the values for the registration
+     *                          The keys are <binding>_<instance> for compatibility
+     *
+     *  @return - A three element list of Strings with the following format
+     *              element 1 - Binary indicator of success (0 = fail, 1 = success)
+     *              element 2 - Error message if required for the logs and tech team
+     *              element 3 - Message body to the submitter if required.
+     */
+    private static List<String> processCkwMonitoring(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers,  Person__c submitter, String surveyName) {
+        boolean isNorth = false;
+        boolean isCCO = false;
+        if (surveyName.containsIgnoreCase('North')) {
+            isNorth = true;
+        }
+        if (surveyName.startsWithIgnoreCase('CCO')) {
+            isCCO = true;
+        }
+
+        Date visitDate = Date.valueOf(answers.get('date_0').Answer__c);
+        String district_str = '';
+        if(isCCO) {
+            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateCcoMonitoringSouthDistricts(answers.get('district_0').Answer__c);
+        }
+        else {
+            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateCkwMonitoringSouthDistricts(answers.get('district_0').Answer__c);
+        }
+        String encounter = answers.get('encounter_0').Answer__c;
+        District__c[] district = [
+            SELECT
+                Id,
+                Name
+            FROM
+                District__c
+            WHERE
+                Name = :district_str
+            LIMIT 1
+        ];
+        if(district.isEmpty()){
+            return new String[]{ '0', 'The district provided is incorrect', 'SUPRESSMSG' };
+        }
+
+        List<String> metricNames = new List<String> {
+            'FHI_monitoring_cco_group_visits',
+            'FHI_monitoring_number_males_trained_child_nutrition',
+            'FHI_monitoring_number_females_trained_child_nutrition',
+            'FHI_monitoring_number_males_trained_vsla',
+            'FHI_monitoring_number_females_trained_vsla',
+            'FHI_monitoring_number_males_trained_agric',
+            'FHI_monitoring_number_females_trained_agric',
+            'FHI_monitoring_number_community_dialog_meetings',
+            'FHI_monitoring_percent_groups_practicing_swap',
+            'FHI_monitoring_ckw_group_visits'
+        };
+        M_E_Metric_Data__c[] datas = [
+            SELECT
+                Id,
+                Name,
+                Actual_Value__c,
+                Manual_Value__c,
+                District__c,
+                Denumerator__c,
+                Numerator__c,
+                M_E_Metric__r.Name
+            FROM
+                M_E_Metric_Data__c
+            WHERE
+                (
+                    District__c = :district[0].Id
+                )
+                AND Date__c >= :visitDate
+                AND M_E_Metric__r.Name IN :metricNames
+        ];
+        // Loop through the data and see which ones we have already got. If they are not there already create them
+        Map<String, M_E_Metric_Data__c> dataMap = new Map<String, M_E_Metric_Data__c>();
+        for (M_E_Metric_Data__c mData : datas) {
+             dataMap.put(mData.M_E_Metric__r.Name, mData);
+        }
+        // Loop through the list of metrics checking if each exists before updating it
+        for (String key : metricNames) {
+            // Check that the three metrics for each metric name exists
+            M_E_Metric_Data__c totalNewData = dataMap.get(key);
+            system.debug(LoggingLevel.INFO, 'Checking for metric name: ' + key);
+            if (totalNewData == null) {
+                totalNewData = createNewMonitoringMetric(key, visitDate, district[0].Id);
+            }
+            // Update the metric based on the key
+            if (key.equals('FHI_monitoring_ckw_group_visits')) {
+                if(encounter.equals('1')) {
+                    //means encounter is a group for both CCO and CKW surveys
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if (key.equals('FHI_monitoring_number_males_trained_child_nutrition')) {
+                if(isCCO){
+                    //encounter for CCO, 1=>Group, 2=>Learning site, 3=>Meeting, 4=>Household monitoring, 5=>Community mobilization
+                    if(encounter.equals('2')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('2') || decisiont4.equals('3')) {
+                            //nutrition = nutrition section + combined section
+                            String malesAttending = answers.get('lsmales_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(malesAttending);
+                        }                        
+                    }
+                }
+                else {
+                    //decisiont2 1 => Dialogue, 2 => VSLA, 3 => Learning site
+                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    if(decisiont2.equals('3')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('2') || decisiont4.equals('3')) {
+                            //nutrition = nutrition section + combined section
+                            String malesAttending = answers.get('lsmales_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(malesAttending);
+                        }
+                    }   
+                }
+            }
+            else if (key.equals('FHI_monitoring_number_females_trained_child_nutrition')) {
+                if(isCCO){
+                    //encounter for CCO, 1=>Group, 2=>Learning site, 3=>Meeting, 4=>Household monitoring, 5=>Community mobilization
+                    if(encounter.equals('2')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('2') || decisiont4.equals('3')) {
+                            //nutrition = nutrition section + combined section
+                            String femalesAttending = answers.get('lsfems_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(femalesAttending);
+                        }                        
+                    }
+                }
+                else {
+                    //decisiont2 1 => Dialogue, 2 => VSLA, 3 => Learning site
+                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    if(decisiont2.equals('3')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('2') || decisiont4.equals('3')) {
+                            //nutrition = nutrition section + combined section
+                            String femalesAttending = answers.get('lsfems_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(femalesAttending);
+                        }
+                    }
+                } 
+            }
+            else if (key.equals('FHI_monitoring_number_males_trained_vsla')) {
+                //decisiont2 1 => Dialogue, 2 => VSLA[, 3 => Learning site]
+                String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
+                if(decisiont2.equals('2')) {
+                    //vsla
+                    String malesAttending = answers.get('vslamales_0').Answer__c;
+                    totalNewData.Denumerator__c += Integer.valueOf(malesAttending);
+                }
+            }
+            else if (key.equals('FHI_monitoring_number_females_trained_vsla')) {
+                //decisiont2 1 => Disaloge, 2 => VSLA[, 3 => Learning site]
+                String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
+                if(decisiont2.equals('2')) {
+                    //vsla
+                    String femalesAttending = answers.get('vslafems_0').Answer__c;
+                    totalNewData.Denumerator__c += Integer.valueOf(femalesAttending);
+                }
+            }
+            else if (key.equals('FHI_monitoring_number_males_trained_agric')) {
+                if(isCCO) {
+                    //encounter for CCO, 1=>Group, 2=>Learning site, 3=>Meeting, 4=>Household monitoring, 5=>Community mobilization
+                    if(encounter.equals('2')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('1')) {// || decisiont4.equals('3')) { //combined section not added as its not in specs
+                            String malesAttendingFirstTime = answers.get('lsfmales_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(malesAttendingFirstTime);
+                        }                        
+                    }                    
+                }
+                else {
+                    //decisiont2 1 => Disaloge, 2 => VSLA, 3 => Learning site
+                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    if(decisiont2.equals('3')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('1')) { // || decisiont4.equals('3') //not adding the combined since its not in specs
+                            String malesAttendingFirstTime = answers.get('lsfmales_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(malesAttendingFirstTime);
+                        }
+                    }
+                } 
+            }
+            else if (key.equals('FHI_monitoring_number_females_trained_agric')) {
+                if(isCCO) {
+                    //encounter for CCO, 1=>Group, 2=>Learning site, 3=>Meeting, 4=>Household monitoring, 5=>Community mobilization
+                    if(encounter.equals('2')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('1')) {// || decisiont4.equals('3')) { //combined section not added as its not in specs
+                            String femalesAttendingFirstTime = answers.get('lsffems_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(femalesAttendingFirstTime);
+                        }                        
+                    }                    
+                }
+                else {
+                    //decisiont2 1 => Dialogue, 2 => VSLA, 3 => Learning site
+                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    if(decisiont2.equals('3')) {
+                        //learning site
+                        //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
+                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        if(decisiont4.equals('1')) { // || decisiont4.equals('3') //not adding the combined since its not in specs
+                            String femalesAttendingFirstTime = answers.get('lsffems_0').Answer__c;
+                            totalNewData.Denumerator__c += Integer.valueOf(femalesAttendingFirstTime);
+                        }
+                    } 
+                }
+            }
+            else if (key.equals('FHI_monitoring_number_community_dialog_meetings')) {
+                //decisiont2 1 => Dialogue, 2 => VSLA[, 3 => Learning site]
+                String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                if(decisiont2.equals('1')) {
+                    //dialogue
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if (key.equals('FHI_monitoring_percent_groups_practicing_swap')) {
+                 totalNewData.Denumerator__c++;
+
+                //decisiont2 1 => Dialogue, 2 => VSLA[, 3 => Learning site]
+                String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
+                if(decisiont2.equals('2')) {
+                    //vsla
+                    Boolean practicesSwap = ProcessSubmissionHelpers.checkIfYes(answers.get('swap_0').Answer__c);
+                    if(practicesSwap){
+                        totalNewData.Numerator__c++;
+                    }
+                }
+            }
+            system.debug(LoggingLevel.INFO, 'Actual Value '+ totalNewData.Actual_Value__c);
+            dataMap.put(key, totalNewData);
+        }
+
+        List<Database.upsertResult> uResults = Database.upsert(dataMap.values());
+        for(Database.upsertResult result : uResults) {
+            if (result.isSuccess()) {
+                system.debug(LoggingLevel.INFO, 'succeeded ' + result.getId());
+            }
+            else {
+                for (Database.Error error : result.getErrors()) {
+                    system.debug(LoggingLevel.ERROR, 'Error: ' + error.getMessage());
+                }
+            }
+        }
+        return new String[] { '1', 'All metric data updated for FHI Dashboard  with IMEI: ' + submission.imei, 'SUPRESSMSG' }; 
+    }
+
+    /**
+     *  Find out which district was selected based on the binding
+     *
+     *  @param districtValue - A map containing the values for the district
+     *
+     *  @return - District name
+     */
+    private static String translateCkwMonitoringNorthDistricts(String districtValue) {
+
+        Map<String, String> translationMap = new Map<String, String> {
+            '1' => 'Masindi',
+            '2' => 'Kiryandongo',
+            '3' => 'Lira',
+            '4' => 'Oyam',
+            '5' => 'Kole',
+            '6' => 'Dokolo',
+            '7' => 'Pader',
+            '8' => 'Agago',
+            '9' => 'Nebbi'
+        };
+        return translationMap.get(districtValue);
+    }
+
+    /**
+     *  Find out which district was selected based on the binding
+     *
+     *  @param districtValue - A map containing the values for the district
+     *
+     *  @return - District name
+     */
+    private static String translateCkwMonitoringSouthDistricts(String districtValue) {
+
+        Map<String, String> translationMap = new Map<String, String> {
+            '1' => 'Ibanda',
+            '3' => 'Kisoro',
+            '4' => 'kasese',
+            '5' => 'Kanungu',
+            '6' => 'Kamwenge',
+            '7' => 'Kabale'
+        };
+        return translationMap.get(districtValue);
+    }
+
+    /**
+     *  Find out which district was selected based on the binding
+     *
+     *  @param districtValue - A map containing the values for the district
+     *
+     *  @return - District name
+     */
+    private static String translateCcoMonitoringSouthDistricts(String districtValue) {
+
+        Map<String, String> translationMap = new Map<String, String> {
+            '1' => 'Ibanda',
+            '2' => 'Kisoro',
+            '3' => 'kasese',
+            '4' => 'Kanungu',
+            '5' => 'Kamwenge',
+            '6' => 'Kabale'
+        };
+        return translationMap.get(districtValue);
+    }
+
+    /**
      * Loops through all the members whilst checking to see if there exists a household head whos is female
      *
      * @param answers - a map containing all answers in the submission
@@ -820,6 +1148,39 @@ public with sharing class FHISurveysHelpers {
 
         M_E_Metric_Data__c mData = new M_E_Metric_Data__c();
         mData.Subcounty__c = subcountyId;
+
+        mData.Numerator__c = 0.0;
+        mData.Denumerator__c = 0.0;
+        mData.Manual_Value__c = 0.0;
+        mData.Is_Cumulative__c = false;
+        mData.Date__c = startDate;
+        mData.M_E_Metric__c = metric.Id;
+        return mData;
+    }
+
+    /**
+     *  Create a new metric data for a given district, start date and metric. Assume that the metric is created on the box
+     *
+     *  @param key       - The M_E_Metric.Name value that is being created
+     *  @param startDate - The date that the metric period starts
+     *  @param districtId   - The divider that the metric is split by
+     *
+     *  @return - The newly created M_E_Metric_Data object
+     */
+    private static M_E_Metric_Data__c createNewMonitoringMetric(String key, Date startDate, Id districtId) {
+
+        system.debug('Key ' + key);
+        M_E_Metric__c metric = metricMap.get(key);
+        if (metric == null) {
+            system.debug('Cannot find metric! ....');
+            M_E_Metric__c[] metrics = MetricHelpers.getMetrics(key, null);
+            metric = metrics[0];
+            system.debug('Metric found ' + metric.Name);
+            metricMap.put(key, metric);
+        }
+
+        M_E_Metric_Data__c mData = new M_E_Metric_Data__c();
+        mData.District__c = districtId;
 
         mData.Numerator__c = 0.0;
         mData.Denumerator__c = 0.0;
@@ -1360,5 +1721,217 @@ public with sharing class FHISurveysHelpers {
         //ProcessSurveySubmission.SurveySubmission resultSurveySubmission = ProcessSurveySubmission.processSurveySubmission(surveySubmission);
         //System.debug(resultSurveySubmission.errorMessage);
         //System.assert(resultSurveySubmission.success);
+    }
+
+    static testmethod void testFhiMonitoringSurveysProcessing() {
+        Account testOrg = new Account();
+        testOrg.Name = 'TestCKW';
+        testOrg.BillingState = 'CA';
+        database.SaveResult accountSaveResult = database.insert(testOrg);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = accountSaveResult.getId();
+        dash.Is_Active__c = true;
+        dash.Title__c = 'testing';
+        database.SaveResult dashSaveResult = database.insert(dash);
+
+        Dashboard_Section__c dashSection = new Dashboard_Section__c();
+        dashSection.Dashboard__c = dashSaveResult.getId();
+        dashSection.Is_Active__c = true;
+        dashSection.Title__c = 'FHI';
+        database.SaveResult dashSectionSaveResult = database.insert(dashSection);
+
+        Metric_Section__c ciwDistanceMetricSection = new Metric_Section__c();
+        ciwDistanceMetricSection.Is_Active__c = true;
+        ciwDistanceMetricSection.Dashboard_Section__c = dashSectionSaveResult.getId();
+        ciwDistanceMetricSection.Title__c = 'test test';
+        ciwDistanceMetricSection.Start_Date__c = date.today();
+        ciwDistanceMetricSection.Default_Show__c = 1;
+        database.SaveResult metricSectionSaveResult = database.insert(ciwDistanceMetricSection);
+
+        // Create the metrics for use
+        List<String> metricNames = new List<String> {
+            'FHI_monitoring_cco_group_visits',
+            'FHI_monitoring_number_males_trained_child_nutrition',
+            'FHI_monitoring_number_females_trained_child_nutrition',
+            'FHI_monitoring_number_males_trained_vsla',
+            'FHI_monitoring_number_females_trained_vsla',
+            'FHI_monitoring_number_males_trained_agric',
+            'FHI_monitoring_number_females_trained_agric',
+            'FHI_monitoring_number_community_dialog_meetings',
+            'FHI_monitoring_percent_groups_practicing_swap',
+            'FHI_monitoring_ckw_group_visits'
+        };
+        List<M_E_Metric__c> metrics = new List<M_E_Metric__c>();
+        for(String name : metricNames){
+            M_E_Metric__c metric1 = new M_E_Metric__c();
+            metric1.Name = name;
+            metric1.Metric_Section__c = metricSectionSaveResult.getId();
+            metric1.Organisation__c = accountSaveResult.getId();
+            metrics.add(metric1);
+        } 
+        insert metrics;
+
+        Survey__c survey = new Survey__c();
+        survey.Account__c = accountSaveResult.getId();
+        survey.Post_Processing_Method__c = 'FHI_MONITORING';
+        survey.Survey_Name__c = 'CKW Monitoring North';
+        survey.Survey_Status__c = 'Published';
+        survey.Start_Date__c = Date.valueOf('2013-01-01');
+        survey.End_Date__c = Date.today().addYears(2);
+        insert survey;
+
+        District__c testDistrict = new District__c();
+        testDistrict.Name = 'Masindi';
+        testDistrict.Region__c = 'Central';
+        insert testDistrict;
+
+        Phone__c testHandset = new Phone__c();
+        testHandset.IMEI__c = '123456789101112';
+        testHandset.Serial_Number__c = '123456789101112';
+        testHandset.Purchase_Value_USD__c = 100.00;
+        insert testHandset;
+
+        Person__c testPerson = new Person__c();
+        testPerson.First_Name__c = 'David';
+        testPerson.Last_Name__c = 'Mugume' ;
+        testPerson.Gender__c = 'Male';
+        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
+        testPerson.Handset__c = phone.Id;
+        testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
+        insert testPerson;
+
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '123456789101112';
+        submission.resultHash = '1';
+        submission.surveyId = [select Id, Name from Survey__c where Id = :survey.Id].Name;
+
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        List<String> returnValues = new List<String>();
+
+        answers.put('date_0', Utils.createTestSubmissionAnswer(null, 'date', '2014-06-16', null, null, null));
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', '50', null, null, null));
+        answers.put('encounter_0', Utils.createTestSubmissionAnswer(null, 'encounter', '1', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('The district provided is incorrect'));
+
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', '1', null, null, null));
+        answers.put('decisiont2_0', Utils.createTestSubmissionAnswer(null, 'decisiont2', '3', null, null, null));
+        answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '2', null, null, null));
+        answers.put('lsmales_0', Utils.createTestSubmissionAnswer(null, 'lsmales', '20', null, null, null));
+        answers.put('lsfems_0', Utils.createTestSubmissionAnswer(null, 'lsfems', '20', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1')); 
+        //TODO: add dashboard section, metric section and metrics in order to do tests below
+        List<String> metricNames2 = new List<String> {
+            'FHI_monitoring_ckw_group_visits',
+            'FHI_monitoring_number_males_trained_child_nutrition',
+            'FHI_monitoring_number_females_trained_child_nutrition'
+        };
+        M_E_Metric_Data__c[] datas = [
+            SELECT
+                Id,
+                Name,
+                Actual_Value__c,
+                Manual_Value__c,
+                District__c,
+                Denumerator__c,
+                Numerator__c,
+                M_E_Metric__r.Name
+            FROM
+                M_E_Metric_Data__c
+            WHERE
+                (
+                    District__c = :testDistrict.Id
+                )
+                AND Date__c >= :date.valueOf('2014-06-16')
+                AND M_E_Metric__r.Name IN :metricNames2
+        ];
+        for(M_E_Metric_Data__c data : datas){
+            if(data.M_E_Metric__r.Name.equals(metricNames2.get(0))){
+                System.assert(data.Denumerator__c == 1);
+            }
+            else if(data.M_E_Metric__r.Name.equals(metricNames2.get(1))){
+                System.assert(data.Denumerator__c == 20);
+            }
+            else if(data.M_E_Metric__r.Name.equals(metricNames2.get(2))){
+                System.assert(data.Denumerator__c == 20);
+            }
+        }
+         
+
+        //----------CCO & CKW--------------------- 
+        //FHI_monitoring_number_females_trained_vsla
+        //FHI_monitoring_number_males_trained_vsla
+        answers.put('decisiont2_0', Utils.createTestSubmissionAnswer(null, 'decisiont2', '2', null, null, null));
+        answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '2', null, null, null));
+        answers.put('vslafems_0', Utils.createTestSubmissionAnswer(null, 'vslafems', '5', null, null, null));
+        answers.put('vslamales_0', Utils.createTestSubmissionAnswer(null, 'vslamales', '5', null, null, null));
+        answers.put('swap_0', Utils.createTestSubmissionAnswer(null, 'swap', '1', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1')); 
+
+        //-----------CKW---------
+        //FHI_monitoring_number_males_trained_agric
+        //FHI_monitoring_number_females_trained_agric
+        answers.put('decisiont2_0', Utils.createTestSubmissionAnswer(null, 'decisiont2', '3', null, null, null));
+        answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '1', null, null, null));
+        answers.put('lsfmales_0', Utils.createTestSubmissionAnswer(null, 'lsfmales', '30', null, null, null));
+        answers.put('lsffems_0', Utils.createTestSubmissionAnswer(null, 'lsffems', '30', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1')); 
+
+        //-----------CCO & CKW----------------
+        //FHI_monitoring_number_community_dialog_meetings
+        answers.put('decisiont2_0', Utils.createTestSubmissionAnswer(null, 'decisiont2', '1', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1')); 
+        
+        //-----------CCO & CKW----------------
+        //FHI_monitoring_percent_groups_practicing_swap
+        //answers.put('decisiont2_0', Utils.createTestSubmissionAnswer(null, 'decisiont2', '2', null, null, null));
+        //answers.put('swap_0', Utils.createTestSubmissionAnswer(null, 'swap', '1', null, null, null));
+
+        //returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        //System.assert(returnValues.get(0).equals('1')); 
+        //already covered
+
+
+        survey.Survey_Name__c = 'CCO Monitoring South';
+        update survey;
+
+        testDistrict.Name = 'Ibanda';
+        update testDistrict;
+
+        //-----------CCO---------
+        //FHI_monitoring_number_females_trained_child_nutrition
+        //FHI_monitoring_number_males_trained_child_nutrition
+        answers.put('encounter_0', Utils.createTestSubmissionAnswer(null, 'encounter', '2', null, null, null));
+        answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '2', null, null, null));
+        answers.put('lsmales_0', Utils.createTestSubmissionAnswer(null, 'lsmales', '60', null, null, null));
+        answers.put('lsfems_0', Utils.createTestSubmissionAnswer(null, 'lsfems', '60', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1')); 
+
+        //-----------CCO---------
+        //FHI_monitoring_number_males_trained_agric
+        //FHI_monitoring_number_females_trained_agric
+        answers.put('encounter_0', Utils.createTestSubmissionAnswer(null, 'encounter', '2', null, null, null));
+        answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '1', null, null, null));
+        answers.put('lsffems_0', Utils.createTestSubmissionAnswer(null, 'lsffems', '70', null, null, null));
+        answers.put('lsfmales_0', Utils.createTestSubmissionAnswer(null, 'lsfmales', '70', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));  
     }
  }
