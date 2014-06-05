@@ -779,7 +779,7 @@ public with sharing class FHISurveysHelpers {
      *              element 2 - Error message if required for the logs and tech team
      *              element 3 - Message body to the submitter if required.
      */
-    private static List<String> processCkwMonitoring(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers,  Person__c submitter, String surveyName) {
+    public static List<String> processCkwMonitoring(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers,  Person__c submitter, String surveyName) {
         boolean isNorth = false;
         boolean isCCO = false;
         if (surveyName.containsIgnoreCase('North')) {

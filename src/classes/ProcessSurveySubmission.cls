@@ -96,7 +96,7 @@ global class ProcessSurveySubmission {
             System.debug(results);
             // Send Pulse and SMS feedback to the submitter
             if (!results.get(2).equals('SUPRESSMSG')) {
-                messageBody = results.get(2);
+                messageBody = results.get(1);
                 User sender = [
                     SELECT
                         Id,
@@ -540,6 +540,9 @@ global class ProcessSurveySubmission {
             }
             else if (survey.Post_Processing_Method__c.equals('FHI_HOUSEHOLD_REGISTRATION')) {
                 return FHISurveysHelpers.processHouseholdRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FHI_MONITORING')) {
+                return FHISurveysHelpers.processCkwMonitoring(surveySubmission, answers, interviewer, survey.Survey_Name__c);
             }
             else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
                 return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
