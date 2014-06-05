@@ -869,7 +869,7 @@ public with sharing class FHISurveysHelpers {
                     if(encounter.equals('2')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('2') || decisiont4.equals('3')) {
                             //nutrition = nutrition section + combined section
                             String malesAttending = answers.get('lsmales_0').Answer__c;
@@ -879,11 +879,11 @@ public with sharing class FHISurveysHelpers {
                 }
                 else {
                     //decisiont2 1 => Dialogue, 2 => VSLA, 3 => Learning site
-                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
                     if(decisiont2.equals('3')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('2') || decisiont4.equals('3')) {
                             //nutrition = nutrition section + combined section
                             String malesAttending = answers.get('lsmales_0').Answer__c;
@@ -898,7 +898,7 @@ public with sharing class FHISurveysHelpers {
                     if(encounter.equals('2')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('2') || decisiont4.equals('3')) {
                             //nutrition = nutrition section + combined section
                             String femalesAttending = answers.get('lsfems_0').Answer__c;
@@ -908,11 +908,11 @@ public with sharing class FHISurveysHelpers {
                 }
                 else {
                     //decisiont2 1 => Dialogue, 2 => VSLA, 3 => Learning site
-                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
                     if(decisiont2.equals('3')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('2') || decisiont4.equals('3')) {
                             //nutrition = nutrition section + combined section
                             String femalesAttending = answers.get('lsfems_0').Answer__c;
@@ -945,7 +945,7 @@ public with sharing class FHISurveysHelpers {
                     if(encounter.equals('2')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('1')) {// || decisiont4.equals('3')) { //combined section not added as its not in specs
                             String malesAttendingFirstTime = answers.get('lsfmales_0').Answer__c;
                             totalNewData.Denumerator__c += Integer.valueOf(malesAttendingFirstTime);
@@ -954,11 +954,11 @@ public with sharing class FHISurveysHelpers {
                 }
                 else {
                     //decisiont2 1 => Disaloge, 2 => VSLA, 3 => Learning site
-                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
                     if(decisiont2.equals('3')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('1')) { // || decisiont4.equals('3') //not adding the combined since its not in specs
                             String malesAttendingFirstTime = answers.get('lsfmales_0').Answer__c;
                             totalNewData.Denumerator__c += Integer.valueOf(malesAttendingFirstTime);
@@ -972,7 +972,7 @@ public with sharing class FHISurveysHelpers {
                     if(encounter.equals('2')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('1')) {// || decisiont4.equals('3')) { //combined section not added as its not in specs
                             String femalesAttendingFirstTime = answers.get('lsffems_0').Answer__c;
                             totalNewData.Denumerator__c += Integer.valueOf(femalesAttendingFirstTime);
@@ -981,11 +981,11 @@ public with sharing class FHISurveysHelpers {
                 }
                 else {
                     //decisiont2 1 => Dialogue, 2 => VSLA, 3 => Learning site
-                    String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                    String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
                     if(decisiont2.equals('3')) {
                         //learning site
                         //decisiont4 1 => Agriculture, 2 => Nutrition, 3 => Combined
-                        String decisiont4 = answers.get('decisiont4_0').Answer__c;
+                        String decisiont4 = answers.get('decisiont4_0') == null ? '' : answers.get('decisiont4_0').Answer__c;
                         if(decisiont4.equals('1')) { // || decisiont4.equals('3') //not adding the combined since its not in specs
                             String femalesAttendingFirstTime = answers.get('lsffems_0').Answer__c;
                             totalNewData.Denumerator__c += Integer.valueOf(femalesAttendingFirstTime);
@@ -995,7 +995,7 @@ public with sharing class FHISurveysHelpers {
             }
             else if (key.equals('FHI_monitoring_number_community_dialog_meetings')) {
                 //decisiont2 1 => Dialogue, 2 => VSLA[, 3 => Learning site]
-                String decisiont2 = answers.get('decisiont2_0').Answer__c;
+                String decisiont2 = answers.get('decisiont2_0') == null ? '' : answers.get('decisiont2_0').Answer__c;
                 if(decisiont2.equals('1')) {
                     //dialogue
                     totalNewData.Denumerator__c++;
