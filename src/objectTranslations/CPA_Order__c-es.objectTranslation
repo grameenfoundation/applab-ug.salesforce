@@ -18,6 +18,11 @@
         <name>Client__c</name>
     </fields>
     <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- CPA Orders --></relationshipLabel>
+    </fields>
+    <fields>
         <label>Fecha Esperada de Entrega</label>
         <name>Expected_Delivery_Date__c</name>
     </fields>
@@ -50,8 +55,52 @@
         <name>Preferred_Delivery_Location__c</name>
     </fields>
     <fields>
+        <label><!-- Presentación --></label>
+        <name>Presentacion__c</name>
+        <picklistValues>
+            <masterLabel>5 al día</masterLabel>
+            <translation><!-- 5 al día --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bandeja</masterLabel>
+            <translation><!-- Bandeja --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bolsa transparente</masterLabel>
+            <translation><!-- Bolsa transparente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ekono</masterLabel>
+            <translation><!-- Ekono --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Malla</masterLabel>
+            <translation><!-- Malla --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Por paquete</masterLabel>
+            <translation><!-- Por paquete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Solo a mil</masterLabel>
+            <translation><!-- Solo a mil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Todo a 2000</masterLabel>
+            <translation><!-- Todo a 2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vitafilado</masterLabel>
+            <translation><!-- Vitafilado --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label>Precio por Kilo</label>
         <name>Price_per_Kilo__c</name>
+    </fields>
+    <fields>
+        <label>Producto</label>
+        <name>Product_Name__c</name>
     </fields>
     <fields>
         <help><!-- The quantity of the units of presentation that have already been allocated to the various Associations --></help>
@@ -79,7 +128,7 @@
         <name>Unallocated_Units_of_Presentation__c</name>
     </fields>
     <fields>
-        <label>Unidad de Presentación</label>
+        <label>Unidad</label>
         <name>Unit_of_Presentation__c</name>
         <picklistValues>
             <masterLabel>250 Gr.</masterLabel>
@@ -167,5 +216,12 @@
         </picklistValues>
     </fields>
     <gender>Feminine</gender>
+    <layouts>
+        <layout>CPA Order Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <nameFieldLabel>CPA Pedido</nameFieldLabel>
 </CustomObjectTranslation>

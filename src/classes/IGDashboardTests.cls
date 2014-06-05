@@ -6,34 +6,6 @@
  **/
 @isTest
 private class IGDashboardTests {
-
-    static testMethod void testIGDashboardController() {    	
-        Person__c testPerson = new Person__c();
-        testPerson.First_Name__c = 'Test';
-        testPerson.Last_Name__c = 'Person' ;
-        testPerson.Gender__c = 'Male';
-        testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
-        insert testPerson;
-
-        IGDashboardController controller = new IGDashboardController();
-        
-        //test setup
-        PageReference resultPage =  new PageReference('/a00/e');
-        resultPage.getParameters().put('subregion', 'Bunyoro');
-        resultPage.getParameters().put('district', 'TestDistrict');
-        resultPage.getParameters().put('subcounty', 'TestSubcounty');
-        resultPage.getParameters().put('dateFrom', '1987-12-18');
-        resultPage.getParameters().put('dateTo', '2013-12-18');
-        resultPage.getParameters().put('cbt', String.valueOf(testPerson.Id));
-        resultPage.getParameters().put('sfdc.tabName', 'a00');
-        controller.setUp(resultPage);
-        System.assert(controller.getSubregion() != '');
-        System.assert(controller.district != null);
-        System.assert(controller.subcounty != null);
-        System.assert(controller.dummyObject != null);
-        System.assert(controller.getIsRegionalManager() == false);
-        System.assert(controller.getIsOversight() == true);
-    }
     
     static testMethod void testDashboardComponents() {    	
         
@@ -111,6 +83,23 @@ private class IGDashboardTests {
         testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
         insert testPerson;
 
+        //test setup
+        PageReference resultPage =  new PageReference('/a00/e');
+        resultPage.getParameters().put('subregion', String.valueOf(region.Id));
+        resultPage.getParameters().put('district', String.valueOf(testDistrict.Id));
+        resultPage.getParameters().put('subcounty', String.valueOf(testSubcounty.Id));
+        resultPage.getParameters().put('dateFrom', '1987-12-18');
+        resultPage.getParameters().put('dateTo', '2013-12-18');
+        resultPage.getParameters().put('cbt', String.valueOf(testPerson.Id));
+        resultPage.getParameters().put('sfdc.tabName', 'a00');
+        controller.setUp(resultPage);
+        System.assert(controller.getSubregion() != '');
+        System.assert(controller.district != null);
+        System.assert(controller.subcounty != null);
+        System.assert(controller.dummyObject != null);
+        System.assert(controller.getIsRegionalManager() == false);
+        System.assert(controller.getIsOversight() == true);
+
         //test metrics
         Survey__c survey = new Survey__c();
         survey.Account__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
@@ -150,7 +139,7 @@ private class IGDashboardTests {
         controller.setCommunityBasedTrainers(null);
 
         controller.district = testDistrict;
-        controller.subregion = region.Name;
+        controller.subregion = region.Id;
         controller.cbt = testPerson;
         //getMetricsData
         //we expect one metric row (for the total of all data)
@@ -168,6 +157,8 @@ private class IGDashboardTests {
         System.assert(pageDistrict == null);
         PageReference pageSubc = controller.onSubcountyChanged();
         System.assert(pageSubc == null);
+        PageReference pageCbt = controller.onCbtChanged();
+        System.assert(pageCbt == null);
 
         //getBarChartData
         //we expect metrics for one activity since we registered one survey

@@ -80,7 +80,7 @@ public class IGDashboardHelpers {
     *
     * @return - a query that fetches person objects
     */
-    public static string getCommunityBasedTrainers(String subcounty){
+    public static string getCommunityBasedTrainers(String districtId, String subcounty){
         String selectClause = 
                 'SELECT '                               +
                     'Id, '                              +
@@ -93,13 +93,16 @@ public class IGDashboardHelpers {
                 'WHERE '                                +
                     'Person__c != NULL ';
         String whereClause = 
+                    'AND District__r.Id = \'' + districtId + '\' ';
+        String whereClause2 = 
                     'AND Subcounty__r.Id = \'' + subcounty + '\' ';
         String orderByClause =
                 'ORDER BY '                             +
                     'Person__r.First_Name__c, Person__r.Last_Name__c';
 
-        selectClause = String.isEmpty(subcounty) ? selectClause + orderByClause : selectClause + whereClause + orderByClause;
-        return selectClause;           
+        selectClause = String.isEmpty(districtId) ? selectClause : selectClause + whereClause;
+        selectClause = String.isEmpty(subcounty) ? selectClause : selectClause + whereClause2;
+        return selectClause + orderByClause;           
     }    
     
     /*
@@ -108,10 +111,12 @@ public class IGDashboardHelpers {
     * @params - filters for the field visits made
     * @return - a query returning field visits for given filters
     */
-    public static String getFieldVisitDetails(String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
+    public static String getFieldVisitDetails(String region, String district, String subcounty, String dateFrom, String dateTo, String cbt){
         //if a regional manager is logged in, override
+        //we convert from region Id to name due to karamoja 
         IG_Region__c userRegion = getUserRegion();
-        String subregion = (userRegion != null && userRegion.Name.containsIgnoreCase('karamoja')) ? '%KARAMOJA%' : null;
+        userRegion = (userRegion == null && String.isNotEmpty(region)) ? [SELECT Id, Name FROM IG_Region__c WHERE Id = :region] : null;
+        String subregion = (userRegion != null && userRegion.Name.containsIgnoreCase('karamoja')) ? '%KARAMOJA%' : '';
         subregion = (subregion == null && userRegion != null) ? userRegion.Name : null;
         String query = 
                 'SELECT '                                               +
@@ -133,8 +138,14 @@ public class IGDashboardHelpers {
                     'IG_Subproject_Target__c '                          +
                 'WHERE '                                                +
                     'Person__c != NULL ';
-        query = subregion == null ? query : query + 
-                    'AND IG_Region__r.Name LIKE \'' + subregion + '\'';
+        query = !String.isNotBlank(subregion) ? query : query + 
+                    'AND IG_Region__r.Name LIKE \'' + subregion + '\' ';
+        query = !String.isNotBlank(district) ? query : query + 
+                    'AND District__r.Id = \'' + district + '\' ';
+        query = !String.isNotBlank(subcounty) ? query : query + 
+                    'AND Subcounty__r.Id = \'' + subcounty + '\' ';
+        query = !String.isNotBlank(cbt) ? query : query + 
+                    'AND Person__r.Id = \'' + cbt + '\' ';
         //note that karamoja regions are fused here since they view eachothers data (due to one login)
         return query;
     }
@@ -148,7 +159,7 @@ public class IGDashboardHelpers {
     * @params - filters for the visits
     * @return - an array of markers 
     */
-    public static MetricMapWrapper[] getFieldVisitsMapMarkers(String region, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
+    public static MetricMapWrapper[] getFieldVisitsMapMarkers(String region, String district, String subcounty, String dateFrom, String dateTo, String cbt){
         IG_Subproject_Target__c[] visits = database.query(IGDashboardHelpers.getFieldVisitDetails(region, district, subcounty, dateFrom, dateTo, cbt));
 
         Map<String, MetricMapWrapper> markers = new Map<String, MetricMapWrapper>();
@@ -191,7 +202,7 @@ public class IGDashboardHelpers {
             marker.gpsLatitude = visit.LocationMobilization__c.split(' ')[0];
             marker.gpsLongitude = visit.LocationMobilization__c.split(' ')[1];
              
-            String content =    '<div style="min-width:300px">' +
+            String content =    '<div style="min-width:200px;min-height:150px">' +
                                     'Name:    ' + visit.Name + '<br/>' +
                                     'Trainer:    ' + visit.Person__r.First_Name__c + ' ' + visit.Person__r.Last_Name__c + '<br/>' +
                                     'Enrollment:       ' + String.valueOf(visit.DateMobilization__c) + '<br/>';
@@ -225,6 +236,7 @@ public class IGDashboardHelpers {
 
     public static IG_Region__c getUserRegion(){
         String lName = userinfo.getLastName();
+        //TODO: way forward on combining karamoja
         IG_Region__c[] region = [SELECT Id, Name from IG_Region__c WHERE Name LIKE :'%'+lName + '%' LIMIT 1];
         if(region.isEmpty()){
             return null;
@@ -232,9 +244,12 @@ public class IGDashboardHelpers {
         return  region[0];
     }
 
-    public static List<Data> getMetricsForRegion(String subregion, String districtName, String subcountyDisplayName, String dateFrom, String dateTo, Id cbt){
+    public static List<Data> getMetricsForRegion(String subregion, String district, String subcounty, String dateFrom, String dateTo, Id cbt){
+        String subregionId = '\'' + subregion + '\'';
         Map<String, Data> data = new Map<String, Data>();
         IG_Region__c regionthis = IGDashboardHelpers.getUserRegion();
+        //if we cant find the users region, lets try what was passed through
+        regionthis = (regionthis == null && String.isNotBlank(subregion)) ? [SELECT Id, Name FROM IG_Region__c where Id = :subregion ] : regionthis;
         subregion = regionthis != null ? regionthis.Name : subregion;
         subregion = (subregion != null && subregion.containsIgnoreCase('karamoja')) ? '%KARAMOJA%' : subregion;
         String selectClause = 
@@ -259,10 +274,10 @@ public class IGDashboardHelpers {
                 'Person__c != NULL ';
                 selectClause += String.isEmpty(subregion) ? '' : 
                 'AND IG_Region__r.Name LIKE \'' + subregion + '\' ';
-                selectClause += String.isEmpty(districtName) ? '' : 
-                'AND District__r.Name = \'' + districtName + '\' ';
-                selectClause += String.isEmpty(subcountyDisplayName) ? '' : 
-                'AND Subcounty__r.Display_Name__c = \'' + subcountyDisplayName + '\' ';
+                selectClause += String.isEmpty(district) ? '' : 
+                'AND District__r.Id = \'' + district + '\' ';
+                selectClause += String.isEmpty(subcounty) ? '' : 
+                'AND Subcounty__r.Id = \'' + subcounty + '\' ';
                 selectClause += String.isEmpty(cbt) ? '' : 
                 'AND Person__r.Id = \'' + cbt + '\' ';
         System.debug(LoggingLevel.WARN, selectClause);
@@ -312,8 +327,20 @@ public class IGDashboardHelpers {
         return data.values();
     }
 
-    public static List<Data> getIndividualMetrics(String subregion, String districtName, String subcountyDisplayName, String dateFrom, String dateTo, Id cbt){
+    public static List<Data> getIndividualMetrics(Boolean isRegionalManager, String subregion, String districtName, String subcountyDisplayName, String dateFrom, String dateTo, Id cbt){
         Map<String, Data> data = new Map<String, Data>();
+        //turn subregion id to region name and check if its karamoja
+        String regionname = '';
+        if(isRegionalManager){
+            IG_Region__c regionthis = IGDashboardHelpers.getUserRegion();
+            regionname = regionthis != null ? regionthis.Name : '';
+            regionname = regionname.containsIgnoreCase('KARAMOJA') ? '%KARAMOJA%' : regionname;
+        }
+        else {
+            IG_Region__c regionthis = String.isEmpty(subregion) ? null : [SELECT Id, Name FROM IG_Region__c WHERE Id = :subregion];
+            regionname = regionthis == null ? '' : regionthis.Name;
+        }
+
         String selectClause = 
             'SELECT '                                       +
                 'DateMobilization__c,'                      +
@@ -333,8 +360,8 @@ public class IGDashboardHelpers {
                 'IG_Subproject_Target__c '                  +
             'WHERE '                                        +
                 'Person__c != NULL ';
-                selectClause += String.isEmpty(subregion) ? '' : 
-                'AND IG_Region__r.Name = \'' + subregion + '\' ';
+                selectClause += String.isEmpty(regionname) ? '' : 
+                'AND IG_Region__r.Name LIKE \'' + regionname + '\' ';
                 selectClause += String.isEmpty(districtName) ? '' : 
                 'AND District__r.Name = \'' + districtName + '\' ';
                 selectClause += String.isEmpty(subcountyDisplayName) ? '' : 

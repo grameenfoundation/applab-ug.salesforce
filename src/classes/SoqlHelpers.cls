@@ -128,6 +128,9 @@ public class SoqlHelpers {
 
         System.debug(LoggingLevel.INFO, query);
         AggregateResult[] result = database.query(query);
+        if (null == result[0].get('sum')) {
+            return 0.0;
+        }
         return (Decimal)(result[0].get('sum'));
     }
     /**
