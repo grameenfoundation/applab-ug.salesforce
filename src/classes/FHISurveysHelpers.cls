@@ -857,8 +857,14 @@ public with sharing class FHISurveysHelpers {
                 totalNewData = createNewMonitoringMetric(key, visitDate, district[0].Id);
             }
             // Update the metric based on the key
-            if (key.equals('FHI_monitoring_ckw_group_visits') || key.equals('FHI_monitoring_cco_group_visits')) {
-                if(encounter.equals('1')) {
+            if (key.equals('FHI_monitoring_ckw_group_visits')) {
+                if(encounter.equals('1') && !isCCO) {
+                    //means encounter is a group for both CCO and CKW surveys
+                    totalNewData.Denumerator__c++;
+                }
+            }
+            else if (key.equals('FHI_monitoring_cco_group_visits')) {
+                if(encounter.equals('1') && isCCO) {
                     //means encounter is a group for both CCO and CKW surveys
                     totalNewData.Denumerator__c++;
                 }
