@@ -1,4 +1,4 @@
-public class CPAOrderContactAssociationUpdater {
+public class CPAOrderAllocationAssociationUpdater {
 
   public static void updateContactAssociations() {
     gfsurveys__SObjectContactAssociation__c[] records = [Select Id, gfsurveys__AssociatedIds__c, 
@@ -6,7 +6,7 @@ public class CPAOrderContactAssociationUpdater {
                                                                gfsurveys__Contact__c, 
                                                                gfsurveys__NumberOfRecords__c 
                                                 FROM gfsurveys__SObjectContactAssociation__c 
-                                                WHERE gfsurveys__SObjectApiName__c = 'CPA_Order__c' 
+                                                WHERE gfsurveys__SObjectApiName__c = 'CPA_Order_Allocation__c' 
                                                 ];
     gfsurveys__SObjectContactAssociation__c[] recordsToDelete = new List<gfsurveys__SObjectContactAssociation__c>();
     if (records.size() > 0) {
@@ -15,9 +15,9 @@ public class CPAOrderContactAssociationUpdater {
         removals.addAll(record.gfsurveys__AssociatedIds__c.split(','));
       }
       Set<String> removeOrders = new Set<String>();
-      List<CPA_Order__c> orders = [Select Expected_Delivery_Date__c, CreatedDate, Id from CPA_Order__c where
-                          Id in:removals]; 
-      for (CPA_Order__c order : orders) {
+      List<CPA_Order_Allocation__c> orders = [Select Expected_Delivery_Date__c, CreatedDate, Id from CPA_Order_Allocation__c where
+                          Id in:removals];
+      for (CPA_Order_Allocation__c order : orders) {
         if (order.Expected_Delivery_Date__c < date.today()) {
           removeOrders.add(order.Id);
         }
