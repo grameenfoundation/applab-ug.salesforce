@@ -1,0 +1,45 @@
+<apex:component controller="MetricSectionComponentController">
+<apex:includeScript value="{!$Resource.metricSectionJs}"/>
+<apex:stylesheet value="{!$Resource.CommonCSS}"/>
+<apex:includeScript value="{!$Resource.CommonJS}"/>
+
+<apex:attribute name="region" assignTo="{!regionName}" description="region" type="String" required="false"/>
+<apex:attribute name="district" assignTo="{!districtId}" description="district" type="Id" required="false"/>
+<apex:attribute name="subcounty" assignTo="{!subcountyId}" description="subcounty" type="Id" required="false"/>
+<apex:attribute name="from" assignTo="{!fromdate}" description="district" type="Date" required="false"/>
+<apex:attribute name="to" assignTo="{!todate}" description="district" type="Date" required="false"/>
+
+<apex:attribute name="metric" assignTo="{!metricId}" description="metric" type="Id" required="false"/>
+<apex:attribute name="isEditMode" description="true if in edit mode" type="Boolean" required="false"/>
+
+<apex:outputPanel id="metricDetails">
+	<apex:pageBlockSection columns="1">
+		<apex:pageBlockTable value="{!metricDatas}" var="metricData">
+			<apex:column headerValue="Name" rendered="true">
+				<apex:outputText value="{!metricData.label}" escape="false"/>
+			</apex:column>
+			<apex:column headervalue="Target" rendered="{!thisSection.Show_Targets__c}" width="70px">
+                <apex:outputText rendered="{!NOT(metricData.isHeader)}">
+                    {!metricData.target}
+                </apex:outputText>				
+			</apex:column>
+            <apex:column width="70px" headerValue="Actual">
+                <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
+                    <div style="width:100%;height:100%;background-color:{!metricData.colour}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!metricData.currentValue}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:outputPanel>
+            </apex:column>
+            <apex:column rendered="{!isEditMode}" width="50px">
+                <apex:facet name="header">Update</apex:facet>
+                <a href="javascript:void(0)" onclick="openEditWindow('{!metricData.currentId}');return false;">
+                    Update
+                </a>
+            </apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlockSection>
+</apex:outputPanel>
+ 
+</apex:component>

@@ -1,0 +1,85 @@
+<apex:page controller="FHIDashboardController" sidebar="false">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <c:ErrorMessage />
+
+    <style>
+        body .pbBody table.list tr.dataRow .htmlDetailElementTable td {
+            border:none; !important
+        }
+    </style>
+    <script>
+        function openEditWindow(recordId) {
+             popup = window.open("{!$Page.MetricEdit}?sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
+             popup.focus(); 
+        };
+        
+        function closeEditPopup() {
+            if(null != popup) {
+                popup.close()
+                popup = null;
+                window.location.reload();
+            }
+        };
+    </script>
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+
+    <apex:form id="TheForm">
+        <apex:pageBlock id="filters_block" title="Field Activity Filters">
+            <table>
+                <tr>
+                    <td>
+                        <strong>Region: </strong>
+                        <apex:selectList value="{!subregion}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!subregionsList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onRegionChanged}" rerender="TheForm" event="onchange"/>
+                        </apex:selectList>
+                    </td>
+                    <td>
+                        <strong>District: </strong>
+                        <apex:selectList value="{!district.Id}" multiselect="false" size="1" id="districtsListBox">
+                            <apex:selectOptions value="{!districtList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onDistrictChanged}" rerender="TheForm" event="onchange"/>
+                        </apex:selectList>
+                    </td>
+                    <td>
+                         <strong>Subcounty: </strong>
+                         <apex:selectList value="{!subcounty.Id}" multiselect="false" size="1" id="subcountiesListbox">
+                            <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onSubcountyChanged}" rerender="TheForm" event="onchange"/>
+                        </apex:selectList>                  
+                    </td>
+                    <td>
+                        <strong>Date Range: </strong><apex:inputField id="fromdate" value="{!dummyObject.Start_Date__c}"></apex:inputField>
+                    </td>
+                    <td>
+                        <strong>to </strong><apex:inputField id="todate" value="{!dummyObject.End_Date__c}"></apex:inputField>                
+                    </td> 
+                </tr>
+                <tr>
+                    <td align="left" colspan="3">
+			            <div style="display:inline;padding-left:10px;visibility:{!IF(((isEditMode == 'false') && ($Profile.Name != 'Ckw Public Dashboard Profile')),'visible','hidden')}">
+			                 <a href='{!$Page.FHIDashboard}?sfdc.tabName={!tabName}&editMode=true'>Update Metrics</a>
+			            </div>
+			            <div style="display:inline;padding-left:10px;visibility:{!IF(isEditMode == 'true','visible','hidden')}">
+			                You are currently in Update Mode: <a href='{!$Page.FHIDashboard}?sfdc.tabName={!tabName}&editMode=false'>Leave Update Mode</a>
+			            </div>
+                    </td>
+                    <td align="right" colspan="2">
+                        <apex:commandButton value="Refresh Section" action="{!changeFilters}"></apex:commandButton>                     
+                    </td>
+                </tr>
+            </table>
+        </apex:pageBlock>
+
+        <apex:outputPanel id="metricSection">
+        	<apex:repeat value="{!metricSections}" var="section">
+        		<apex:pageBlock id="metric_section" title="{!section.Title__c}">
+        			<c:MetricSectionComponent metric="{!section.Id}" region="{!subregion}" district="{!district.Id}" subcounty="{!subcounty.Id}" isEditMode="{!section.Allow_Update__c && isEditMode == 'true'}" from="{!dummyObject.Start_Date__c}" to="{!dummyObject.End_Date__c}"/>
+        		</apex:pageBlock>
+        	</apex:repeat>
+        </apex:outputPanel>
+         
+	</apex:form>
+
+</apex:page>
