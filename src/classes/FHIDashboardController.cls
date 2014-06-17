@@ -7,9 +7,11 @@ public with sharing class FHIDashboardController {
     private List<SelectOption> districtList;  
     private List<SelectOption> subcountiesList;    
     private List<SelectOption> subregionsList;
-    private static String dashboardSection = 'DS0000000051';
+    private static String dashboardSection = 'DS0000000812';
     private List<IGDashboardHelpers.Data> regionsData;
     private Boolean isEditMode = false;
+    private List<Metric_Section__c> metricSections;
+    private List<M_E_Metric__c> metrics;
 
     public String subregion { get; set; }
     public District__c district { get; set; }
@@ -34,7 +36,10 @@ public with sharing class FHIDashboardController {
      * @return List of Metric sections
      */
     public List<Metric_Section__c> getMetricSections(){
-        return [SELECT Id, Name, Default_Show__c, Title__c, Allow_Update__c FROM Metric_Section__c WHERE Dashboard_Section__r.Name = :dashboardSection ORDER BY Default_Show__c];
+        if(metricSections == null) {
+            metricSections = [SELECT Id, Name, Default_Show__c, Title__c, Allow_Update__c FROM Metric_Section__c WHERE Dashboard_Section__r.Name = :dashboardSection ORDER BY Default_Show__c];
+        }
+        return metricSections;
     }
 
     /**
@@ -42,7 +47,10 @@ public with sharing class FHIDashboardController {
      * @param  sectionId    the Id of the metric section
      */
     public List<M_E_Metric__c> getMetrics(Id section){
-        return [SELECT Id, Name, Order__c, Label__c, Is_Header__c, On_The_Fly_Calculation_Type__c FROM M_E_Metric__c WHERE Metric_Section__c = :section];
+        if(metrics == null) {
+            metrics = [SELECT Id, Name, Order__c, Label__c, Is_Header__c, On_The_Fly_Calculation_Type__c FROM M_E_Metric__c WHERE Metric_Section__c = :section];
+        }
+        return metrics;
     }
     
     public void setUp(PageReference pageRef){
@@ -82,13 +90,15 @@ public with sharing class FHIDashboardController {
     * the dropdown list on the dashboard as list-options
     */
     public List<SelectOption> getSubregionsList(){
-        List<SelectOption> options = new List<SelectOption>();
-        Region__c[] subregions = [SELECT Id, Name, Display_Name__c FROM Region__c ORDER BY Display_Name__c];
-        options.add(new SelectOption('','-- In All Regions --'));
-        for (Region__c a_region : subregions) {
-           options.add(new SelectOption(a_region.Display_Name__c, a_region.Display_Name__c));
-        } 
-        return options;
+        if(subregionsList == null) {
+            subregionsList = new List<SelectOption>();
+            Region__c[] subregions = [SELECT Id, Name, Display_Name__c FROM Region__c ORDER BY Display_Name__c];
+            subregionsList.add(new SelectOption('','-- In All Regions --'));
+            for (Region__c a_region : subregions) {
+               subregionsList.add(new SelectOption(a_region.Display_Name__c, a_region.Display_Name__c));
+            } 
+        }
+        return subregionsList;
     }
     public void setSubregionsList(List<SelectOption> option) {
         this.subregionsList = option;
@@ -99,19 +109,21 @@ public with sharing class FHIDashboardController {
     * on the dashboard as list-options
     */
     public List<SelectOption> getDistrictList() {
-        List<SelectOption> options = new List<SelectOption>();
-        District__c[] districts = null;
-        if(String.isNotEmpty(this.subregion)){
-            districts = [SELECT Id, Region__c, Name FROM District__c WHERE Region__c = :this.subregion ORDER BY Name];
+        if(districtList == null) {
+            districtList = new List<SelectOption>();
+            District__c[] districts = null;
+            if(String.isNotEmpty(this.subregion)){
+                districts = [SELECT Id, Region__c, Name FROM District__c WHERE Region__c = :this.subregion ORDER BY Name];
+            }
+            else {
+                districts = [SELECT Id, Region__c, Name FROM District__c ORDER BY Name];   
+            }
+            districtList.add(new SelectOption('','-- In All Districts --'));
+            for (District__c district : districts) {
+                   districtList.add(new SelectOption(district.Id, district.Name));
+            } 
         }
-        else {
-            districts = [SELECT Id, Region__c, Name FROM District__c ORDER BY Name];   
-        }
-        options.add(new SelectOption('','-- In All Districts --'));
-        for (District__c district : districts) {
-               options.add(new SelectOption(district.Id, district.Name));
-        } 
-        return options;
+        return districtList;
     }
     public void setDistrictList(List<SelectOption> option) {
         this.districtList = option;
@@ -122,19 +134,16 @@ public with sharing class FHIDashboardController {
     * on the dashboard as list-options
     */
     public List<SelectOption> getSubcountiesList() {
-        List<SelectOption> options = new List<SelectOption>();
-        Subcounty__c[] subcounties = null;
-        if(this.district.Id != null){
-            subcounties = [SELECT Id, Name, Display_Name__c FROM Subcounty__c WHERE District__c = :this.district.Id ORDER BY Display_Name__c];
-        }
-        else {
+        if(subcountiesList == null) {
+            subcountiesList = new List<SelectOption>();
+            Subcounty__c[] subcounties = null;
             subcounties = [SELECT Id, Name, Display_Name__c FROM Subcounty__c ORDER BY Display_Name__c];   
+            subcountiesList.add(new SelectOption('','-- In All Subcounties --'));
+            for (Subcounty__c subcounty : subcounties) {
+               subcountiesList.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
+            } 
         }
-        options.add(new SelectOption('','-- In All Subcounties --'));
-        for (Subcounty__c subcounty : subcounties) {
-           options.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
-        } 
-        return options;
+        return subcountiesList;
     }
     public void setSubcountiesList(List<SelectOption> option) {
         this.districtList = option;
@@ -144,8 +153,14 @@ public with sharing class FHIDashboardController {
      * event fired when region changes on the dashboard
      */
     public PageReference onRegionChanged(){
-        PageReference resultPage = ApexPages.currentPage(); 
-        String subcountyId = resultPage.getParameters().get('subregion');
+        //filter districts
+        districtList = new List<SelectOption>();
+        District__c[] districts = null;
+        districts = [SELECT Id, Region__c, Name FROM District__c WHERE Region__c = :this.subregion ORDER BY Name];
+        districtList.add(new SelectOption('','-- In All Districts --'));
+        for (District__c district : districts) {
+               districtList.add(new SelectOption(district.Id, district.Name));
+        } 
         return null;
     }
 
@@ -153,17 +168,14 @@ public with sharing class FHIDashboardController {
      * event fired when district changes on the dashboard
      */
     public PageReference onDistrictChanged(){
-        PageReference resultPage = ApexPages.currentPage(); 
-        String districtId = resultPage.getParameters().get('district');
-        return null;
-    }
-
-    /**
-     * event fired when subcounty changes on the dashboard
-     */
-    public PageReference onSubcountyChanged(){
-        PageReference resultPage = ApexPages.currentPage(); 
-        String districtId = resultPage.getParameters().get('subcounty');
+        //filter subcounties
+        subcountiesList = new List<SelectOption>();
+        Subcounty__c[] subcounties = null;
+        subcounties = [SELECT Id, Name, Display_Name__c FROM Subcounty__c WHERE District__c = :this.district.Id ORDER BY Display_Name__c];
+        subcountiesList.add(new SelectOption('','-- In All Subcounties --'));
+        for (Subcounty__c subcounty : subcounties) {
+           subcountiesList.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
+        } 
         return null;
     }
 

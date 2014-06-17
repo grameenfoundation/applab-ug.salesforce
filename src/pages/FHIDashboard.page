@@ -46,7 +46,6 @@
                          <strong>Subcounty: </strong>
                          <apex:selectList value="{!subcounty.Id}" multiselect="false" size="1" id="subcountiesListbox">
                             <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
-                            <apex:actionSupport action="{!onSubcountyChanged}" rerender="TheForm" event="onchange"/>
                         </apex:selectList>                  
                     </td>
                     <td>
