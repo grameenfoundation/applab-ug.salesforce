@@ -7,7 +7,7 @@ public with sharing class FHIDashboardController {
     private List<SelectOption> districtList;  
     private List<SelectOption> subcountiesList;    
     private List<SelectOption> subregionsList;
-    private static String dashboardSection = 'DS0000000812';
+    private static String dashboardSection = 'DS0000000051';
     private List<IGDashboardHelpers.Data> regionsData;
     private Boolean isEditMode = false;
     private List<Metric_Section__c> metricSections;
@@ -86,16 +86,17 @@ public with sharing class FHIDashboardController {
     }
 
    /*
-    * Fetches all IG/NUSAF subregions in uganda and avails them for 
-    * the dropdown list on the dashboard as list-options
+    * returns all district regions. gets them from the region__c piclist field on
+    * the district__c sObject 
     */
     public List<SelectOption> getSubregionsList(){
         if(subregionsList == null) {
             subregionsList = new List<SelectOption>();
-            Region__c[] subregions = [SELECT Id, Name, Display_Name__c FROM Region__c ORDER BY Display_Name__c];
+            Schema.DescribeFieldResult districtRegions = District__c.Region__c.getDescribe();
+            List<Schema.PicklistEntry> districtRegionsValues = districtRegions.getPicklistValues();
             subregionsList.add(new SelectOption('','-- In All Regions --'));
-            for (Region__c a_region : subregions) {
-               subregionsList.add(new SelectOption(a_region.Display_Name__c, a_region.Display_Name__c));
+            for (Schema.PicklistEntry entry : districtRegionsValues) {
+               subregionsList.add(new SelectOption(entry.getLabel(), entry.getLabel()));
             } 
         }
         return subregionsList;

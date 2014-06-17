@@ -76,7 +76,9 @@ private class FHITests {
         insert region;
         
         List<SelectOption> regions = controller.getSubregionsList();
-        System.assert(regions.size() == 2);	//including the default --select all		
+        Schema.DescribeFieldResult districtRegions = District__c.Region__c.getDescribe();
+        List<Schema.PicklistEntry> districtRegionsValues = districtRegions.getPicklistValues();
+        System.assert(regions.size() == districtRegionsValues.size() + 1);	//including the default --select all--		
         controller.setSubregionsList(null);
         
         //test districts list box
