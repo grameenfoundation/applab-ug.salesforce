@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2014  AppLab, Grameen Foundation
+ * Copyright (c) 2013 AppLab, Grameen Foundation
  *
  *  This is a helper class for IG/NUSAF Dashboard page
  *	A better way to make sure the dashboard controller
@@ -9,6 +9,7 @@
  **/
 public class IGDashboardHelpers {    
     public static final String IG_PERSON_TYPE_NAME = 'IG/NUSAF';
+    public static final String REGIONAL_MANAGER = 'IG/NUSAF Regional Manager';
        
        /**
         * IG has regions differing from ours, this query returns
@@ -137,7 +138,8 @@ public class IGDashboardHelpers {
                 'FROM '                                                 +
                     'IG_Subproject_Target__c '                          +
                 'WHERE '                                                +
-                    'Person__c != NULL ';
+                    'Person__c != NULL '                                +
+                    'AND LocationMobilization__c != NULL ';
         query = !String.isNotBlank(subregion) ? query : query + 
                     'AND IG_Region__r.Name LIKE \'' + subregion + '\' ';
         query = !String.isNotBlank(district) ? query : query + 
@@ -169,7 +171,7 @@ public class IGDashboardHelpers {
 
         for (IG_Subproject_Target__c visit : visits) {
             // Dont include if we are missing the location
-            if (!String.isNotEmpty(visit.LocationMobilization__c)) {
+            if (String.isEmpty(visit.LocationMobilization__c)) {
                 continue;
             }
             String name = String.valueOf(visit.Name);

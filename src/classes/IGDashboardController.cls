@@ -91,14 +91,16 @@ public class IGDashboardController {
     * the dropdown list on the dashboard as list-options
     */
     public List<SelectOption> getSubregionsList(){
-        List<SelectOption> options = new List<SelectOption>();
-        IG_Region__c[] subregions = database.query(IGDashboardHelpers.getIGRegions());
-        subregions.sort();
-        options.add(new SelectOption('','-- In All Sub-Regions --'));
-        for (IG_Region__c a_region : subregions) {
-           options.add(new SelectOption(a_region.Id, a_region.Name));
-        } 
-        return options;
+        if(subregionsList == null) {
+            subregionsList = new List<SelectOption>();
+            IG_Region__c[] subregions = database.query(IGDashboardHelpers.getIGRegions());
+            subregions.sort();
+            subregionsList.add(new SelectOption('','-- In All Sub-Regions --'));
+            for (IG_Region__c a_region : subregions) {
+               subregionsList.add(new SelectOption(a_region.Id, a_region.Name));
+            } 
+        }
+        return subregionsList;
     }
     public void setSubregionsList(List<SelectOption> option) {
         this.subregionsList = option;
@@ -109,13 +111,15 @@ public class IGDashboardController {
     * on the dashboard as list-options
     */
     public List<SelectOption> getDistrictList() {
-        List<SelectOption> options = new List<SelectOption>();
-        IG_Region_District_Association__c[] districts = database.query(IGDashboardHelpers.getDistricts(this.subregion));
-        options.add(new SelectOption('','-- In All Districts --'));
-        for (IG_Region_District_Association__c district : districts) {
-               options.add(new SelectOption(district.District__r.Id, district.District__r.Name));
-        } 
-        return options;
+        if(districtList == null) {
+            districtList = new List<SelectOption>();
+            IG_Region_District_Association__c[] districts = database.query(IGDashboardHelpers.getDistricts(''));
+            districtList.add(new SelectOption('','-- In All Districts --'));
+            for (IG_Region_District_Association__c district : districts) {
+                   districtList.add(new SelectOption(district.District__r.Id, district.District__r.Name));
+            } 
+        }
+        return districtList;
     }
     public void setDistrictList(List<SelectOption> option) {
         this.districtList = option;
@@ -126,13 +130,15 @@ public class IGDashboardController {
     * on the dashboard as list-options
     */
     public List<SelectOption> getSubcountiesList() {
-        List<SelectOption> options = new List<SelectOption>();
-        Subcounty__c[] subcounties = database.query(IGDashboardHelpers.getSubcounties(this.district.Id));
-        options.add(new SelectOption('','-- In All Subcounties --'));
-        for (Subcounty__c subcounty : subcounties) {
-           options.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
-        } 
-        return options;
+        if(subcountiesList == null) {
+            subcountiesList = new List<SelectOption>();
+            Subcounty__c[] subcounties = database.query(IGDashboardHelpers.getSubcounties(''));
+            subcountiesList.add(new SelectOption('','-- In All Subcounties --'));
+            for (Subcounty__c subcounty : subcounties) {
+               subcountiesList.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
+            } 
+        }
+        return subcountiesList;
     }
     public void setSubcountiesList(List<SelectOption> option) {
         this.districtList = option;
@@ -140,21 +146,23 @@ public class IGDashboardController {
 
     /*
     * Fetches all Person__c objects of type IG/NUSAF - these are the Field Staff 
-    * and avails then to the dropdown list on the dashboard as list-options
+    * and avails them to the dropdown list on the dashboard as list-options
     */
     public List<SelectOption> getCommunityBasedTrainers(){
-        List<SelectOption> options = new List<SelectOption>();
-        IG_Subproject_Target__c[] targets = database.query(IGDashboardHelpers.getCommunityBasedTrainers(this.district.Id, this.subcounty.Id));
-        Map<String, IG_Subproject_Target__c> mapTargets = new Map<String, IG_Subproject_Target__c>();
-        for(IG_Subproject_Target__c target: targets){
-            mapTargets.put(target.Person__r.Id, target);//This is map and hence it will always have unique values 
+        if(communityBasedTrainers == null) {
+            communityBasedTrainers = new List<SelectOption>();
+            IG_Subproject_Target__c[] targets = database.query(IGDashboardHelpers.getCommunityBasedTrainers('', ''));
+            Map<String, IG_Subproject_Target__c> mapTargets = new Map<String, IG_Subproject_Target__c>();
+            for(IG_Subproject_Target__c target: targets){
+                mapTargets.put(target.Person__r.Id, target);//This is map and hence it will always have unique values 
+            }
+            targets = mapTargets.values();
+            communityBasedTrainers.add(new SelectOption('','-- In All Community Based Trainers --'));
+            for (IG_Subproject_Target__c target : targets) {
+               communityBasedTrainers.add(new SelectOption(string.valueOf(target.Person__r.Id), target.Person__r.First_Name__c + ' ' + target.Person__r.Last_Name__c));
+            } 
         }
-        targets = mapTargets.values();
-        options.add(new SelectOption('','-- In All Community Based Trainers --'));
-        for (IG_Subproject_Target__c target : targets) {
-           options.add(new SelectOption(string.valueOf(target.Person__r.Id), target.Person__r.First_Name__c + ' ' + target.Person__r.Last_Name__c));
-        } 
-        return options;
+        return communityBasedTrainers;
     }
     public void setCommunityBasedTrainers(List<SelectOption> option) {
         this.communityBasedTrainers = option;
@@ -174,37 +182,49 @@ public class IGDashboardController {
 
     /**
      * event fired when region changes on the dashboard
+     * filters districts to displya only those in the selected region
      */
     public PageReference onRegionChanged(){
-        PageReference resultPage = ApexPages.currentPage(); 
-        String subcountyId = resultPage.getParameters().get('subregion');
+        districtList = new List<SelectOption>();
+        IG_Region_District_Association__c[] districts = database.query(IGDashboardHelpers.getDistricts(this.subregion));
+        districtList.add(new SelectOption('','-- In All Districts --'));
+        for (IG_Region_District_Association__c district : districts) {
+               districtList.add(new SelectOption(district.District__r.Id, district.District__r.Name));
+        } 
         return null;
     }
 
     /**
      * event fired when district changes on the dashboard
+     * filters subounties to display only those in the selected district
      */
     public PageReference onDistrictChanged(){
-        PageReference resultPage = ApexPages.currentPage(); 
-        String districtId = resultPage.getParameters().get('district');
+        subcountiesList = new List<SelectOption>();
+        Subcounty__c[] subcounties = database.query(IGDashboardHelpers.getSubcounties(this.district.Id));
+        subcountiesList.add(new SelectOption('','-- In All Subcounties --'));
+        for (Subcounty__c subcounty : subcounties) {
+           subcountiesList.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
+        } 
         return null;
     }
 
     /**
      * event fired when subcounty changes on the dashboard
+     * filters subprojects assigned to the selected subcounty and 
+     * lists unique names of CTs they are assigned to
      */
     public PageReference onSubcountyChanged(){
-        PageReference resultPage = ApexPages.currentPage(); 
-        String districtId = resultPage.getParameters().get('subcounty');
-        return null;
-    }
-
-    /**
-     * event fired when subcounty changes on the dashboard
-     */
-    public PageReference onCbtChanged(){
-        PageReference resultPage = ApexPages.currentPage(); 
-        String cbtId = resultPage.getParameters().get('cbt');
+        communityBasedTrainers = new List<SelectOption>();
+        IG_Subproject_Target__c[] targets = database.query(IGDashboardHelpers.getCommunityBasedTrainers(this.district.Id, this.subcounty.Id));
+        Map<String, IG_Subproject_Target__c> mapTargets = new Map<String, IG_Subproject_Target__c>();
+        for(IG_Subproject_Target__c target: targets){
+            mapTargets.put(target.Person__r.Id, target);//This is map and hence it will always have unique values 
+        }
+        targets = mapTargets.values();
+        communityBasedTrainers.add(new SelectOption('','-- In All Community Based Trainers --'));
+        for (IG_Subproject_Target__c target : targets) {
+           communityBasedTrainers.add(new SelectOption(string.valueOf(target.Person__r.Id), target.Person__r.First_Name__c + ' ' + target.Person__r.Last_Name__c));
+        } 
         return null;
     }
 

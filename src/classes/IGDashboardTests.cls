@@ -157,8 +157,6 @@ private class IGDashboardTests {
         System.assert(pageDistrict == null);
         PageReference pageSubc = controller.onSubcountyChanged();
         System.assert(pageSubc == null);
-        PageReference pageCbt = controller.onCbtChanged();
-        System.assert(pageCbt == null);
 
         //getBarChartData
         //we expect metrics for one activity since we registered one survey
@@ -453,12 +451,133 @@ private class IGDashboardTests {
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('submission successful'));
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
-        //now followup visit 3
+        //too many soql query, split to new test method below
+    }
+
+    static testMethod void testSACMSurveySubmissionsFollowupVisit3() {    
+        Account testOrg = new Account();
+        testOrg.Name = 'TestCKW';
+        testOrg.BillingState = 'CA';
+        insert testOrg;
+
+        Country__c country = new Country__c();
+        country.Name = 'TestUganda';
+        country.ISO_Standard_Code__c = 'sw';
+        insert country;
+        
+        //test regions listbox      
+        IG_Region__c region = new IG_Region__c();
+        region.Name = 'west nile';
+        insert region;
+        
+        //test districts list box
+        District__c testDistrict = new District__c();
+        testDistrict.Name = 'TestMasaka';
+        testDistrict.Region__c = 'Central';
+        insert testDistrict;
+
+        Organisation_District_Association__c o = new Organisation_District_Association__c();
+        o.Organisation__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
+        o.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        insert o;
+
+        IG_Region_District_Association__c rda = new IG_Region_District_Association__c();
+        rda.District__c = testDistrict.Id;
+        rda.IG_Region__c = region.Id;
+        insert rda;
+        
+        //test subcounty listbox
+        Subcounty__c testSubcounty = new Subcounty__c();
+        testSubcounty.Display_Name__c = 'TestLukaya';
+        testSubcounty.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        insert testSubcounty;      
+        
+        //test CBT listbox
+        Phone__c testHandset = new Phone__c();
+        testHandset.IMEI__c = '123456789101112';
+        testHandset.Serial_Number__c = '123456789101112';
+        testHandset.Purchase_Value_USD__c = 100.00;
+        insert testHandset;
+
+        Person__c testPerson = new Person__c();
+        testPerson.First_Name__c = 'David';
+        testPerson.Last_Name__c = 'Mugume' ;
+        testPerson.Gender__c = 'Male';
+        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
+        testPerson.Handset__c = phone.Id;
+        testPerson.Type__c = IGDashboardHelpers.REGIONAL_MANAGER;
+        insert testPerson;
+
+        //test metrics
+        Survey__c survey = new Survey__c();
+        survey.Account__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
+        survey.Post_Processing_Method__c = 'IG_CBT_VISITS';
         survey.Survey_Name__c = 'SACM west nile';
-        update survey;
-        v.IG_Region__c = region12.Id;
-        update v;
+        survey.Survey_Status__c = 'Published';
+        survey.Start_Date__c = Date.valueOf('2013-01-01');
+        survey.End_Date__c = Date.valueOf('2015-01-01');
+        insert survey;
+
+        IG_Subproject_Target__c v = new IG_Subproject_Target__c();
+        v.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        v.LocationMobilization__c = '0.32332 34.445566';
+        v.LocationPreliminaryTrainingDay1__c = '0.32332 34.445566';
+        v.LocationPreliminaryTrainingDay2__c = '0.32332 34.445566';
+        v.LocationPreliminaryTrainingDay3__c = '0.32332 34.445566';
+        v.LocationFollowupVisit1__c = '0.32332 34.445566';
+        v.LocationFollowupVisit2__c = '0.32332 34.445566';
+        v.LocationFollowupVisit3__c = '0.32332 34.445566';      
+        v.DateMobilization__c = Date.today();                      
+        v.DateFollowupVisit1__c= Date.today();                  
+        v.DateFollowupVisit2__c= Date.today();               
+        v.DateFollowupVisit3__c= Date.today();             
+        v.DatePreliminaryTrainingDay1__c= Date.today();         
+        v.DatePreliminaryTrainingDay2__c= Date.today();         
+        v.DatePreliminaryTrainingDay3__c= Date.today(); 
+        //v.Phone_Display_Item_Position__c = 1;
+        v.Name = 'Some project name';
+        //not assigned but regional manager should update it
+        //v.Person__c = ([select Id from Person__c where First_Name__c = :testPerson.First_Name__c])[0].Id;
+        v.Subcounty__c = ((Subcounty__c)[select Id from Subcounty__c where Display_Name__c = :testSubcounty.Display_Name__c]).Id;
+        v.IG_Region__c = region.Id;
+        insert v;
+        
+        //test processNUSAFSurveys class.
+        //SACM submission
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '123456789101112';
+        submission.resultHash = '1';
+        submission.surveyId = [select Id, Name from Survey__c where Id = :survey.Id].Name;
+            
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        answers.put('activity_type_0', Utils.createTestSubmissionAnswer(null, 'activity_type', 'meetings', null, null, null));
+        List<String> returnValues = new List<String>();
+        //a submission not meant for subproject monitoring
+        returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('non-monitoring'));
+
+        answers.clear();
+        answers.put('date_0', Utils.createTestSubmissionAnswer(null, 'date', '2014-05-14', null, null, null));
+        answers.put('gps_0', Utils.createTestSubmissionAnswer(null, 'gps', '0.32332 34.445566 10 2', null, null, null));
+        answers.put('activity_type_0', Utils.createTestSubmissionAnswer(null, 'activity_type', 'project', null, null, null));
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', 'testmasaka', null, null, null));
+        answers.put('testmasaka_subs_0', Utils.createTestSubmissionAnswer(null, 'testmasaka_subs', 'testlukaya', null, null, null));
+        answers.put('testlukaya_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_subprojects', '1', null, null, null));
+
+        //now followup visit 3
+        //fails even for a regional manager since subproject position is not set
         answers.put('meeting_type_0', Utils.createTestSubmissionAnswer(null, 'meeting_type', 'followup_visit_3', null, null, null));
+        returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('Could not find the specified subproject'));
+
+        //set position and try again
+        v.Phone_Display_Item_Position__c = 1;
+        update v;
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('submission successful'));

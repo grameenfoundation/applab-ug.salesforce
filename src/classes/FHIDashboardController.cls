@@ -7,7 +7,7 @@ public with sharing class FHIDashboardController {
     private List<SelectOption> districtList;  
     private List<SelectOption> subcountiesList;    
     private List<SelectOption> subregionsList;
-    private static String dashboardSection = 'DS0000000051';
+    private static String dashboardSection = 'DS0000000812';
     private List<IGDashboardHelpers.Data> regionsData;
     private Boolean isEditMode = false;
     private List<Metric_Section__c> metricSections;
