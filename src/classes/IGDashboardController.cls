@@ -266,10 +266,10 @@ public class IGDashboardController {
         cTData = new List<IGDashboardHelpers.Data>();
         if(isRegionalManager){
             IG_Region__c regionthis = IGDashboardHelpers.getUserRegion();
-            cTData = IGDashboardHelpers.getIndividualMetrics(isRegionalManager, regionthis == null ? null : regionthis.Id, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+            cTData = IGDashboardHelpers.getIndividualMetrics(isRegionalManager, regionthis == null ? null : regionthis.Id, district.Id, subcounty.Id, dateFrom, dateTo, cbt.Id);
         }
         else {
-            cTData = IGDashboardHelpers.getIndividualMetrics(isRegionalManager, subregion, district.Name, subcounty.Display_Name__c, dateFrom, dateTo, cbt.Id);
+            cTData = IGDashboardHelpers.getIndividualMetrics(isRegionalManager, subregion, district.Id, subcounty.Id, dateFrom, dateTo, cbt.Id);
         }
         return cTData;
     }

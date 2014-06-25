@@ -118,7 +118,7 @@ public class IGDashboardHelpers {
         IG_Region__c userRegion = getUserRegion();
         userRegion = (userRegion == null && String.isNotEmpty(region)) ? [SELECT Id, Name FROM IG_Region__c WHERE Id = :region] : null;
         String subregion = (userRegion != null && userRegion.Name.containsIgnoreCase('karamoja')) ? '%KARAMOJA%' : '';
-        subregion = (subregion == null && userRegion != null) ? userRegion.Name : null;
+        subregion = (String.isEmpty(subregion) && userRegion != null) ? userRegion.Name : null;
         String query = 
                 'SELECT '                                               +
                     'Id, '                                              +
@@ -181,7 +181,7 @@ public class IGDashboardHelpers {
                 marker = new MetricMapWrapper('CBTFieldVisit', '606060', visit.Id, true);//blackish
             }
             else if(visit.IG_Region__r.Name.containsIgnoreCase('bukedi')){
-                marker = new MetricMapWrapper('CBTFieldVisit', 'A00000 ', visit.Id, true);//reddish
+                marker = new MetricMapWrapper('CBTFieldVisit', 'A00000', visit.Id, true);//reddish
             }
             else if(visit.IG_Region__r.Name.containsIgnoreCase('elgon')){
                 marker = new MetricMapWrapper('CBTFieldVisit', '33CC00', visit.Id, true);//greenish
@@ -365,9 +365,9 @@ public class IGDashboardHelpers {
                 selectClause += String.isEmpty(regionname) ? '' : 
                 'AND IG_Region__r.Name LIKE \'' + regionname + '\' ';
                 selectClause += String.isEmpty(districtName) ? '' : 
-                'AND District__r.Name = \'' + districtName + '\' ';
+                'AND District__r.Id = \'' + districtName + '\' ';
                 selectClause += String.isEmpty(subcountyDisplayName) ? '' : 
-                'AND Subcounty__r.Display_Name__c = \'' + subcountyDisplayName + '\' ';
+                'AND Subcounty__r.Id = \'' + subcountyDisplayName + '\' ';
                 selectClause += String.isEmpty(cbt) ? '' : 
                 'AND Person__r.Id = \'' + cbt + '\' ';
         System.debug(LoggingLevel.WARN, selectClause);

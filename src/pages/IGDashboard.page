@@ -219,7 +219,7 @@
             </apex:pageBlockTable>
         </apex:pageBlock>
 
-        <apex:pageBlock title="Individual Targets" id="metricsCTs" rendered="{!isRegionalManager}">
+        <apex:pageBlock title="Individual Targets" id="metricsCTs" rendered="{!isRegionalManager || (subregion != null && subregion != '')}">
             <br/>
             <apex:pageBlockTable value="{!cTMetricsData}" var="item">
                 <apex:column headerValue="Community Trainer" width="200px">
