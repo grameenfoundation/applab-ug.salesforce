@@ -94,7 +94,7 @@ public with sharing class ProcessNUSAFSurveys {
                 Subcounty__c
             WHERE
                 Display_Name__c = :subcounty_str.replace('_', ' ')
-                AND District__c = :district.Id
+                AND District__r.Name = :district.Name
             ];
         if(subcounty_all.isEmpty()){
             if(subcounty_str.endsWith('_tc')){
@@ -107,7 +107,7 @@ public with sharing class ProcessNUSAFSurveys {
                         Subcounty__c
                     WHERE
                         Display_Name__c = :subcounty_str.replace('_tc', ' t.c').replace('_', ' ')
-                        AND District__c = :district.Id
+                        AND District__r.Name = :district.Name
                     ];
                 if(subcounty_all.isEmpty()){
                     subcounty_all = 
@@ -118,7 +118,7 @@ public with sharing class ProcessNUSAFSurveys {
                             Subcounty__c
                         WHERE
                             Display_Name__c = :subcounty_str.replace('_tc', ' t/c').replace('_', ' ')
-                            AND District__c = :district.Id
+                            AND District__r.Name = :district.Name
                         ];
                 }
             }
@@ -133,7 +133,7 @@ public with sharing class ProcessNUSAFSurveys {
                         Subcounty__c
                     WHERE
                         Display_Name__c = :subcounty_str.replace('_', ' ')
-                        AND District__c = :district.Id
+                        AND District__r.Name = :district.Name
                     ];
             }
         }
