@@ -180,41 +180,45 @@ public with sharing class ProcessNUSAFSurveys {
                 AND District__r.Name = :district.Name
                 AND Subcounty__r.Display_Name__c = :subcounty.Display_Name__c
                 AND Phone_Display_Item_Position__c = :Integer.valueOf(subproject_index)];  
-        if(targetsToUpdate.isEmpty() && interviewer.Type__c == IGDashboardHelpers.REGIONAL_MANAGER){
-            targetsToUpdate = 
-                [SELECT       
-                    Name,                                 
-                    DateMobilization__c,                      
-                    DateFollowupVisit1__c,                    
-                    DateFollowupVisit2__c,                    
-                    DateFollowupVisit3__c,                    
-                    DatePreliminaryTrainingDay1__c,           
-                    DatePreliminaryTrainingDay2__c,           
-                    DatePreliminaryTrainingDay3__c,    
-                    LocationMobilization__c,
-                    LocationFollowupVisit1__c,
-                    LocationFollowupVisit2__c,
-                    LocationFollowupVisit3__c,
-                    LocationPreliminaryTrainingDay1__c,
-                    LocationPreliminaryTrainingDay2__c,
-                    LocationPreliminaryTrainingDay3__c,       
-                    IG_Region__c,                             
-                    District__c,                              
-                    Subcounty__c,    
-                    Subcounty__r.Display_Name__c,
-                    District__r.Name,                         
-                    Person__c,                                
-                    Person__r.First_Name__c,                  
-                    Person__r.Last_Name__c                    
-                FROM                                          
-                    IG_Subproject_Target__c                   
-                WHERE                                         
-                    IG_Region__c = :region.Id
-                    AND District__r.Name = :district.Name
-                    AND Subcounty__r.Display_Name__c = :subcounty.Display_Name__c
-                    AND Phone_Display_Item_Position__c = : Integer.valueOf(subproject_index)]; 
-            if(targetsToUpdate.isEmpty()){
-                return new String[]{ '0', 'IG/NUSAF: Could not find the specified subproject located in ' + subcounty_str + ' subcounty.', 'PULSE' };
+        if(targetsToUpdate.isEmpty()) { 
+            //we have to get the person type__c since it was not retrieved in interviewer
+            Person__c interviewer_o = [SELECT Id, Name, Type__c FROM Person__c WHERE Id =:interviewer.Id];
+            if(interviewer_o.Type__c == IGDashboardHelpers.REGIONAL_MANAGER) {
+                targetsToUpdate = 
+                    [SELECT       
+                        Name,                                 
+                        DateMobilization__c,                      
+                        DateFollowupVisit1__c,                    
+                        DateFollowupVisit2__c,                    
+                        DateFollowupVisit3__c,                    
+                        DatePreliminaryTrainingDay1__c,           
+                        DatePreliminaryTrainingDay2__c,           
+                        DatePreliminaryTrainingDay3__c,    
+                        LocationMobilization__c,
+                        LocationFollowupVisit1__c,
+                        LocationFollowupVisit2__c,
+                        LocationFollowupVisit3__c,
+                        LocationPreliminaryTrainingDay1__c,
+                        LocationPreliminaryTrainingDay2__c,
+                        LocationPreliminaryTrainingDay3__c,       
+                        IG_Region__c,                             
+                        District__c,                              
+                        Subcounty__c,    
+                        Subcounty__r.Display_Name__c,
+                        District__r.Name,                         
+                        Person__c,                                
+                        Person__r.First_Name__c,                  
+                        Person__r.Last_Name__c                    
+                    FROM                                          
+                        IG_Subproject_Target__c                   
+                    WHERE                                         
+                        IG_Region__c = :region.Id
+                        AND District__r.Name = :district.Name
+                        AND Subcounty__r.Display_Name__c = :subcounty.Display_Name__c
+                        AND Phone_Display_Item_Position__c = : Integer.valueOf(subproject_index)]; 
+                if(targetsToUpdate.isEmpty()){
+                    return new String[]{ '0', 'IG/NUSAF: Could not find the specified subproject located in ' + subcounty_str + ' subcounty.', 'PULSE' };
+                }
             }
         }
         if(targetsToUpdate.isEmpty()){
