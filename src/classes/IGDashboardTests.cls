@@ -582,6 +582,13 @@ private class IGDashboardTests {
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('submission successful'));
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
+
+        //if there's a binding naming bug, response is request for support
+        answers.remove('testlukaya_subprojects_0');
+        returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('incorrect data'));
+        System.assert(returnValues.get(2).equals('PULSE'));
     }
 
     static testMethod void testEnrollmentSurveySubmissions() {    
