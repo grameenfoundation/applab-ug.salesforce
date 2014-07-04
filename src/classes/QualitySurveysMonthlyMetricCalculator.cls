@@ -2,7 +2,7 @@ public with sharing class QualitySurveysMonthlyMetricCalculator {
 
     @future(callout=true)
     public static void updateQualitySurveyMetric() {
-        Date startDate = date.today().addMonths(-1);
+        Date startDate = date.today().toStartOfMonth().addMonths(-1);
         Date endDate = startDate.addMonths(1);
         M_E_Metric_Data__c[] metricDatas = [Select Numerator__c,
                                                     Denumerator__c,
@@ -10,7 +10,7 @@ public with sharing class QualitySurveysMonthlyMetricCalculator {
                                             from 
                                                 M_E_Metric_Data__c 
                                             where 
-                                                Date__c=THIS_MONTH
+                                                Date__c=LAST_MONTH
                                             AND 
                                                 M_E_Metric__r.Name ='% of quality surveys conducted' 
                                             order by date__c desc];
@@ -22,7 +22,7 @@ public with sharing class QualitySurveysMonthlyMetricCalculator {
             M_E_Metric__c metric = [Select id from M_E_Metric__c where Name ='% of quality surveys conducted'];
             metricData = new M_E_Metric_Data__c();
             metricData.M_E_Metric__c = metric.Id;
-            metricData.Date__c = date.today();
+            metricData.Date__c = startDate;
         }
         String surveyQuery =
             'SELECT ' +
