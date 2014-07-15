@@ -1,0 +1,28 @@
+<apex:page standardController="CKW__c" extensions="LacCkwController" tabStyle="CKW__c" sideBar="false" language="es">
+  <apex:pageBlock mode="maindetail">
+    <apex:pageBlockSection collapsible="false" columns="1">
+    <apex:outputField value="{!LacFarmer.Contact__r.FirstName}"/>
+    <apex:outputField value="{!LacFarmer.Contact__r.LastName}" />
+    <apex:outputField value="{!LacFarmer.Contact__r.gfsurveys__mobilesurveys_Id__c}"/>
+    <apex:outputField value="{!LacFarmer.Name}"/>
+    <apex:outputField value="{!LacFarmer.Contact__r.Birthdate}"/>
+    <apex:outputField value="{!LacFarmer.Country__c}"/>
+    <apex:outputField value="{!LacFarmer.Department__c}"/>
+    <apex:outputField value="{!LacFarmer.Municipality__c}"/>
+    <apex:outputField value="{!LacFarmer.Community__c}"/>
+    <apex:outputField value="{!LacFarmer.Farmer_Cooperative__c}"/>
+    <apex:outputField value="{!LacFarmer.Entrance_Into_Programme__c}"/>
+    <apex:outputField value="{!LacFarmer.Has_Cellphone__c} "/>
+    <apex:outputField value="{!LacFarmer.Cell_Phone_Number__c}"/>
+    <apex:outputField value="{!LacFarmer.Has_Data_Plan__c}" />
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2" title="{!$Label.PERFORMANCE}">
+    <apex:outputText >Date of Enrollment as CKW</apex:outputText><apex:outputText >{!EnrollmentDate}</apex:outputText>
+    <apex:outputText >Assigned Farmers</apex:outputText><apex:outputText >{!NumberOfAssignedFarmers}</apex:outputText>
+    <apex:outputText >Status</apex:outputText>
+    <apex:outputText >{!Person.Contact__r.gfsurveys__mobilesurveys_Status__c}</apex:outputText>
+    <apex:outputText >Municipalities Served</apex:outputText><apex:outputText >{!AssignedMunicipalities}</apex:outputText>
+    <apex:outputText >Communities Served</apex:outputText><apex:outputText >{!AssignedCommunities}</apex:outputText>
+    </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>
