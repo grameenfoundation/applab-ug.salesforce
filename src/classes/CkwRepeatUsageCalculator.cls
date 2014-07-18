@@ -1,23 +1,23 @@
 global class CkwRepeatUsageCalculator implements Database.Batchable<sObject>, Database.Stateful {
-	global final String farmerQuery;
-	global Decimal repeatUsagePercentage = 0.0;
-	global Integer farmerCount = 0;
-	global Integer repeatUsageCount = 0;
+    global final String farmerQuery;
+    global Decimal repeatUsagePercentage = 0.0;
+    global Integer farmerCount = 0;
+    global Integer repeatUsageCount = 0;
 
-	global CkwRepeatUsageCalculator(String query) {
-		farmerQuery = query;
-	}
+    global CkwRepeatUsageCalculator(String query) {
+        farmerQuery = query;
+    }
 
     global Database.QueryLocator start(Database.BatchableContext BC){
         return Database.getQueryLocator(farmerQuery);
     }
 
     global void execute(Database.BatchableContext BC, List<Farmer__c> farmers) {
-    	farmerCount += farmers.size();
-    	List<String> personIds = new List<String>();
-    	for (Farmer__c farmer : farmers) {
-    		personIds.add(farmer.Person__c);
-    	}
+        farmerCount += farmers.size();
+        List<String> personIds = new List<String>();
+        for (Farmer__c farmer : farmers) {
+            personIds.add(farmer.Person__c);
+        }
         String repeatUsageQuery = ' SELECT Interviewee__c inter, Interviewee__r.Gender__c gender, count(Interviewee__r.id) total ' +  
             ' FROM Search_Log__c' +
             ' WHERE Interviewee__c IN (' + MetricHelpers.generateCommaSeperatedString(personIds, true) + ')'  +
@@ -30,24 +30,34 @@ global class CkwRepeatUsageCalculator implements Database.Batchable<sObject>, Da
 
         AggregateResult[] counts = database.query(repeatUsageQuery);
         for (AggregateResult count : counts) {
-        	Integer total = (Integer)count.get('total');
-        	if (total > 1) {
-        		repeatUsageCount++;
-        	}
-        }	
+            Integer total = (Integer)count.get('total');
+            if (total > 1) {
+                repeatUsageCount++;
+            }
+        }   
     }
 
     global void finish(Database.BatchableContext BC) {
-    	repeatUsagePercentage = (repeatUsageCount * 100)/farmerCount;
-    	M_E_Metric_Data__c repeatUsageMetric = [Select Id, 
-                                                        Denumerator__c, 
+        repeatUsagePercentage = (repeatUsageCount * 100)/farmerCount;
+        M_E_Metric_Data__c repeatUsageMetric = new M_E_Metric_Data__c();
+        M_E_Metric_Data__c[] repeatUsageMetrics = [Select Id, 
+                                                        Denumerator__c,
+                                                        Date__c, 
                                                         Numerator__c,
                                                         Actual_Value__c 
-                                                from M_E_Metric_Data__c where Name='Repeat Usage'];
+                                                from M_E_Metric_Data__c 
+                                                where M_E_Metric__r.Name='Improved Repeat Usage Calculation'
+                                                and Date__c = THIS_MONTH];
+        if (repeatUsageMetrics.size() < 1) {
+            repeatUsageMetric.Date__c = date.today().toStartOfMonth();
+        }
+        else {
+            repeatUsageMetric = repeatUsageMetrics[0];
+        }
         repeatUsageMetric.Denumerator__c = farmerCount;
         repeatUsageMetric.Numerator__c = repeatUsageCount;
-    	repeatUsageMetric.Actual_Value__c = repeatUsagePercentage;
+        repeatUsageMetric.Actual_Value__c = repeatUsagePercentage;
 
-    	update repeatUsageMetric;
+        upsert repeatUsageMetric;
     }
 }
