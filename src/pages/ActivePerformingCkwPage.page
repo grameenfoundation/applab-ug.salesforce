@@ -1,8 +1,0 @@
-<apex:page controller="ActivePerformingCkwCalculator" sidebar="false">
- <apex:pageblock title="Active CKWs" >
-        <apex:chart height="250" width="350" data="{!pieData}"> 
-            <apex:pieSeries tips="true" dataField="data" labelField="name"/> 
-            <apex:legend position="bottom"/>
-        </apex:chart>
-        </apex:pageblock>
-</apex:page>

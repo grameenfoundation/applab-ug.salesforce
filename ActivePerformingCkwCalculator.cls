@@ -39,7 +39,7 @@ public class ActivePerformingCkwCalculator {
 											from 
 												M_E_Metric_Data__c
 											where 
-												M_E_Metric__r.Name = 'Active CKWs by Performance'
+												M_E_Metric__r.Name = 'Improved Repeat Usage Calculation'
 											and 
 												Date__c = THIS_MONTH];
 		if (metricDatas.size() < 1) {
