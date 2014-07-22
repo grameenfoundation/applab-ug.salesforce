@@ -59,7 +59,7 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     global void finish(Database.BatchableContext info){
         notificationContent += '\n Processing completed successfully';
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        mail.setToAddresses(new String[] {'dmugume@grameenfoundation.org'});
+        mail.setToAddresses(new String[] {'jluyima@grameenfoundation.org'});
         mail.setReplyTo('noreply@applab.org');
         mail.setSenderDisplayName('Batch Process');
         mail.setSubject('Batch Process Load FIT Prices');
@@ -255,10 +255,12 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
                                 rssItem.marketName = xmlItem.getText();
                             }
                             if('retailprice' == xmlItem.getName()){
-                                rssItem.retailPrice = xmlItem.getText();
+                                rssItem.retailPrice = xmlItem.getText().replaceAll(',', '');
+                                if(''.equals(rssItem.retailPrice)) rssItem.retailPrice='0';
                             }
                             if('wholesaleprice' == xmlItem.getName()){
-                                rssItem.wholeSalePrice = xmlItem.getText();
+                                rssItem.wholeSalePrice = xmlItem.getText().replaceAll(',', '');
+                                if(''.equals(rssItem.wholeSalePrice)) rssItem.wholeSalePrice='0';
                             }
                         }
                         if (regionMap.containsKey(rssItem.marketName)){
