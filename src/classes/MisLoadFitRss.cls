@@ -34,7 +34,8 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     */
     global Iterable<MisLoadFitRss.Item> start(Database.BatchableContext info){
         System.debug(Logginglevel.INFO,'MIS: Loading data for batching');
-        MisLoadFitRss.Rss data = loadRssFeed();
+        //MisLoadFitRss.Rss data = loadRssFeed();
+        MisLoadFitRss.Rss data = loadAgRssFeed(); //Call via new implementation since the xml from fit changed
         notificationContent += 'Items loaded from feed = ' + data.items.size();
         notificationContent += '\n Markets in feed missing in Salesforce = ' + data.missingMarkets.size();
         return data.items;
@@ -167,6 +168,124 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
         //insert result.items;
         return result;
     }
+
+
+
+
+
+
+    /*
+    *   creates web request, querries rss feeds endpoint and loads 
+    *   market-price items
+    *   @return RSS Object containing list of market price items
+    This will parse using the new format
+    */
+    public Rss loadAgRssFeed(){
+        
+        //current location http://mis.infotradeuganda.com/feed';        
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint(url);
+        req.setMethod('GET');
+        req.setCompressed(true);
+         
+        Dom.Document doc = new Dom.Document();
+        Http http = new Http();
+        
+        try{
+            if (!Test.isRunningTest()){
+                doc = http.send(req).getBodyDocument();
+                System.debug(Logginglevel.INFO,'MIS: Document acquired');
+            } else {
+                System.debug(Logginglevel.INFO,'MIS: Acquiring Test RSS XML');
+                datetime todayDate = datetime.now().addDays(-1);
+                String dDate = todayDate.format('yyyy-MM-dd');
+                String xmlString = '<?xml version="1.0" encoding="utf-8" ?> <rss version="2.0"><channel><title>Latest Prices - July 9, 2013 12:33 pm</title><link>http://infotradeuganda.com/feed/</link><description>The latest retail and wholesale prices for commodities in Uganda provided by infotradeuganda.com</description><language>en-us</language><copyright>Copyright (C) 2010 infotradeuganda.com</copyright><item><market>AmuruMarket</market><product>Agwedde Beans</product><unit>Kg</unit><date>{0}</date><retailPrice></retailPrice><wholesalePrice>1100</wholesalePrice></item><item><market>AmuruMarket</market><product>Beef</product><unit>Kg</unit><date>2013-07-25</date><retailPrice>8500</retailPrice><wholesalePrice>8000</wholesalePrice></item><item><market>AmuruMarket</market><product>Cassava Flour</product><unit>Kg</unit><date>{1}</date><retailPrice>1000</retailPrice><wholesalePrice></wholesalePrice></item><item><market>UnknownMarket</market><product>Cassava Flour</product><unit>Kg</unit><date>{1}</date><retailPrice>1000</retailPrice><wholesalePrice>900</wholesalePrice></item>{2}</channel></rss>';
+                String itemTag = '<item><market>AmuruMarket</market><product>{0}</product><unit>Kg</unit><date>{1}</date><retailPrice>1000</retailPrice><wholesalePrice>1000</wholesalePrice></item>';
+                String itemTags = '';
+                for(integer i = 0; i < 50; i++){
+                    itemTags += String.format(itemTag, new String[]{String.valueOf(i), dDate}); 
+                }
+                //String formattedTags = String.format(itemTags, new String[]{dDate});
+                String formattedString = String.format(xmlString, new String[]{dDate, dDate, itemTags});
+                doc.load(formattedString);
+            }
+        }catch(Exception ex){
+            System.debug(Logginglevel.INFO,'MIS: erroring calling RSS Feed: ' + ex.getMessage());
+        }
+        
+        Dom.XMLNode rss = doc.getRootElement();
+        
+        if(rss == null){
+            System.debug(Logginglevel.INFO,'MIS: RSS XML returned empty');              
+            return null;
+        }
+        
+        //first child element of rss feed is always channel
+        Dom.XMLNode channel = rss.getChildElements()[0];
+        
+        //create a map of regions for easy lookup
+        Map<String, String> regionMap = new Map<String, String>();
+        for(List<Market__c> markets: [SELECT m.Market__c, m.Region__c FROM Market__c m]){
+            for(Market__c m: markets){
+                regionMap.put(m.Market__c, m.Region__c);
+            }
+        } 
+            
+        Rss result = new Rss();
+        
+        for(Dom.XMLNode items : channel.getChildElements()){
+            if('item' == items.getName()) {
+                String commodity = items.getChildElement('commodity', null).getText();
+                String datecollected = items.getChildElement('datecollected', null).getText();
+                String unit = items.getChildElement('unit', null).getText();
+
+                System.debug('commodity is '+commodity);
+                //For each market, parse the xml
+                for(Dom.XMLNode elements : items.getChildElements()){
+                if('market' == elements.getName()) {
+                    //for each node inside item
+                    //System.debug('Processing market');
+                    Item rssItem = new Item();
+                        for(Dom.XMLNode xmlItem : elements.getChildElements()) {
+                            rssItem.productName = commodity;
+                            rssItem.unit = unit;
+                             rssItem.recordDate = datecollected + ' 23:59:59';
+                            if('name' == xmlItem.getName()){
+                                rssItem.marketName = xmlItem.getText();
+                            }
+                            if('retailprice' == xmlItem.getName()){
+                                rssItem.retailPrice = xmlItem.getText();
+                            }
+                            if('wholesaleprice' == xmlItem.getName()){
+                                rssItem.wholeSalePrice = xmlItem.getText();
+                            }
+                        }
+                        if (regionMap.containsKey(rssItem.marketName)){
+                            rssItem.region = regionMap.get(rssItem.marketName);
+                            rssItem.keyword = rssItem.generateKeyword();
+                            if(rssItem.keyword != null){
+                                System.debug(rssItem.keyword);
+                                result.items.add(rssItem);
+                            }
+                        }
+                        else{
+                            result.missingMarkets.add(rssItem.marketName);
+                        }
+                }
+
+                
+                
+            }        
+        }
+        }
+        
+        return result;
+    }
+ 
+
+
+
+
     
     /*
     *   creates MenuItemAdapters for the given market prices passed
