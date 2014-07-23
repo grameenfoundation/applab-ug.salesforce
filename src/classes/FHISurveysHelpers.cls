@@ -1660,6 +1660,61 @@ public with sharing class FHISurveysHelpers {
         }
         return activities;
     }
+
+    public static void getRawDataStats(){
+        Server_Configuration__c configuration = [
+            SELECT
+                URL__c,
+                Survey_Database__c,
+                Search_Database__c
+            FROM
+                Server_Configuration__c LIMIT 1];
+
+        String extensionToolQuery = 'CALL fhi_extension_tool.get_extension_tool_visits_to_hh()';
+        String requestBody = String.format(
+            '<?xml version="1.0"?>' +
+            '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
+            new List<String>{ 'Surveys', extensionToolQuery } );
+        
+        String queryResult = SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
+
+        XmlStreamReader surveyResultReader = new XmlStreamReader(queryResult);
+        surveyResultReader.next(); // skip the opening <results> tag
+                
+        while(surveyResultReader.hasNext()) {
+            if(surveyResultReader.isStartElement()) {
+                if(surveyResultReader.getLocalName() == 'row') {
+                    surveyResultReader.next(); // skip the <row> tag
+                    surveyResultReader.next(); // skip the opening <column> tag
+                    Integer householdVisits = Integer.valueOf(surveyResultReader.getText());
+
+                    M_E_Metric_Data__c[] datas = [
+                        SELECT
+                            Id,
+                            Name,
+                            Actual_Value__c,
+                            Manual_Value__c,
+                            District__c,
+                            Denumerator__c,
+                            Numerator__c,
+                            Subcounty__c,
+                            M_E_Metric__r.Name
+                        FROM
+                            M_E_Metric_Data__c
+                        WHERE
+                            M_E_Metric__r.Name = 'FHI_CC_number_extension_tool_HH_visits'
+                        ORDER BY 
+                            Date__c DESC 
+                        LIMIT 1];
+                        
+                    M_E_Metric_Data__c data = datas[0];
+                    data.Actual_Value__c = householdVisits;
+                    update data;
+                }
+            }
+            surveyResultReader.next();
+        }        
+    }
     
     static testmethod void testFhiGroupNorthSurveyProcessing() {
         
