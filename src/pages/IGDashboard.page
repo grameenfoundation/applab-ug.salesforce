@@ -215,7 +215,7 @@
                 <apex:column width="90px" value="{!item.mobilization_count}/{!item.count}" headerValue="Mobilization"/>
                 <apex:column width="90px" value="{!item.preliminary_count}/{!item.count * 3}" headerValue="Preliminary training"/>
                 <apex:column width="90px" value="{!item.followup_visits_count}/{!item.count * 3}" headerValue="Followup Visits"/>
-                <apex:column width="90px" value="{!item.completion} %" headerValue="Percentage Completed"/>
+                <apex:column width="90px" value="{! ROUND( ((item.mobilization_count + item.preliminary_count + item.followup_visits_count)/(item.count + (item.count * 6) )) * 100 , 1) } %" headerValue="Percentage Completed"/>
             </apex:pageBlockTable>
         </apex:pageBlock>
 
@@ -230,7 +230,7 @@
                 <apex:column width="90px" value="{!item.mobilization_count}/{!item.count}" headerValue="Mobilization"/>
                 <apex:column width="90px" value="{!item.preliminary_count}/{!item.count * 3}" headerValue="Preliminary training"/>
                 <apex:column width="90px" value="{!item.followup_visits_count}/{!item.count * 3}" headerValue="Followup Visits"/>
-                <apex:column width="90px" value="{!item.completion} %" headerValue="Percentage Completed"/>
+                <apex:column width="90px" value="{! ROUND( ((item.mobilization_count + item.preliminary_count + item.followup_visits_count)/(item.count + (item.count * 6) )) * 100 , 1) } %" headerValue="Percentage Completed"/>
             </apex:pageBlockTable>
         </apex:pageBlock>
          
