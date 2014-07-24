@@ -37,7 +37,7 @@ public with sharing class FHIDashboardController {
      */
     public List<Metric_Section__c> getMetricSections(){
         if(metricSections == null) {
-            metricSections = [SELECT Id, Name, Default_Show__c, Title__c, Allow_Update__c FROM Metric_Section__c WHERE Dashboard_Section__r.Name = :dashboardSection ORDER BY Default_Show__c];
+            metricSections = [SELECT Id, Name, Default_Show__c, Title__c, Allow_Update__c FROM Metric_Section__c WHERE Is_Active__c = true AND Dashboard_Section__r.Name = :dashboardSection ORDER BY Default_Show__c];
         }
         return metricSections;
     }
@@ -48,7 +48,7 @@ public with sharing class FHIDashboardController {
      */
     public List<M_E_Metric__c> getMetrics(Id section){
         if(metrics == null) {
-            metrics = [SELECT Id, Name, Order__c, Label__c, Is_Header__c, On_The_Fly_Calculation_Type__c FROM M_E_Metric__c WHERE Metric_Section__c = :section];
+            metrics = [SELECT Id, Name, Order__c, Label__c, Is_Header__c, On_The_Fly_Calculation_Type__c FROM M_E_Metric__c WHERE Not_For_Public__c = false AND Metric_Section__c = :section];
         }
         return metrics;
     }

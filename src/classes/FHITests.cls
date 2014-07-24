@@ -53,6 +53,18 @@ private class FHITests {
         metricsection.View_Mode__c='Disaggregated';
         insert metricsection;
 
+        Metric_Section__c metricsection2 = new Metric_Section__c();
+        metricsection2.Dashboard_Section__c = section.Id;
+        metricsection2.Description__c='Farmers Reached by Year 2';
+        metricsection2.Is_Active__c=false;
+        metricsection2.RollOver_Time__c='Quarterly';
+        metricsection2.Title__c='Farmers  by Year';
+        metricsection2.Start_Date__c=Date.today();
+        metricsection2.Default_Show__c=1;
+        metricsection2.Show_Spark_Line__c = true;
+        metricsection2.View_Mode__c='Disaggregated';
+        insert metricsection2;
+        
         secs = controller.getMetricSections();
         //should not do any db access, returns last data
         System.assert(secs.size() == 0);
