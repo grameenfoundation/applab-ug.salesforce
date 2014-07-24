@@ -1670,7 +1670,7 @@ public with sharing class FHISurveysHelpers {
             FROM
                 Server_Configuration__c LIMIT 1];
 
-        String extensionToolQuery = 'CALL fhi_extension_tool.get_extension_tool_visits_to_hh()';
+        String extensionToolQuery = 'CALL CountHouseHoldVisitsMadeWithExtensionTool()';
         String requestBody = String.format(
             '<?xml version="1.0"?>' +
             '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
@@ -1706,7 +1706,7 @@ public with sharing class FHISurveysHelpers {
                         ORDER BY 
                             Date__c DESC 
                         LIMIT 1];
-                        
+
                     M_E_Metric_Data__c data = datas[0];
                     data.Actual_Value__c = householdVisits;
                     update data;

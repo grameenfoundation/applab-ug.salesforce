@@ -9,6 +9,14 @@ global class FHIScheduledRawDataStats implements Schedulable {
 	*/
 	global void execute(SchedulableContext context){
     	System.debug(Logginglevel.INFO, 'FHI stats imprt Schedule started');
-    	FHISurveysHelpers.getRawDataStats();
+    	doCalloutFromFuture();
+	}
+
+	/**
+	*	Scheduled apex can only allow callouts in future executions
+	*/
+	@future (callout=true)
+  	private static void doCalloutFromFuture() {
+  		FHISurveysHelpers.getRawDataStats();
 	}
 }

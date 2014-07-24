@@ -34,7 +34,8 @@ global with sharing class MetricSectionComponentController {
                 FROM 
                     M_E_Metric__c 
                 WHERE 
-                    Metric_Section__r.Id = :metricId 
+                    Not_For_Public__c = false
+                    AND Metric_Section__r.Id = :metricId 
                 ORDER BY Order__c
             ];
         }
@@ -55,7 +56,8 @@ global with sharing class MetricSectionComponentController {
                         FROM
                             Metric_Section__c
                         WHERE
-                            Id = :metricId 
+                            Is_Active__c = true 
+                            AND Id = :metricId 
                     ];
                 }
             }
