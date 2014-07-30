@@ -4,19 +4,20 @@
  *	Scheduling class for importation statistical data from ckwapps.applab.org
  **/
 global class FHIScheduledRawDataStats implements Schedulable {
-	/**
-	*	Starts off the RSS importation operations
-	*/
-	global void execute(SchedulableContext context){
-    	System.debug(Logginglevel.INFO, 'FHI stats imprt Schedule started');
-    	doCalloutFromFuture();
-	}
+    /**
+     * Starts off the stats importation operations
+     */
+    global void execute(SchedulableContext context){
+        System.debug(Logginglevel.INFO, 'FHI stats imprt Schedule started');
+        doCalloutFromFuture();
+    }
 
-	/**
-	*	Scheduled apex can only allow callouts in future executions
-	*/
-	@future (callout=true)
-  	private static void doCalloutFromFuture() {
-  		FHISurveysHelpers.getRawDataStats();
-	}
+    /**
+     *Scheduled apex can only allow callouts in future executions
+     */
+    @future (callout=true)
+    private static void doCalloutFromFuture() {
+        FHISurveysHelpers.getRawDataStats();
+        FHISurveysHelpers.getRawDataSubmissionStats();
+    }
 }
