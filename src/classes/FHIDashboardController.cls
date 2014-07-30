@@ -91,13 +91,16 @@ public with sharing class FHIDashboardController {
     */
     public List<SelectOption> getSubregionsList(){
         if(subregionsList == null) {
+            List<FHI_District_Region__c> districtRegions = [SELECT Id, Name, FHI_Region__c FROM FHI_District_Region__c];
+            Map<String, String> uniqueRegions = new Map<String, String>();
+            for(FHI_District_Region__c region : districtRegions){
+                uniqueRegions.put(region.FHI_Region__c, region.FHI_Region__c);	
+            }
             subregionsList = new List<SelectOption>();
-            Schema.DescribeFieldResult districtRegions = District__c.Region__c.getDescribe();
-            List<Schema.PicklistEntry> districtRegionsValues = districtRegions.getPicklistValues();
             subregionsList.add(new SelectOption('','-- In All Regions --'));
-            for (Schema.PicklistEntry entry : districtRegionsValues) {
-               subregionsList.add(new SelectOption(entry.getLabel(), entry.getLabel()));
-            } 
+            for (String entry : uniqueRegions.keySet()) {
+                subregionsList.add(new SelectOption(entry, entry));
+            }
         }
         return subregionsList;
     }
@@ -113,15 +116,17 @@ public with sharing class FHIDashboardController {
         if(districtList == null) {
             districtList = new List<SelectOption>();
             District__c[] districts = null;
+            List<String> districtNames = null;
             if(String.isNotEmpty(this.subregion)){
-                districts = [SELECT Id, Region__c, Name FROM District__c WHERE Region__c = :this.subregion ORDER BY Name];
+                districtNames = FHISurveysHelpers.getDistrictsInRegion(this.subregion);
             }
-            else {
-                districts = [SELECT Id, Region__c, Name FROM District__c ORDER BY Name];   
+            else{
+                districtNames = FHISurveysHelpers.getDistrictsInRegion(null);
             }
+            districts = [SELECT Id, Name FROM District__c WHERE Name IN  :districtNames ORDER BY Name];
             districtList.add(new SelectOption('','-- In All Districts --'));
             for (District__c district : districts) {
-                   districtList.add(new SelectOption(district.Id, district.Name));
+                districtList.add(new SelectOption(district.Id, district.Name));
             } 
         }
         return districtList;
@@ -138,7 +143,12 @@ public with sharing class FHIDashboardController {
         if(subcountiesList == null) {
             subcountiesList = new List<SelectOption>();
             Subcounty__c[] subcounties = null;
-            subcounties = [SELECT Id, Name, Display_Name__c FROM Subcounty__c ORDER BY Display_Name__c];   
+            if(this.district != null && this.district.Id != null){
+                subcounties = [SELECT Id, Name, Display_Name__c, District__c FROM Subcounty__c WHERE District__c = :this.district.Id ORDER BY Display_Name__c];
+            }
+            else{
+                subcounties = [SELECT Id, Name, Display_Name__c FROM Subcounty__c ORDER BY Display_Name__c];
+            }   
             subcountiesList.add(new SelectOption('','-- In All Subcounties --'));
             for (Subcounty__c subcounty : subcounties) {
                subcountiesList.add(new SelectOption(subcounty.Id, subcounty.Display_Name__c));
@@ -157,10 +167,11 @@ public with sharing class FHIDashboardController {
         //filter districts
         districtList = new List<SelectOption>();
         District__c[] districts = null;
-        districts = [SELECT Id, Region__c, Name FROM District__c WHERE Region__c = :this.subregion ORDER BY Name];
+        List<String> districtNames = FHISurveysHelpers.getDistrictsInRegion(this.subregion);
+        districts = [SELECT Id, Name FROM District__c WHERE Name IN  :districtNames ORDER BY Name];
         districtList.add(new SelectOption('','-- In All Districts --'));
         for (District__c district : districts) {
-               districtList.add(new SelectOption(district.Id, district.Name));
+            districtList.add(new SelectOption(district.Id, district.Name));
         } 
         return null;
     }

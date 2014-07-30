@@ -30,7 +30,8 @@ global with sharing class MetricSectionComponentController {
                     Is_On_Fly__c, 
                     Calculation_Type__c,
                     On_The_Fly_Calculation_Type__c, 
-                    Subdivider__c 
+                    Subdivider__c ,
+                    Sub_Area__c
                 FROM 
                     M_E_Metric__c 
                 WHERE 
@@ -51,7 +52,8 @@ global with sharing class MetricSectionComponentController {
                             Allow_Update__c,
                             Is_Active__c,
                             Show_Targets__c,
-                            Default_Show__c
+                            Default_Show__c,
+                            Show_Break_Down__c
                         FROM
                             Metric_Section__c
                         WHERE
@@ -93,8 +95,8 @@ global with sharing class MetricSectionComponentController {
                     String subdivider = metric.Subdivider__c == 'District' && districtId != null ? ' District__c = \'' + districtId + '\' ' : '';
                     subdivider = metric.Subdivider__c == 'Subcounty' && subcountyId != null ? ' Subcounty__c = \'' + subcountyId + '\' ' : subdivider;
                     String dateRange = fromdate != null && todate != null ? ' Date__c >= ' + datetime.newInstance(fromdate.year(), fromdate.month(), fromdate.day()).format('yyyy-MM-dd') + ' AND Date__c <= ' + datetime.newInstance(todate.year(), todate.month(), todate.day()).format('yyyy-MM-dd') + ' ' : '';
-                    String regionFilter = metric.Subdivider__c == 'District' && String.isNotEmpty(regionName) ? ' District__r.Region__c = \'' + regionName + '\' ' : '';
-                    regionFilter = metric.Subdivider__c == 'Subcounty' && String.isNotEmpty(regionName) ? ' Subcounty__r.District__r.Region__c = \'' + regionName + '\' ' : regionFilter;
+                    String regionFilter = metric.Subdivider__c == 'District' && String.isNotEmpty(regionName) ? ' District__r.Name IN (' + MetricHelpers.generateCommaSeperatedString(FHISurveysHelpers.getDistrictsInRegion(regionName), true) + ') ' : '';
+                    regionFilter = metric.Subdivider__c == 'Subcounty' && String.isNotEmpty(regionName) ? ' Subcounty__r.District__r.Name IN (' + MetricHelpers.generateCommaSeperatedString(FHISurveysHelpers.getDistrictsInRegion(regionName), true) + ') ' : regionFilter;
                     clauses.add(subdivider);
                     clauses.add(dateRange);
                     clauses.add(regionFilter);
@@ -122,8 +124,15 @@ global with sharing class MetricSectionComponentController {
                         value = result.size() > 0 ? (Decimal)result.get(0).Manual_Value__c : 0;
                         Decimal value1 = result.size() > 0 ? (Decimal)result.get(0).Projected_Value__c : 0;
                         data.setCurrentRealValue(value);
-                        data.setCurrentTarget(value1);         
-                        data.setCurrentId(String.valueOf(result.get(0).Id));     
+                        data.setCurrentTarget(value1);
+                        data.setCurrentId(String.valueOf(result.get(0).Id));
+                    }
+                    //set current total submissions
+                    //this is the count of all submission made minus rejected ones
+                    if(thisSection.Show_Break_Down__c){
+                        String value1 = metric.Sub_Area__c;
+                        value1 = value1 == null || value1.equalsIgnoreCase('Sub Area is not set') ? '' : value1;
+                        data.setSubArea(value1);
                     }
                 }
                 metricDatas.add(data);

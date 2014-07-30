@@ -81,24 +81,21 @@ private class FHITests {
         List<M_E_Metric__c> metrics = controller.getMetrics(metricsection.Id);
         System.assert(metrics.size() == 1);
         
+        District__c testDistrict = new District__c();
+        testDistrict.Name = 'TestMasaka';
+        database.SaveResult districtSaveResult = database.insert(testDistrict);
+        
         //test regions listbox		
-        Region__c region = new Region__c();
-        region.Display_Name__c = 'Central';
-        region.Country__c = countrySaveResult.getId();
+        FHI_District_Region__c region = new FHI_District_Region__c();
+        region.Name = testDistrict.Name;
+        region.FHI_Region__c = 'West';
         insert region;
         
         List<SelectOption> regions = controller.getSubregionsList();
-        Schema.DescribeFieldResult districtRegions = District__c.Region__c.getDescribe();
-        List<Schema.PicklistEntry> districtRegionsValues = districtRegions.getPicklistValues();
-        System.assert(regions.size() == districtRegionsValues.size() + 1);	//including the default --select all--		
+        System.assert(regions.size() == 2);	//including the default --select all--		
         controller.setSubregionsList(null);
         
-        //test districts list box
-        District__c testDistrict = new District__c();
-        testDistrict.Name = 'TestMasaka';
-        testDistrict.Region__c = region.Display_Name__c;
-        database.SaveResult districtSaveResult = database.insert(testDistrict);
-        
+        //test districts list box        
         List<SelectOption> districts = controller.getDistrictList();
         System.assert(districts.size() == 2);//including the default --select all		
         controller.setDistrictList(null);
@@ -131,7 +128,7 @@ private class FHITests {
 
         //test setup
         PageReference resultPage =  new PageReference('/a00/e');
-        resultPage.getParameters().put('subregion', String.valueOf(region.Display_Name__c));
+        resultPage.getParameters().put('subregion', String.valueOf(region.FHI_Region__c));
         resultPage.getParameters().put('district', String.valueOf(testDistrict.Id));
         resultPage.getParameters().put('subcounty', String.valueOf(testSubcounty.Id));
         resultPage.getParameters().put('dateFrom', '1987-12-18');
@@ -152,12 +149,14 @@ private class FHITests {
         System.assert(districts.size() == 2);//including the default --select all    
 
         //retest after district is set
+        District__c ds = [Select Id, Name from District__c where Name = :testDistrict.Name];
+        controller.district = ds;
         subs = controller.getSubcountiesList();
         System.assert(subs.size() == 2);//including the default --select all       
         
         controller.subcounty = testSubcounty;
         controller.district = testDistrict;
-        controller.subregion = region.Id;
+        controller.subregion = region.FHI_Region__c;
         controller.cbt = testPerson;
 
         //changeFilters
@@ -165,7 +164,7 @@ private class FHITests {
         System.assert(page != null);
 
         //listbox events
-        controller.subregion = testDistrict.Region__c;
+        controller.subregion = region.FHI_Region__c;
         PageReference pageRegion = controller.onRegionChanged();
         System.assert(pageRegion == null);
         PageReference pageDistrict = controller.onDistrictChanged();

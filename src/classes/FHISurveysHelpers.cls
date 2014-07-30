@@ -129,7 +129,8 @@ public with sharing class FHISurveysHelpers {
             'FHI_CC_number_producer_slash_farmer_groups',
             'FHI_CC_number_other_groups',
 
-            'FHI_CC_percentage_female_members'
+            'FHI_CC_percentage_female_members',
+            'FHI_percentage_youth_group_members'
         };
         
         Date currentDate = handsetSubmitTime.date();
@@ -161,7 +162,8 @@ public with sharing class FHISurveysHelpers {
                     'FHI_CC_number_producer_slash_farmer_groups',
                     'FHI_CC_number_other_groups',
 
-                    'FHI_CC_percentage_female_members')
+                    'FHI_CC_percentage_female_members',
+                    'FHI_percentage_youth_group_members')
             ];
 
         // Loop through the data and see which ones we have already got. If they are not there already create them
@@ -210,6 +212,15 @@ public with sharing class FHISurveysHelpers {
             else if(key.equals('FHI_CC_number_youth_members')){
                 if(groupType.equals('Youth')){
                     totalNewData.Denumerator__c += malesInGroup + femalesInGroup;
+                }
+            }
+            else if(key.equals('FHI_percentage_youth_group_members')){
+                if(groupType.equals('Youth')){
+                    totalNewData.Numerator__c += malesInGroup + femalesInGroup;
+	                totalNewData.Denumerator__c += malesInGroup + femalesInGroup;
+                }
+                else{
+                    totalNewData.Denumerator__c += malesInGroup + femalesInGroup;                    	
                 }
             }
             else if(key.equals('FHI_CC_number_total_group_members')){
@@ -287,8 +298,9 @@ public with sharing class FHISurveysHelpers {
         }
         System.debug('Subcounty: ' + subcountyName);
 
-        //vulnerable and opharns
-        boolean isThereAnOvc = isNorth ?  ProcessSubmissionHelpers.checkIfYes(answers.get('q70_0').Answer__c) : ProcessSubmissionHelpers.checkIfYes(answers.get('q57_0').Answer__c);
+        //vulnerable household - begins with VH
+        String hhNumber = answers.get('q1_0') != null ? answers.get('q1_0').Answer__c : '';
+        boolean isThereAnOvc = hhNumber.toUpperCase().startsWith('VH');
 
         //does VSLA, the selectio index for vsla is 1, return index of 2 if no answer
         String selectionIndexVSLA = isNorth ? ( answers.containsKey('q84_0') ? answers.get('q84_0').Answer__c : '2' ): ( answers.containsKey('q71_0') ? answers.get('q71_0').Answer__c : '2'); 
@@ -304,8 +316,9 @@ public with sharing class FHISurveysHelpers {
 
         boolean isHouseHeadFemale = isNorth ? isThereAfemaleHouseHead(answers, 'q33_', 'q37_') : isThereAfemaleHouseHead(answers, 'q46_', 'q50_');
         
-        boolean haveCcFruitTrees = getValue('q86_0', 'q73_0',answers, isNorth);
-        System.debug('Has CC Fruit Tree: ' + haveCcFruitTrees);
+        boolean haveCcFruitTrees = true;
+        Set<String> cropsSelection = isNorth ? ProcessSubmissionHelpers.getAnswerSet(answers.get('q94_0')) : ProcessSubmissionHelpers.getAnswerSet(answers.get('q82_0'));
+        haveCcFruitTrees = checkIfHasFruitTreesInOldSurveys(cropsSelection);
 
         Subcounty__c subcounty = [
             SELECT
@@ -390,7 +403,7 @@ public with sharing class FHISurveysHelpers {
                  totalNewData.Denumerator__c += isConsentGiven ? 1 : 0;
                  totalNewData.Numerator__c += haveCcFruitTrees ? 1 : 0;
             }
-            system.debug('Actual Value '+ totalNewData.Actual_Value__c);
+            system.debug('Actual Value ' + totalNewData.Actual_Value__c);
             dataMap.put(key, totalNewData);
         }
         List<Database.upsertResult> uResults = Database.upsert(dataMap.values());
@@ -512,7 +525,8 @@ public with sharing class FHISurveysHelpers {
             'FHI_CC_number_producer_slash_farmer_groups',
             'FHI_CC_number_other_groups',
 
-            'FHI_CC_percentage_female_members'
+            'FHI_CC_percentage_female_members',
+            'FHI_percentage_youth_group_members'
             };
         
         Date currentDate = handsetSubmitTime.date();
@@ -544,7 +558,8 @@ public with sharing class FHISurveysHelpers {
                     'FHI_CC_number_producer_slash_farmer_groups',
                     'FHI_CC_number_other_groups',
 
-                    'FHI_CC_percentage_female_members')
+                    'FHI_CC_percentage_female_members',
+                    'FHI_percentage_youth_group_members')
         ];
 
         // Loop through the data and see which ones we have already got. If they are not there already create them
@@ -591,6 +606,15 @@ public with sharing class FHISurveysHelpers {
             else if(key.equals('FHI_CC_number_youth_members')){
                 if(groupType.equals('Youth')){
                     totalNewData.Denumerator__c += malesInGroup + femalesInGroup;
+                }
+            }
+            else if(key.equals('FHI_percentage_youth_group_members')){
+                if(groupType.equals('Youth')){
+                    totalNewData.Numerator__c += malesInGroup + femalesInGroup;
+                    totalNewData.Denumerator__c += malesInGroup + femalesInGroup;
+                }
+                else{
+                    totalNewData.Denumerator__c += malesInGroup + femalesInGroup;                       
                 }
             }
             else if(key.equals('FHI_CC_number_total_group_members')){
@@ -657,7 +681,11 @@ public with sharing class FHISurveysHelpers {
 
         boolean isHouseHeadFemale = answers.get('sexhhh_0').Answer__c.equals('2');
 
-        boolean isThereAnOvc = ProcessSubmissionHelpers.checkIfYes(answers.get('ovc_0').Answer__c);
+        boolean isThereAnOvc = false;
+        String typeOfHH = answers.get('typehh_0') != null ? answers.get('typehh_0').Answer__c : '';
+        isThereAnOvc = typeOfHH == '2';
+        //in case this question was not asked, revert to answer below
+        isThereAnOvc = typeOfHH == '' ? ProcessSubmissionHelpers.checkIfYes(answers.get('ovc_0').Answer__c) : isThereAnOvc;
 
         boolean isThereAnyVsla = ProcessSubmissionHelpers.checkIfYes(answers.get('vsla_0').Answer__c);
 
@@ -787,6 +815,10 @@ public with sharing class FHISurveysHelpers {
         }
         if (surveyName.startsWithIgnoreCase('CCO')) {
             isCCO = true;
+            boolean isCkwPresent = ProcessSubmissionHelpers.checkIfYes(answers.get('ckw_0').Answer__c);
+            if(isCkwPresent){
+                return new String[] { '1', 'Submission successfull for FHI Dashboard  with IMEI: ' + submission.imei, 'SUPRESSMSG' };
+            }
         }
 
         Date visitDate = Date.valueOf(answers.get('date_0').Answer__c);
@@ -864,8 +896,9 @@ public with sharing class FHISurveysHelpers {
                 }
             }
             else if (key.equals('FHI_monitoring_cco_group_visits')) {
-                if(encounter.equals('1') && isCCO) {
-                    //means encounter is a group for both CCO and CKW surveys
+            	String decisiont3 = answers.get('decisiont3_0') == null ? '' : answers.get('decisiont3_0').Answer__c;
+                if((encounter.equals('1') && isCCO) || (encounter.equals('2') && decisiont3.equals('3') && isCCO )) {
+                    //means encounter is a group for both CCO and CKW surveys; OR for CCO, its a learning site in the Field with a group ID
                     totalNewData.Denumerator__c++;
                 }
             }
@@ -1037,6 +1070,22 @@ public with sharing class FHISurveysHelpers {
         }
         return new String[] { '1', 'All metric data updated for FHI Dashboard  with IMEI: ' + submission.imei, 'SUPRESSMSG' }; 
     }
+    
+    /**
+     * reads the custom config settings and returns districts in the region specified
+     * @param regionName    Name of an FHI region
+     * @return List of string district names
+     */
+    public static List<String> getDistrictsInRegion(String regionName) {
+        List<FHI_District_Region__c> districtRegions = regionName == null ? 
+            [SELECT Id, FHI_Region__c, Name FROM FHI_District_Region__c ORDER BY Name] :
+            [SELECT Id, FHI_Region__c, Name FROM FHI_District_Region__c WHERE FHI_Region__c = :regionName ORDER BY Name];
+        List<String> districtNames = new List<String>();
+        for(FHI_District_Region__c entry : districtRegions){
+            districtNames.add(entry.Name);  
+        }
+        return districtNames;	
+    }
 
     /**
      *  Find out which district was selected based on the binding
@@ -1119,16 +1168,6 @@ public with sharing class FHISurveysHelpers {
         return false;
     }
 
-
-    private static boolean getValue(String northBinding, String southBinding, Map<String, Submission_Answer__c> answers, boolean isNorth) {
-        try {
-            boolean val = isNorth ? ProcessSubmissionHelpers.getAnswerNumber(answers.get(northBinding), northBinding, true) >= 1 :  ProcessSubmissionHelpers.getAnswerNumber(answers.get(southBinding), southBinding, true) >= 1;
-            return val;
-        }
-        catch (Exception ex) {
-           return false;
-        }
-    }
     
     /**
      *  Create a new metric data for a given person, start date and metric. Assume that the metric is created on the box
@@ -1322,8 +1361,8 @@ public with sharing class FHISurveysHelpers {
      *       '9' => 'Oranges',
      *       '10' => 'None',
      *       '11' => 'Other'
-     * selection indeces 2 3 6 7 8 and 9 are fruits.
-     * If any of the fruit indeces appear in the cropSelection, we return true
+     * selection indeces 1 2 3 and 4 are the required fruits.
+     * If all of the fruit indeces appear in the cropSelection, we return true
      * 
      * @param cropsSelection a list of indeces selected by the user
      * 
@@ -1331,19 +1370,54 @@ public with sharing class FHISurveysHelpers {
      */
     private static boolean checkIfHasFruitTrees(Set<String> cropsSelection){
 
-        if(cropsSelection.isEmpty()) {
+        if(cropsSelection == null || cropsSelection.isEmpty()) {
             return false;
         }
 
-        Set<String> fruitIndeces = new Set<String>{'2', '3', '6', '7', '8', '9'};
-        for(String index: cropsSelection){
-            if(fruitIndeces.contains(index)){
-                return true;
+        Set<String> fruitIndeces = new Set<String>{'1', '2', '3', '4'};
+        for(String index: fruitIndeces){
+            if(!cropsSelection.contains(index)){
+                return false;
             }
         }
-        return false;
+        return true;
     }
-    
+
+    /**
+     * The user's selection map is;
+     *       '1' => 'Amaranth',
+     *       '2' => 'Avacado',
+     *       '3' => 'Guavas',
+     *       '4' => 'Jack fruit',
+     *       '5' => 'Mangoes',
+     *       '6' => 'Oranges',
+     *       '7' => 'Pawpaw',
+     *       '8' => 'Pumpkin',
+     *       '9' => 'Tree tomatoes',
+     *       '10' => 'Other',
+     *       '11' => 'None'
+     * selection indeces 1 2 7 and 8 are the required fruits.
+     * If all of the fruit indeces appear in the cropSelection, we return true
+     * 
+     * @param cropsSelection a list of indeces selected by the user
+     * 
+     * @return <code>true<code> if at least one fruit index is in the cropSelection, false otherwise
+     */
+    private static boolean checkIfHasFruitTreesInOldSurveys(Set<String> cropsSelection){
+
+        if(cropsSelection == null || cropsSelection.isEmpty()) {
+            return false;
+        }
+
+        Set<String> fruitIndeces = new Set<String>{'1', '2', '7', '8'};
+        for(String index: fruitIndeces){
+            if(!cropsSelection.contains(index)){
+                return false;
+            }
+        }
+        return true;
+    }
+        
       /**
      *  Get the subcounty from northern region name basing on the binding and value of the ditrict
      *
@@ -1676,7 +1750,9 @@ public with sharing class FHISurveysHelpers {
             '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
             new List<String>{ 'Surveys', extensionToolQuery } );
         
-        String queryResult = SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
+        String queryResult = '';
+        String testQuery = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><total_count>54706</total_count></row></SelectResponse>';
+        queryResult = Test.isRunningTest() ? testQuery : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
 
         XmlStreamReader surveyResultReader = new XmlStreamReader(queryResult);
         surveyResultReader.next(); // skip the opening <results> tag
@@ -1708,12 +1784,147 @@ public with sharing class FHISurveysHelpers {
                         LIMIT 1];
 
                     M_E_Metric_Data__c data = datas[0];
-                    data.Actual_Value__c = householdVisits;
+                    data.Manual_Value__c = householdVisits;
                     update data;
+                    break;
                 }
             }
             surveyResultReader.next();
         }        
+    }
+    
+    public static void getRawDataSubmissionStats(){
+        List<String> metricNames = new List<String> {
+            'FHI_HH_number_households_registered_x',
+            'FHI_CC_number_groups',
+            'FHI_CC_number_other_groups',
+            'FHI_CC_number_producer_slash_farmer_groups',
+            'FHI_CC_number_women_and_women_with_men_groups',
+            'FHI_CC_number_youth_groups'
+        };
+        List<M_E_Metric__c> metrics = [SELECT Id, Name, Sub_Area__c FROM M_E_Metric__c WHERE Name IN :metricNames];
+        Server_Configuration__c configuration = [
+            SELECT
+                URL__c,
+                Survey_Database__c,
+                Search_Database__c
+            FROM
+                Server_Configuration__c LIMIT 1];
+
+        String submissionsQuery = 'CALL GetFHISurveysSubmissionTotals()';
+        String requestBody = String.format(
+            '<?xml version="1.0"?>' +
+            '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
+            new List<String>{ 'Surveys', submissionsQuery } );
+        
+        String queryResult = '';
+        String testResult = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><FHI_HH_number_households_registered_x>60446</FHI_HH_number_households_registered_x><FHI_CC_number_groups>3151</FHI_CC_number_groups><FHI_CC_number_youth_groups>165</FHI_CC_number_youth_groups><FHI_CC_number_women_and_women_with_men_groups>491</FHI_CC_number_women_and_women_with_men_groups><FHI_CC_number_producer_slash_farmer_groups>2041</FHI_CC_number_producer_slash_farmer_groups><FHI_CC_number_other_groups>452</FHI_CC_number_other_groups></row></SelectResponse>';
+        queryResult = Test.isRunningTest() ? testResult : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
+
+        XmlStreamReader surveyResultReader = new XmlStreamReader(queryResult);
+        surveyResultReader.next(); // skip the opening <results> tag
+        
+        while(surveyResultReader.hasNext()) {
+            if(surveyResultReader.isStartElement()) {
+                if(surveyResultReader.getLocalName() == 'row') {
+                    while(surveyResultReader.hasNext()) {
+                        surveyResultReader.next(); // skip the <row> tag
+                        updateMetricDataWithStats(surveyResultReader);
+                    }
+                }
+            }
+            surveyResultReader.next();
+        }
+    }
+    
+    /**
+     * reads the local-name of the xml tag as the name of the M&E metric detail to update
+     * the value is the text element in the xml tag
+     *
+     * @surveyResultReader the XmlStreamReader object with the results
+     */
+    public static void updateMetricDataWithStats(XmlStreamReader surveyResultReader){
+        String name = surveyResultReader.getLocalName();        
+        surveyResultReader.next(); // skip the opening <column> tag
+        Integer figure = 0;
+        if (surveyResultReader.getEventType() == XmlTag.CHARACTERS) {
+            figure = Integer.valueOf(surveyResultReader.getText());
+            List<M_E_Metric__c> metrics = [SELECT Id, Name, Sub_Area__c FROM M_E_Metric__c WHERE Name = :name LIMIT 1];
+            if(!metrics.isEmpty()){
+                M_E_Metric__c metric = metrics.get(0);
+                metric.Sub_Area__c = figure.format(); 
+                update metric;
+            }
+        }
+        surveyResultReader.next(); // skip the next opening <column> tag    
+    }
+    
+    static testmethod void testStatsImport(){
+        
+        Server_Configuration__c config = new Server_Configuration__c();
+        config.URL__c = 'http://some.site';
+        config.Search_Database__c = 'some.db';
+        config.Survey_Database__c = 'some.other.db';
+        insert config;
+        
+        List<String> metricNames = new List<String> {
+            'FHI_HH_number_households_registered_x',
+            'FHI_CC_number_groups',
+            'FHI_CC_number_other_groups',
+            'FHI_CC_number_producer_slash_farmer_groups',
+            'FHI_CC_number_women_and_women_with_men_groups',
+            'FHI_CC_number_youth_groups',
+            'FHI_CC_number_extension_tool_HH_visits'
+        };
+        Account org = Utils.createTestOrganisation('TestOrg1');
+        database.insert(org);
+        for(String metricName : metricNames){
+            M_E_Metric__c metric = createTestMetric(org, 'None', 'Impact', true, metricName);
+            insert metric;            
+        }
+        
+        getRawDataSubmissionStats();
+        M_E_Metric__c m = [Select Id, Name, Sub_Area__c from M_E_Metric__c where Name = :metricNames.get(0)];
+        System.assert(m.Sub_Area__c != null);
+        System.assert(m.Sub_Area__c.equals('60,446'));
+        
+        M_E_Metric_Data__c metric_hh = new M_E_Metric_Data__c();
+        metric_hh.Date__c = Date.today();
+        metric_hh.M_E_Metric__c = [select Id, Name from M_E_Metric__c where Name = :metricNames.get(6) LIMIT 1].get(0).Id;
+        insert metric_hh;
+        
+        getRawDataStats();
+        M_E_Metric_Data__c[] datas = [
+            SELECT
+                Id,
+                Name,
+                Actual_Value__c,
+                Manual_Value__c,
+                Denumerator__c,
+                Numerator__c,
+                M_E_Metric__r.Name
+            FROM
+                M_E_Metric_Data__c
+            WHERE
+                M_E_Metric__r.Name = 'FHI_CC_number_extension_tool_HH_visits'
+            ORDER BY 
+                Date__c DESC 
+           LIMIT 1];
+        M_E_Metric_Data__c data = datas[0];
+        System.assert(data.Manual_Value__c == 54706);
+    }
+    
+    public static M_E_Metric__c createTestMetric(Account org, String calculationType, String area, Boolean subDivide,
+            String appendCharacters) {
+
+        M_E_Metric__c metric = new M_E_Metric__c();
+        metric.Name = appendCharacters;
+        metric.Organisation__c = org.Id;
+        metric.Calculation_Type__c = calculationType;
+        metric.M_E_Area__c = area;
+        metric.Sub_Divide__c = subDivide;
+        metric.Update_Period__c = 'Daily';
+        return metric;
     }
     
     static testmethod void testFhiGroupNorthSurveyProcessing() {
@@ -1980,6 +2191,7 @@ public with sharing class FHISurveysHelpers {
         answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '2', null, null, null));
         answers.put('lsmales_0', Utils.createTestSubmissionAnswer(null, 'lsmales', '60', null, null, null));
         answers.put('lsfems_0', Utils.createTestSubmissionAnswer(null, 'lsfems', '60', null, null, null));
+        answers.put('ckw_0', Utils.createTestSubmissionAnswer(null, 'ckw', '1', null, null, null));
 
         returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
         System.assert(returnValues.get(0).equals('1')); 
