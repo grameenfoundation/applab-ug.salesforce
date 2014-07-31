@@ -85,12 +85,7 @@ public with sharing class FHISurveysHelpers {
         System.debug('District: ' + districtName);
         
         String subcountyName = '';
-        if (isNorth) {
-            subcountyName = getSubcountyMap().get(translateNorthernSubcountyName(answers, districtValue));
-        }
-        else {
-            subcountyName = getSubcountyMap().get(translateSouthernSubcountyName(answers, districtValue));
-        }
+        subcountyName = isNorth ? getSubcountyMap().get(translateNorthernSubcountyName(answers, districtValue)) : getSubcountyMap().get(translateSouthernSubcountyName(answers, districtValue));
         System.debug('Subcounty: ' + subcountyName);
         
         //get group type
@@ -152,36 +147,21 @@ public with sharing class FHISurveysHelpers {
                     Subcounty__c = :subcountyId
                 )
                 AND Date__c = :currentDate
-                AND M_E_Metric__r.Name IN (
-                    'FHI_CC_number_groups',
-                    'FHI_CC_number_youth_members',
-                    'FHI_CC_number_total_group_members',
-
-                    'FHI_CC_number_women_and_women_with_men_groups',
-                    'FHI_CC_number_youth_groups',
-                    'FHI_CC_number_producer_slash_farmer_groups',
-                    'FHI_CC_number_other_groups',
-
-                    'FHI_CC_percentage_female_members',
-                    'FHI_percentage_youth_group_members')
+                AND M_E_Metric__r.Name IN :metricNames
             ];
 
         // Loop through the data and see which ones we have already got. If they are not there already create them
         Map<String, M_E_Metric_Data__c> dataMap = new Map<String, M_E_Metric_Data__c>();
         for (M_E_Metric_Data__c mData : datas) {
-            
              dataMap.put(mData.M_E_Metric__r.Name, mData);system.debug('METRIC NAME '+ mData.M_E_Metric__r.Name);
         }
 
         // Loop through the list of metrics and check that they all exist and then update them
         for (String key : metricNames) {
-
             // Check that the three metrics for each metric name exists
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug('Checking for metric name: ' + key);
-            if (totalNewData == null) {
-                totalNewData = createNewMetric(key, currentDate, subcountyId);
-            }
+            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId) : totalNewData;
             system.debug('Actual Value ' + totalNewData.Actual_Value__c);
             
             // Update the metric based on the key
@@ -290,12 +270,8 @@ public with sharing class FHISurveysHelpers {
         System.debug('District: ' + districtName);
         
         String subcountyName = '';
-        if (isNorth) {
-            subcountyName = getSubcountyMap().get(translateNorthernSubcountyNameReg(answers, districtValue));
-        }
-        else {
-            subcountyName = getSubcountyMap().get(translateSouthernSubcountyNameReg(answers, districtValue));
-        }
+        subcountyName = isNorth ? (getSubcountyMap().get(translateNorthernSubcountyNameReg(answers, districtValue))) : 
+            (getSubcountyMap().get(translateSouthernSubcountyNameReg(answers, districtValue)));
         System.debug('Subcounty: ' + subcountyName);
 
         //vulnerable household - begins with VH
@@ -361,12 +337,7 @@ public with sharing class FHISurveysHelpers {
                     Subcounty__c = :subcountyId
                 )
                 AND Date__c >= :currentDate
-                AND M_E_Metric__r.Name IN (
-                    'FHI_HH_number_households_registered_x', 
-                    'FHI_HH_number_households_vulnerable',
-                    'FHI_HH_number_households_with_member_in_vsla',
-                    'FHI_HH_percentage_female_headed_households',
-                    'FHI_HH_percentage_households_with_cc_fruit_trees_x')
+                AND M_E_Metric__r.Name IN :metricNames
             ];
 
         // Loop through the data and see which ones we have already got. If they are not there already create them
@@ -382,9 +353,8 @@ public with sharing class FHISurveysHelpers {
             // Check that the three metrics for each metric name exists
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug('Checking for metric name: ' + key);
-            if (totalNewData == null) {
-                totalNewData = createNewMetric(key, currentDate, subcountyId);
-            }
+            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId) : totalNewData;
+            
             // Update the metric based on the key
             if (key.equals('FHI_HH_number_households_registered_x')) {
                 totalNewData.Denumerator__c += isConsentGiven ? 1 : 0;
@@ -483,7 +453,7 @@ public with sharing class FHISurveysHelpers {
         if(subcounty.isEmpty() && (subcountyName.containsIgnoreCase('town council') || subcountyName.containsIgnoreCase(' TC')) ){
             System.debug(LoggingLevel.INFO, 'subcounty not found. trying variant of *town council');
             subcountyName = subcountyName.containsIgnoreCase('town council') ? subcountyName.toLowerCase().replace('town council', 'TC') :
-                subcountyName.toLowerCase().replace(' TC', ' town council');
+                subcountyName.toLowerCase().replace(' tc', ' town council');
             subcounty = [
                 SELECT
                     Id
@@ -548,18 +518,7 @@ public with sharing class FHISurveysHelpers {
                     Subcounty__c = :subcountyId
                 )
                 AND Date__c = :currentDate
-                AND M_E_Metric__r.Name IN (
-                    'FHI_CC_number_groups',
-                    'FHI_CC_number_youth_members',
-                    'FHI_CC_number_total_group_members',
-
-                    'FHI_CC_number_women_and_women_with_men_groups',
-                    'FHI_CC_number_youth_groups',
-                    'FHI_CC_number_producer_slash_farmer_groups',
-                    'FHI_CC_number_other_groups',
-
-                    'FHI_CC_percentage_female_members',
-                    'FHI_percentage_youth_group_members')
+                AND M_E_Metric__r.Name IN :metricNames
         ];
 
         // Loop through the data and see which ones we have already got. If they are not there already create them
@@ -757,9 +716,7 @@ public with sharing class FHISurveysHelpers {
             // Check that the three metrics for each metric name exists
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug(LoggingLevel.INFO, 'Checking for metric name: ' + key);
-            if (totalNewData == null) {
-                totalNewData = createNewMetric(key, currentDate, subcountyId);
-            }
+            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId) : totalNewData;
             // Update the metric based on the key
             if (key.equals('FHI_HH_number_households_registered_x')) {
                 totalNewData.Denumerator__c += isConsentGiven ? 1 : 0;
@@ -1237,51 +1194,6 @@ public with sharing class FHISurveysHelpers {
     }
     
     /**
-     *  Create a submission meta data object. This will allow the submissions to be mapped
-     */
-    private static Boolean createSubmissionMetaData(ProcessSurveySubmission.SurveySubmission surveySubmission, Person__c submitter) {
-
-        // Load the survey
-        Survey__c survey = Utils.loadSurvey(surveySubmission.surveyId);
-        if (survey == null) {
-            return false;
-        }
-
-        Submission_Meta_Data__c meta = new Submission_Meta_Data__c();
-        meta.Interviewer__c = submitter.Id;
-        meta.Survey__c = survey.Id;
-        meta.Interview_Latitude__c = Decimal.valueOf(surveySubmission.interviewLatitude);
-        meta.Interview_Longitude__c = Decimal.valueOf(surveySubmission.interviewLongitude);
-        meta.Interview_Altitude__c = Decimal.valueOf(surveySubmission.interviewAltitude);
-        meta.Interview_Accuracy__c = Decimal.valueOf(surveySubmission.interviewAccuracy);
-        meta.Interview_GPS_Timestamp__c = ProcessSurveySubmission.getTimestamp(surveySubmission.interviewGPSTimestamp);
-        meta.Handset_Submit_Time__c = ProcessSurveySubmission.getTimestamp(surveySubmission.handsetSubmitTime);
-
-        meta.Submission_Latitude__c = Decimal.valueOf(surveySubmission.submissionLatitude);
-        meta.Submission_Longitude__c = Decimal.valueOf(surveySubmission.submissionLongitude);
-        meta.Submission_Altitude__c = Decimal.valueOf(surveySubmission.submissionAltitude);
-        meta.Submission_Accuracy__c = Decimal.valueOf(surveySubmission.submissionAccuracy);
-        meta.Submission_GPS_Timestamp__c = ProcessSurveySubmission.getTimestamp(surveySubmission.submissionGPSTimestamp);
-
-        meta.Submission_Size__c = Decimal.valueOf(surveySubmission.surveySize);
-        meta.Result_Hash__c = surveySubmission.resultHash;
-
-        Database.SaveResult submissionMetaDataResult = Database.insert(meta, false);
-        if (!submissionMetaDataResult.isSuccess()) {
-            System.debug(LoggingLevel.INFO, submissionMetaDataResult.getErrors()[0].getMessage());
-            if (submissionMetaDataResult.getErrors()[0].getMessage().contains('Result_Hash__c duplicates')) {
-                System.debug(LoggingLevel.INFO, 'Duplicate submission so allow to save: ' + submissionMetaDataResult.getErrors()[0].getMessage());
-                return true;
-            }
-            else {
-                System.debug(LoggingLevel.INFO, 'Failed to save submissionMetaData object: ' + submissionMetaDataResult.getErrors()[0].getMessage());
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    /**
      *  Get the district name out of the survey
      *
      *  @param districtValue - A map containing the values for the the outlet visit
@@ -1681,59 +1593,6 @@ public with sharing class FHISurveysHelpers {
         
         return groupType;
     }
-    
-    /**
-     *  Find out wether group has bank account from the survey
-     *
-     *  @param accountValue - A map containing the values for the the outlet visit
-     *
-     *  @return - Has Bank Account
-     */
-    private static String translateHasBankAccount(String accountValue) {
-
-        Map<String, String> translationMap = new Map<String, String> {
-            '1' => 'Yes',
-            '2' => 'No',
-            '3' => 'Dont Know'
-        };
-        return translationMap.get(accountValue);
-    }
-    
-    /**
-     *  Get group activities account from the survey
-     *
-     *  @param accountValue - A map containing the values for the the outlet visit
-     *
-     *  @return - Has Bank Account
-     */
-    private static Set<String> getGroupActivities(Map<String, Submission_Answer__c> answers, Set<String> activityValues) {
-
-        Set<String> activities = new Set<String>();
-        Map<String, String> translationMap = new Map<String, String> {
-            '1' => 'Animal production',
-            '2' => 'Crop production',
-            '3' => 'Burial support',
-            '4' => 'Food security',
-            '5' => 'Functional Adult Literacy',
-            '6' => 'HIV/AIDS activities',
-            '7' => 'Orphans and Vulnerable Children',
-            '8' => 'Merry go-round',
-            '9' => 'Nutrition',
-            '10' => 'Savings/VSLA',
-            '11' => 'Other'
-        };
-        
-        for (String activityValue : activityValues) {
-            activities.add(translationMap.get(activityValue));
-            /*if (activityValue.equals('11')) {
-                activities.add(answers.get('q65_0').Answer__c);
-            }
-            else {
-                activities.add(translationMap.get(activityValue));
-            }*/
-        }
-        return activities;
-    }
 
     public static void getRawDataStats(){
         Server_Configuration__c configuration = [
@@ -1927,72 +1786,357 @@ public with sharing class FHISurveysHelpers {
         return metric;
     }
     
-    static testmethod void testFhiGroupNorthSurveyProcessing() {
+    static testmethod void testFhiGroupSurveyProcessing() {
         
-        // Create Test Org, this is necessary for the creation of metrics
-        Account acc =  Utils.createTestOrganisation('test Org');
-        database.insert(acc);
-        
-        //Utils.createTestMetric(acc, calculationType, area, subDivide, appendCharacters)
-        
-        // Create Server Configuration
-        Server_Configuration__c config = new Server_Configuration__c();
-        config.Name = 'TestConf';
-        config.URL__c = 'http://test.applab.org:8888/services/';
-        config.Base_URL__c = 'http://test.applab.org:8888';
-        config.Services_Path__c = '/services/';
-        config.Survey_Database__c = 'zebra';
-        config.Search_Database__c = 'ycppquiz';
-        database.insert(config);
-        
-        // Create test subcounty
-        Subcounty__c subcounty = new Subcounty__c();
-        subcounty.Display_Name__c = 'Awere';
-        database.insert(subcounty);
-        
-        CKW__c ckw = Utils.createTestCkw(null, 'TestCKW1', true, null, 'Female');
-        database.insert(ckw);
+        Account testOrg = new Account();
+        testOrg.Name = 'TestCKW';
+        testOrg.BillingState = 'CA';
+        database.SaveResult accountSaveResult = database.insert(testOrg);
 
-        // Create a farmer
-        Farmer__c farmer1 = Utils.createTestFarmer('OD99999', null, 'TestFarmer1', true, null, null);
-        farmer1.Registered_By__c = ckw.Person__c;
-        database.insert(farmer1);
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = accountSaveResult.getId();
+        dash.Is_Active__c = true;
+        dash.Title__c = 'testing';
+        database.SaveResult dashSaveResult = database.insert(dash);
 
+        Dashboard_Section__c dashSection = new Dashboard_Section__c();
+        dashSection.Dashboard__c = dashSaveResult.getId();
+        dashSection.Is_Active__c = true;
+        dashSection.Title__c = 'FHI';
+        database.SaveResult dashSectionSaveResult = database.insert(dashSection);
+
+        Metric_Section__c ciwDistanceMetricSection = new Metric_Section__c();
+        ciwDistanceMetricSection.Is_Active__c = true;
+        ciwDistanceMetricSection.Dashboard_Section__c = dashSectionSaveResult.getId();
+        ciwDistanceMetricSection.Title__c = 'test test';
+        ciwDistanceMetricSection.Start_Date__c = date.today();
+        ciwDistanceMetricSection.Default_Show__c = 1;
+        database.SaveResult metricSectionSaveResult = database.insert(ciwDistanceMetricSection);
+
+        // Create the metrics for use
+        List<String> metricNames = new List<String> { 
+            'FHI_CC_number_groups',
+            'FHI_CC_number_youth_members',
+            'FHI_CC_number_total_group_members',
+
+            'FHI_CC_number_women_and_women_with_men_groups',
+            'FHI_CC_number_youth_groups',
+            'FHI_CC_number_producer_slash_farmer_groups',
+            'FHI_CC_number_other_groups',
+
+            'FHI_CC_percentage_female_members',
+            'FHI_percentage_youth_group_members'
+        };
+        
+        List<M_E_Metric__c> metrics = new List<M_E_Metric__c>();
+        for(String name : metricNames){
+            M_E_Metric__c metric1 = new M_E_Metric__c();
+            metric1.Name = name;
+            metric1.Metric_Section__c = metricSectionSaveResult.getId();
+            metric1.Organisation__c = accountSaveResult.getId();
+            metrics.add(metric1);
+        } 
+        insert metrics;
+        
         Survey__c survey = new Survey__c();
-        survey.Survey_Name__c = 'cc north';
+        survey.Account__c = accountSaveResult.getId();
         survey.Post_Processing_Method__c = 'FHI_GROUP_REGISTRATION';
-        survey.Save_To_Salesforce__c = false;
-        survey.Survey_Status__c = 'Active';
-        survey.Start_Date__c = date.today().addMonths(-1);
-        database.insert(survey);
+        survey.Survey_Name__c = 'CC group register North';
+        survey.Survey_Status__c = 'Published';
+        survey.Start_Date__c = Date.valueOf('2013-01-01');
+        survey.End_Date__c = Date.today().addYears(2);
+        insert survey;
+
+        District__c testDistrict = new District__c();
+        testDistrict.Name = 'Pader';
+        testDistrict.Region__c = 'North';
+        insert testDistrict;
+        District__c testDistrict1 = new District__c();
+        testDistrict1.Name = 'Kabale';
+        testDistrict1.Region__c = 'South';
+        insert testDistrict1;
         
-        Survey__c survey2 = [Select Id, Name from Survey__c where Id = :survey.Id LIMIT 1];
-        CKW__c ckw2 = [Select Id, Person__c, Person__r.Handset__c, Person__r.Handset__r.IMEI__c from CKW__c where Id = :ckw.Id LIMIT 1];
+        Subcounty__c testSubcounty = new Subcounty__c();
+        testSubcounty.Display_Name__c = 'Test town council';
+        testSubcounty.District__c = [select Id from District__c where Name = :testDistrict.Name].get(0).Id;
+        insert testSubcounty;
 
-        ProcessSurveySubmission.SurveySubmission surveySubmission = new ProcessSurveySubmission.SurveySubmission();
-        surveySubmission.imei = ckw2.Person__r.Handset__r.IMEI__c;
-        surveySubmission.farmerId = 'OD99999';
-        surveySubmission.surveyId = survey2.Name;
-        surveySubmission.surveySize = '2345';
-        surveySubmission.resultHash = 'cr2EC8B3B70D991F74A8CF10270A28A787CABC28';
-        surveySubmission.interviewLatitude = '0.31950';
-        surveySubmission.interviewLongitude = '32.58986';
-        surveySubmission.interviewAltitude = '55.00000';
-        surveySubmission.interviewAccuracy = '0.00000';
-        surveySubmission.submissionLatitude = '0.31950';
-        surveySubmission.submissionLongitude = '32.58986';
-        surveySubmission.submissionAltitude = '55.00000';
-        surveySubmission.submissionAccuracy = '0.00000';
-        surveySubmission.submissionGPSTimestamp = '1353423873334';
-        surveySubmission.interviewGPSTimestamp = '1353423873334';
-        surveySubmission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
-        System.debug('Submit Time: ' + surveySubmission.handsetSubmitTime);
+        Phone__c testHandset = new Phone__c();
+        testHandset.IMEI__c = '123456789101112';
+        testHandset.Serial_Number__c = '123456789101112';
+        testHandset.Purchase_Value_USD__c = 100.00;
+        insert testHandset;
 
-        surveySubmission.xml = '<?xml version="1.0"?><answers><answer><binding>q59</binding><answerText>1 2 3</answerText><instance>0</instance><questionNumber>59</questionNumber><questionType>Select</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q40</binding><answerText>Test</answerText><instance>0</instance><questionNumber>40</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q64</binding><answerText>1 2 3</answerText><instance>0</instance><questionNumber>64</questionNumber><questionType>Select</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q1</binding><answerText>2012-10-04</answerText><instance>0</instance><questionNumber>1</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q54</binding><answerText>1</answerText><instance>0</instance><questionNumber>54</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q44</binding><answerText>4</answerText><instance>0</instance><questionNumber>44</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q58</binding><answerText>0</answerText><instance>0</instance><questionNumber>58</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q49</binding><answerText>Tom</answerText><instance>0</instance><questionNumber>49</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q43</binding><answerText>4</answerText><instance>0</instance><questionNumber>43</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q66</binding><answerText>null</answerText><instance>0</instance><questionNumber>66</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q47</binding><answerText>Tim</answerText><instance>0</instance><questionNumber>47</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q61</binding><answerText>1</answerText><instance>0</instance><questionNumber>61</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q46</binding><answerText>2</answerText><instance>0</instance><questionNumber>46</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q45</binding><answerText>2</answerText><instance>0</instance><questionNumber>45</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q2</binding><answerText>T11</answerText><instance>0</instance><questionNumber>2</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q51</binding><answerText>1 2</answerText><instance>0</instance><questionNumber>51</questionNumber><questionType>Select</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q39</binding><answerText>Test</answerText><instance>0</instance><questionNumber>39</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q9</binding><answerText>1</answerText><instance>0</instance><questionNumber>9</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q3</binding><answerText>1</answerText><instance>0</instance><questionNumber>3</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q57</binding><answerText>1</answerText><instance>0</instance><questionNumber>57</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q48</binding><answerText>782445833</answerText><instance>0</instance><questionNumber>48</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q56</binding><answerText>1</answerText><instance>0</instance><questionNumber>56</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q62</binding><answerText>1</answerText><instance>0</instance><questionNumber>62</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q41</binding><answerText>1</answerText><instance>0</instance><questionNumber>41</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q53</binding><answerText>1</answerText><instance>0</instance><questionNumber>53</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q4</binding><answerText>1</answerText><instance>0</instance><questionNumber>4</questionNumber><questionType>Select1</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer><answer><binding>q50</binding><answerText>789578578</answerText><instance>0</instance><questionNumber>50</questionNumber><questionType>Input</questionType><parentBinding>null</parentBinding><parentInstance>0</parentInstance></answer></answers>';
-        surveySubmission.json = 'none';
-        //ProcessSurveySubmission.SurveySubmission resultSurveySubmission = ProcessSurveySubmission.processSurveySubmission(surveySubmission);
-        //System.debug(resultSurveySubmission.errorMessage);
-        //System.assert(resultSurveySubmission.success);
+        Person__c testPerson = new Person__c();
+        testPerson.First_Name__c = 'David';
+        testPerson.Last_Name__c = 'Mugume' ;
+        testPerson.Gender__c = 'Male';
+        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
+        testPerson.Handset__c = phone.Id;
+        testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
+        insert testPerson;
+        
+        //create submission object
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        //submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '123456789101112';
+        submission.resultHash = '2';
+        submission.surveyId = [select Id, Name from Survey__c where Id = :survey.Id].Name;
+
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        List<String> returnValues = new List<String>();
+        
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('No handset submit time in this submission'));
+        
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        
+        //put answers into our submission
+        answers.put('regdate_0', Utils.createTestSubmissionAnswer(null, 'regdate', '2014-06-16', null, null, null));
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', '1', null, null, null));
+        answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'unknown', null, null, null));
+        answers.put('grptype_0', Utils.createTestSubmissionAnswer(null, 'grptype', '1', null, null, null));//farmer/producer group type
+        answers.put('num_males_0', Utils.createTestSubmissionAnswer(null, 'num_males', '15', null, null, null));
+        answers.put('num_females_0', Utils.createTestSubmissionAnswer(null, 'num_females', '21', null, null, null));
+
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('The subcounty provided is not in salesforce'));
+        
+        answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'Test tc', null, null, null));
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+        
+        //women group type
+        answers.put('grptype_0', Utils.createTestSubmissionAnswer(null, 'grptype', '2', null, null, null));
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+        
+        //youth group type
+        answers.put('grptype_0', Utils.createTestSubmissionAnswer(null, 'grptype', '3', null, null, null));
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+        
+        //other group type
+        answers.put('grptype_0', Utils.createTestSubmissionAnswer(null, 'grptype', '4', null, null, null));
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+        
+        //NOW FOR OLD SURVEYS        
+        survey.Survey_Name__c = 'CC group South';
+        update survey;
+        
+        submission.handsetSubmitTime = null;
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('No handset submit time in this submission'));
+        
+        answers = new Map<String, Submission_Answer__c>();
+        returnValues = new List<String>();
+        
+        testSubcounty.Display_Name__c = 'Muko';
+        update testSubcounty;
+        
+        testSubcounty.District__c = [select Id from District__c where Name = :testDistrict1.Name].get(0).Id;
+        update testSubcounty;
+        
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        
+        //put answers into our submission
+        answers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', '2014-06-16', null, null, null));
+        answers.put('q3_0', Utils.createTestSubmissionAnswer(null, 'q3', '1', null, null, null));
+        answers.put('q4_0', Utils.createTestSubmissionAnswer(null, 'q4', '1', null, null, null));
+        answers.put('q32_0', Utils.createTestSubmissionAnswer(null, 'q32', '1', null, null, null));//farmer/producer group type
+        answers.put('q34_0', Utils.createTestSubmissionAnswer(null, 'q34', '15', null, null, null));
+        answers.put('q35_0', Utils.createTestSubmissionAnswer(null, 'q35', '21', null, null, null));
+        
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+        
+        //women group type
+        answers.put('q32_0', Utils.createTestSubmissionAnswer(null, 'q32', '6', null, null, null));
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+        
+        //youth group type
+        answers.put('q32_0', Utils.createTestSubmissionAnswer(null, 'q32', '9', null, null, null));
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+        
+        //other group type
+        answers.put('q32_0', Utils.createTestSubmissionAnswer(null, 'q32', '10', null, null, null));
+        returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+    }
+    
+    static testmethod void testFhiHouseholdSurveyProcessing() {
+        
+        Account testOrg = new Account();
+        testOrg.Name = 'TestCKW';
+        testOrg.BillingState = 'CA';
+        database.SaveResult accountSaveResult = database.insert(testOrg);
+
+        Dashboard__c dash = new Dashboard__c();
+        dash.Account__c = accountSaveResult.getId();
+        dash.Is_Active__c = true;
+        dash.Title__c = 'testing';
+        database.SaveResult dashSaveResult = database.insert(dash);
+
+        Dashboard_Section__c dashSection = new Dashboard_Section__c();
+        dashSection.Dashboard__c = dashSaveResult.getId();
+        dashSection.Is_Active__c = true;
+        dashSection.Title__c = 'FHI';
+        database.SaveResult dashSectionSaveResult = database.insert(dashSection);
+
+        Metric_Section__c ciwDistanceMetricSection = new Metric_Section__c();
+        ciwDistanceMetricSection.Is_Active__c = true;
+        ciwDistanceMetricSection.Dashboard_Section__c = dashSectionSaveResult.getId();
+        ciwDistanceMetricSection.Title__c = 'test test';
+        ciwDistanceMetricSection.Start_Date__c = date.today();
+        ciwDistanceMetricSection.Default_Show__c = 1;
+        database.SaveResult metricSectionSaveResult = database.insert(ciwDistanceMetricSection);
+
+        // Create the metrics for use
+        List<String> metricNames = new List<String> { 
+            'FHI_HH_number_households_registered_x', 
+            'FHI_HH_number_households_vulnerable',
+            'FHI_HH_number_households_with_member_in_vsla',
+            'FHI_HH_percentage_female_headed_households',
+            'FHI_HH_percentage_households_with_cc_fruit_trees_x'
+        };
+        
+        List<M_E_Metric__c> metrics = new List<M_E_Metric__c>();
+        for(String name : metricNames){
+            M_E_Metric__c metric1 = new M_E_Metric__c();
+            metric1.Name = name;
+            metric1.Metric_Section__c = metricSectionSaveResult.getId();
+            metric1.Organisation__c = accountSaveResult.getId();
+            metrics.add(metric1);
+        } 
+        insert metrics;
+        
+        Survey__c survey = new Survey__c();
+        survey.Account__c = accountSaveResult.getId();
+        survey.Post_Processing_Method__c = 'FHI_GROUP_REGISTRATION';
+        survey.Survey_Name__c = 'CCHH Register South final';
+        survey.Survey_Status__c = 'Published';
+        survey.Start_Date__c = Date.valueOf('2013-01-01');
+        survey.End_Date__c = Date.today().addYears(2);
+        insert survey;
+
+        District__c testDistrict = new District__c();
+        testDistrict.Name = 'Pader';
+        testDistrict.Region__c = 'North';
+        insert testDistrict;
+        District__c testDistrict1 = new District__c();
+        testDistrict1.Name = 'Kabale';
+        testDistrict1.Region__c = 'South';
+        insert testDistrict1;
+        
+        Subcounty__c testSubcounty = new Subcounty__c();
+        testSubcounty.Display_Name__c = 'Ruhija';
+        testSubcounty.District__c = [select Id from District__c where Name = :testDistrict1.Name].get(0).Id;
+        insert testSubcounty;
+
+        Phone__c testHandset = new Phone__c();
+        testHandset.IMEI__c = '123456789101112';
+        testHandset.Serial_Number__c = '123456789101112';
+        testHandset.Purchase_Value_USD__c = 100.00;
+        insert testHandset;
+
+        Person__c testPerson = new Person__c();
+        testPerson.First_Name__c = 'David';
+        testPerson.Last_Name__c = 'Mugume' ;
+        testPerson.Gender__c = 'Male';
+        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
+        testPerson.Handset__c = phone.Id;
+        testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
+        insert testPerson;
+        
+        //create submission object
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        //submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = '123456789101112';
+        submission.resultHash = '2';
+        submission.surveyId = [select Id, Name from Survey__c where Id = :survey.Id].Name;
+
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        List<String> returnValues = new List<String>();
+        
+        returnValues = FHISurveysHelpers.processHouseholdRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('No handset submit time in this submission'));
+        
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        
+        //put answers into our submission
+        answers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', 'VH09789', null, null, null));
+        answers.put('q2_0', Utils.createTestSubmissionAnswer(null, 'q2', '2014-06-16', null, null, null));
+        answers.put('q3_0', Utils.createTestSubmissionAnswer(null, 'q3', '1', null, null, null));
+        answers.put('q4_0', Utils.createTestSubmissionAnswer(null, 'q4', '1', null, null, null));
+        answers.put('q71_0', Utils.createTestSubmissionAnswer(null, 'q71', '1', null, null, null));
+        answers.put('q33_0', Utils.createTestSubmissionAnswer(null, 'q33', '1', null, null, null));
+        answers.put('q38_0', Utils.createTestSubmissionAnswer(null, 'q38', '1', null, null, null));
+        answers.put('q37_0', Utils.createTestSubmissionAnswer(null, 'q37', '1', null, null, null));
+
+        returnValues = FHISurveysHelpers.processHouseholdRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
+                
+        //NOW FOR OLD SURVEYS        
+        survey.Survey_Name__c = 'HH_registerII_north';
+        update survey;
+        
+        submission.handsetSubmitTime = null;
+        returnValues = FHISurveysHelpers.processHouseholdRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('No handset submit time in this submission'));
+        
+        answers = new Map<String, Submission_Answer__c>();
+        returnValues = new List<String>();
+        
+        testSubcounty.District__c = [select Id from District__c where Name = :testDistrict1.Name].get(0).Id;
+        update testSubcounty;
+        
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        
+        //put answers into our submission
+        answers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', 'VH09789', null, null, null));
+        answers.put('regdate_0', Utils.createTestSubmissionAnswer(null, 'regdate', '2014-06-16', null, null, null));
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', '1', null, null, null));
+        answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'unknown', null, null, null));
+        answers.put('consent_0', Utils.createTestSubmissionAnswer(null, 'consent', '1', null, null, null));
+        answers.put('sexhhh_0', Utils.createTestSubmissionAnswer(null, 'sexhhh', '2', null, null, null));
+        answers.put('typehh_0', Utils.createTestSubmissionAnswer(null, 'typehh', '2', null, null, null));
+        answers.put('vsla_0', Utils.createTestSubmissionAnswer(null, 'vsla', '1', null, null, null));
+        
+        answers.put('cc_crops_0', Utils.createTestSubmissionAnswer(null, 'cc_crops', '1', null, null, null));
+        answers.put('cc_crops_1', Utils.createTestSubmissionAnswer(null, 'cc_crops', '2', null, null, null));
+        answers.put('cc_crops_2', Utils.createTestSubmissionAnswer(null, 'cc_crops', '3', null, null, null));
+        answers.put('cc_crops_3', Utils.createTestSubmissionAnswer(null, 'cc_crops', '4', null, null, null));
+        
+        returnValues = FHISurveysHelpers.processHouseholdRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('0'));
+        System.assert(returnValues.get(1).contains('The subcounty provided is not in salesforce'));
+        
+        answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'Ruhija', null, null, null));
+        
+        returnValues = FHISurveysHelpers.processHouseholdRegistration(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
     }
 
     static testmethod void testFhiMonitoringSurveysProcessing() {
@@ -2191,7 +2335,7 @@ public with sharing class FHISurveysHelpers {
         answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '2', null, null, null));
         answers.put('lsmales_0', Utils.createTestSubmissionAnswer(null, 'lsmales', '60', null, null, null));
         answers.put('lsfems_0', Utils.createTestSubmissionAnswer(null, 'lsfems', '60', null, null, null));
-        answers.put('ckw_0', Utils.createTestSubmissionAnswer(null, 'ckw', '1', null, null, null));
+        answers.put('ckw_0', Utils.createTestSubmissionAnswer(null, 'ckw', '2', null, null, null));
 
         returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
         System.assert(returnValues.get(0).equals('1')); 
