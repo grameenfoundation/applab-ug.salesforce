@@ -18,6 +18,5 @@ global class FHIScheduledRawDataStats implements Schedulable {
     @future (callout=true)
     private static void doCalloutFromFuture() {
         FHISurveysHelpers.getRawDataStats();
-        FHISurveysHelpers.getRawDataSubmissionStats();
     }
 }

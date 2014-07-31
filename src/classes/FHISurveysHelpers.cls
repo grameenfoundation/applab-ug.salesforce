@@ -1612,7 +1612,21 @@ public with sharing class FHISurveysHelpers {
         String queryResult = '';
         String testQuery = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><total_count>54706</total_count></row></SelectResponse>';
         queryResult = Test.isRunningTest() ? testQuery : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
-
+        System.debug(requestBody);
+        System.debug(queryResult);
+        
+        //callouts have to be before DML, so make next callout
+        String submissionsQuery = 'CALL GetFHISurveysSubmissionTotals()';
+        requestBody = String.format(
+            '<?xml version="1.0"?>' +
+            '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
+            new List<String>{ 'Surveys', submissionsQuery } );
+        String queryResult1 = '';
+        String testResult = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><FHI_HH_number_households_registered_x>60446</FHI_HH_number_households_registered_x><FHI_CC_number_groups>3151</FHI_CC_number_groups><FHI_CC_number_youth_groups>165</FHI_CC_number_youth_groups><FHI_CC_number_women_and_women_with_men_groups>491</FHI_CC_number_women_and_women_with_men_groups><FHI_CC_number_producer_slash_farmer_groups>2041</FHI_CC_number_producer_slash_farmer_groups><FHI_CC_number_other_groups>452</FHI_CC_number_other_groups></row></SelectResponse>';
+        queryResult1 = Test.isRunningTest() ? testResult : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
+        System.debug(requestBody);        
+        processRawDataSubmissionStats(queryResult1);
+        
         XmlStreamReader surveyResultReader = new XmlStreamReader(queryResult);
         surveyResultReader.next(); // skip the opening <results> tag
                 
@@ -1652,7 +1666,7 @@ public with sharing class FHISurveysHelpers {
         }        
     }
     
-    public static void getRawDataSubmissionStats(){
+    public static void processRawDataSubmissionStats(String queryResult){
         List<String> metricNames = new List<String> {
             'FHI_HH_number_households_registered_x',
             'FHI_CC_number_groups',
@@ -1670,16 +1684,7 @@ public with sharing class FHISurveysHelpers {
             FROM
                 Server_Configuration__c LIMIT 1];
 
-        String submissionsQuery = 'CALL GetFHISurveysSubmissionTotals()';
-        String requestBody = String.format(
-            '<?xml version="1.0"?>' +
-            '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
-            new List<String>{ 'Surveys', submissionsQuery } );
-        
-        String queryResult = '';
-        String testResult = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><FHI_HH_number_households_registered_x>60446</FHI_HH_number_households_registered_x><FHI_CC_number_groups>3151</FHI_CC_number_groups><FHI_CC_number_youth_groups>165</FHI_CC_number_youth_groups><FHI_CC_number_women_and_women_with_men_groups>491</FHI_CC_number_women_and_women_with_men_groups><FHI_CC_number_producer_slash_farmer_groups>2041</FHI_CC_number_producer_slash_farmer_groups><FHI_CC_number_other_groups>452</FHI_CC_number_other_groups></row></SelectResponse>';
-        queryResult = Test.isRunningTest() ? testResult : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
-
+        System.debug(queryResult);
         XmlStreamReader surveyResultReader = new XmlStreamReader(queryResult);
         surveyResultReader.next(); // skip the opening <results> tag
         
@@ -1741,18 +1746,18 @@ public with sharing class FHISurveysHelpers {
             M_E_Metric__c metric = createTestMetric(org, 'None', 'Impact', true, metricName);
             insert metric;            
         }
-        
-        getRawDataSubmissionStats();
-        M_E_Metric__c m = [Select Id, Name, Sub_Area__c from M_E_Metric__c where Name = :metricNames.get(0)];
-        System.assert(m.Sub_Area__c != null);
-        System.assert(m.Sub_Area__c.equals('60,446'));
-        
+                
         M_E_Metric_Data__c metric_hh = new M_E_Metric_Data__c();
         metric_hh.Date__c = Date.today();
         metric_hh.M_E_Metric__c = [select Id, Name from M_E_Metric__c where Name = :metricNames.get(6) LIMIT 1].get(0).Id;
         insert metric_hh;
         
         getRawDataStats();
+        
+        M_E_Metric__c m = [Select Id, Name, Sub_Area__c from M_E_Metric__c where Name = :metricNames.get(0)];
+        System.assert(m.Sub_Area__c != null);
+        System.assert(m.Sub_Area__c.equals('60,446'));
+        
         M_E_Metric_Data__c[] datas = [
             SELECT
                 Id,
