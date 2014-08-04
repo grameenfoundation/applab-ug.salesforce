@@ -2017,7 +2017,7 @@ public with sharing class FHISurveysHelpers {
         Subcounty__c testSubcounty2 = new Subcounty__c();
         testSubcounty2.Display_Name__c = 'Awere';
         testSubcounty2.District__c = [select Id from District__c where Name = :testDistrict.Name].get(0).Id;
-        insert new List<Subcounty__c> { testSubcounty, testSubcounty2 } ;
+        insert new List<Subcounty__c> { testSubcounty, testSubcounty2 };
 
         Phone__c testHandset = new Phone__c();
         testHandset.IMEI__c = '123456789101112';
