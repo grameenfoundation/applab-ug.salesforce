@@ -781,10 +781,10 @@ public with sharing class FHISurveysHelpers {
         Date visitDate = Date.valueOf(answers.get('date_0').Answer__c);
         String district_str = '';
         if(isCCO) {
-            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateCcoMonitoringSouthDistricts(answers.get('district_0').Answer__c);
+            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateMonitoringSouthDistricts(answers.get('district_0').Answer__c);
         }
         else {
-            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateCkwMonitoringSouthDistricts(answers.get('district_0').Answer__c);
+            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateMonitoringSouthDistricts(answers.get('district_0').Answer__c);
         }
         String encounter = answers.get('encounter_0').Answer__c;
         District__c[] district = [
@@ -1074,27 +1074,7 @@ public with sharing class FHISurveysHelpers {
      *
      *  @return - District name
      */
-    private static String translateCkwMonitoringSouthDistricts(String districtValue) {
-
-        Map<String, String> translationMap = new Map<String, String> {
-            '1' => 'Ibanda',
-            '3' => 'Kisoro',
-            '4' => 'kasese',
-            '5' => 'Kanungu',
-            '6' => 'Kamwenge',
-            '7' => 'Kabale'
-        };
-        return translationMap.get(districtValue);
-    }
-
-    /**
-     *  Find out which district was selected based on the binding
-     *
-     *  @param districtValue - A map containing the values for the district
-     *
-     *  @return - District name
-     */
-    private static String translateCcoMonitoringSouthDistricts(String districtValue) {
+    private static String translateMonitoringSouthDistricts(String districtValue) {
 
         Map<String, String> translationMap = new Map<String, String> {
             '1' => 'Ibanda',
@@ -1609,9 +1589,8 @@ public with sharing class FHISurveysHelpers {
             '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
             new List<String>{ 'Surveys', extensionToolQuery } );
         
-        String queryResult = '';
-        String testQuery = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><total_count>54706</total_count></row></SelectResponse>';
-        queryResult = Test.isRunningTest() ? testQuery : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
+        String testResult = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><FHI_CC_number_extension_tool_HH_visits>54706</FHI_CC_number_extension_tool_HH_visits></row></SelectResponse>';
+        String queryResult = Test.isRunningTest() ? testResult : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
         System.debug(requestBody);
         System.debug(queryResult);
         
@@ -1621,49 +1600,43 @@ public with sharing class FHISurveysHelpers {
             '<?xml version="1.0"?>' +
             '<SelectRequest xmlns="http://schemas.applab.org/2010/07" target="{0}">{1}</SelectRequest>',
             new List<String>{ 'Surveys', submissionsQuery } );
-        String queryResult1 = '';
-        String testResult = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><FHI_HH_number_households_registered_x>60446</FHI_HH_number_households_registered_x><FHI_CC_number_groups>3151</FHI_CC_number_groups><FHI_CC_number_youth_groups>165</FHI_CC_number_youth_groups><FHI_CC_number_women_and_women_with_men_groups>491</FHI_CC_number_women_and_women_with_men_groups><FHI_CC_number_producer_slash_farmer_groups>2041</FHI_CC_number_producer_slash_farmer_groups><FHI_CC_number_other_groups>452</FHI_CC_number_other_groups></row></SelectResponse>';
-        queryResult1 = Test.isRunningTest() ? testResult : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
+
+        testResult = '<?xml version="1.0"?><SelectResponse xmlns="http://schemas.applab.org/2010/07"><row><FHI_HH_number_households_registered_x>500</FHI_HH_number_households_registered_x><FHI_CC_number_groups>20</FHI_CC_number_groups><FHI_CC_number_youth_groups>30</FHI_CC_number_youth_groups><FHI_CC_number_women_and_women_with_men_groups>40</FHI_CC_number_women_and_women_with_men_groups><FHI_CC_number_producer_slash_farmer_groups>60</FHI_CC_number_producer_slash_farmer_groups><FHI_CC_number_other_groups>50</FHI_CC_number_other_groups></row></SelectResponse>';
+        String queryResult2 = Test.isRunningTest() ? testResult : SqlHelpers.postServletRequest(configuration.URL__c, 'select', requestBody);
         System.debug(requestBody);        
-        processRawDataSubmissionStats(queryResult1);
+        processRawDataSubmissionStats(queryResult2);
         
-        XmlStreamReader surveyResultReader = new XmlStreamReader(queryResult);
-        surveyResultReader.next(); // skip the opening <results> tag
-                
-        while(surveyResultReader.hasNext()) {
-            if(surveyResultReader.isStartElement()) {
-                if(surveyResultReader.getLocalName() == 'row') {
-                    surveyResultReader.next(); // skip the <row> tag
-                    surveyResultReader.next(); // skip the opening <column> tag
-                    Integer householdVisits = Integer.valueOf(surveyResultReader.getText());
+        //create a xml doc for reading data
+        DOM.Document doc = new DOM.Document();
+        doc.load(queryResult);
+        Dom.XmlNode envelope = doc.getRootElement();
+        Dom.XmlNode row = envelope.getChildElement('row', 'http://schemas.applab.org/2010/07');
+        Dom.XmlNode column = row.getChildElement('FHI_CC_number_extension_tool_HH_visits', 'http://schemas.applab.org/2010/07');
 
-                    M_E_Metric_Data__c[] datas = [
-                        SELECT
-                            Id,
-                            Name,
-                            Actual_Value__c,
-                            Manual_Value__c,
-                            District__c,
-                            Denumerator__c,
-                            Numerator__c,
-                            Subcounty__c,
-                            M_E_Metric__r.Name
-                        FROM
-                            M_E_Metric_Data__c
-                        WHERE
-                            M_E_Metric__r.Name = 'FHI_CC_number_extension_tool_HH_visits'
-                        ORDER BY 
-                            Date__c DESC 
-                        LIMIT 1];
+        Integer householdVisits = Integer.valueOf(column.getText());
 
-                    M_E_Metric_Data__c data = datas[0];
-                    data.Manual_Value__c = householdVisits;
-                    update data;
-                    break;
-                }
-            }
-            surveyResultReader.next();
-        }        
+        M_E_Metric_Data__c[] datas = [
+            SELECT
+                Id,
+                Name,
+                Actual_Value__c,
+                Manual_Value__c,
+                District__c,
+                Denumerator__c,
+                Numerator__c,
+                Subcounty__c,
+                M_E_Metric__r.Name
+            FROM
+                M_E_Metric_Data__c
+            WHERE
+                M_E_Metric__r.Name = 'FHI_CC_number_extension_tool_HH_visits'
+            ORDER BY 
+                Date__c DESC 
+            LIMIT 1];
+
+        M_E_Metric_Data__c datum = datas[0];
+        datum.Manual_Value__c = householdVisits;
+        update datum;      
     }
     
     public static void processRawDataSubmissionStats(String queryResult){
@@ -1685,42 +1658,32 @@ public with sharing class FHISurveysHelpers {
                 Server_Configuration__c LIMIT 1];
 
         System.debug(queryResult);
-        XmlStreamReader surveyResultReader = new XmlStreamReader(queryResult);
-        surveyResultReader.next(); // skip the opening <results> tag
         
-        while(surveyResultReader.hasNext()) {
-            if(surveyResultReader.isStartElement()) {
-                if(surveyResultReader.getLocalName() == 'row') {
-                    while(surveyResultReader.hasNext()) {
-                        surveyResultReader.next(); // skip the <row> tag
-                        updateMetricDataWithStats(surveyResultReader);
-                    }
-                }
-            }
-            surveyResultReader.next();
+        //create a xml doc for reading data
+        DOM.Document doc = new DOM.Document();
+        doc.load(queryResult);
+        Dom.XmlNode envelope = doc.getRootElement();
+        Dom.XmlNode row = envelope.getChildElement('row', 'http://schemas.applab.org/2010/07');
+        for(Dom.XmlNode column : row.getChildElements()){
+            updateMetricDataWithStats(column);
         }
     }
     
     /**
-     * reads the local-name of the xml tag as the name of the M&E metric detail to update
-     * the value is the text element in the xml tag
+     * reads the name of the xml node as the name of the M&E metric detail to update
+     * the value is the text element in the xml node
      *
-     * @surveyResultReader the XmlStreamReader object with the results
+     * @param column the Dom.XmlNode object with the results
      */
-    public static void updateMetricDataWithStats(XmlStreamReader surveyResultReader){
-        String name = surveyResultReader.getLocalName();        
-        surveyResultReader.next(); // skip the opening <column> tag
-        Integer figure = 0;
-        if (surveyResultReader.getEventType() == XmlTag.CHARACTERS) {
-            figure = Integer.valueOf(surveyResultReader.getText());
-            List<M_E_Metric__c> metrics = [SELECT Id, Name, Sub_Area__c FROM M_E_Metric__c WHERE Name = :name LIMIT 1];
-            if(!metrics.isEmpty()){
-                M_E_Metric__c metric = metrics.get(0);
-                metric.Sub_Area__c = figure.format(); 
-                update metric;
-            }
-        }
-        surveyResultReader.next(); // skip the next opening <column> tag    
+    public static void updateMetricDataWithStats(Dom.XmlNode column){
+        String name = column.getName();
+        Integer figure = Integer.valueOf(column.getText());
+        List<M_E_Metric__c> metrics = [SELECT Id, Name, Sub_Area__c FROM M_E_Metric__c WHERE Name = :name LIMIT 1];
+        if(!metrics.isEmpty()){
+            M_E_Metric__c metric = metrics.get(0);
+            metric.Sub_Area__c = figure.format(); 
+            update metric;
+        }   
     }
     
     static testmethod void testStatsImport(){
@@ -1756,7 +1719,7 @@ public with sharing class FHISurveysHelpers {
         
         M_E_Metric__c m = [Select Id, Name, Sub_Area__c from M_E_Metric__c where Name = :metricNames.get(0)];
         System.assert(m.Sub_Area__c != null);
-        System.assert(m.Sub_Area__c.equals('60,446'));
+        System.assert(m.Sub_Area__c.equals('500'));
         
         M_E_Metric_Data__c[] datas = [
             SELECT
@@ -2043,16 +2006,18 @@ public with sharing class FHISurveysHelpers {
         District__c testDistrict = new District__c();
         testDistrict.Name = 'Pader';
         testDistrict.Region__c = 'North';
-        insert testDistrict;
         District__c testDistrict1 = new District__c();
-        testDistrict1.Name = 'Kabale';
+        testDistrict1.Name = 'Kamwenge';
         testDistrict1.Region__c = 'South';
-        insert testDistrict1;
+        insert new List<District__c>{ testDistrict, testDistrict1 };
         
         Subcounty__c testSubcounty = new Subcounty__c();
         testSubcounty.Display_Name__c = 'Ruhija';
         testSubcounty.District__c = [select Id from District__c where Name = :testDistrict1.Name].get(0).Id;
-        insert testSubcounty;
+        Subcounty__c testSubcounty2 = new Subcounty__c();
+        testSubcounty2.Display_Name__c = 'Awere';
+        testSubcounty2.District__c = [select Id from District__c where Name = :testDistrict.Name].get(0).Id;
+        insert new List<Subcounty__c> { testSubcounty, testSubcounty2 };
 
         Phone__c testHandset = new Phone__c();
         testHandset.IMEI__c = '123456789101112';
@@ -2205,7 +2170,10 @@ public with sharing class FHISurveysHelpers {
         District__c testDistrict = new District__c();
         testDistrict.Name = 'Masindi';
         testDistrict.Region__c = 'Central';
-        insert testDistrict;
+        District__c testDistrict2 = new District__c();
+        testDistrict2.Name = 'Ibanda';
+        testDistrict2.Region__c = 'Central';
+        insert new List<District__c>{ testDistrict, testDistrict2 };
 
         Phone__c testHandset = new Phone__c();
         testHandset.IMEI__c = '123456789101112';
@@ -2316,16 +2284,6 @@ public with sharing class FHISurveysHelpers {
 
         returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
         System.assert(returnValues.get(0).equals('1')); 
-        
-        //-----------CCO & CKW----------------
-        //FHI_monitoring_percent_groups_practicing_swap
-        //answers.put('decisiont2_0', Utils.createTestSubmissionAnswer(null, 'decisiont2', '2', null, null, null));
-        //answers.put('swap_0', Utils.createTestSubmissionAnswer(null, 'swap', '1', null, null, null));
-
-        //returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
-        //System.assert(returnValues.get(0).equals('1')); 
-        //already covered
-
 
         survey.Survey_Name__c = 'CCO Monitoring South';
         update survey;
@@ -2336,7 +2294,9 @@ public with sharing class FHISurveysHelpers {
         //-----------CCO---------
         //FHI_monitoring_number_females_trained_child_nutrition
         //FHI_monitoring_number_males_trained_child_nutrition
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', '1', null, null, null));
         answers.put('encounter_0', Utils.createTestSubmissionAnswer(null, 'encounter', '2', null, null, null));
+        answers.put('decisiont3_0', Utils.createTestSubmissionAnswer(null, 'decisiont3', '3', null, null, null));
         answers.put('decisiont4_0', Utils.createTestSubmissionAnswer(null, 'decisiont4', '2', null, null, null));
         answers.put('lsmales_0', Utils.createTestSubmissionAnswer(null, 'lsmales', '60', null, null, null));
         answers.put('lsfems_0', Utils.createTestSubmissionAnswer(null, 'lsfems', '60', null, null, null));
@@ -2355,5 +2315,12 @@ public with sharing class FHISurveysHelpers {
 
         returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
         System.assert(returnValues.get(0).equals('1'));  
+        
+        //if ckw is present, ignores this dataset and returns successful
+        answers = new Map<String, Submission_Answer__c>();
+        answers.put('ckw_0', Utils.createTestSubmissionAnswer(null, 'ckw', '1', null, null, null));
+
+        returnValues = FHISurveysHelpers.processCkwMonitoring(submission, answers, testPerson, survey.Survey_Name__c);
+        System.assert(returnValues.get(0).equals('1'));
     }
  }
