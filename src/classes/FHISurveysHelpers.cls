@@ -99,8 +99,9 @@ public with sharing class FHISurveysHelpers {
         //get females in group
         Decimal femalesInGroup = isNorth ? ProcessSubmissionHelpers.getAnswerNumber(answers.get('q44_0'), 'q44_0', true) : ProcessSubmissionHelpers.getAnswerNumber(answers.get('q35_0'), 'q35_0', true);
         System.debug('Females in group: ' + String.valueOf(femalesInGroup));
-                
-        Subcounty__c subcounty = [
+              
+        District__c[] district = [SELECT Id, Name FROM District__c WHERE Name = :districtName];  
+        Subcounty__c[] subcounty = [
             SELECT
                 Id
             FROM
@@ -110,7 +111,10 @@ public with sharing class FHISurveysHelpers {
             LIMIT 1
         ];
 
-        String subcountyId = subcounty.Id;
+        String subcountyId = subcounty.isEmpty() ? '' : subcounty[0].Id;
+        if(district.isEmpty()){
+            return new String[] { '0', 'Unknown district for submission with IMEI: ' + submission.imei, 'SUPRESSMSG' }; 
+        } 
         system.debug('subcounty id ' + subcountyId);
         
         // Load the metrics for the month that the submission is for
@@ -144,7 +148,7 @@ public with sharing class FHISurveysHelpers {
                 M_E_Metric_Data__c
             WHERE
                 (
-                    Subcounty__c = :subcountyId
+                    District__c = :district[0].Id
                 )
                 AND Date__c = :currentDate
                 AND M_E_Metric__r.Name IN :metricNames
@@ -161,7 +165,7 @@ public with sharing class FHISurveysHelpers {
             // Check that the three metrics for each metric name exists
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug('Checking for metric name: ' + key);
-            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId) : totalNewData;
+            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId, String.valueOf(district[0].Id)) : totalNewData;
             system.debug('Actual Value ' + totalNewData.Actual_Value__c);
             
             // Update the metric based on the key
@@ -296,7 +300,8 @@ public with sharing class FHISurveysHelpers {
         Set<String> cropsSelection = isNorth ? ProcessSubmissionHelpers.getAnswerSet(answers.get('q94_0')) : ProcessSubmissionHelpers.getAnswerSet(answers.get('q82_0'));
         haveCcFruitTrees = checkIfHasFruitTreesInOldSurveys(cropsSelection);
 
-        Subcounty__c subcounty = [
+        District__c[] district = [SELECT Id, Name FROM District__c WHERE Name = :districtName]; 
+        Subcounty__c[] subcounty = [
             SELECT
                 Id
             FROM
@@ -306,7 +311,10 @@ public with sharing class FHISurveysHelpers {
             LIMIT 1
         ];
 
-        String subcountyId = subcounty.Id;
+        String subcountyId = subcounty.isEmpty() ? '' : subcounty[0].Id;
+        if(district.isEmpty()){
+            return new String[] { '0', 'Unknown district for submission with IMEI: ' + submission.imei, 'SUPRESSMSG' }; 
+        } 
         system.debug('subcounty id ' + subcountyId);
         
         // Load the metrics for the month that the submission is for
@@ -334,7 +342,7 @@ public with sharing class FHISurveysHelpers {
                 M_E_Metric_Data__c
             WHERE
                 (
-                    Subcounty__c = :subcountyId
+                    District__c = :district[0].Id
                 )
                 AND Date__c >= :currentDate
                 AND M_E_Metric__r.Name IN :metricNames
@@ -353,7 +361,7 @@ public with sharing class FHISurveysHelpers {
             // Check that the three metrics for each metric name exists
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug('Checking for metric name: ' + key);
-            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId) : totalNewData;
+            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId, String.valueOf(district[0].Id)) : totalNewData;
             
             // Update the metric based on the key
             if (key.equals('FHI_HH_number_households_registered_x')) {
@@ -438,7 +446,8 @@ public with sharing class FHISurveysHelpers {
         //total female members
         Decimal femalesInGroup = isNorth ? ProcessSubmissionHelpers.getAnswerNumber(answers.get('num_females_0'), 'num_females_0', true) : ProcessSubmissionHelpers.getAnswerNumber(answers.get('num_females_0'), 'num_females_0', true);
         System.debug(LoggingLevel.INFO, 'Females in group: ' + String.valueOf(femalesInGroup));
-                
+              
+        District__c[] district = [SELECT Id, Name FROM District__c WHERE Name = :districtName];   
         Subcounty__c[] subcounty = [
             SELECT
                 Id
@@ -477,11 +486,11 @@ public with sharing class FHISurveysHelpers {
             ];
         }
 
-        if(subcounty.isEmpty()){
-            return new String[]{ '0', 'The subcounty provided is not in salesforce', 'SUPRESSMSG' };
+        if(district.isEmpty()){
+            return new String[]{ '0', 'The district provided is not in salesforce', 'SUPRESSMSG' };
         }
 
-        String subcountyId = subcounty[0].Id;
+        String subcountyId = subcounty.isEmpty() ? '' : subcounty[0].Id;
         system.debug(LoggingLevel.INFO, 'subcounty id ' + subcountyId);
         
         // Load the metrics for the month that the submission is for
@@ -515,7 +524,7 @@ public with sharing class FHISurveysHelpers {
                 M_E_Metric_Data__c
             WHERE
                 (
-                    Subcounty__c = :subcountyId
+                    District__c = :district[0].Id
                 )
                 AND Date__c = :currentDate
                 AND M_E_Metric__r.Name IN :metricNames
@@ -535,7 +544,7 @@ public with sharing class FHISurveysHelpers {
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug(LoggingLevel.INFO, 'Checking for metric name: ' + key);
             if (totalNewData == null) {
-                totalNewData = createNewMetric(key, currentDate, subcountyId);
+                totalNewData = createNewMetric(key, currentDate, subcountyId, String.valueOf(district[0].Id));
             }
             system.debug(LoggingLevel.INFO, 'Actual Value ' + totalNewData.Actual_Value__c);
             // Update the metric based on the key
@@ -652,6 +661,7 @@ public with sharing class FHISurveysHelpers {
         Set<String> cropsSelection = ProcessSubmissionHelpers.getAnswerSet(answers.get('cc_crops_0'));
         growsFruitTrees = checkIfHasFruitTrees(cropsSelection);
 
+        District__c[] district = [SELECT Id, Name FROM District__c WHERE Name = :districtName];
         Subcounty__c[] subcounty = [
             SELECT
                 Id
@@ -661,10 +671,10 @@ public with sharing class FHISurveysHelpers {
                 Display_Name__c = :subcountyName
             LIMIT 1
         ];
-        if(subcounty.isEmpty()){
-            return new String[]{ '0', 'The subcounty provided is not in salesforce', 'SUPRESSMSG' };
+        if(district.isEmpty()){
+            return new String[]{ '0', 'The district provided is not in salesforce', 'SUPRESSMSG' };
         }
-        String subcountyId = subcounty[0].Id;
+        String subcountyId = subcounty.isEmpty() ? '' : subcounty[0].Id;
         system.debug(LoggingLevel.INFO, 'subcounty id ' + subcountyId);
         
         // Load the metrics for the month that the submission is for
@@ -692,7 +702,7 @@ public with sharing class FHISurveysHelpers {
                 M_E_Metric_Data__c
             WHERE
                 (
-                    Subcounty__c = :subcountyId
+                    District__c = :district[0].Id
                 )
                 AND Date__c >= :currentDate
                 AND M_E_Metric__r.Name IN (
@@ -716,7 +726,7 @@ public with sharing class FHISurveysHelpers {
             // Check that the three metrics for each metric name exists
             M_E_Metric_Data__c totalNewData = dataMap.get(key);
             system.debug(LoggingLevel.INFO, 'Checking for metric name: ' + key);
-            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId) : totalNewData;
+            totalNewData = totalNewData == null ? createNewMetric(key, currentDate, subcountyId, String.valueOf(district[0].Id)) : totalNewData;
             // Update the metric based on the key
             if (key.equals('FHI_HH_number_households_registered_x')) {
                 totalNewData.Denumerator__c += isConsentGiven ? 1 : 0;
@@ -1115,7 +1125,7 @@ public with sharing class FHISurveysHelpers {
      *
      *  @return - The newly created M_E_Metric_Data object
      */
-    private static M_E_Metric_Data__c createNewMetric(String key, Date startDate, String subcountyId) {
+    private static M_E_Metric_Data__c createNewMetric(String key, Date startDate, String subcountyId, String districtId) {
 
         system.debug('Key ' + key);
         M_E_Metric__c metric = metricMap.get(key);
@@ -1129,8 +1139,10 @@ public with sharing class FHISurveysHelpers {
         }
 
         M_E_Metric_Data__c mData = new M_E_Metric_Data__c();
-        mData.Subcounty__c = subcountyId;
-
+        if(subcountyId != ''){
+            mData.Subcounty__c = subcountyId;
+        }
+        mData.District__c = Id.valueOf(districtId);
         mData.Numerator__c = 0.0;
         mData.Denumerator__c = 0.0;
         mData.Manual_Value__c = 0.0;
@@ -1871,8 +1883,8 @@ public with sharing class FHISurveysHelpers {
         answers.put('num_females_0', Utils.createTestSubmissionAnswer(null, 'num_females', '21', null, null, null));
 
         returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
-        System.assert(returnValues.get(0).equals('0'));
-        System.assert(returnValues.get(1).contains('The subcounty provided is not in salesforce'));
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('All metric data updated for FHI Dashboard'));
         
         answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'Test tc', null, null, null));
         returnValues = FHISurveysHelpers.processGroupRegistration(submission, answers, testPerson, survey.Survey_Name__c);
@@ -2007,9 +2019,12 @@ public with sharing class FHISurveysHelpers {
         testDistrict.Name = 'Pader';
         testDistrict.Region__c = 'North';
         District__c testDistrict1 = new District__c();
-        testDistrict1.Name = 'Kamwenge';
+        testDistrict1.Name = 'Kabale';
         testDistrict1.Region__c = 'South';
-        insert new List<District__c>{ testDistrict, testDistrict1 };
+        District__c testDistrict2 = new District__c();
+        testDistrict2.Name = 'Agago';
+        testDistrict2.Region__c = 'North';
+        insert new List<District__c>{ testDistrict, testDistrict1, testDistrict2 };
         
         Subcounty__c testSubcounty = new Subcounty__c();
         testSubcounty.Display_Name__c = 'Ruhija';
@@ -2017,7 +2032,7 @@ public with sharing class FHISurveysHelpers {
         Subcounty__c testSubcounty2 = new Subcounty__c();
         testSubcounty2.Display_Name__c = 'Awere';
         testSubcounty2.District__c = [select Id from District__c where Name = :testDistrict.Name].get(0).Id;
-        insert new List<Subcounty__c> { testSubcounty, testSubcounty2 } ;
+        insert new List<Subcounty__c> { testSubcounty, testSubcounty2 };
 
         Phone__c testHandset = new Phone__c();
         testHandset.IMEI__c = '123456789101112';
@@ -2086,7 +2101,7 @@ public with sharing class FHISurveysHelpers {
         //put answers into our submission
         answers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', 'VH09789', null, null, null));
         answers.put('regdate_0', Utils.createTestSubmissionAnswer(null, 'regdate', '2014-06-16', null, null, null));
-        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', '1', null, null, null));
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', 'unknown', null, null, null));
         answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'unknown', null, null, null));
         answers.put('consent_0', Utils.createTestSubmissionAnswer(null, 'consent', '1', null, null, null));
         answers.put('sexhhh_0', Utils.createTestSubmissionAnswer(null, 'sexhhh', '2', null, null, null));
@@ -2100,9 +2115,9 @@ public with sharing class FHISurveysHelpers {
         
         returnValues = FHISurveysHelpers.processHouseholdRegistration(submission, answers, testPerson, survey.Survey_Name__c);
         System.assert(returnValues.get(0).equals('0'));
-        System.assert(returnValues.get(1).contains('The subcounty provided is not in salesforce'));
+        System.assert(returnValues.get(1).contains('The district provided is not in salesforce'));
         
-        answers.put('subcounty_0', Utils.createTestSubmissionAnswer(null, 'subcounty', 'Ruhija', null, null, null));
+        answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', '1', null, null, null));
         
         returnValues = FHISurveysHelpers.processHouseholdRegistration(submission, answers, testPerson, survey.Survey_Name__c);
         System.assert(returnValues.get(0).equals('1'));
