@@ -11,6 +11,7 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     static final String BASEKEYWORD = 'Market_Prices';
     static final String CATEGORY = 'Market_Information';
     static final String MENU_NAME = 'CKW Search';
+    static final String SECONDARY_MENU_NAME = 'CKW Search';
     private Datetime changeDate = datetime.now();
     private String url = '';
     global String notificationContent = '';
@@ -48,6 +49,11 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     global void execute(Database.BatchableContext info, List<MisLoadFitRss.Item> scope){
         List<ImportBackendServerKeywords.MenuItemAdapter> menuItemAdapters = generateItemAdapters(scope);
         boolean result = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, MENU_NAME);
+        notificationContent += '\n Batch processing = ' + scope.size() 
+                            + '. ItemAdapters = ' + menuItemAdapters.size() 
+                            + '. Returned=>' + result;
+
+        boolean result2 = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, SECONDARY_MENU_NAME);
         notificationContent += '\n Batch processing = ' + scope.size() 
                             + '. ItemAdapters = ' + menuItemAdapters.size() 
                             + '. Returned=>' + result;
