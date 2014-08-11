@@ -11,7 +11,7 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     static final String BASEKEYWORD = 'Market_Prices';
     static final String CATEGORY = 'Market_Information';
     static final String MENU_NAME = 'CKW Search';
-    static final String SECONDARY_MENU_NAME = 'CKW Search';
+    static final String SECONDARY_MENU_NAME = 'CKW Test';
     private Datetime changeDate = datetime.now();
     private String url = '';
     global String notificationContent = '';
