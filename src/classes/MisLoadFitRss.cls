@@ -65,7 +65,7 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     global void finish(Database.BatchableContext info){
         notificationContent += '\n Processing completed successfully';
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        mail.setToAddresses(new String[] {'jluyima@grameenfoundation.org'});
+        mail.setToAddresses(new String[] {'uganda_tech@grameenfoundation.org'});
         mail.setReplyTo('noreply@applab.org');
         mail.setSenderDisplayName('Batch Process');
         mail.setSubject('Batch Process Load FIT Prices');
