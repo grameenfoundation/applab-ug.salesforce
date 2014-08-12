@@ -42,11 +42,11 @@
                             <apex:actionSupport action="{!onDistrictChanged}" rerender="TheForm" event="onchange"/>
                         </apex:selectList>
                     </td>
-                    <td>
+                    <td><!--
                          <strong>Subcounty: </strong>
                          <apex:selectList value="{!subcounty.Id}" multiselect="false" size="1" id="subcountiesListbox">
                             <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
-                        </apex:selectList>                  
+                        </apex:selectList>-->
                     </td>
                     <td>
                         <strong>Date Range: </strong><apex:inputField id="fromdate" value="{!dummyObject.Start_Date__c}"></apex:inputField>
