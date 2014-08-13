@@ -23,12 +23,12 @@
                     {!metricData.target}
                 </apex:outputText>
             </apex:column>
-            <apex:column headervalue="Approved" rendered="{!thisSection.Show_Break_Down__c}" width="70px">
+            <apex:column headervalue="Actual" rendered="{!thisSection.Show_Break_Down__c}" width="70px">
                 <apex:outputText rendered="{!NOT(metricData.isHeader)}">
                     {!metricData.subArea}
                 </apex:outputText>              
             </apex:column>
-            <apex:column width="70px" headerValue="Actual">
+            <apex:column width="70px" headerValue="Approved">
                 <apex:outputPanel rendered="{!NOT(metricData.isHeader)}">
                     <div style="width:100%;height:100%;background-color:{!metricData.colour}">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
