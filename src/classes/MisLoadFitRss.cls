@@ -48,13 +48,13 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     */
     global void execute(Database.BatchableContext info, List<MisLoadFitRss.Item> scope){
         List<ImportBackendServerKeywords.MenuItemAdapter> menuItemAdapters = generateItemAdapters(scope);
-        boolean result2 = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, SECONDARY_MENU_NAME);
+        boolean result2 = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, MENU_NAME);
         notificationContent += '\n Batch processing = ' + scope.size() 
                             + '. ItemAdapters = ' + menuItemAdapters.size() 
                             + '. Returned=>' + result2;
 
         menuItemAdapters = generateItemAdapters(scope);                    
-        boolean result = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, MENU_NAME);
+        boolean result = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, SECONDARY_MENU_NAME);
         notificationContent += '\n Batch processing = ' + scope.size() 
                             + '. ItemAdapters = ' + menuItemAdapters.size() 
                             + '. Returned=>' + result;
