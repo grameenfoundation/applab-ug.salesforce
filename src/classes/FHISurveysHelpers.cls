@@ -791,10 +791,10 @@ public with sharing class FHISurveysHelpers {
         Date visitDate = Date.valueOf(answers.get('date_0').Answer__c);
         String district_str = '';
         if(isCCO) {
-            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateMonitoringSouthDistricts(answers.get('district_0').Answer__c);
+            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateCcoMonitoringSouthDistricts(answers.get('district_0').Answer__c);
         }
         else {
-            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateMonitoringSouthDistricts(answers.get('district_0').Answer__c);
+            district_str = isNorth ? translateCkwMonitoringNorthDistricts(answers.get('district_0').Answer__c) : translateCkwMonitoringSouthDistricts(answers.get('district_0').Answer__c);
         }
         String encounter = answers.get('encounter_0').Answer__c;
         District__c[] district = [
@@ -1084,7 +1084,27 @@ public with sharing class FHISurveysHelpers {
      *
      *  @return - District name
      */
-    private static String translateMonitoringSouthDistricts(String districtValue) {
+    private static String translateCkwMonitoringSouthDistricts(String districtValue) {
+
+        Map<String, String> translationMap = new Map<String, String> {
+            '1' => 'Ibanda',
+            '3' => 'Kisoro',
+            '4' => 'kasese',
+            '5' => 'Kanungu',
+            '6' => 'Kamwenge',
+            '7' => 'Kabale'
+        };
+        return translationMap.get(districtValue);
+    }
+
+    /**
+     *  Find out which district was selected based on the binding
+     *
+     *  @param districtValue - A map containing the values for the district
+     *
+     *  @return - District name
+     */
+    private static String translateCcoMonitoringSouthDistricts(String districtValue) {
 
         Map<String, String> translationMap = new Map<String, String> {
             '1' => 'Ibanda',
