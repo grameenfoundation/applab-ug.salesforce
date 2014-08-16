@@ -571,13 +571,13 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('EW_HARVEST_REG')) {
                 return ProcessEwarehouseSurveys.processEwarehouseHarvestSurvey(surveySubmission, answers, interviewer);
             }
-			else if (survey.Post_Processing_Method__c.equals('EW_SALE_REG')) {
+            else if (survey.Post_Processing_Method__c.equals('EW_SALE_REG')) {
                 return ProcessEwarehouseSurveys.processSaleRegistration(answers);
             }
-			else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
+            else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
                 return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
             }
-			else if (survey.Post_Processing_Method__c.equals('EADD_HUB')) {
+            else if (survey.Post_Processing_Method__c.equals('EADD_HUB')) {
                 return ProcessEADDSurveys.processEADDHubRegistration(surveySubmission, answers, interviewer);
             }
             else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
@@ -612,6 +612,9 @@ global class ProcessSurveySubmission {
              else if(survey.Post_Processing_Method__c.equals('GCCE_FARMER_GROUP_ASSESSMENT'))
             {
                 return GumutindoHelpers.processGroupFarmerMemberAssessmentSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('AGROWAYS_FARMER_REG')) {
+                return ProcessAgrowaysSurveys.processAgrowaysFarmerRegistration(surveySubmission, answers, interviewer);
             }
         }
         catch (Exception e) {
