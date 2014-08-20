@@ -42,7 +42,6 @@ public class ProcessAgrowaysSurveys {
         person.Father_Name__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
         person.Gender__c = genderMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0')));
         person.District__c = [Select Id from District__c where Name =:districtMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0'))) limit 1].Id;
-        person.Subcounty__c = [Select Id from Subcounty__c where Display_Name__c =:ProcessSubmissionHelpers.getAnswerString(answers.get('q6_0')) limit 1].Id;
         person.Village__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q7_0')); 
         insert person;
 
