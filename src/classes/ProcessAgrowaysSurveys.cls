@@ -25,7 +25,7 @@ public class ProcessAgrowaysSurveys {
         if (!farmers.isEmpty()) {
             return new String[] {'0', 'The Farmer Id is already in use by another', 'SUPPRESSMSG'};
         }
-        Account account = [Select Id from Account where Name = 'Agroways' limit 1];
+        Account account = [Select Id from Account where Name = 'AgroWays USAID CARANA' limit 1];
 
         String name = ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')).replaceAll('\\s+',' ');System.debug(name);
         String[] fullName = name.split(' ');

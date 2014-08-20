@@ -4,7 +4,7 @@ public class TestProcessAgrowaysSurveys {
     @isTest static void TestProcessAgrowaysFarmerRegistration() {
         Account testAccount = new Account();
         testAccount.BillingState = 'CA';
-        testAccount.Name = 'Agroways'; 
+        testAccount.Name = 'AgroWays USAID CARANA'; 
         database.SaveResult accountSaveResult = database.insert(testAccount);
         
         Country__c country = Utils.createTestCountry('Uganda');
