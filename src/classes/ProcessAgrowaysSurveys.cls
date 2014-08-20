@@ -74,6 +74,7 @@ public class ProcessAgrowaysSurveys {
                     Decimal.valueOf(ppiObject.Question_10__c);
         // Create the Farmer object
         Farmer__c farmer = new Farmer__c(Person__c = person.Id);
+        farmer.Registered_Date__c = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime).date();
         farmer.Household_Status__c = householdStatusMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0')));
         farmer.Land_Size__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q10_0'), 'q10', 0);
         Set<String> crops = ProcessSubmissionHelpers.getAnswerSet(answers.get('q11_0'));
@@ -257,6 +258,7 @@ public class ProcessAgrowaysSurveys {
             } 
         }
         farmerGroup.Services_Provided_to_Farmers__c = serviceString;
+        farmerGroup.Date__c = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime).date();
         insert farmerGroup;
         return new String[]{ '1', 'Agroways Farmer Group Registration successful for IMEI: ' + submission.imei, 'SUPRESSMSG' };
     }
