@@ -26,8 +26,9 @@ public class ProcessAgrowaysSurveys {
             return new String[] {'0', 'The Farmer Id is already in use by another', 'SUPPRESSMSG'};
         }
         Account account = [Select Id from Account where Name = 'AgroWays USAID CARANA' limit 1];
+        
 
-        String name = ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')).replaceAll('\\s+',' ');System.debug(name);
+        String name = ProcessSubmissionHelpers.getAnswerString(answers.get('q2_0')).replaceAll('\\s+',' ');
         String[] fullName = name.split(' ');
         String firstName = fullName[0];
         String lastName = fullName[1];
@@ -38,6 +39,10 @@ public class ProcessAgrowaysSurveys {
 
         // Create the Person object
         Person__c person = new Person__c(First_Name__c=firstName, Last_Name__c = lastName);
+        if (!Test.isRunningTest()) {
+            User agrowaysUser = [Select Id from User where Username ='agroways@applab.org'];
+            person.OwnerId = agrowaysUser.Id;
+        }
         person.Raw_Mobile_Number__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0'));
         person.Father_Name__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
         person.Gender__c = genderMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0')));
@@ -74,6 +79,7 @@ public class ProcessAgrowaysSurveys {
         // Create the Farmer object
         Farmer__c farmer = new Farmer__c(Person__c = person.Id);
         farmer.Registered_Date__c = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime).date();
+        farmer.Name = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0'));
         farmer.Household_Status__c = householdStatusMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0')));
         farmer.Land_Size__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q10_0'), 'q10', 0);
         Set<String> crops = ProcessSubmissionHelpers.getAnswerSet(answers.get('q11_0'));
