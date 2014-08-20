@@ -227,4 +227,106 @@ public class ProcessAgrowaysSurveys {
         '1' => 9,
         '2' => 0
     };
+
+    public static List<String> processFarmerGroupRegistration(ProcessSurveySubmission.SurveySubmission submission,
+        Map<String, Submission_Answer__c> answers, Person__c interviewer) {
+
+        Agroways_Farmer_Group__c farmerGroup = new Agroways_Farmer_Group__c();
+        farmerGroup.District__c = [Select Id from District__c where Name=:farmerGroupDistrictMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0'))) limit 1].Id;
+        farmerGroup.VAC__c = interviewer.Id;
+        farmerGroup.Farmer_Group_Registered__c = ProcessSubmissionHelpers.checkIfYes(ProcessSubmissionHelpers.getAnswerString(answers.get('q12_0')));
+        if (farmerGroup.Farmer_Group_Registered__c) {
+            farmerGroup.Registration_Level__c = registrationLevelMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q13_0')));
+        }
+        farmerGroup.Group_Name__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0'));
+        farmerGroup.Group_Type__c = groupTypeMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q17_0')));
+        farmerGroup.Interviewee_Name__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0'));
+        farmerGroup.Interviewee_Position_in_Farmer_Group__c = positionMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q10_0')));
+        farmerGroup.Major_Activity__c = majorActivityMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q19_0')));
+        farmerGroup.Number_of_Members__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q15_0'), 'q15', 1);
+        farmerGroup.Works_with_other_groups__c = ProcessSubmissionHelpers.checkIfYes(ProcessSubmissionHelpers.getAnswerString(answers.get('q23_0')));
+        farmerGroup.Year_Formed__c = ProcessSubmissionHelpers.getAnswerNumber(answers.get('q14_0'), 'q14', 2000);
+        Set<String> groupServices = ProcessSubmissionHelpers.getAnswerSet(answers.get('q21_0'));
+        String serviceString = '';
+        for (String service : groupServices) {
+            if (String.isEmpty(serviceString)) {
+               serviceString = servicesMap.get(service);
+            }
+            else {
+                serviceString = servicesMap.get(service) + ';' + serviceString;
+            } 
+        }
+        farmerGroup.Services_Provided_to_Farmers__c = serviceString;
+        insert farmerGroup;
+        return new String[]{ '1', 'Agroways Farmer Group Registration successful for IMEI: ' + submission.imei, 'SUPRESSMSG' };
+    }
+
+    // A map to contain the districts in the survey
+    private static Map<String, String> farmerGroupDistrictMap = new Map<String, String> {
+        '1' => 'Mayuge',
+        '2' => 'Kamuli',
+        '3' => 'Buyende',
+        '4' => 'Luuka',
+        '5' => 'Kaliro',
+        '6' => 'Jinja'
+    };
+
+    // A map with group type info
+    private static Map<String, String> groupTypeMap = new Map<String, String> {
+        '1' => 'Community Based Organisation',
+        '2' => 'Farmer Cooperative',
+        '3' => 'Farmer Society',
+        '4' => 'Farmer Club/Group',
+        '5' => 'Women Group',
+        '6' => 'Youth Club',
+        '7' => 'Faith-based Organisation',
+        '8' => 'SACCO',
+        '9' => 'Welfare/Funeral Club',
+        '10' => 'Other'
+    };
+
+    // A map with position info
+    private static Map<String, String> positionMap = new Map<String, String> {
+        '1' => 'Chairman',
+        '2' => 'Secretary',
+        '3' => 'Treasurer',
+        '4' => 'Publicity',
+        '5' => 'Other'
+    };
+
+    // A map of major farmer group activities
+    private static Map<String, String> majorActivityMap = new Map<String, String> {
+        '1' => 'Saving',
+        '2' => 'Access to farming information',
+        '3' => 'Labour',
+        '4' => 'Joint gardening',
+        '5' => 'Farming credit/loans',
+        '6' => 'Access to agro inputs',
+        '7' => 'Marketing of produce',
+        '8' => 'Social support',
+        '9' => 'Storage',
+        '10' => 'Other'
+    };
+
+    // A map of registration level info
+    private static Map<String, String> registrationLevelMap = new Map<String, String> {
+        '1' => 'International',
+        '2' => 'National',
+        '3' => 'District',
+        '4' => 'Subcounty',
+        '5' => 'Parish',
+        '6' => 'Village',
+        '7' => 'Other'
+    };
+
+    // A map of services provided by the farmer group
+    private static Map<String, String> servicesMap = new Map<String, String> {
+        '1' => 'Trainings on good agriculture practices',
+        '2' => 'Access to market information',
+        '3' => 'Access to quality inputs',
+        '4' => 'Access to credit/loans',
+        '5' => 'Labour',
+        '6' => 'Group Marketing',
+        '7' => 'Other'
+    };
 }

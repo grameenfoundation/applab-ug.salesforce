@@ -616,6 +616,9 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('AGROWAYS_FARMER_REG')) {
                 return ProcessAgrowaysSurveys.processAgrowaysFarmerRegistration(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('AGROWAYS_GROUP_REG')) {
+                return ProcessAgrowaysSurveys.processFarmerGroupRegistration(surveySubmission, answers, interviewer);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');
