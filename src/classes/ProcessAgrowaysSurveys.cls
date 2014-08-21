@@ -42,12 +42,15 @@ public class ProcessAgrowaysSurveys {
         if (!Test.isRunningTest()) {
             User agrowaysUser = [Select Id from User where Username ='agroways@applab.org'];
             person.OwnerId = agrowaysUser.Id;
+            contact.OwnerId = agrowaysUser.Id;
+            update contact;
         }
         person.Raw_Mobile_Number__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q3_0'));
         person.Father_Name__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q4_0'));
         person.Gender__c = genderMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q8_0')));
         person.District__c = [Select Id from District__c where Name =:districtMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q5_0'))) limit 1].Id;
-        person.Village__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q7_0')); 
+        person.Village__c = ProcessSubmissionHelpers.getAnswerString(answers.get('q7_0'));
+        person.Type__c = 'Agroways Farmer';
         insert person;
 
         // Create the PPI object
