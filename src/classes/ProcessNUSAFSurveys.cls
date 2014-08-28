@@ -77,7 +77,7 @@ public with sharing class ProcessNUSAFSurveys {
             Integer projects_count = 0;
             List<String> repeats = ProcessSubmissionHelpers.getSingleSelectAnswersByMatchingBindings('q9_', answers);
             projects_count = repeats.size() == 0 ? 1 : repeats.size();
-            List<IG_Subproject_Target__c> targetsToSave = new List<IG_Subproject_Target__c>();
+            Map<Id, IG_Subproject_Target__c> targetsToSave = new Map<Id, IG_Subproject_Target__c>();
             List<String[]> processingResponses = new List<String[]>();
             for(Integer i = 0; i < projects_count; i++){
                 District__c district;
@@ -247,7 +247,7 @@ public with sharing class ProcessNUSAFSurveys {
 	                Boolean completed = ProcessSubmissionHelpers.getAnswerString(answers.get('completed_0')).equals('1');
 	                target.DateMobilization__c = dateOfVisit;
 	                target.LocationMobilization__c = gps;
-	                targetsToSave.add(target);
+	                targetsToSave.put(target.Id, target);
 	                if(completed){
 	                    processingResponses.add(new String[]{ '1', 'IG/NUSAF enrollment submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' });  
 	                }
@@ -290,12 +290,12 @@ public with sharing class ProcessNUSAFSurveys {
 	                if(project_status != null && project_status.equals('completed')){
 	                    target.Monitoring_Concluded__c = true;
 	                }
-	                targetsToSave.add(target);
+	                targetsToSave.put(target.Id, target);
 	                processingResponses.add(new String[]{ '1', 'IG/NUSAF SACM submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' });
 	            }
             }
             //we reach this point if processing is successful and there are records to update
-            update targetsToSave;
+            update targetsToSave.values();
             String combinedResponse = '';
             for(String[] response : processingResponses){
                 System.debug(response);
