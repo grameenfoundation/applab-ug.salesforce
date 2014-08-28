@@ -43,8 +43,8 @@ private class IGDashboardTests {
         insert testDistrict;
 
         Organisation_District_Association__c o = new Organisation_District_Association__c();
-        o.Organisation__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
-        o.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        o.Organisation__c = testOrg.Id;
+        o.District__c = testDistrict.Id;
         insert o;
 
         IG_Region_District_Association__c rda = new IG_Region_District_Association__c();
@@ -59,7 +59,7 @@ private class IGDashboardTests {
         //test subcounty listbox
         Subcounty__c testSubcounty = new Subcounty__c();
         testSubcounty.Display_Name__c = 'TestLukaya-TC';
-        testSubcounty.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        testSubcounty.District__c = testDistrict.Id;
         insert testSubcounty;      
 
         List<SelectOption> subs = controller.getSubcountiesList();
@@ -77,9 +77,8 @@ private class IGDashboardTests {
         testPerson.First_Name__c = 'David';
         testPerson.Last_Name__c = 'Mugume' ;
         testPerson.Gender__c = 'Male';
-        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
-        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
-        testPerson.Handset__c = phone.Id;
+        testPerson.District__c = testDistrict.Id;
+        testPerson.Handset__c = testHandset.Id;
         testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
         insert testPerson;
 
@@ -128,8 +127,8 @@ private class IGDashboardTests {
         v.DatePreliminaryTrainingDay3__c= Date.today(); 
         v.Phone_Display_Item_Position__c= 2;
         v.Name = 'Some project name';
-        v.Person__c = ([select Id from Person__c where First_Name__c = :testPerson.First_Name__c])[0].Id;
-        v.Subcounty__c = ((Subcounty__c)[select Id from Subcounty__c where Display_Name__c = :testSubcounty.Display_Name__c]).Id;
+        v.Person__c = testPerson.Id;
+        v.Subcounty__c = testSubcounty.Id;
         v.IG_Region__c = region.Id;
         insert v;
         
@@ -257,8 +256,8 @@ private class IGDashboardTests {
         insert testDistrict;
 
         Organisation_District_Association__c o = new Organisation_District_Association__c();
-        o.Organisation__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
-        o.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        o.Organisation__c = testOrg.Id;
+        o.District__c = testDistrict.Id;
         insert o;
 
         IG_Region_District_Association__c rda = new IG_Region_District_Association__c();
@@ -269,7 +268,7 @@ private class IGDashboardTests {
         //test subcounty listbox
         Subcounty__c testSubcounty = new Subcounty__c();
         testSubcounty.Display_Name__c = 'TestLukaya-TC';
-        testSubcounty.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        testSubcounty.District__c = testDistrict.Id;
         insert testSubcounty;      
         
         //test CBT listbox
@@ -283,15 +282,14 @@ private class IGDashboardTests {
         testPerson.First_Name__c = 'David';
         testPerson.Last_Name__c = 'Mugume' ;
         testPerson.Gender__c = 'Male';
-        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
-        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
-        testPerson.Handset__c = phone.Id;
+        testPerson.District__c = testDistrict.Id;
+        testPerson.Handset__c = testHandset.Id;
         testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
         insert testPerson;
 
         //test metrics
         Survey__c survey = new Survey__c();
-        survey.Account__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
+        survey.Account__c = testOrg.Id;
         survey.Post_Processing_Method__c = 'IG_CBT_VISITS';
         survey.Survey_Name__c = 'SACM acholi';
         survey.Survey_Status__c = 'Published';
@@ -300,7 +298,7 @@ private class IGDashboardTests {
         insert survey;
 
         IG_Subproject_Target__c v = new IG_Subproject_Target__c();
-        v.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        v.District__c = testDistrict.Id;
         v.LocationMobilization__c = '0.32332 34.445566';
         v.LocationPreliminaryTrainingDay1__c = '0.32332 34.445566';
         v.LocationPreliminaryTrainingDay2__c = '0.32332 34.445566';
@@ -317,16 +315,13 @@ private class IGDashboardTests {
         v.DatePreliminaryTrainingDay3__c= Date.today(); 
         v.Phone_Display_Item_Position__c= 2;
         v.Name = 'Some project name';
-        v.Person__c = ([select Id from Person__c where First_Name__c = :testPerson.First_Name__c])[0].Id;
-        v.Subcounty__c = ((Subcounty__c)[select Id from Subcounty__c where Display_Name__c = :testSubcounty.Display_Name__c]).Id;
+        v.Person__c = testPerson.Id;
+        v.Subcounty__c = testSubcounty.Id;
         v.IG_Region__c = region.Id;
         insert v;
-        
+                
         //test processNUSAFSurveys class.
         //SACM submission
-        region.Name = 'acholi';
-        update region;
-
         List<IG_Region__c> other_regions = new List<IG_Region__c>();
         IG_Region__c region1 = new IG_Region__c();
         region1.Name = 'bukedi';
@@ -357,7 +352,7 @@ private class IGDashboardTests {
         ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
         submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
         submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
-        submission.imei = '123456789101112';
+        submission.imei = testHandset.IMEI__c;
         submission.resultHash = '1';
         submission.surveyId = [select Id, Name from Survey__c where Id = :survey.Id].Name;
             
@@ -447,9 +442,27 @@ private class IGDashboardTests {
         v.IG_Region__c = region11111.Id;
         update v;
         answers.put('meeting_type_0', Utils.createTestSubmissionAnswer(null, 'meeting_type', 'followup_visit_2', null, null, null));
+        //add repeat
+        answers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', 'null', null, null, null));
+        answers.put('q9_1', Utils.createTestSubmissionAnswer(null, 'q9', 'null', null, null, null));
+        answers.put('district_1', Utils.createTestSubmissionAnswer(null, 'district', 'testmasaka', null, null, null));
+        answers.put('testmasaka_subs_1', Utils.createTestSubmissionAnswer(null, 'testmasaka_subs', 'testlukaya_tc', null, null, null));
+        answers.put('testlukaya_tc_subprojects_1', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '3', null, null, null));
+        
+        IG_Subproject_Target__c v2 = new IG_Subproject_Target__c();
+        v2.District__c = testDistrict.Id;
+        v2.Name = 'another project';
+        v2.Person__c = testPerson.Id;
+        v2.Subcounty__c = testSubcounty.Id;
+        v2.IG_Region__c = region11111.Id;
+        v2.Phone_Display_Item_Position__c = 3;
+        insert v2;
+
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('submission successful'));
+        //check that there are multiple success messages since we used a repeat
+        System.assert(returnValues.get(1).indexOfIgnoreCase('successful') != returnValues.get(1).lastIndexOfIgnoreCase('successful'));
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
         //too many soql query, split to new test method below
     }
@@ -477,8 +490,8 @@ private class IGDashboardTests {
         insert testDistrict;
 
         Organisation_District_Association__c o = new Organisation_District_Association__c();
-        o.Organisation__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
-        o.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        o.Organisation__c = testOrg.Id;
+        o.District__c = testDistrict.Id;
         insert o;
 
         IG_Region_District_Association__c rda = new IG_Region_District_Association__c();
@@ -489,7 +502,7 @@ private class IGDashboardTests {
         //test subcounty listbox
         Subcounty__c testSubcounty = new Subcounty__c();
         testSubcounty.Display_Name__c = 'TestLukaya';
-        testSubcounty.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        testSubcounty.District__c = testDistrict.Id;
         insert testSubcounty;      
         
         //test CBT listbox
@@ -503,15 +516,14 @@ private class IGDashboardTests {
         testPerson.First_Name__c = 'David';
         testPerson.Last_Name__c = 'Mugume' ;
         testPerson.Gender__c = 'Male';
-        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
-        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
-        testPerson.Handset__c = phone.Id;
+        testPerson.District__c = testDistrict.Id;
+        testPerson.Handset__c = testHandset.Id;
         testPerson.Type__c = IGDashboardHelpers.REGIONAL_MANAGER;
         insert testPerson;
 
         //test metrics
         Survey__c survey = new Survey__c();
-        survey.Account__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
+        survey.Account__c = testOrg.Id;
         survey.Post_Processing_Method__c = 'IG_CBT_VISITS';
         survey.Survey_Name__c = 'SACM west nile';
         survey.Survey_Status__c = 'Published';
@@ -520,7 +532,7 @@ private class IGDashboardTests {
         insert survey;
 
         IG_Subproject_Target__c v = new IG_Subproject_Target__c();
-        v.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        v.District__c = testDistrict.Id;
         v.LocationMobilization__c = '0.32332 34.445566';
         v.LocationPreliminaryTrainingDay1__c = '0.32332 34.445566';
         v.LocationPreliminaryTrainingDay2__c = '0.32332 34.445566';
@@ -539,7 +551,7 @@ private class IGDashboardTests {
         v.Name = 'Some project name';
         //not assigned but regional manager should update it
         //v.Person__c = ([select Id from Person__c where First_Name__c = :testPerson.First_Name__c])[0].Id;
-        v.Subcounty__c = ((Subcounty__c)[select Id from Subcounty__c where Display_Name__c = :testSubcounty.Display_Name__c]).Id;
+        v.Subcounty__c = testSubcounty.Id;
         v.IG_Region__c = region.Id;
         insert v;
         
@@ -614,8 +626,8 @@ private class IGDashboardTests {
         insert testDistrict;
 
         Organisation_District_Association__c o = new Organisation_District_Association__c();
-        o.Organisation__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
-        o.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        o.Organisation__c = testOrg.Id;
+        o.District__c = testDistrict.Id;
         insert o;
 
         IG_Region_District_Association__c rda = new IG_Region_District_Association__c();
@@ -626,7 +638,7 @@ private class IGDashboardTests {
         //test subcounty listbox
         Subcounty__c testSubcounty = new Subcounty__c();
         testSubcounty.Display_Name__c = 'TestLukaya-TC';
-        testSubcounty.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        testSubcounty.District__c = testDistrict.Id;
         insert testSubcounty;      
         
         //test CBT listbox
@@ -640,15 +652,14 @@ private class IGDashboardTests {
         testPerson.First_Name__c = 'David';
         testPerson.Last_Name__c = 'Mugume' ;
         testPerson.Gender__c = 'Male';
-        testPerson.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
-        Phone__c phone = ([select Id from Phone__c where IMEI__c = '123456789101112'])[0];
-        testPerson.Handset__c = phone.Id;
+        testPerson.District__c = testDistrict.Id;
+        testPerson.Handset__c = testHandset.Id;
         testPerson.Type__c = IGDashboardHelpers.IG_PERSON_TYPE_NAME;
         insert testPerson;
 
         //test metrics
         Survey__c survey = new Survey__c();
-        survey.Account__c = ([select Id from Account where Name = :testOrg.Name])[0].Id;
+        survey.Account__c = testOrg.Id;
         survey.Post_Processing_Method__c = 'IG_CBT_VISITS';
         survey.Survey_Name__c = 'SACM acholi';
         survey.Survey_Status__c = 'Published';
@@ -657,7 +668,7 @@ private class IGDashboardTests {
         insert survey;
 
         IG_Subproject_Target__c v = new IG_Subproject_Target__c();
-        v.District__c = ((District__c)[select Id from District__c where Name = :testDistrict.Name]).Id;
+        v.District__c = testDistrict.Id;
         v.LocationMobilization__c = '0.32332 34.445566';
         v.LocationPreliminaryTrainingDay1__c = '0.32332 34.445566';
         v.LocationPreliminaryTrainingDay2__c = '0.32332 34.445566';
@@ -674,8 +685,8 @@ private class IGDashboardTests {
         v.DatePreliminaryTrainingDay3__c= Date.today(); 
         v.Phone_Display_Item_Position__c= 2;
         v.Name = 'Some project name';
-        v.Person__c = ([select Id from Person__c where First_Name__c = :testPerson.First_Name__c])[0].Id;
-        v.Subcounty__c = ((Subcounty__c)[select Id from Subcounty__c where Display_Name__c = :testSubcounty.Display_Name__c]).Id;
+        v.Person__c = testPerson.Id;
+        v.Subcounty__c = testSubcounty.Id;
         v.IG_Region__c = region.Id;
         insert v;
         
