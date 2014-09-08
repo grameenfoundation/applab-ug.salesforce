@@ -2,70 +2,432 @@
  *  Controller to load the settings for the Gumutindo Dashboard
  */
 
-public with sharing class GumutindoDashboardController extends ParentComponentBase {
+public with sharing class GumutindoDashboardController {
 
-    private String dashboardName;
-    private List<Dashboard_Section__c> sections;
-    private Dashboard_Section__c section;
-    
+    private Dashboard_Section__c districtMapSection;
+    public List<District__c> gumutindoDistricts;
+    public List<Subcounty__c> gumutindoSubCounties;
+    private Boolean isEditMode = false;
+    private String isUpdateable = 'true';
+    private String orgName = 'null';
+    private Transient Map<String, M_E_Metric_Data__c> allMetricDatas;
+
+    private List<SelectOption> districtList;  
+    private List<SelectOption> subcountiesList;
+    private Transient Map<String, M_E_Metric__c> allMetrics;
+
+    //Maps list
+    private List<Map_Parameter__c> maps;
+
     public GumutindoDashboardController() {
-        //setDashboardName('a13b0000000lZem');
-        setDashboardName('Gumutindo Dashboard');
-        setSections(loadSections());
+      dummyObject = new Date_Picker__c();
+      district = new District__c();
+      subcounty = new Subcounty__c();
+      setUp(ApexPages.currentPage());
     }
 
-    public override void rebuildParameters() {
 
-        if (this.getParentMap() != null && this.getParentMap().get('DashboardSelectora13b0000000lZemAAE') != null) {
-            this.getParentMap().get('DashboardSelectora13b0000000lZemAAE').rebuildParameters();
-            this.setParameters(this.getParentMap().get('DashboardSelectora13b0000000lZemAAE').getParameters());
+    public District__c district { get; set; }
+    public Subcounty__c subcounty { get; set; }
+    public String dateFrom { get; set; }
+    public String dateTo { get; set; }
+    public String tabName { get; set; }
+    public Date_Picker__c dummyObject { get; set; }
+
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public void setUp(PageReference pageRef){
+        //cache all metrics
+        //allMetrics = GumutindoHelpers.getMetricDataMap();
+        //set the organisation for this dashboard
+        setOrgName('GCCE');      
+        // Try to keep the tab we're on
+        String tabName = pageRef.getParameters().get('sfdc.tabName');
+        if(tabName != null) {
+            this.tabName = tabName;
         }
-    }
- 
-    public String getDashboardName() {
-        return this.dashboardName;
-    }
-    public void setDashboardName(String value) {
-        this.dashboardName = value;
+        if(pageRef.getParameters().get('subcounty') != null){
+          this.subcounty.Display_Name__c = pageRef.getParameters().get('subcounty');
+        }
+        if(pageRef.getParameters().get('district') != null){
+          this.district.Name = pageRef.getParameters().get('district');
+        }
+        if(pageRef.getParameters().get('dateFrom') != null){
+          this.dateFrom = pageRef.getParameters().get('dateFrom');
+        }
+        if(pageRef.getParameters().get('dateTo') != null){
+          this.dateTo = pageRef.getParameters().get('dateTo');
+        }
+        this.isEditMode = (pageRef.getParameters().get('editMode') == 'true');      
     }
 
-    public void setSection(Dashboard_Section__c section) {
-        this.section = section;
-    }
-    
-    public Dashboard_Section__c getSection() {
-        return this.section;
-    }
-    public List<Dashboard_Section__c> getSections() {
-        return this.sections;
-    }
-    public void setSections(List<Dashboard_Section__c> values) {
-        this.sections = values;
-    }
-    public List<Dashboard_Section__c> loadSections() {
 
-        List<Dashboard_Section__c> sectionsToLoad = [SELECT
-                Name,
-                Id,
-                Title__c,
-                Has_Graphs__c,
-                Has_Metrics__c,
-                Has_Maps__c,
-                Has_Selector__c,
-                Dashboard__r.Account__r.Name
-            FROM
-                Dashboard_Section__c
-            WHERE
-                Dashboard__r.Name = :dashboardName
-                AND Is_Active__c = true
-            ORDER BY
-                Display_Order__c];
-        return sectionsToLoad;
+    public Dashboard_Section__c getDistrictMapSection() {
+        Dashboard_Section__c dashboardsection = new Dashboard_Section__C();
+        dashboardsection.Display_Order__c=0;
+        dashboardsection.Has_Graphs__c=false;
+
+        dashboardsection.Has_Maps__c=true;
+        dashboardsection.Is_Active__c=true;
+        dashboardsection.Title__c='Gumutindo Districts Of Operation';
+        //dashboardsection.Dashboard__c = dashboardName;
+        
+
+        //Create map parameter for this section
+        Map_Parameter__C mapparameter = new Map_Parameter__C();
+        mapparameter.Keyword__c='Gumutindo Districts Of Operation';
+        mapparameter.Dashboard_Section__c=dashboardsection.Id;
+        mapparameter.Type_Of_sObject__c='Custom Class';
+        mapparameter.Map_Marker_Source_Class__c='GumutindoHelpers.GumutindoDistrictCoordinatesProvider';
+        mapparameter.Zoom__c=6;
+        mapparameter.Latitude__c='0.5167';
+        mapparameter.Longitude__c='32.5833';
+        mapparameter.Title__c='Gumutindo Districts Of Operation';
+
+        return dashboardsection;
     }
     
     
+    //private List<MetricDataWrapper> farmersReachedData;
+    public List<MetricDataWrapper> getFarmersReachedData(){
+        List<MetricDataWrapper> farmersReachedData = new List<MetricDataWrapper>();
+   
+        if(allMetrics == null){
+          allMetrics = GumutindoHelpers.getAllMetrics(); 
+        }
+        String[] metricsInthisSection = new String[] {GumutindoHelpers.TARGET_FARMERS_REACHED_IN_YEAR_1,
+                                        GumutindoHelpers.MALE_FARMERS_REGISTERED,
+                                        GumutindoHelpers.FEMALE_FARMERS_REGISTERED};    
+        List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
+        
+        M_E_Metric__c metricResult;
+        M_E_Metric_Data__c metricData;
+        
+        //get total farmers reached
+        //get the actual value
+        
+        //get the target
+        for(String sectionMetric : metricsInthisSection)
+        {
+            MetricDataWrapper metric = new MetricDataWrapper();
+            
+          metricResult = allMetrics.get(sectionMetric.toLowerCase());
+        System.debug('Metric result is '+metricResult);
+        metric.setCurrentTarget(metricResult.Projected_Value__c);
+        //metric.setMetricId(String.valueOf(metricResult.Id));
+        metric.setLabel(metricResult.Label__c);
+        //Get Data
+        metricData = GumutindoHelpers.getMetricData(sectionMetric.toLowerCase());
+        if(metricData.Comment__c != null)
+        {
+            metric.setLabel(metricData.Comment__c);    
+        }
+        metric.setMetricId(String.valueOf(metricData.Id));
+        metric.setCurrentTarget(metricData.Projected_Value__c);
+        metric.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        metrics.add(metric);    
+        }
+        
+        
+        
+        return metrics;
+    }
+
     
+    public List<MetricDataWrapper> getAdvisoryServicesData(){
+        
+   
+        if(allMetrics == null){
+          allMetrics = GumutindoHelpers.getAllMetrics(); 
+        }
+        String[] metricsInthisSection = new String[] {GumutindoHelpers.FARMERS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK,
+                                        GumutindoHelpers.FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES,
+                                        GumutindoHelpers.FARMERS_WHO_REPORT_SATISFACTION_WITH_PS_SERVICES,
+                                        GumutindoHelpers.FARMERS_SATISFIED_WITH_QUALITY_OF_EXTENSION_SERVICES};    
+        List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
+        
+        M_E_Metric__c metricResult;
+        M_E_Metric_Data__c metricData;
+        
+        //get total farmers reached
+        //get the actual value
+        
+        //get the target
+        for(String sectionMetric : metricsInthisSection)
+        {
+            MetricDataWrapper metric = new MetricDataWrapper();
+          metricResult = allMetrics.get(sectionMetric.toLowerCase());
+        System.debug('Metric result for '+sectionMetric+' is '+metricResult);
+        metric.setCurrentTarget(metricResult.Projected_Value__c);
+        //metric.setMetricId(String.valueOf(metricResult.Id));
+        metric.setLabel(metricResult.Label__c);
+        //Get Data
+        metricData = GumutindoHelpers.getMetricData(sectionMetric.toLowerCase());
+        if(metricData.Comment__c != null)
+        {
+            metric.setLabel(metricData.Comment__c);    
+        }
+        metric.setMetricId(String.valueOf(metricData.Id));
+        metric.setCurrentTarget(metricData.Projected_Value__c);
+        metric.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        metrics.add(metric);    
+        }
+        
+        
+        
+        return metrics;
+    }
+
+
+
+
+
+
+
+
+
+    public List<MetricDataWrapper> getGcceMetricsData(){
+        
+   
+        if(allMetrics == null){
+          allMetrics = GumutindoHelpers.getAllMetrics(); 
+        }
+        String[] metricsInthisSection = new String[] {GumutindoHelpers.FARMERS_PURCHASING_SEEDLINGS_THROUGH_GCCE,
+                                        GumutindoHelpers.FARMERS_PURCHASING_FERTILIZERS_THROUGH_GCCE,
+                                        GumutindoHelpers.FARMERS_WHO_DELIVER_50_PERCENT_OF_HI_QUAL_COFFEE,
+                                        GumutindoHelpers.FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS,
+                                        GumutindoHelpers.PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PROCURE_INPUTS,
+                                        GumutindoHelpers.PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PAY_FOR_INPUTS,
+                                        GumutindoHelpers.FARMERS_USING_ATLEAST_3_AGROC_PRACTICES,
+                                        GumutindoHelpers.FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES
+                                        };    
+        List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
+        
+        M_E_Metric__c metricResult;
+        M_E_Metric_Data__c metricData;
+        
+        //get total farmers reached
+        //get the actual value
+        
+        //get the target
+        for(String sectionMetric : metricsInthisSection)
+        {
+            MetricDataWrapper metric = new MetricDataWrapper();
+
+          metricResult = allMetrics.get(sectionMetric.toLowerCase());
+        System.debug('Metric result for '+sectionMetric+' is '+metricResult);
+        metric.setCurrentTarget(metricResult.Projected_Value__c);
+        //metric.setMetricId(String.valueOf(metricResult.Id));
+        metric.setLabel(metricResult.Label__c);
+        //Get Data
+        metricData = GumutindoHelpers.getMetricData(sectionMetric.toLowerCase());
+        if(metricData.Comment__c != null)
+        {
+            metric.setLabel(metricData.Comment__c);    
+        }
+        metric.setMetricId(String.valueOf(metricData.Id));
+        metric.setCurrentTarget(metricData.Projected_Value__c);
+        metric.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        metrics.add(metric);    
+        }
+        
+        
+        
+        return metrics;
+    }
+
+
+
+
+
+
+    public List<MetricDataWrapper> getVslaServicesData(){
+        
+   
+        if(allMetrics == null){
+          allMetrics = GumutindoHelpers.getAllMetrics(); 
+        }
+        String[] metricsInthisSection = new String[] {GumutindoHelpers.NUMBER_OF_REGISTERED_VSLAS, 
+                                        GumutindoHelpers.FARMERS_WHO_ACCESS_FINANCIAL_SERVICES_THROUGH_VSLAS,
+                                        GumutindoHelpers.FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS,
+                                        GumutindoHelpers.FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS,
+                                        GumutindoHelpers.FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS};    
+        List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
+        
+        M_E_Metric__c metricResult;
+        M_E_Metric_Data__c metricData;
+        
+        //get total farmers reached
+        //get the actual value
+        
+        //get the target
+        for(String sectionMetric : metricsInthisSection)
+        {
+            MetricDataWrapper metric = new MetricDataWrapper();
+          metricResult = allMetrics.get(sectionMetric.toLowerCase());
+        System.debug('Metric result for '+sectionMetric+' is '+metricResult);
+        metric.setCurrentTarget(metricResult.Projected_Value__c);
+        //metric.setMetricId(String.valueOf(metricResult.Id));
+        metric.setLabel(metricResult.Label__c);
+
+        //Get Data
+        metricData = GumutindoHelpers.getMetricData(sectionMetric.toLowerCase());
+        if(metricData.Comment__c != null)
+        {
+            metric.setLabel(metricData.Comment__c);    
+        }
+
+        metric.setMetricId(String.valueOf(metricData.Id));
+        metric.setCurrentTarget(metricData.Projected_Value__c);
+        metric.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        metrics.add(metric);    
+        }
+        
+        
+        
+        return metrics;
+    }
+
+
+    public List<GumutindoHelpers.FinancialServicesUsageData> getFinancialServicesChartData() {
+        Map<String, M_E_Metric_Data__c> metricDataMap = getAllMetricDatas();
+        List<GumutindoHelpers.FinancialServicesUsageData> data = new List<GumutindoHelpers.FinancialServicesUsageData>();
+        M_E_Metric_Data__c metricData = metricDataMap.get(GumutindoHelpers.FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS.toLowerCase());
+        data.add(new GumutindoHelpers.FinancialServicesUsageData('MicroInsurance', metricData.Manual_Value__c));
+
+        metricData = metricDataMap.get(GumutindoHelpers.FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS.toLowerCase());
+        data.add(new GumutindoHelpers.FinancialServicesUsageData('Savings', metricData.Manual_Value__c));
+
+        metricData = metricDataMap.get(GumutindoHelpers.FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS.toLowerCase());
+        data.add(new GumutindoHelpers.FinancialServicesUsageData('Loaning', metricData.Manual_Value__c));
+        
+        return data;
+    }
+
+
+
+    //Loads primary societies
+        public List<Gumutindo_Primary_Society__c> loadGumutindoPrimarySocieties() {
+         List<Gumutindo_Primary_Society__c> primarySocieties = database.query('SELECT '               +
+                'Id, '              +
+                'Name, Subcounty__r.Id, Subcounty__r.District__r.Id '             +
+            'FROM '                 +
+                'Gumutindo_Primary_Society__c '     +
+            'ORDER BY '             +
+                'Name');
+
+                List<String> districtIds = new List<String>();
+                List<String> subcountyIds = new List<String>();
+
+                for(Gumutindo_Primary_Society__c society : primarySocieties) {
+                    districtIds.add(society.Subcounty__r.District__r.Id);
+                    subcountyIds.add(society.Subcounty__r.Id);
+                }
+
+                
+                //select districts by Ids
+                gumutindoDistricts = database.query('SELECT Id, Name, Latitude__c, Longitude__c from District__c where Id in:'+districtIds);
+
+                gumutindoSubCounties = database.query('SELECT Id, Name, Latitude__c, Longitude__c from Subcounty__c where Id in:'+subcountyIds);
+
+                return primarySocieties;
+        } 
+
+
+
+     public void setDistrictList(List<SelectOption> option) {
+        this.districtList = option;
+    }
+    public List<SelectOption> getDistrictList() {
+        List<SelectOption> options = new List<SelectOption>();
+
+        District__c[] districts = database.query(SoqlHelpers.getDistricts(orgName));
+        options.add(new SelectOption('','-- In All Districts --'));
+
+        //Add all districts to list
+        for (District__c district : districts) {
+               options.add(new SelectOption(district.Name, district.Name));
+        } 
+        return options;
+    }
+
+
+
+    public void setSubcountiesList(List<SelectOption> option) {
+        this.districtList = option;
+    }
+    public List<SelectOption> getSubcountiesList() {
+        List<SelectOption> options = new List<SelectOption>();
+
+        Subcounty__c[] subcounties = database.query(GumutindoHelpers.getSubcounties());
+        options.add(new SelectOption('','-- In All Subcounties --'));
+
+        //Add all subcounties to list
+        for (Subcounty__c subcounty : subcounties) {
+           options.add(new SelectOption(subcounty.Display_Name__c, subcounty.Display_Name__c));
+        } 
+        return options;
+    }
     
+
+
+    // For the moment we always want to return true here as we are updating targets manually
+    public String getIsUpdateable() {
+        return this.isUpdateable;
+    }
+    public void setIsUpdateable(String value) {
+        this.isUpdateable = value;
+    }
+    
+    public Map<String, M_E_Metric_Data__c> getAllMetricDatas() {
+        if(allMetricDatas == null)
+        {
+            allMetricDatas = GumutindoHelpers.getMetricDataMap();
+        }
+        return allMetricDatas;
+    }
+
+
+    public String getIsEditMode() {
+        if(this.isEditMode) {
+            return 'true';
+        }
+        return 'false';
+    }  
+
+
+    public PageReference changeFilters() {    
+        PageReference resultPage = ApexPages.currentPage(); 
+        resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
+        resultPage.getParameters().put('district', district.Name);
+        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': 
+            Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd'));
+        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': 
+            Datetime.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd'));
+        resultPage.getParameters().put('sfdc.tabName', this.tabName);
+        resultPage.setRedirect(true);
+        return resultPage;
+    }
+
+
+    public List<Map_Parameter__c> getMaps()
+    {
+        List<Map_Parameter__c> mapList = new List<Map_Parameter__c>();
+        Map_Parameter__C mapparameter = new Map_Parameter__C();
+        mapparameter.Keyword__c='Location of Gumutindo CKWs';
+        mapparameter.Type_Of_sObject__c='Custom Class';
+        mapparameter.Map_Marker_Source_Class__c='GumutindoHelpers.GumutindoCkwCoordinatesProvider';
+        mapparameter.Zoom__c=6;
+        mapparameter.Latitude__c='0.5167';
+        mapparameter.Longitude__c='32.5833';
+        mapparameter.Title__c='Location of Gumutindo CKWs';
+
+        mapList.add(mapparameter);
+        return mapList;
+    }   
      
      
                  
