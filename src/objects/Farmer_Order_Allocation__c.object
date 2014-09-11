@@ -135,6 +135,45 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Order_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>CPA_Order_Allocation__r.Order_Code__c</formula>
+        <label>Order Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Presentacion__c</fullName>
+        <externalId>false</externalId>
+        <formula>CPA_Order_Allocation__r.Presentacion__c</formula>
+        <label>Presentación</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Provider__c</fullName>
+        <description>Shows whether an order was assigned to a provider or not.</description>
+        <externalId>false</externalId>
+        <label>Provider</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
     <label>Farmer Order Allocation</label>
     <listViews>
         <fullName>All</fullName>
