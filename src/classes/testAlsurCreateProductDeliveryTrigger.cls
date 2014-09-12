@@ -9,12 +9,18 @@ private class testAlsurCreateProductDeliveryTrigger
 		association.Name = 'Alsur';
 		insert association;
 
+		Contact contact = new Contact();
+		contact.LastName = 'testAlsurCreateProductDeliveryTrigger';
+		contact.FirstName = 'Contact';
+		insert contact;
+
 		Alsur_Farmer__c farmer = new Alsur_Farmer__c();
 		farmer.Association__c = association.Id;
 		insert farmer;
 
 		CPA_Order__c order = new CPA_Order__c();
 		order.Number_of_Units_of_Presentation__c = 10;
+		order.Contact__c = contact.Id;
 		insert order;
 
 		CPA_Order_Allocation__c allocation = new CPA_Order_Allocation__c();
