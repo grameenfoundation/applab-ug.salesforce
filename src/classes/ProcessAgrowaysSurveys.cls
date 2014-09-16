@@ -320,12 +320,12 @@ public class ProcessAgrowaysSurveys {
 
     // A map of registration level info
     private static Map<String, String> registrationLevelMap = new Map<String, String> {
-        '1' => 'International',
-        '2' => 'National',
-        '3' => 'District',
-        '4' => 'Subcounty',
-        '5' => 'Parish',
-        '6' => 'Village',
+        '6' => 'International',
+        '5' => 'National',
+        '1' => 'District',
+        '2' => 'Subcounty',
+        '4' => 'Parish',
+        '3' => 'Village',
         '7' => 'Other'
     };
 
