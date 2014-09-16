@@ -91,8 +91,7 @@ public with sharing class GumutindoDashboardController {
     }
     
     
-    //private List<MetricDataWrapper> farmersReachedData;
-    public List<MetricDataWrapper> getFarmersReachedData(){
+     public List<MetricDataWrapper> getFarmersReachedData(){
         List<MetricDataWrapper> farmersReachedData = new List<MetricDataWrapper>();
    
         if(allMetrics == null){
@@ -101,39 +100,65 @@ public with sharing class GumutindoDashboardController {
         String[] metricsInthisSection = new String[] {GumutindoHelpers.TARGET_FARMERS_REACHED_IN_YEAR_1,
                                         GumutindoHelpers.MALE_FARMERS_REGISTERED,
                                         GumutindoHelpers.FEMALE_FARMERS_REGISTERED};    
-        List<MetricDataWrapper> metrics = new List<MetricDataWrapper>();
+        
         
         M_E_Metric__c metricResult;
         M_E_Metric_Data__c metricData;
+        metricResult = allMetrics.get(GumutindoHelpers.TARGET_FARMERS_REACHED_IN_YEAR_1.toLowerCase());
         
-        //get total farmers reached
-        //get the actual value
         
-        //get the target
-        for(String sectionMetric : metricsInthisSection)
-        {
-            MetricDataWrapper metric = new MetricDataWrapper();
-            
-          metricResult = allMetrics.get(sectionMetric.toLowerCase());
-        System.debug('Metric result is '+metricResult);
-        metric.setCurrentTarget(metricResult.Projected_Value__c);
-        //metric.setMetricId(String.valueOf(metricResult.Id));
-        metric.setLabel(metricResult.Label__c);
-        //Get Data
-        metricData = GumutindoHelpers.getMetricData(sectionMetric.toLowerCase());
-        if(metricData.Comment__c != null)
-        {
-            metric.setLabel(metricData.Comment__c);    
+        Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'GCCE\' and Person__r.Type__c=\'CKW\'');
+
+        List<String> personIds = new List<String>();
+        for(Person_Group_Association__c p : associations) {
+            personIds.add(p.Person__r.Id);
         }
-        metric.setMetricId(String.valueOf(metricData.Id));
-        metric.setCurrentTarget(metricData.Projected_Value__c);
-        metric.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-        metrics.add(metric);    
+
+        //These are the ckw person ids
+
+    List<Farmer__c> farmersRegisteredByGumutindoCkws = [select Registered_by__C, Person__r.id, Person__r.Gender__c, Person__r.First_Name__c, Person__r.Last_Name__c from Farmer__c where Registered_by__C in :personIds and Person__r.First_Name__c<>'Not Registered'  limit 10000];
+
+    MetricDataWrapper farmersReachedMetricWrapper = new MetricDataWrapper();
+    farmersReachedMetricWrapper.setCurrentTarget(metricResult.Projected_Value__c);
+    farmersReachedMetricWrapper.setLabel('Total Farmers Reached');
+    farmersReachedMetricWrapper.setCurrentRealValue(0);
+
+
+    MetricDataWrapper maleFarmersReachedMetricWrapper = new MetricDataWrapper();
+    //maleFarmersReachedMetricWrapper.setCurrentTarget(8000);
+    maleFarmersReachedMetricWrapper.setLabel('Total Male Farmers Reached');
+    maleFarmersReachedMetricWrapper.setCurrentRealValue(0);
+
+
+    MetricDataWrapper femaleFarmersReachedMetricWrapper = new MetricDataWrapper();
+    //femaleFarmersReachedMetricWrapper.setCurrentTarget(8000);
+    femaleFarmersReachedMetricWrapper.setLabel('Total Fenale Farmers Reached');
+    femaleFarmersReachedMetricWrapper.setCurrentRealValue(0);
+
+    Decimal totalFarmerCount = 0;
+    Decimal totalMaleFarmerCount = 0;
+    Decimal totalFemaleFarmerCount = 0;
+
+    for(Farmer__c farmer : farmersRegisteredByGumutindoCkws)
+    {
+        totalFarmerCount += 1;
+
+        if('male'.equalsIgnoreCase(farmer.Person__r.Gender__c))
+        {
+            totalMaleFarmerCount += 1;
         }
-        
-        
-        
-        return metrics;
+        else {
+            totalFemaleFarmerCount += 1;
+        }
+    }
+
+    farmersReachedMetricWrapper.setCurrentRealValue(totalFarmerCount);
+    maleFarmersReachedMetricWrapper.setCurrentRealValue(totalMaleFarmerCount);
+    femaleFarmersReachedMetricWrapper.setCurrentRealValue(totalFemaleFarmerCount);
+
+    List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {farmersReachedMetricWrapper, maleFarmersReachedMetricWrapper, femaleFarmersReachedMetricWrapper};
+    
+    return wrapper;
     }
 
     

@@ -289,7 +289,7 @@ public class GumutindoHelpers {
 
          if(mData == null) {
             //Metric data was not found
-            return new String[] { '0', 'Metric data : Gumutindo_target_farmers_using_at_least_three_of_recommended_agroc_practices was not found and can not be updated', 'SUPRESSMSG' };
+            return new String[] { '0', 'Metric data : '+FARMERS_USING_ATLEAST_3_AGROC_PRACTICES+' was not found and can not be updated', 'SUPRESSMSG' };
          }
          mData.Denumerator__c += 1;
          //Metric of Gumutindo_target_farmers_using_at_least_three_of_recommended_agroc_practices
