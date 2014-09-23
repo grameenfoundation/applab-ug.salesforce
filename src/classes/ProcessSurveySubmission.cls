@@ -523,18 +523,6 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('Subcounty_Registration')) {
                 return CkwRegistration.processSubcounties(answers, interviewer);
             }
-            else if (survey.Post_Processing_Method__c.equals('TDR_AGENT_VISIT')) {
-                return TdrHelpers.processAgentVisitSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE')) {
-                return UDoMSurveyProcessing.processDailyRainGauge(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE_REG')) {
-                return UDoMSurveyProcessing.registerRainGauge(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('MTN_CHANNELS')) {
-                return MtnChannelsHelpers.processChannelsFFPSSurvey(surveySubmission, answers, interviewer);
-            }
             else if (survey.Post_Processing_Method__c.equals('FHI_GROUP_REGISTRATION')) {
                 return FHISurveysHelpers.processGroupRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
             }
@@ -588,12 +576,6 @@ global class ProcessSurveySubmission {
             }
             else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
                 return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('TDR_PA_PRODUCTS')) {
-                return TdrHelpers.processTdrPaProductsSurvey(surveySubmission, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
-                return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
             }
         else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
                 return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
