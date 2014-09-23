@@ -1,0 +1,62 @@
+<apex:page controller="TdrLandingPageController" sidebar="false">
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+    <apex:stylesheet value="{!$Resource.MTN_CSS}"/>
+    <c:AddCommonJavaScript />
+    <c:ModalComponent />
+    <apex:pageBlock id="list">
+        <apex:pageBlockSection collapsible="false" columns="2" showHeader="false">
+            <apex:pageBlockSectionItem >
+                    <apex:image value="{!$Resource.MTNMMLogo}" height="85px" width="125px" styleClass="tdrHomePageImage">
+                    </apex:image>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <div class="tableColumnRowLabelInline tdrHomePageText" style="font-weight:bold;font-size:x-large;">
+                    Welcome to the Sales Rep Homepage
+                </div>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="listSelection" title="Select an Activity" columns="1">
+             <apex:form id="lisForm">
+                <ul>
+                    <li style="display:{!IF(hideFromUser == true,'none','list-item')}">
+                        <apex:commandLink value="Register Sales Rep" action="{!openPage}" target="_blank"
+                                title="Show page that allows new TDRs to be entered onto the system">
+                            <apex:param name="type" value="reg"/>
+                        </apex:commandLink>
+                    </li>
+                    <li style="display:{!IF(hideFromUser == true,'none','list-item')}">
+                        <apex:commandLink value="Set Targets for Sales Reps" action="{!openPage}" target="_blank"
+                                title="Set Yearly, Monthly, Weekly or Daily targets for specific TDRs">
+                            <apex:param name="type" value="tdrTargets"/>
+                        </apex:commandLink>
+                    </li>
+                    <li style="display:{!IF(hideFromUser == true,'none','list-item')}">
+                        <apex:commandLink value="Set Default Region Targets" action="{!openPage}" target="_blank"
+                                title="Set Yearly, Monthly, Weekly or Daily default targets for the TDRs in a given region. These targets are used when specific TDR targets have not been set">
+                            <apex:param name="type" value="defaultTargets"/>
+                        </apex:commandLink>
+                    </li>
+                    <li>
+                        <apex:commandLink value="Manage Sales Reps" action="{!openPage}" target="_blank"
+                                title="See graphs and daily activity reports for TDRs">
+                            <apex:param name="type" value="graphs"/>
+                        </apex:commandLink>
+                    </li>
+                </ul>
+            </apex:form>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <script type="text/javascript">
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list.listSelection}') + ' >div:first'), 'mtnPageBlockSection');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list.listSelection}') + ' >div:first'), 'mtnPageBlockSectionFirst');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list.listSelection}') + ' >div:first'), 'pbSubheader');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list.listSelection}') + ' >div:first'), 'first');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list.listSelection}') + ' >div:first'), 'tertiaryPalette');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list.listSelection}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list}')), 'bPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list}')), 'apexDefaultPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list}')), 'secondaryPalette');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.list}')), 'mtnPageBlock');
+    </script>
+</apex:page>
