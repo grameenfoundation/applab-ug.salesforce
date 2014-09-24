@@ -710,7 +710,7 @@ global class ProcessSurveySubmission {
         System.assert(resultSurveySubmission.success);
     }
 
-    static testMethod void testAgentVisitSubmission() {
+    /**static testMethod void testAgentVisitSubmission() {
 
         // Create a country
         Country__c country = Utils.createTestCountry('NEW COUNTRY');
@@ -811,6 +811,6 @@ global class ProcessSurveySubmission {
             '</answers>';
         surveySubmission.json = 'none';
         SurveySubmission resultSurveySubmission = processSurveySubmission(surveySubmission);
-    }
+    }**/
 
 }
