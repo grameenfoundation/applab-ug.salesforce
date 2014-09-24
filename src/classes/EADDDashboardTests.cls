@@ -1466,9 +1466,6 @@ public with sharing class EADDDashboardTests {
         Person__c person = Utils.createTestPerson(null, 'TestingTDR', true, null, 'Female');
         person.Region__c = region.Id;
         database.insert(person);
-        TDR__c tdr = new TDR__c();
-        tdr.Person__c = person.Id;
-        database.insert(tdr);
 
         Survey__c survey = new Survey__c();
         survey.Post_Processing_Method__c = postProcessingMethod;

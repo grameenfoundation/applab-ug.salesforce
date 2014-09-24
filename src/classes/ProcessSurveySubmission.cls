@@ -544,24 +544,6 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
                 return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
             }
-            if (survey.Post_Processing_Method__c.equals('BVAT_CIW_INFORMATION')) {
-                return BvatHelpers.processCiwInformationSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('BVAT_FARMER_REGISTRATION')) {
-                return BvatHelpers.processFarmerRegistrationSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('BVAT_CONTENT_SURVEY')) {
-                return BvatHelpers.processContentSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('EW_FARMER_REG')) {
-                return ProcessEwarehouseSurveys.processEwarehouseFarmerRegistration(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('EW_HARVEST_REG')) {
-                return ProcessEwarehouseSurveys.processEwarehouseHarvestSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('EW_SALE_REG')) {
-                return ProcessEwarehouseSurveys.processSaleRegistration(answers);
-            }
             else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
                 return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
             }
