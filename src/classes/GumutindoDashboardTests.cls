@@ -194,4 +194,200 @@ public with sharing class GumutindoDashboardTests {
 
         
     }
+
+
+    static testMethod void testGumutindoHelpers()
+    {
+        M_E_Metric_Data__c testMetricData = GumutindoHelpers.getMetricData('Gumutindo_test_metric');
+        
+        District__c testDistrict = new District__c();
+        testDistrict.Name = 'TestMasaka';
+        testDistrict.Region__c = 'Central';
+        insert testDistrict;
+
+        Subcounty__c testSubcounty = new Subcounty__c();
+        testSubcounty.Display_Name__c = 'TestLukaya-TC';
+        testSubcounty.District__c = testDistrict.Id;
+        insert testSubcounty;      
+
+        Gumutindo_Primary_Society__c testSociety = new Gumutindo_Primary_Society__c();
+        testSociety.Name = 'Test Society';
+        testSociety.Latitude__c = 0.4343443;
+        testSociety.Longitude__c = 0.444444;
+        testSociety.Subcounty__c = testSubcounty.Id;
+        insert(testSociety);
+
+        
+
+
+
+        Person__c testPerson = new Person__c();
+        testPerson.First_Name__c = 'John';
+        testPerson.Last_Name__c = 'Lu' ;
+        testPerson.Gender__c = 'Male';
+        testPerson.District__c = testDistrict.Id;
+        //testPerson.Handset__c = testHandset.Id;
+        testPerson.Type__c = 'CKW';
+        insert testPerson;
+
+
+
+
+        CKW__c testCkw = new CKW__c();
+        testCkw.Person__c = testPerson.Id;
+        insert(testCkw);
+
+
+
+
+        Person__c testFOPerson = new Person__c();
+        testFOPerson.First_Name__c = 'John FO';
+        testFOPerson.Last_Name__c = 'Lu FO' ;
+        testFOPerson.Gender__c = 'Male';
+        testFOPerson.District__c = testDistrict.Id;
+        //testPerson.Handset__c = testHandset.Id;
+        testFOPerson.Type__c = 'CKW';
+        insert testFOPerson;
+
+
+        //Create Gumutindo FO
+        Gumutindo_Field_Officer__c gumutindoFO = new Gumutindo_Field_Officer__c();
+        gumutindoFO.Person__c = testFOPerson.Id;
+        insert(gumutindoFO);
+
+        Gumutindo_CKW__c gumutindoCkw = new Gumutindo_CKW__c();
+        gumutindoCkw.Gumutindo_Field_Officer__c = gumutindoFO.Id;
+        gumutindoCkw.Person__c = testPerson.Id;
+        gumutindoCkw.Gumutindo_Primary_Society__c = testSociety.Id;
+        insert(gumutindoCkw);
+
+
+
+
+        Group__c testGroup = new Group__c();
+        testGroup.Name = 'GCCE';
+        insert(testGroup);
+
+        Person_Group_Association__c testPersonGroupAssociation = new Person_Group_Association__c();
+        testPersonGroupAssociation.Group__c = testGroup.Id;
+        testPersonGroupAssociation.Person__c = testPerson.Id;
+        insert(testPersonGroupAssociation);
+
+
+
+
+         
+
+        PageReference resultPage =  new PageReference('/a00/e');
+        resultPage.getParameters().put('district', String.valueOf(testDistrict.Id));
+        resultPage.getParameters().put('subcounty', String.valueOf(testSubcounty.Id));
+        resultPage.getParameters().put('dateFrom', '1987-12-18');
+        resultPage.getParameters().put('dateTo', '2013-12-18');
+        resultPage.getParameters().put('cbt', String.valueOf(testPerson.Id));
+        resultPage.getParameters().put('sfdc.tabName', 'a00');
+
+
+        Account testOrg = new Account();
+        testOrg.Name = 'GCCE';
+        testOrg.BillingState = 'CA';
+        insert testOrg;
+
+        Organisation_District_Association__c orgAssocTest = new Organisation_District_Association__c();
+        orgAssocTest.District__c = testDistrict.Id;
+         orgAssocTest.Organisation__c = testOrg.Id;
+        insert(orgAssocTest);
+        
+
+
+
+        GumutindoDashboardController controller = new GumutindoDashboardController();
+        controller.setOrgName(testOrg.Name);
+        controller.setUp(resultPage);
+
+
+        GumutindoHelpers.getMetricDataMap(); //Attempt to create metric datas
+        Test.startTest();
+        
+        List<MetricDataWrapper> getFarmersReachedData = controller.getFarmersReachedData();
+
+        List<MetricDataWrapper> getAdvisoryServicesData = controller.getAdvisoryServicesData();
+
+
+
+        List<MetricDataWrapper> getGcceMetricsData = controller.getGcceMetricsData();
+        List<MetricDataWrapper> getVslaServicesData = controller.getVslaServicesData();
+        List<GumutindoHelpers.FinancialServicesUsageData> getFinancialServicesChartData = controller.getFinancialServicesChartData();
+        List<SelectOption> getDistrictList = controller.getDistrictList();
+        System.assert(testMetricData != null);
+        System.assert(GumutindoHelpers.getAllMetrics().size() != 0);
+        System.assert(GumutindoHelpers.getGumutindoPrimarySocietyMarkers().size() == 1);
+
+        System.assert(GumutindoHelpers.getCKWMapMarkers().size() == 2); //one for ckw and one for fo
+        System.assert(controller.district != null);
+        System.assert(controller.subcounty != null);
+        System.assert(controller.dummyObject != null);
+        System.assert(controller.getDistrictMapSection() != null);
+
+        System.assert(controller.loadGumutindoPrimarySocieties().size() == 1);
+        System.assert(getFarmersReachedData.size() == 3);
+
+        System.assert(getAdvisoryServicesData.size() == 4);
+        System.assert(getGcceMetricsData.size() == 8);
+        System.assert(getVslaServicesData.size() == 5);
+        System.assert(getFinancialServicesChartData.size() == 3);
+        System.assert(getDistrictList.size() == 2);
+        System.assert(controller.getSubcountiesList().size() == 2);
+
+        System.assert(controller.changeFilters() != null);
+        
+
+        System.assert(controller.getMaps().size() ==1);
+        System.assert('false'.equals(controller.getIsEditMode()));
+        System.assert('true'.equals(controller.getIsUpdateable()));
+
+        System.assert(GumutindoHelpers.loadCkw(testPerson) != null);
+
+        System.assert('1'.equals(GumutindoHelpers.getMumutindoProjectYear(Date.valueOf('2014-01-01'))));
+        System.assert('2'.equals(GumutindoHelpers.getMumutindoProjectYear(Date.valueOf('2015-01-01'))));
+        System.assert('3'.equals(GumutindoHelpers.getMumutindoProjectYear(Date.valueOf('2016-01-01'))));
+
+        GumutindoHelpers.GumutindoDistrictCoordinatesProvider districtProvider = new GumutindoHelpers.GumutindoDistrictCoordinatesProvider();
+        System.assert(districtProvider.loadMapMarkers(null).size() == 1);
+
+        GumutindoHelpers.GumutindoPrimarySocietyCoordinatesProvider societyMarkerProvider = new GumutindoHelpers.GumutindoPrimarySocietyCoordinatesProvider();
+        System.assert(societyMarkerProvider.loadMapMarkers(null).size() == 1);
+
+        GumutindoHelpers.GumutindoCkwCoordinatesProvider ckwMarkerProvider = new GumutindoHelpers.GumutindoCkwCoordinatesProvider();
+        System.assert(ckwMarkerProvider.loadMapMarkers(null).size() == 2);
+
+         GumutindoHelpers.GumutindoDistrictMarker gDMarker = new GumutindoHelpers.GumutindoDistrictMarker(testDistrict);
+         gDMarker.setParentRegistered('pr');
+         System.assert('pr'.equals(gDMarker.getParentRegistered()));
+         System.assert(gDMarker.getMarkerInfoContentString() != null);
+
+         GumutindoHelpers.GumutindoCkwMarker gCMarker = new GumutindoHelpers.GumutindoCkwMarker(testCkw);
+         gCMarker.setParentRegistered('pr');
+         gCMarker.generateMarkerName('Gender');
+         //gCMarker.ckw.Person__r.Parish__c = 'Test Parish';
+         //gCMarker.ckw.Person__r.Village__c = 'Test Village';
+         //gCMarker.ckw.Person__r.Subcounty__r.Display_Name__c = 'Test Sub Display';
+         System.assert('pr'.equals(gCMarker.getParentRegistered()));
+         System.assert(gCMarker.getMarkerInfoContentString() != null);
+         System.assert(gCMarker.getLocation() != null);
+
+         GumutindoHelpers.GumutindoFieldOfficerMarker gFOMarker = new GumutindoHelpers.GumutindoFieldOfficerMarker(testFOPerson);
+         gFOMarker.setParentRegistered('pr');
+         System.assert('pr'.equals(gFOMarker.getParentRegistered()));
+         System.assert(gFOMarker.getMarkerInfoContentString() != null);
+
+
+         GumutindoHelpers.GumutindoPrimarySocietyMarker gPSMarker = new GumutindoHelpers.GumutindoPrimarySocietyMarker(testSociety);
+         gPSMarker.setParentRegistered('pr');
+         System.assert('pr'.equals(gPSMarker.getParentRegistered()));
+         System.assert(gPSMarker.getMarkerInfoContentString() != null);
+        //System.assert(GumutindoHelpers.gumu().size() == 1);
+        Test.stopTest();
+
+
+    }
 }

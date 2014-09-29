@@ -132,7 +132,7 @@ public with sharing class GumutindoDashboardController {
 
     MetricDataWrapper femaleFarmersReachedMetricWrapper = new MetricDataWrapper();
     //femaleFarmersReachedMetricWrapper.setCurrentTarget(8000);
-    femaleFarmersReachedMetricWrapper.setLabel('Total Fenale Farmers Reached');
+    femaleFarmersReachedMetricWrapper.setLabel('Total Female Farmers Reached');
     femaleFarmersReachedMetricWrapper.setCurrentRealValue(0);
 
     Decimal totalFarmerCount = 0;
@@ -354,9 +354,9 @@ public with sharing class GumutindoDashboardController {
 
                 
                 //select districts by Ids
-                gumutindoDistricts = database.query('SELECT Id, Name, Latitude__c, Longitude__c from District__c where Id in:'+districtIds);
+                //gumutindoDistricts = database.query('SELECT Id, Name, Latitude__c, Longitude__c from District__c where Id in:'+districtIds);
 
-                gumutindoSubCounties = database.query('SELECT Id, Name, Latitude__c, Longitude__c from Subcounty__c where Id in:'+subcountyIds);
+               //gumutindoSubCounties = database.query('SELECT Id, Name, Latitude__c, Longitude__c from Subcounty__c where Id in:'+subcountyIds);
 
                 return primarySocieties;
         } 

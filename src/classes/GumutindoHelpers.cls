@@ -481,7 +481,7 @@ public static Map<String, M_E_Metric__c> getAllMetrics(){
     }
 
 
-private static CKW__c loadCkw(Person__c person) {
+public static CKW__c loadCkw(Person__c person) {
         CKW__c[] ckw = [
            SELECT
               Id,
