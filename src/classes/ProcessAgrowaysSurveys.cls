@@ -81,6 +81,7 @@ public class ProcessAgrowaysSurveys {
                     Decimal.valueOf(ppiObject.Question_10__c);
         // Create the Farmer object
         Farmer__c farmer = new Farmer__c(Person__c = person.Id);
+        farmer.Registered_By__c = interviewer.Id;
         farmer.Registered_Date__c = ProcessSurveySubmission.getTimestamp(submission.handsetSubmitTime).date();
         farmer.Name = ProcessSubmissionHelpers.getAnswerString(answers.get('q1_0'));
         farmer.Household_Status__c = householdStatusMap.get(ProcessSubmissionHelpers.getAnswerString(answers.get('q9_0')));
