@@ -147,7 +147,9 @@ public class BuccodecHelpers {
 	                metricDataWrapper.percent_cummulative_actual_reached = 
 	                        (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100;
                 }
-                else if(metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
+                else if(metricDataWrapper.project_target != 0 && metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c 
+                        == 'Percentage'){
+                    
                     metricDataWrapper.quarter_actual_reached = 
                             ((metric.Numerator__c / metric.Denumerator__c) * 100);
                     // calculate the % cummulative value up to and including current quarter
