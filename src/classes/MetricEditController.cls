@@ -24,12 +24,22 @@ public with sharing class MetricEditController {
     		this.metric.Projected_Value__c = eaddMetric.Projected_Value__c;
     		this.quarter = this.eaddMetric.Name;
     	}
-    	else{
-	    	M_E_Metric_Data__c metric = [Select M_E_Metric__r.Name, 
-	    									M_E_Metric__r.Label__c, Projected_Value__c, Manual_Value__c,
-	    									Actual_Value__c, Comment__c from M_E_Metric_Data__c where Id =: this.recordId];
-	    	this.metric = metric;
-    	}
+        else{
+            M_E_Metric_Data__c metric = [
+                SELECT 
+                    M_E_Metric__r.Name, 
+                    M_E_Metric__r.Automated__c,
+                    M_E_Metric__r.Label__c, 
+                    Projected_Value__c, 
+                    Manual_Value__c,
+                    Actual_Value__c, 
+                    Comment__c 
+                FROM 
+                    M_E_Metric_Data__c 
+                WHERE 
+                    Id =: this.recordId];
+            this.metric = metric;
+        }
     }
     
     public String getQuarter() {
