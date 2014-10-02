@@ -140,21 +140,22 @@ public class BuccodecHelpers {
                 metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
                         (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
             }
-            else if(metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c 
-                    == 'Percentage'){
+            else if(metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
                 
-                metricDataWrapper.quarter_actual_reached = ((metric.Numerator__c / metric.Denumerator__c) * 100);
+                metricDataWrapper.quarter_actual_reached = (metric.Numerator__c != null && metric.Denumerator__c != null &&
+                        metric.Denumerator__c != 0.0) ?((metric.Numerator__c / metric.Denumerator__c) * 100) : 0.0;
                 // calculate the % cummulative value up to and including current quarter
                 AggregateResult cummulativeResult = getPreviousMetricsRationalNumber(metricName, quarterLastDay);
-                metricDataWrapper.cummulative_actual_reached = ((Decimal)cummulativeResult.get('numerator') / 
-                        (Decimal)cummulativeResult.get('denumerator')) * 100;
+                metricDataWrapper.cummulative_actual_reached = (cummulativeResult.get('numerator') != null &&
+                        cummulativeResult.get('denumerator') != null) ? ((Decimal)cummulativeResult.get('numerator') / 
+                        (Decimal)cummulativeResult.get('denumerator')) * 100 : 0.0;
                 metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
                         (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
             }
 
             // calculate the % actual for this quarter: skip if quarter projected value is not provided
             Decimal percentQuarter = (metricDataWrapper.percent_quarter_actual_reached != null &&
-                    metric.Projected_Value__c != null && metric.Projected_Value__c != Decimal.valueOf(0)) ?
+                    metric.Projected_Value__c != null && metric.Projected_Value__c != 0.0) ?
                     (metricDataWrapper.quarter_actual_reached / metric.Projected_Value__c) * 100 : null;
             metricDataWrapper.percent_quarter_actual_reached = percentQuarter;
             metricDataWrapper.setSparkUrl(String.valueOf(metric.M_E_Metric__r.Id));
