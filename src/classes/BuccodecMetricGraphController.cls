@@ -62,34 +62,23 @@ public class BuccodecMetricGraphController {
             projectedCount++;
             
             Decimal actualVal = 0;
-            if(!MetricHelpers.getCurrentQuarterAsString(0).equals(MetricHelpers.getQuarterAsString(item.Date__c))) {
 
-                if(item.M_E_Metric__r.Automated__c == 'True') {
-                    //automated indicator
-                    if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
-                            item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count') {
+            if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
+                    item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count') {
 
-                        if(item.Numerator__c != null){
-                            actualVal = item.Numerator__c;
-                        }
-                    }
-                    else if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
-                        
-                        if(item.Numerator__c != null && item.Denumerator__c != null && item.Denumerator__c != 0) {
-                            actualVal = ((item.Numerator__c / item.Denumerator__c) * 100).setScale(1);
-                        }
-                    }
+                if(item.Numerator__c != null){
+                    actualVal = item.Numerator__c;
                 }
-                else {
-                    // manual indicator
-                    if(item.Numerator__c != null){
-                        actualVal = item.Numerator__c;
-                    }
-                }
-
-                chdActual += actualVal + ',';
-                actualCount++;
             }
+            else if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
+                
+                if(item.Numerator__c != null && item.Denumerator__c != null && item.Denumerator__c != 0) {
+                    actualVal = ((item.Numerator__c / item.Denumerator__c) * 100).setScale(2);
+                }
+            }
+
+            chdActual += actualVal + ',';
+            actualCount++;
             
             chl += MetricHelpers.getQuarterAsString(item.Date__c) + '|';
             

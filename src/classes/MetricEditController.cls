@@ -33,7 +33,10 @@ public with sharing class MetricEditController {
                     Projected_Value__c, 
                     Manual_Value__c,
                     Actual_Value__c, 
-                    Comment__c 
+                    Comment__c,
+                    Numerator__c,
+                    Denumerator__c,
+                    M_E_Metric__r.On_The_Fly_Calculation_Type__c
                 FROM 
                     M_E_Metric_Data__c 
                 WHERE 

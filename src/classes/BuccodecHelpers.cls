@@ -64,12 +64,12 @@ public class BuccodecHelpers {
         String organisationString = 'AND M_E_Metric__r.Organisation__r.Name = ' + organisationName + ' ';
 
         String query1 = query +
-            'FROM ' +
-                'M_E_Metric_Data__c ' +
+            'FROM '                                     +
+                'M_E_Metric_Data__c '                   +
             'WHERE ' +
-                'Date__c >= :quarterFirstDay ' +
-                'AND Date__c <= :quarterLastDay ' +
-                'AND Is_Cumulative__c = false ' +
+                'Date__c >= :quarterFirstDay '          +
+                'AND Date__c <= :quarterLastDay '       +
+                'AND Is_Cumulative__c = false '         +
                 notForPublicString +
                 organisationString +
             'ORDER BY '                                 +
@@ -128,53 +128,30 @@ public class BuccodecHelpers {
             //Formular field. It displays Manual_Value__c
             metricDataWrapper.project_target = metric.Real_Value__c == null ? 0 : (Integer)metric.Real_Value__c;
             // calculating cummulative value. For manual indicators just display value
-            if(metric.M_E_Metric__r.Automated__c == 'True') {
-                if(metricDataWrapper.project_target != 0 && (metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
-                        metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count')) {
-                    metricDataWrapper.quarter_actual_reached = (Integer)metric.Numerator__c;
-                    // calculate the cummulative value up to and including current quarter
-	                AggregateResult cummulativeResult = [
-	                        SELECT 
-	                            SUM(Numerator__c) numerator
-	                        FROM 
-	                            M_E_Metric_Data__c 
-	                        WHERE 
-                                M_E_Metric__r.Name = :metricName
-	                            AND Date__c <= :quarterLastDay];
-	                metricDataWrapper.cummulative_actual_reached = cummulativeResult.get('numerator') == null ? 
-	                       0.0 : (Decimal)cummulativeResult.get('numerator');
-	                system.debug(metricName + ' value is ' + metricDataWrapper.cummulative_actual_reached);
-	                metricDataWrapper.percent_cummulative_actual_reached = 
-	                        (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100;
-                }
-                else if(metricDataWrapper.project_target != 0 && metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c 
-                        == 'Percentage'){
-                    
-                    metricDataWrapper.quarter_actual_reached = 
-                            ((metric.Numerator__c / metric.Denumerator__c) * 100);
-                    // calculate the % cummulative value up to and including current quarter
-                    AggregateResult cummulativeResult = [
-                            SELECT 
-                                SUM(Numerator__c) numerator,
-                                SUM(Denumerator__c) denumerator 
-                            FROM 
-                                M_E_Metric_Data__c 
-                            WHERE 
-                                M_E_Metric__r.Name = :metricName
-                                AND Date__c <= :quarterLastDay];
-                    metricDataWrapper.cummulative_actual_reached = ((Decimal)cummulativeResult.get('numerator') / 
-                            (Decimal)cummulativeResult.get('denumerator')) * 100;
-                    metricDataWrapper.percent_cummulative_actual_reached = 
-                            (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100;
-                }
+
+            if((metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
+                    metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count')) {
+                
+                metricDataWrapper.quarter_actual_reached = (Integer)metric.Numerator__c;
+                // calculate the cummulative value up to and including current quarter
+                AggregateResult cummulativeResult = getPreviousMetricsSum(metricName, quarterLastDay);
+                metricDataWrapper.cummulative_actual_reached = cummulativeResult.get('numerator') == null ? 
+                       0.0 : (Decimal)cummulativeResult.get('numerator');
+                metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
+                        (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
             }
-            else {
-                // if project target is not set, skip
-                metricDataWrapper.cummulative_actual_reached = metric.Actual_Value__c;
-                Decimal percent = (metric.Actual_Value__c != null && metric.Real_Value__c != null &&
-                        metric.Real_Value__c != Decimal.valueOf(0)) ? (metric.Actual_Value__c / metric.Real_Value__c) * 100 : null;
-                metricDataWrapper.percent_cummulative_actual_reached = percent;
+            else if(metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c 
+                    == 'Percentage'){
+                
+                metricDataWrapper.quarter_actual_reached = ((metric.Numerator__c / metric.Denumerator__c) * 100);
+                // calculate the % cummulative value up to and including current quarter
+                AggregateResult cummulativeResult = getPreviousMetricsRationalNumber(metricName, quarterLastDay);
+                metricDataWrapper.cummulative_actual_reached = ((Decimal)cummulativeResult.get('numerator') / 
+                        (Decimal)cummulativeResult.get('denumerator')) * 100;
+                metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
+                        (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
             }
+
             // calculate the % actual for this quarter: skip if quarter projected value is not provided
             Decimal percentQuarter = (metricDataWrapper.percent_quarter_actual_reached != null &&
                     metric.Projected_Value__c != null && metric.Projected_Value__c != Decimal.valueOf(0)) ?
@@ -203,6 +180,31 @@ public class BuccodecHelpers {
         metricWrapperOrder.put(areaName, metricOrder);
 
         return new BuccodecHelpers.Wrapper(metricWrappers, metricWrapperOrder);
+    }
+
+    private static AggregateResult getPreviousMetricsRationalNumber(String metricName, Date quarterLastDay) {
+        system.debug(metricName + ' value is ' + quarterLastDay);
+        return [
+            SELECT 
+                SUM(Numerator__c) numerator,
+                SUM(Denumerator__c) denumerator 
+            FROM 
+                M_E_Metric_Data__c 
+            WHERE 
+                M_E_Metric__r.Name = :metricName
+                AND Date__c <= :quarterLastDay];
+    }
+
+    private static AggregateResult getPreviousMetricsSum(String metricName, Date quarterLastDay) {
+        system.debug(metricName + ' value is ' + quarterLastDay);
+        return [
+            SELECT 
+                SUM(Numerator__c) numerator
+            FROM 
+                M_E_Metric_Data__c 
+            WHERE 
+                M_E_Metric__r.Name = :metricName
+                AND Date__c <= :quarterLastDay];
     }
     
     /**
@@ -302,23 +304,7 @@ public class BuccodecHelpers {
                 farmerObject.Livestock__c = animals;
                 insert farmerObject;
 	            
-	            M_E_Metric_Data__c[] datas = [
-	                SELECT
-	                    Id,
-	                    Name,
-	                    Actual_Value__c,
-	                    Manual_Value__c,
-	                    District__c,
-	                    Denumerator__c,
-	                    Numerator__c,
-	                    Subcounty__c,
-	                    M_E_Metric__r.Name
-	                FROM
-	                    M_E_Metric_Data__c
-	                WHERE
-	                    Date__c = :currentDate //TODO: what if there is already an indicator for next quarter?
-	                    AND M_E_Metric__r.Name IN :metricNames
-	            ];
+                List<M_E_Metric_Data__c> datas = getMetricDatas(metricNames, currentDate);
 	            // Loop through the data and see which ones we have already got. 
 	            // If they are not there already create them
 	            for (M_E_Metric_Data__c mData : datas) {
@@ -332,23 +318,17 @@ public class BuccodecHelpers {
 	                
 	                // Update the metric based on the key
 	                if (key.equals('BUCCODEC_total_farmers_reached')) {
-	                    totalNewData.Numerator__c = totalNewData.Numerator__c == null ? 1 : totalNewData.Numerator__c + 1;
-	                    totalNewData.Actual_Value__c = totalNewData.Actual_Value__c == null ? 1 : 
-	                           totalNewData.Actual_Value__c + 1;
+                        totalNewData = updateMetricDataValues(totalNewData);
 	                }
 	                else if (key.equals('BUCCODEC_percent_male_farmers_reached')) {
 	                    if(!isFemale) {
-                            totalNewData.Numerator__c = totalNewData.Numerator__c == null ? 1 : totalNewData.Numerator__c + 1;
-	                        totalNewData.Actual_Value__c = totalNewData.Actual_Value__c == null ? 1 : 
-	                               totalNewData.Actual_Value__c + 1;
+                            totalNewData = updateMetricDataValues(totalNewData);
 	                    }
 	                    totalNewData.Denumerator__c += 1;
 	                }
 	                else if (key.equals('BUCCODEC_percent_female_farmers_reached')) {
 	                    if(isFemale) {
-                            totalNewData.Numerator__c = totalNewData.Numerator__c == null ? 1 : totalNewData.Numerator__c + 1;
-                            totalNewData.Actual_Value__c = totalNewData.Actual_Value__c == null ? 1 : 
-                                   totalNewData.Actual_Value__c + 1;
+                            totalNewData = updateMetricDataValues(totalNewData);
 	                    }
 	                    totalNewData.Denumerator__c += 1;
 	                }
@@ -366,23 +346,7 @@ public class BuccodecHelpers {
 	            // '2' => 'Extension visits to individual farmers',
 	            // '3' => 'Farmer Field School sessions'
 	            String encounterIndex = answers.get('q7_0').Answer__c;
-	            M_E_Metric_Data__c[] datas = [
-	                SELECT
-	                    Id,
-	                    Name,
-	                    Actual_Value__c,
-	                    Manual_Value__c,
-	                    District__c,
-	                    Denumerator__c,
-	                    Numerator__c,
-	                    Subcounty__c,
-	                    M_E_Metric__r.Name
-	                FROM
-	                    M_E_Metric_Data__c
-	                WHERE
-	                    Date__c = :currentDate//TODO: what if there is already an indicator for next quarter?
-	                    AND M_E_Metric__r.Name IN :metricNames
-	            ];
+                List<M_E_Metric_Data__c> datas = getMetricDatas(metricNames, currentDate);
 	            // Loop through the data and see which ones we have already got. 
 	            // If they are not there already create them
 	            for (M_E_Metric_Data__c mData : datas) {
@@ -397,17 +361,13 @@ public class BuccodecHelpers {
 	                // Update the metric based on the key
 	                if (key.equals('BUCCODEC_total_FFS_held')) {
 	                    if(encounterIndex == '3') {
-                            totalNewData.Numerator__c = totalNewData.Numerator__c == null ? 1 : totalNewData.Numerator__c + 1;
-                            totalNewData.Actual_Value__c = totalNewData.Actual_Value__c == null ? 1 : 
-                                   totalNewData.Actual_Value__c + 1;
+                            totalNewData = updateMetricDataValues(totalNewData);
 	                    }
 	                    dataMap.put(key, totalNewData);
 	                }
 	                else if (key.equals('BUCCODEC_total_VSLA_held')) {
 	                    if(encounterIndex == '1') {
-                            totalNewData.Numerator__c = totalNewData.Numerator__c == null ? 1 : totalNewData.Numerator__c + 1;
-                            totalNewData.Actual_Value__c = totalNewData.Actual_Value__c == null ? 1 : 
-                                   totalNewData.Actual_Value__c + 1;
+                            totalNewData = updateMetricDataValues(totalNewData);
 	                    }
 	                    dataMap.put(key, totalNewData);
 	                }
@@ -425,6 +385,39 @@ public class BuccodecHelpers {
         return new String[]{ '1', 'BUCCODEG submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' };
     }
 
+    private static M_E_Metric_Data__c updateMetricDataValues(M_E_Metric_Data__c datum) {
+        datum.Numerator__c = datum.Numerator__c == null ? 1 : datum.Numerator__c + 1;
+        datum.Actual_Value__c = datum.Actual_Value__c == null ? 1 : datum.Actual_Value__c + 1;
+        return datum;
+    }
+    
+    /**
+     *  returns all metric datas for a given list of metrics in the stated quarter
+     *  @param  metricNames         -   list of metrics whose datas we want
+     *  @param  quarterStartDate    -   start data of the quarter
+     *  @return List of Metric_Data__c
+     */
+    public static List<M_E_Metric_Data__c> getMetricDatas(List<String> metricNames, Date quarterStartDate) {
+
+        return [
+            SELECT
+                Id,
+                Name,
+                Actual_Value__c,
+                Manual_Value__c,
+                District__c,
+                Denumerator__c,
+                Numerator__c,
+                Subcounty__c,
+                M_E_Metric__r.Name
+            FROM
+                M_E_Metric_Data__c
+            WHERE
+                Date__c = :quarterStartDate 
+                AND M_E_Metric__r.Name IN :metricNames
+        ];
+    }
+    
     /**
      *  Create a new metric data for a given person, start date and metric. 
      *  Assume that the metric is created on the box
@@ -659,29 +652,17 @@ public class BuccodecHelpers {
 	            
 	            chdProjected += item.Projected_Value__c  != null ? item.Projected_Value__c + ',' : '0,';
 	            xProjected += (xCount * 100 / Math.max(1, total - 1)) + ',';
-	
-	            // Only show the actual value for the previous quarters
-	            if(!MetricHelpers.getCurrentQuarterAsString(0).equals(
-	                   MetricHelpers.getQuarterAsString(item.Date__c))) {
 
-		            if(item.M_E_Metric__r.Automated__c == 'True') {
-                        //automated indicator
-		                if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
-		                        item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count') {
+                if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
+                        item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count') {
 
-		                    chdActual += item.Numerator__c != null ? item.Numerator__c + ',' : '0,';
-		                }
-		                else if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
-		                    chdActual += (item.Numerator__c != null && item.Denumerator__c != null && item.Denumerator__c != 0) ?
-                                    ((item.Numerator__c / item.Denumerator__c) * 100).setScale(1) + ',' : '0,';
-		                }
-		            }
-		            else {
-                        // manual indicator
-                        chdActual += item.Numerator__c != null ? item.Numerator__c + ',' : '0,';
-		            }
-	                xActual += (xCount * 100 / Math.max(1,total - 1)) + ',';
-	            }
+                    chdActual += item.Numerator__c != null ? item.Numerator__c + ',' : '0,';
+                }
+                else if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
+                    chdActual += (item.Numerator__c != null && item.Denumerator__c != null && item.Denumerator__c != 0) ?
+                            ((item.Numerator__c / item.Denumerator__c) * 100).setScale(2) + ',' : '0,';
+                }
+                xActual += (xCount * 100 / Math.max(1,total - 1)) + ',';
 	            xCount++;
 	        }
 	

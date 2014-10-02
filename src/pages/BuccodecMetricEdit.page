@@ -15,18 +15,15 @@
             </apex:pageBlockButtons>
             <apex:pageBlockSection title="Quarter: {!quarter} Metric: {!metric.M_E_Metric__r.Label__c}" columns="3">
                 <apex:inputField value="{!metric.Projected_Value__c}" label="Quarterly Target" />
-                    Updated (Cummulative Value)
-                <!--<apex:outputText value="{0, number, ###,###,###,##0.##}">
-                    <apex:param value="{!metric.Actual_Value__c}"/>
-                </apex:outputText>-->
-<apex:outputPanel rendered="{!metric.M_E_Metric__r.Automated__c == 'False'}">
-    <apex:inputField value="{!metric.Actual_Value__c}" label="Cummulative (Updated)" />
-</apex:outputPanel>
-<apex:outputPanel rendered="{!metric.M_E_Metric__r.Automated__c == 'True'}">
-    <apex:outputField value="{!metric.Actual_Value__c}" label="Cummulative (Updated)" />
-</apex:outputPanel>
                 <apex:inputField value="{!metric.Manual_Value__c}" label="Project Target" />
                 <apex:inputField value="{!metric.Comment__c}" />
+
+                <apex:inputField value="{!metric.Numerator__c}" label="Actual Reached" 
+                    rendered="{!metric.M_E_Metric__r.Automated__c == 'False' && metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c != 'Percentage'}"/>
+                <apex:inputField value="{!metric.Numerator__c}" label="Actual Reached (numerator)" 
+                    rendered="{!metric.M_E_Metric__r.Automated__c == 'False' && metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'}"/>
+                <apex:inputField value="{!metric.Denumerator__c}" label="Actual Reached (denominator)" 
+                    rendered="{!metric.M_E_Metric__r.Automated__c == 'False' && metric.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'}"/>
             </apex:pageBlockSection>
         </apex:pageBlock>
     </apex:form>
