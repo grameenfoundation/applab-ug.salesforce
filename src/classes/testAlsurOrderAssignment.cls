@@ -1,35 +1,29 @@
 @isTest
 private class testAlsurOrderAssignment{
+    @isTest
 	static void validateAlsurOrderAssignment(){
 
- 		List<CPA_Order_Allocation__c> cpaorders = new List<CPA_Order_Allocation__c>{};
-    			for(Integer i = 0; i < 200; i++){
-        		CPA_Order_Allocation__c a = new CPA_Order_Allocation__c(Number_of_Units_of_Presentation__c = 100 + i);
-        		cpaorders.add(a);
-    			}
-	
-    // Start the test, this changes governor limit context to
-    // that of trigger rather than test.
+        Association__c association = new Association__c();
+        association.Name = 'Alsurtest';
+        insert association;
 
-    		test.startTest();
+        CPA_Order__c order = new CPA_Order__c();
+        order.Number_of_Units_of_Presentation__c = 10;
+        order.Contact__c = contact.Id;
+        order.Expected_Delivery_Date__c = System.today();
+        order.Unit_of_Presentation__c = 5;
+        order.Presentacion__c = "5 al día";
+        insert order;
 
-    // Insert the Account records that cause the trigger to execute.
+        CPA_Order_Allocation__c allocation = new CPA_Order_Allocation__c();
+        allocation.CPA_Order__c = order.Id;
+        allocation.Association__c = association.Id;
+        allocation.Number_of_Units_of_Presentation__c = order.Unit_of_Presentation__c;
+        allocation.Number_of_Kilos__c = 5;
+        allocation.Presentacion__c = order.Presentacion__c;
+        insert allocation;
 
-    		insert cpaorders;
-
-    // Stop the test, this changes limit context back to test from trigger.
-
-    		test.stopTest();
-
-    // Query the database for the newly inserted records.
-
-    		List<CPA_Order_Allocation__c> insertedcpaorders = [SELECT Number_of_Units_of_Presentation__c FROM CPA_Order_Allocation__c WHERE Id IN :cpaorders];
-
-    // Assert that the Description fields contains the proper value now.
-
-    			for(CPA_Order_Allocation__c a : insertedcpaorders){
-
-      			System.assertEquals(100, a.Number_of_Units_of_Presentation__c);
-  	}
+        allocations = [SELECT Id, CPA_Order__c from CPA_Order_Allocation__c where CPA_Order__c =: order.Id];
+        System.assertEquals(allocations.size(), 1);
 }
 }
