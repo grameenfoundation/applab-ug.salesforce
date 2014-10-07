@@ -1,0 +1,36 @@
+<apex:page controller="AlsurOrderDelivery" sidebar="false" language="es" docType="html-5.0">
+  <apex:form >
+  <apex:pageblock >
+   <apex:pageBlockSection >
+  
+   <apex:pageBlockSectionItem >
+   <apex:outputLabel >Selecciona una organización</apex:outputLabel>
+      <apex:selectList value="{!selecteddept}" size="1">
+           <apex:selectOptions value="{!deptitems}" rendered="true" />
+      </apex:selectList>
+   </apex:pageBlockSectionItem>
+        <apex:commandButton id="search" Value="Buscar ordenes" action="{!search}"/>
+
+    <apex:outputPanel >
+    <apex:outputtext value="{!selecteddept}"></apex:outputtext>
+      <apex:datatable value="{!searchlist}" var="a" id="theTable" title="Iam HERE" >
+
+            <apex:facet name="retrieved">We Have The Following Products</apex:facet>
+       
+       <apex:column >
+            <apex:facet name="ProductName">Product Name</apex:facet>
+            
+            <apex:outputtext value="{!a.Expected_Delivery_Date__c}"/>
+        </apex:column>
+      
+        <apex:column >
+            <apex:facet name="ProductPrice">Product Price</apex:facet>
+            <apex:outputText value="{!a.Presentacion__c}"/>
+        </apex:column>
+      </apex:datatable>
+    </apex:outputPanel>
+   </apex:pageBlockSection>
+ 
+  </apex:pageBlock>
+ </apex:form>
+</apex:page>
