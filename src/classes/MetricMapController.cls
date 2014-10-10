@@ -203,6 +203,18 @@ public class MetricMapController {
             markers.addAll(fieldVisits);
             fieldVisits.clear();
         }
+        if(mapObject.equals('MBUGO_CKWS')){
+            List<MetricMapWrapper> fieldVisits = MbugoHelpers.getCKWMapMarkers();
+            setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
+            markers.addAll(fieldVisits);
+            fieldVisits.clear();
+        }
+        if(mapObject.equals('GUMUTINDO_FIELD_OFFICERS')){
+            List<MetricMapWrapper> fieldVisits = MbugoHelpers.getFOMapMarkers();
+            setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
+            markers.addAll(fieldVisits);
+            fieldVisits.clear();
+        }
         System.debug('Should show ' + markers.size() + ' map markers');
         if (markers.size() == 0) {
             setFeedbackMessage('No map markers match your selection. Please refine your search to see a map');
