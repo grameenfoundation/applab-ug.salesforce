@@ -2,7 +2,7 @@
 private class testAlsurOrderAssignment{
     @isTest
 	static void validateAlsurOrderAssignment(){
-
+        // 1. Set things up
         Association__c association = new Association__c();
         association.Name = 'Alsurtest';
         insert association;
@@ -22,11 +22,24 @@ private class testAlsurOrderAssignment{
         CPA_Order_Allocation__c allocation = new CPA_Order_Allocation__c();
         allocation.CPA_Order__c = order.Id;
         allocation.Association__c = association.Id;
-        allocation.Number_of_Units_of_Presentation__c = Decimal.valueOf(order.Unit_of_Presentation__c);
+        allocation.Number_of_Units_of_Presentation__c = 5;
         allocation.Number_of_Kilos__c = 5;
         insert allocation;
 
         CPA_Order_Allocation__c[] allocations = [SELECT Id, CPA_Order__c from CPA_Order_Allocation__c where CPA_Order__c =: order.Id];
         System.assertEquals(allocations.size(), 1);
+
+
+        // 2. Run the code you want to test
+        // Run findOrder() method
+        AlsurOrderAssignment assignmentClass = new AlsurOrderAssignment();
+        assignmentClass.getOrderItems();
+
+        // Test that orderObjects is filled
+        System.assert(assignmentClass.orderObjects.size() > 0);
+
+        // assignmentClass.findOrder();
+        // 3. Test that findOrder() filled the assignmentClass.currentAllocations object
+        // System.assert(assignmentClass.currentAllocations.size() > 0);
     } 
 }
