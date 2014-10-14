@@ -1,4 +1,4 @@
-@isTest (SeeAllData=true)
+@isTest 
 private class testAlsurOrderAssignment{
     @isTest
 	static void validateAlsurOrderAssignment(){
@@ -41,9 +41,8 @@ private class testAlsurOrderAssignment{
         List<SelectOption> options = assignmentClass.getAssociationItems();
         System.assert(options != null);
 
-      
-        PageReference nextPage = assignmentClass.saveAllocation();
-        System.assert(nextPage.getContent()!= null);
-
+        assignmentClass.findOrder();
+        System.assert(assignmentClass.orderObjects.size() > 0);
+     
     }
 }
