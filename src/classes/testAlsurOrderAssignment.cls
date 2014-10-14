@@ -26,10 +26,8 @@ private class testAlsurOrderAssignment{
         allocation.Number_of_Kilos__c = 5;
         insert allocation;
 
-
         CPA_Order_Allocation__c[] allocations = [SELECT Id, CPA_Order__c from CPA_Order_Allocation__c where CPA_Order__c =: order.Id];
         System.assertEquals(allocations.size(), 1);
-
 
         // 2. Run the code you want to test
         // Run findOrder() method
