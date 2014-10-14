@@ -240,7 +240,7 @@
                 
                 <apex:column width="200px">
                     <apex:facet name="header">Farmers Registered</apex:facet>
-                    <div style="width:100%;height:100%;background-color:#002">
+                    <div style="width:100%;height:100%;">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
                             &nbsp;<apex:param value="{!item.farmerRegistrations}"/>
                         </apex:outputText>
@@ -249,7 +249,7 @@
                 
                 <apex:column width="200px">
                     <apex:facet name="header">Searches Administered</apex:facet>
-                    <div style="width:100%;height:100%;background-color:#062">
+                    <div style="width:100%;height:100%;">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
                             &nbsp;<apex:param value="{!item.searches}"/>
                         </apex:outputText>
@@ -259,7 +259,7 @@
 
                 <apex:column width="200px">
                     <apex:facet name="header">Surveys Submitted</apex:facet>
-                    <div style="width:100%;height:100%;background-color:#620">
+                    <div style="width:100%;height:100%;">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
                             &nbsp;<apex:param value="{!item.surveys}"/>
                         </apex:outputText>
