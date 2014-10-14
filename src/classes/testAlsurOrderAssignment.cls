@@ -1,4 +1,4 @@
-@isTest
+@isTest (SeeAllData=true)
 private class testAlsurOrderAssignment{
     @isTest
 	static void validateAlsurOrderAssignment(){
@@ -26,6 +26,7 @@ private class testAlsurOrderAssignment{
         allocation.Number_of_Kilos__c = 5;
         insert allocation;
 
+
         CPA_Order_Allocation__c[] allocations = [SELECT Id, CPA_Order__c from CPA_Order_Allocation__c where CPA_Order__c =: order.Id];
         System.assertEquals(allocations.size(), 1);
 
@@ -33,13 +34,16 @@ private class testAlsurOrderAssignment{
         // 2. Run the code you want to test
         // Run findOrder() method
         AlsurOrderAssignment assignmentClass = new AlsurOrderAssignment();
+
         assignmentClass.getOrderItems();
+        System.assert(assignmentClass.orderObjects.size() > 0);    
 
-        // Test that orderObjects is filled
-        System.assert(assignmentClass.orderObjects.size() > 0);
+        List<SelectOption> options = assignmentClass.getAssociationItems();
+        System.assert(options != null);
 
-        // assignmentClass.findOrder();
-        // 3. Test that findOrder() filled the assignmentClass.currentAllocations object
-        // System.assert(assignmentClass.currentAllocations.size() > 0);
-    } 
+      
+        PageReference nextPage = assignmentClass.saveAllocation();
+        System.assert(nextPage.getContent()!= null);
+
+    }
 }
