@@ -32,7 +32,7 @@ public with sharing class MbugoDashboardController {
     }
 
 
- private void setUp(PageReference pageRef) {
+ public void setUp(PageReference pageRef) {
 
         // Try to keep the tab we're on
         String tabName = pageRef.getParameters().get('sfdc.tabName');
