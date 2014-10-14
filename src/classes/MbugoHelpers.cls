@@ -25,6 +25,72 @@ public with sharing class MbugoHelpers {
     }
 
 
+    public static List<MetricDataWrapper> getFarmerGroupsData()
+    {
+        List<MetricDataWrapper> farmerGroupsData = new List<MetricDataWrapper>();
+        M_E_Metric_Data__c metricData;
+
+        MetricDataWrapper vslaMetricWrapper = new MetricDataWrapper();
+        vslaMetricWrapper.setLabel('Number of farmer learning groups/VSLA registered');
+        vslaMetricWrapper.setCurrentRealValue(0);
+        //TODO: Get these from db
+
+
+        MetricDataWrapper totalVslaFarmerMetricWrapper = new MetricDataWrapper();
+        totalVslaFarmerMetricWrapper.setLabel('Number of members registered in the farmer learning groups/VSLA ');
+        totalVslaFarmerMetricWrapper.setCurrentRealValue(0);
+        //TODO: Get these from db
+
+        MetricDataWrapper totalVslaMaleFarmerMetricWrapper = new MetricDataWrapper();
+        totalVslaMaleFarmerMetricWrapper.setLabel('Number of male members registered in the farmer learning groups');
+        totalVslaMaleFarmerMetricWrapper.setCurrentRealValue(0);
+        //TODO: Get these from db
+
+
+        MetricDataWrapper totalVslaFemaleFarmerMetricWrapper = new MetricDataWrapper();
+        totalVslaFemaleFarmerMetricWrapper.setLabel('Number of female members registered in the farmer learning groups');
+        totalVslaFemaleFarmerMetricWrapper.setCurrentRealValue(0);
+        //TODO: Get these from db
+
+
+
+        List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {vslaMetricWrapper, totalVslaFarmerMetricWrapper, 
+            totalVslaMaleFarmerMetricWrapper, totalVslaFemaleFarmerMetricWrapper};
+    
+        return wrapper;
+    }
+
+
+
+
+
+
+
+    public static List<MetricDataWrapper> getCooperativeGroupsData()
+    {
+        
+        M_E_Metric_Data__c metricData;
+
+        MetricDataWrapper cooperativesMetricWrapper = new MetricDataWrapper();
+        cooperativesMetricWrapper.setLabel('Number of cooperatives registered');
+        cooperativesMetricWrapper.setCurrentRealValue(0);
+        //TODO: Get these from db
+
+
+        MetricDataWrapper coopPurchasingFarmerMetricWrapper = new MetricDataWrapper();
+        coopPurchasingFarmerMetricWrapper.setLabel('Percent of targeted farmers purchasing inputs from Mbugo Ace through their cooperatives');
+        coopPurchasingFarmerMetricWrapper.setCurrentRealValue(0);
+        //TODO: Get these from db
+
+        
+
+
+        List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {cooperativesMetricWrapper, coopPurchasingFarmerMetricWrapper};
+    
+        return wrapper;
+    }
+
+
 
 
 
@@ -84,6 +150,44 @@ public with sharing class MbugoHelpers {
     List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {farmersReachedMetricWrapper, maleFarmersReachedMetricWrapper, femaleFarmersReachedMetricWrapper};
     
     return wrapper;
+    }
+
+    public static List<CkwPerformanceWrapper> getCkwPerfomanceData()
+    {
+        //Get mbugo ckw ids
+        List<CkwPerformanceWrapper> wrapper = new List<CkwPerformanceWrapper>();
+
+        Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'Mbugo CKWs\' and Person__r.Type__c=\'CKW\'');
+
+        List<String> personIds = new List<String>();
+        for(Person_Group_Association__c p : associations) {
+            personIds.add(p.Person__r.Id);
+        }
+
+        AggregateResult[] mbugoCkwPerfomance = [
+        select 
+        CKW_c__r.Person__r.Id personId, 
+        CKW_c__r.Person__r.First_Name__c fname, 
+        CKW_c__r.Person__r.Last_Name__c lname, 
+        sum(Farmers_Registered__c) farmersRegistered, 
+        sum(Total_Searches__c) searches, 
+        sum(Total_Surveys_Submitted__c) surveys 
+        from 
+        CKW_Performance_Review__c
+        where CKW_c__r.Person__r.Id in: personIds 
+        group by CKW_c__r.Person__r.Id, CKW_c__r.Person__r.First_Name__c, CKW_c__r.Person__r.Last_Name__c
+        ];
+
+        for(AggregateResult aggResult : mbugoCkwPerfomance)
+        {
+            CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
+            thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
+            thisWrapper.farmerRegistrations = (Integer) aggResult.get('farmersRegistered');
+            thisWrapper.searches = (Integer) aggResult.get('searches');
+            thisWrapper.surveys = (Integer) aggResult.get('surveys');
+            wrapper.add(thisWrapper);
+        }
+        return wrapper;
     }
 
 
@@ -157,6 +261,14 @@ public with sharing class MbugoHelpers {
             
             System.debug(markers.size()+' map markers found'); 
             return markers.values();
+    }
+
+    public class CkwPerformanceWrapper
+    {
+        public String name { get; set; }
+        public Integer farmerRegistrations { get; set; }
+        public Integer searches { get; set; }
+        public Integer surveys { get; set; }
     }
 
 }

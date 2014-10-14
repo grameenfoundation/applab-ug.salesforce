@@ -73,7 +73,7 @@
         <apex:pageBlock title="Filter By">
             <table>
                 <tr>
-                    <td>
+                    <!-- <td>
                         <strong>District: </strong><apex:selectList value="{!district.Name}" multiselect="false" size="1">
                             <apex:selectOptions value="{!districtList}"></apex:selectOptions>
                         </apex:selectList>
@@ -82,7 +82,7 @@
                          <strong>Subcounty: </strong><apex:selectList value="{!subcounty.Display_Name__c}" multiselect="false" size="1">
                             <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
                         </apex:selectList>                  
-                    </td>
+                    </td> -->
                     <td>
                         <strong>Date From: </strong><apex:inputField value="{!dummyObject.Start_Date__c}"></apex:inputField>
                     </td>
@@ -155,6 +155,118 @@
                         </apex:outputText>
                     </div>
                 </apex:column>
+
             </apex:pageBlockTable>
         </apex:pageBlock>
+
+
+
+
+
+        <apex:pageBlock title="Farmer Groups / VSLAs Registered" id="farmerGroups">
+            <br/>
+            <apex:pageBlockTable value="{!farmerGroupsData}" var="item">
+                <apex:column headerValue="Indicator" width="700px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual</apex:facet>
+                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.currentValue}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
+                        Update
+                    </a>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+
+
+
+
+
+
+        <apex:pageBlock title="Farmer Cooperatives Utilization" id="coopGroups">
+            <br/>
+            <apex:pageBlockTable value="{!cooperativeGroupsData}" var="item">
+                <apex:column headerValue="Indicator" width="700px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual</apex:facet>
+                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.currentValue}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
+                        Update
+                    </a>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+
+
+
+
+
+
+        <apex:pageBlock title="Mbugo CKW Performance" id="mbugoCkwPerformance">
+            <br/>
+            <apex:pageBlockTable value="{!ckwPerfomanceData}" var="item">
+                <apex:column headerValue="CKW Name" width="300px">
+                    <apex:outputText escape="false">
+                        {!item.name}
+                    </apex:outputText>
+                </apex:column>
+                
+                <apex:column width="200px">
+                    <apex:facet name="header">Farmers Registered</apex:facet>
+                    <div style="width:100%;height:100%;background-color:#002">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.farmerRegistrations}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                
+                <apex:column width="200px">
+                    <apex:facet name="header">Searches Administered</apex:facet>
+                    <div style="width:100%;height:100%;background-color:#062">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.searches}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+
+
+                <apex:column width="200px">
+                    <apex:facet name="header">Surveys Submitted</apex:facet>
+                    <div style="width:100%;height:100%;background-color:#620">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.surveys}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+
 </apex:page>

@@ -24,12 +24,23 @@ public with sharing class MbugoDashboardController {
     public Date_Picker__c dummyObject { get; set; }
 
 
+    public MbugoDashboardController() {
+      dummyObject = new Date_Picker__c();
+      district = new District__c();
+      subcounty = new Subcounty__c();
+      setUp(ApexPages.currentPage());
+    }
+
+
  private void setUp(PageReference pageRef) {
 
         // Try to keep the tab we're on
         String tabName = pageRef.getParameters().get('sfdc.tabName');
         this.tabName = tabName != null ? tabName : tabName;
         this.isEditMode = (pageRef.getParameters().get('editMode') == 'true');
+
+        //this.dateFrom = pageRef.getParameters().get('dateFrom');
+        //this.dateTo = pageRef.getParameters().get('dateTo');
         
     } 
 
@@ -86,6 +97,21 @@ public with sharing class MbugoDashboardController {
 
     public List<MetricDataWrapper> getFarmersReachedData(){
     	return MbugoHelpers.getFarmersReachedData();
+    }
+
+
+    public List<MetricDataWrapper> getFarmerGroupsData(){
+        return MbugoHelpers.getFarmerGroupsData();
+    }
+
+    public List<MetricDataWrapper> getCooperativeGroupsData(){
+        return MbugoHelpers.getCooperativeGroupsData();
+    }
+
+    public List<MbugoHelpers.CkwPerformanceWrapper> getCkwPerfomanceData()
+    {
+        return MbugoHelpers.getCkwPerfomanceData();
+
     }
 
 
