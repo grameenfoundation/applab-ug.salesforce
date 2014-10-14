@@ -182,9 +182,9 @@ public with sharing class MbugoHelpers {
         {
             CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
             thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
-            thisWrapper.farmerRegistrations = (Integer) aggResult.get('farmersRegistered');
-            thisWrapper.searches = (Integer) aggResult.get('searches');
-            thisWrapper.surveys = (Integer) aggResult.get('surveys');
+            thisWrapper.farmerRegistrations = (Decimal) aggResult.get('farmersRegistered');
+            thisWrapper.searches = (Decimal) aggResult.get('searches');
+            thisWrapper.surveys = (Decimal) aggResult.get('surveys');
             wrapper.add(thisWrapper);
         }
         return wrapper;
@@ -266,9 +266,9 @@ public with sharing class MbugoHelpers {
     public class CkwPerformanceWrapper
     {
         public String name { get; set; }
-        public Integer farmerRegistrations { get; set; }
-        public Integer searches { get; set; }
-        public Integer surveys { get; set; }
+        public Decimal  farmerRegistrations { get; set; }
+        public Decimal  searches { get; set; }
+        public Decimal  surveys { get; set; }
     }
 
 }
