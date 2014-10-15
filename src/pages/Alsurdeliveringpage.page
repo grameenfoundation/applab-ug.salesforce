@@ -1,36 +1,24 @@
 <apex:page controller="AlsurOrderDelivery" sidebar="false" language="es" docType="html-5.0">
-  <apex:form >
-  <apex:pageblock >
-   <apex:pageBlockSection >
-  
-   <apex:pageBlockSectionItem >
-   <apex:outputLabel >Selecciona una organización</apex:outputLabel>
-      <apex:selectList value="{!selecteddept}" size="1">
-           <apex:selectOptions value="{!deptitems}" rendered="true" />
+ <apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockSection title="Criteria">
+      <apex:outputLabel value="Seleccione una organización"/>
+      <apex:selectList id="nameQuery" size="3" value="{!nameQuery}" >
+            <apex:selectOptions value="{!associationItems}"/>
+            <apex:actionSupport event="onchange" action="{!executeSearch}"/>
       </apex:selectList>
-   </apex:pageBlockSectionItem>
-        <apex:commandButton id="search" Value="Buscar ordenes" action="{!search}"/>
-
-    <apex:outputPanel >
-    <apex:outputtext value="{!selecteddept}"></apex:outputtext>
-      <apex:datatable value="{!searchlist}" var="a" id="theTable" title="Iam HERE" >
-
-            <apex:facet name="retrieved">We Have The Following Products</apex:facet>
-       
-       <apex:column >
-            <apex:facet name="ProductName">Product Name</apex:facet>
-            
-            <apex:outputtext value="{!a.Expected_Delivery_Date__c}"/>
-        </apex:column>
-      
-        <apex:column >
-            <apex:facet name="ProductPrice">Product Price</apex:facet>
-            <apex:outputText value="{!a.Presentacion__c}"/>
-        </apex:column>
-      </apex:datatable>
-    </apex:outputPanel>
    </apex:pageBlockSection>
- 
-  </apex:pageBlock>
- </apex:form>
+    
+   <apex:pageBlockTable value="{!orders}" var="ord">
+      <apex:column headerValue="Fecha de entrega" value="{!ord.Expected_Delivery_Date__c}"/>
+      <apex:column headerValue="Nombre asociación" value="{!ord.Association__r.Name}"/>
+      <apex:column headerValue="Número de unidades de presentación">
+        <apex:inputField value="{!ord.Number_of_Units_of_Presentation__c}"/>
+      </apex:column>
+      <apex:column headerValue="Número de kilos">
+        <apex:inputField value="{!ord.Number_of_Kilos__c}"/>
+      </apex:column>
+   </apex:pageBlockTable>
+ </apex:pageBlock>
+  </apex:form>
 </apex:page>

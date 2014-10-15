@@ -1,37 +1,38 @@
 public class AlsurOrderDelivery {   
-
-    public List <CPA_Order_Allocation__c> searchlist{set; get;}
-    public string selectedDept{set;get;}
-    public string productname{ set; get;}
-    public string productprice{ set;get;}
-    public string productimage{ set;get;}
-    
-    public string getselectedDept(){
-      
-       return selecteddept;
-       
-       }
-        public void setselecteddept() {
-           this.selecteddept = selecteddept;
-    }
-   public string deptItems{set; }
-
-   public List<SelectOption> getdeptItems() {
-            List<SelectOption> options = new List<SelectOption>();
-             Schema.DescribeFieldResult fieldResult =Association__c.getDescribe();   
-        List<Schema.picklistEntry> ple = fieldResult.getPicklistValues();
-          for(Schema.picklistEntry f:ple)   
-        {   
-            options.add(new selectOption(f.getLabel(),f.getValue()));                   
-        }   
-        return Options; 
+public String nameQuery {get; set;}
+public List<CPA_Order_Allocation__c> orders {get; set;}
+  
+public PageReference executeSearch()
+ {
+  String queryStr='%' + nameQuery + '%';
+  orders=[select Id,
+                   Association__c,
+                   Association__r.Name,
+                   Number_of_Units_of_Presentation__c,
+                   Number_of_Kilos__c,
+                   Expected_Delivery_Date__c
+            from CPA_Order_Allocation__c
+            where Association__r.Name like :queryStr];
+            
+  return null;
 }
-    public pagereference search(){
-      return null;
-      }
- 
-public List<CPA_Order_Allocation__c> searchproduct(){
-        searchlist = [select Expected_Delivery_Date__c,Number_of_Kilos__c,Presentacion__c from CPA_Order_Allocation__c ];
-       return searchlist; 
+  
+public AlsurOrderDelivery(){
+  // if query appears in URL, execute it
+  String urlQuery=ApexPages.currentPage().getParameters().get('query');
+   
+  if ( (null!=urlQuery) && (0!=urlQuery.length()) )
+  {
+   nameQuery=urlQuery;
+   executeSearch();
+  }
+}
+public List<SelectOption> getAssociationItems() {
+        list<Association__c> associations = [Select Id, Name from Association__c];
+        List<SelectOption> options = new List<SelectOption>();
+        for (Association__c nameQuery : associations) {
+            options.add(new SelectOption(nameQuery.Name, nameQuery.Name));
+        }
+        return options;
 }
 }
