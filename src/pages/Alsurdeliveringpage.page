@@ -1,0 +1,24 @@
+<apex:page controller="AlsurOrderDelivery" sidebar="false" language="es" docType="html-5.0">
+ <apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockSection title="Criteria">
+      <apex:outputLabel value="Seleccione una organización"/>
+      <apex:selectList id="nameQuery" size="3" value="{!nameQuery}" >
+            <apex:selectOptions value="{!associationItems}"/>
+            <apex:actionSupport event="onchange" action="{!executeSearch}"/>
+      </apex:selectList>
+   </apex:pageBlockSection>
+    
+   <apex:pageBlockTable value="{!orders}" var="ord">
+      <apex:column headerValue="Fecha de entrega" value="{!ord.Expected_Delivery_Date__c}"/>
+      <apex:column headerValue="Nombre asociación" value="{!ord.Association__r.Name}"/>
+      <apex:column headerValue="Número de unidades de presentación">
+        <apex:inputField value="{!ord.Number_of_Units_of_Presentation__c}"/>
+      </apex:column>
+      <apex:column headerValue="Número de kilos">
+        <apex:inputField value="{!ord.Number_of_Kilos__c}"/>
+      </apex:column>
+   </apex:pageBlockTable>
+ </apex:pageBlock>
+  </apex:form>
+</apex:page>

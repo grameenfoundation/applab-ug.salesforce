@@ -1,0 +1,53 @@
+<apex:page controller="AlsurOrderAssignment" sidebar="false" language="es" docType="html-5.0">
+    <apex:form >
+    <apex:pageBlock title="{!$Label.ALSUR_ORDER_ALLOCATION}">
+        <div>
+        <strong><apex:outputText value="{!$Label.ALSUR_CHOOSE_ORDER}"/></strong>
+        <br/>
+        <apex:selectList size="3" value="{!order}">
+            <apex:selectOptions value="{!OrderItems}"/>
+            <apex:actionSupport event="onchange" reRender="orderData, xyz" action="{!findOrder}"/>
+        </apex:selectList>
+        </div>
+        <br/>
+        <div>
+        <apex:pageBlockSection title="{!$Label.ALSUR_ORDER_INFO}" collapsible="false">
+        <apex:outputPanel id="orderData" title="{!$Label.ALSUR_ORDER_INFO}">
+            <div><apex:outputLabel value="{!$Label.ALSUR_UNALLOCATED_UNITS}"/>&nbsp; <apex:outputField value="{!orderObject.Unallocated_Units_of_Presentation__c}"/></div>
+            <div><apex:outputLabel value="{!$Label.ALSUR_UNALLOCATED_KILOS}"/>&nbsp;<apex:outputField value="{!orderObject.Unallocated_Number_of_Kilos__c}"/></div>
+            <div><apex:outputLabel value="{!$Label.ALSUR_UNALLOCATED_BASKETS}"/>&nbsp;<apex:outputField value="{!orderObject.Unallocated_Number_of_Baskets__c}"/></div>
+            <div><apex:outputLabel value="{!$Label.ALSUR_PRESENTATION}"/>&nbsp;<apex:outputField value="{!orderObject.Presentacion__c}"/></div>
+        </apex:outputPanel>
+        </apex:pageBlockSection>
+        </div>
+        <div>
+        <apex:pageBlockSection title="{!$Label.ALSUR_CHOOSE_ASSOCIATION}" collapsible="false">
+        <!--apex:outputText value="{!$Label.ALSUR_ASSOCIATION}"/-->
+        <apex:selectList size="3" value="{!association}" >
+            <apex:selectOptions value="{!associationItems}"/>
+        </apex:selectList>
+        </apex:pageBlockSection>
+        </div>
+        <div>
+        <apex:pageBlockSection title="{!$Label.ALSUR_NEW_ORDER_ALLOCATION}" collapsible="false">
+        <apex:inputField value="{!allocation.Number_of_Units_of_Presentation__c}"/>
+        <apex:inputField value="{!allocation.Number_of_Kilos__c}" type="text"/>
+        <apex:inputField value="{!allocation.Number_of_Baskets__c}"/>
+        <apex:commandButton value="{!$Label.SAVE}" action="{!saveAllocation}"/>
+        </apex:pageBlockSection>
+        </div>
+        <div>
+        <apex:pageBlockSection title="{!$Label.ALSUR_CURRENT_ALLOCATIONS}" collapsible="false">
+        <apex:outputPanel id="xyz">
+            <apex:pageBlockTable value="{!currentAllocations}" var="currAllocation">
+                <apex:column value="{!currAllocation.Association__c}"/>
+                <apex:column value="{!currAllocation.Number_of_Units_of_Presentation__c}"/>
+                <apex:column value="{!currAllocation.Number_of_Kilos__c}"/>
+                <apex:column value="{!currAllocation.Number_of_Baskets__c}"/>
+            </apex:pageBlockTable>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+        </div>
+    </apex:pageblock>
+    </apex:form>
+</apex:page>
