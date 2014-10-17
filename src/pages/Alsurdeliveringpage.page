@@ -1,24 +1,38 @@
 <apex:page controller="AlsurOrderDelivery" sidebar="false" language="es" docType="html-5.0">
- <apex:form >
+  <apex:form >
     <apex:pageBlock >
-      <apex:pageBlockSection title="Criteria">
-      <apex:outputLabel value="Seleccione una organización"/>
-      <apex:selectList id="nameQuery" size="3" value="{!nameQuery}" >
-            <apex:selectOptions value="{!associationItems}"/>
-            <apex:actionSupport event="onchange" action="{!executeSearch}"/>
-      </apex:selectList>
-   </apex:pageBlockSection>
-    
-   <apex:pageBlockTable value="{!orders}" var="ord">
-      <apex:column headerValue="Fecha de entrega" value="{!ord.Expected_Delivery_Date__c}"/>
-      <apex:column headerValue="Nombre asociación" value="{!ord.Association__r.Name}"/>
-      <apex:column headerValue="Número de unidades de presentación">
-        <apex:inputField value="{!ord.Number_of_Units_of_Presentation__c}"/>
-      </apex:column>
-      <apex:column headerValue="Número de kilos">
-        <apex:inputField value="{!ord.Number_of_Kilos__c}"/>
-      </apex:column>
-   </apex:pageBlockTable>
- </apex:pageBlock>
+      <apex:pageBlockSection title="Selección organización">
+        <apex:outputLabel value="Seleccione una organización"/>
+        <apex:selectList id="nameQuery" size="3" value="{!nameQuery}" >
+              <apex:selectOptions value="{!associationItems}"/>
+              <apex:actionSupport event="onchange" action="{!executeSearch}"/>
+        </apex:selectList>
+      </apex:pageBlockSection>
+<br />  
+      <apex:pageBlockSection title="Información de los pedidos">
+        <apex:pageBlockTable id="table" value="{!orders}" var="ord">
+          <apex:column id="codOrden" headerValue="Codigo de la orden" value="{!ord.Order_Code__c}"/>
+          <apex:column id="fEntrega" headerValue="Fecha de entrega" value="{!ord.Expected_Delivery_Date__c}"/>
+          <apex:column id="cliente" headerValue="Cliente" value="{!ord.Client__c}"/>
+          <apex:column id="producto" headerValue="Producto" value="{!ord.Product_Name__c}"/>
+          <apex:column headerValue="Número de unidades de presentación">
+            <apex:inputField id="numUndPresentacion" value="{!ord.Number_of_Units_of_Presentation__c}"/>
+          </apex:column>
+            <apex:column headerValue="Unidades de presentación">
+            <apex:inputField id="undPresentacion" value="{!ord.CPA_Order__r.Unit_of_Presentation__c}"/>
+          </apex:column>
+          <apex:column headerValue="Presentación">
+            <apex:inputField id="presentacion" value="{!ord.CPA_Order__r.Presentacion__c}"/>
+          </apex:column>
+          <apex:column headerValue="Número de kilos">
+            <apex:inputField id="kilos" value="{!ord.Number_of_Kilos__c}"/>
+          </apex:column>
+          <apex:column headerValue="Precio por kilo" value="{!ord.Price_per_Kilo__c}"/>
+          <apex:column headerValue=" " value="{!ord.Id}"/>
+        </apex:pageBlockTable>
+        <br />
+        <apex:commandButton value="Guardar" action="{!save}"/>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
   </apex:form>
 </apex:page>
