@@ -379,6 +379,7 @@ public void getAllMetricDatas()
         Survey__c survey = Utils.loadSurvey(submission.surveyId);
         SubmissionType type;
         String failures = '';
+        System.debug('Survey is '+survey);
         if(survey.Survey_Name__c.containsIgnoreCase('Mbugo ACE')) {
             type = SubmissionType.MBUGO_ACE_SURVEY;
         }

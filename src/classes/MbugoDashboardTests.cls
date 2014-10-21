@@ -22,6 +22,16 @@ public with sharing class MbugoDashboardTests {
        
 
 
+        
+
+
+        Phone__c testHandset = new Phone__c();
+        testHandset.IMEI__c = '123456789101112';
+        testHandset.Serial_Number__c = '123456789101112';
+        testHandset.Purchase_Value_USD__c = 100.00;
+        insert testHandset;
+
+
         Person__c testPerson = new Person__c();
         testPerson.First_Name__c = 'John';
         testPerson.Last_Name__c = 'Lu' ;
@@ -29,9 +39,10 @@ public with sharing class MbugoDashboardTests {
         testPerson.District__c = testDistrict.Id;
         //testPerson.Handset__c = testHandset.Id;
         testPerson.Type__c = 'CKW';
+        testPerson.Handset__c = testHandset.Id;
         insert testPerson;
 
-
+        
 
 
         CKW__c testCkw = new CKW__c();
@@ -106,6 +117,30 @@ public with sharing class MbugoDashboardTests {
         controller.setIsUpdateable('true');
 
 
+        //Create test surveys
+        Survey__c acesurvey = new Survey__c();
+        acesurvey.Post_Processing_Method__c = 'MBUGO';
+        acesurvey.Survey_Name__c = 'Mbugo ACE';
+        acesurvey.Survey_Status__c = 'Published';
+        acesurvey.Start_Date__c = Date.valueOf(date.today().year() + '-01-01');
+        acesurvey.End_Date__c = Date.valueOf((date.today().year() + 4) + '-01-01');
+        insert acesurvey;
+
+
+        //Create test surveys
+        Survey__c vslasurvey = new Survey__c();
+        vslasurvey.Post_Processing_Method__c = 'MBUGO';
+        vslasurvey.Survey_Name__c = 'Mbugo VSLA';
+        vslasurvey.Survey_Status__c = 'Published';
+        vslasurvey.Start_Date__c = Date.valueOf(date.today().year() + '-01-01');
+        vslasurvey.End_Date__c = Date.valueOf((date.today().year() + 4) + '-01-01');
+        insert vslasurvey;
+
+
+        Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
+        List<String> returnValues = new List<String>();
+        
+
         
         Test.startTest();
         
@@ -128,9 +163,46 @@ public with sharing class MbugoDashboardTests {
         System.assert(MbugoHelpers.getFOMapMarkers().size() == 1);
 
 
+        //Test survey post processing
+        ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = testHandset.IMEI__c;
+        submission.resultHash = '1';
+        submission.surveyId = [select Id, Name from Survey__c where Id = :acesurvey.Id].Name;
+        answers.put('q12_0', Utils.createTestSubmissionAnswer(null, 'q12', '3 4', null, null, null));
 
+        returnValues = MbugoHelpers.surveysPostProcessing(submission, answers, testPerson);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('success'));
+        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED).Manual_Value__c == 1);
+        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE).Manual_Value__c == 1);
+
+
+
+        submission = new ProcessSurveySubmission.SurveySubmission();
+        submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
+        submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
+        submission.imei = testHandset.IMEI__c;
+        submission.resultHash = '1';
+        submission.surveyId = [select Id, Name from Survey__c where Id = :vslasurvey.Id].Name;
+        answers.put('q24_0', Utils.createTestSubmissionAnswer(null, 'q24', '90', null, null, null));
+        answers.put('q22_0', Utils.createTestSubmissionAnswer(null, 'q22', '40', null, null, null));
+        answers.put('q23_0', Utils.createTestSubmissionAnswer(null, 'q23', '50', null, null, null));
+
+        returnValues = MbugoHelpers.surveysPostProcessing(submission, answers, testPerson);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('success'));
+        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.NUMBER_OF_VSLAS_REGISTERED).Manual_Value__c == 1);
+        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.TOTAL_NUMBER_OF_FARMERS_IN_VSLAS).Manual_Value__c == 90);
+        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS).Manual_Value__c == 40);
+        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS).Manual_Value__c == 50);
+        
         Test.stopTest();
 
 
-    }	
+    }
+
+
+
 }
