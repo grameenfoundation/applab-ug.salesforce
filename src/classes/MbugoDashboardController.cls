@@ -115,6 +115,21 @@ public with sharing class MbugoDashboardController {
     }
 
 
+
+    public List<MetricDataWrapper> getVslaServicesData(){
+        
+   
+        return MbugoHelpers.getVslaServicesData();
+    }
+
+
+
+    public List<MbugoHelpers.FinancialServicesUsageData> getFinancialServicesChartData() {
+        return MbugoHelpers.getFinancialServicesChartData();
+        
+    }
+
+
     public PageReference changeFilters() {    
         PageReference resultPage = ApexPages.currentPage(); 
         resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);

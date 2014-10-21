@@ -586,6 +586,9 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('BUCCODEG_CAFE_PROJECT_KENYA')) {
                 return BuccodecHelpers.surveysPostProcessing(surveySubmission, answers, interviewer);
             }
+            else if (survey.Post_Processing_Method__c.equals('MBUGO')) {
+                return MbugoHelpers.surveysPostProcessing(surveySubmission, answers, interviewer);
+            }
         }
         catch (Exception e) {
             returnValues.add('0');
