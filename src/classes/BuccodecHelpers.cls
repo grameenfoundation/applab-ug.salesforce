@@ -287,7 +287,7 @@ public class BuccodecHelpers {
                 farmerPerson.Parish__c = subLocation;
                 farmerPerson.Gender__c = gender;
                 farmerPerson.Country__c = [SELECT Id FROM Country__c WHERE Name = 'Kenya'].get(0).Id;
-                farmerPerson.Type__c = 'Farmer';
+                farmerPerson.Type__c = 'BUCCODEG Farmer';
                 farmerPerson.OwnerId = owner[0].Id;
                 farmerPerson.GPS_Location_E__c = submission.interviewLongitude != null ? submission.interviewLongitude : '';
                 farmerPerson.GPS_Location_N__c = submission.interviewLatitude != null ? submission.interviewLatitude : '';
