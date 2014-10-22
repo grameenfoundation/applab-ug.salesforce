@@ -541,9 +541,6 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
                 return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
             }
-            else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
-                return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
-            }
             else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
                 return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
             }
