@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>ChangeStatus</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -29,6 +33,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -41,6 +49,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Tab</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -48,205 +60,95 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <businessProcesses>
-        <fullName>CKW Support Process</fullName>
-        <description>Process to support CKWs with their questions and needs</description>
-        <isActive>true</isActive>
-        <values>
-            <fullName>Closed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Escalated</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>In Progress</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New</fullName>
-            <default>true</default>
-        </values>
-    </businessProcesses>
-    <businessProcesses>
-        <fullName>MoTeCH Support Process</fullName>
-        <description>Process to support MoTeCH users</description>
-        <isActive>true</isActive>
-        <values>
-            <fullName>Closed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Escalated</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>In Progress</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New</fullName>
-            <default>true</default>
-        </values>
-    </businessProcesses>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>AccountId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>AssetId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>BusinessHoursId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
-        <fullName>Case_Count__c</fullName>
-        <externalId>false</externalId>
-        <formula>1</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <inlineHelpText>This field should be hidden from page layouts. It is used to count the number cases on reports.</inlineHelpText>
-        <label>Case Count</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackHistory>false</trackHistory>
-        <type>Number</type>
-        <unique>false</unique>
+        <fullName>ClosedDate</fullName>
+        <trackTrending>false</trackTrending>
     </fields>
     <fields>
-        <fullName>Category__c</fullName>
-        <externalId>false</externalId>
-        <inlineHelpText>Please select a category for the support request based on the content of support</inlineHelpText>
-        <label>Category</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Phone handset</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Application - Pulse</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Application - CKW Search</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Application - Survey</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Content  - Pulse</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Content - CKW Search</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Content - Survey</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Mobile Money</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Payments</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Other</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Charging Issues</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Farmer ID Issues</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Tests</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Network Problems</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Issue from Field Validator</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Call center - Animals</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Call center - Crops</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Call center - Weather</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Call center - Market Information</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Call center - Farm Inputs</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Call center - Service Providers</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Call center - Others</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>MTN SIM Registration</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Ministry</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>NAADS</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackHistory>true</trackHistory>
-        <type>MultiselectPicklist</type>
-        <visibleLines>6</visibleLines>
+        <fullName>Comments</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactFax</fullName>
+        <trackTrending>false</trackTrending>
     </fields>
     <fields>
         <fullName>ContactId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactMobile</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>EngineeringReqNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>Engineering Req Number</label>
+        <length>12</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsClosedOnCreate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsEscalated</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
     </fields>
     <fields>
         <fullName>Origin</fullName>
         <picklist>
             <picklistValues>
-                <fullName>CKW Pulse</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>SMS</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Phone Call</fullName>
+                <fullName>Phone</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -259,42 +161,44 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>ParentId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Person_Owner_Id__c</fullName>
-        <description>This is the ID of Owner of the the Person object for this case. It allows us to filter cases on owner (e.g. LAC Cases)</description>
-        <externalId>false</externalId>
-        <formula>Person__r.OwnerId</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <inlineHelpText>This is the ID of Owner of the the Person object for this case. It allows us to filter cases on owner (e.g. LAC Cases)</inlineHelpText>
-        <label>Person Owner Id</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Person__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <description>The person associated with this request</description>
-        <externalId>false</externalId>
-        <label>Person</label>
-        <referenceTo>Person__c</referenceTo>
-        <relationshipLabel>Cases</relationshipLabel>
-        <relationshipName>Cases</relationshipName>
-        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PotentialLiability__c</fullName>
+        <externalId>false</externalId>
+        <label>Potential Liability</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Priority</fullName>
@@ -313,60 +217,123 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Program__c</fullName>
+        <fullName>Product__c</fullName>
         <externalId>false</externalId>
-        <label>Program</label>
+        <label>Product</label>
         <picklist>
             <picklistValues>
-                <fullName>CKW Uganda</fullName>
+                <fullName>GC1040</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>MoTeCH Ghana</fullName>
+                <fullName>GC1060</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>CEA Ghana</fullName>
+                <fullName>GC3020</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GC3040</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GC3060</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GC5020</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GC5040</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GC5060</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GC1020</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
-        <trackHistory>true</trackHistory>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Reason</fullName>
         <picklist>
             <picklistValues>
-                <fullName>New Request</fullName>
+                <fullName>Installation</fullName>
                 <cssExposed>false</cssExposed>
-                <default>true</default>
+                <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Closed Request</fullName>
+                <fullName>Equipment Complexity</fullName>
+                <cssExposed>false</cssExposed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Performance</fullName>
+                <cssExposed>false</cssExposed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Breakdown</fullName>
+                <cssExposed>false</cssExposed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Equipment Design</fullName>
+                <cssExposed>false</cssExposed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feedback</fullName>
+                <cssExposed>false</cssExposed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
                 <cssExposed>false</cssExposed>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Response__c</fullName>
-        <description>Current response of support staff on this ticket</description>
+        <fullName>SLAViolation__c</fullName>
         <externalId>false</externalId>
-        <inlineHelpText>Enter a description here about how the user should address this case</inlineHelpText>
-        <label>Response</label>
-        <length>16000</length>
+        <label>SLA Violation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackFeedHistory>false</trackFeedHistory>
-        <trackHistory>true</trackHistory>
-        <type>Html</type>
-        <visibleLines>10</visibleLines>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Status</fullName>
@@ -377,7 +344,7 @@
                 <default>true</default>
             </picklistValues>
             <picklistValues>
-                <fullName>In Progress</fullName>
+                <fullName>Working</fullName>
                 <closed>false</closed>
                 <default>false</default>
             </picklistValues>
@@ -393,127 +360,89 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedCompany</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedName</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedPhone</fullName>
+        <trackTrending>false</trackTrending>
     </fields>
     <fields>
         <fullName>Type</fullName>
         <picklist>
             <picklistValues>
-                <fullName>Problem</fullName>
+                <fullName>Mechanical</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Question</fullName>
+                <fullName>Electrical</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Suggestion</fullName>
+                <fullName>Electronic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Structural</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Other</fullName>
                 <default>false</default>
             </picklistValues>
-            <picklistValues>
-                <fullName>Request</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Test</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>FVR-Suggestion</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>CKW Performance</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Extension Tool</fullName>
-                <default>false</default>
-            </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <listViews>
-        <fullName>All_Cases</fullName>
+        <fullName>AllClosedCases</fullName>
         <columns>CASES.CASE_NUMBER</columns>
-        <columns>Person__c</columns>
-        <columns>Category__c</columns>
-        <columns>CASES.TYPE</columns>
+        <columns>NAME</columns>
         <columns>CASES.SUBJECT</columns>
         <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
         <columns>CASES.CREATED_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <label>All Cases</label>
-    </listViews>
-    <listViews>
-        <fullName>All_Closed_Cases</fullName>
-        <columns>CASES.CASE_NUMBER</columns>
-        <columns>Person__c</columns>
-        <columns>Category__c</columns>
-        <columns>CASES.TYPE</columns>
-        <columns>CASES.SUBJECT</columns>
-        <columns>CASES.STATUS</columns>
-        <columns>CASES.CREATED_DATE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>CASES.STATUS</field>
+            <field>CASES.CLOSED</field>
             <operation>equals</operation>
-            <value>Closed</value>
+            <value>1</value>
         </filters>
         <label>All Closed Cases</label>
     </listViews>
     <listViews>
-        <fullName>All_New_Cases</fullName>
-        <columns>CASES.CASE_NUMBER</columns>
-        <columns>Person__c</columns>
-        <columns>Category__c</columns>
-        <columns>CASES.TYPE</columns>
-        <columns>CASES.SUBJECT</columns>
-        <columns>CASES.STATUS</columns>
-        <columns>CASES.CREATED_DATE</columns>
+        <fullName>AllOpenCases</fullName>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>CASES.STATUS</field>
+            <field>CASES.CLOSED</field>
             <operation>equals</operation>
-            <value>New</value>
-        </filters>
-        <label>All New Cases</label>
-    </listViews>
-    <listViews>
-        <fullName>All_Open_Cases</fullName>
-        <booleanFilter>1</booleanFilter>
-        <columns>CASES.CASE_NUMBER</columns>
-        <columns>Person__c</columns>
-        <columns>Category__c</columns>
-        <columns>CASES.TYPE</columns>
-        <columns>CASES.SUBJECT</columns>
-        <columns>CASES.STATUS</columns>
-        <columns>CASES.CREATED_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CASES.STATUS</field>
-            <operation>notEqual</operation>
-            <value>Closed</value>
+            <value>0</value>
         </filters>
         <label>All Open Cases</label>
-    </listViews>
-    <listViews>
-        <fullName>CKW_Cases_Queue</fullName>
-        <columns>CASES.CASE_NUMBER</columns>
-        <columns>Person__c</columns>
-        <columns>Category__c</columns>
-        <columns>CASES.TYPE</columns>
-        <columns>CASES.SUBJECT</columns>
-        <columns>CASES.STATUS</columns>
-        <columns>CASES.CREATED_DATE</columns>
-        <filterScope>Queue</filterScope>
-        <label>CKW Cases Queue</label>
-        <queue>CKWCasesQueue</queue>
     </listViews>
     <listViews>
         <fullName>MyCases</fullName>
@@ -530,418 +459,43 @@
         </filters>
         <label>My Open Cases</label>
     </listViews>
-    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
-    <recordTypeTrackHistory>true</recordTypeTrackHistory>
-    <recordTypes>
-        <fullName>MoTeCH_Support_Case</fullName>
-        <active>true</active>
-        <businessProcess>MoTeCH Support Process</businessProcess>
-        <description>Case Record for MoTeCH</description>
-        <label>MoTeCH Support Case</label>
-        <picklistValues>
-            <picklist>Category__c</picklist>
-            <values>
-                <fullName>Other</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Phone handset</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Origin</picklist>
-            <values>
-                <fullName>CKW Pulse</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Email</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Phone Call</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>SMS</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Web</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Priority</picklist>
-            <values>
-                <fullName>High</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Low</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Medium</fullName>
-                <default>true</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Program__c</picklist>
-            <values>
-                <fullName>CKW Uganda</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>MoTeCH Ghana</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Reason</picklist>
-            <values>
-                <fullName>Closed Request</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>New Request</fullName>
-                <default>true</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Type</picklist>
-            <values>
-                <fullName>Other</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Problem</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Question</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Suggestion</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-    </recordTypes>
-    <recordTypes>
-        <fullName>Support_Case</fullName>
-        <active>true</active>
-        <businessProcess>CKW Support Process</businessProcess>
-        <description>Case to handle CKW questions and request for help</description>
-        <label>Support Case</label>
-        <picklistValues>
-            <picklist>Category__c</picklist>
-            <values>
-                <fullName>Application - CKW Search</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Application - Pulse</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Application - Survey</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Call center - Animals</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Call center - Crops</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Call center - Farm Inputs</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Call center - Market Information</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Call center - Others</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Call center - Service Providers</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Call center - Weather</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Charging Issues</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Content  - Pulse</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Content - CKW Search</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Content - Survey</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Farmer ID Issues</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Issue from Field Validator</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>MTN SIM Registration</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Ministry</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Mobile Money</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Network Problems</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Other</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Payments</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Phone handset</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Tests</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Origin</picklist>
-            <values>
-                <fullName>CKW Pulse</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Email</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Phone Call</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>SMS</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Web</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Priority</picklist>
-            <values>
-                <fullName>High</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Low</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Medium</fullName>
-                <default>true</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Program__c</picklist>
-            <values>
-                <fullName>CEA Ghana</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>CKW Uganda</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>MoTeCH Ghana</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Reason</picklist>
-            <values>
-                <fullName>Closed Request</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>New Request</fullName>
-                <default>true</default>
-            </values>
-        </picklistValues>
-        <picklistValues>
-            <picklist>Type</picklist>
-            <values>
-                <fullName>CKW Performance</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Extension Tool</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>FVR-Suggestion</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Other</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Problem</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Question</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Request</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Suggestion</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Test</fullName>
-                <default>false</default>
-            </values>
-        </picklistValues>
-    </recordTypes>
     <searchLayouts>
         <customTabListAdditionalFields>CASES.CASE_NUMBER</customTabListAdditionalFields>
         <customTabListAdditionalFields>CASES.SUBJECT</customTabListAdditionalFields>
         <customTabListAdditionalFields>CASES.CREATED_DATE</customTabListAdditionalFields>
         <customTabListAdditionalFields>CASES.PRIORITY</customTabListAdditionalFields>
-        <customTabListAdditionalFields>CASES.TYPE</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>CASES.CASE_NUMBER</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CASES.SUBJECT</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>CASES.TYPE</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CASES.STATUS</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CASES.CASE_NUMBER</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CASES.SUBJECT</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CASES.TYPE</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CASES.STATUS</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>CASES.CASE_NUMBER</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CASES.SUBJECT</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CASES.TYPE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CASES.STATUS</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CASES.CREATED_DATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
+    <sharingModel>ReadWriteTransfer</sharingModel>
     <webLinks>
-        <fullName>CreateContactfromWebInfo</fullName>
+        <fullName>UpsellCrosssellOpportunity</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
         <encodingKey>UTF-8</encodingKey>
-        <hasMenubar>false</hasMenubar>
+        <hasMenubar>true</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
-        <hasToolbar>false</hasToolbar>
+        <hasToolbar>true</hasToolbar>
         <height>600</height>
         <isResizable>true</isResizable>
         <linkType>url</linkType>
-        <masterLabel>Create Contact from Web Info</masterLabel>
+        <masterLabel>Up-sell / Cross-sell Opportunity</masterLabel>
         <openType>newWindow</openType>
         <position>none</position>
         <protected>false</protected>
-        <showsLocation>false</showsLocation>
-        <showsStatus>false</showsStatus>
-        <url>https://emea.salesforce.com/003/e?retURL=%2F003%2Fo&amp;name_lastcon2={!Case_SuppliedName}&amp;con15={!Case_SuppliedEmail}&amp;con10={!Case_SuppliedPhone}&amp;con4={!Case_SuppliedCompany}</url>
-    </webLinks>
-    <webLinks>
-        <fullName>Create_JIRA_Issue</fullName>
-        <availability>online</availability>
-        <description>Create JIRA Issue</description>
-        <displayType>button</displayType>
-        <encodingKey>UTF-8</encodingKey>
-        <hasMenubar>false</hasMenubar>
-        <hasScrollbars>true</hasScrollbars>
-        <hasToolbar>false</hasToolbar>
-        <height>600</height>
-        <isResizable>true</isResizable>
-        <linkType>url</linkType>
-        <masterLabel>Create JIRA Issue</masterLabel>
-        <openType>newWindow</openType>
-        <position>none</position>
-        <protected>false</protected>
-        <showsLocation>false</showsLocation>
-        <showsStatus>false</showsStatus>
-        <url>https://applab.atlassian.net/plugins/servlet/customware/connector/issue/2/Case/create.action?id={!Case.Id}&amp;project=CKW+General&amp;issueType=Issue&amp;skipSearch=true&amp;os_username=pmo&amp;os_password=pmo123</url>
-    </webLinks>
-    <webLinks>
-        <fullName>Mass_Edit</fullName>
-        <availability>online</availability>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>page</linkType>
-        <masterLabel>Mass Edit</masterLabel>
-        <openType>sidebar</openType>
-        <page>MassEditCase</page>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-    </webLinks>
-    <webLinks>
-        <fullName>Mass_Update</fullName>
-        <availability>online</availability>
-        <displayType>massActionButton</displayType>
-        <height>600</height>
-        <linkType>page</linkType>
-        <masterLabel>Mass Update</masterLabel>
-        <openType>sidebar</openType>
-        <page>MassUpdateCase</page>
-        <protected>false</protected>
-        <requireRowSelection>true</requireRowSelection>
-    </webLinks>
-    <webLinks>
-        <fullName>Sync_to_JIRA</fullName>
-        <availability>online</availability>
-        <description>Synchronize Salesforce.com Case information to a JIRA issue</description>
-        <displayType>button</displayType>
-        <encodingKey>UTF-8</encodingKey>
-        <hasMenubar>false</hasMenubar>
-        <hasScrollbars>true</hasScrollbars>
-        <hasToolbar>false</hasToolbar>
-        <height>600</height>
-        <isResizable>true</isResizable>
-        <linkType>url</linkType>
-        <masterLabel>Sync to JIRA</masterLabel>
-        <openType>newWindow</openType>
-        <position>none</position>
-        <protected>false</protected>
-        <showsLocation>false</showsLocation>
-        <showsStatus>false</showsStatus>
-        <url>/apex/jiraSyncCase?caseId={!Case.Id}</url>
+        <showsLocation>true</showsLocation>
+        <showsStatus>true</showsStatus>
+        <url>https://na1.salesforce.com/opp/oppedit.jsp?accid={!Account_ID}&amp;opp3=Up-sell+/+Cross-sell&amp;opp5=Existing+Customer&amp;opp6=Customer+Support</url>
     </webLinks>
 </CustomObject>
