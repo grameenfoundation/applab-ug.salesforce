@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Beans_Harvested__c</fullName>
+        <externalId>false</externalId>
+        <label>Beans Harvested</label>
+        <summarizedField>Ewarehouse_Harvest_Crop__c.Beans_Harvested__c</summarizedField>
+        <summaryForeignKey>Ewarehouse_Harvest_Crop__c.Ewarehouse_Harvest__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Black_Beans_Harvested__c</fullName>
+        <externalId>false</externalId>
+        <label>Black Beans Harvested</label>
+        <summarizedField>Ewarehouse_Harvest_Crop__c.Black_Beans_Harvested__c</summarizedField>
+        <summaryForeignKey>Ewarehouse_Harvest_Crop__c.Ewarehouse_Harvest__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Cow_Peas_Harvested__c</fullName>
+        <externalId>false</externalId>
+        <label>Cow Peas Harvested</label>
+        <summarizedField>Ewarehouse_Harvest_Crop__c.Cow_Peas_Harvested__c</summarizedField>
+        <summaryForeignKey>Ewarehouse_Harvest_Crop__c.Ewarehouse_Harvest__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Ewarehouse_Farmer__c</fullName>
+        <externalId>false</externalId>
+        <label>Ewarehouse Farmer</label>
+        <referenceTo>Ewarehouse_Farmer__c</referenceTo>
+        <relationshipLabel>Ewarehouse Harvests</relationshipLabel>
+        <relationshipName>Ewarehouse_Harvests</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Green_Grams_Harvested__c</fullName>
+        <externalId>false</externalId>
+        <label>Green Grams Harvested</label>
+        <summarizedField>Ewarehouse_Harvest_Crop__c.Green_Grams_Harvested__c</summarizedField>
+        <summaryForeignKey>Ewarehouse_Harvest_Crop__c.Ewarehouse_Harvest__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Harvest_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Harvest Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Maize_Harvested__c</fullName>
+        <externalId>false</externalId>
+        <label>Maize Harvested</label>
+        <summarizedField>Ewarehouse_Harvest_Crop__c.Maize_Harvested__c</summarizedField>
+        <summaryForeignKey>Ewarehouse_Harvest_Crop__c.Ewarehouse_Harvest__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Notification_Sent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Notification Sent</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pigeon_Peas_Harvested__c</fullName>
+        <externalId>false</externalId>
+        <label>Pigeon Peas Harvested</label>
+        <summarizedField>Ewarehouse_Harvest_Crop__c.Pigeon_Peas_Harvested__c</summarizedField>
+        <summaryForeignKey>Ewarehouse_Harvest_Crop__c.Ewarehouse_Harvest__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Storage_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Storage Location</label>
+        <picklist>
+            <picklistValues>
+                <fullName>House on ground</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>House off ground</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granary on ground</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granary off ground</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Storage_Materials__c</fullName>
+        <externalId>false</externalId>
+        <label>Storage Materials</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Gunney bags</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plastic bags</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jute bags</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dedicated room</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clay Pots</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <label>Ewarehouse Harvest</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Harvest_Date__c</columns>
+        <columns>Notification_Sent__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Ewarehouse_Farmer__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Ewarehouse Harvest Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Ewarehouse Harvests</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

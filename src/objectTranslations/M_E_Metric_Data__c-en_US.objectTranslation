@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>M&amp;E Metric Data</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>M&amp;E Metric Data</value>
+    </caseValues>
+    <fields>
+        <help><!-- The actual value for this metric. This will usually be calculated, but may be entered manually for some metrics --></help>
+        <label><!-- Actual Value --></label>
+        <name>Actual_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- BVAT CIW --></label>
+        <name>BVAT_CIW__c</name>
+        <relationshipLabel><!-- M&amp;E Metric Data --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comment --></label>
+        <name>Comment__c</name>
+    </fields>
+    <fields>
+        <help><!-- This can simply be any date falling in the quarter to which this metric belongs. We shall calculate the quarter dynamically. It defaults to the current date. --></help>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Denumerator --></label>
+        <name>Denumerator__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select the district that this metric is for --></help>
+        <label><!-- District --></label>
+        <name>District__c</name>
+        <relationshipLabel><!-- M&amp;E Metric Data --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Is Cumulative --></label>
+        <name>Is_Cumulative__c</name>
+    </fields>
+    <fields>
+        <help><!-- The Metric to which this data belongs --></help>
+        <label><!-- M&amp;E Metric --></label>
+        <name>M_E_Metric__c</name>
+        <relationshipLabel><!-- M&amp;E Metric Data --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Manual Value --></label>
+        <name>Manual_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Numerator --></label>
+        <name>Numerator__c</name>
+    </fields>
+    <fields>
+        <label><!-- Person --></label>
+        <name>Person__c</name>
+        <relationshipLabel><!-- M&amp;E Metric Data --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- The projected value for this metric for the given quarter. Should be entered manually. --></help>
+        <label><!-- Projected Value --></label>
+        <name>Projected_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Real Value --></label>
+        <name>Real_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subcounty --></label>
+        <name>Subcounty__c</name>
+        <relationshipLabel><!-- M&amp;E Metric Data --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

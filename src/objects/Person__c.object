@@ -5,10 +5,6 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -21,19 +17,11 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -44,17 +32,13 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents a person that uses the CKW system. This includes farmers, CKWs, staff, field officers, etc.</description>
     <enableActivities>true</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Age__c</fullName>
         <description>The age of a person</description>
@@ -64,7 +48,6 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -75,7 +58,6 @@
         <length>100</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -89,7 +71,6 @@
         <relationshipName>People</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -103,7 +84,6 @@
         <relationshipName>People</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -117,7 +97,6 @@
         <relationshipName>People</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -127,7 +106,6 @@
         <label>Date of Birth</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -137,7 +115,6 @@
         <label>District Name</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -152,7 +129,6 @@
         <relationshipName>People</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -192,7 +168,6 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -202,7 +177,6 @@
         <label>Email Address</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Email</type>
         <unique>false</unique>
     </fields>
@@ -214,7 +188,6 @@
         <length>80</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -226,7 +199,6 @@
         <length>80</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -238,7 +210,6 @@
         <length>255</length>
         <required>true</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -250,7 +221,6 @@
         <length>25</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -262,7 +232,6 @@
         <length>25</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -283,7 +252,6 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -297,7 +265,6 @@
         <relationshipName>Assignee</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -307,7 +274,6 @@
         <length>30</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -319,7 +285,6 @@
         <length>15</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -331,7 +296,6 @@
         <length>255</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -343,7 +307,6 @@
         <length>255</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -360,7 +323,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <label>Mobile Number</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -371,7 +333,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <length>20</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -382,7 +343,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <length>40</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -394,7 +354,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <length>18</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -409,7 +368,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -424,7 +382,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <relationshipName>People</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -434,7 +391,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <length>255</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -446,7 +402,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <length>20</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -461,7 +416,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <relationshipName>People</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -475,7 +429,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <relationshipName>People</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -576,7 +529,6 @@ IF( NOT( ISBLANK( Handset__c)),
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -587,7 +539,6 @@ IF( NOT( ISBLANK( Handset__c)),
         <length>255</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -670,6 +621,55 @@ IF( NOT( ISBLANK( Handset__c)),
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
+    <namedFilters>
+        <fullName>nf_01I70000000QMlTEAW_00N70000002sjVeEAI</fullName>
+        <active>true</active>
+        <field>Field_Officer_Productivity__c.Field_Officer__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Field Officer</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Field Officer Productivity_Field Officer</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I70000000QP4BEAW_00N70000002sjOTEAY</fullName>
+        <active>true</active>
+        <field>Equipment_Return__c.Field_Officer__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Field Officer</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Equipment Return_Field Officer</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I70000000QP4fEAG_00N70000002sjTTEAY</fullName>
+        <active>true</active>
+        <errorMessage>Please select a Person that has a type of BRAC PA</errorMessage>
+        <field>BRAC_PA__c.Person__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>BRAC PA</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>BRAC PA_Person</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01I70000000QP4zEAG_00N70000002sjYsEAI</fullName>
+        <active>true</active>
+        <field>Field_Officer_Productivity_Targets__c.Field_Officer__c</field>
+        <filterItems>
+            <field>Person__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Field Officer</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+        <name>Field Officer Productivity Target_Field</name>
+    </namedFilters>
     <pluralLabel>People</pluralLabel>
     <searchLayouts>
         <customTabListAdditionalFields>Last_Name__c</customTabListAdditionalFields>

@@ -5,10 +5,6 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -21,19 +17,11 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -44,16 +32,12 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>ALSUR: Allocation of Orders to Associations</description>
     <enableActivities>true</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Association__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -63,7 +47,6 @@
         <relationshipLabel>CPA Order Allocations</relationshipLabel>
         <relationshipName>CPA_Order_Allocations</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -75,7 +58,6 @@
         <relationshipName>CPA_Order_Allocations</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -86,7 +68,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Client</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -97,7 +78,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Expected Delivery Date</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -105,7 +85,6 @@
         <defaultValue>true</defaultValue>
         <externalId>false</externalId>
         <label>Is Active</label>
-        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -115,7 +94,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -126,7 +104,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -137,7 +114,6 @@
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -147,7 +123,6 @@
         <formula>CPA_Order__r.Order_Code__c</formula>
         <label>Order Code</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -157,7 +132,6 @@
         <formula>TEXT(CPA_Order__r.Presentacion__c)</formula>
         <label>Presentación</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -170,7 +144,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -180,7 +153,6 @@
         <formula>CPA_Order__r.Client_Product_Association__r.Product_Name__c</formula>
         <label>Product Name</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -191,7 +163,6 @@
         <summarizedField>Farmer_Order_Allocation__c.Number_of_Units_of_Presentation__c</summarizedField>
         <summaryForeignKey>Farmer_Order_Allocation__c.CPA_Order_Allocation__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
-        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -201,7 +172,6 @@
         <summarizedField>Farmer_Order_Allocation__c.Number_of_baskets__c</summarizedField>
         <summaryForeignKey>Farmer_Order_Allocation__c.CPA_Order_Allocation__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
-        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -211,7 +181,6 @@
         <summarizedField>Farmer_Order_Allocation__c.Number_of_Kilos__c</summarizedField>
         <summaryForeignKey>Farmer_Order_Allocation__c.CPA_Order_Allocation__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
-        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -223,7 +192,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -236,7 +204,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -249,7 +216,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -260,7 +226,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Unit of Presentation</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>

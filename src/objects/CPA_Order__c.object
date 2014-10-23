@@ -5,10 +5,6 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -21,19 +17,11 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -44,16 +32,12 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Client Product Association Order object</description>
     <enableActivities>true</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Client_Product_Association__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -63,7 +47,6 @@
         <relationshipLabel>CPA Orders</relationshipLabel>
         <relationshipName>CPA_Orders</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -73,7 +56,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Client</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -86,7 +68,6 @@
         <relationshipLabel>CPA Orders</relationshipLabel>
         <relationshipName>CPA_Orders</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -95,7 +76,6 @@
         <externalId>false</externalId>
         <label>Expected Delivery Date</label>
         <required>true</required>
-        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -103,7 +83,6 @@
         <defaultValue>true</defaultValue>
         <externalId>false</externalId>
         <label>Is Active</label>
-        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -113,7 +92,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -124,7 +102,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -135,7 +112,6 @@
         <precision>18</precision>
         <required>true</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -145,7 +121,6 @@
         <formula>Client__c + &apos; &apos; +  Client_Product_Association__r.Product_Name__c + &apos; &apos; + TEXT(Expected_Delivery_Date__c)</formula>
         <label>Order Code</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -155,7 +130,6 @@
         <label>Preferred Delivery City</label>
         <length>20</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -165,7 +139,6 @@
         <label>Preferred Delivery Location</label>
         <length>20</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -212,7 +185,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -222,7 +194,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -232,7 +203,6 @@
         <formula>Client_Product_Association__r.Product_Name__c</formula>
         <label>Product Name</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -245,7 +215,6 @@
         <summarizedField>CPA_Order_Allocation__c.Number_of_Units_of_Presentation__c</summarizedField>
         <summaryForeignKey>CPA_Order_Allocation__c.CPA_Order__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
-        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -255,7 +224,6 @@
         <summarizedField>CPA_Order_Allocation__c.Number_of_Baskets__c</summarizedField>
         <summaryForeignKey>CPA_Order_Allocation__c.CPA_Order__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
-        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -265,7 +233,6 @@
         <summarizedField>CPA_Order_Allocation__c.Number_of_Kilos__c</summarizedField>
         <summaryForeignKey>CPA_Order_Allocation__c.CPA_Order__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
-        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -277,7 +244,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -290,7 +256,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -303,7 +268,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -398,7 +362,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>CPA Order</label>
