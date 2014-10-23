@@ -19,18 +19,11 @@ private class testAlsurOrderAssignment{
         order.Unit_of_Presentation__c = '5';
         insert order;
 
-        CPA_Order_Allocation__c allocation = new CPA_Order_Allocation__c();
-        allocation.CPA_Order__c = order.Id;
-        allocation.Association__c = association.Id;
-        allocation.Number_of_Units_of_Presentation__c = 5;
-        allocation.Number_of_Kilos__c = 5;
+        CPA_Order_Allocation__c allocation = new CPA_Order_Allocation__c(CPA_Order__c = order.Id, Association__c = association.Id, Number_of_Units_of_Presentation__c = 5, Number_of_Kilos__c = 5);
         insert allocation;
 
-        CPA_Order_Allocation__c[] allocations = [SELECT Id, CPA_Order__c from CPA_Order_Allocation__c where CPA_Order__c =: order.Id];
-        System.assertEquals(allocations.size(), 1);
-
         // 2. Run the code you want to test
-        // Run findOrder() method
+        // Run findOrder() methodNumber_of_Kilos__c = 5
         AlsurOrderAssignment assignmentClass = new AlsurOrderAssignment();
 
         assignmentClass.getOrderItems();
@@ -41,6 +34,17 @@ private class testAlsurOrderAssignment{
 
         assignmentClass.findOrder();
         System.assert(assignmentClass.orderObjects.size() > 0);
+
+
+        //PageReference ref = new PageReference('/apex/AccountPage?aId=' + contact.Id);
+        //Test.setCurrentPage(ref);
+ 
+        //Test.startTest();
+       //assignmentClass.allocation = allocation;
+        //PageReference ref2 = assignmentClass.saveAllocation();
+        //Test.stopTest();
      
+        //System.assertNotEquals(ref2, null);
+
     }
 }
