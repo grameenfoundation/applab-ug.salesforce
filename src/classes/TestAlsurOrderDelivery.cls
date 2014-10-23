@@ -50,7 +50,5 @@ private class TestAlsurOrderDelivery {
 
         test.stopTest();
 
-         
-
         }
 }
