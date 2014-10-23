@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>A performance record for a TDR. This is the container object for their metrics.
+Records can be YEARLY||MONTHLY||WEEKLY||DAILY
+This is to get around the limits that salesforce imposes</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Corporate_Sales_Calls_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target for the amount of Corporate sales for the TDR for this time period</description>
+        <externalId>false</externalId>
+        <label>Corporate Sales Calls Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Corporate_Sales_Calls__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Number of sales calls done by the TDR in the given time period</description>
+        <externalId>false</externalId>
+        <label>Corporate Sales Calls</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Support_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target for the amount of customer support activities to do in this time period</description>
+        <externalId>false</externalId>
+        <label>Customer Support Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Support__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of customer support tasks done in this time period</description>
+        <externalId>false</externalId>
+        <label>Customer Support</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Distances__c</fullName>
+        <defaultValue>&quot;0&quot;</defaultValue>
+        <description>Comma separated list of distances for each activity</description>
+        <externalId>false</externalId>
+        <label>Distances</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_Time__c</fullName>
+        <description>The last submission for this time period</description>
+        <externalId>false</externalId>
+        <label>End Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>MM_Agent_Full_Report_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target for the number of MM Agent Full Reports for the given time period</description>
+        <externalId>false</externalId>
+        <label>MM Agent Full Report Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MM_Agent_Full_Report__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of full reports done by the TDR in the given time frame</description>
+        <externalId>false</externalId>
+        <label>MM Agent Full Report</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MM_Agent_Short_Report_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target for the number of short reports this TDR should do in a given time</description>
+        <externalId>false</externalId>
+        <label>MM Agent Short Report Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MM_Agent_Short_Report__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of MM Agent short reports done by the TDR in the given time frame</description>
+        <externalId>false</externalId>
+        <label>MM Agent Short Report</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Marketing_Event_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target number of marketing events to do in this time period</description>
+        <externalId>false</externalId>
+        <label>Marketing Event Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Marketing_Event__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of marketing events done in this time period</description>
+        <externalId>false</externalId>
+        <label>Marketing Event</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target for other activities for this time period</description>
+        <externalId>false</externalId>
+        <label>Other Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Number of other activities this TDR has done in this time period</description>
+        <externalId>false</externalId>
+        <label>Other</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PA_Products_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>PA Products Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PA_Products__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>PA_Products</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <description>The person object for the TDR that this is linked to</description>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>TDR Performance Records</relationshipLabel>
+        <relationshipName>TDR_Performance_Records</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>School_Sales_Calls_Target__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The target number of school calls for the TDR in the given time period</description>
+        <externalId>false</externalId>
+        <label>School Sales Calls Target</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>School_Sales_Calls__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>The number of school sales calls the TDR has done in this time period</description>
+        <externalId>false</externalId>
+        <label>School Sales Calls</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>The date that this record started</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Time__c</fullName>
+        <description>The time that the first submission for this period came in</description>
+        <externalId>false</externalId>
+        <label>Start Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Times__c</fullName>
+        <defaultValue>&quot;0&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Times</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>The type of record that this is.</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>TDR Performance Record</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>TDR-P-{YY}-{MM}-{DD}-{00000000}</displayFormat>
+        <label>TDR Performance Record Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <namedFilters>
+        <fullName>nf_01I70000000QLR3EAO_00N70000002s9MTEAY</fullName>
+        <active>true</active>
+        <field>TDR_Activity__c.TDR_Performance_Record__c</field>
+        <filterItems>
+            <field>TDR_Performance__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Daily</value>
+        </filterItems>
+        <infoMessage>Must select a TDR Performance Record of type Daily</infoMessage>
+        <isOptional>false</isOptional>
+        <name>TDR Activity_TDR Performance Record</name>
+    </namedFilters>
+    <pluralLabel>TDR Performance Records</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

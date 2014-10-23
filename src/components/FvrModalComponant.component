@@ -1,0 +1,81 @@
+<apex:component >
+    <apex:stylesheet value="{!$Resource.FVRCss}"/>
+    <script type="text/javascript">
+
+        // Show the modal
+        function openModal(id, message) {
+
+            // Get the y axis scroll bar offest
+            var yOffset = window.pageYOffset;
+ 
+            //Get the screen height and width
+            var maskHeight = j$('#bodyTable').height();
+            var maskWidth = j$('#bodyTable').width();
+
+                // Set height and width to mask to fill up the whole screen
+            j$('#fvrMask').css({'width':maskWidth,'height':maskHeight});
+
+                // Transition effect
+            j$('#fvrMask').fadeIn("fast");
+            j$('#fvrMask').fadeTo("fast",1);
+
+            // Get the window height and width
+//            var winH = j$(window).height();
+//            var winW = j$(window).width();
+            var bodyTableHeight = j$('#bodyTable').height();
+            var winH = j$(window).height();
+            if (bodyTableHeight < winH) {
+                winH = bodyTableHeight;
+            }
+            var winW = j$('#bodyTable').width();
+
+            // Set the text of the modal
+            j$('#fvrModalMessage').html(message);
+
+            var topPoint = ((winH/2)+yOffset)-j$('#' + id).height()/2;
+            if ((topPoint + j$('#' + id).height()) > winH) {
+                topPoint = ((winH/2)+yOffset-100)-j$('#' + id).height()/2;
+            }
+
+            // Set the popup window to center
+            j$('#' + id).css("position","absolute");
+            j$('#' + id).css('top',  topPoint);
+            j$('#' + id).css('left', winW/2-j$('#' + id).width()/2);
+
+            // Transition effect
+            j$('#' + id).fadeIn("fast"); 
+        };
+
+        // Close the modal
+        function closeModal() {
+            j$('#fvrMask, .window').hide();
+        }
+
+        // If close button is clicked
+//            <a href="#" id="closeButton" class="close">Close it</a>
+        //j$('#closeButton').click(function (e) {
+
+            //Cancel the link behavior
+        //    e.preventDefault();
+        //    closeModal();
+        //});
+
+        // If mask is clicked
+        j$('#fvrMask').click(function () {
+            $j(this).hide();
+            $j('.window').hide();
+        });
+
+    </script>
+
+    <div id="boxes">
+        <div id="dialog" class="window">
+            <div id="fvrModalContainer">
+                <div id="fvrModalMMImage"><apex:image value="{!$Resource.FVRLogo}"/></div>
+                <div id="fvrModalBlankSpace"></div>
+                <div id="fvrModalMessage"></div>
+            </div>
+        </div>
+        <div id="fvrMask"></div>
+    </div>
+</apex:component>

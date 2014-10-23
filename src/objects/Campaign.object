@@ -9,10 +9,6 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -25,19 +21,11 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -48,117 +36,10 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
-    <fields>
-        <fullName>ActualCost</fullName>
-    </fields>
-    <fields>
-        <fullName>AmountAllOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>AmountWonOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>BudgetedCost</fullName>
-    </fields>
-    <fields>
-        <fullName>CampaignMemberRecordTypeId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Description</fullName>
-    </fields>
-    <fields>
-        <fullName>EndDate</fullName>
-    </fields>
-    <fields>
-        <fullName>ExpectedResponse</fullName>
-    </fields>
-    <fields>
-        <fullName>ExpectedRevenue</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyActualCost</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyAmountAllOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyAmountWonOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyBudgetedCost</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyExpectedRevenue</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyNumberOfContacts</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyNumberOfConvertedLeads</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyNumberOfLeads</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyNumberOfOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyNumberOfResponses</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyNumberOfWonOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>HierarchyNumberSent</fullName>
-    </fields>
-    <fields>
-        <fullName>IsActive</fullName>
-    </fields>
-    <fields>
-        <fullName>Name</fullName>
-    </fields>
-    <fields>
-        <fullName>NumberOfContacts</fullName>
-    </fields>
-    <fields>
-        <fullName>NumberOfConvertedLeads</fullName>
-    </fields>
-    <fields>
-        <fullName>NumberOfLeads</fullName>
-    </fields>
-    <fields>
-        <fullName>NumberOfOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>NumberOfResponses</fullName>
-    </fields>
-    <fields>
-        <fullName>NumberOfWonOpportunities</fullName>
-    </fields>
-    <fields>
-        <fullName>NumberSent</fullName>
-    </fields>
-    <fields>
-        <fullName>OwnerId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>ParentId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>StartDate</fullName>
-    </fields>
     <fields>
         <fullName>Status</fullName>
         <picklist>
-            <picklistValues>
-                <fullName>Planned</fullName>
-                <default>true</default>
-            </picklistValues>
             <picklistValues>
                 <fullName>In Progress</fullName>
                 <default>false</default>
@@ -171,6 +52,10 @@
                 <fullName>Aborted</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Planned</fullName>
+                <default>true</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
@@ -179,35 +64,11 @@
         <fullName>Type</fullName>
         <picklist>
             <picklistValues>
-                <fullName>Conference</fullName>
-                <default>true</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Webinar</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Trade Show</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Public Relations</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Partners</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Referral Program</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
                 <fullName>Advertisement</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Banner Ads</fullName>
+                <fullName>Dinner</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -219,11 +80,15 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Telemarketing</fullName>
+                <fullName>Luncheon</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seminar / Conference</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -232,6 +97,11 @@
     </fields>
     <listViews>
         <fullName>AllActiveCampaigns</fullName>
+        <columns>CAMPAIGN.NAME</columns>
+        <columns>CAMPAIGN.START_DATE</columns>
+        <columns>CAMPAIGN.END_DATE</columns>
+        <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
+        <columns>CAMPAIGN.STATUS</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>CAMPAIGN.ACTIVE</field>
@@ -241,14 +111,19 @@
         <label>All Active Campaigns</label>
     </listViews>
     <listViews>
-        <fullName>MyActiveCampaigns</fullName>
+        <fullName>MyActiveAppeals</fullName>
+        <columns>CAMPAIGN.NAME</columns>
+        <columns>CAMPAIGN.START_DATE</columns>
+        <columns>CAMPAIGN.END_DATE</columns>
+        <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
+        <columns>CAMPAIGN.STATUS</columns>
         <filterScope>Mine</filterScope>
         <filters>
             <field>CAMPAIGN.ACTIVE</field>
             <operation>equals</operation>
             <value>1</value>
         </filters>
-        <label>My Active Campaigns</label>
+        <label>My Active Appeals</label>
     </listViews>
     <searchLayouts>
         <customTabListAdditionalFields>CAMPAIGN.NAME</customTabListAdditionalFields>
@@ -259,9 +134,43 @@
         <searchResultsAdditionalFields>CAMPAIGN.NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>FullAccess</sharingModel>
     <webLinks>
-        <fullName>ViewCampaignInfluenceReport</fullName>
+        <fullName>GenerateMailingLabels</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>750</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Generate Mailing Labels</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>GenerateMailingLabels</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Edit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Edit</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassEditCampaign</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateCampaign</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>ViewAllCampaignMembers</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
         <encodingKey>UTF-8</encodingKey>
@@ -271,13 +180,13 @@
         <height>500</height>
         <isResizable>true</isResizable>
         <linkType>url</linkType>
-        <masterLabel>View Campaign Influence Report</masterLabel>
+        <masterLabel>View All Campaign Members</masterLabel>
         <openType>newWindow</openType>
         <position>none</position>
         <protected>false</protected>
         <showsLocation>false</showsLocation>
         <showsStatus>false</showsStatus>
-        <url>/00O?rt=117&amp;break0=CAN&amp;scope=1&amp;scopeid_lkid={!Campaign.Id}&amp;scopeid={!Campaign_Name}&amp;c=CAN&amp;c=MR&amp;c=PCS&amp;c=CFN&amp;c=RN&amp;c=ON&amp;c=OA&amp;c=OS&amp;c=OCD&amp;c=AN&amp;s=OA&amp;duel0=CAN%2CMR%2CCFN%2CRN%2CAN%2CON%2CPCS%2COS%2COCD%2COA&amp;details=yes&amp;format=t</url>
+        <url>/camp/rptcmpgncalldown.jsp?scope=1&amp;scopeid={!Campaign_Name}</url>
         <width>500</width>
     </webLinks>
 </CustomObject>

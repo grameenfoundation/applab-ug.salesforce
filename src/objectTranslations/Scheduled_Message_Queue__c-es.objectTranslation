@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Lista de mensajes programados</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Listas de mensajes programados</value>
+    </caseValues>
+    <fields>
+        <label>Fecha Expiracion</label>
+        <name>Expiration_Date__c</name>
+    </fields>
+    <fields>
+        <label>Grupo</label>
+        <name>Group__c</name>
+        <relationshipLabel>Calendario mensajes en cola</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Mensaje</label>
+        <name>Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number Of Resends --></label>
+        <name>Number_Of_Resends__c</name>
+    </fields>
+    <fields>
+        <label>Person</label>
+        <name>Person__c</name>
+        <relationshipLabel>Calendario mensajes en cola</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fecha de tiempo de envio</label>
+        <name>Send_Date_Time__c</name>
+    </fields>
+    <fields>
+        <label>Envio_via_pulse</label>
+        <name>Send_Via_Pulse__c</name>
+    </fields>
+    <fields>
+        <label>Envio_via_sms</label>
+        <name>Send_Via_Sms__c</name>
+    </fields>
+    <fields>
+        <label>Remitente</label>
+        <name>Sender__c</name>
+        <relationshipLabel>Calendario mensajes en cola</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Asunto</label>
+        <name>Subject__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Scheduled Message Queue Name</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Un grupo o persona debe ser ingresado</errorMessage>
+        <name>Group_or_person</name>
+    </validationRules>
+</CustomObjectTranslation>

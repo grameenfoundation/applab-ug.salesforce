@@ -1,0 +1,87 @@
+<apex:component controller="FieldListBreakdownController">
+    <apex:attribute name="sectionKey"
+        type="String"
+        assignTo="{!sectionKey}"
+        required="true"
+        description="The key given to the section component so it can be easily identified what is in a section"
+    />
+    <apex:attribute name="key"
+        type="String"
+        assignTo="{!key}"
+        required="true"
+        description="The key given to this component so the parent can easily get access to it"
+    />
+    <apex:attribute name="pageController"
+        type="ParentComponentBase"
+        assignTo="{!parentComponentController}"
+        required="true"
+        description="The controller for the parent controller"
+    />
+    <apex:attribute name="fieldName"
+        type="String"
+        description="The field api name that this should show"
+        required="true"
+        assignTo="{!fieldName}"
+    />
+    <apex:attribute name="objectName"
+        type="String"
+        description="The object api name that this should show"
+        required="true"
+        assignTo="{!objectName}"
+    />
+    <apex:attribute name="rowCount"
+        type="Integer"
+        description="The default number of rows to show"
+        required="true"
+        assignTo="{!rowCount}"
+    />
+    <apex:attribute name="showData"
+        type="Boolean"
+        description="A true value will hide the button that allows the graph to be expanded into a new window"
+        required="true"
+        assignTo="{!showData}"
+    />
+
+    <script type="text/javascript">
+        function changePageRows(elem) {
+            openGenericModal('genericDialog', 'Getting new page. Please wait');
+            changePageNumbers(getSingleSelectValue(elem));
+        }
+    </script>
+
+    <apex:actionFunction action="{!refreshData}" name="{!key}" rerender="fieldListTable"/>
+    <apex:pageBlock >
+        <apex:outputPanel id="fieldListTable">
+            <apex:pageBlockTable value="{!rowList}" var="row">
+                <apex:column width="70px" headerValue="Field Officer">
+                    <apex:outputText value="{!row.displayName}" escape="false"/>
+                </apex:column>
+                <apex:column width="70px" headerValue="Interviewee">
+                    <apex:outputText value="{!row.displayIntName}" escape="false"/>
+                </apex:column>
+                <apex:column width="70px" headerValue="Comment">
+                    <apex:outputText value="{!row.displayValue}" escape="false"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <div align="right" style="display:{!IF(NOT(ISNULL(rowList)),'block','none')}">
+            <apex:actionFunction name="changePageNumbers" action="{!changePageNumber}" rerender="fieldListTable" oncomplete="closeGenericModal()">
+                        <apex:param name="pageNumberParam" value=""/>
+            </apex:actionFunction>
+            <apex:commandButton value="First" action="{!goToFirstPage}" rerender="fieldListTable" disabled="{!disableFirstButton}" ></apex:commandButton>
+            <apex:commandButton value="Previous" action="{!goToPreviousPage}" rerender="fieldListTable" disabled="{!disablePreviousButton}" ></apex:commandButton>
+            <apex:commandButton value="Next" action="{!goToNextPage}" rerender="fieldListTable" disabled="{!disableNextButton}" ></apex:commandButton>
+            <apex:commandButton value="Last" action="{!goToLastPage}" rerender="fieldListTable" disabled="{!disableLastButton}" ></apex:commandButton>
+            <apex:selectList id="pageNumbers"
+                styleClass="apexDropDownNarrow"
+                multiselect="false"
+                size="1"
+                title="Select number of rows per page"
+                onchange="changePageRows(this)"
+            >
+                <apex:selectOptions value="{!numberOfRows}"></apex:selectOptions>
+            </apex:selectList>
+            </div>
+
+        </apex:outputPanel>
+    </apex:pageBlock>
+</apex:component>

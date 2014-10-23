@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>mensajes de campaña</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>mensajes de campaña</value>
+    </caseValues>
+    <fields>
+        <help><!-- Text Message to send to the subscribers. --></help>
+        <label><!-- Text --></label>
+        <name>Content__c</name>
+    </fields>
+    <fields>
+        <help>Una expresión cron válido que especifica la programación de los mensajes.</help>
+        <label>Cron</label>
+        <name>Cron__c</name>
+    </fields>
+    <fields>
+        <help>La fecha en que se envió el mensaje absoluta.</help>
+        <label>fecha</label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <help>El formato del mensaje de la campaña, por ejemplo, SMS, IVR, etc</help>
+        <label>formato</label>
+        <name>Format__c</name>
+        <picklistValues>
+            <masterLabel>SMS</masterLabel>
+            <translation><!-- SMS --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>El idioma (s) del mensaje, en este caso, en (Inglés).</help>
+        <label>idioma</label>
+        <name>Language__c</name>
+        <picklistValues>
+            <masterLabel>EN</masterLabel>
+            <translation><!-- EN --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>The message campaign related to this message.</help>
+        <label>Campaña Mensaje</label>
+        <name>Message_Campaign__c</name>
+        <relationshipLabel>Mensajes de la Campaña</relationshipLabel>
+    </fields>
+    <fields>
+        <help>Una clave de identificación única de este mensaje.</help>
+        <label>tecla de mensajes</label>
+        <name>Message_Key__c</name>
+    </fields>
+    <fields>
+        <help>Se envía La cantidad de tiempo desde la fecha de referencia o la fecha actual que transcurrirá antes de que el mensaje.</help>
+        <label>Diferencia horaria</label>
+        <name>Offset_Time__c</name>
+    </fields>
+    <fields>
+        <help>Un intervalo que determina la frecuencia con la que se envía el mensaje hasta que haya transcurrido el período maxDuration.</help>
+        <label>repetir cada</label>
+        <name>Repeat_Every__c</name>
+    </fields>
+    <fields>
+        <help>El día de la semana en la que se enviará el mensaje hasta que haya transcurrido el período maxDuration.</help>
+        <label>Repita On</label>
+        <name>Repeat_On__c</name>
+        <picklistValues>
+            <masterLabel>Friday</masterLabel>
+            <translation><!-- Friday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monday</masterLabel>
+            <translation><!-- Monday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Saturday</masterLabel>
+            <translation><!-- Saturday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sunday</masterLabel>
+            <translation><!-- Sunday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Thursday</masterLabel>
+            <translation><!-- Thursday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tuesday</masterLabel>
+            <translation><!-- Tuesday --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Wednesday</masterLabel>
+            <translation><!-- Wednesday --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>La hora a la que se enviará el mensaje.</help>
+        <label>Hora de inicio</label>
+        <name>Start_Time__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>nombre</nameFieldLabel>
+    <webLinks>
+        <label><!-- New_Message --></label>
+        <name>New_Message</name>
+    </webLinks>
+</CustomObjectTranslation>
