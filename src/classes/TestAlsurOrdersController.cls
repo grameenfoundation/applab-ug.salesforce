@@ -1,7 +1,7 @@
 @isTest
 private class TestAlsurOrdersController {
-	
-	@isTest static void test_method_one() {
+	@isTest
+        static void test_method_one() {
 
         Association__c association = new Association__c();
         association.Name = 'Alsurtest';
@@ -41,7 +41,6 @@ private class TestAlsurOrdersController {
 
         List<SelectOption> option = aoc.getProductItems();
         System.assert(option != null);
-
         aoc.createOrder();
 
         System.assert(aoc.ordersToCreate != null);
