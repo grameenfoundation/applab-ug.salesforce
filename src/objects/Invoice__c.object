@@ -46,53 +46,80 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>Store details about a country</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
+    <enableFeeds>true</enableFeeds>
     <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
+    <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>ISO_Standard_Code__c</fullName>
+        <fullName>Invoice_Total__c</fullName>
         <externalId>false</externalId>
-        <label>ISO Standard Code</label>
-        <length>3</length>
-        <required>false</required>
+        <label>Invoice Total</label>
+        <summarizedField>Line_Item__c.Line_Item_Total__c</summarizedField>
+        <summaryForeignKey>Line_Item__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Summary</type>
     </fields>
     <fields>
-        <fullName>Language__c</fullName>
+        <fullName>Status__c</fullName>
         <externalId>false</externalId>
-        <label>Language</label>
+        <inlineHelpText>Choose a value from the drop-down list</inlineHelpText>
+        <label>Status</label>
         <picklist>
             <picklistValues>
-                <fullName>English</fullName>
+                <fullName>Open</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Spanish</fullName>
+                <fullName>Negotiating</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
-    <label>Country</label>
+    <gender>Feminine</gender>
+    <label>Invoice</label>
     <listViews>
         <fullName>All</fullName>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
     <nameField>
-        <label>Country Name</label>
-        <type>Text</type>
+        <displayFormat>INV–{0000}</displayFormat>
+        <label>Invoice Number</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Countries</pluralLabel>
+    <pluralLabel>Invoices</pluralLabel>
     <searchLayouts/>
-    <sharingModel>Read</sharingModel>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>Renumber_Line_Items</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Renumber Line Items</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)}
+var result = sforce.apex.execute(&quot;InvoiceUtilities&quot;,&quot;renumberLineItems&quot;,{invoiceName:&quot;{!
+Invoice__c.Name}&quot;});
+alert(result);
+window.location.reload();</url>
+    </webLinks>
 </CustomObject>

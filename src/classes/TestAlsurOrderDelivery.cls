@@ -26,8 +26,6 @@ private class TestAlsurOrderDelivery {
         orders.Number_of_Kilos__c = 5;
         insert orders;
 
-
-
         AlsurOrderDelivery deliverys = new AlsurOrderDelivery();
 
         List<SelectOption> options = deliverys.getAssociationItems();
@@ -51,6 +49,8 @@ private class TestAlsurOrderDelivery {
         System.assert(deliverys.save() != null);
 
         test.stopTest();
+
+         
 
         }
 }
