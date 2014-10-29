@@ -1,6 +1,7 @@
-@isTest
-private class testCover {
-    @isTest
+@
+isTest
+private class testCover {@
+    isTest
     static void testCover() {
         Cover.addData1();
         Cover.addData2();
@@ -55,5 +56,21 @@ private class testCover {
         Cover.addData51();
         Cover.addData52();
         Cover.addData53();
+        Cover.addData54();
+        Cover.addData55();
+        Cover.addData56();
+        Cover.addData57();
+        Cover.addData58();
+        Cover.addData59();
+        Cover.addData60();
+        Cover.addData61();
+        Cover.addData62();
+        Cover.addData63();
+        Cover.addData64();
+        Cover.addData65();
+        Cover.addData66();
+        Cover.addData67();
+        Cover.addData68();
+        Cover.addData69();
     }
 }
