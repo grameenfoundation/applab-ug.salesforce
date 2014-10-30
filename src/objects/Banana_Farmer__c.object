@@ -1,0 +1,2931 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Banana Farmers in CKW 3.0</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Activities_done_after_removing_the_corm__c</fullName>
+        <description>After removing the corm or underground stem, which of the following is commonly done</description>
+        <externalId>false</externalId>
+        <inlineHelpText>After removing the corm or underground stem, which of the following is commonly done</inlineHelpText>
+        <label>Activities done after removing the corm</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Filling spaces with decomposed manure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leave corm attached to daughter plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Splitting the corm into small to dry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not remove corms</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Additional_Sources_of_Household_Revenue__c</fullName>
+        <description>In addition to your Banana income, what are the additional sources of revenue for your household?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In addition to your Banana income, what are the additional sources of revenue for your household?</inlineHelpText>
+        <label>Additional Sources of Household Revenue</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. Other cash crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Livestock</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remittances</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>After_Harvest_Activity_on_Stem_Removal__c</fullName>
+        <description>When removing banana stems after harvesting banana, which of the following is commonly followed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When removing banana stems after harvesting banana, which of the following is commonly followed</inlineHelpText>
+        <label>After Harvest Activity on Stem Removal</label>
+        <picklist>
+            <picklistValues>
+                <fullName>chop the stem into small pieces</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cut the stem at ground level, add soil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leave the stem and remove it later</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Age_of_Biggest_Banana_Garden__c</fullName>
+        <description>In general, how old is your biggest banana garden</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In general, how old is your biggest banana garden</inlineHelpText>
+        <label>Age of Biggest Banana Garden</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-1 year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-5 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Over 10 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Amount_in_UGX_spent_in_herbicides__c</fullName>
+        <description>In the last 12 months, what was the total amount you spent in Ugandan shillings for the herbicide(s) used on your Banana garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, what was the total amount you spent in Ugandan shillings for the herbicide(s) used on your Banana garden[s]?</inlineHelpText>
+        <label>Amount in UGX spent in herbicides</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_in_UGX_spent_on_banana_fertilizer__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, what was the total amount you spent in Ugandan shillings for the fertilizers used on your Banana garden[s]?</inlineHelpText>
+        <label>Amount in UGX spent on banana fertilizer</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_No_of_Bunches_Produced_Monthly__c</fullName>
+        <description>How many Bunches of banana do you produce on average per month</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many Bunches of banana do you produce on average per month</inlineHelpText>
+        <label>Average No of Bunches Produced Monthly</label>
+        <picklist>
+            <picklistValues>
+                <fullName>less than 10 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-20 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>21-49 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>50 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>51-100 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 100 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Average_No_of_Bunches_Produced_per_year__c</fullName>
+        <externalId>false</externalId>
+        <label>Average No of Bunches Produced per year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 200 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200 to 400 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>400 to 480 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>481 to 600 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>601 to 800 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>801 to 1000 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 1000 bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Average_Price_per_Bunch_Sold__c</fullName>
+        <externalId>false</externalId>
+        <label>Average Price per Bunch Sold</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Aware_of_negative_effects_of_herbicides__c</fullName>
+        <description>Are you a ware of the bad or negative effects associated with use of herbicides to control weeds</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you a ware of the bad or negative effects associated with use of herbicides to control weeds</inlineHelpText>
+        <label>Aware of negative effects of herbicides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Banana_Acres_Planted_last_12_months__c</fullName>
+        <description>How many acres of banana have you planted in the last 12 months?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many acres of banana have you planted in the last 12 months?</inlineHelpText>
+        <label>Banana Acres Planted last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 1 acre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 11 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Banana_Fertilizer_Application_Stage__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>At what stage of banana growing do you apply the fertilizers or manure (time of application) on your bananas</inlineHelpText>
+        <label>Banana Fertilizer Application Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>At planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-2 months after planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At flowering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>After harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Benefits_from_Banana_Farmers_Association__c</fullName>
+        <description>What benefits do you get from the Banana farmers&apos; copperative, group or association?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What benefits do you get from the Banana farmers&apos; copperative, group or association?</inlineHelpText>
+        <label>Benefits from Banana Farmers Association</label>
+        <picklist>
+            <picklistValues>
+                <fullName>To obtain training</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>To obtain information on Banana farming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Better access to inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Better access to credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Obtain a better price for Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Can_easily_detect_pest_disease_attacks__c</fullName>
+        <description>Are you able to easily detect particular pest or disease attacks on your Banana plants</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you able to easily detect particular pest or disease attacks on your Banana plants</inlineHelpText>
+        <label>Can easily detect pest/disease attacks</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Combination_of_weed_control_methods_used__c</fullName>
+        <description>What combination of methods of weed control do you use during a given season</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What combination of methods of weed control do you use during a given season</inlineHelpText>
+        <label>Combination of weed control methods used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Slash during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slash during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hand hoe during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hand hoe during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Commonest_Fertilizer_Manure_Application__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following is the most commonly used method when applying fertilizers or manure on your Banana</inlineHelpText>
+        <label>Commonest Fertilizer/Manure Application</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Placed around the banana plant/mat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spot application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broad casting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Placed in trenches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Commonest_agrochemical_acquisition_means__c</fullName>
+        <description>What is the commonest means of acquisition of fertilizers, herbicides or pesticides that you use on your Banana garden (s)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the commonest means of acquisition of fertilizers, herbicides or pesticides that you use on your Banana garden (s)</inlineHelpText>
+        <label>Commonest agrochemical acquisition means</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Given for free</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Get on credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Crops_planted_alongside_banana_last_6_mo__c</fullName>
+        <description>In the last 6 months, what crops have you planted alongside the new banana plantation?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 6 months, what crops have you planted alongside the new banana plantation?</inlineHelpText>
+        <label>Crops planted alongside banana last 6 mo</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ground nuts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cowpeas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soya bean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Do_you_practise_any_on_your_bananas__c</fullName>
+        <description>Do you commonly practice any of the following on your banana</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you commonly practice any of the following on your banana</inlineHelpText>
+        <label>Do you practise any on your bananas?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Keep harvested bunches in shade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sorting and grading</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cleaning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Packaging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Branding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Name and Price tagging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Traceability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Does_Value_Addition_on_Bananas__c</fullName>
+        <description>Do you carry out any value addition on your banana especially during the bumper harvest</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you carry out any value addition on your banana especially during the bumper harvest</inlineHelpText>
+        <label>Does Value Addition on Bananas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Easily_access_agro_inputs__c</fullName>
+        <description>Easily access agro-inputs (fertilizer or manure, pesticides, herbicides and planting materials)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Easily access agro-inputs (fertilizer or manure, pesticides, herbicides and planting materials)</inlineHelpText>
+        <label>Easily access agro-inputs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_Banana_pest_disease_control__c</fullName>
+        <externalId>false</externalId>
+        <label>Engaged in Banana pest &amp; disease control</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_Banana_value_addition__c</fullName>
+        <externalId>false</externalId>
+        <label>Engaged in Banana value addition?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_Group_production_marketing__c</fullName>
+        <externalId>false</externalId>
+        <label>Engaged in Group production &amp; marketing?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_Proper_timely_weed_control__c</fullName>
+        <externalId>false</externalId>
+        <label>Engaged in Proper &amp; timely weed control?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_Soil_and_water_conservation__c</fullName>
+        <externalId>false</externalId>
+        <label>Engaged in Soil and water conservation?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_Soil_fertility_management__c</fullName>
+        <description>Soil fertility management (application of fertilizer or manure)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Soil fertility management (application of fertilizer or manure)</inlineHelpText>
+        <label>Engaged in Soil fertility management?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_proper_record_keeping__c</fullName>
+        <description>Proper record keeping on banana production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Proper record keeping on banana production and marketing</inlineHelpText>
+        <label>Engaged in proper record keeping?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_propping_banana_plants__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Providing support for banana plants (propping)</inlineHelpText>
+        <label>Engaged in propping banana plants</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Engaged_in_pruning_de_leafing__c</fullName>
+        <description>Pruning, desuckering, de-leafing, removal of corm and pseudo stems</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Pruning, desuckering, de-leafing, removal of corm and pseudo stems</inlineHelpText>
+        <label>Engaged in pruning, de-leafing?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ever_Received_Fertilizer_Usage_Training__c</fullName>
+        <description>Have you ever received training in the proper way to apply fertilizer on your banana garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever received training in the proper way to apply fertilizer on your banana garden[s]?</inlineHelpText>
+        <label>Ever Received Fertilizer Usage Training?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fertilizer_application_use_last_12_month__c</fullName>
+        <description>In the last 12 months, how many times did you apply fertilizer(s) or manure on your Banana garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, how many times did you apply fertilizer(s) or manure on your Banana garden[s]?</inlineHelpText>
+        <label>Fertilizer application use last 12 month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fertilizers_used_on_banana_plantation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following fertilizers do you use on your banana plantation (s)</inlineHelpText>
+        <label>Fertilizers used on banana plantation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CAN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NPK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DAP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Urea</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Focus_Farmer__c</fullName>
+        <externalId>false</externalId>
+        <label>Focus Farmer</label>
+        <referenceTo>Focus_Farmer__c</referenceTo>
+        <relationshipLabel>Banana Farmers</relationshipLabel>
+        <relationshipName>Banana_Farmers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Follows_a_particular_fertilizer_plan__c</fullName>
+        <description>Do you follow a particular program or plan such as time, type and amount of fertilizer to apply on your banana?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you follow a particular program or plan such as time, type and amount of fertilizer to apply on your banana?</inlineHelpText>
+        <label>Follows a particular fertilizer plan?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Herbicides_applicate_rate_last_12_months__c</fullName>
+        <description>In the last 12 months, how many times did you apply herbicide(s) on your Banana garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, how many times did you apply herbicide(s) on your Banana garden[s]?</inlineHelpText>
+        <label>Herbicides applicate rate last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_do_you_manage_weeds_on_your_banana__c</fullName>
+        <description>How do you manage weeds on your banana garden (s)?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you manage weeds on your banana garden (s)?</inlineHelpText>
+        <label>How do you manage weeds on your banana?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>By hand hoeing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slashing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Animals feeding on the weeds (grazing animals in the banana garden)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A combination of methods above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_many_times_do_you_weed_Banana_a_year__c</fullName>
+        <description>How many times do you weed your banana in a year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many times do you weed your banana in a year</inlineHelpText>
+        <label>How many times do you weed Banana a year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times in a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_often_would_you_like_to_get_SMS__c</fullName>
+        <description>How often would you like to receive the SMS alerts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How often would you like to receive the SMS alerts</inlineHelpText>
+        <label>How often would you like to get SMS</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Every after 2 weeks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_to_obtain_quality_agrochemicals__c</fullName>
+        <description>How do you ensure that you obtain quality agro-chemicals above (Fertilizers, herbicides and pesticides)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you ensure that you obtain quality agro-chemicals above (Fertilizers, herbicides and pesticides)</inlineHelpText>
+        <label>How to obtain quality agrochemicals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Buy from registered input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just buy from any input dealer (Do not mind where I Buy)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collective purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seek for guidance from fellow farmers/CKW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I call the GF farmer call center for guidance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not use any of these inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_you_manage_pests_diseases_in_banana__c</fullName>
+        <description>How do you manage pests and diseases in your Banana garden (s)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you manage pests and diseases in your Banana garden (s)</inlineHelpText>
+        <label>How you manage pests &amp;diseases in banana</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Spray with chemicals (pesticides)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use local technolgoy/cultural means</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use a combination of methods</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanical means (e.g. uproot and bury or burn)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Likelihood_of_using_info_provided_by_GF__c</fullName>
+        <description>What is the likelihood that if we provide you with the necessary information and or training on selected  practices that you are lacking in Banana production and marketing that you will put them into practice to improve your Banana yields and income</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the likelihood that if we provide you with the necessary information and or training on selected  practices that you are lacking in Banana production and marketing that you will put them into practice to improve your Banana yields and income</inlineHelpText>
+        <label>Likelihood of using info provided by GF</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very Likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Makes_Informed_Decisions_using_records__c</fullName>
+        <description>Do you use Banana production and marketing records to make informed decisions</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you use Banana production and marketing records to make informed decisions</inlineHelpText>
+        <label>Makes Informed Decisions using records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Measurement_used_in_mixing_herbicides__c</fullName>
+        <description>What measurement do you use when mixing herbicide for use to kill weeds</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What measurement do you use when mixing herbicide for use to kill weeds</inlineHelpText>
+        <label>Measurement used in mixing herbicides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>150ml in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>75mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not measure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Member_of_a_Banana_Farmer_Association__c</fullName>
+        <description>Are you a member of a Banana farmer’s cooperative or association?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you a member of a Banana farmer’s cooperative or association?</inlineHelpText>
+        <label>Member of a Banana Farmer Association?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Mgt_Biz_Actions_done_last_2_years__c</fullName>
+        <description>Which of the following management and business actions have you taken in the last 2 years?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following management and business actions have you taken in the last 2 years?</inlineHelpText>
+        <label>Mgt &amp; Biz Actions done last 2 years</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Opened savings account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Received a credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Formed a group/ cooperative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Joined a cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grouped sale of products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grouped purchase of inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None of these</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>More_than_half_of_banana_plants_in_rows__c</fullName>
+        <description>Are more than half of the banana plants planted in rows</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are more than half of the banana plants planted in rows</inlineHelpText>
+        <label>More than half of banana plants in rows?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Name_of_group_association_cooperative__c</fullName>
+        <description>What is the name of the group/association/cooperative</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the name of the group/association/cooperative</inlineHelpText>
+        <label>Name of group/association/cooperative</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_of_times_pesticide_use_last_12_months__c</fullName>
+        <description>In the last 12 months, how many times did you use pesticides on your Banana garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, how many times did you use pesticides on your Banana garden[s]?</inlineHelpText>
+        <label>No of times pesticide use last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Banana_Acres__c</fullName>
+        <description>how many acres of Banana does your household operate/manage (include all banana gardens or plots mentioned above).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>how many acres of Banana does your household operate/manage (include all banana gardens or plots mentioned above).</inlineHelpText>
+        <label>Number of Banana Acres</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 1 acre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 11 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Banana_gardens_managed__c</fullName>
+        <description>How many Banana gardens or plots does your house hold or manage directly (probe for owned banana gardens)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many Banana gardens or plots does your house hold or manage directly (probe for owned banana gardens)</inlineHelpText>
+        <label>Number of Banana gardens managed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 garden</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_suckers_plants_left_per_mat__c</fullName>
+        <description>How many suckers/plants do you leave per banana mat/plant</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many suckers/plants do you leave per banana mat/plant</inlineHelpText>
+        <label>Number of suckers/plants left per mat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Two suckers and a mature plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three suckers and a mature plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Four suckers and a mature plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_on_which_to_receive_SMS_alerts__c</fullName>
+        <externalId>false</externalId>
+        <label>Number on which to receive SMS alerts</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Organisation_giving_free_agrochemicals__c</fullName>
+        <description>If given for free, from who or which organisation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If given for free, from who or which organisation</inlineHelpText>
+        <label>Organisation giving free agrochemicals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>From NGOs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farmer group or association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government agencies (NAADs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fellow farmers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Organisations_giving_chemicals_on_credit__c</fullName>
+        <description>If got on credit, from who or which organsation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If got on credit, from who or which organsation</inlineHelpText>
+        <label>Organisations giving chemicals on credit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Contract farming (for a banana company)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agro-input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Village saving and Loan Association (VSLA)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SACCO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Other_preferred_Info_Media__c</fullName>
+        <description>Apart from SMS and information from CKWs, what other form would you like to receive the information on Banana production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Apart from SMS and information from CKWs, what other form would you like to receive the information on Banana production and marketing</inlineHelpText>
+        <label>Other preferred Info Media</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Audio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures/leaflets/posters in English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures or leaflets/posters in Local languages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_of_Bananas_Planted_In_Rows__c</fullName>
+        <externalId>false</externalId>
+        <label>% of Bananas Planted In Rows</label>
+        <picklist>
+            <picklistValues>
+                <fullName>100 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>60-80 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-50 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 10 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_of_Produced_Banana_Sold__c</fullName>
+        <externalId>false</externalId>
+        <label>% of Produced Banana Sold</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 10 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20-50 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>60 – 80 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not sell</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Planted_new_plantation_in_last_6_months__c</fullName>
+        <description>In the last 6 months, have you planted any new banana plantation on any of your farm?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 6 months, have you planted any new banana plantation on any of your farm?</inlineHelpText>
+        <label>Planted new plantation in last 6 months?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Preferred_Production_Marketing_Info__c</fullName>
+        <description>What kind of information would like to receive on Banana production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What kind of information would like to receive on Banana production and marketing</inlineHelpText>
+        <label>Preferred Production &amp; Marketing Info</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Soil and water conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manure or fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compost making</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weeding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pruning, de-suckering, de-leafing etc.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intercropping or cover cropping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pest and diseases control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harvesting and Post harvest handling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Value addition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bulking and marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Record keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm business planning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market information (prices and buyers)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weather information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farming as a business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Purchased_Banana_Suckers_last_12_Months__c</fullName>
+        <description>In the last 12 months have you purchased any banana suckers (banana planting material)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months have you purchased any banana suckers (banana planting material)</inlineHelpText>
+        <label>Purchased Banana Suckers last 12 Months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Quantity_of_Fertilizer_Applied_per_Plant__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How much fertilizer do you apply per banana mat or &quot;plant&quot;</inlineHelpText>
+        <label>Quantity of Fertilizer Applied per Plant</label>
+        <picklist>
+            <picklistValues>
+                <fullName>50-60 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 200 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Quantity_of_Manure_applied_per_plant__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How much manure do you apply per banana mat or &quot;plant&quot;</inlineHelpText>
+        <label>Quantity of Manure applied per plant</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One basin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_insufficient_fertiliser_use__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Why were you not able to use a sufficient amount of fertilizer on your banana plantation?</inlineHelpText>
+        <label>Reason for insufficient fertiliser use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer destroyed/lost before application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_insufficient_herbicide_use__c</fullName>
+        <description>Why were you not able to use a sufficient amount of herbicide?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why were you not able to use a sufficient amount of herbicide?</inlineHelpText>
+        <label>Reason for insufficient herbicide use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_insufficient_use_of_chemicals__c</fullName>
+        <description>Why were you not able to use a sufficient amount of chemicals (pesticides/fungicides)?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why were you not able to use a sufficient amount of chemicals (pesticides/fungicides)?</inlineHelpText>
+        <label>Reason for insufficient use of chemicals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_non_application_of_fertilizer__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Why have you not applied fertilizer or manure on your banana plantation?</inlineHelpText>
+        <label>Reason for non application of fertilizer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Do not know how to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cannot afford to/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply  it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer or manure not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer not available when needed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reason_for_non_use_of_group_production__c</fullName>
+        <description>Why are you not engaged in group production and marketing of Banana</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why are you not engaged in group production and marketing of Banana</inlineHelpText>
+        <label>Reason for non-use of group production</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Lack of information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No serious groups willing to engage in this</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fear to be cheated in a group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Takes time to receive money from Banana sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Groups not sustainable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sells_Bananas_To__c</fullName>
+        <externalId>false</externalId>
+        <label>Sells Bananas To</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Traders at home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Traders in the market</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fellow farmers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Soil_Water_Conservation_Measures_Done__c</fullName>
+        <description>Which of the following soil and water conservation measures do you practice on your banana garden</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following soil and water conservation measures do you practice on your banana garden</inlineHelpText>
+        <label>Soil &amp; Water Conservation Measures Done</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Digging trenches or terraces</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant grass across the slope</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant shade trees or wind breakers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sources_of_Information_on_Banana_Farming__c</fullName>
+        <description>Where do you or anyone in your household generally get information about Banana farming related matters, such as good practices and market information?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Where do you or anyone in your household generally get information about Banana farming related matters, such as good practices and market information?</inlineHelpText>
+        <label>Sources of Information on Banana Farming</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CKWs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grameen Foundation Farmer Call center</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Newspapers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SMS subscription service/mobile phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Friends, Family, Relatives, Neighbors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Buyers/Traders</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ag Extension Agents (NAADs, NARO)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farmer Group/Cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Spacing_Used_while_planting_Bananas__c</fullName>
+        <description>What was the spacing used while planting your banana plantion</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What was the spacing used while planting your banana plantion</inlineHelpText>
+        <label>Spacing Used while planting Bananas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>3m by 3m (10ft by 10ft)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2m by 2m</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Estimated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know/can&apos;t recall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Time_of_season_to_apply_fertilizer_manur__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>At what time of the season do you normally apply the fertilizers or manure</inlineHelpText>
+        <label>Time of season to apply fertilizer/manur</label>
+        <picklist>
+            <picklistValues>
+                <fullName>At the beginning of rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mid-Rain season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Later in the season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Top_3_cashcrops_for_HH_other_than_banana__c</fullName>
+        <description>What are the top 3 cash crops that your household earn income from other than Banana?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What are the top 3 cash crops that your household earn income from other than Banana?</inlineHelpText>
+        <label>Top 3 cashcrops for HH other than banana</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Maize</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cassava</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Millet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables (tomato, cabage etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fruits (passion fruits, mango, citrus etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Top_3_income_generating_livestock__c</fullName>
+        <description>What are the top 3 livestock that your household earn income from?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What are the top 3 livestock that your household earn income from?</inlineHelpText>
+        <label>Top 3 income generating livestock</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cattle</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Poutlry (chicken, ducks, turkeys etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Goats</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sheep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rabbits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fish farming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Total_amount_in_UGX_spent_on_chemicals__c</fullName>
+        <description>In the last 12 months, what was the total amount you spent in Ugandan shillings for the chemicals (pesticides/fungicides) used on your Banana garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, what was the total amount you spent in Ugandan shillings for the chemicals (pesticides/fungicides) used on your Banana garden[s]?</inlineHelpText>
+        <label>Total amount in UGX spent on chemicals</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_of_Bananas_Mostly_Grown__c</fullName>
+        <description>What type of bananas do you mostly grow</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What type of bananas do you mostly grow</inlineHelpText>
+        <label>Type of Bananas Mostly Grown</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cooking type</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brewing type (mbidde)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Desert type (gonja)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Fertilizer_Manure_Used__c</fullName>
+        <description>Which type of fertilizer or manure did you use on your banana plantation?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which type of fertilizer or manure did you use on your banana plantation?</inlineHelpText>
+        <label>Type of Fertilizer/Manure Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Manure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inorganic/chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Both manure and inorganic/chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_leaves_removed_when_deleafing__c</fullName>
+        <description>When reducing the number of leaves (de-leafing), what kind of leaves do you remove</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When reducing the number of leaves (de-leafing), what kind of leaves do you remove</inlineHelpText>
+        <label>Type of leaves removed when deleafing</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Old leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dead or dry leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leaves turning yellow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broken leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Any excess leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Types_Of_Records_Kept_on_Banana__c</fullName>
+        <description>What kind of records do you keep on Banana</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What kind of records do you keep on Banana</inlineHelpText>
+        <label>Types of Records Kept on Banana</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Production records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm planning records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Types_of_Mgt_Biz_Practices_last_2_yrs__c</fullName>
+        <description>What types of management and business practices have you engaged in over the past 2 years?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What types of management and business practices have you engaged in over the past 2 years?</inlineHelpText>
+        <label>Types of Mgt &amp; Biz Practices last 2 yrs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Planning with the cropping calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measurement of farm size</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Animal raising</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adoption of new crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of improved seeds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recording money in – money out</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replanting of Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None of the above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Used_Sufficient_Fertilizer_last_12_month__c</fullName>
+        <description>In the last 12 months, was the amount of fertilizer(s) that you used sufficient for your banana plantation needs?</description>
+        <externalId>false</externalId>
+        <label>Used Sufficient Fertilizer last 12 month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Used_sufficient_herbicides_last_12_month__c</fullName>
+        <description>In the last 12 months, was the amount of herbicide(s) that you used sufficient for your Banana farm needs?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, was the amount of herbicide(s) that you used sufficient for your Banana farm needs?</inlineHelpText>
+        <label>Used sufficient herbicides last 12 month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Used_sufficient_pesticides_last_12_month__c</fullName>
+        <description>In the last 12 months, was the amount of pesticides that you used sufficient for your Banana farm needs</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, was the amount of pesticides that you used sufficient for your Banana farm needs</inlineHelpText>
+        <label>Used sufficient pesticides last 12 month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Farm_Info_from_SMS_Mobile__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from SMS subscription service/ mobile phone?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from SMS subscription service/ mobile phone?</inlineHelpText>
+        <label>Usefulness of Farm Info from SMS/Mobile</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Farming_Info_on_Radio__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Radios?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Radios?</inlineHelpText>
+        <label>Usefulness of Farming Info on Radio</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Farming_Info_on_TV__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the TV?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the TV?</inlineHelpText>
+        <label>Usefulness of Farming Info on TV</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Info_from_Buyers_Traders__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Buyers/Traders?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Buyers/Traders?</inlineHelpText>
+        <label>Usefulness of Info from Buyers/Traders</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Info_from_CKWs__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the CKWs?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the CKWs?</inlineHelpText>
+        <label>Usefulness of Farming Info from CKWs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Info_from_Extension_Agents__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Agriculture extension agents like from NAADs, NARO etc.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Agriculture extension agents like from NAADs, NARO etc.</inlineHelpText>
+        <label>Usefulness of Info from Extension Agents</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Info_from_Farmer_Group__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Farmer Group or Association?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Farmer Group or Association?</inlineHelpText>
+        <label>Usefulness of Info from Farmer Group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Usefulness_of_Info_from_GF_Call_Centre__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the GF farmer call center</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the GF farmer call center</inlineHelpText>
+        <label>Usefulness of Info from GF Call Centre</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Uses_a_seasonal_method_of_weed_control__c</fullName>
+        <description>Do you use a particular method of weed control based on the seasons? That is during the dry or rainy season</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you use a particular method of weed control based on the seasons? That is during the dry or rainy season</inlineHelpText>
+        <label>Uses a seasonal method of weed control?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Uses_protective_gear_to_apply_herbicide__c</fullName>
+        <description>Do you use protective gear (e.g. gumboots, masks, gloves, glasses etc.) while applying herbicides</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you use protective gear (e.g. gumboots, masks, gloves, glasses etc.) while applying herbicides</inlineHelpText>
+        <label>Uses protective gear to apply herbicide</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Want_to_receive_Farming_Info_SMS_Alerts__c</fullName>
+        <description>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</inlineHelpText>
+        <label>Want to receive Farming Info SMS Alerts</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>What_form_of_value_addition_do_you_do__c</fullName>
+        <description>What form of value addition do you do</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What form of value addition do you do</inlineHelpText>
+        <label>What form of value addition do you do?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Banana wine making</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana crisps</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana flour</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pan cakes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>When_do_you_weed_your_Banana_plantation__c</fullName>
+        <description>When do you weed your Banana plantation (s)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When do you weed your Banana plantation (s)</inlineHelpText>
+        <label>When do you weed your Banana plantation?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>During the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When weeds are too many</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>When_normally_support_banana_plants__c</fullName>
+        <description>When do you normally provide support to your banana plants</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When do you normally provide support to your banana plants</inlineHelpText>
+        <label>When normally support banana plants</label>
+        <picklist>
+            <picklistValues>
+                <fullName>When plant has bigger bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When plant is attacked by pests</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When plant has too much leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Where_did_you_obtain_the_Banana_suckers__c</fullName>
+        <description>Where did you obtain the Banana suckers</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Where did you obtain the Banana suckers</inlineHelpText>
+        <label>Where did you obtain the Banana suckers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Own farm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Neighbors farm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government (NAADs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Research institutes (NARO)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Where_production_mkting_decisions_kept__c</fullName>
+        <description>Where do you keep all your Banana production and marketing decisions</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Where do you keep all your Banana production and marketing decisions</inlineHelpText>
+        <label>Where production &amp; mkting decisions kept</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Book/chart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memory/Head</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On paper sheets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <label>Banana Farmer</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>BF{YYYY}{MM}{DD}{0}</displayFormat>
+        <label>Farmer Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Banana Farmers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

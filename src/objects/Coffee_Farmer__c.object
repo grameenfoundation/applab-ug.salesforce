@@ -1,0 +1,3794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Acres_of_coffee_managed__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please tell me, how many acres of coffee does your household operate/manage (including all coffee gardens or plots mentioned above)</inlineHelpText>
+        <label>Acres of coffee managed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 1 acre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 11 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Acres_of_coffee_planted_last_12_months__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How many acres of coffee have you planted in the last 12 months</inlineHelpText>
+        <label>Acres of coffee planted last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 1 acre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 11 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Additional_source_of_revenue_4_household__c</fullName>
+        <description>In addition to your coffee income, what are the additional sources of revenue for your household?</description>
+        <externalId>false</externalId>
+        <label>Additional source of revenue 4 household</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Other cash crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Livestock</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remittances</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Agree_on_need_2_change_coffee_tree_cycle__c</fullName>
+        <externalId>false</externalId>
+        <label>Agree on need 2 change coffee tree cycle</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Amount_on_herbicides_sufficient_12months__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount on herbicides sufficient 12months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Amount_spent_on_chemicals_last_12months__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount spent on chemicals last 12months</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_spent_on_herbicides_last_12months__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount spent on herbicides last 12months</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Any_HH_member_go_day_night_without_food__c</fullName>
+        <description>In the past [4 weeks/30 days] did you or any household member go a whole day and night without eating anything at all because there was not enough food?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the past [4 weeks/30 days] did you or any household member go a whole day and night without eating anything at all because there was not enough food?</inlineHelpText>
+        <label>HH member go day&amp;night w/out food lst 4w</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Any_hhold_member_sleep_hungry_last_4week__c</fullName>
+        <description>In the past 4 weeks did u or any household member spent a night hungry because of not enough food</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the past [4 weeks/30 days] did you or any household member go to sleep at night hungry because there was not enough food</inlineHelpText>
+        <label>Any hhold member sleep hungry last 4week</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Any_improved_plants_in_new_coffee__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Of the new coffee trees that you planted in the last 12months, were any improved</inlineHelpText>
+        <label>Any improved plants in new coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Average_Coffee_Price_sold_Sep_Dec_2013__c</fullName>
+        <externalId>false</externalId>
+        <label>Average Coffee Price sold Sep Dec 2013</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_Price_of_Coffee_sold_Feb_Aug_201__c</fullName>
+        <externalId>false</externalId>
+        <label>Average Price Coffee sold Feb Aug 2014</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_daily_meals_e_household_consumes__c</fullName>
+        <description>average daily meals the household consumes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>On average how many meals does your household consume daily</inlineHelpText>
+        <label>Average daily meals e household consumes</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At three meals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Aware_of_bad_effects_of_herbicides_usage__c</fullName>
+        <externalId>false</externalId>
+        <label>Aware of bad effects of herbicides usage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Benefits_from_coffee_coop_association__c</fullName>
+        <externalId>false</externalId>
+        <label>Benefits from coffee coop/association</label>
+        <picklist>
+            <picklistValues>
+                <fullName>To obtain training</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>To obtain information on coffee farming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>To obtain certification for coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Better access to inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Better access to credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Obtain a better price for coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Benefits_of_coffee_certification_scheme__c</fullName>
+        <externalId>false</externalId>
+        <label>Benefits of coffee certification scheme</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Improved agricultural practices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Better/higher prices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group marketing of coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>price is above average production cost</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Improved access to credit (loans)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rainforest Alliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAFÉ practices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Can_detect_particular_pest_o_disease__c</fullName>
+        <externalId>false</externalId>
+        <label>Can detect particular pest o disease</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Challenges_of_the_coffee_certification__c</fullName>
+        <externalId>false</externalId>
+        <label>Challenges of the coffee certification</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Strict certification requirements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>It is very expensive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lower quality coffee (for 4. consumers)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Coffee_gardens_managed_directly__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How many coffee gardens or plots does your house hold manage directly</inlineHelpText>
+        <label>Coffee gardens managed directly</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One garden</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Coffee_seedlings_purchase_last_12_months__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months have you purchased any coffee seedlings</inlineHelpText>
+        <label>Coffee seedlings purchase last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Coffee_storage_observations__c</fullName>
+        <externalId>false</externalId>
+        <label>Coffee storage observations</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pack coffee in clean sacks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stack coffee bags on raised platform</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Store coffee away from farm produce</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Store parchment and Kiboko separately</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Store coffee away from Agro-chemicals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Combination_o_seasonal_weed_control_used__c</fullName>
+        <externalId>false</externalId>
+        <label>Combination o seasonal weed control used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Slash during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slash during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hand hoe during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hand hoe during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Common_means_2_get_fertilizer_herbicides__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the commonest means of acquisition of fertilizers, herbicides or pesticides that you use on your coffee garden (s)</inlineHelpText>
+        <label>Common means 2 get fertilizer herbicides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Given for free</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Get on credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Common_practices_on_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Common practices on coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Drying</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sorting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cleaning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grading</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Packaging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Branding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Name and Price tagging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Traceability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Commonly_used_method_when_applying__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following is the most commonly used method when applying fertilizers or manure on your coffee</inlineHelpText>
+        <label>Commonly used method when applying</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ring banding (Placed around the tree)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spot application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broad casting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Placed in trenches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Crops_planted_alongside_new_coffee__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12months, what crops have you planted alongside the new coffee trees</inlineHelpText>
+        <label>Crops planted alongside new coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ground nuts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cowpeas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soya bean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Do_u_thnk_u_hv_enough_info_on_the_scheme__c</fullName>
+        <description>From your own opinion, do you think you have enough information on the coffee certification scheme you use</description>
+        <externalId>false</externalId>
+        <inlineHelpText>From your own opinion, do you think you have enough information on the coffee certification scheme you use (selected above)</inlineHelpText>
+        <label>Do u thnk u hv enough info on the scheme</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_Coffee_pests_and_disease_control__c</fullName>
+        <externalId>false</externalId>
+        <label>Does Coffee pests and disease control</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_Coffee_processing__c</fullName>
+        <externalId>false</externalId>
+        <label>Does Coffee processing</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_desuckering_pruning_and_stumping__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Coffee desuckering, pruning and stumping</inlineHelpText>
+        <label>Does desuckering pruning and stumping</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_group_production_and_marketing__c</fullName>
+        <externalId>false</externalId>
+        <label>Does group production and marketing</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_on_farm_coffee_value_addition__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>On farm coffee value addition (Coffee post harvest handling and processing)</inlineHelpText>
+        <label>Does on farm coffee value addition</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_proper_and_timely_weed_control__c</fullName>
+        <externalId>false</externalId>
+        <label>Does proper and timely weed control</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_proper_coffee_farm_record_keeping__c</fullName>
+        <description>Proper Coffee farm record keeping</description>
+        <externalId>false</externalId>
+        <label>Does proper coffee farm record keeping</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_soil_and_water_conservation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Soil and water conservation</inlineHelpText>
+        <label>Does soil and water conservation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_soil_fertility_management__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Soil fertility management (application of fertilizer or manure)</inlineHelpText>
+        <label>Does soil fertility management</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Does_yo_household_hav_enough_food_to_eat__c</fullName>
+        <description>Does your household have enough food to eat</description>
+        <externalId>false</externalId>
+        <label>Does yo household hav enough food to eat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Easily_access_agro_inputs__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Easily access agro-inputs (fertilizer or manure, pesticides, herbicides and planting materials)</inlineHelpText>
+        <label>Easily access agro inputs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ever_pruned_coffee_under_2_yrs_4_growth__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever pruned your coffee trees under 2 years old so that they grow under a particular manner</inlineHelpText>
+        <label>Ever pruned coffee under 2 yrs 4 growth</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not applicable (No trees under 2 years)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Factors_Considered_Establishing_Nursery__c</fullName>
+        <description>Factors considered when establishing a coffee nursery</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Factors considered when establishing a coffee nursery</inlineHelpText>
+        <label>Factors Considered Establishing Nursery</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Type of coffee seed on demand</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Availability of  potting materials</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soil fertility</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water availability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Altitude</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Labour</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer or manure availability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Fertilizer_applied_per_tree__c</fullName>
+        <externalId>false</externalId>
+        <label>Fertilizer applied per tree</label>
+        <picklist>
+            <picklistValues>
+                <fullName>50 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>150 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>185 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>250 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>300 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fertilizer_used_in_coffee_plantations__c</fullName>
+        <externalId>false</externalId>
+        <label>Fertilizer used in coffee plantations</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CAN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NPK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DAP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Urea</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Focus_Farmer__c</fullName>
+        <externalId>false</externalId>
+        <label>Focus Farmer</label>
+        <referenceTo>Focus_Farmer__c</referenceTo>
+        <relationshipLabel>Coffee Farmers</relationshipLabel>
+        <relationshipName>Coffee_Farmers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Follow_plan_or_program_when_applying__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you follow a particular program or plan such as time, type and amount of fertilizer to apply on your coffee</inlineHelpText>
+        <label>Follow plan or program when applying</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HH_has_food_reserves__c</fullName>
+        <description>Does your household have food reserves in from of stored food</description>
+        <externalId>false</externalId>
+        <label>HH has food reserves</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HH_sometimes_has_surplus_maize_for_mkt__c</fullName>
+        <description>Does your household sometimes has surplus maize for market</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Does your household sometimes has surplus maize for market</inlineHelpText>
+        <label>HH sometimes has surplus maize for sale</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not at all</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rarely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sometimes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_Often_Weeds_Pest_and_Disease_Control__c</fullName>
+        <description>How often do you control weeds, pests and diseases?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How often do you control weeds, pests and diseases?</inlineHelpText>
+        <label>How Often Weeds Pest and Disease Control</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Every week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice a season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When  I see any weeds or pest or disease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_Potting_Media_is_Mixed__c</fullName>
+        <description>How do you mix the potting media or soil to be used for potting the coffee seedlings</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you mix the potting media or soil to be used for potting the coffee seedlings</inlineHelpText>
+        <label>How Potting Media is Mixed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mix soil with dry manure in ratio of 3 to 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mix soil with manure  in a ratio of 2 to 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mix  soil and manure in a ratio of 1 to 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_do_you_manage_weeds_in_your_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>How do you manage weeds in your coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>By hand hoeing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slashing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Animals feeding on the weeds (grazing animals in the coffee garden)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A combination of methods above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_do_you_sort_your_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>How do you sort your coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Remove broken black beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remove stones/dirt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remove waste or rubish</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not sort</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>How_manage_pests_diseases_of_yo_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>How manage pests &amp; diseases of yo coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Spray with chemicals (pesticides/fungicides)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use local technolgoy/cultural means</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use a combination of methods above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanical means (e.g. uprooting)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_often_and_when_seedlings_watered__c</fullName>
+        <externalId>false</externalId>
+        <label>How often and when seedlings watered?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Twice a day (early morning and late evening)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once a day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wait for rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice a day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_often_is_coffee_desuckering__c</fullName>
+        <description>How often is coffee de-suckering done</description>
+        <externalId>false</externalId>
+        <label>How often is coffee de-suckering</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sevral times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_often_wld_u_lyk_2_receive_SMS_alerts__c</fullName>
+        <description>How often wld u like to receive SMS alerts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How often would you like to receive the SMS alerts</inlineHelpText>
+        <label>How often wld u lyk 2 receive SMS alerts</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Every after 2 weeks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_old_are_most_of_the_coffee_trees__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How old are most of the coffee trees in your plantations</inlineHelpText>
+        <label>How old are most of the coffee trees</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11-20 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20-30 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Over 30 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_seedlings_prepared_before_transplant__c</fullName>
+        <description>How do you prepare for seedlings before transplanting?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you prepare for seedlings before transplanting?</inlineHelpText>
+        <label>How seedlings prepared before transplant</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Gradually reduce shed a month to transplanting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Put seedlings in direct sun light</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just transplant or sell off the seedlings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_u_ensure_2_get_quality_agrochemicals__c</fullName>
+        <externalId>false</externalId>
+        <label>How u ensure 2 get quality agrochemicals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Buy from registered input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just buy from any input dealer (Do not mind where I Buy)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collective purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seek for guidance from fellow farmers/CKW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I call the GF farmer call center for guidance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not use any of these inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_Ag_extension_info_eg_NAADs__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Agriculture extension agents like from NAADs, NARO, UCDA etc.</inlineHelpText>
+        <label>How useful is Ag extension info eg NAADs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_farmer_grps_or_Assctn_info__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Farmer Group or Association?</inlineHelpText>
+        <label>How useful is farmer grps or Assctn info</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_farming_info_u_get_4m_CKWs__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <label>How useful is farming info u get 4m CKWs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_z_SMS_subscriptn_farmng_info__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from SMS subscription service/ mobile phone?</inlineHelpText>
+        <label>How useful z SMS subscriptn farmng info</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_z_farming_info_4m_traders__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Buyers/Traders?</inlineHelpText>
+        <label>How useful z farming info 4m traders</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_z_farming_info_u_gt_4m_radios__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <label>How useful z farming info u gt 4m radios</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_z_farmng_info_4m_GF_callcenta__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the GF farmer call center</inlineHelpText>
+        <label>How useful z farmng info 4m GF callcenta</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_z_the_farming_info_u_gt_4m_TV__c</fullName>
+        <description>Using a scale from very useful to not at all useful</description>
+        <externalId>false</externalId>
+        <label>How useful z the farming info u gt 4m TV</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hw_often_did_HHold_lack_food_last_4weeks__c</fullName>
+        <description>(IF Yes) How often did Household lack food in the last 4 weeks/30 days)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>(IF Yes) How often did Household lack food in the last 4 weeks/30 days)</inlineHelpText>
+        <label>Hw often did HHold lack food last 4weeks</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Rarely (1-2 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sometimes (3-10 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Often (more than 10 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>If_given_for_free_from_who_or_which_org__c</fullName>
+        <description>If given for free, from who or which organisation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If given for free, from who or which organisation</inlineHelpText>
+        <label>If given for free from who or which org</label>
+        <picklist>
+            <picklistValues>
+                <fullName>From NGOs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farmer group or association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government agencies (UCDA, NAADs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fellow farmers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>If_got_on_credit_from_who_or_which_org__c</fullName>
+        <externalId>false</externalId>
+        <label>If got on credit from who or which org</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Contract farming (for a coffee company)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agro-input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee cooperative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Village saving and Loan Association (VSLA)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SACCO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>If_yes_which_food_reserves_do_you_have__c</fullName>
+        <description>If yes, which reserves do you have</description>
+        <externalId>false</externalId>
+        <label>If yes which food reserves do you have</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Food in store or crib</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Food in the garden</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Is_Nursery_Fenced_Off__c</fullName>
+        <externalId>false</externalId>
+        <label>Is Nursery Fenced Off?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Is_Shade_Well_Maintained__c</fullName>
+        <externalId>false</externalId>
+        <label>Is Shade Well Maintained?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Keeps_Records_of_Nursery_Mgt_Activities__c</fullName>
+        <description>Do you keep records of the nursery management activities</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you keep records of the nursery management activities</inlineHelpText>
+        <label>Keeps Records of Nursery Mgt Activities</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Kgs_got_in_the_main_harvesting_season__c</fullName>
+        <description>Coffee produced in the main harvesting season of 2013</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many Kgs of coffee did you produce in the main harvesting season of 2013, that is from September to December 2013)</inlineHelpText>
+        <label>Kgs got in the main harvesting season</label>
+        <picklist>
+            <picklistValues>
+                <fullName>less than 50Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>50-100 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>101-200Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>201-300Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>301-500 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 500 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Kgs_of_coffee_in_the_most_recent_season__c</fullName>
+        <description>Kgs of coffee produced in the most recent season</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many Kgs of coffee did you produce in the most recent season (February to August 2014)</inlineHelpText>
+        <label>Kgs of coffee in the most recent season</label>
+        <picklist>
+            <picklistValues>
+                <fullName>less than 50Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>50-100 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>101-200Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>201-300Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>301-500 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 500 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Kind_of_records_kept_on_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Kind of records kept on coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Production records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm planning records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Level_to_stump_the_whole_tree_bush_back__c</fullName>
+        <description>level should the whole tree bush be stumped back</description>
+        <externalId>false</externalId>
+        <label>Level to stump the whole tree bush back</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1ft above ground level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Below the knee height</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-1½ft. above soil level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 ft. above ground level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Likihood_2_practice_info_given_on_coffee__c</fullName>
+        <description>What is the likelihood</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the likelihood that if we provide you with the necessary information and or training on selected  practices that you are lacking in coffee production and marketing that you will put them into practice to improve your coffee yields and income</inlineHelpText>
+        <label>Likihood 2 practice info given on coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very Likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Lyk_2_get_SMS_alerts_on_selectd_practces__c</fullName>
+        <description>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</inlineHelpText>
+        <label>Lyk 2 get SMS alerts on selectd practces</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Manure_applied_per_tree__c</fullName>
+        <externalId>false</externalId>
+        <label>Manure applied per tree</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One basin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Marketing_certified_or_standard_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Marketing certified or standard coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Material_for_Potting_Coffee_Seedlings__c</fullName>
+        <description>What did you use for potting coffee seedlings?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What did you use for potting coffee seedlings?</inlineHelpText>
+        <label>Material for Potting Coffee Seedlings</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Polythene pots</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana fibers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bamboo poles</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tins/plastic containers with holes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Material_for_Shading_Seedlings__c</fullName>
+        <description>What did you use for shading the seedlings?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What did you use for shading the seedlings?</inlineHelpText>
+        <label>Material for Shading Seedlings</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Iron sheets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dry grass</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plastic sheets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Polythene</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shade net</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana leaves /fibers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planted shade trees</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Materials_and_Equipment_used_on_nursery__c</fullName>
+        <description>What kind of materials equipment do you have or use on your nursery? Select all that apply</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What kind of materials equipment do you have or use on your nursery? Select all that apply</inlineHelpText>
+        <label>Materials and Equipment used on nursery</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hand hoes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spades or shovel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sprayer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wheel barrow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Watering cans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lake sand/Manure/Chemical fertilizers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pesticides</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water hose (rubber pipe)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measuring tape</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water pump</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ropes or stings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Measurement_used_when_mixing_berbicides__c</fullName>
+        <externalId>false</externalId>
+        <label>Measurement used when mixing berbicides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>150ml in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>75mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not measure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Method_of_coffee_processing_used__c</fullName>
+        <externalId>false</externalId>
+        <label>Method of coffee processing used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Dry processing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Washed wet processing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Mgt_business_actions_taken_last_2yrs__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following management and business actions have you taken in the last 2 years</inlineHelpText>
+        <label>Mgt &amp; business actions taken last 2yrs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Opened savings account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Received a credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Formed a group/ cooperative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Joined a cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grouped sale of products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grouped purchase of inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None of these</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Mgt_business_practices_hv_u_engaged_in__c</fullName>
+        <description>management and business practices have you engaged in over the past 2 years</description>
+        <externalId>false</externalId>
+        <inlineHelpText>management and business practices have you engaged in over the past 2 years</inlineHelpText>
+        <label>Mgt &amp; business practices hv u engaged in</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Planning with the cropping calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measurement of farm size</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Animal raising</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adoption of new crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of improved seeds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recording money in – money out</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replanting of coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None of the above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>More_than_half_coffee_planted_in_rows__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Of all the coffee trees on your farm, are more than half of the coffee trees planted in rows</inlineHelpText>
+        <label>More than half coffee planted in rows</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Name_o_the_group_association_cooperative__c</fullName>
+        <externalId>false</externalId>
+        <label>Name o the group/association/cooperative</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_coffee_planted_in_last_12_months__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, have you planted any new coffee trees on any of your farm</inlineHelpText>
+        <label>New coffee planted in last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Nursery_Near_Permanent_Water_Source__c</fullName>
+        <description>Nursery Near Permanent Water Source?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Coffee Nursery Near Permanent Water Source?</inlineHelpText>
+        <label>Nursery Near Permanent Water Source?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Operate_Own_a_Coffee_Nursery__c</fullName>
+        <externalId>false</externalId>
+        <label>Operate/Own a Coffee Nursery</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Other_top_3_cash_crops_other_than_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Other top 3 cash crops other than coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Maize</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cassava</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Millet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables (tomato, cabage etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fruits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Percent_Coffee_Planted_in_rows__c</fullName>
+        <externalId>false</externalId>
+        <label>% of Coffee Plants planted in rows</label>
+        <picklist>
+            <picklistValues>
+                <fullName>100 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>60-80 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-50 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 10 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Phone_Numb_2_receive_farmng_SMS_alerts__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please provide the phone number on which you would like to receive SMS alerts on farming</inlineHelpText>
+        <label>Phone Numb 2 receive farmng SMS alerts</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Received_training_on_fertilizer_usage__c</fullName>
+        <externalId>false</externalId>
+        <label>Received training on fertilizer usage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SMS_CKWs_What_other_form_2_reciv_info__c</fullName>
+        <description>Apart from SMS and information from CKWs, what other form would you like to receive the information on coffee production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Apart from SMS and information from CKWs, what other form would you like to receive the information on coffee production and marketing</inlineHelpText>
+        <label>SMS &amp; CKWs What other form 2 reciv info</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Audio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures/leaflets/posters in English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures or leaflets/posters in Local languages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Season_fertilizers_manure_are_applied__c</fullName>
+        <externalId>false</externalId>
+        <label>Season fertilizers &amp; manure are applied</label>
+        <picklist>
+            <picklistValues>
+                <fullName>At the beginning of rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mid-Rain season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Later in the season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Soil_water_conservation_measures__c</fullName>
+        <externalId>false</externalId>
+        <label>Soil &amp; water conservation measures</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Digging trenches or terraces</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant grass across the slope</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant shade trees or wind breakers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Spacing_used_when_planting_coffee__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What was the spacing used while planting your coffee trees</inlineHelpText>
+        <label>Spacing used when planting coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>3m by 3m (10ft by 10ft)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3m by 4m</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2m by 2m</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Stage_fertilizer_manure_are_applied__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>stage of Coffee growing do you apply the fertilizers or manure</inlineHelpText>
+        <label>Stage fertilizer &amp; manure are applied</label>
+        <picklist>
+            <picklistValues>
+                <fullName>At planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-2 months after planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At flowering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>After harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Stems_left_on_stump_during_pruning__c</fullName>
+        <externalId>false</externalId>
+        <label>Stems left on stump during pruning</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3-4 stems</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 4 stems</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>The_main_source_of_food_4_your_household__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the main source of food for your household</inlineHelpText>
+        <label>The main source of food 4 your household</label>
+        <picklist>
+            <picklistValues>
+                <fullName>From market</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Own garden</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>From relatives /neighbors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Times_HHmember_went_day_night_w_out_food__c</fullName>
+        <description>(IF Yes) How often did member go hungry day and night in the last 4 weeks/30 days)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>(IF Yes) How often did member go hungry day and night in the last 4 weeks/30 days)</inlineHelpText>
+        <label>Times HHmember went day/night w/out food</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Rarely (1-2 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sometimes (3-10 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Often (more than 10 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Times_Hhold_member_slept_hungry_lst_4wks__c</fullName>
+        <description>(IF Yes) How often did a household member sleep hungry in the last 4 weeks/30 days)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>(IF Yes) How often did a household member sleep hungry in the last 4 weeks/30 days)</inlineHelpText>
+        <label>Times Hhold member slept hungry lst 4wks</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Rarely (1-2 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sometimes (3-10 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Often (more than 10 times)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Times_applied_manure_in_last_12_months__c</fullName>
+        <externalId>false</externalId>
+        <label>Times applied manure in last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Times_do_you_weed_your_coffee_in_a_year__c</fullName>
+        <externalId>false</externalId>
+        <label>Times do you weed your coffee in a year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times in a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Times_use_chemical_on_coffee_last_12mnth__c</fullName>
+        <externalId>false</externalId>
+        <label>Times use chemical on coffee last 12mnth</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Times_used_herbicides_in_last_12_months__c</fullName>
+        <externalId>false</externalId>
+        <label>Times used herbicides in last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Top_3_livestock_household_earns_from__c</fullName>
+        <externalId>false</externalId>
+        <label>Top 3 livestock household earns from</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cattle</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Poutlry (chicken, ducks, turkeys etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Goats</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sheep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rabbits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fish farming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Total_amount_spent_on_fertilizers__c</fullName>
+        <description>total amount you spent in Ugandan shillings for the fertilizers used</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, what was the total amount you spent in Ugandan shillings for the fertilizers used on your coffee garden[s]?</inlineHelpText>
+        <label>Total amount spent on fertilizers</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_of_Coffee_Mainly_Sold__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Coffee Mainly Sold</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Parchment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kiboko</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fresh/cherries</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_fertilizer_normally_used__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of fertilizer normally used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Manure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inorganic/chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Both manure and chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Use_protective_gear_applying_herbicides__c</fullName>
+        <externalId>false</externalId>
+        <label>Use protective gear applying herbicides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Use_records_to_make_informed_decisions__c</fullName>
+        <externalId>false</externalId>
+        <label>Use records to make informed decisions</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Used_fertilizer_manure_in_last_12_months__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, did you use fertilizer(s) or manure on your coffee garden[s]</inlineHelpText>
+        <label>Used fertilizer manure in last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Uses_seasonal_weed_control_methods__c</fullName>
+        <externalId>false</externalId>
+        <label>Uses seasonal weed control methods</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Was_amount_of_fertilizer_sufficient__c</fullName>
+        <externalId>false</externalId>
+        <label>Was amount of fertilizer sufficient</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Was_there_lack_of_food_in_last_4_weeks__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In the past [4 weeks/30 days] was there a time when there was no food to eat of any kind in your house because of lack of resources to get food?</inlineHelpText>
+        <label>Was there lack of food in last 4 weeks</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Were_chemicals_sufficient_last_12months__c</fullName>
+        <externalId>false</externalId>
+        <label>Were chemicals sufficient last 12months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Wet_coffee_processing_method_used__c</fullName>
+        <externalId>false</externalId>
+        <label>Wet coffee processing method used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sort to remove unripe beans and dirt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Put in water and remove floating pieces</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use pulping machine to pulp the coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>After pulping,sort to remove broken ones</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fermentation of pulped beans for 2 days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wash fermented beans to remove mucilage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dry fermented coffee on tarpauline/mat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dry fermented coffee on bare ground</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Re sort to remove broken coffee &amp; sell</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>What_do_you_use_for_desuckering__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What do you use for de-suckering you coffee trees</inlineHelpText>
+        <label>What do you use for de-suckering</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Just pluck</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Knife</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Secateurs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Panga</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pruning saw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bow saw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>What_do_you_use_for_pruning_your_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>What do you use for pruning your coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pruning saw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Panga</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bow saw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>What_info_u_need_on_coffee_prodtn_farmng__c</fullName>
+        <description>What kind of information would like to receive on coffee production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What kind of information would like to receive on coffee production and marketing</inlineHelpText>
+        <label>What info u need on coffee prodtn&amp;farmng</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Soil and water conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manure or fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compost making</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weeding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Training of coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intercropping or cover cropping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pest and diseases control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De-suckering (removal of excess shoots)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Construction of drying place</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harvesting (fly or main crop)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Post harvest handling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Processing (wet or dry)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Value addition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Storage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bulking and marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Record keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm business planning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market information (prices and buyers)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weather information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee certification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farming as a business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Whats_yo_level_or_standard_of_certifictn__c</fullName>
+        <externalId>false</externalId>
+        <label>Whats yo level or standard of certifictn</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fair trade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UTZ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Organic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>When_Nursery_Was_Started__c</fullName>
+        <externalId>false</externalId>
+        <label>When Nursery Was Started</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than a year back</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 to 3 years back</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 years back</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>When_do_you_prune_your_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>When do you prune your coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>After harvesting the main crop</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Any time during the production season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>When_do_you_weed_your_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>When do you weed your coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>During the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When weeds are too many</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>When_shld_the_coffee_tree_cycle_b_change__c</fullName>
+        <externalId>false</externalId>
+        <label>When shld the coffee tree cycle b change</label>
+        <picklist>
+            <picklistValues>
+                <fullName>6 to 7 years old</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20 years and above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Where_coffee_records_are_kept__c</fullName>
+        <externalId>false</externalId>
+        <label>Where coffee records are kept</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Book/chart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memory/Head</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On paper sheets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Where_coffee_seedlings_were_got__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Where did you obtain the coffee seed/seedlings</inlineHelpText>
+        <label>Where coffee seedlings were got</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Your own farm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Neighbors farm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Local coffee nursery operator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee company e.g. Kawacom</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government (NAADs, UCDA etc.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Research institutes (NARO)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Where_do_u_get_coffee_farming_info__c</fullName>
+        <externalId>false</externalId>
+        <label>Where do u get coffee farming info</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CKWs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grameen Foundation Farmer Call center</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Newspapers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SMS subscription service/mobile phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Word from friends,relatives, neighbors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Buyers/Traders</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ag Extension Agents (NAADs, UCDA, NARO)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farmer Group/Cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Where_is_coffee_normally_dried__c</fullName>
+        <externalId>false</externalId>
+        <label>Where is coffee normally dried</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cemented/concrete floor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tarpaulins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bare ground</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Raised wire mesh/trays</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Who_buys_most_of_your_coffee__c</fullName>
+        <externalId>false</externalId>
+        <label>Who buys most of your coffee</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Coffee cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Traders/middle men</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Why_insufficient_chemical_usage_12month__c</fullName>
+        <description>Why were you not able to use a sufficient amount of chemicals (pesticides/fungicides)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why were you not able to use a sufficient amount of chemicals (pesticides/fungicides)</inlineHelpText>
+        <label>Why insufficient chemical usage 12month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Why_not_apply_fertilizer_or_manure__c</fullName>
+        <externalId>false</externalId>
+        <label>Why not apply fertilizer or manure</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Do not know how to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cannot afford to/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply  it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer or manure not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>It is available but not when needed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer destroy soils</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Why_not_engage_in_group_production__c</fullName>
+        <externalId>false</externalId>
+        <label>Why not engage in group production</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Lack of information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No serious groups willing to engage in this</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fear to be cheated in a group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Takes time to receive money from coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Groups not sustainable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Why_not_use_sufficient_fertilzer__c</fullName>
+        <externalId>false</externalId>
+        <label>Why not use sufficient fertilzer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer destroyed/lost before application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Why_not_use_sufficient_herbicides_amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Why not use sufficient herbicides amount</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>member_o_coffee_farmer_coop_or_associatn__c</fullName>
+        <description>member of a coffee farmer’s cooperative or coffee association</description>
+        <externalId>false</externalId>
+        <label>member o coffee farmer coop or associatn</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>Coffee Farmer</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CF{YYYY}{MM}{DD}{0}</displayFormat>
+        <label>Farmer Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Coffee Farmers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

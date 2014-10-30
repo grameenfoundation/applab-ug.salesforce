@@ -1,0 +1,3272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Acres_grown_Feb_June_2014__c</fullName>
+        <externalId>false</externalId>
+        <label>Maize Acres grown Feb June 2014</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 1 acre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 11 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Acres_grown_Sept_Dec_2013__c</fullName>
+        <description>how many acres of maize did the farmer grow last year in the season of September to December 2013</description>
+        <externalId>false</externalId>
+        <inlineHelpText>how many acres of maize did the farmer grow last year in the season of September to December 2013</inlineHelpText>
+        <label>Maize Acres grown Sept Dec 2013</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 1 acre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 11 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Acres_grown_Sept_Dec_2014__c</fullName>
+        <externalId>false</externalId>
+        <label>Maize Acres grown Sept Dec 2014</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 1 acre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6-10 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 11 acres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Household_Revenue_Sources__c</fullName>
+        <description>In addition to your maize income, what are the additional sources of revenue for your household?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In addition to your maize income, what are the additional sources of revenue for your household?</inlineHelpText>
+        <label>Additional Household Revenue Sources</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Other cash crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Livestock</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remittances</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Amount_Spent_on_Herbicides_last_12_month__c</fullName>
+        <description>In the last 12 months, what was the total amount you spent in Ugandan shillings for the herbicide(s) used on your maize garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, what was the total amount you spent in Ugandan shillings for the herbicide(s) used on your maize garden[s]?</inlineHelpText>
+        <label>Amount Spent on Herbicides last 12 month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_in_UGX_spent_on_pesticides__c</fullName>
+        <description>In the last 12 months, what was the total amount you spent in Ugandan shillings for the chemicals (pesticides/fungicides) used on your maize garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, what was the total amount you spent in Ugandan shillings for the chemicals (pesticides/fungicides) used on your maize garden[s]?</inlineHelpText>
+        <label>Amount in UGX spent on pesticides</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_Price_of_Maize_Feb_Aug_2014__c</fullName>
+        <externalId>false</externalId>
+        <label>Average Price of Maize Feb Aug 2014</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_Price_of_Maize_Sep_Dec_2013__c</fullName>
+        <externalId>false</externalId>
+        <label>Average Price of Maize Sep Dec 2013</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Aware_danger_excessive_wrong_fertilizer__c</fullName>
+        <description>Are you aware that excessive or wrong use of fertilizers can affect your maize yields or damage your soils</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you aware that excessive or wrong use of fertilizers can affect your maize yields or damage your soils</inlineHelpText>
+        <label>Aware of excessive/wrong fertilizer use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Aware_of_bad_effects_of_herbicide_use__c</fullName>
+        <description>Are you aware of the bad or negative effects associated with use of herbicides to control weeds</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you a ware of the bad or negative effects associated with use of herbicides to control weeds</inlineHelpText>
+        <label>Aware of bad effects of herbicide use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Aware_of_land_preparation_methods__c</fullName>
+        <description>Are you aware of that the different methods of land preparation that you use impact on your maize yields?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you aware of that the different methods of land preparation that you use impact on your maize yields?</inlineHelpText>
+        <label>Aware of land preparation methods</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Aware_of_late_planting_spacing_effects__c</fullName>
+        <description>Are you aware that late planting and the kind of spacing that you use when planting maize greatly affects your maize yields and income</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you aware that late planting and the kind of spacing that you use when planting maize greatly affects your maize yields and income</inlineHelpText>
+        <label>Aware of late planting &amp; spacing effects</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Aware_of_maize_marketing_requirements__c</fullName>
+        <description>Are you aware of maize marketing requirements and standards for East Africa</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you aware of maize marketing requirements and standards for East Africa</inlineHelpText>
+        <label>Aware of maize marketing requirements</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Aware_of_recommended_maize_farm_practice__c</fullName>
+        <description>Are you very much aware of recommended maize farming practices</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you very much aware of recommended maize farming practices</inlineHelpText>
+        <label>Aware of recommended maize farm practice</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Aware_poor_PHH_causes_50_harvest_loss__c</fullName>
+        <description>Are you aware that 50% of the maize produced is lost during poor harvesting and post-harvest handling practices</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you aware that 50% of the maize produced is lost during poor harvesting and post-harvest handling practices</inlineHelpText>
+        <label>Aware poor PHH causes 50% harvest loss</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Benefits_from_the_Farmer_Association__c</fullName>
+        <description>What benefits do you get from the maize farmers&apos; copperative, group or association?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What benefits do you get from the maize farmers&apos; copperative, group or association?</inlineHelpText>
+        <label>Benefits from the Farmer Association</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Information on maize production</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Better access to inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Better access to credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Obtain a better price for maize</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Bulking_and_marketing_group_marketing__c</fullName>
+        <externalId>false</externalId>
+        <label>Bulking and marketing (group marketing)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Can_differentiate_btn_maize_varieties__c</fullName>
+        <description>Can you easily differentiate between the different maize varities on market today? (i.e. Hybrids, Open pollinated varieties, Local etc.)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Can you easily differentiate between the different maize varities on market today? (i.e. Hybrids, Open pollinated varieties, Local etc.)</inlineHelpText>
+        <label>Can differentiate btn maize varieties</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Can_easily_detect_pest_or_animal_attacks__c</fullName>
+        <description>Are you able to easily detect particular pest or disease attacks on your maize plants</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you able to easily detect particular pest or disease attacks on your maize plants</inlineHelpText>
+        <label>Can easily detect pest or animal attacks</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Carried_out_gap_filling_in_maize_garden__c</fullName>
+        <description>Did you carry out gap filling in your maize garden</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you carry out gap filling in your maize garden</inlineHelpText>
+        <label>Carried out gap filling in maize garden?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Carries_out_value_addition_to_maize__c</fullName>
+        <description>Do you carry out any value addtion on your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you carry out any value addtion on your maize</inlineHelpText>
+        <label>Carries out value addition to maize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Challenges_faced_during_maize_marketing__c</fullName>
+        <description>What challenges do you face during maize marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What challenges do you face during maize marketing</inlineHelpText>
+        <label>Challenges faced during maize marketing</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low prices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fake weighing scales from traders</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lack of information on current prices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Long distant markets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Common_Method_of_Weed_Control_last_seaso__c</fullName>
+        <description>What is the most common method of weed control that you used on your maize gardens last season</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the most common method of weed control that you used on your maize gardens last season</inlineHelpText>
+        <label>Common Method of Weed Control last seaso</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hand pulling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides (weed killers)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hand hoe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use cover crops like beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Did not weed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Commonest_Fertilizer_Application_Method__c</fullName>
+        <description>Which of the following is the most commonly used method when applying fertilizers or manure on your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following is the most commonly used method when applying fertilizers or manure on your maize</inlineHelpText>
+        <label>Commonest Fertilizer Application Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Placed around the maize plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spot application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broad casting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Placed in trenches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mixed in soil as we prepare the land</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mix with water and spray</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Commonest_agro_chemical_acquisition_mean__c</fullName>
+        <description>What is the commonest means of acquisition of agro-chemicals (Fertilizers, herbicides and pesticides) that you use in maize production</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the commonest means of acquisition of agro-chemicals (Fertilizers, herbicides and pesticides) that you use in maize production</inlineHelpText>
+        <label>Commonest agro-chemical acquisition mean</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Given for free</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Get on credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Crops_intercropped_with_last_season__c</fullName>
+        <description>What crops did you intercrop with maize last season</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What crops did you intercrop with maize last season</inlineHelpText>
+        <label>Crops intercropped with last season</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ground nuts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cowpeas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soya bean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Do_customers_follow_these_standards__c</fullName>
+        <description>Do your customers (buyers/traders) follow these requirements and standards while buying your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do your customers (buyers/traders) follow these requirements and standards while buying your maize</inlineHelpText>
+        <label>Do customers follow these standards?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Extension_Agents_Farming_Info_Useful__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Agriculture extension agents like from NAADs, NARO etc.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Agriculture extension agents like from NAADs, NARO etc.</inlineHelpText>
+        <label>Extension Agents Farming Info Useful</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Farmer_Association_Name__c</fullName>
+        <description>What is the name of the group/association/cooperative</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the name of the group/association/cooperative</inlineHelpText>
+        <label>Farmer Association Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fertilizer_Application_Rate_Last_Season__c</fullName>
+        <description>Last season, how many times did you apply fertilizer(s) or manure on your maize garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last season, how many times did you apply fertilizer(s) or manure on your maize garden[s]?</inlineHelpText>
+        <label>Fertilizer Application Rate Last Season</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fertilizer_Application_Stage__c</fullName>
+        <description>At what stage of maize did you apply the fertilizers or manure</description>
+        <externalId>false</externalId>
+        <inlineHelpText>At what stage of maize did you apply the fertilizers or manure</inlineHelpText>
+        <label>Fertilizer Application Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>At land preparation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At knee height (3-4weeks after planting)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Towards flowering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At Flowering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>After flowering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Fertilizer_Quantity_per_Planting_Hole__c</fullName>
+        <description>How much fertilizer do you apply on your maize per planting hole</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How much fertilizer do you apply on your maize per planting hole</inlineHelpText>
+        <label>Fertilizer Quantity per Planting Hole</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One bottle top or teaspon</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two bottle tops or teaspon</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Focus_Farmer__c</fullName>
+        <externalId>false</externalId>
+        <label>Focus Farmer</label>
+        <referenceTo>Focus_Farmer__c</referenceTo>
+        <relationshipLabel>Maize Farmers</relationshipLabel>
+        <relationshipName>Maize_Farmers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Followed_a_Fertilizer_Application_Plan__c</fullName>
+        <description>Do you follow a particular program or plan such as time, type and amount of fertilizer to apply on your maize?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you follow a particular program or plan such as time, type and amount of fertilizer to apply on your maize?</inlineHelpText>
+        <label>Followed a Fertilizer Application Plan?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GPS__c</fullName>
+        <externalId>false</externalId>
+        <label>GPS</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gap_filling_stage__c</fullName>
+        <description>At what stage of maize was gap filling done</description>
+        <externalId>false</externalId>
+        <inlineHelpText>At what stage of maize was gap filling done</inlineHelpText>
+        <label>Gap filling stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One week after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two weeks after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three weeks after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Four weeks after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Harvesting_and_PHH_Activities_Done__c</fullName>
+        <description>Do you commonly practice any of the following during harvesting and post harvest handling for your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you commonly practice any of the following during harvesting and post harvest handling for your maize</inlineHelpText>
+        <label>Harvesting and PHH Activities Done</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Drying</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sorting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cleaning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grading</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Packaging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Branding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Name and Price tagging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Traceability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Harvesting_and_post_harvest_handling__c</fullName>
+        <description>Proper harvesting and post harvest handling</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Proper harvesting and post harvest handling</inlineHelpText>
+        <label>Proper harvesting &amp;post-harvest handling</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_do_you_determine_the_spacing_above__c</fullName>
+        <description>How do you determine the spacing above</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you determine the spacing above</inlineHelpText>
+        <label>How do you determine the spacing above</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Use strings or ropes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just estimate based on experience</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_do_you_dry_your_maize__c</fullName>
+        <description>How do you dry your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you dry your maize</inlineHelpText>
+        <label>How do you dry your maize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Leave it in the garden to dry and harvest for marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harvest and dry on tarpaulin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harvest and dry on bare ground</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harvest and put in the granary or crib</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not dry (sell fresh)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_do_you_shell_your_maize__c</fullName>
+        <description>How do you shell your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you shell your maize</inlineHelpText>
+        <label>How do you shell your maize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Use mechanical Sheller</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hands</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beat with sticks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_many_maize_seeds_do_you_put_per_hole__c</fullName>
+        <description>How many maize seeds do you put per hole (based in the spacing that you use)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many maize seeds do you put per hole (based in the spacing that you use)</inlineHelpText>
+        <label>How many maize seeds do you put per hole</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One seed per hole</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two seeds per hole</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three seeds per hole</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 seeds per hole</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_pests_and_diseases_are_managed__c</fullName>
+        <description>How do you manage pests and diseases in your Maize garden (s)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you manage pests and diseases in your Maize garden (s)</inlineHelpText>
+        <label>How pests and diseases are managed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Spray with chemicals (pesticides)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use local technolgoy/cultural means</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use a combination of methods</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanical means (e.g. uproot and bury or burn)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_Farming_Info_from_CKWs__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the CKWs?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the CKWs?</inlineHelpText>
+        <label>How useful is Farming Info from CKWs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_farming_info_from_SMS__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from SMS subscription service/ mobile phone?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from SMS subscription service/ mobile phone?</inlineHelpText>
+        <label>How useful is farming info from SMS</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_farming_info_from_TV__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the TV?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the TV?</inlineHelpText>
+        <label>How useful is farming info from TV</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_farming_info_from_radio__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Radios?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the Radios?</inlineHelpText>
+        <label>How useful is farming info from radio</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_useful_is_farming_info_from_traders__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Buyers/Traders?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Buyers/Traders?</inlineHelpText>
+        <label>How useful is farming info from traders</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_you_get_quality_agro_chemicals__c</fullName>
+        <description>How do you ensure that you obtain quality agro-chemicals (Fertilizers, herbicides and pesticides) that you use in maize production</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you ensure that you obtain quality agro-chemicals (Fertilizers, herbicides and pesticides) that you use in maize production</inlineHelpText>
+        <label>How you get quality agro-chemicals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Buy from registered input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just buy from any input dealer (Do not mind where I Buy)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collective purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seek for guidance from fellow farmers/CKW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I call the GF farmer call center for guidance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not use any of these inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Improved_Seed_Selection_Method__c</fullName>
+        <description>How do you select the improved seed or variety to plant</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you select the improved seed or variety to plant</inlineHelpText>
+        <label>Improved Seed Selection Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>I just plant any seed available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I ask fellow farmers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consider the variety most demanded on market</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Intercropping_Spacing__c</fullName>
+        <description>If intercropped, what spacing did you use?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If intercropped, what spacing did you use?</inlineHelpText>
+        <label>Intercropping Spacing</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2.5ft by 3ft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3ft by 1ft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3ft by 2ft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I just plant using estimates</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Kilos_Harvested_Feb_June_2014__c</fullName>
+        <externalId>false</externalId>
+        <label>Maize Kilos Harvested Feb June 2014</label>
+        <picklist>
+            <picklistValues>
+                <fullName>less than 100Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100-500Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>501-900Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>901-1300Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1301-1700 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1701-2100 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 2100 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Kilos_Harvested_Sept_Dec_2013__c</fullName>
+        <description>Number of Kilos of maize harvested last year in the season September - December 2013</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Kilos of maize harvested last year in the season September - December 2013</inlineHelpText>
+        <label>Maize Kilos Harvested Sept Dec 2013</label>
+        <picklist>
+            <picklistValues>
+                <fullName>less than 100Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100-500Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>501-900Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>901-1300Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1301-1700 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1701-2100 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 2100 Kgs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Kind_of_maize_seed_planted_last_season__c</fullName>
+        <description>What kind of maize seed did you plant last season</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What kind of maize seed did you plant last season</inlineHelpText>
+        <label>Kind of maize seed planted last season</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Own saved seed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Local variety</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Improved seed e.g. Longe 5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Land_Preparation_Methods_mainly_used__c</fullName>
+        <description>What is land preparation methods does your household mainly use in preparation for maize planting</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is land preparation methods does your household mainly use in preparation for maize planting</inlineHelpText>
+        <label>Land Preparation Methods mainly used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Use hand hoes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use conventional tractor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use walking tractor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use oxen or animal traction</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slash and plant  (Conservation tillage)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clear land and use herbicides.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Likelihood_of_Implementing_Supplied_Info__c</fullName>
+        <description>What is the likelihood that if we provide you with the necessary information and or training on selected  practices that you are lacking in Maize production and marketing that you will put them into practice to improve your maize yields and income</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the likelihood that if we provide you with the necessary information and or training on selected  practices that you are lacking in Maize production and marketing that you will put them into practice to improve your maize yields and income</inlineHelpText>
+        <label>Likelihood of Implementing Supplied Info</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very Likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not likely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Maize_Information_Sources__c</fullName>
+        <description>Where do you or anyone in your household generally get information about Maize farming related matters, such as good practices and market information?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Where do you or anyone in your household generally get information about Maize farming related matters, such as good practices and market information?</inlineHelpText>
+        <label>Maize Information Sources</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CKWs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grameen Foundation Farmer Call center</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Newspapers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SMS subscription service/mobile phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Friends, Family, Relatives, Neighbors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Buyers/Traders</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ag Extension Agents (NAADs, NARO)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farmer Group/Cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Maize_Production_and_Marketing_Info_Need__c</fullName>
+        <description>What kind of information would like to receive on Maize production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What kind of information would like to receive on Maize production and marketing</inlineHelpText>
+        <label>Maize Production and Marketing Info Need</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Soil and water conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manure or fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compost making</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Water harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weeding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intercropping or cover cropping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pest and diseases control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harvesting and Post harvest handling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Value addition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bulking and marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Record keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm business planning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market information (prices and buyers)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weather information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farming as a business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Maize_Storage_Practices__c</fullName>
+        <description>Which of the following is followed during maize storage</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following is followed during maize storage</inlineHelpText>
+        <label>Maize Storage Practices</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pack maize in clean sacks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stack maize bags on raised platform</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treat maize seeds with insecticide</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Maize_garden_intercropped_last_season__c</fullName>
+        <description>Was the maize garden last season intercropped with other crops</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Was the maize garden last season intercropped with other crops</inlineHelpText>
+        <label>Maize garden intercropped last season?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Maize_spacing_without_intercrop__c</fullName>
+        <description>What spacing did you use for the maize (without intercrop that is as a pure stand)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What spacing did you use for the maize (without intercrop that is as a pure stand)</inlineHelpText>
+        <label>Maize spacing without intercrop</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2.5ft by 1ft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2.5ft by 2 ft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2.5ft by 2.5 ft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I just plant using estimates</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Management_Biz_Practices_last_2_years__c</fullName>
+        <description>What types of management and business practices have you engaged in over the past 2 years?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What types of management and business practices have you engaged in over the past 2 years?</inlineHelpText>
+        <label>Management &amp; Biz Practices last 2 years</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Planning with the cropping calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measurement of farm size</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Animal raising</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adoption of new crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of improved seeds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recording money in – money out</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None of the above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Management_Biz_actions_last_2_years__c</fullName>
+        <description>Which of the following management and business actions have you taken in the last 2 years?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which of the following management and business actions have you taken in the last 2 years?</inlineHelpText>
+        <label>Management &amp; Biz actions last 2 years</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Opened savings account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Received a credit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Formed a group/ cooperative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Joined a cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grouped sale of products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grouped purchase of inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None of these</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Measurement_used_when_mixing_herbicide__c</fullName>
+        <description>What measurement do you use when mixing herbicide for use to kill weeds</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What measurement do you use when mixing herbicide for use to kill weeds</inlineHelpText>
+        <label>Measurement used when mixing herbicide</label>
+        <picklist>
+            <picklistValues>
+                <fullName>150ml in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>75mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not measure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Member_of_a_Maize_Farmers_Association__c</fullName>
+        <description>Are you a member of a Maize farmer’s cooperative or association?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you a member of a Maize farmer’s cooperative or association?</inlineHelpText>
+        <label>Member of a Maize Farmers Association</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Maize_Gardens_Feb_June_2014__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Maize Gardens Feb June 2014</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1-2 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Maize_Gardens_Sept_Dec_2013__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Maize Gardens Sept Dec 2013</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1-2 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Maize_Gardens_Sept_Dec_2014__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Maize Gardens Sept Dec 2014</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1-2 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-3 gardens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 garden</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Other_Maize_Information_Media__c</fullName>
+        <description>Apart from SMS and information from CKWs, what other form would you like to receive the information on maize production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Apart from SMS and information from CKWs, what other form would you like to receive the information on maize production and marketing</inlineHelpText>
+        <label>Other Maize Information Media</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Audio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures/leaflets/posters in English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures or leaflets/posters in Local languages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Percent_Maize_Produced_Feb_Aug_2014_Sold__c</fullName>
+        <externalId>false</externalId>
+        <label>% of Maize Produced Feb Aug 2014 Sold</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 20 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20 to 50 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>50-75 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>80-90 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Did not sell</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Percent_Maize_Produced_Sep_Dec_2013_Sold__c</fullName>
+        <externalId>false</externalId>
+        <label>% of Maize Produced Sep Dec 2013 Sold</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Less than 20 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20 to 50 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>50-75 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>80-90 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100 percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Did not sell</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Pesticide_Use_Frequency_last_12_months__c</fullName>
+        <description>In the last 12 months, how many times did you use pesticides on your maize garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, how many times did you use pesticides on your maize garden[s]?</inlineHelpText>
+        <label>Pesticide Use Frequency last 12 months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Phone_Number_for_SMS_Alerts__c</fullName>
+        <description>Please provide the phone number on which you would like to receive SMS alerts on farming</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please provide the phone number on which you would like to receive SMS alerts on farming</inlineHelpText>
+        <label>Phone Number for SMS Alerts</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Preferred_Frequency_of_SMS_Alerts__c</fullName>
+        <description>How often would you like to receive the SMS alerts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How often would you like to receive the SMS alerts</inlineHelpText>
+        <label>Preferred Frequency of SMS Alerts</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Every after 2 weeks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Production_Marketing_Decision_location__c</fullName>
+        <description>Where do you keep all your maize production and marketing decisions</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Where do you keep all your maize production and marketing decisions</inlineHelpText>
+        <label>Production &amp; Marketing Decision location</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Book/chart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memory/Head</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On paper sheets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proper_Planting__c</fullName>
+        <description>Proper planting (recommended spacing and seed rate)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Proper planting (recommended spacing and seed rate)</inlineHelpText>
+        <label>Proper Planting</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proper_Seed_Selection__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper Seed Selection</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proper_Soil_Fertility_Management__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper Soil Fertility Management</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proper_and_timely_land_preparation__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper and timely land preparation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proper_pest_and_disease_identification__c</fullName>
+        <description>Proper pest and disease identification and control</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Proper pest and disease identification and control</inlineHelpText>
+        <label>Proper pest and disease identification</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proper_record_keeping__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper record keeping</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_insufficient_fertilizer__c</fullName>
+        <description>Why were you not able to use a sufficient amount of fertilizer on your maize garden (s)?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why were you not able to use a sufficient amount of fertilizer on your maize garden (s)?</inlineHelpText>
+        <label>Reason for insufficient fertilizer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not enough funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer destroyed before application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_insufficient_herbicide_amount__c</fullName>
+        <description>Why were you not able to use a sufficient amount of herbicide?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why were you not able to use a sufficient amount of herbicide?</inlineHelpText>
+        <label>Reason for insufficient herbicide amount</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_insufficient_pesticides__c</fullName>
+        <description>Why were you not able to use a sufficient amount of chemicals (pesticides/fungicides)?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why were you not able to use a sufficient amount of chemicals (pesticides/fungicides)?</inlineHelpText>
+        <label>Reason for insufficient pesticides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Did not know how much to apply at the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Could not afford more/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Required amount not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_non_engagement_in_maize_group__c</fullName>
+        <description>Why are you not engaged in group production, bulking and marketing of maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why are you not engaged in group production, bulking and marketing of maize</inlineHelpText>
+        <label>Reason for non-engagement in maize group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Lack of information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Groups not willing to engage in this</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fear to be cheated in a group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Takes time to get money from maize sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Groups not sustainable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_not_applying_fertilizer__c</fullName>
+        <description>Why didn&apos;t you applly fertilizer or manure on your maize garden (s) last season?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Why didn&apos;t you applly fertilizer or manure on your maize garden (s) last season?</inlineHelpText>
+        <label>Reason for not applying fertilizer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Do not know how to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cannot afford to/insufficient funds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insufficient labour to apply  it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer or manure not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer not available when needed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Received_fertilizer_application_training__c</fullName>
+        <description>Have you ever received training in the proper way to apply fertilizer on your maize garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever received training in the proper way to apply fertilizer on your maize garden[s]?</inlineHelpText>
+        <label>Received fertilizer application training</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Recommended_Farm_Practices_Info_Sources__c</fullName>
+        <description>If yes, where do you get information on recommended farming practices</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If yes, where do you get information on recommended farming practices</inlineHelpText>
+        <label>Recommended Farm Practices Info Sources</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fellow farmers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CKWs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Extension agents (NAADS)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other NGOs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Recommended_Practices_done_on_garden__c</fullName>
+        <description>What recommended practices do you practice on your maize gardens</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What recommended practices do you practice on your maize gardens</inlineHelpText>
+        <label>Recommended Practices done on garden</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Planting in rows</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planting the right amount &amp; good seed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harvesting and post-harvest handling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Record keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Records_kept_on_maize__c</fullName>
+        <description>What kind of records do you keep on maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What kind of records do you keep on maize</inlineHelpText>
+        <label>Records kept on maize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Production records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm planning records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Seed_selection_method__c</fullName>
+        <description>How do you select the seed to plant the following season?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How do you select the seed to plant the following season?</inlineHelpText>
+        <label>Seed selection method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mark healthy cobs from garden, harvest and dry them separately</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just harvest healthy cobs and dry them separately</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just pick and plant any seed from the bulky harvest</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sufficient_Amount_of_Pesticides_used__c</fullName>
+        <description>In the last 12 months, was the amount of pesticides that you used sufficient for your maize farm needs?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In the last 12 months, was the amount of pesticides that you used sufficient for your maize farm needs?</inlineHelpText>
+        <label>Sufficient Amount of Pesticides used?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sufficient_Herbicides_last_season__c</fullName>
+        <description>Last season, was the amount of herbicide(s) that you used sufficient for your maize garden (s) needs?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last season, was the amount of herbicide(s) that you used sufficient for your maize garden (s) needs?</inlineHelpText>
+        <label>Sufficient Herbicides last season?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sufficient_amount_of_fertilizer_used__c</fullName>
+        <description>Last season, was the amount of fertilizer(s) that you used sufficient for your maize garden (s) needs?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last season, was the amount of fertilizer(s) that you used sufficient for your maize garden (s) needs?</inlineHelpText>
+        <label>Sufficient amount of fertilizer used?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Supplier_of_free_agro_chemicals__c</fullName>
+        <description>If given for free, from who or which organisation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If given for free, from who or which organisation</inlineHelpText>
+        <label>Supplier of free agro-chemicals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>From NGOs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farmer group or association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government agencies (NAADs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fellow farmers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Suppliers_of_Agro_Chemicals_On_Credit__c</fullName>
+        <description>If got on credit, from who or which organsation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If got on credit, from who or which organsation</inlineHelpText>
+        <label>Suppliers of Agro-Chemicals On Credit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Contract farming (for a maize company)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agro-input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Village saving and Loan Association (VSLA)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SACCO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Thinning_Stage__c</fullName>
+        <description>At what stage of maize was thinning (removal of excess of maize plants) done</description>
+        <externalId>false</externalId>
+        <inlineHelpText>At what stage of maize was thinning (removal of excess of maize plants) done</inlineHelpText>
+        <label>Thinning Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One week after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two weeks after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three weeks after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Four weeks after germination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Thinning_done__c</fullName>
+        <description>Did you carry out thinning (removal of excess of maize plants) in your maize garden</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you carry out thinning (removal of excess of maize plants) in your maize garden</inlineHelpText>
+        <label>Thinning done?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Top_3_cash_crops_other_than_maize__c</fullName>
+        <description>What are the top 3 cash crops that your household earn income from other than maize?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What are the top 3 cash crops that your household earn income from other than maize?</inlineHelpText>
+        <label>Top 3 cash crops other than maize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cassava</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Millet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables (tomato, cabage etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fruits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Top_3_livestock_that_bring_income__c</fullName>
+        <description>What are the top 3 livestock that your household earn income from?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What are the top 3 livestock that your household earn income from?</inlineHelpText>
+        <label>Top 3 livestock that bring income</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cattle</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Poutlry (chicken, ducks, turkeys etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Goats</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sheep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rabbits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fish farming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Total_Amount_in_UGX_spent_on_fertilizer__c</fullName>
+        <description>Last season, what was the total amount you spent in Ugandan shillings for the fertilizers used on your maize garden[s]?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last season, what was the total amount you spent in Ugandan shillings for the fertilizers used on your maize garden[s]?</inlineHelpText>
+        <label>Total Amount in UGX spent on fertilizer</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_of_fertilizer_used_last_season__c</fullName>
+        <description>Which type of fertilizer or manure did you use on your maize garden (s) last season?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which type of fertilizer or manure did you use on your maize garden (s) last season?</inlineHelpText>
+        <label>Type of fertilizer used last season</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Manure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inorganic/chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Both manure and inorganic/chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Types_of_Inorganic_Fertilizers_Used__c</fullName>
+        <description>If inorganic fertilizers, what types do you use</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If inorganic fertilizers, what types do you use</inlineHelpText>
+        <label>Types of Inorganic Fertilizers Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>DAP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NPK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Urea</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Super gro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Useful_farming_info_from_GF_call_center__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the GF farmer call center</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the GF farmer call center</inlineHelpText>
+        <label>Useful farming info from GF call center</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Useful_farming_info_from_farmer_groups__c</fullName>
+        <description>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Farmer Group or Association?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Farmer Group or Association?</inlineHelpText>
+        <label>Useful farming info from farmer groups</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Somewhat useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not very useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not at all useful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Uses_production_and_marketing_records__c</fullName>
+        <description>Do you use maize production and marketing records to make informed decisions</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you use maize production and marketing records to make informed decisions</inlineHelpText>
+        <label>Uses production and marketing records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Uses_protective_gear_applying_herbicides__c</fullName>
+        <description>Do you use protective gear (e.g. gumboots, masks, gloves, glasses etc.) while applying herbicides</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you use protective gear (e.g. gumboots, masks, gloves, glasses etc.) while applying herbicides</inlineHelpText>
+        <label>Uses protective gear applying herbicides</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Value_addition_done_on_maize__c</fullName>
+        <description>What form of value addition do you do on your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What form of value addition do you do on your maize</inlineHelpText>
+        <label>Value addition done on maize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Brewing (Kwete)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Popcorn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Roasted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Flour</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Weeding_frequency_last_season__c</fullName>
+        <description>How many times do you weed your Maize plantation last season</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many times do you weed your Maize plantation last season</inlineHelpText>
+        <label>Weeding frequency last season</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Once a season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice a season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice a season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>When_is_land_preparation_normally_done__c</fullName>
+        <description>When is land preparation normally done</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When is land preparation normally done</inlineHelpText>
+        <label>When is land preparation normally done</label>
+        <picklist>
+            <picklistValues>
+                <fullName>At the end of the first rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>After harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At the on set of rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-3 weeks before onset of rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One month before onset of rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two months before onset of rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Which_requirements_do_buyers_emphasize__c</fullName>
+        <description>If yes, what are some of the requirements and standards that traders/buyers emphasize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If yes, what are some of the requirements and standards that traders/buyers emphasize</inlineHelpText>
+        <label>Which requirements do buyers emphasize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Maize dried to a certain moisture level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize should be clean with healthy grain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize grains should be of uniform size</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Who_buys_most_of_your_maize__c</fullName>
+        <description>Who buys most of your maize</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Who buys most of your maize</inlineHelpText>
+        <label>Who buys most of your maize</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Maize cooperative/association</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Traders/middle men</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fellow farmers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Would_like_to_receive_SMS_alerts__c</fullName>
+        <description>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</inlineHelpText>
+        <label>Would like to receive SMS alerts</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>when_was_planting_of_maize_done__c</fullName>
+        <description>when was planting of maize done</description>
+        <externalId>false</externalId>
+        <inlineHelpText>when was planting of maize done</inlineHelpText>
+        <label>When was planting of maize done</label>
+        <picklist>
+            <picklistValues>
+                <fullName>At the beginning of the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mid rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Towards end of the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <label>Maize Farmer</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>MF{YYYY}{MM}{DD}{0}</displayFormat>
+        <label>Maize Farmer Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Maize Farmers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>
