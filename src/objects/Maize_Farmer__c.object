@@ -580,7 +580,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Commonest_agro_chemical_acquisition_mean__c</fullName>
@@ -840,6 +841,32 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GPS_Latitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GPS Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GPS_Longitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GPS Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>GPS__c</fullName>
@@ -2307,7 +2334,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Reason_for_insufficient_herbicide_amount__c</fullName>
@@ -2317,15 +2345,15 @@
         <label>Reason for insufficient herbicide amount</label>
         <picklist>
             <picklistValues>
-                <fullName>Did not know how much to apply at the time</fullName>
+                <fullName>Do not know how to use</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Could not afford more/insufficient funds</fullName>
+                <fullName>Cannot afford to/insufficient funds</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <fullName>Insufficient labour to apply it</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -2343,7 +2371,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Reason_for_insufficient_pesticides__c</fullName>
@@ -2353,15 +2382,15 @@
         <label>Reason for insufficient pesticides</label>
         <picklist>
             <picklistValues>
-                <fullName>Did not know how much to apply at the time</fullName>
+                <fullName>Did not know how much to apply</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Could not afford more/insufficient funds</fullName>
+                <fullName>Not enough funds</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Insufficient labour to apply the necessary amount</fullName>
+                <fullName>Insufficient labour to apply it</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -2379,7 +2408,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Reason_for_non_engagement_in_maize_group__c</fullName>
@@ -2415,7 +2445,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Reason_for_not_applying_fertilizer__c</fullName>
@@ -2578,6 +2609,19 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>Registered_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Registered By</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Maize Farmers</relationshipLabel>
+        <relationshipName>Maize_Farmers</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
         <fullName>Seed_selection_method__c</fullName>
         <description>How do you select the seed to plant the following season?</description>
         <externalId>false</externalId>
@@ -2604,6 +2648,20 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Look up to the submission object, to be used to extract gps coordinates via formula fields</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Look up to the submission object, to be used to extract gps coordinates via formula fields</inlineHelpText>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Maize Farmers</relationshipLabel>
+        <relationshipName>Maize_Farmers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Sufficient_Amount_of_Pesticides_used__c</fullName>
@@ -3083,7 +3141,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Weeding_frequency_last_season__c</fullName>

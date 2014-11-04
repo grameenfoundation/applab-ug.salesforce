@@ -1059,6 +1059,30 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>GPS_Latitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GPS Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GPS_Longitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GPS Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>HH_has_food_reserves__c</fullName>
         <description>Does your household have food reserves in from of stored food</description>
         <externalId>false</externalId>
@@ -2514,6 +2538,18 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Registered_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Registered By</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Coffee Farmers</relationshipLabel>
+        <relationshipName>Coffee_Farmers</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
         <fullName>SMS_CKWs_What_other_form_2_reciv_info__c</fullName>
         <description>Apart from SMS and information from CKWs, what other form would you like to receive the information on coffee production and marketing</description>
         <externalId>false</externalId>
@@ -2679,6 +2715,17 @@
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Coffee Farmers</relationshipLabel>
+        <relationshipName>Coffee_Farmers</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>The_main_source_of_food_4_your_household__c</fullName>

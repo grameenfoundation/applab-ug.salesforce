@@ -921,6 +921,32 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>GPS_Latitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GPS Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GPS_Longitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GPS Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Herbicides_applicate_rate_last_12_months__c</fullName>
         <description>In the last 12 months, how many times did you apply herbicide(s) on your Banana garden[s]?</description>
         <externalId>false</externalId>
@@ -1926,6 +1952,19 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Registered_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Registered By</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Banana Farmers</relationshipLabel>
+        <relationshipName>Banana_Farmers</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
         <fullName>Sells_Bananas_To__c</fullName>
         <externalId>false</externalId>
         <label>Sells Bananas To</label>
@@ -2072,6 +2111,18 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Banana Farmers</relationshipLabel>
+        <relationshipName>Banana_Farmers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Time_of_season_to_apply_fertilizer_manur__c</fullName>
