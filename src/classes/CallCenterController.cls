@@ -113,11 +113,11 @@ public class CallCenterController {
     
     public PageReference saveCaseAndClear() {
         if (saveCurrentCase(farmer)) {
-        	if (currentCase.Status == 'Closed') {
-        	    // For all closed cases update total_complete_interactions_call_center
+            if (currentCase.Status == 'Closed') {
+                // For all closed cases update total_complete_interactions_call_center
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
                 MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
-        	}
+            }
             clearCaseFields();    
             // Reset all fields and prepare for next search 
             clearAllFarmers();  
@@ -128,7 +128,7 @@ public class CallCenterController {
     public PageReference saveCaseAndClose() {
         currentCase.Status = 'Closed';
         if (saveCurrentCase(farmer)) {
-        	 // For all closed cases update total_complete_interactions_call_center
+             // For all closed cases update total_complete_interactions_call_center
             MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
             MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
             clearCaseFields();    
@@ -141,7 +141,7 @@ public class CallCenterController {
     public PageReference saveCase() {
         if (saveCurrentCase(farmer)) {  
             if (currentCase.Status == 'Closed') {
-            	// For all closed cases update total_complete_interactions_call_center
+                // For all closed cases update total_complete_interactions_call_center
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
                 MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
                 clearCaseFields(); 
@@ -150,7 +150,7 @@ public class CallCenterController {
         return null;
     }
     
-    private boolean saveCurrentCase(Farmer__c farmer) {     
+    public boolean saveCurrentCase(Farmer__c farmer) {     
         if (currentCase.Subject == null || currentCase.Category__c == null || currentCase.Status == null) {
             ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'The case must have Subject, Category and Status values');
             ApexPages.addMessage(errorMessage);
@@ -165,7 +165,7 @@ public class CallCenterController {
         return true;
      }
         
-    private Farmer__c createDefaultFarmer() {   
+    public Farmer__c createDefaultFarmer() {   
         Farmer__c farmer;
         Person__c person;        
         farmer = new Farmer__c();
@@ -199,7 +199,7 @@ public class CallCenterController {
         return numberMatch.matches();
     }
     
-    private Farmer__c[] getByPhoneNumber(String phoneContact) {
+    public Farmer__c[] getByPhoneNumber(String phoneContact) {
         farmers = [
                 SELECT 
                     Id,
@@ -218,14 +218,14 @@ public class CallCenterController {
                 FROM
                     Farmer__c 
                 WHERE
-                    Person__r.Mobile_Number__c
+                    Mobile_Number__c
                     LIKE
                     :('%' + phoneContact)
                 ];
         return farmers; 
     }
     
-    private Case[] getFarmerCases(Farmer__c farmer) {
+    public Case[] getFarmerCases(Farmer__c farmer) {
         if (farmer == null) {
            return null;
         }
@@ -258,75 +258,4 @@ public class CallCenterController {
         farmers = null;
         farmer = null;
     }
-   
-    static testmethod void testGetByPhoneNumber() {
-        CallCenterController controller = new CallCenterController();
-        String dummyPhoneNumber = '0749876342';
-        controller.setPhoneNumber(dummyPhoneNumber);
-        Farmer__c testFarmer = controller.createDefaultFarmer();  
-        controller.setFarmer(testFarmer);      
-        Farmer__c[] farmers = controller.getByPhoneNumber(dummyPhoneNumber);
-        system.assert(!farmers.isEmpty());
-        system.assert(farmers[0].Id == testfarmer.Id);
-    }
-    
-    static testmethod void testSearchByPhoneNumber() {
-        CallCenterController controller = new CallCenterController();
-        String dummyPhoneNumber = '+256771234567';
-        controller.setPhoneNumber(dummyPhoneNumber);       
-        PageReference pageRef1 = controller.searchByPhoneNumber();
-        PageReference pageRef2 = controller.saveFarmerChanges();
-        system.assert(pageRef1 == null);
-        system.assert(pageRef2 == null);
-    }
-    
-    static testmethod void testCreateCases() {
-        CallCenterController controller = new CallCenterController();
-        Farmer__c testFarmer = controller.createDefaultFarmer(); 
-        Case farmerCase = controller.getCurrentCase();        
-        boolean saved = controller.saveCurrentCase(testFarmer);
-        system.assertEquals(saved , false);
-        farmerCase.Subject = 'test';
-        farmerCase.Category__c = 'Pulse';
-        farmerCase.Status = 'New';
-        saved = controller.saveCurrentCase(testFarmer);
-        system.assertEquals(saved , true);
-        
-    }
-    
-   static testmethod void testGetFarmerCases() {
-        CallCenterController controller = new CallCenterController();
-        Farmer__c testFarmer = null;
-        Case[] cases1 = controller.getFarmerCases(testFarmer);
-        testFarmer = controller.createDefaultFarmer(); 
-        Case[] cases2 = controller.getFarmerCases(testFarmer);
-        Case[] cases3 = controller.getCases();
-        system.assert(cases1 ==null);
-        system.assert(!cases2.isEmpty());        
-    }
-    
-    static testmethod void testPageReferences() {
-        CallCenterController controller = new CallCenterController();
-        controller.setPhoneNumber('0791568666');
-        controller.searchByPhoneNumber();
-        Case currentCase = controller.getCurrentCase();
-        currentCase.Status = 'Closed';
-        controller.saveCase();
-        controller.saveCaseAndClose();
-        system.assert(currentCase != null);
-    }
-
-    // Testing getters and setters to increase code coverage
-    static testmethod void testGettersAndSetters() {
-        CallCenterController controller = new CallCenterController();
-        String phoneNumber = '078000000';
-        controller.setPhoneNumber(phoneNumber);               
-        system.assert(controller.getPhoneNumber() == phoneNumber);       
-        system.assert(controller.getFarmer() == null);
-        system.assert(controller.getFarmers() == null);
-        system.assert(controller.searchByPhoneNumber() ==  null);
-        system.assert(controller.getIsNewFarmer() == true);
-        system.assert(controller.getResponse() != 'response');
-    }
-    
 }
