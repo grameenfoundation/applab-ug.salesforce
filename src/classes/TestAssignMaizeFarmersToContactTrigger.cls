@@ -50,6 +50,14 @@ public class TestAssignMaizeFarmersToContactTrigger {
     }
     
     private static Maize_Farmer__c createSingleFarmer() {
+    
+        // Create the Country record for Uganda
+        Country__c uganda = new Country__c();
+        uganda.Name = 'Uganda';
+        uganda.ISO_Standard_Code__c = 'UG';
+        uganda.Language__c = 'ENglish';
+        insert uganda;
+        
         // Create the contact who registers the maize farmer
         Contact ckw = new Contact();
         ckw.FirstName = 'test';
@@ -83,6 +91,13 @@ public class TestAssignMaizeFarmersToContactTrigger {
     }
     
     private static List<Maize_Farmer__c> createMultipleFarmers() {
+    
+        Country__c uganda = new Country__c();
+        uganda.Name = 'Uganda';
+        uganda.ISO_Standard_Code__c = 'UG';
+        uganda.Language__c = 'ENglish';
+        insert uganda;
+        
         Contact ckw = new Contact();
         ckw.FirstName = 'test';
         ckw.LastName = 'ckw';

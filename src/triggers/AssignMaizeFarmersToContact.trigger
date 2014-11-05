@@ -56,7 +56,9 @@ trigger AssignMaizeFarmersToContact on Maize_Farmer__c (after insert) {
     }
     upsert contactSocaMap.values();
     
-    // Set the Type and Farmer Type fields on Person and Focus Farmer respectively
+    // Set the Country, Type and Farmer Type fields on Person and Focus Farmer objects
+    Country__c country = [Select Id from Country__c where Name='Uganda'];
+
     List<Focus_Farmer__c> focusFarmers = new List<Focus_Farmer__c>();
     List<Person__c> persons = new List<Person__c>();
     List<String> focusFarmerIds = new List<String>();
@@ -72,6 +74,7 @@ trigger AssignMaizeFarmersToContact on Maize_Farmer__c (after insert) {
     persons = [Select Id, Type__c from Person__c where id in:personIds];
     for (Person__c person : persons) {
         person.Type__c = 'Focus Farmer';
+        person.Country__c = country.Id;
     }
     update persons;
     update focusFarmers;
