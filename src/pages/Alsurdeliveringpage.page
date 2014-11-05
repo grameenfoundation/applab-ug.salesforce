@@ -18,7 +18,11 @@
           <apex:column headerValue="Número de unidades de presentación">
             <apex:inputField id="numUndPresentacion" value="{!ord.Number_of_Units_of_Presentation__c}"/>
           </apex:column>
-            <apex:column headerValue="Unidades de presentación">
+          <apex:column headerValue="Número de canastillas">
+            <apex:inputField id="numbaskets" value="{!ord.Number_of_Baskets__c}"/>
+            
+          </apex:column>
+          <apex:column headerValue="Unidades de presentación">
             <apex:inputField id="undPresentacion" value="{!ord.CPA_Order__r.Unit_of_Presentation__c}"/>
           </apex:column>
           <apex:column headerValue="Presentación">

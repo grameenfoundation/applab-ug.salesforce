@@ -18,7 +18,8 @@ public PageReference executeSearch() {
                 Client__c,
                 Product_Name__c,
                 Price_per_Kilo__c,
-                Order_Code__c
+                Order_Code__c,
+                Number_of_Baskets__c
           from CPA_Order_Allocation__c
           where Association__r.Name like :queryStr 
           and Id != :del];       
@@ -42,7 +43,6 @@ public List<SelectOption> getAssociationItems() {
     }
   return options;
 }
-
 public PageReference save() {
   for (CPA_Order_Allocation__c ord: orders){ 
     Association_CPA_Order_Delivery__c allocation = new Association_CPA_Order_Delivery__c(
@@ -51,6 +51,7 @@ public PageReference save() {
     Number_of_Units_of_Presentation__c = ord.Number_of_Units_of_Presentation__c,
     Delivery_Date__c = ord.Expected_Delivery_Date__c,
     Unit_of_Presentation__c = ord.CPA_Order__r.Unit_of_Presentation__c,
+    Number_of_Baskets__c = ord.Number_of_Baskets__c,
     Delivery_Receipt_Number__c = '0');
   insert allocation;
   }
