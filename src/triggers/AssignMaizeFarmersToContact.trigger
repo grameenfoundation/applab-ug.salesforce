@@ -55,4 +55,24 @@ trigger AssignMaizeFarmersToContact on Maize_Farmer__c (after insert) {
         contactSocaMap.put(contactId, soca);
     }
     upsert contactSocaMap.values();
+    
+    // Set the Type and Farmer Type fields on Person and Focus Farmer respectively
+    List<Focus_Farmer__c> focusFarmers = new List<Focus_Farmer__c>();
+    List<Person__c> persons = new List<Person__c>();
+    List<String> focusFarmerIds = new List<String>();
+    List<String> personIds = new List<String>();
+    for (Maize_Farmer__c maizeFarmer : maizeFarmers) {
+        focusFarmerIds.add(maizeFarmer.Focus_Farmer__c);
+    }
+    focusFarmers = [Select Farmer_Type__c, Person__c From Focus_Farmer__c where Id in:focusFarmerIds];
+    for (Focus_Farmer__c focusFarmer : focusFarmers) {
+        personIds.add(focusFarmer.Person__c);
+        focusFarmer.Farmer_Type__c = 'Maize';
+    }
+    persons = [Select Id, Type__c from Person__c where id in:personIds];
+    for (Person__c person : persons) {
+        person.Type__c = 'Focus Farmer';
+    }
+    update persons;
+    update focusFarmers;
 }
