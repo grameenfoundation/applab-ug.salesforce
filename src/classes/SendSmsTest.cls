@@ -321,10 +321,10 @@ public class SendSmsTest {
         };
         messages = new List<Message>{
             createMessage(
-                'Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients
+                'Subject', 'body', UserInfo.getUserId(), 'crmadmin@applab.org', DateTime.now(), DateTime.now(), 'SMS', recipients
             ),
             createMessage(
-                'Subject2', 'body2', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients
+                'Subject2', 'body2', UserInfo.getUserId(), 'crmadmin@applab.org', DateTime.now(), DateTime.now(), 'SMS', recipients
             )
         };
         SendSMSViaKannel gateway = new SendSMSViaKannel();
