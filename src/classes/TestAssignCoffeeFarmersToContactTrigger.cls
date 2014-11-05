@@ -1,42 +1,42 @@
 @isTest
-public class TestAssignMaizeFarmersToContactTrigger {
+public class TestAssignCoffeeFarmersToContactTrigger {
 
-    @isTest static void TestAssignSingleMaizeFarmerToContact() {
+    @isTest static void TestAssignSingleCoffeeFarmerToContact() {
         
 
-        Maize_Farmer__c maizeFarmer = createSingleFarmer();
-        insert maizeFarmer;
+        Coffee_Farmer__c CoffeeFarmer = createSingleFarmer();
+        insert CoffeeFarmer;
         Test.startTest();
         List<gfsurveys__SObjectContactAssociation__c> scas = [Select Id, 
                                                                 gfsurveys__AssociatedIds__c 
                                                               from 
                                                                     gfsurveys__SObjectContactAssociation__c
                                                               where 
-                                                                gfsurveys__SObjectApiName__c='Maize_Farmer__c'
+                                                                gfsurveys__SObjectApiName__c='Coffee_Farmer__c'
                                                               and
-                                                                gfsurveys__Contact__c =:maizeFarmer.Registered_By__c];
-        System.assertEquals(maizeFarmer.Id, scas[0].gfsurveys__AssociatedIds__c);
+                                                                gfsurveys__Contact__c =:CoffeeFarmer.Registered_By__c];
+        System.assertEquals(CoffeeFarmer.Id, scas[0].gfsurveys__AssociatedIds__c);
         Test.stopTest();
     }
     
     @isTest static void testAssignMultipleFarmersToContacts() {
-        List<Maize_Farmer__c> maizeFarmers = createMultipleFarmers();
-        insert maizeFarmers;
+        List<Coffee_Farmer__c> CoffeeFarmers = createMultipleFarmers();
+        insert CoffeeFarmers;
         Test.startTest();
         List<gfsurveys__SObjectContactAssociation__c> scas = [Select Id, 
                                                                 gfsurveys__AssociatedIds__c 
                                                               from 
                                                                     gfsurveys__SObjectContactAssociation__c
                                                               where 
-                                                                gfsurveys__SObjectApiName__c='Maize_Farmer__c'];
+                                                                gfsurveys__SObjectApiName__c='Coffee_Farmer__c'];
         System.assertEquals(2, scas.size());
         Test.stopTest();
     }
     
     @isTest static void testAssignMultipleFarmersOneAtaTime() {
-        List<Maize_Farmer__c> maizeFarmers = createMultipleFarmers();
-        for (Maize_Farmer__c maizeFarmer : maizeFarmers) {
-            insert maizeFarmer;
+        List<Coffee_Farmer__c> CoffeeFarmers = createMultipleFarmers();
+        for (Coffee_Farmer__c CoffeeFarmer : CoffeeFarmers) {
+            insert CoffeeFarmer;
         }
         Test.startTest();
         List<gfsurveys__SObjectContactAssociation__c> scas = [Select Id, 
@@ -44,12 +44,12 @@ public class TestAssignMaizeFarmersToContactTrigger {
                                                               from 
                                                                     gfsurveys__SObjectContactAssociation__c
                                                               where 
-                                                                gfsurveys__SObjectApiName__c='Maize_Farmer__c'];
+                                                                gfsurveys__SObjectApiName__c='Coffee_Farmer__c'];
         System.assertEquals(2, scas.size());
         Test.stopTest();
     }
     
-    private static Maize_Farmer__c createSingleFarmer() {
+    private static Coffee_Farmer__c createSingleFarmer() {
     
         // Create the Country record for Uganda
         Country__c uganda = new Country__c();
@@ -58,7 +58,7 @@ public class TestAssignMaizeFarmersToContactTrigger {
         uganda.Language__c = 'ENglish';
         insert uganda;
         
-        // Create the contact who registers the maize farmer
+        // Create the contact who registers the Coffee farmer
         Contact ckw = new Contact();
         ckw.FirstName = 'test';
         ckw.LastName = 'ckw';
@@ -75,7 +75,7 @@ public class TestAssignMaizeFarmersToContactTrigger {
         // Create a focus farmer
         Focus_Farmer__c focusFarmer = new Focus_Farmer__c();
         focusFarmer.Person__c = person.id;
-        focusFarmer.Farmer_Type__c = 'Maize';
+        focusFarmer.Farmer_Type__c = 'Coffee';
         insert focusFarmer;
 
         // Create a food security detail
@@ -83,14 +83,17 @@ public class TestAssignMaizeFarmersToContactTrigger {
         foodSecurity.Focus_Farmer__c = focusFarmer.Id;
         insert foodSecurity;
 
-        // Create a maize farmer object
-        Maize_Farmer__c maizeFarmer = new Maize_Farmer__c();
-        maizeFarmer.Focus_Farmer__c = focusFarmer.Id;
-        maizeFarmer.Registered_By__c = ckw.Id;
-        return maizeFarmer;
+        // Create a Coffee farmer object
+        Coffee_Farmer__c coffeeFarmer = new Coffee_Farmer__c();
+        coffeeFarmer.Focus_Farmer__c = focusFarmer.Id;
+        coffeeFarmer.Registered_By__c = ckw.Id;
+        coffeeFarmer.Total_amount_spent_on_fertilizers__c = 50000;
+        coffeeFarmer.Amount_spent_on_herbicides_last_12months__c = 80000;
+        coffeeFarmer.Amount_spent_on_chemicals_last_12months__c = 90000;
+        return coffeeFarmer;
     }
     
-    private static List<Maize_Farmer__c> createMultipleFarmers() {
+    private static List<Coffee_Farmer__c> createMultipleFarmers() {
     
         Country__c uganda = new Country__c();
         uganda.Name = 'Uganda';
@@ -131,17 +134,17 @@ public class TestAssignMaizeFarmersToContactTrigger {
         
         Focus_Farmer__c focusFarmer = new Focus_Farmer__c();
         focusFarmer.Person__c = person.id;
-        focusFarmer.Farmer_Type__c = 'Maize';
+        focusFarmer.Farmer_Type__c = 'Coffee';
         insert focusFarmer;
         
         Focus_Farmer__c focusFarmer2 = new Focus_Farmer__c();
         focusFarmer2.Person__c = person2.id;
-        focusFarmer2.Farmer_Type__c = 'Maize';
+        focusFarmer2.Farmer_Type__c = 'Coffee';
         insert focusFarmer2;
         
         Focus_Farmer__c focusFarmer3 = new Focus_Farmer__c();
         focusFarmer3.Person__c = person3.id;
-        focusFarmer3.Farmer_Type__c = 'Maize';
+        focusFarmer3.Farmer_Type__c = 'Coffee';
         insert focusFarmer3;
         
         Food_Security_Detail__c foodSecurity = new Food_Security_Detail__c();
@@ -156,18 +159,27 @@ public class TestAssignMaizeFarmersToContactTrigger {
         foodSecurity3.Focus_Farmer__c = focusFarmer3.Id;
         insert foodSecurity3;
         
-        Maize_Farmer__c maizeFarmer = new Maize_Farmer__c();
-        maizeFarmer.Focus_Farmer__c = focusFarmer.Id;
-        maizeFarmer.Registered_By__c = ckw.Id;
+        Coffee_Farmer__c coffeeFarmer = new Coffee_Farmer__c();
+        coffeeFarmer.Focus_Farmer__c = focusFarmer.Id;
+        coffeeFarmer.Registered_By__c = ckw.Id;
+        coffeeFarmer.Total_amount_spent_on_fertilizers__c = 50000;
+        coffeeFarmer.Amount_spent_on_herbicides_last_12months__c = 80000;
+        coffeeFarmer.Amount_spent_on_chemicals_last_12months__c = 90000;
         
-        Maize_Farmer__c maizeFarmer2 = new Maize_Farmer__c();
-        maizeFarmer2.Focus_Farmer__c = focusFarmer2.Id;
-        maizeFarmer2.Registered_By__c = ckw.Id;
+        Coffee_Farmer__c coffeeFarmer2 = new Coffee_Farmer__c();
+        coffeeFarmer2.Focus_Farmer__c = focusFarmer2.Id;
+        coffeeFarmer2.Registered_By__c = ckw.Id;
+        coffeeFarmer2.Total_amount_spent_on_fertilizers__c = 40000;
+        coffeeFarmer2.Amount_spent_on_herbicides_last_12months__c = 40000;
+        coffeeFarmer2.Amount_spent_on_chemicals_last_12months__c = 40000;
         
-        Maize_Farmer__c maizeFarmer3 = new Maize_Farmer__c();
-        maizeFarmer3.Focus_Farmer__c = focusFarmer3.Id;
-        maizeFarmer3.Registered_By__c = ckw2.Id;
+        Coffee_Farmer__c coffeeFarmer3 = new Coffee_Farmer__c();
+        coffeeFarmer3.Focus_Farmer__c = focusFarmer3.Id;
+        coffeeFarmer3.Registered_By__c = ckw2.Id;
+        coffeeFarmer3.Total_amount_spent_on_fertilizers__c = 70000;
+        coffeeFarmer3.Amount_spent_on_herbicides_last_12months__c = 60000;
+        coffeeFarmer3.Amount_spent_on_chemicals_last_12months__c = 70000;
         
-        return new List<Maize_Farmer__c>{maizeFarmer, maizeFarmer2, maizeFarmer3};
+        return new List<Coffee_Farmer__c>{coffeeFarmer, coffeeFarmer2, coffeeFarmer3};
     }
 }

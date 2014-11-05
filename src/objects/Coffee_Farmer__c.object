@@ -679,25 +679,6 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>Do_u_thnk_u_hv_enough_info_on_the_scheme__c</fullName>
-        <description>From your own opinion, do you think you have enough information on the coffee certification scheme you use</description>
-        <externalId>false</externalId>
-        <inlineHelpText>From your own opinion, do you think you have enough information on the coffee certification scheme you use (selected above)</inlineHelpText>
-        <label>Do u thnk u hv enough info on the scheme</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Yes</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>Does_Coffee_pests_and_disease_control__c</fullName>
         <externalId>false</externalId>
         <label>Does Coffee pests and disease control</label>
@@ -856,24 +837,6 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Does_yo_household_hav_enough_food_to_eat__c</fullName>
-        <description>Does your household have enough food to eat</description>
-        <externalId>false</externalId>
-        <label>Does yo household hav enough food to eat</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Yes</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>Easily_access_agro_inputs__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Easily access agro-inputs (fertilizer or manure, pesticides, herbicides and planting materials)</inlineHelpText>
@@ -960,6 +923,15 @@
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Farmer_Group_Coop_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Farmer Group/Coop Name</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Fertilizer_applied_per_tree__c</fullName>
@@ -1083,6 +1055,24 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>HH_has_enough_food_to_eat__c</fullName>
+        <description>Does your household have enough food to eat</description>
+        <externalId>false</externalId>
+        <label>HH has enough food to eat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>HH_has_food_reserves__c</fullName>
         <description>Does your household have food reserves in from of stored food</description>
         <externalId>false</externalId>
@@ -1121,6 +1111,25 @@
             </picklistValues>
             <picklistValues>
                 <fullName>All the time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Has_Enough_Info_on_Certification_Scheme__c</fullName>
+        <description>From your own opinion, do you think you have enough information on the coffee certification scheme you use</description>
+        <externalId>false</externalId>
+        <inlineHelpText>From your own opinion, do you think you have enough information on the coffee certification scheme you use (selected above)</inlineHelpText>
+        <label>Has Enough Info on Certification Scheme</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -1485,7 +1494,7 @@
         <description>Using a scale from very useful to not at all useful</description>
         <externalId>false</externalId>
         <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from Farmer Group or Association?</inlineHelpText>
-        <label>How useful is farmer grps or Assctn info</label>
+        <label>How useful is info from Farmer Groups?</label>
         <picklist>
             <picklistValues>
                 <fullName>Very useful</fullName>
@@ -1638,7 +1647,7 @@
         <description>Using a scale from very useful to not at all useful</description>
         <externalId>false</externalId>
         <inlineHelpText>Using a scale from very useful to not at all useful, how useful do you or anyone in your household find the information that you get about farming related matters from the GF farmer call center</inlineHelpText>
-        <label>How useful z farmng info 4m GF callcenta</label>
+        <label>How useful farmng info GF call center</label>
         <picklist>
             <picklistValues>
                 <fullName>Very useful</fullName>
@@ -1953,6 +1962,27 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>Level_or_Standard_of_Certification__c</fullName>
+        <externalId>false</externalId>
+        <label>Level or Standard of Certification</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fair trade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UTZ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Organic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Level_to_stump_the_whole_tree_bush_back__c</fullName>
         <description>level should the whole tree bush be stumped back</description>
         <externalId>false</externalId>
@@ -1987,11 +2017,28 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Likihood_2_practice_info_given_on_coffee__c</fullName>
-        <description>What is the likelihood</description>
+        <fullName>Like_to_get_SMS_on_Selected_Practices__c</fullName>
+        <description>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</description>
         <externalId>false</externalId>
-        <inlineHelpText>What is the likelihood that if we provide you with the necessary information and or training on selected  practices that you are lacking in coffee production and marketing that you will put them into practice to improve your coffee yields and income</inlineHelpText>
-        <label>Likihood 2 practice info given on coffee</label>
+        <inlineHelpText>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</inlineHelpText>
+        <label>Like to get SMS on Selected Practices</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Likelihood_of_Practising_Provided_Info__c</fullName>
+        <externalId>false</externalId>
+        <label>Likelihood of Practising Provided Info</label>
         <picklist>
             <picklistValues>
                 <fullName>Very Likely</fullName>
@@ -2011,25 +2058,6 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Don’t know</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Lyk_2_get_SMS_alerts_on_selectd_practces__c</fullName>
-        <description>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</description>
-        <externalId>false</externalId>
-        <inlineHelpText>Would you like to received free SMS alerts on the selected practices such as market prices and farming tips</inlineHelpText>
-        <label>Lyk 2 get SMS alerts on selectd practces</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Yes</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -2242,6 +2270,24 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Member_of_Coffee_Farmer_Coop_Association__c</fullName>
+        <description>member of a coffee farmer’s cooperative or coffee association</description>
+        <externalId>false</externalId>
+        <label>Member of Coffee Farmer Coop/Association</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Method_of_coffee_processing_used__c</fullName>
         <externalId>false</externalId>
         <label>Method of coffee processing used</label>
@@ -2376,15 +2422,6 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Name_o_the_group_association_cooperative__c</fullName>
-        <externalId>false</externalId>
-        <label>Name o the group/association/cooperative</label>
-        <length>50</length>
-        <required>false</required>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>New_coffee_planted_in_last_12_months__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>In the last 12 months, have you planted any new coffee trees on any of your farm</inlineHelpText>
@@ -2439,6 +2476,33 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Other_Preferred_Info_Media__c</fullName>
+        <description>Apart from SMS and information from CKWs, what other form would you like to receive the information on coffee production and marketing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Apart from SMS and information from CKWs, what other form would you like to receive the information on coffee production and marketing</inlineHelpText>
+        <label>Other Preferred Info Media</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Audio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures/leaflets/posters in English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brochures or leaflets/posters in Local languages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Other_top_3_cash_crops_other_than_coffee__c</fullName>
         <externalId>false</externalId>
         <label>Other top 3 cash crops other than coffee</label>
@@ -2483,6 +2547,23 @@
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Own_Coffee_Processing_Machine__c</fullName>
+        <externalId>false</externalId>
+        <label>Own Coffee Processing Machine</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Percent_Coffee_Planted_in_rows__c</fullName>
@@ -2548,33 +2629,6 @@
         <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
-    </fields>
-    <fields>
-        <fullName>SMS_CKWs_What_other_form_2_reciv_info__c</fullName>
-        <description>Apart from SMS and information from CKWs, what other form would you like to receive the information on coffee production and marketing</description>
-        <externalId>false</externalId>
-        <inlineHelpText>Apart from SMS and information from CKWs, what other form would you like to receive the information on coffee production and marketing</inlineHelpText>
-        <label>SMS &amp; CKWs What other form 2 reciv info</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Audio</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Video</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Brochures/leaflets/posters in English</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Brochures or leaflets/posters in Local languages</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Season_fertilizers_manure_are_applied__c</fullName>
@@ -3235,7 +3289,7 @@
         <description>What kind of information would like to receive on coffee production and marketing</description>
         <externalId>false</externalId>
         <inlineHelpText>What kind of information would like to receive on coffee production and marketing</inlineHelpText>
-        <label>What info u need on coffee prodtn&amp;farmng</label>
+        <label>Info Needed on Coffee Production/Market</label>
         <picklist>
             <picklistValues>
                 <fullName>Soil and water conservation</fullName>
@@ -3341,27 +3395,6 @@
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
-    </fields>
-    <fields>
-        <fullName>Whats_yo_level_or_standard_of_certifictn__c</fullName>
-        <externalId>false</externalId>
-        <label>Whats yo level or standard of certifictn</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Fair trade</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>UTZ</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Organic</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>When_Nursery_Was_Started__c</fullName>
@@ -3800,24 +3833,6 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Other</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>member_o_coffee_farmer_coop_or_associatn__c</fullName>
-        <description>member of a coffee farmer’s cooperative or coffee association</description>
-        <externalId>false</externalId>
-        <label>member o coffee farmer coop or associatn</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Yes</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
