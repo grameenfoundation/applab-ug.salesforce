@@ -361,6 +361,12 @@ private class IGDashboardTests {
         List<String> returnValues = new List<String>();
         //a submission not meant for subproject monitoring
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
+        Test.startTest();
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('Please download the new version of forms'));
+        survey.Survey_Name__c = 'SACM acholi_v2';
+        update survey;
+        returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('non-monitoring'));
 
@@ -381,12 +387,12 @@ private class IGDashboardTests {
         System.assert(returnValues.get(1).contains('subcounty'));
 
         answers.put('testmasaka_subs_0', Utils.createTestSubmissionAnswer(null, 'testmasaka_subs', 'testlukaya_tc', null, null, null));
-        answers.put('testlukaya_tc_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '1', null, null, null));
+        answers.put('testlukaya_tc_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '1_something_something_subproject', null, null, null));
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('0'));
         System.assert(returnValues.get(1).contains('not assigned this target'));
 
-        answers.put('testlukaya_tc_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '2', null, null, null));
+        answers.put('testlukaya_tc_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '2_bla_bla_subroject', null, null, null));
         answers.put('date_0', Utils.createTestSubmissionAnswer(null, 'date', '2014-05-14', null, null, null));
         //answers.put('gps_0', Utils.createTestSubmissionAnswer(null, 'gps', '0.32332 34.445566 10 2', null, null, null));
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
@@ -407,7 +413,7 @@ private class IGDashboardTests {
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
 
         //now training day 2
-        survey.Survey_Name__c = 'SACM elgon';
+        survey.Survey_Name__c = 'SACM elgon_v2';
         update survey;
         v.IG_Region__c = region11.Id;
         update v;
@@ -417,7 +423,7 @@ private class IGDashboardTests {
         System.assert(returnValues.get(1).contains('submission successful'));
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
         //now training day 3
-        survey.Survey_Name__c = 'SACM south karamoja';
+        survey.Survey_Name__c = 'SACM south karamoja_v2';
         update survey;
         v.IG_Region__c = region111.Id;
         update v;
@@ -427,7 +433,7 @@ private class IGDashboardTests {
         System.assert(returnValues.get(1).contains('submission successful'));
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
         //now followup visit 1
-        survey.Survey_Name__c = 'SACM north karamoja';
+        survey.Survey_Name__c = 'SACM north karamoja_v2';
         update survey;
         v.IG_Region__c = region1111.Id;
         update v;
@@ -437,7 +443,7 @@ private class IGDashboardTests {
         System.assert(returnValues.get(1).contains('submission successful'));
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
         //now followup visit 2
-        survey.Survey_Name__c = 'SACM lango';
+        survey.Survey_Name__c = 'SACM lango_v2';
         update survey;
         v.IG_Region__c = region11111.Id;
         update v;
@@ -447,7 +453,7 @@ private class IGDashboardTests {
         answers.put('q9_1', Utils.createTestSubmissionAnswer(null, 'q9', 'null', null, null, null));
         answers.put('district_1', Utils.createTestSubmissionAnswer(null, 'district', 'testmasaka', null, null, null));
         answers.put('testmasaka_subs_1', Utils.createTestSubmissionAnswer(null, 'testmasaka_subs', 'testlukaya_tc', null, null, null));
-        answers.put('testlukaya_tc_subprojects_1', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '3', null, null, null));
+        answers.put('testlukaya_tc_subprojects_1', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '3_pit_latrine_subproject', null, null, null));
         
         IG_Subproject_Target__c v2 = new IG_Subproject_Target__c();
         v2.District__c = testDistrict.Id;
@@ -465,6 +471,7 @@ private class IGDashboardTests {
         System.assert(returnValues.get(1).indexOfIgnoreCase('successful') != returnValues.get(1).lastIndexOfIgnoreCase('successful'));
         System.assert(returnValues.get(2).equals('SUPRESSMSG'));
         //too many soql query, split to new test method below
+        Test.stopTest();
     }
 
     static testMethod void testSACMSurveySubmissionsFollowupVisit3() {    
@@ -539,13 +546,13 @@ private class IGDashboardTests {
         v.LocationPreliminaryTrainingDay3__c = '0.32332 34.445566';
         v.LocationFollowupVisit1__c = '0.32332 34.445566';
         v.LocationFollowupVisit2__c = '0.32332 34.445566';
-        v.LocationFollowupVisit3__c = '0.32332 34.445566';      
-        v.DateMobilization__c = Date.today();                      
-        v.DateFollowupVisit1__c= Date.today();                  
-        v.DateFollowupVisit2__c= Date.today();               
-        v.DateFollowupVisit3__c= Date.today();             
-        v.DatePreliminaryTrainingDay1__c= Date.today();         
-        v.DatePreliminaryTrainingDay2__c= Date.today();         
+        v.LocationFollowupVisit3__c = '0.32332 34.445566';
+        v.DateMobilization__c = Date.today();
+        v.DateFollowupVisit1__c= Date.today();
+        v.DateFollowupVisit2__c= Date.today();
+        v.DateFollowupVisit3__c= Date.today();
+        v.DatePreliminaryTrainingDay1__c= Date.today();
+        v.DatePreliminaryTrainingDay2__c= Date.today();
         v.DatePreliminaryTrainingDay3__c= Date.today(); 
         //v.Phone_Display_Item_Position__c = 1;
         v.Name = 'Some project name';
@@ -569,6 +576,12 @@ private class IGDashboardTests {
         List<String> returnValues = new List<String>();
         //a submission not meant for subproject monitoring
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
+        //Test.startTest();
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('Please download the new version of forms'));
+        survey.Survey_Name__c = 'SACM west nile_v2';
+        update survey;
+        returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('non-monitoring'));
 
@@ -578,7 +591,7 @@ private class IGDashboardTests {
         answers.put('activity_type_0', Utils.createTestSubmissionAnswer(null, 'activity_type', 'project', null, null, null));
         answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', 'testmasaka', null, null, null));
         answers.put('testmasaka_subs_0', Utils.createTestSubmissionAnswer(null, 'testmasaka_subs', 'testlukaya', null, null, null));
-        answers.put('testlukaya_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_subprojects', '1', null, null, null));
+        answers.put('testlukaya_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_subprojects', '1_tree_planting_subproject', null, null, null));
 
         //now followup visit 3
         //fails even for a regional manager since subproject position is not set
@@ -601,6 +614,7 @@ private class IGDashboardTests {
         System.assert(returnValues.get(0).equals('0'));
         System.assert(returnValues.get(1).contains('incorrect data'));
         System.assert(returnValues.get(2).equals('PULSE'));
+        //Test.stopTest();
     }
 
     static testMethod void testEnrollmentSurveySubmissions() {    
@@ -736,13 +750,19 @@ private class IGDashboardTests {
         survey.Survey_Name__c = 'Non conforming name';
         update survey;
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
+        Test.startTest();
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('post-processing irrelevant'));
+        survey.Survey_Name__c = 'IG Enrollment Bukedi';
+        update survey;
+        returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('Please download the new version of forms'));
 
         //now for enrollment submissions
         //
         //
-        survey.Survey_Name__c = 'IG Enrollment Bukedi';
+        survey.Survey_Name__c = 'IG Enrollment Bukedi_v2';
         update survey;
         //associate our test district to bukedi region
         IG_Region_District_Association__c rda1 = new IG_Region_District_Association__c();
@@ -757,7 +777,7 @@ private class IGDashboardTests {
         answers.put('activity_type_0', Utils.createTestSubmissionAnswer(null, 'activity_type', 'project', null, null, null));
         answers.put('district_0', Utils.createTestSubmissionAnswer(null, 'district', 'testmasaka', null, null, null));
         answers.put('testmasaka_subs_0', Utils.createTestSubmissionAnswer(null, 'testmasaka_subs', 'testlukaya_tc', null, null, null));
-        answers.put('testlukaya_tc_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '2', null, null, null));
+        answers.put('testlukaya_tc_subprojects_0', Utils.createTestSubmissionAnswer(null, 'testlukaya_tc_subprojects', '2_lopeduru_subproject', null, null, null));
         answers.put('date_0', Utils.createTestSubmissionAnswer(null, 'date', '2014-05-14', null, null, null));
         answers.put('gps_0', Utils.createTestSubmissionAnswer(null, 'gps', '0.32332 34.445566 10 2', null, null, null));
         answers.put('completed_0', Utils.createTestSubmissionAnswer(null, 'completed', '2', null, null, null));
@@ -768,6 +788,7 @@ private class IGDashboardTests {
         answers.put('completed_0', Utils.createTestSubmissionAnswer(null, 'completed', '1', null, null, null));
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
-        System.assert(returnValues.get(1).contains('submission successful'));       
+        System.assert(returnValues.get(1).contains('submission successful'));
+        Test.stopTest();       
     }
 }
