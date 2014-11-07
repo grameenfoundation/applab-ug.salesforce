@@ -362,7 +362,7 @@ private class IGDashboardTests {
         //a submission not meant for subproject monitoring
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         Test.startTest();
-        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(0).equals('0'));
         System.assert(returnValues.get(1).contains('Please download the new version of forms'));
         survey.Survey_Name__c = 'SACM acholi_v2';
         update survey;
@@ -577,7 +577,7 @@ private class IGDashboardTests {
         //a submission not meant for subproject monitoring
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         //Test.startTest();
-        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(0).equals('0'));
         System.assert(returnValues.get(1).contains('Please download the new version of forms'));
         survey.Survey_Name__c = 'SACM west nile_v2';
         update survey;
@@ -751,12 +751,12 @@ private class IGDashboardTests {
         update survey;
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         Test.startTest();
-        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(0).equals('0'));
         System.assert(returnValues.get(1).contains('post-processing irrelevant'));
         survey.Survey_Name__c = 'IG Enrollment Bukedi';
         update survey;
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
-        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(0).equals('0'));
         System.assert(returnValues.get(1).contains('Please download the new version of forms'));
 
         //now for enrollment submissions

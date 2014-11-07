@@ -38,11 +38,11 @@ public with sharing class ProcessNUSAFSurveys {
         else {
             type = SubmissionType.NONE;
             //someone used an incorrect post-processing method. tech should fix this
-            return new String[]{ '1', 'IG/NUSAF post-processing irrelevant for submission from IMEI: ' + submission.imei + ' survey is ' + survey.Survey_Name__c , 'SUPRESSMSG' };
+            return new String[]{ '0', 'IG/NUSAF post-processing irrelevant for submission from IMEI: ' + submission.imei + ' survey is ' + survey.Survey_Name__c , 'SUPRESSMSG' };
         }
         
         if(!survey.Survey_Name__c.toLowerCase().endsWith('v2')) {
-            return new String[]{ '1', 'IG/NUSAF Please download the new version of forms and try again. IMEI: ' 
+            return new String[]{ '0', 'IG/NUSAF Please download the new version of forms and try again. IMEI: ' 
                 + submission.imei, 'SUPRESSMSG' };
         }
 

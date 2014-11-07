@@ -154,7 +154,7 @@ public class BuccodecHelpers {
             }
 
             // calculate the % actual for this quarter: skip if quarter projected value is not provided
-            Decimal percentQuarter = (metricDataWrapper.percent_quarter_actual_reached != null &&
+            Decimal percentQuarter = (metricDataWrapper.quarter_actual_reached != null &&
                     metric.Projected_Value__c != null && metric.Projected_Value__c != 0.0) ?
                     (metricDataWrapper.quarter_actual_reached / metric.Projected_Value__c) * 100 : null;
             metricDataWrapper.percent_quarter_actual_reached = percentQuarter;
