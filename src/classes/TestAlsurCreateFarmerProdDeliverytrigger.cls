@@ -1,7 +1,8 @@
 @isTest
 private class TestAlsurCreateFarmerProdDeliverytrigger {
 	
-	@isTest static void test_method_one() {
+	@isTest 
+	static void test_method_one() {
 	
 		Association__c association = new Association__c();
 		association.Name = 'Alsur';
