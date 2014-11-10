@@ -38,10 +38,10 @@ private class TestAlsurCreateFarmerProdDeliverytrigger {
 		Farmer_Product_Delivery__c farmerProductDelivery = new Farmer_Product_Delivery__c();
 		farmerProductDelivery.Farmer_Order_Allocation__c = farmerAllocation.Id;
 		farmerProductDelivery.TypeOfDelivery__c = 'Productor - entrega IGUAL a asignación';
+		farmerProductDelivery.Number_of_Units_of_Presentation__c = 5;
 		insert farmerProductDelivery;
 
-
-		List<Farmer_Product_Delivery__c> deliveries = [SELECT Id, Farmer_Order_Allocation__c,TypeOfDelivery__c from Farmer_Product_Delivery__c where TypeOfDelivery__c =: farmerProductDelivery.TypeOfDelivery__c and Number_of_Kilos__c != Null ];
+		List<Farmer_Product_Delivery__c> deliveries = [SELECT Id, Farmer_Order_Allocation__c, TypeOfDelivery__c from Farmer_Product_Delivery__c where TypeOfDelivery__c =: farmerProductDelivery.TypeOfDelivery__c];
 		System.assertEquals(1, deliveries.size());
 
 	}
