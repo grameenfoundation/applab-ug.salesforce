@@ -1,21 +1,24 @@
-trigger AlsurCreateFarmerProductDeliveryComplete on Farmer_Product_Delivery__c (
-	after insert) {
+trigger AlsurCreateFarmerProductDeliveryComplete on Farmer_Product_Delivery__c (after insert) {
 	List<Farmer_Product_Delivery__c> deliveriesToUpdate = new List<Farmer_Product_Delivery__c>();
 	for (Farmer_Product_Delivery__c newItem : Trigger.new) {
 		if (newItem.TypeOfDelivery__c == 'Productor - entrega IGUAL a asignación') {
-	        for(Farmer_Order_Allocation__c foa : [SELECT Number_of_Baskets__c, Delivery_Date__c, Number_of_Kilos__c, Number_of_Units_of_Presentation__c, Presentacion__c FROM Farmer_Order_Allocation__c WHERE Id =:newItem.Farmer_Order_Allocation__c]){ 
-			Farmer_Product_Delivery__c delivery = new Farmer_Product_Delivery__c();
-			delivery.Number_of_Baskets__c = foa.Number_of_baskets__c;
-			delivery.Delivery_Date__c = foa.Delivery_Date__c;
-			delivery.Is_Delivery_On_Time__c = 'Sí';
-			delivery.Number_of_Kilos__c = foa.Number_of_Kilos__c;
-		    delivery.Number_of_Units_of_Presentation__c = foa.Number_of_Units_of_Presentation__c;
-		    delivery.Presentacion__c = foa.Presentacion__c;
-		    deliveriesToUpdate.add(delivery);
-		    }
-	    }
+			for(Farmer_Order_Allocation__c foa : [SELECT Number_of_Baskets__c, Delivery_Date__c, Number_of_Kilos__c, Number_of_Units_of_Presentation__c, Presentacion__c FROM Farmer_Order_Allocation__c WHERE Id =:newItem.Farmer_Order_Allocation__c]){ 
+				Farmer_Product_Delivery__c delivery = new Farmer_Product_Delivery__c();
+				delivery.Number_of_Baskets__c = foa.Number_of_baskets__c;
+				delivery.Delivery_Date__c = foa.Delivery_Date__c;
+				delivery.Is_Delivery_On_Time__c = 'Sí';
+				delivery.Number_of_Kilos__c = foa.Number_of_Kilos__c;
+				delivery.Number_of_Units_of_Presentation__c = foa.Number_of_Units_of_Presentation__c;
+				delivery.Presentacion__c = foa.Presentacion__c;
+				deliveriesToUpdate.add(delivery);
+			}
+			if (deliveriesToUpdate.size() > 20) {
+				update deliveriesToUpdate;
+				deliveriesToUpdate = new List<Farmer_Product_Delivery__c>();
+			}
+		}
 	}
-    if (deliveriesToUpdate.size() > 1) {
-        update deliveriesToUpdate;
-    }
+	if (deliveriesToUpdate.size() > 0) {
+		update deliveriesToUpdate;
+	}
 }
