@@ -3,13 +3,19 @@
     <apex:pageBlock >
       <apex:pageBlockSection title="Selección organización">
         <apex:outputLabel value="Seleccione una organización"/>
-        <apex:selectList id="nameQuery" size="3" value="{!nameQuery}" >
+        <apex:selectList id="asociation" size="3" value="{!asociation}" >
               <apex:selectOptions value="{!associationItems}"/>
+              <apex:actionSupport event="onchange" reRender="nameQuery2"/>
+        </apex:selectList>
+        <apex:outputLabel value="Seleccione un cliente"/>
+        <apex:selectList id="nameQuery2" size="3" value="{!nameQuery}" >
+              <apex:selectOptions value="{!clientItems}"/>
               <apex:actionSupport event="onchange" action="{!executeSearch}"/>
         </apex:selectList>
       </apex:pageBlockSection>
 <br />  
       <apex:pageBlockSection title="Información de los pedidos">
+      <apex:outputPanel id="xyz">
         <apex:pageBlockTable id="table" value="{!orders}" var="ord">
           <apex:column id="codOrden" headerValue="Codigo de la orden" value="{!ord.Order_Code__c}"/>
           <apex:column id="fEntrega" headerValue="Fecha de entrega" value="{!ord.Expected_Delivery_Date__c}"/>
@@ -34,6 +40,7 @@
           <apex:column headerValue="Precio por kilo" value="{!ord.Price_per_Kilo__c}"/>
           <apex:column headerValue=" " value="{!ord.Id}"/>
         </apex:pageBlockTable>
+        </apex:outputPanel>
         <br />
         <apex:commandButton value="Guardar" action="{!save}"/>
       </apex:pageBlockSection>

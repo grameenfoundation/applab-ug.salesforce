@@ -1,14 +1,10 @@
 public class AlsurOrderDelivery {   
+public String asociation {get; set;}
 public String nameQuery {get; set;}
 public List<CPA_Order_Allocation__c> orders {get; set;}
 public Association_CPA_Order_Delivery__c allocation { get; set; }
 
 public PageReference executeSearch() {
-  Set<ID> del = new Set<ID>();
-  for (Association_CPA_Order_Delivery__c deli : [select CPA_Order_Allocation__c from Association_CPA_Order_Delivery__c]){ 
-    del.add(deli.CPA_Order_Allocation__c);
-  }
-  String queryStr='%' + nameQuery + '%';
   orders=[select Id,
                 Number_of_Units_of_Presentation__c,
                 Number_of_Kilos__c,
@@ -21,28 +17,53 @@ public PageReference executeSearch() {
                 Order_Code__c,
                 Number_of_Baskets__c
           from CPA_Order_Allocation__c
-          where Association__r.Name like :queryStr 
-          and Id != :del];       
+          where Id = :nameQuery];       
   return null;
 }
 
 public AlsurOrderDelivery(){
-  String urlQuery=ApexPages.currentPage().getParameters().get('query');
-  if ( (null!=urlQuery) && (0!=urlQuery.length()) )
-  {
-   nameQuery=urlQuery;
-   executeSearch();
-  }
+  
 }
 
 public List<SelectOption> getAssociationItems() {
-  list<Association__c> associations = [Select Id, Name from Association__c];
-    List<SelectOption> options = new List<SelectOption>();
-    for (Association__c nameQuery : associations) {
-      options.add(new SelectOption(nameQuery.Name, nameQuery.Name));
+  Set<ID> del1 = new Set<ID>();
+  for (Association_CPA_Order_Delivery__c deli1 : [select CPA_Order_Allocation__c 
+                                                  from Association_CPA_Order_Delivery__c]){ 
+    del1.add(deli1.CPA_Order_Allocation__c);
+  }
+  Set<ID> aso= new Set<ID>();
+  for (CPA_Order_Allocation__c asos : [select Association__c 
+                                        from CPA_Order_Allocation__c 
+                                        where Id != :del1]){ 
+    aso.add(asos.Association__c);
+  }
+  list<Association__c> associations = [Select Name 
+                                        from Association__c 
+                                        where Id = :aso];
+  List<SelectOption> options = new List<SelectOption>();
+  for (Association__c asociation : associations) {
+    options.add(new SelectOption(asociation.Name, asociation.Name));
+  }
+  return options;
+}
+
+public List<SelectOption> getclientItems() {
+  Set<ID> del = new Set<ID>();
+  for (Association_CPA_Order_Delivery__c deli : [select CPA_Order_Allocation__c 
+                                                  from Association_CPA_Order_Delivery__c]){ 
+    del.add(deli.CPA_Order_Allocation__c);
+  }
+  list<CPA_Order_Allocation__c> clients = [Select Id, Client__c 
+                                            from CPA_Order_Allocation__c 
+                                            where Association__r.Name = :asociation 
+                                            and Id != :del ];
+  List<SelectOption> options = new List<SelectOption>();
+    for (CPA_Order_Allocation__c nameQuery : clients) {
+      options.add(new SelectOption(nameQuery.Id, nameQuery.Client__c));
     }
   return options;
 }
+
 public PageReference save() {
   for (CPA_Order_Allocation__c ord: orders){ 
     Association_CPA_Order_Delivery__c allocation = new Association_CPA_Order_Delivery__c(
