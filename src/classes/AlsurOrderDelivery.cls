@@ -53,14 +53,17 @@ public List<SelectOption> getclientItems() {
                                                   from Association_CPA_Order_Delivery__c]){ 
     del.add(deli.CPA_Order_Allocation__c);
   }
-  list<CPA_Order_Allocation__c> clients = [Select Id, Client__c 
-                                            from CPA_Order_Allocation__c 
-                                            where Association__r.Name = :asociation 
-                                            and Id != :del ];
   List<SelectOption> options = new List<SelectOption>();
-    for (CPA_Order_Allocation__c nameQuery : clients) {
-      options.add(new SelectOption(nameQuery.Id, nameQuery.Client__c));
-    }
+  List<CPA_Order_Allocation__c> clients = new List<CPA_Order_Allocation__c>();
+  if (asociation == null || String.isEmpty(asociation)) {
+    options.add(new SelectOption('NoClientSelected', 'Seleccione una asociación primero'));
+  }
+  else {
+    clients =  [Select Id, Client__c from CPA_Order_Allocation__c where Association__r.Name = :asociation and Id != :del ];
+  }
+  for (CPA_Order_Allocation__c nameQuery : clients) {
+    options.add(new SelectOption(nameQuery.Id, nameQuery.Client__c));
+  }
   return options;
 }
 
