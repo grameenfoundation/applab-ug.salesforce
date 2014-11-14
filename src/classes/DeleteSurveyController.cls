@@ -2,10 +2,16 @@ global class DeleteSurveyController {
 
     /**
      * Get the latest version of each survey
+     *
+     *@param searchText - a String to make a survey search by name or part of it
      */
     @RemoteAction
-    public static List<gfsurveys__SurveyVersion__c> getLatestSurveyVersion() {
+    public static gfsurveys__SurveyVersion__c[] getLatestSurveyVersion(String searchText) {
 
+        if(searchText == NULL){
+            searchText = '';
+        }
+        String queryStr = '%' + searchText + '%';
         gfsurveys__SurveyVersion__c [] surveyVersions = [
             SELECT
                 Id,
@@ -15,15 +21,12 @@ global class DeleteSurveyController {
             FROM
                 gfsurveys__SurveyVersion__c
             WHERE
-                gfsurveys__Status__c != 'Draft'
+                gfsurveys__Status__c != 'Draft' 
+                AND gfsurveys__Survey__r.Name LIKE :queryStr
+                ORDER BY gfsurveys__Survey__r.Name ASC NULLS FIRST
         ];
 
-        // Loop through the list to pull out the most recent version of the survey
-        Map<String, gfsurveys__SurveyVersion__c> versionMap = new Map<String, gfsurveys__SurveyVersion__c>();
-        for (gfsurveys__SurveyVersion__c version : surveyVersions) {
-            versionMap.put(version.gfsurveys__Survey__r.Name, version);
-        }
-        return versionMap.values();
+        return surveyVersions;
     }
 
     /**
