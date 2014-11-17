@@ -43,7 +43,7 @@ public with sharing class ProcessNUSAFSurveys {
         
         if(!survey.Survey_Name__c.toLowerCase().endsWith('v2')) {
             return new String[]{ '0', 'IG/NUSAF Please download the new version of forms and try again. IMEI: ' 
-                + submission.imei, 'SUPRESSMSG' };
+                + submission.imei, 'PULSE' };
         }
 
         //determine the region
