@@ -351,14 +351,7 @@ public with sharing class GumutindoDashboardController {
                     districtIds.add(society.Subcounty__r.District__r.Id);
                     subcountyIds.add(society.Subcounty__r.Id);
                 }
-
-                
-                //select districts by Ids
-                //gumutindoDistricts = database.query('SELECT Id, Name, Latitude__c, Longitude__c from District__c where Id in:'+districtIds);
-
-               //gumutindoSubCounties = database.query('SELECT Id, Name, Latitude__c, Longitude__c from Subcounty__c where Id in:'+subcountyIds);
-
-                return primarySocieties;
+				return primarySocieties;
         } 
 
 

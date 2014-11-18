@@ -513,12 +513,22 @@ public static CKW__c loadCkw(Person__c person) {
                 marker = new MetricMapWrapper('District', '0000FF', society.Id, true);
                 marker.gpsLatitude = ''+society.Latitude__c;
                 marker.gpsLongitude = ''+society.Longitude__c;
-                
-                //PageReference ref = new PageReference('/apex/CkwDetailMini?id='+ckw.Id);
-                //String content = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
+                String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Society Name: '+society.Name+'<br/>';
+                    //Show CKWs in this society
+                    Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Primary_Society__r.Id =:society.Id];
+                    if(gumutindoCkws.size() == 0) {
+                        profile += 'There are no CKWs in '+society.Name;
+                    }
+                    else {
+                        profile += '<hr><b>CKWs in '+society.Name+'</b><br/>';
+                        for (Gumutindo_CKW__c gckw : gumutindoCkws) {
+                            profile += gckw.Person__r.First_Name__c + ' '+ gckw.Person__r.Last_Name__c +'<br/>';
 
-                
-                //marker.addName(content);
+                        }
+                    }
+                    profile += '</div>';
+
+                marker.addName(profile);
                 marker.markerTitle = society.Name;
                 markers.put(society.Id, marker); 
         }
