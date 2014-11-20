@@ -1,14 +1,14 @@
 public class AlsurOrderDelivery {   
-public String asociation {get; set;}
+public String association {get; set;}
 public String nameQuery {get; set;}
 public List<CPA_Order_Allocation__c> orders {get; set;}
 public Association_CPA_Order_Delivery__c allocation { get; set; }
 
 public PageReference executeSearch() {
-  Set<ID> deliveri = new Set<ID>();
+  Set<ID> delivery = new Set<ID>();
   for (Association_CPA_Order_Delivery__c deliveries : [select CPA_Order_Allocation__c 
                                                         from Association_CPA_Order_Delivery__c]){ 
-    deliveri.add(deliveries.CPA_Order_Allocation__c);
+    delivery.add(deliveries.CPA_Order_Allocation__c);
   }
   orders=[select Id,
                 Number_of_Units_of_Presentation__c,
@@ -23,8 +23,8 @@ public PageReference executeSearch() {
                 Number_of_Baskets__c
           from CPA_Order_Allocation__c
           where Client__c = :nameQuery
-          and Association__r.Name =:asociation
-          and Id != :deliveri];       
+          and Association__r.Name =:association
+          and Id != :delivery];       
   return null;
 }
 
@@ -33,46 +33,46 @@ public AlsurOrderDelivery(){
 }
 
 public List<SelectOption> getAssociationItems() {
-  Set<ID> del1 = new Set<ID>();
-  for (Association_CPA_Order_Delivery__c deli1 : [select CPA_Order_Allocation__c 
+  Set<ID> delivery1 = new Set<ID>();
+  for (Association_CPA_Order_Delivery__c deliveries1 : [select CPA_Order_Allocation__c 
                                                   from Association_CPA_Order_Delivery__c]){ 
-    del1.add(deli1.CPA_Order_Allocation__c);
+    delivery1.add(deliveries1.CPA_Order_Allocation__c);
   }
-  Set<ID> aso= new Set<ID>();
-  for (CPA_Order_Allocation__c asos : [select Association__c 
+  Set<ID> association1= new Set<ID>();
+  for (CPA_Order_Allocation__c associations1 : [select Association__c 
                                         from CPA_Order_Allocation__c 
-                                        where Id != :del1]){ 
-    aso.add(asos.Association__c);
+                                        where Id != :delivery1]){ 
+    association1.add(associations1.Association__c);
   }
   list<Association__c> associations = [Select Name 
                                         from Association__c 
-                                        where Id = :aso];
+                                        where Id = :association1];
   List<SelectOption> options = new List<SelectOption>();
-  for (Association__c asociation : associations) {
-    options.add(new SelectOption(asociation.Name, asociation.Name));
+  for (Association__c association : associations) {
+    options.add(new SelectOption(association.Name, association.Name));
   }
   return options;
 }
 
 public List<SelectOption> getclientItems() {
-  Set<ID> del = new Set<ID>();
-  for (Association_CPA_Order_Delivery__c deli : [select CPA_Order_Allocation__c 
+  Set<ID> delivery2 = new Set<ID>();
+  for (Association_CPA_Order_Delivery__c deliveries2 : [select CPA_Order_Allocation__c 
                                                   from Association_CPA_Order_Delivery__c]){ 
-    del.add(deli.CPA_Order_Allocation__c);
+    delivery2.add(deliveries2.CPA_Order_Allocation__c);
   }
-  Set<String> cli = new Set<String>();
-  for (CPA_Order_Allocation__c clie : [select Client__c
+  Set<String> client = new Set<String>();
+  for (CPA_Order_Allocation__c clients2 : [select Client__c
                                         from CPA_Order_Allocation__c 
-                                        where Id != :del]){ 
-    cli.add(clie.Client__c);
+                                        where Id != :delivery2]){ 
+    client.add(clients2.Client__c);
   }
   List<SelectOption> options = new List<SelectOption>();
   List<Client__c> clients = new List<Client__c>();
-  if (asociation == null || String.isEmpty(asociation)) {
+  if (association == null || String.isEmpty(association)) {
     options.add(new SelectOption('NoClientSelected', 'Seleccione una asociación primero'));
   }
   else {
-    clients =  [Select Name from Client__c where Name = :cli];
+    clients =  [Select Name from Client__c where Name = :client];
   }
   for (Client__c nameQuery : clients) {
     options.add(new SelectOption(nameQuery.Name, nameQuery.Name));
