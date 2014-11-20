@@ -130,15 +130,11 @@ public with sharing class LacFarmerProfilePageController {
 
     public CBL_Farm__c getSignatureFarm() {
         if (coffeeBaseline != null) {
-            CBL_Farm__c[] signatureFarms = [Select Id, farmName__c, signature__c, 
+            CBL_Farm__c signatureFarm = [Select Id, farmName__c, signature__c, 
                                             coffeProcessingPlace__c, farmCertifications__c,
                                             Production_last_year_Kg__c
                                          from CBL_Farm__c
                                         where Baseline__c=:coffeeBaseline.id];
-                                        
-      if (signatureFarms.size() > 0) {
-        CBL_Farm__c signatureFarm = signatureFarms[0];          
-      }                                        
                                         
             if (signatureFarm != null) {
                 showSignaturePage = true;
