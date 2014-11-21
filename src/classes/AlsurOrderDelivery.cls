@@ -24,7 +24,7 @@ public PageReference executeSearch() {
           from CPA_Order_Allocation__c
           where Client__c = :nameQuery
           and Association__r.Name =:association
-          and Id != :delivery];       
+          and Id not in :delivery];       
   return null;
 }
 
@@ -41,7 +41,7 @@ public List<SelectOption> getAssociationItems() {
   Set<ID> association1= new Set<ID>();
   for (CPA_Order_Allocation__c associations1 : [select Association__c 
                                         from CPA_Order_Allocation__c 
-                                        where Id != :delivery1]){ 
+                                        where Id not in :delivery1]){ 
     association1.add(associations1.Association__c);
   }
   list<Association__c> associations = [Select Name 
@@ -63,7 +63,7 @@ public List<SelectOption> getclientItems() {
   Set<String> client = new Set<String>();
   for (CPA_Order_Allocation__c clients2 : [select Client__c
                                         from CPA_Order_Allocation__c 
-                                        where Id != :delivery2]){ 
+                                        where Id not in :delivery2]){ 
     client.add(clients2.Client__c);
   }
   List<SelectOption> options = new List<SelectOption>();
