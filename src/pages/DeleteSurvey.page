@@ -31,8 +31,8 @@
             loadSurveys();
 
             // Run validation when user change the value
-            $("#surveyList").change(function() {
-                $("#deleteForm").validate().form();
+            $("#surveyList").change(function() {$("#deleteForm").validate().form();
+                
             });
 
             // Set up the validation of the form
@@ -74,7 +74,7 @@
                         }
                         else {
                             for (var i = 0; i < result.length; i++) {
-                                options += createOption(result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c, result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c,result[i].gfsurveys__Survey__r.Name + ' [' + result[i].Id + ']'); 
+                                options += createOption(result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c, result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c,result[i].gfsurveys__Survey__r.Name + ' [' + result[i].gfsurveys__Survey__r.Id + ']'); 
                             }
                         }
                     }
