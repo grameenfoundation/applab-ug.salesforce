@@ -46,7 +46,7 @@ public List<SelectOption> getAssociationItems() {
   }
   list<Association__c> associations = [Select Name 
                                         from Association__c 
-                                        where Id = :association1];
+                                        where Id in :association1];
   List<SelectOption> options = new List<SelectOption>();
   for (Association__c association : associations) {
     options.add(new SelectOption(association.Name, association.Name));
