@@ -2,28 +2,37 @@ global class DeleteSurveyController {
 
     /**
      * Get the latest version of each survey
+     *
+     *@param searchText - a String to make a survey search by name or part of it
      */
     @RemoteAction
-    public static List<gfsurveys__SurveyVersion__c> getLatestSurveyVersion() {
+    public static gfsurveys__SurveyVersion__c[] getLatestSurveyVersion(String searchText) {
+    
+        String queryStr = 'SELECT Id, gfsurveys__Survey__c, gfsurveys__Survey__r.Name, gfsurveys__Version__c, gfsurveys__Survey__r.Id FROM gfsurveys__SurveyVersion__c WHERE gfsurveys__Status__c != \'Draft\' ';
 
-        gfsurveys__SurveyVersion__c [] surveyVersions = [
-            SELECT
-                Id,
-                gfsurveys__Survey__c,
-                gfsurveys__Survey__r.Name,
-                gfsurveys__Version__c
-            FROM
-                gfsurveys__SurveyVersion__c
-            WHERE
-                gfsurveys__Status__c != 'Draft'
-        ];
-
+        if(searchText != NULL)
+            queryStr += ' AND gfsurveys__Survey__r.Name LIKE \'%' + searchText.trim() +'%\'';
+        queryStr += ' ORDER BY gfsurveys__Version__c DESC NULLS FIRST ';
+        
+        gfsurveys__SurveyVersion__c [] surveyVersions = Database.query(queryStr);
+        
         // Loop through the list to pull out the most recent version of the survey
         Map<String, gfsurveys__SurveyVersion__c> versionMap = new Map<String, gfsurveys__SurveyVersion__c>();
         for (gfsurveys__SurveyVersion__c version : surveyVersions) {
-            versionMap.put(version.gfsurveys__Survey__r.Name, version);
+            if(!versionMap.containsKey(version.gfsurveys__Survey__r.Name))
+                versionMap.put(version.gfsurveys__Survey__r.Name, version);
         }
-        return versionMap.values();
+
+        // Sort by name ASC. Since maps are unsorted, we need to pull out the names, sort them and then use them to get the versions in the correct order
+        List<String> surveyNames = new List<String>(versionMap.keySet());
+        surveyNames.sort();
+        
+        List<gfsurveys__SurveyVersion__c> surveyVersionList = new List<gfsurveys__SurveyVersion__c>();
+        for (String surveyName: surveyNames) {
+            surveyVersionList.add(versionMap.get(surveyName));
+        }
+
+        return surveyVersionList;
     }
 
     /**

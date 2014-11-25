@@ -321,7 +321,7 @@ public class DeleteSurveyControllerTest {
 
         prepareTest();
         List<gfsurveys__SurveyVersion__c> versions =
-            DeleteSurveyController.getLatestSurveyVersion();
+            DeleteSurveyController.getLatestSurveyVersion('');
         System.assertEquals(2, versions.size());
 
         // Check that the correct versions have been fetched
@@ -350,7 +350,7 @@ public class DeleteSurveyControllerTest {
     static testMethod void testDeleteSurvey() {
 
         prepareTest();
-        DeleteSurveyController.deleteSurveys(createWrapperJSON(DeleteSurveyController.getLatestSurveyVersion()), true);
+        DeleteSurveyController.deleteSurveys(createWrapperJSON(DeleteSurveyController.getLatestSurveyVersion('')), true);
 
         // Check that everything has been deleted
         System.assertEquals(0, database.countquery('SELECT COUNT() FROM gfsurveys__Survey__c'));
