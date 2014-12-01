@@ -80,7 +80,7 @@ public class TestAssignCoffeeGAPsToContact {
         Person__c person = new Person__c();
         person.First_Name__c = 'Test1';
         person.Last_Name__c = 'Test2';
-        person.Gender__c = 'Female';
+        person.Gender__c = 'Male';
         person.Type__c = 'Focus Farmer';
         insert person;
         
