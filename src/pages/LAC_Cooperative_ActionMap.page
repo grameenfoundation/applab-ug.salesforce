@@ -1,0 +1,108 @@
+<apex:page standardcontroller="LAC_Cooperative__c" >
+<head>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="../../soap/ajax/32.0/connection.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript">
+    var markers = [];
+    $(document).ready(function() {
+    // We need the userID to be able to query data
+    sforce.connection.sessionId = '{!$Api.Session_ID}';
+
+    // Query data using SOQL.
+    var user = sforce.connection.getUserInfo();
+    var records = sforce.connection.query("Select Name, Latitude__c, Longitude__c from LAC_Farmer_Details__c where cooperativeProfile__c ='" +'{!LAC_Cooperative__c.Id}'+"'");
+
+
+    var locations = new Array();
+    locations = records.getArray("records");
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 2,
+      center: new google.maps.LatLng(5.966435,-75.97252),
+      streetViewControl: false,
+      mapTypeControl: true,
+      panControl: false,
+      zoomControl: false,
+      zoom: 8,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow({
+        maxWidth: 200,
+        disableAutoPan: true,
+        pixelOffset: new google.maps.Size(10,10) 
+    });
+
+    google.maps.event.addListener(map, 'click', function() {
+      infowindow.close();
+    });
+
+    var marker;
+    var i;
+       
+    for (i = 0; i < locations.length; i++) {
+        //assigning markers         
+        marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i].Latitude__c, locations[i].Longitude__c),
+        map: map,
+        title: locations[i].Name
+    });
+
+    //Specifying content of infobox
+    marker.html = '<div style="background-color:#003366; width: 190px;">This is the HTML content of the infobox.</div>';
+
+    //add listeners
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infowindow.setContent(this.html);
+            infowindow.open(map, this);
+            }
+          })(marker,i));
+     };
+ 
+});
+
+</script>
+
+<style>
+#map {
+  font-family: Arial;
+  font-size:12px;
+  line-height:normal !important;
+  height:400px;
+  background:transparent;
+}
+.button_map {
+position: absolute;
+left:20px;
+margin-top: 5px;
+height: 17px;
+width: 80px;
+z-index: 1;
+color: #000;
+line-height: 20px;
+font-size: 12px;
+padding: 0px 5px;
+border: 1px solid #a9bbdf;
+background: #fdfdfd;
+font-weight: bold;
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   user-select: none;
+cursor: hand;
+-moz-box-shadow: 0 0 7px 2px #999;
+-webkit-box-shadow: 0 0 7px 2px #999;
+}
+#wrapper {
+position: relative;
+}
+</style>
+
+</head>
+
+<body onload="initialize()">
+<div id="map"></div>
+</body>
+</apex:page>

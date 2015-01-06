@@ -1,0 +1,13 @@
+<apex:page standardController="LAC_Cooperative__c" extensions="cooperative_AreaFarmersChart" showHeader="false" sidebar="false">
+    <apex:chart height="300" width="400" data="{!Categories}">
+        <apex:legend position="right"/>
+        <apex:axis type="Numeric" position="left" title="Asociados" grid="true"
+            fields="data">
+            <apex:chartLabel />
+        </apex:axis>
+        <apex:axis type="Category" position="bottom" fields="name" title="Área Finca (Ha)">
+            <apex:chartLabel rotate="315"/>
+        </apex:axis>
+        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="data" title="Área Fincas"/>
+    </apex:chart>
+</apex:page>
