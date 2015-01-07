@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,11 +44,27 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Extrema_USAID__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 100 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 89.8,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 84, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 68.9,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 58,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 47.1,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 34.2,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 21.9,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 13.6,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 7.5,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 3.9, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 2.5,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 1.4, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 0.6, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 0.3, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 0.1, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.3, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>&apos;Extrema&apos; USAID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
     <fields>
         <fullName>Household__c</fullName>
         <externalId>false</externalId>
@@ -46,8 +74,33 @@
         <relationshipName>Mana_Household_PPI_Scores</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Nacional_Indigencia__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 98.1 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 87.3,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 77.8, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 60.7,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 46.1,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 36.9,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 23.4,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 13.9,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 8.6,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 4.7,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 2.4, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 1.2,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 0.9, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 0.4, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 0.2, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 0.1, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.3, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nacional Indigencia</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Nacional__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0  &amp;&amp; Score__c &lt;= 4 , 100 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 99.7,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 97.1, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 95.5,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 89.6,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 82.6,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 69.4,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 53.4,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 37.3,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 24.9,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 14,  IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 7.6,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 4.1,  IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 1.7,  IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 0.9,  IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 0.6,  IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.4,  IF(Score__c &gt;= 85  &amp;&amp; Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nacional</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
     </fields>
     <fields>
         <fullName>Score__c</fullName>
@@ -56,8 +109,81 @@
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X150_Nacional__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 100 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 100,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 98.7, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 99.3,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 97.2,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 93.9,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 87.6,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 77.4,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 61.9,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 49.7,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 33, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 22.9,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 14.9, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 7.7, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 4.1, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 1.7, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.7, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>150% Nacional</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>X1_25__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 81.1 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 71.6,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 64.4, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 45.7,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 33.7,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 24.7,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 15.9,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 8.9,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 6.1,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 3.2,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 1.3, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 0.8,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 0.5, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 0.1, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 0.1, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 0, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.1, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$1.25</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>X200_Nacional__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 100 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 100,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 99.3, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 99.8,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 99.2,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 97.3,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 94.1,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 87.9,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 76.8,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 66.6,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 52, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 40.6,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 29.9, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 18.5, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 9.2, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 5.5, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 1.9, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 1.9, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>200% Nacional</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>X2_50__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 100 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 97.7,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 93.8, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 87.9,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 74,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 60.7,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 42.6,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 26.7,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 16.8,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 9.1,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 3.6, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 2.1,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 1.1, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 0.4, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 0.3, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 0.1, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.3, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$2.50</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>X3_75__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 100 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 99.1,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 97.6, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 97.1,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 91.5,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 83.1,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 69.6,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 51.2,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 35,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 20,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 8.8, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 4.4,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 2.5, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 0.9, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 0.6, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 0.2, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.4, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$3.75</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>X5_00__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Score__c &gt;= 0 &amp;&amp; Score__c &lt;= 4 , 100 , IF(Score__c &gt;= 5  &amp;&amp; Score__c &lt;= 9, 99.9,  IF(Score__c &gt;= 10  &amp;&amp; Score__c &lt;= 14 , 98.7, IF(Score__c &gt;= 15  &amp;&amp; Score__c &lt;= 19 , 99.2,  IF(Score__c &gt;= 20  &amp;&amp; Score__c &lt;= 24 , 97.2,  IF(Score__c &gt;= 25  &amp;&amp; Score__c &lt;= 29 , 92.4,  IF(Score__c &gt;= 30  &amp;&amp; Score__c &lt;= 34 , 89.2,  IF(Score__c &gt;= 35  &amp;&amp; Score__c &lt;= 39 , 69,  IF(Score__c &gt;= 40  &amp;&amp; Score__c &lt;= 44 , 52.2,  IF(Score__c &gt;= 45  &amp;&amp; Score__c &lt;= 49 , 35.2,  IF(Score__c &gt;= 50  &amp;&amp; Score__c &lt;= 54 , 18.7, IF(Score__c &gt;= 55  &amp;&amp; Score__c &lt;= 59 , 10.2,  IF(Score__c &gt;= 60  &amp;&amp; Score__c &lt;= 64 , 5.3, IF(Score__c &gt;= 65  &amp;&amp; Score__c &lt;= 69 , 2.3, IF(Score__c &gt;= 70  &amp;&amp; Score__c &lt;= 74 , 1.1, IF(Score__c &gt;= 75  &amp;&amp; Score__c &lt;= 79 , 0.7, IF(Score__c &gt;= 80  &amp;&amp; Score__c &lt;= 84 , 0.5, IF(Score__c &gt;= 85 &amp;&amp; Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$5.00</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
     </fields>
     <label>Mana Household PPI Score</label>
     <nameField>
