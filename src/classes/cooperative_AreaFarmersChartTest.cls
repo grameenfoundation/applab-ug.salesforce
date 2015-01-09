@@ -1,6 +1,8 @@
 @isTest
 public class cooperative_AreaFarmersChartTest {
 
+    static Country__c country;
+    static Contact contact1;
     static LAC_Cooperative__c cooperative;
     static LAC_Farmer_Details__c farmer1;
     static LAC_Farmer_Details__c farmer2;
@@ -14,6 +16,18 @@ public class cooperative_AreaFarmersChartTest {
     *    
     */
     private static void prepareTest() {
+            
+        country = new Country__c(
+            Name = 'country1',
+            ISO_Standard_Code__c = 'COL'
+        );
+        insert country;
+        
+        contact1 = new Contact(
+            LastName = 'lastname1'
+        );
+        Insert contact1;
+        
         cooperative = new LAC_Cooperative__c(
             Name = 'coop1'
         );
@@ -24,6 +38,7 @@ public class cooperative_AreaFarmersChartTest {
             Farm_Area__c = 2
         );
         farmer1.cooperativeProfile__c = cooperative.Id;
+        farmer1.Contact__c = contact1.Id;
         insert farmer1;
         
         farmer2 = new LAC_Farmer_Details__c(
@@ -31,6 +46,7 @@ public class cooperative_AreaFarmersChartTest {
             Farm_Area__c = 4
         );
         farmer2.cooperativeProfile__c = cooperative.Id;
+        farmer2.Contact__c = contact1.Id;
         insert farmer2;
     }
     
