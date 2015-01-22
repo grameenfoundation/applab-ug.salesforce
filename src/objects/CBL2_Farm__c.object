@@ -54,11 +54,11 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Baseline__c</fullName>
+        <fullName>CBL2_Farms_Farmer__c</fullName>
         <externalId>false</externalId>
-        <label>Baseline</label>
+        <label>CBL2_Farms_Farmer</label>
         <referenceTo>CBL2_Farmer__c</referenceTo>
-        <relationshipLabel>CBL2_Farms_Farmers</relationshipLabel>
+        <relationshipLabel>CBL2_Farms_Farmer</relationshipLabel>
         <relationshipName>CBL2_Farms_Farmer</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
@@ -90,10 +90,11 @@
     <fields>
         <fullName>Coffee_planted_area_Ha__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(text( coffeePlantedAreaUnits__c ) = &quot;Cuadras&quot;, coffeePlantedArea__c *1.5625, 
-IF(text( coffeePlantedAreaUnits__c ) = &quot;Manzanas&quot;, coffeePlantedArea__c *0.6988, 
-IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *0.044, 
-IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *0.112, coffeePlantedArea__c ))))</formula>
+        <formula>CASE(TEXT(coffeePlantedAreaUnits__c),&quot;Cuadras&quot;, coffeePlantedArea__c *1.5625, 
+&quot;Manzanas&quot;, coffeePlantedArea__c *0.6988, 
+&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *0.044,
+&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *0.112,
+coffeePlantedArea__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Coffee planted area (Ha)</label>
         <precision>18</precision>
@@ -338,10 +339,11 @@ IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c
     <fields>
         <fullName>Organic_fertilized_area_Ha__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(text( organicFertAreaThisYrUnits__c ) = &quot;Cuadras&quot;, organicFertAreaThisYr__c *1.5625, 
-IF(text( organicFertAreaThisYrUnits__c ) = &quot;Manzanas&quot;, organicFertAreaThisYr__c *0.6988, 
-IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *0.044, 
-IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *0.112, organicFertAreaThisYr__c ))))</formula>
+        <formula>CASE(TEXT(organicFertAreaThisYrUnits__c),&quot;Cuadras&quot;, organicFertAreaThisYr__c *1.5625, 
+&quot;Manzanas&quot;, organicFertAreaThisYr__c *0.6988, 
+&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *0.044,
+&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *0.112,
+organicFertAreaThisYr__c )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Organic fertilized area (Ha)</label>
         <precision>18</precision>
@@ -665,7 +667,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>biologicalDiversityContrib</label>
         <picklist>
             <picklistValues>
-                <fullName>Si</fullName>
+                <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -1373,9 +1375,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>erosionRiskPercentage_porcentajeRiesgoEr__c</fullName>
+        <fullName>erosionRiskPercentage__c</fullName>
         <externalId>false</externalId>
-        <label>erosionRiskPercentage porcentajeRiesgoEr</label>
+        <label>erosionRiskPercentage</label>
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
@@ -1388,7 +1390,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>erosionZonesIdentified</label>
         <picklist>
             <picklistValues>
-                <fullName>Si</fullName>
+                <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -1753,6 +1755,16 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>fmp_Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>fmp_Total_Score</label>
+        <summarizedField>FMP_Diagnostic__c.fmp_Total_Score__c</summarizedField>
+        <summaryForeignKey>FMP_Diagnostic__c.PMF_Farm__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
     </fields>
     <fields>
         <fullName>foliarFertilizerUseLastYr__c</fullName>
@@ -3341,7 +3353,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>turnedForestInCropArea</label>
         <picklist>
             <picklistValues>
-                <fullName>Si</fullName>
+                <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
