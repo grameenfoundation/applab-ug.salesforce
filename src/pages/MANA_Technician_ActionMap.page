@@ -15,7 +15,7 @@ $(document).ready(function() {
 
         // Query data using SOQL.
 var user = sforce.connection.getUserInfo();
-var records = sforce.connection.query("Select Name, Latitude__c, Longitude__c from Mana_Household__c where interviewer__c ='" +'{!Mana_Technician__c.Contact__c}'+"'");
+var records = sforce.connection.query("Select Id, Name, Latitude__c, Longitude__c from Mana_Household__c where interviewer__c ='" +'{!Mana_Technician__c.Contact__c}'+"'");
 //sforce.debug.log(records);
 
 
@@ -70,7 +70,7 @@ marker.html = '<div style="background-color:#003366; width: 190px;">This is the 
     //add listeners
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-            infowindow.setContent(this.html);
+            infowindow.setContent('<a href="/'+locations[i].Id+ '" target="_blank">'+locations[i].Name +'</a>');
             infowindow.open(map, this);
             }
           })(marker,i));

@@ -11,7 +11,7 @@
 
     // Query data using SOQL.
     var user = sforce.connection.getUserInfo();
-    var records = sforce.connection.query("Select Name, Latitude__c, Longitude__c from LAC_Farmer_Details__c where cooperativeProfile__c ='" +'{!LAC_Cooperative__c.Id}'+"'");
+    var records = sforce.connection.query("Select Id, Name, Latitude__c, Longitude__c from LAC_Farmer_Details__c where cooperativeProfile__c ='" +'{!LAC_Cooperative__c.Id}'+"'");
 
 
     var locations = new Array();
@@ -24,7 +24,7 @@
       mapTypeControl: true,
       panControl: false,
       zoomControl: false,
-      zoom: 8,
+      zoom: 9,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -55,7 +55,7 @@
     //add listeners
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-            infowindow.setContent(this.html);
+            infowindow.setContent('<a href="/'+locations[i].Id+ '" target="_blank">'+locations[i].Name +'</a>');
             infowindow.open(map, this);
             }
           })(marker,i));
