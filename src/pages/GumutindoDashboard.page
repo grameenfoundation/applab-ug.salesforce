@@ -110,11 +110,11 @@
               <apex:pageBlock id="map">
             <apex:pageBlockSection title="Maps" columns="2">
                 <apex:pageBlockSectionItem >
-                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_CKWS&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'CKW', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_CKWS&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'GUMUTINDO_CKWS', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem >
-                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_PRIMARY_SOCIETIES&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'CKW', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_PRIMARY_SOCIETIES&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'GUMUTINDO_PRIMARY_SOCIETIES', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
                 </apex:pageBlockSectionItem>
                 
             </apex:pageBlockSection>

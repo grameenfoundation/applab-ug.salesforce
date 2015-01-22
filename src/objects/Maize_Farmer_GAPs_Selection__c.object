@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Amount_of_fertilizer_to_use__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Soil_Fertility_Management_Targets__c, &apos;Amount of fertilizer to use&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount of fertilizer to use</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bulking_and_Marketing_Group_Marketing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Bulking and marketing (group marketing)&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bulking and Marketing (Group Marketing)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bulking_and_Marketing_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Bulking and Marketing Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Collective production</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collective marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CKW_Contact__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CKW Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Maize Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Maize_Farmer_GAPs_Selections</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Collective_Marketing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Bulking_and_Marketing_Targets__c, &apos;Collective marketing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collective Marketing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collective_Production__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Bulking_and_Marketing_Targets__c, &apos;Collective production&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collective Production</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Crops_to_be_inter_cropped_with_maize__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Crops to be inter cropped with maize&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Crops to be inter cropped with maize</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Detection_of_pest_and_disease_attack__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pest_Disease_Identification_Targets__c, &apos;Detection of pest and disease attack&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Detection of pest and disease attack</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmer_Full_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Maize_Farmer__r.Focus_Farmer__r.Person__r.First_Name__c + &apos; &apos; + Maize_Farmer__r.Focus_Farmer__r.Person__r.Last_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Full Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmer_Identifier__c</fullName>
+        <externalId>false</externalId>
+        <formula>Maize_Farmer__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Identifier</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_fertilizer_application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Soil_Fertility_Management_Targets__c, &apos;Frequency of fertilizer application&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequency of fertilizer application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_pesticide_application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pest_Disease_Identification_Targets__c, &apos;Frequency of pesticide application&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequency of pesticide application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gap_Filling__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Gap filling&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gap Filling</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Harvesting_PHH_Practices__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Maize_Harvesting_PHH_Targets__c, &apos;Harvesting &amp; post-harvest handling practice&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Harvesting &amp; PHH Practices</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Kind_or_types_of_records_kept__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Record_Keeping_Targets__c, &apos;Kind or types of records kept&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Kind or types of records kept</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <required>true</required>
+        <scale>6</scale>
+        <type>Location</type>
+    </fields>
+    <fields>
+        <fullName>Maize_Cropping_Systems__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Maize Cropping systems&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Maize Cropping Systems</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maize_Farmer__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Maize Farmer</label>
+        <referenceTo>Maize_Farmer__c</referenceTo>
+        <relationshipLabel>Maize Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Maize_Farmer_GAPs_Selections</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Maize_Harvesting_PHH_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Maize Harvesting &amp; PHH Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Harvest &amp; post harvest handling practice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methods of drying</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methods of shelling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Storage practices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Value addition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Maize_Harvesting_Post_Harvest_Handling__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Maize harvesting &amp; post-harvest handling&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Maize Harvesting &amp; Post-Harvest Handling</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maize_Spacing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Maize spacing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Maize Spacing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Market_Information__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Bulking_and_Marketing_Targets__c, &apos;Market information&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Market Information</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Means_of_Soil_Fertilization__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Soil_Fertility_Management_Targets__c, &apos;Means of soil fertilization&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Means of Soil Fertilization</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Methods_of_Land_Preparation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Proper_Timely_Land_Preparation_Targets__c ,&apos;Methods of land preparation&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Methods of Land Preparation</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Methods_of_drying__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Maize_Harvesting_PHH_Targets__c, &apos;Methods of drying&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Methods of drying</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Methods_of_shelling__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Maize_Harvesting_PHH_Targets__c, &apos;Methods of shelling&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Methods of shelling</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mode_of_Fertilizer_or_Manure_Placement__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Soil_Fertility_Management_Targets__c, &apos;Mode of fertilizer or manure placement&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Mode of Fertilizer or Manure Placement</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pest_Disease_Identification_Control__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Pest &amp; disease identification &amp; control&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pest &amp; Disease Identification &amp; Control</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pest_Disease_Identification_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Pest/Disease Identification Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Detection of pest and disease attack</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pest &amp; disease control measures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency of pesticide application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Pest_disease_control_measures__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pest_Disease_Identification_Targets__c, &apos;Pest &amp; disease control measures&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pest &amp; disease control measures</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_Planting_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper Planting Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Time of Planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize Cropping systems</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize spacing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spacing determination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seed rate (number of seeds per hole)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crops to be inter cropped with maize</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gap filling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thinning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Proper_Planting_spacing_and_seed_rate__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper planting (spacing and seed rate)&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper Planting (spacing and seed rate)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_Record_Keeping_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper Record Keeping Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Kind or types of records kept</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ways of storing records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of records to make decisions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Proper_Record_Keeping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper record keeping&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper Record Keeping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_Seed_Selection_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper Seed Selection Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Type of seed to plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seed selection</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Proper_Seed_Selection__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper seed selection&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper Seed Selection</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_Soil_Fertility_Management_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper Soil Fertility Management Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Means of soil fertilization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Types of chemical/inorganic fertilizers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amount of fertilizer to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage of fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency of fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mode of fertilizer or manure placement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Proper_Soil_Fertility_Management__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper soil fertility management&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper Soil Fertility Management</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_Timely_Land_Preparation_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper &amp; Timely Land Preparation Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Methods of land preparation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time of land preparation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Proper_and_Timely_Land_Preparation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper and timely land preparation&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper and Timely Land Preparation</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Seed_Rate_number_of_seeds_per_hole__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Seed rate (number of seeds per hole)&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Seed Rate (number of seeds per hole)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Seed_Selection__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Seed_Selection_Targets__c, &apos;Seed selection&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Seed Selection</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Spacing_Determination__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Spacing determination&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Spacing Determination</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage_of_fertilizer_application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Soil_Fertility_Management_Targets__c, &apos;Stage of fertilizer application&apos;), &apos;Yes&apos;,  &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Stage of fertilizer application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Storage_practices__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Maize_Harvesting_PHH_Targets__c, &apos;Storage practices&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Storage practices</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thinning__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Thinning&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Thinning</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_of_Land_Preparation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Timely_Land_Preparation_Targets__c, &apos;Time of land preparation&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time of Land Preparation</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_of_Planting__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Planting_Targets__c, &apos;Time of Planting&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time of Planting</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Top_5_Preferred_GAPs_for_Support__c</fullName>
+        <externalId>false</externalId>
+        <label>Top 5 Preferred GAPs for Support</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Proper and timely land preparation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper planting (spacing and seed rate)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper seed selection</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper soil fertility management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pest &amp; disease identification &amp; control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize harvesting &amp; post-harvest handling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bulking and marketing (group marketing)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper record keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Type_of_Seed_to_Plant__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Seed_Selection_Targets__c, &apos;Type of seed to plant&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Type of Seed to Plant</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Types_of_chemical_inorganic_fertilizers__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Soil_Fertility_Management_Targets__c, &apos;Types of chemical/inorganic fertilizers&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Types of chemical/inorganic fertilizers</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_of_records_to_make_decisions__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Record_Keeping_Targets__c, &apos;Use of records to make decisions&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Use of records to make decisions</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Value_Addition__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Maize_Harvesting_PHH_Targets__c, &apos;Value addition&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Value Addition</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ways_of_storing_records__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_Record_Keeping_Targets__c, &apos;Ways of storing records&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ways of storing records</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Maize Farmer GAPs Selection</label>
+    <nameField>
+        <displayFormat>MG{YYYY}{MM}{DD}{0}</displayFormat>
+        <label>Maize Farmer GAPs Selection Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Maize Farmer GAPs Selections</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

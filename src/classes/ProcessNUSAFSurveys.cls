@@ -38,7 +38,12 @@ public with sharing class ProcessNUSAFSurveys {
         else {
             type = SubmissionType.NONE;
             //someone used an incorrect post-processing method. tech should fix this
-            return new String[]{ '1', 'IG/NUSAF post-processing irrelevant for submission from IMEI: ' + submission.imei + ' survey is ' + survey.Survey_Name__c , 'SUPRESSMSG' };
+            return new String[]{ '0', 'IG/NUSAF post-processing irrelevant for submission from IMEI: ' + submission.imei + ' survey is ' + survey.Survey_Name__c , 'SUPRESSMSG' };
+        }
+        
+        if(!survey.Survey_Name__c.toLowerCase().endsWith('v2')) {
+            return new String[]{ '0', 'IG/NUSAF Please download the new version of forms and try again. IMEI: ' 
+                + submission.imei, 'PULSE' };
         }
 
         //determine the region
@@ -152,6 +157,8 @@ public with sharing class ProcessNUSAFSurveys {
 	            //here we can get the target name
 	            //add "_subprojects" to the subcounty to get its subproject binding. this is how the bindings were created
 	            String subproject_index = ProcessSubmissionHelpers.getAnswerString(answers.get( subcounty_str.replace(' ', '_').replace('-', '_') + '_subprojects_' + i ));
+	            subproject_index = (subproject_index.length() > 2 && subproject_index.contains('_')) ? 
+	                   subproject_index.subString(0, subproject_index.indexOf('_')) : subproject_index;
 	
 	            //get target object to be updated
 	            IG_Subproject_Target__c[] targetsToUpdate = 
@@ -235,6 +242,7 @@ public with sharing class ProcessNUSAFSurveys {
 	
 	            dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('date_0')));
 	            gps = ProcessSubmissionHelpers.getAnswerString(answers.get('gps_0'));
+		    gps = String.isNotEmpty(gps) ? gps : ProcessSubmissionHelpers.getAnswerString(answers.get('Record_GPS_location_0'));
 	            if(String.isNotEmpty(gps)){
 	                gps = gps.split(' ')[0] + ' ' + gps.split(' ')[1];
 	            }

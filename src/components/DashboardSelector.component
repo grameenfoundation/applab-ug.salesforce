@@ -70,11 +70,11 @@
                     <c:DataValidatorSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showDataValidator}" sectionKey="{!sectionKey}"/>
                 </div>
             </apex:outputPanel>
-            <apex:outputPanel id="mtnChanSelector" rendered="{!showMtnChan}">
+     <!--   <apex:outputPanel id="mtnChanSelector" rendered="{!showMtnChan}">
                 <div class="tableColumnDropDown">
                     <c:MtnChannelStaff key="Person__c{!sectionKey}" pageController="{!this}" show="{!showMtnChan}" sectionKey="{!sectionKey}"/>
                 </div>
-            </apex:outputPanel>
+            </apex:outputPanel>  -->
             <apex:outputPanel id="fieldOfficer" rendered="{!showFieldOfficer}">
                 <div class="tableColumnDropDown">
                     <c:FieldOfficerSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showFieldOfficer}" sectionKey="{!sectionKey}"/>

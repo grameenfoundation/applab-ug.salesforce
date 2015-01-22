@@ -541,9 +541,6 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
                 return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
             }
-            else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
-                return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
-            }
             else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
                 return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
             }
@@ -559,7 +556,7 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
                 return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
             }
-        else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
+            else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
                 return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
             }
             else if (survey.Post_Processing_Method__c.equals('IG_CBT_VISITS')) {
@@ -582,6 +579,12 @@ global class ProcessSurveySubmission {
             }
             else if (survey.Post_Processing_Method__c.equals('AGROWAYS_GROUP_REG')) {
                 return ProcessAgrowaysSurveys.processFarmerGroupRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('BUCCODEG_CAFE_PROJECT_KENYA')) {
+                return BuccodecHelpers.surveysPostProcessing(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('MBUGO')) {
+                return MbugoHelpers.surveysPostProcessing(surveySubmission, answers, interviewer);
             }
         }
         catch (Exception e) {

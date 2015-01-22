@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Agro_Inputs_Access__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Agro inputs access&apos;),&apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Agro Inputs Access</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CKW_Contact__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>The Contact to whom the Coffee Farmer is assigned. This is the same Contact who registered this farmer</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Contact to whom the Coffee Farmer is assigned. This is the same Contact who registered this farmer</inlineHelpText>
+        <label>CKW Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Coffee Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Coffee_Farmer_GAPs_Selections</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Coffee_Farmer__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Coffee Farmer</label>
+        <referenceTo>Coffee_Farmer__c</referenceTo>
+        <relationshipLabel>Coffee Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Coffee_Farmer_GAPs_Selections</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Coffee_Marketing_and_Certification__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee marketing and certification&apos;),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Marketing and Certification</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_Nursery_Management__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee nursery management&apos;),&apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Nursery Management</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_Pests_and_Disease_Control__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee pests and disease control&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Pests and Disease Control</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_Processing_pulping_of_coffee__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee processing (pulping of coffee)&apos;),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Processing (pulping of coffee)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_desuckering_pruning_stumping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c, &apos;Coffee desuckering, pruning &amp; stumping&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee desuckering, pruning &amp; stumping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmer_Full_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Coffee_Farmer__r.Focus_Farmer__r.Person__r.First_Name__c + &apos; &apos; + Coffee_Farmer__r.Focus_Farmer__r.Person__r.Last_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Full Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmer_Identifier__c</fullName>
+        <externalId>false</externalId>
+        <formula>Coffee_Farmer__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Identifier</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Production_and_Marketing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Group production and marketing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Group Production and Marketing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <required>true</required>
+        <scale>6</scale>
+        <type>Location</type>
+    </fields>
+    <fields>
+        <fullName>Post_harvest_handling_and_processing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c, &apos;Post harvest handling and processing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Post harvest handling and processing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_Coffee_farm_Record_Keeping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper Coffee farm record keeping&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper Coffee farm Record Keeping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_and_Timely_Weed_Control__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper and timely weed control&apos;),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper and Timely Weed Control</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Soil_and_Water_Conservation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c , &quot;Soil and water conservation&quot;), &apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Soil and Water Conservation</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Soil_fertility_management__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Top_5_Preferred_GAPs_for_Support__c , &quot;Soil fertility management&quot;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Soil fertility management</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Top_5_Preferred_GAPs_for_Support__c</fullName>
+        <externalId>false</externalId>
+        <label>Top 5 Preferred GAPs for Support</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Soil fertility management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee desuckering, pruning &amp; stumping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soil and water conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Post harvest handling and processing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper Coffee farm record keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group production and marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper and timely weed control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee pests and disease control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee processing (pulping of coffee)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agro inputs access</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee nursery management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee marketing and certification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <label>Coffee Farmer GAPs Selection</label>
+    <nameField>
+        <displayFormat>CG{YYYY}{MM}{DD}{0}</displayFormat>
+        <label>Coffee Farmer GAPs Selection Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Coffee Farmer GAPs Selections</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>
