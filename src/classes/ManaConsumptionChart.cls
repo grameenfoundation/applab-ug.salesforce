@@ -1,4 +1,4 @@
-public class ManaConsumptionChart {
+public with sharing class ManaConsumptionChart {
 
     private ApexPages.StandardController stdController;
 	private Mana_Household__c houseHold;

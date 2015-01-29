@@ -63,6 +63,24 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Sbux_Segment_Probability__c</fullName>
+        <externalId>false</externalId>
+        <label>Sbux Segment Probability</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Sbux_Segment__c</fullName>
+        <externalId>false</externalId>
+        <label>Sbux Segment</label>
+        <length>25</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Total_Coffee_Planted_Area__c</fullName>
         <externalId>false</externalId>
         <label>Total Coffee Planted Area</label>
@@ -75,7 +93,7 @@
         <fullName>Total_Farm_Area__c</fullName>
         <externalId>false</externalId>
         <label>Total Farm Area</label>
-        <summarizedField>CBL_Farm__c.totalFarmArea__c</summarizedField>
+        <summarizedField>CBL_Farm__c.farm_Area_Ha__c</summarizedField>
         <summaryForeignKey>CBL_Farm__c.Baseline__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
         <type>Summary</type>

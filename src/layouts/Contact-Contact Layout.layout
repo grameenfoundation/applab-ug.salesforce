@@ -4,9 +4,7 @@
     <customButtons>View_Connections</customButtons>
     <customButtons>Contact_Pledge</customButtons>
     <customButtons>Contact_Recurring_Donation</customButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
     <excludeButtons>EnableSelfService</excludeButtons>
-    <excludeButtons>RequestUseSfdc</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <excludeButtons>ViewSelfService</excludeButtons>
     <layoutSections>
@@ -265,6 +263,29 @@
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
+    <quickActionList>
+        <quickActionListItems>
+            <quickActionName>FeedItem.TextPost</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
+            <quickActionName>FeedItem.ContentPost</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
+            <quickActionName>FeedItem.LinkPost</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
+            <quickActionName>FeedItem.PollPost</quickActionName>
+        </quickActionListItems>
+    </quickActionList>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Association__c.NAME</fields>
+        <relatedList>Association_Contact_Association__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>gfsurveys__SObjectContactAssociation__c.gfsurveys__Contact__c</relatedList>
+    </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
         <fields>Last_Name__c</fields>
@@ -383,6 +404,14 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>Bank_Deposit__c.Registered_By__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>coocafisa__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>LAC_Farmer_Details__c.interviewer__c</relatedList>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

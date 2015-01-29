@@ -39,7 +39,7 @@ static Map<String, String> commercial_purchase_groups = new Map<String, String>{
         'GATHERIA WOMEN GROUP'=>'06',
         'NJIA WOMEN GROUP'=>'07',
         'KARATHIA WOMEN GROUP'=> '01',
-        'MWICHIURI WOMEN GROUP(A)'=> '02',
+        'MWICHIURI WOMEN GROUP (A)'=> '02',
         'KUANE EAST PIONEER'=>'03',
         'MAITHA WOMEN GROUP'=>'04',
         'LING\'URI'=>'07',
@@ -348,12 +348,20 @@ static Map<String, String> commercial_purchase_groups = new Map<String, String>{
     */
    public static void getCommercialGroupID ( Ewarehouse_Farmer__c[] commercial_group ) {
        for(Ewarehouse_Farmer__c current_farmer :commercial_group){
+           if(current_farmer.District__c == null){
+               current_farmer.District__c = 'TIGANIA WEST';
+           }
+           
            String district = current_farmer.District__c.trim().left(1)+current_farmer.District__c.trim().mid(8,1);
            
            //Get the commercial viallage ID
            String commercialVillage = current_farmer.Commercial_Village_ID__c;                     
                
            //Get the value of the hash map key
+           if(current_farmer.Commercial_Purchase_Groups__c == null){
+               current_farmer.Commercial_Purchase_Groups__c = 'KARATHIA WOMEN GROUP';
+           }
+           
            String commercial_purchase_group = commercial_purchase_groups.get(''+current_farmer.Commercial_Purchase_Groups__c.trim());  
            
            //Call method to update Field in the object

@@ -47,8 +47,16 @@
         <name>Order_Code__c</name>
     </fields>
     <fields>
+        <label><!-- Presentación --></label>
+        <name>Presentacion__c</name>
+    </fields>
+    <fields>
         <label><!-- Price per Kilo --></label>
         <name>Price_per_Kilo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Price per Order --></label>
+        <name>Price_per_Order__c</name>
     </fields>
     <fields>
         <label><!-- Product Name --></label>
@@ -67,12 +75,12 @@
         <name>Total_Number_of_Allocated_Kilos__c</name>
     </fields>
     <fields>
-        <label><!-- Unallocated Number of Baskets --></label>
-        <name>Unallocated_Number_of_Baskets__c</name>
+        <label><!-- Unallocated Baskets --></label>
+        <name>Unallocated_Baskets__c</name>
     </fields>
     <fields>
-        <label><!-- Unallocated Number of Kilos --></label>
-        <name>Unallocated_Number_of_Kilos__c</name>
+        <label><!-- Unallocated Kilos --></label>
+        <name>Unallocated_Kilos__c</name>
     </fields>
     <fields>
         <label><!-- Unallocated Units of Presentation --></label>
@@ -82,5 +90,16 @@
         <label><!-- Unit of Presentation --></label>
         <name>Unit_of_Presentation__c</name>
     </fields>
+    <fields>
+        <label><!-- Client group --></label>
+        <name>client_group__c</name>
+    </fields>
+    <layouts>
+        <layout>CPA Order Allocation Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -1,3 +1,10 @@
+/**
+ *
+ * Copyright (c) 2014 AppLab, Grameen Foundation
+ *
+ *  API calls to create search logs. Called by devices
+ *  Tests are in TestCreateSearchLogEntry
+ **/
 global class CreateSearchLogEntry {
 
     // Define an object in apex that is exposed in apex web service
@@ -70,7 +77,7 @@ global class CreateSearchLogEntry {
             if(interviewee != null) {
                 searchLog.Interviewee__c = interviewee.Id;
                 searchLog.Interviewer__c = interviewee.Id;
-             	searchLog.OwnerId = interviewee.OwnerId;   
+                searchLog.OwnerId = interviewee.OwnerId;   
             }
 
             searchLogs.add(searchLog);
@@ -276,7 +283,7 @@ global class CreateSearchLogEntry {
         }
 
         createFarmerObjects(personMsisdnMap, msisdnMap);
-        return personMsisdnMap;	          
+        return personMsisdnMap;           
     }
 
     public static Person__c getFarmerPersonObject(SearchLogEntry searchLogEntry) {
@@ -285,16 +292,16 @@ global class CreateSearchLogEntry {
 
             //Check if person exists: Get Id corresponding to msisdn
             Person__c[] people = [
-	            SELECT 
-	                Id, OwnerId 
-	            FROM 
-	                Person__c 
-	            WHERE
-	                Raw_Mobile_Number__c =:searchLogEntry.msisdn 
-	            LIMIT 1]; 
-	        if(people.isEmpty()) {
-	            person = createFarmerPersonObject(searchLogEntry);
-	            createfarmerobject(person);
+                SELECT 
+                    Id, OwnerId 
+                FROM 
+                    Person__c 
+                WHERE
+                    Raw_Mobile_Number__c =:searchLogEntry.msisdn 
+                LIMIT 1]; 
+            if(people.isEmpty()) {
+                person = createFarmerPersonObject(searchLogEntry);
+                createfarmerobject(person);
             }
             else {
                 person = people[0];
@@ -445,9 +452,9 @@ global class CreateSearchLogEntry {
 
         List<Farmer__c> farmers = new List<Farmer__c>();
         for (Person__c person : persons) {
-        	Farmer__c farmer = new Farmer__c();
-        	farmer.Person__c = person.Id;
-        	farmers.add(farmer);
+            Farmer__c farmer = new Farmer__c();
+            farmer.Person__c = person.Id;
+            farmers.add(farmer);
         }
         insert farmers;
     }
@@ -488,140 +495,5 @@ global class CreateSearchLogEntry {
             person = people[0];
         }
         return person;
-    }
-
-    static testMethod void testcreateFarmerObject() {
-
-        // Create the new person
-        Person__c testPerson = new Person__c();
-        testPerson.First_Name__c = 'testfname';
-        testPerson.Last_Name__c = 'testlname';
-        testPerson.Raw_Mobile_Number__c = 'testmsisdn';
-        insert testPerson;
-        FarmerExists(testPerson);
-        createFarmerObject(testPerson);
-    }
-
-    static testMethod void testGetQuarterIndicator(){
-        String testTime1 = '2010-01-01 00:00:00';
-        getQuarterIndicator(testTime1);
-        String testTime2 = '2010-04-01 00:00:00';
-        getQuarterIndicator(testTime2);
-        String testTime3 = '2010-07-01 00:00:00';
-        getQuarterIndicator(testTime3);
-        String testTime4 = '2010-11-01 00:00:00';
-        getQuarterIndicator(testTime4);
-    }
-
-    static testMethod void testCreateSearchLogEntry() {
-        SearchLogEntry entry1 = new SearchLogEntry();
-        entry1.handsetId = 'MyTestHandsetId1';
-        entry1.serverEntryTime = '2010-01-01 00:00:00';
-        entry1.submissionTime = '2010-01-01 00:00:00';
-        entry1.farmerId = 'MyTestFarmerId1';
-        entry1.latitude = '0.00';
-        entry1.longitude = '0.00';
-        entry1.altitude = '0.00';
-        entry1.accuracy = '0.00';
-        entry1.submissionLatitude = '0.00';
-        entry1.submissionLongitude = '0.00';
-        entry1.submissionAltitude = '0.00';
-        entry1.submissionAccuracy = '0.00';
-        entry1.submissionGPSTime = '0';
-        entry1.category = 'Category1';
-        entry1.query = 'Query1';
-        entry1.content = 'Content1';
-        entry1.msisdn = 'MyMsisdn1';
-
-        SearchLogEntry createdEntry1 = createNewSearchLogEntry(entry1);
-        System.assert(createdEntry1.inserted);
-        loadTestPerson();
-
-        getInterviewer(entry1);
-        createFarmerPersonObject(entry1);
-
-        getFarmerPersonObject(entry1);
-        testcreateFarmerObject();
-
-        SearchLogEntry entry2 = new SearchLogEntry();
-        entry2.handsetId = 'MyTestHandsetId2';
-        entry2.serverEntryTime = '2010-01-01 00:00:00';
-        entry2.submissionTime = '2010-01-01 00:00:00';
-        entry2.farmerId = 'MyTestFarmerId2';
-        entry2.latitude = '0.00';
-        entry2.longitude = '0.00';
-        entry2.altitude = '0.00';
-        entry2.accuracy = '0.00';
-        entry2.submissionLatitude = '0.00';
-        entry2.submissionLongitude = '0.00';
-        entry2.submissionAltitude = '0.00';
-        entry2.submissionAccuracy = '0.00';
-        entry2.submissionGPSTime = '0';
-        entry2.category = 'Category2';
-        entry2.query = 'Query2';
-        entry2.content = 'Content2';
-        entry2.msisdn = 'MyMsisdn2';
-        entry2.isUssd = true;
-        entry2.isCompleted = true;
-
-        SearchLogEntry createdEntry2 = createNewSearchLogEntry(entry2);
-        System.assert(createdEntry2.inserted);
-        loadTestPerson();
-
-        getInterviewer(entry2);
-        createFarmerPersonObject(entry2);
-
-        getFarmerPersonObject(entry2);
-        testcreateFarmerObject();
-
-    }
-
-    static testMethod void testCreateSearchLogEntries() {
-
-        List<SearchLogEntry> searchLogs = new List<SearchLogEntry>();
-
-        SearchLogEntry entry1 = new SearchLogEntry();
-        entry1.handsetId = 'MyTestHandsetId1';
-        entry1.serverEntryTime = '2010-01-01 00:00:00';
-        entry1.submissionTime = '2010-01-01 00:00:00';
-        entry1.farmerId = 'MyTestFarmerId1';
-        entry1.latitude = '0.00';
-        entry1.longitude = '0.00';
-        entry1.altitude = '0.00';
-        entry1.accuracy = '0.00';
-        entry1.submissionLatitude = '0.00';
-        entry1.submissionLongitude = '0.00';
-        entry1.submissionAltitude = '0.00';
-        entry1.submissionAccuracy = '0.00';
-        entry1.submissionGPSTime = '0';
-        entry1.category = 'Category';
-        entry1.query = 'Query';
-        entry1.content = 'Content';
-        entry1.msisdn = 'MyMsisdn1';
-        searchLogs.add(entry1);
-
-        SearchLogEntry entry2 = new SearchLogEntry();
-        entry2.handsetId = 'MyTestHandsetId2';
-        entry2.serverEntryTime = '2010-01-01 00:00:00';
-        entry2.submissionTime = '2010-01-01 00:00:00';
-        entry2.farmerId = 'MyTestFarmerId2';
-        entry2.latitude = '0.00';
-        entry2.longitude = '0.00';
-        entry2.altitude = '0.00';
-        entry2.accuracy = '0.00';
-        entry2.submissionLatitude = '0.00';
-        entry2.submissionLongitude = '0.00';
-        entry2.submissionAltitude = '0.00';
-        entry2.submissionAccuracy = '0.00';
-        entry2.submissionGPSTime = '0';
-        entry2.category = 'Category';
-        entry2.query = 'Query';
-        entry2.content = 'Content';
-        entry2.msisdn = 'MyMsisdn2';
-        searchLogs.add(entry2);
-
-		getFarmerPersonObjects(searchLogs);
-        System.assert(createNewSearchLogEntries(searchLogs));
-
     }
 }

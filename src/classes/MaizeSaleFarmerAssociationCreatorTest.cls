@@ -33,6 +33,11 @@ public class MaizeSaleFarmerAssociationCreatorTest{
          
          //The Variable object to fetch the Ewarehouse Farmer ID to be used to create a new Ewarehouse Sale Farmer Association Record
          Ewarehouse_Farmer__c[] existing_farmer = [SELECT Ewarehouse_Farmer__c.Id, Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c IN : ewarehouse_farmer_fci_ids];    
+         for(Ewarehouse_Farmer__c farmer_details : existing_farmer){
+             if(farmer_details.Status__c == 'New Farmer'){
+                 farmer_details.Status__c = 'New';
+             }             
+         }
          
          //Sale_Record__c current_sale_Record = [SELECT Sale_Record__c.Id,Sale_Record__c.Status__c FROM Sale_Record__c WHERE Sale_Record__c.Id IN : sale_ids];
          

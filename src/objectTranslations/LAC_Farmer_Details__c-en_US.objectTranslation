@@ -298,6 +298,10 @@
         <name>District__c</name>
     </fields>
     <fields>
+        <label><!-- Edad --></label>
+        <name>Edad__c</name>
+    </fields>
+    <fields>
         <label><!-- Education (Deprecated) --></label>
         <name>Education__c</name>
         <picklistValues>
@@ -731,6 +735,10 @@
         <name>Municipality__c</name>
     </fields>
     <fields>
+        <label><!-- National ID --></label>
+        <name>National_ID__c</name>
+    </fields>
+    <fields>
         <label><!-- No of Farms --></label>
         <name>No_of_Farms__c</name>
     </fields>
@@ -1024,6 +1032,18 @@
         <name>Smart_Phone__c</name>
     </fields>
     <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Activo</masterLabel>
+            <translation><!-- Activo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactivo</masterLabel>
+            <translation><!-- Inactivo --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Strata --></label>
         <name>Strata__c</name>
     </fields>
@@ -1068,6 +1088,16 @@
         <name>Years_of_Education__c</name>
     </fields>
     <fields>
+        <label><!-- cooperativeProfile --></label>
+        <name>cooperativeProfile__c</name>
+        <relationshipLabel><!-- LAC_Farmer_Details_cooperative --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- interviewer --></label>
+        <name>interviewer__c</name>
+        <relationshipLabel><!-- LAC_Farmer_Details_interviewer --></relationshipLabel>
+    </fields>
+    <fields>
         <label><!-- manejo sombra --></label>
         <name>manejo_sombra__c</name>
         <picklistValues>
@@ -1084,5 +1114,55 @@
         <name>submision__c</name>
         <relationshipLabel><!-- LAC Farmer Details --></relationshipLabel>
     </fields>
+    <layouts>
+        <layout>LAC Farmer Details Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fincas --></label>
+            <section>Fincas</section>
+        </sections>
+        <sections>
+            <label><!-- Información Socio Económica --></label>
+            <section>Información Socio Económica</section>
+        </sections>
+        <sections>
+            <label><!-- Información básica --></label>
+            <section>Información básica</section>
+        </sections>
+        <sections>
+            <label><!-- PPI --></label>
+            <section>PPI</section>
+        </sections>
+        <sections>
+            <label><!-- Perfil de productividad --></label>
+            <section>Perfil de productividad</section>
+        </sections>
+        <sections>
+            <label><!-- Perfil de vulnerabilidad --></label>
+            <section>Perfil de vulnerabilidad</section>
+        </sections>
+        <sections>
+            <label><!-- Planes de manejo de finca --></label>
+            <section>Planes de manejo de finca</section>
+        </sections>
+        <sections>
+            <label><!-- Ubicación --></label>
+            <section>Ubicación</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Standar Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -131,6 +131,10 @@
         <relationshipLabel><!-- Mana Beneficiaries --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Id Like HH Temp --></label>
+        <name>Id_Like_HH__c</name>
+    </fields>
+    <fields>
         <label><!-- LGTBI --></label>
         <name>LGTBI__c</name>
         <picklistValues>
@@ -140,6 +144,30 @@
         <picklistValues>
             <masterLabel>Sí</masterLabel>
             <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Labor activity --></label>
+        <name>Labor_activity__c</name>
+        <picklistValues>
+            <masterLabel>Empleado(a)</masterLabel>
+            <translation><!-- Empleado(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Empleado(a) doméstico</masterLabel>
+            <translation><!-- Empleado(a) doméstico --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jornalero(a)</masterLabel>
+            <translation><!-- Jornalero(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trabajador familiar sin remuneración</masterLabel>
+            <translation><!-- Trabajador familiar sin remuneración --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trabajador(a) independiente</masterLabel>
+            <translation><!-- Trabajador(a) independiente --></translation>
         </picklistValues>
     </fields>
     <fields>
@@ -234,5 +262,184 @@
             <translation><!-- Sí --></translation>
         </picklistValues>
     </fields>
+    <fields>
+        <label><!-- id type --></label>
+        <name>id_type__c</name>
+        <picklistValues>
+            <masterLabel>Menor sin identificación</masterLabel>
+            <translation><!-- Menor sin identificación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Número único de identificación personal NUIP</masterLabel>
+            <translation><!-- Número único de identificación personal NUIP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Registro civil</masterLabel>
+            <translation><!-- Registro civil --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- marital status --></label>
+        <name>marital_status__c</name>
+        <picklistValues>
+            <masterLabel>Casado(a)</masterLabel>
+            <translation><!-- Casado(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Divorciado(a)</masterLabel>
+            <translation><!-- Divorciado(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Separado(a)</masterLabel>
+            <translation><!-- Separado(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Soltero(a)</masterLabel>
+            <translation><!-- Soltero(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unión libre</masterLabel>
+            <translation><!-- Unión libre --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Viudo(a)</masterLabel>
+            <translation><!-- Viudo(a) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ocuppation --></label>
+        <name>ocuppation__c</name>
+        <picklistValues>
+            <masterLabel>Estudiante</masterLabel>
+            <translation><!-- Estudiante --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oficios del hogar</masterLabel>
+            <translation><!-- Oficios del hogar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otra</masterLabel>
+            <translation><!-- Otra --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- relationship with head of hh --></label>
+        <name>relationship_with_head_of_hh__c</name>
+        <picklistValues>
+            <masterLabel>Abuelo(a)</masterLabel>
+            <translation><!-- Abuelo(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cuñado(a)</masterLabel>
+            <translation><!-- Cuñado(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cónyuge</masterLabel>
+            <translation><!-- Cónyuge --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hermano(a)</masterLabel>
+            <translation><!-- Hermano(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hijo(a)</masterLabel>
+            <translation><!-- Hijo(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jefe</masterLabel>
+            <translation><!-- Jefe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Madre</masterLabel>
+            <translation><!-- Madre --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nieto(a)</masterLabel>
+            <translation><!-- Nieto(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No pariente</masterLabel>
+            <translation><!-- No pariente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro(a)</masterLabel>
+            <translation><!-- Otro(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Padre</masterLabel>
+            <translation><!-- Padre --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primo(a)</masterLabel>
+            <translation><!-- Primo(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicio soméstico</masterLabel>
+            <translation><!-- Servicio soméstico --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sobrino(a)</masterLabel>
+            <translation><!-- Sobrino(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suegro(a)</masterLabel>
+            <translation><!-- Suegro(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tío(a)</masterLabel>
+            <translation><!-- Tío(a) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yerno o nuera</masterLabel>
+            <translation><!-- Yerno o nuera --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- second last name --></label>
+        <name>second_last_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- second name --></label>
+        <name>second_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- social security type --></label>
+        <name>social_security_type__c</name>
+        <picklistValues>
+            <masterLabel>Contributivo</masterLabel>
+            <translation><!-- Contributivo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Excepción</masterLabel>
+            <translation><!-- Excepción --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No afiliado</masterLabel>
+            <translation><!-- No afiliado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Subsidiado</masterLabel>
+            <translation><!-- Subsidiado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vinculado</masterLabel>
+            <translation><!-- Vinculado --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Mana Beneficiary Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Población vulnerable --></label>
+            <section>Población vulnerable</section>
+        </sections>
+        <sections>
+            <label><!-- Programas a los que pertenece --></label>
+            <section>Programas a los que pertenece</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

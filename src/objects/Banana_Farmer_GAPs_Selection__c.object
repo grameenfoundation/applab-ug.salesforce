@@ -415,13 +415,37 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Latitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Location__c</fullName>
         <displayLocationInDecimal>true</displayLocationInDecimal>
         <externalId>false</externalId>
         <label>Location</label>
-        <required>true</required>
+        <required>false</required>
         <scale>6</scale>
         <type>Location</type>
+    </fields>
+    <fields>
+        <fullName>Longitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Making_Pan_Cakes__c</fullName>
@@ -693,7 +717,7 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Type of fertilizers used</fullName>
+                <fullName>Type of chemical or inorganic fertilizer</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -780,6 +804,17 @@
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Banana Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Banana_Farmer_GAPs_Selections</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Time_of_Fertilizer_Application__c</fullName>
@@ -912,6 +947,11 @@
         <unique>false</unique>
     </fields>
     <label>Banana Farmer GAPs Selection</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>BG{YYYY}{MM}{DD}{0}</displayFormat>
         <label>Banana Farmer GAP Name</label>

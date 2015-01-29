@@ -48,6 +48,28 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Activity_type__c</fullName>
+        <externalId>false</externalId>
+        <label>Activity type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Seguimiento sostenibilidad</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Adress_or_ubication__c</fullName>
+        <externalId>false</externalId>
+        <label>Adress or ubication</label>
+        <length>200</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Aji__c</fullName>
         <externalId>false</externalId>
         <label>Aji</label>
@@ -103,6 +125,10 @@
         <label>Backyard Garden Stage</label>
         <picklist>
             <picklistValues>
+                <fullName>Ninguna</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Cosecha</fullName>
                 <default>false</default>
             </picklistValues>
@@ -111,16 +137,36 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Ninguna</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
                 <fullName>Preparación</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Backyard_Garden_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Backyard Garden Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Inactiva</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Activa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Backyard_garden_photo__c</fullName>
+        <externalId>false</externalId>
+        <label>Backyard garden photo</label>
+        <required>false</required>
+        <type>Url</type>
     </fields>
     <fields>
         <fullName>Banano__c</fullName>
@@ -210,6 +256,15 @@
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Corregimiento__c</fullName>
+        <externalId>false</externalId>
+        <label>Corregimiento</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -325,6 +380,13 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
         <fullName>De_Sostenibilidad_Score__c</fullName>
         <externalId>false</externalId>
         <formula>IF(TEXT(DS_1__c)==&apos;Sí&apos;,1,0)+
@@ -414,6 +476,54 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>Huerta_activa__c</fullName>
+        <description>1 = Huerta activa = Cosecha, preparación ó desarrollo
+0 = No está activa = Ninguna</description>
+        <externalId>false</externalId>
+        <formula>if(text(Backyard_Garden_Stage__c)=&quot;Ninguna&quot;,0,1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Huerta activa</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Knows_how_to_si__c</fullName>
+        <externalId>false</externalId>
+        <label>Knows how to sign</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Knows_site__c</fullName>
+        <externalId>false</externalId>
+        <label>Knows site</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Lechuga__c</fullName>
         <externalId>false</externalId>
         <label>Lechuga</label>
@@ -462,6 +572,42 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <scale>2</scale>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Municipio__c</fullName>
+        <externalId>false</externalId>
+        <label>Municipio</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_native_species__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of native species</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_species__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of species</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_topics_TA__c</fullName>
+        <externalId>false</externalId>
+        <label>Other topics TA</label>
+        <required>false</required>
+        <type>TextArea</type>
     </fields>
     <fields>
         <fullName>PC_10__c</fullName>
@@ -731,6 +877,196 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Planning_carried_out_category__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Planning_Carried_Out_Score__c&lt;4,&apos;Insuficiente&apos;, IF(Planning_Carried_Out_Score__c&gt;3 &amp;&amp; Planning_Carried_Out_Score__c&lt;7, &apos;Aceptable&apos;, &apos;Suficiente&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Planning carried out category</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_type_produced__c</fullName>
+        <externalId>false</externalId>
+        <label>Product type produced</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Acelga</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ají</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arveja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arroz</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Berenjena</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brócoli</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Calabacín</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cebolla de rama</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cebolla de huevo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cilantro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Col</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coliflor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Curuba</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Espinaca</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fríjol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granadilla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Habichuela</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lechuga</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lulo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maíz</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maracuyá</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Melón</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Papaya</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pepino</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pimentón</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Piña</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rábano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remolacha</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Repollo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sandía</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tomate aliño</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tomate de árbol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Uchuva</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Zanahoria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Production_target__c</fullName>
+        <externalId>false</externalId>
+        <label>Production target</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Autoconsumo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trueque</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Venta de excedentes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Donación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>Rabano__c</fullName>
         <externalId>false</externalId>
         <label>Rabano</label>
@@ -738,6 +1074,15 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Region</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -758,6 +1103,24 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <required>false</required>
         <scale>2</scale>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Respondent_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Respondent Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Respondent_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Respondent name</label>
+        <length>45</length>
+        <required>false</required>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -782,6 +1145,16 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Supplies_number__c</fullName>
+        <externalId>false</externalId>
+        <label>Supplies number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Tomate_Alino__c</fullName>
         <externalId>false</externalId>
         <label>Tomate Alino</label>
@@ -798,6 +1171,56 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Topics_of_tech_assistance__c</fullName>
+        <externalId>false</externalId>
+        <label>Topics of tech assistance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Biopreparados y MIPE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biocompostaje</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manejo del cultivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planeación de la huerta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semilleros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Producción de semillas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Total_production_Kg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Autoconsumo_Destination_Amount__c + Donacion_Destination_Amount__c + Trueque_Destination_Amount__c + Venta_Destination_Amount__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total production (Kg)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -844,14 +1267,339 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
     <fields>
         <fullName>categoria_sostenibilidad__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(De_Sostenibilidad_Score__c&lt;5,&apos;Insuficiente&apos;, IF(De_Sostenibilidad_Score__c&gt;4 &amp;&amp; De_Sostenibilidad_Score__c&lt;9, &apos;Aceptable&apos;, &apos;Suficiente&apos;))</formula>
+        <formula>IF(De_Sostenibilidad_Score__c&lt;3,&apos;Insuficiente&apos;, IF(De_Sostenibilidad_Score__c&gt;2 &amp;&amp; De_Sostenibilidad_Score__c&lt;5, &apos;Aceptable&apos;, &apos;Suficiente&apos;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Categoria sostenibilidad</label>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>different_supplies_Mana__c</fullName>
+        <externalId>false</externalId>
+        <label>different supplies Mana</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>garden_duration__c</fullName>
+        <externalId>false</externalId>
+        <label>garden duration</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>garden_year__c</fullName>
+        <externalId>false</externalId>
+        <label>garden year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>head_household__c</fullName>
+        <externalId>false</externalId>
+        <label>head household</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>household_member__c</fullName>
+        <externalId>false</externalId>
+        <label>household member</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>id_type__c</fullName>
+        <externalId>false</externalId>
+        <label>id type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NUIP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MSI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>inactive_explain__c</fullName>
+        <externalId>false</externalId>
+        <label>inactive explain</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No dispone de terreno para la huerta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Condiciones climáticas adversas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Se desplazó y retornó</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cuenta con el tiempo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tienen conocimientos técnico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tiene recursos económicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>last_production_record__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Household__r.Last_production_date__c = CreatedDate, &quot;Y&quot;, &quot;N&quot;)</formula>
+        <label>last production record</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>lives_in_site__c</fullName>
+        <externalId>false</externalId>
+        <label>lives in site</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>notes_for_inactivity__c</fullName>
+        <externalId>false</externalId>
+        <label>notes for inactivity</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>other_reason_for_inactive_garden__c</fullName>
+        <externalId>false</externalId>
+        <label>other reason for inactive garden</label>
+        <length>200</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>respondent_phone__c</fullName>
+        <externalId>false</externalId>
+        <label>respondent phone</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>supplies_Mana__c</fullName>
+        <externalId>false</externalId>
+        <label>supplies Mana</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ultima_visita__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(    Household__r.ultima_toma_de_producci_n__c    = CreatedDate ,&quot;Sí&quot;,&quot;No&quot;)</formula>
+        <label>Última visita</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>visit_municipality__c</fullName>
+        <externalId>false</externalId>
+        <label>visit municipality</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>where_live_now__c</fullName>
+        <externalId>false</externalId>
+        <label>where live now</label>
+        <length>200</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>which__c</fullName>
+        <externalId>false</externalId>
+        <label>which suppies recibed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Semillas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizantes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Herramientas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>which_entity__c</fullName>
+        <externalId>false</externalId>
+        <label>which entity</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wich_other_supplies__c</fullName>
+        <externalId>false</externalId>
+        <label>wich other supplies</label>
+        <length>200</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zona__c</fullName>
+        <externalId>false</externalId>
+        <label>zona</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <label>Mana Household Production Record</label>
+    <listViews>
+        <fullName>All1</fullName>
+        <columns>NAME</columns>
+        <columns>Donacion_Destination_Amount__c</columns>
+        <columns>garden_duration__c</columns>
+        <columns>Household__c</columns>
+        <columns>Trueque_Destination_Amount__c</columns>
+        <columns>Venta_Destination_Amount__c</columns>
+        <columns>Total_production_Kg__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
     <nameField>
         <displayFormat>{0000000000}</displayFormat>
         <label>Mana Household Production Name</label>

@@ -14,17 +14,77 @@
         <relationshipLabel><!-- CBL_Farms --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- CP Calculation Date --></label>
+        <name>CP_Calculation_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Coffee planted area (Cuerdas 25X25) --></label>
+        <name>Coffee_planted_area_Cuerdas_25X25__c</name>
+    </fields>
+    <fields>
         <label><!-- Coffee planted area (Ha) --></label>
         <name>Coffee_planted_area_Ha__c</name>
+    </fields>
+    <fields>
+        <label><!-- Farm Code Guat --></label>
+        <name>Farm_Code_Guat__c</name>
+        <picklistValues>
+            <masterLabel>A</masterLabel>
+            <translation><!-- A --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>B</masterLabel>
+            <translation><!-- B --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>C</masterLabel>
+            <translation><!-- C --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>D</masterLabel>
+            <translation><!-- D --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>E</masterLabel>
+            <translation><!-- E --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>F</masterLabel>
+            <translation><!-- F --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>G</masterLabel>
+            <translation><!-- G --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>H</masterLabel>
+            <translation><!-- H --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>I</masterLabel>
+            <translation><!-- I --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>J</masterLabel>
+            <translation><!-- J --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Farm area (Cuerdas 25X25) --></label>
+        <name>Farm_area_Cuerdas_25X25__c</name>
     </fields>
     <fields>
         <label><!-- FarmerId --></label>
         <name>FarmerId__c</name>
     </fields>
     <fields>
-        <label><!-- LAC Farmer Details --></label>
+        <label><!-- Farmer --></label>
         <name>Farmer__c</name>
         <relationshipLabel><!-- CBL_Farms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Forest Area (Cuerdas 25X25) --></label>
+        <name>Forest_Area_Cuerdas_25X25__c</name>
     </fields>
     <fields>
         <label><!-- Forest Area (Ha) --></label>
@@ -43,8 +103,20 @@
         <name>Longitude_farm__c</name>
     </fields>
     <fields>
+        <label><!-- New planted area (Cuerdas 25X25) --></label>
+        <name>New_planted_area_Cuerdas_25X25__c</name>
+    </fields>
+    <fields>
         <label><!-- New planted area (Ha) --></label>
         <name>New_planted_area_ha__c</name>
+    </fields>
+    <fields>
+        <label><!-- Organic fertilized area (Cuerdas 25X25) --></label>
+        <name>Organic_fertilized_area_Cuerdas_25X25__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other agricultural activities area (Cuer --></label>
+        <name>Other_agricultural_activities_area_Cuer__c</name>
     </fields>
     <fields>
         <label><!-- Other agricultural activities area (Ha) --></label>
@@ -55,12 +127,36 @@
         <name>Production_last_year_Kg__c</name>
     </fields>
     <fields>
+        <label><!-- Production last year (Quintales) --></label>
+        <name>Production_last_year_Quintales__c</name>
+    </fields>
+    <fields>
+        <label><!-- Production last year green coffee (Kg) --></label>
+        <name>Production_last_year_green_coffee_Kg__c</name>
+    </fields>
+    <fields>
         <label><!-- Productivity (Kg/Ha) --></label>
         <name>Productivity_Kg_Ha__c</name>
     </fields>
     <fields>
+        <label><!-- Productivity (Quintal/Cuerda25X25) --></label>
+        <name>Productivity_Quintal_Cuerda25X25__c</name>
+    </fields>
+    <fields>
+        <label><!-- Productivity green coffee (Kg/Ha) --></label>
+        <name>Productivity_green_coffee_Kg_Ha__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pruned area (Cuerdas 25X25) --></label>
+        <name>Pruned_area_Cuerdas_25X25__c</name>
+    </fields>
+    <fields>
         <label><!-- Pruned area (Ha) --></label>
         <name>Pruned_area_Ha__c</name>
+    </fields>
+    <fields>
+        <label><!-- Renewed area (Cuerdas 25X25) --></label>
+        <name>Renewed_area_Cuerdas_25X25__c</name>
     </fields>
     <fields>
         <label><!-- Renewed area (Ha) --></label>
@@ -2371,5 +2467,12 @@
             <translation><!-- No cumple --></translation>
         </picklistValues>
     </fields>
+    <layouts>
+        <layout>CBL_Farm Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

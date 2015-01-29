@@ -63,6 +63,22 @@
                 <behavior>Edit</behavior>
                 <field>Number_of_Kilos__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Order_Code__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Presentacion__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Delivery_On_Time__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TypeOfDelivery__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>
@@ -114,6 +130,10 @@
         <fields>CORE.USERS.FULL_NAME</fields>
         <fields>TASK.LAST_UPDATE</fields>
         <relatedList>RelatedHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Alsur_Farmer_Delivery_Basket__c.Farmer_Product_Delivery__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

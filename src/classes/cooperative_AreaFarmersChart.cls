@@ -28,11 +28,11 @@ public with sharing class cooperative_AreaFarmersChart {
     *
     */
     public List<LAC_Farmer_Details__c> getAreaFarmers() {
-        List<LAC_Farmer_Details__c> areaFarmers= [Select Farmer_Code__c, 
+        List<LAC_Farmer_Details__c> AreaFarmers= [Select Farmer_Code__c, 
                                                 Farm_Area__c 
                                                 From LAC_Farmer_Details__c 
                                                 Where cooperativeProfile__c =:cooperative.Id];                                                                    
-        return areaFarmers;
+        return AreaFarmers;
     }
 
     /**

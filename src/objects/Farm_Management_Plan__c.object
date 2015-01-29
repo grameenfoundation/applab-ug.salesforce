@@ -285,6 +285,15 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Farm_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Farm__r.farmName__c</formula>
+        <label>Farm Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Farm__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -293,6 +302,16 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <relationshipName>Farm_Management_Plans</relationshipName>
         <required>false</required>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Farmer_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Farm__r.Farmer__r.Contact__r.Contact_Full_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Fecha_definicion_metas__c</fullName>

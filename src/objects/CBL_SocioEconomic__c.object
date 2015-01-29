@@ -73,6 +73,29 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Financing_source_MFI__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Microfinanciera&quot;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Financing source: MFI</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financing_source_Middlemen__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Intermediario (comprador)&quot;), 1, 0)</formula>
+        <label>Financing source: Middle man</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Financing_source_coop__c</fullName>
         <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Cooperativa de productores&quot;), 1, 0)</formula>
@@ -487,6 +510,77 @@
         <externalId>false</externalId>
         <label>debtsFinancingSource</label>
         <picklist>
+            <controllingField>debtsFinancingSource_contr__c</controllingField>
+            <picklistValues>
+                <fullName>Crédito familiar</fullName>
+                <controllingFieldValues>Banco</controllingFieldValues>
+                <controllingFieldValues>Cooperativa de productores</controllingFieldValues>
+                <controllingFieldValues>Crédito familiar</controllingFieldValues>
+                <controllingFieldValues>Intermediario (comprador)</controllingFieldValues>
+                <controllingFieldValues>Microfinanciera</controllingFieldValues>
+                <controllingFieldValues>Prestamista</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prestamista</fullName>
+                <controllingFieldValues>Banco</controllingFieldValues>
+                <controllingFieldValues>Cooperativa de productores</controllingFieldValues>
+                <controllingFieldValues>Crédito familiar</controllingFieldValues>
+                <controllingFieldValues>Intermediario (comprador)</controllingFieldValues>
+                <controllingFieldValues>Microfinanciera</controllingFieldValues>
+                <controllingFieldValues>Prestamista</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intermediario (comprador)</fullName>
+                <controllingFieldValues>Banco</controllingFieldValues>
+                <controllingFieldValues>Cooperativa de productores</controllingFieldValues>
+                <controllingFieldValues>Crédito familiar</controllingFieldValues>
+                <controllingFieldValues>Intermediario (comprador)</controllingFieldValues>
+                <controllingFieldValues>Microfinanciera</controllingFieldValues>
+                <controllingFieldValues>Prestamista</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cooperativa de productores</fullName>
+                <controllingFieldValues>Banco</controllingFieldValues>
+                <controllingFieldValues>Cooperativa de productores</controllingFieldValues>
+                <controllingFieldValues>Crédito familiar</controllingFieldValues>
+                <controllingFieldValues>Intermediario (comprador)</controllingFieldValues>
+                <controllingFieldValues>Microfinanciera</controllingFieldValues>
+                <controllingFieldValues>Prestamista</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Microfinanciera</fullName>
+                <controllingFieldValues>Banco</controllingFieldValues>
+                <controllingFieldValues>Cooperativa de productores</controllingFieldValues>
+                <controllingFieldValues>Crédito familiar</controllingFieldValues>
+                <controllingFieldValues>Intermediario (comprador)</controllingFieldValues>
+                <controllingFieldValues>Microfinanciera</controllingFieldValues>
+                <controllingFieldValues>Prestamista</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banco</fullName>
+                <controllingFieldValues>Banco</controllingFieldValues>
+                <controllingFieldValues>Cooperativa de productores</controllingFieldValues>
+                <controllingFieldValues>Crédito familiar</controllingFieldValues>
+                <controllingFieldValues>Intermediario (comprador)</controllingFieldValues>
+                <controllingFieldValues>Microfinanciera</controllingFieldValues>
+                <controllingFieldValues>Prestamista</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>debtsFinancingSource_contr__c</fullName>
+        <externalId>false</externalId>
+        <label>debtsFinancingSource_contr</label>
+        <picklist>
             <picklistValues>
                 <fullName>Crédito familiar</fullName>
                 <default>false</default>
@@ -513,8 +607,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <type>MultiselectPicklist</type>
-        <visibleLines>3</visibleLines>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>debts__c</fullName>

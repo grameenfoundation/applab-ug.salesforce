@@ -1,0 +1,14 @@
+<apex:page tabStyle="LAC_Farmer_Details__c" standardController="LAC_Farmer_Details__c" extensions="LacFarmerProfilePageController" language="{!PageLanguage}">
+
+    <apex:pageBlock >
+    
+        <apex:pageBlockSection >
+            <apex:repeat value="{!CblFarms}" var="cblFarm">
+                <apex:outputLink value="/{!cblFarm.id}" target="top">{!cblFarm.farmName__c }</apex:outputLink>
+                <br/>
+            </apex:repeat>
+        </apex:pageBlockSection>
+    
+    </apex:pageBlock>
+
+</apex:page>

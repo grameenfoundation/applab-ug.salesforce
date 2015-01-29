@@ -97,6 +97,26 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>First_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.First_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>First Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Full_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>First_Name__c + &apos; &apos; +  Last_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Full Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Highest_Education_Level_Attained__c</fullName>
         <externalId>false</externalId>
         <label>Highest Education Level Attained</label>
@@ -140,6 +160,16 @@
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Last_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Marital_Status__c</fullName>
@@ -249,11 +279,6 @@
         <unique>false</unique>
     </fields>
     <label>Focus Farmer</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
     <nameField>
         <displayFormat>FFN{YYYY}{MM}{DD}{0}</displayFormat>
         <label>Focus Farmer Name</label>

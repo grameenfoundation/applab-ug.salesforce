@@ -69,8 +69,48 @@
         <name>Corrigimiento__c</name>
     </fields>
     <fields>
+        <label><!-- Count Children With Duplicate Ids Temp --></label>
+        <name>Count_Children_With_Duplicate_Ids__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cycle --></label>
+        <name>Cycle__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- District (Correct) --></label>
+        <name>District_Correct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duplicate Processed --></label>
+        <name>Duplicate_Processed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fase de la Huerta Cosecha --></label>
+        <name>Fase_de_la_Huerta_Cosecha__c</name>
+    </fields>
+    <fields>
         <label><!-- Fase de la huerta --></label>
         <name>Fase_de_la_huerta__c</name>
+    </fields>
+    <fields>
+        <label><!-- Foto --></label>
+        <name>Foto__c</name>
     </fields>
     <fields>
         <label><!-- Has_Backyard_Garden --></label>
@@ -90,6 +130,14 @@
         <relationshipLabel><!-- Registered Households --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Last date --></label>
+        <name>Last_date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last production date --></label>
+        <name>Last_production_date__c</name>
+    </fields>
+    <fields>
         <help><!-- This lets one set the gps_y coordinate manually. It&apos;s used in the gps_y formula if the linked submission doesn&apos;t have coordinates --></help>
         <label><!-- Latitude --></label>
         <name>Latitude__c</name>
@@ -100,8 +148,16 @@
         <name>Longitude__c</name>
     </fields>
     <fields>
+        <label><!-- Miembros del hogar (Correcto) --></label>
+        <name>Miembros_del_hogar_Correcto__c</name>
+    </fields>
+    <fields>
         <label><!-- Miembros del hogar --></label>
         <name>Miembros_del_hogar__c</name>
+    </fields>
+    <fields>
+        <label><!-- Municipality (Correct) --></label>
+        <name>Municipality_Correct__c</name>
     </fields>
     <fields>
         <label><!-- Municipio --></label>
@@ -118,6 +174,14 @@
             <masterLabel>Sí</masterLabel>
             <translation><!-- Sí --></translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Photo --></label>
+        <name>Photo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Region (Correct) --></label>
+        <name>Region_Correct__c</name>
     </fields>
     <fields>
         <label><!-- Region --></label>
@@ -149,6 +213,10 @@
         <name>Telefono__c</name>
     </fields>
     <fields>
+        <label><!-- Usa químicos --></label>
+        <name>Usa_quimicos__c</name>
+    </fields>
+    <fields>
         <label><!-- Vereda --></label>
         <name>Vereda__c</name>
     </fields>
@@ -157,8 +225,98 @@
         <name>Zona__c</name>
     </fields>
     <fields>
+        <label><!-- address --></label>
+        <name>address__c</name>
+    </fields>
+    <fields>
+        <label><!-- children less than 5 --></label>
+        <name>children_less_than_5__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- gps approximation --></label>
         <name>gps_approximation__c</name>
     </fields>
+    <fields>
+        <label><!-- has SISBEN --></label>
+        <name>has_SISBEN__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- neighborhood --></label>
+        <name>neighborhood__c</name>
+    </fields>
+    <fields>
+        <label><!-- signature --></label>
+        <name>signature__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sisbén nivel 1 y 2 --></label>
+        <name>sisben_nivel_1_y_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Última toma de producción --></label>
+        <name>ultima_toma_de_producci_n__c</name>
+    </fields>
+    <fields>
+        <label><!-- underage members --></label>
+        <name>underage_members__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>MANA Layout test</layout>
+        <sections>
+            <label><!-- Consumo de alimentos por categoría --></label>
+            <section>Consumo de alimentos por categoría</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Información --></label>
+            <section>Información</section>
+        </sections>
+        <sections>
+            <label><!-- Ubicación --></label>
+            <section>Ubicación</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Mana Household Layout</layout>
+        <sections>
+            <label><!-- Backyard Garden --></label>
+            <section>Backyard Garden</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Ubicación --></label>
+            <section>Ubicación</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

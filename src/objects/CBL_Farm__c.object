@@ -51,13 +51,92 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>CP_Calculation_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>CP Calculation Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Coffee_planted_area_Cuerdas_25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>coffeePlantedArea__c * 0.044</formula>
+        <label>Coffee planted area (Cuerdas 25X25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Coffee_planted_area_Ha__c</fullName>
         <externalId>false</externalId>
         <formula>IF(text( coffeePlantedAreaUnits__c ) = &quot;Cuadras&quot;, coffeePlantedArea__c *1.5625, 
 IF(text( coffeePlantedAreaUnits__c ) = &quot;Manzanas&quot;, coffeePlantedArea__c *0.6988, 
-IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *22.89, 
-IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *8.94,  coffeePlantedArea__c ))))</formula>
+IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *0.044, 
+IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *0.112,  coffeePlantedArea__c ))))</formula>
         <label>Coffee planted area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farm_Code_Guat__c</fullName>
+        <description>Farm code for Asobagri farms</description>
+        <externalId>false</externalId>
+        <label>Farm Code Guat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>B</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>D</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>E</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>F</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>G</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>H</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>J</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Farm_area_Cuerdas_25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>farm_Area_Ha__c * 0.04</formula>
+        <label>Farm area (Cuerdas 25X25)</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -77,7 +156,7 @@ IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedA
         <fullName>Farmer__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
-        <label>LAC Farmer Details</label>
+        <label>Farmer</label>
         <referenceTo>LAC_Farmer_Details__c</referenceTo>
         <relationshipLabel>CBL_Farms</relationshipLabel>
         <relationshipName>CBL_Farms</relationshipName>
@@ -85,12 +164,23 @@ IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedA
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Forest_Area_Cuerdas_25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>Forest_Area_Ha__c * 0.044</formula>
+        <label>Forest Area (Cuerdas 25X25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Forest_Area_Ha__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(text( unitForestArea__c ) = &quot;Cuadras&quot;, forestArea__c *1.5625, 
-IF(text( unitForestArea__c ) = &quot;Manzanas&quot;, forestArea__c *0.6988, 
-IF(text( unitForestArea__c ) = &quot;Cuerdas (25x25)&quot;, forestArea__c *22.89, 
-IF(text( unitForestArea__c ) = &quot;Cuerdas (40x40)&quot;, forestArea__c *8.94,forestArea__c))))</formula>
+        <formula>IF(text( unitForestArea__c  ) = &quot;Cuadras&quot;, forestArea__c  *1.5625, 
+IF(text( unitForestArea__c  ) = &quot;Manzanas&quot;, forestArea__c  *0.6988, 
+IF(text( unitForestArea__c  )=&quot;Cuerdas (25x25)&quot;, forestArea__c *0.044, 
+IF(text( unitForestArea__c )=&quot;Cuerdas (40x40)&quot;, forestArea__c *0.112, forestArea__c  ))))</formula>
         <label>Forest Area (Ha)</label>
         <precision>18</precision>
         <required>false</required>
@@ -131,13 +221,47 @@ IF(text( unitForestArea__c ) = &quot;Cuerdas (40x40)&quot;, forestArea__c *8.94,
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>New_planted_area_Cuerdas_25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>newPlantedArea__c * 0.044</formula>
+        <label>New planted area (Cuerdas 25X25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>New_planted_area_ha__c</fullName>
         <externalId>false</externalId>
         <formula>IF(text( newPlantedAreaUnits__c ) = &quot;Cuadras&quot;,  newPlantedArea__c  *1.5625, 
 IF(text( newPlantedAreaUnits__c ) = &quot;Manzanas&quot;, newPlantedArea__c *0.6988, 
-IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, newPlantedArea__c *22.89, 
-IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c *8.94, newPlantedArea__c ))))</formula>
+IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, newPlantedArea__c *0.044, 
+IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c *0.112, newPlantedArea__c ))))</formula>
         <label>New planted area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Organic_fertilized_area_Cuerdas_25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>organic_fertilized_area_ha__c * 0.044</formula>
+        <label>Organic fertilized area (Cuerdas 25X25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_agricultural_activities_area_Cuer__c</fullName>
+        <externalId>false</externalId>
+        <formula>Other_agricultural_activities_area_Ha__c * 0.044</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Other agricultural activities area (Cuer</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -149,8 +273,8 @@ IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c
         <externalId>false</externalId>
         <formula>IF(text( otherActivitiesAreaUnits__c ) = &quot;Cuadras&quot;, otherActivitiesArea__c *1.5625, 
 IF(text( otherActivitiesAreaUnits__c ) = &quot;Manzanas&quot;, otherActivitiesArea__c *0.6988, 
-IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, otherActivitiesArea__c *22.89, 
-IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, otherActivitiesArea__c *8.94, otherActivitiesArea__c ))))</formula>
+IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, otherActivitiesArea__c *0.044, 
+IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, otherActivitiesArea__c *0.112, otherActivitiesArea__c ))))</formula>
         <label>Other agricultural activities area (Ha)</label>
         <precision>18</precision>
         <required>false</required>
@@ -172,6 +296,28 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Production_last_year_Quintales__c</fullName>
+        <externalId>false</externalId>
+        <formula>Production_last_year_Kg__c * 0.022</formula>
+        <label>Production last year (Quintales)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Production_last_year_green_coffee_Kg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Production_last_year_Kg__c *0.754</formula>
+        <label>Production last year green coffee (Kg)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Productivity_Kg_Ha__c</fullName>
         <externalId>false</externalId>
         <formula>Production_last_year_Kg__c/Coffee_planted_area_Ha__c</formula>
@@ -183,13 +329,58 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Productivity_Quintal_Cuerda25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>Production_last_year_Quintales__c / Coffee_planted_area_Cuerdas_25X25__c</formula>
+        <label>Productivity (Quintal/Cuerda25X25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Productivity_green_coffee_Kg_Ha__c</fullName>
+        <externalId>false</externalId>
+        <formula>Production_last_year_green_coffee_Kg__c / Coffee_planted_area_Ha__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Productivity green coffee (Kg/Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pruned_area_Cuerdas_25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>Pruned_area_Ha__c * 0.044</formula>
+        <label>Pruned area (Cuerdas 25X25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Pruned_area_Ha__c</fullName>
         <externalId>false</externalId>
         <formula>IF(text( pruneAreaLastYearUnits__c ) = &quot;Cuadras&quot;, pruneAreaLastyear__c *1.5625, 
 IF(text( pruneAreaLastYearUnits__c ) = &quot;Manzanas&quot;, pruneAreaLastyear__c *0.6988, 
-IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (25x25)&quot;, pruneAreaLastyear__c *22.89, 
-IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (40x40)&quot;, pruneAreaLastyear__c *8.94, pruneAreaLastyear__c ))))</formula>
+IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (25x25)&quot;, pruneAreaLastyear__c *0.044, 
+IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (40x40)&quot;, pruneAreaLastyear__c *0.112, pruneAreaLastyear__c ))))</formula>
         <label>Pruned area (Ha)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Renewed_area_Cuerdas_25X25__c</fullName>
+        <externalId>false</externalId>
+        <formula>Renewed_area_ha__c * 0.044</formula>
+        <label>Renewed area (Cuerdas 25X25)</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -201,8 +392,8 @@ IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (40x40)&quot;, pruneAreaLasty
         <externalId>false</externalId>
         <formula>IF(text( areaRenewedCoffeeUnits__c ) = &quot;Cuadras&quot;, areaRenewedCoffee__c *1.5625, 
 IF(text( areaRenewedCoffeeUnits__c ) = &quot;Manzanas&quot;, areaRenewedCoffee__c *0.6988, 
-IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (25x25)&quot;, areaRenewedCoffee__c *22.89, 
-IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCoffee__c *8.94, areaRenewedCoffee__c ))))</formula>
+IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (25x25)&quot;, areaRenewedCoffee__c *0.044, 
+IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCoffee__c *0.112, areaRenewedCoffee__c ))))</formula>
         <label>Renewed area (Ha)</label>
         <precision>18</precision>
         <required>false</required>
@@ -1322,10 +1513,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <fullName>farm_Area_Ha__c</fullName>
         <description>Converts all the farm sizes to Hectares, by using farm area and the chosen unit</description>
         <externalId>false</externalId>
-        <formula>IF(text(totalFarmAreaUnits__c) = &quot;Cuadras&quot;, totalFarmArea__c*1.5625,
-   IF(text(totalFarmAreaUnits__c) = &quot;Manzanas&quot;,totalFarmArea__c*0.6988,
-      IF(text(totalFarmAreaUnits__c)=&quot;Cuerdas (25x25)&quot;,totalFarmArea__c*22.89,
-        IF(text(totalFarmAreaUnits__c)=&quot;Cuerdas (40x40)&quot;,totalFarmArea__c*8.94,totalFarmArea__c))))</formula>
+        <formula>IF(text( totalFarmAreaUnits__c ) = &quot;Cuadras&quot;, totalFarmArea__c *1.5625, 
+IF(text( totalFarmAreaUnits__c ) = &quot;Manzanas&quot;, totalFarmArea__c  *0.6988, 
+IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (25x25)&quot;, totalFarmArea__c  *0.044, 
+IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c   *0.112, totalFarmArea__c  ))))</formula>
         <label>Farm area (Ha)</label>
         <precision>18</precision>
         <required>false</required>
@@ -2164,8 +2355,8 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <externalId>false</externalId>
         <formula>IF(text( organicFertAreaThisYrUnits__c ) = &quot;Cuadras&quot;,  organicFertAreaThisYr__c *1.5625, 
 IF(text( organicFertAreaThisYrUnits__c ) = &quot;Manzanas&quot;, organicFertAreaThisYr__c *0.6988, 
-IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *22.89, 
-IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *8.94, organicFertAreaThisYr__c ))))</formula>
+IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *0.044, 
+IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *0.112, organicFertAreaThisYr__c ))))</formula>
         <label>Organic fertilized area (Ha)</label>
         <precision>18</precision>
         <required>false</required>
@@ -3262,6 +3453,12 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
         <columns>farmName__c</columns>
+        <columns>Last_FMP_Year__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <columns>Submission__c</columns>
+        <columns>signature__c</columns>
+        <columns>signatureURL__c</columns>
         <filterScope>Everything</filterScope>
         <label>CBL Farms</label>
         <language>en_US</language>

@@ -27,7 +27,14 @@ public class BlackSaleFarmerAssociationCreatorTest{
              }
          }  
          //The Variable object to fetch the Ewarehouse Farmer ID to be used to create a new Ewarehouse Sale Farmer Association Record
-         Ewarehouse_Farmer__c[] existing_farmer = [SELECT Ewarehouse_Farmer__c.Id FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c IN : ewarehouse_id];   
+         //The Variable object to fetch the Ewarehouse Farmer ID to be used to create a new Ewarehouse Sale Farmer Association Record
+         Ewarehouse_Farmer__c[] existing_farmer = [SELECT Ewarehouse_Farmer__c.Id, Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c, Ewarehouse_Farmer__c.Status__c FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c IN : ewarehouse_id];  
+         for(Ewarehouse_Farmer__c farmer_details : existing_farmer){
+             if(farmer_details.Status__c == 'New Farmer'){
+                 farmer_details.Status__c = 'New';
+             }             
+         }
+         
          //Create a variable to hold the new Sale Farmer Association records
          Sale_Farmer_Associations__c[] newFarmerAssociations = new List<Sale_Farmer_Associations__c>();
          for(Ewarehouse_Sale_Black__c black_bean_associations : black_bean_association){

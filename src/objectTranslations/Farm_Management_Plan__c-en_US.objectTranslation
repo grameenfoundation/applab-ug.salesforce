@@ -169,9 +169,17 @@
         <name>Evaluacion_post_control__c</name>
     </fields>
     <fields>
+        <label><!-- Farm Name --></label>
+        <name>Farm_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Farm --></label>
         <name>Farm__c</name>
         <relationshipLabel><!-- Farm Management Plans --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Farmer Name --></label>
+        <name>Farmer_Name__c</name>
     </fields>
     <fields>
         <label><!-- Fecha definicion metas --></label>
@@ -513,5 +521,12 @@
         <label><!-- Zaranda en buen estado --></label>
         <name>Zaranda_bn_est__c</name>
     </fields>
+    <layouts>
+        <layout>Plan de Manejo de Finca Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

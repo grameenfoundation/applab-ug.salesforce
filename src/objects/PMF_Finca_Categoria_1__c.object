@@ -45,9 +45,18 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Nivel_Sin_Orden__c</fullName>
+        <externalId>false</externalId>
+        <formula>TRIM(RIGHT( Nivel_categor_a__c, 5))</formula>
+        <label>Nivel Sin Orden</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Nivel_categor_a__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( Puntaje_categor_a__c &lt; 2, &apos;Bajo&apos;, IF (Puntaje_categor_a__c &lt; 4, &apos;Medio&apos;, &apos;Alto&apos;))</formula>
+        <formula>IF( Puntaje_categor_a__c &lt; 2, &apos;c. Bajo&apos;, IF (Puntaje_categor_a__c &lt; 4, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
         <label>Nivel categoría</label>
         <required>false</required>
         <type>Text</type>

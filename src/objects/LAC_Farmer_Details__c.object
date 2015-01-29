@@ -374,7 +374,7 @@
         <relationshipName>LAC_Farmer_Details</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>true</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -508,6 +508,19 @@
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edad__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.Age__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Edad</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -1264,6 +1277,16 @@ Deprecated. Moved to HH</description>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>National_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>National ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>No_of_Farms__c</fullName>
         <description>The number of farms owned by the farmer</description>
         <externalId>false</externalId>
@@ -1790,6 +1813,24 @@ Deprecated. Moved to HH</description>
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Activo</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Strata__c</fullName>
         <externalId>false</externalId>
         <label>Strata</label>
@@ -1894,6 +1935,30 @@ Deprecated. Moved to HH</description>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>cooperativeProfile__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>cooperativeProfile</label>
+        <referenceTo>LAC_Cooperative__c</referenceTo>
+        <relationshipLabel>LAC_Farmer_Details_cooperative</relationshipLabel>
+        <relationshipName>LAC_Farmer_Details_cooperative</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>interviewer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>interviewer</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>LAC_Farmer_Details_interviewer</relationshipLabel>
+        <relationshipName>LAC_Farmer_Details_interviewer</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>manejo_sombra__c</fullName>
         <externalId>false</externalId>
         <label>manejo sombra</label>
@@ -1928,8 +1993,15 @@ Deprecated. Moved to HH</description>
         <fullName>All</fullName>
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
+        <columns>Registered_By__c</columns>
+        <columns>Latitude__c</columns>
+        <columns>Longitude__c</columns>
+        <columns>interviewer__c</columns>
         <columns>Contact__c</columns>
         <columns>CREATED_DATE</columns>
+        <columns>submision__c</columns>
+        <columns>Cell_Phone_Number__c</columns>
+        <columns>Farmer_Code__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>

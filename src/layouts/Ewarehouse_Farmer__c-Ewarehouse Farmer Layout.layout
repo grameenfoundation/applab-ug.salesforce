@@ -56,7 +56,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Sale_Status__c</field>
+                <field>Sale__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -156,6 +156,10 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>Sale_Farmer_Associations__c.Ewarehouse_Farmer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Loan__c.Ewarehouse_Farmer__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

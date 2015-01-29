@@ -14,7 +14,7 @@
         <relationshipLabel>Pedido asignado al productor</relationshipLabel>
     </fields>
     <fields>
-        <label>Unidad de presentación asignada</label>
+        <label>Unidad</label>
         <name>Assigned_Unit_of_Presentation__c</name>
     </fields>
     <fields>
@@ -46,6 +46,33 @@
         <label>Número de canastillas</label>
         <name>Number_of_baskets__c</name>
     </fields>
+    <fields>
+        <label><!-- Order Code --></label>
+        <name>Order_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Presentación --></label>
+        <name>Presentacion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Provider --></label>
+        <name>Provider__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
     <gender>Feminine</gender>
-    <nameFieldLabel>Asignación a los productores</nameFieldLabel>
+    <layouts>
+        <layout>Farmer Order Allocation Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- Farmer Order Allocation Number --></nameFieldLabel>
 </CustomObjectTranslation>

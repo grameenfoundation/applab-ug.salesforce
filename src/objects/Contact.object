@@ -68,9 +68,11 @@
         <actionName>ViewSelfService</actionName>
         <type>Default</type>
     </actionOverrides>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>AccountId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -228,6 +230,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -276,6 +279,7 @@
     </fields>
     <fields>
         <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -363,6 +367,7 @@
     </fields>
     <fields>
         <fullName>ReportsToId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -414,6 +419,74 @@
         <trackFeedHistory>false</trackFeedHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Result__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk Result</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Tags__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_OutofSync__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk_OutofSync</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_oldTags__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk_oldTags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__isCreatedUpdatedFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Used in trigger to prevent looping of after insert and update. This flag is used to stop the contact that came for creation to get updated again thereby preventing the loop</description>
+        <externalId>false</externalId>
+        <label>isCreatedUpdatedFlag</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__notes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__zendesk_id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk User Id</label>
+        <length>70</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gfsurveys__Age__c</fullName>

@@ -50,6 +50,42 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>Desp_Granos_enteros_y_limpios__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Granos enteros y limpios&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <label>Desp - Granos enteros y limpios</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Desp_Mal_estado_tira_grano_en_la_pulpa__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Mal estado tira grano en la pulpa&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <label>Desp - Mal estado tira grano en la pulpa</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Desp_Mal_estado_tira_pulpa_con_el_gran__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Mal estado tira pulpa con el grano&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <label>Desp - Mal estado tira pulpa con el gran</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Desp_granos_quebrados_o_mordidos__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Mal estado, granos quebrados o mordidos&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <label>Desp - granos quebrados o mordidos</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Latitude_wetmill__c</fullName>
         <externalId>false</externalId>
         <formula>Submission__r.gfsurveys__gps_y__c</formula>
@@ -81,6 +117,55 @@
         <relationshipName>CBL_WetMills</relationshipName>
         <required>false</required>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Wetmill_code_guat__c</fullName>
+        <externalId>false</externalId>
+        <label>Wetmill code guat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>B</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>D</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>E</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>F</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>G</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>H</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>J</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>baseUsedForStorage__c</fullName>
@@ -1322,7 +1407,7 @@
         <fullName>wetMillDistrict__c</fullName>
         <externalId>false</externalId>
         <label>wetMillDistrict</label>
-        <length>20</length>
+        <length>25</length>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>

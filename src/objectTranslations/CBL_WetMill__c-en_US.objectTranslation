@@ -14,6 +14,22 @@
         <relationshipLabel><!-- CBL_WetMills --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Desp - Granos enteros y limpios --></label>
+        <name>Desp_Granos_enteros_y_limpios__c</name>
+    </fields>
+    <fields>
+        <label><!-- Desp - Mal estado tira grano en la pulpa --></label>
+        <name>Desp_Mal_estado_tira_grano_en_la_pulpa__c</name>
+    </fields>
+    <fields>
+        <label><!-- Desp - Mal estado tira pulpa con el gran --></label>
+        <name>Desp_Mal_estado_tira_pulpa_con_el_gran__c</name>
+    </fields>
+    <fields>
+        <label><!-- Desp - granos quebrados o mordidos --></label>
+        <name>Desp_granos_quebrados_o_mordidos__c</name>
+    </fields>
+    <fields>
         <label><!-- Latitude_wetmill --></label>
         <name>Latitude_wetmill__c</name>
     </fields>
@@ -25,6 +41,50 @@
         <label><!-- Submission --></label>
         <name>Submission__c</name>
         <relationshipLabel><!-- CBL_WetMills --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Wetmill code guat --></label>
+        <name>Wetmill_code_guat__c</name>
+        <picklistValues>
+            <masterLabel>A</masterLabel>
+            <translation><!-- A --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>B</masterLabel>
+            <translation><!-- B --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>C</masterLabel>
+            <translation><!-- C --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>D</masterLabel>
+            <translation><!-- D --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>E</masterLabel>
+            <translation><!-- E --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>F</masterLabel>
+            <translation><!-- F --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>G</masterLabel>
+            <translation><!-- G --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>H</masterLabel>
+            <translation><!-- H --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>I</masterLabel>
+            <translation><!-- I --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>J</masterLabel>
+            <translation><!-- J --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- baseUsedForStorage --></label>
@@ -966,5 +1026,12 @@
         <label><!-- wetMillMunicipality --></label>
         <name>wetMillMunicipality__c</name>
     </fields>
+    <layouts>
+        <layout>CBL_WetMill Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

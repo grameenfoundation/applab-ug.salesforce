@@ -22,6 +22,14 @@
         <name>Financing_source_Family__c</name>
     </fields>
     <fields>
+        <label><!-- Financing source: MFI --></label>
+        <name>Financing_source_MFI__c</name>
+    </fields>
+    <fields>
+        <label><!-- Financing source: Middle man --></label>
+        <name>Financing_source_Middlemen__c</name>
+    </fields>
+    <fields>
         <label><!-- Financing source: coop --></label>
         <name>Financing_source_coop__c</name>
     </fields>
@@ -304,6 +312,34 @@
     <fields>
         <label><!-- debtsFinancingSource --></label>
         <name>debtsFinancingSource__c</name>
+        <picklistValues>
+            <masterLabel>Banco</masterLabel>
+            <translation><!-- Banco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cooperativa de productores</masterLabel>
+            <translation><!-- Cooperativa de productores --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Crédito familiar</masterLabel>
+            <translation><!-- Crédito familiar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Intermediario (comprador)</masterLabel>
+            <translation><!-- Intermediario (comprador) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Microfinanciera</masterLabel>
+            <translation><!-- Microfinanciera --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prestamista</masterLabel>
+            <translation><!-- Prestamista --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- debtsFinancingSource_contr --></label>
+        <name>debtsFinancingSource_contr__c</name>
         <picklistValues>
             <masterLabel>Banco</masterLabel>
             <translation><!-- Banco --></translation>
@@ -969,5 +1005,12 @@
             <translation><!-- En las habitaciones o dormitorios --></translation>
         </picklistValues>
     </fields>
+    <layouts>
+        <layout>CBL_SocioEconomic Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -5,10 +5,6 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -21,19 +17,11 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -44,15 +32,11 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
+    <enableReports>true</enableReports>
     <fields>
         <fullName>CKW__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -62,7 +46,6 @@
         <relationshipLabel>LAC_Coffee_CKWs_CKW</relationshipLabel>
         <relationshipName>LAC_Coffee_CKWs_CKW</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -74,7 +57,6 @@
         <relationshipName>LAC_Coffee_CKWs_LFD</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -85,7 +67,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Status</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -98,7 +79,6 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -109,7 +89,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>birthDate</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -119,7 +98,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>cKWPerformance</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -130,7 +108,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>cellPhoneNumber</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -141,7 +118,6 @@
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -152,7 +128,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>community</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -165,7 +140,6 @@
         <relationshipLabel>LAC_Coffee_CKWs_Contact</relationshipLabel>
         <relationshipName>LAC_Coffee_CKWs_Contact</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -175,7 +149,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>cooperative</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -186,7 +159,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>country</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -197,7 +169,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>dateEnrollmentAsCKW</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -207,7 +178,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>dateOfEnrollment</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -217,7 +187,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>department</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -228,7 +197,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>farmerCode</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -239,7 +207,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>firstName</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -250,7 +217,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -261,7 +227,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>hasCellPhone</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -272,7 +237,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>hasDataPlan</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -283,7 +247,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>lastName</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -294,7 +257,6 @@
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -305,7 +267,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>municipality</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -316,7 +277,6 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>nationalId</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -327,16 +287,10 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>photo</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <label>LAC_Coffee_CKW</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
     <nameField>
         <label>LAC_Coffee_CKW Name</label>
         <type>Text</type>

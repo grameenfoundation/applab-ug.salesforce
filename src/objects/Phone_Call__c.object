@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Represents an individual phone call from the call centre</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Call_Duration__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Call duration in seconds</description>
+        <externalId>false</externalId>
+        <label>Call Duration</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Caller__c</fullName>
+        <externalId>false</externalId>
+        <label>Caller</label>
+        <length>13</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <label>Phone Call</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Date__c</columns>
+        <columns>Call_Duration__c</columns>
+        <columns>Caller__c</columns>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>{YYYY}{MM}{DD}-{0}</displayFormat>
+        <label>Phone Call Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Phone Calls</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -1,12 +1,12 @@
 <apex:page standardController="LAC_Farmer_Details__c">
-<apex:pageBlock >
-<apex:outputPanel >
+<!--apex:pageBlock rendered="{!LAC_Farmer_Details__c.Latitude__c !=null}"-->
+<apex:outputPanel rendered="{!LAC_Farmer_Details__c.Latitude__c !=null}">
     <!--apex:pageBlockSection title="Farmer Location" columns="1"-->
       <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
       <div id="map" style="width: 400px; height: 400px; margin-left:100px;"></div>
       <script type="text/javascript">
         var locations = [
-            [{!Lac_Farmer_Details__c.Farmer_code__c}, {!Lac_Farmer_Details__c.Latitude__c},{!Lac_Farmer_Details__c.Longitude__c}]
+            [{!Lac_Farmer_Details__c.Latitude__c},{!Lac_Farmer_Details__c.Longitude__c}]
         ];                
         var iconURLPrefix = 'https://maps.google.com/mapfiles/ms/icons/';
         
@@ -39,7 +39,7 @@
         // Add the markers and infowindows to the map
         for (var i = 0; i < locations.length; i++) {      
           marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            position: new google.maps.LatLng(locations[i][0], locations[i][1]),
             map: map,
             icon: icon,
             shadow: shadow
@@ -70,6 +70,6 @@
       </script> 
     <!--/apex:pageBlockSection-->
 </apex:outputPanel>
-</apex:pageBlock>
+<!-- /apex:pageBlock-->
 
 </apex:page>

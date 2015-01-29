@@ -66,6 +66,10 @@
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- Foto --></label>
+        <name>Foto__c</name>
+    </fields>
+    <fields>
         <label><!-- Gender --></label>
         <name>Gender__c</name>
         <picklistValues>
@@ -84,6 +88,11 @@
     <fields>
         <label><!-- Middle Name --></label>
         <name>Middle_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile User --></label>
+        <name>Mobile_User__c</name>
+        <relationshipLabel><!-- Mana Technicians_MU --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- Municipality 1 --></label>
@@ -126,6 +135,10 @@
         <name>Personal_Phone_Number__c</name>
     </fields>
     <fields>
+        <label><!-- Photo --></label>
+        <name>Photo__c</name>
+    </fields>
+    <fields>
         <label><!-- Project Phone Number --></label>
         <name>Project_Phone_Number__c</name>
     </fields>
@@ -145,5 +158,16 @@
         <label><!-- Start Date --></label>
         <name>Start_Date__c</name>
     </fields>
+    <layouts>
+        <layout>Mana Technician Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Mapa de acción técnico --></label>
+            <section>Mapa de acción técnico</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

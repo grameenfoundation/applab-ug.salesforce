@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Demo_Field__c</fullName>
+        <externalId>false</externalId>
+        <label>Demo Field</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Filling the spaces with well decomposed manure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leave half of the corm attached to the banana plant with a bunch</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cut the stem into short pieces and split them</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cut the stem at ground level and stump covered with soil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fertilizer or manure available but not when needed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fruits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>Multi Picklist Demo</label>
+    <nameField>
+        <displayFormat>MPDN{000}</displayFormat>
+        <label>Multi Picklist Demo Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Multi Picklist Demos</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

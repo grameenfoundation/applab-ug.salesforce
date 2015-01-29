@@ -48,6 +48,10 @@
                 <field>Miembros_del_hogar__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Miembros_del_hogar_Correcto__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Sisben_Score__c</field>
             </layoutItems>
@@ -62,6 +66,42 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Registration_Submission_Record__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>sisben_nivel_1_y_2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Usa_quimicos__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>District_Correct__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Municipality_Correct__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Region_Correct__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Count_Children_With_Duplicate_Ids__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Fase_de_la_Huerta_Cosecha__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Photo__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Foto__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -165,19 +205,23 @@
         <fields>Contact.CNTC_FIRST_NAME</fields>
         <fields>Contact.NAME</fields>
         <fields>Contact.gfsurveys__Age__c</fields>
+        <fields>Gender__c</fields>
         <relatedList>Mana_Beneficiary__c.Household__c</relatedList>
         <sortField>NAME</sortField>
         <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
-        <fields>NAME</fields>
-        <fields>OBJECT_ID</fields>
+        <fields>Nacional__c</fields>
+        <fields>X150_Nacional__c</fields>
+        <fields>X200_Nacional__c</fields>
+        <fields>Nacional_Indigencia__c</fields>
+        <fields>X1_25__c</fields>
+        <fields>X2_50__c</fields>
+        <fields>X3_75__c</fields>
+        <fields>X5_00__c</fields>
+        <fields>Extrema_USAID__c</fields>
         <fields>Score__c</fields>
-        <fields>CREATED_DATE</fields>
-        <fields>CREATEDBY_USER</fields>
         <relatedList>Mana_Household_PPI_Score__c.Household__c</relatedList>
-        <sortField>CREATED_DATE</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

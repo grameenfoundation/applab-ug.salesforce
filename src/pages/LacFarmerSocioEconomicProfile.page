@@ -1,0 +1,34 @@
+<apex:page tabStyle="LAC_Farmer_Details__c" standardController="LAC_Farmer_Details__c" extensions="LacFarmerProfilePageController" language="{!PageLanguage}">
+
+    <apex:pageBlock >
+
+        <apex:pageBlockSection title="{!$Label.LAC_Household}" columns="1" collapsible="false">
+            <apex:outputField value="{!SocioEconomic.personsInHousehold__c}"/>
+            <apex:outputField value="{!SocioEconomic.homeOwnerShip__c}"/>
+            <apex:outputField value="{!SocioEconomic.waterSupply__c}"/>
+            <apex:outputField value="{!SocioEconomic.sewageDisposalSystem__c}"/>
+            <apex:outputField value="{!SocioEconomic.electricEnergy__c}"/>
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="{!$Label.Education}" columns="1" collapsible="false">
+            <apex:outputField value="{!SocioEconomic.knowsHowToReadWrite__c}"/>
+            <apex:outputField value="{!SocioEconomic.schoolingYears__c}"/>
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="{!$Label.Income}" columns="1" collapsible="false">
+            <apex:outputField value="{!SocioEconomic.householdIncomeSources__c}"/>
+            <apex:outputField value="{!SocioEconomic.percentageOfIncomeCoffee__c}"/>
+            <apex:outputField value="{!SocioEconomic.otherAgriculturalActivities__c}"/>
+        </apex:pageblockSection>
+
+        <apex:pageBlockSection title="{!$Label.Access_to_financial_services}" columns="1" collapsible="false">
+            <apex:outputField value="{!SocioEconomic.savingsWay__c}"/>
+            <apex:outputField value="{!SocioEconomic.bankAccount__c}"/>
+            <apex:outputField value="{!SocioEconomic.debts__c}"/>
+            <apex:outputField value="{!SocioEconomic.debtsFinancingSource__c}"/>
+            <apex:outputField value="{!SocioEconomic.creditDestination__c}"/>
+        </apex:pageBlockSection>
+    
+    </apex:pageBlock>
+
+</apex:page>

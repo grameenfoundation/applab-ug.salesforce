@@ -71,6 +71,18 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Contar__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contar</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Expected_Delivery_Date__c</fullName>
         <defaultValue>TODAY() + 2</defaultValue>
         <externalId>false</externalId>
@@ -183,6 +195,18 @@
                 <fullName>Vitafilado</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Kilos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banda</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solo hoja</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
@@ -277,87 +301,63 @@
         <label>Unit of Presentation</label>
         <picklist>
             <picklistValues>
-                <fullName>250 Gr.</fullName>
+                <fullName>100 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>400 Gr.</fullName>
+                <fullName>125 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>500 Gr.</fullName>
+                <fullName>200 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>5 al día</fullName>
+                <fullName>250 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>a $2000</fullName>
+                <fullName>300 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Desgranada</fullName>
+                <fullName>400 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Desgranada a Granel</fullName>
+                <fullName>450 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Desgranada x 250 Gr.</fullName>
+                <fullName>500 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Ekono</fullName>
+                <fullName>600 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Gr.</fullName>
+                <fullName>700 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>800 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1000 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1200 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3000 gr</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Granel</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Granel económica/Kg.</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Granel/Kg.</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Kg.</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Paquete</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Solo a mil</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Todo a $2000 x 1000g</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Todo a $2000 x 1200g</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Todo a $2000 x 800g</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Und.</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Und/220Gr.</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>

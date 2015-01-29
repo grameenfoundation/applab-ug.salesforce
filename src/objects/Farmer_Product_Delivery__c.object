@@ -106,7 +106,7 @@
         <description>Farmer Code if the farmer is being tracked due to historical rejections</description>
         <externalId>false</externalId>
         <label>Farmer Code</label>
-        <length>10</length>
+        <length>18</length>
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
@@ -234,6 +234,24 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>TypeOfDelivery__c</fullName>
+        <description>Marks whether and delivery was equal to the initial order</description>
+        <externalId>false</externalId>
+        <label>Type of delivery</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Entrega DIFERENTE a asignación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Entrega IGUAL a asignación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Unit_of_Presentation__c</fullName>
         <externalId>false</externalId>
         <label>Unit of Presentation</label>
@@ -320,28 +338,6 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Und/220Gr.</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>typeOfDelivery__c</fullName>
-        <description>Marks whether and delivery was equal to the initial order</description>
-        <externalId>false</externalId>
-        <label>Type of delivery</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Entrega IGUAL a asignación</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Entrega DIFERENTE a asignación</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Proveedor</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>

@@ -42,9 +42,8 @@ public class AlsurOrderAssignment {
                                         from 
                                             CPA_Order__c
                                         where
-                                            Expected_Delivery_Date__c = LAST_N_DAYS:5
-                                        and 
-                                            Unallocated_Units_of_Presentation__c > 0];
+                                            Unallocated_Units_of_Presentation__c > 0
+                                        limit 150];
 
         orderObjects.putAll(orders);
         System.debug(orderObjects.size());

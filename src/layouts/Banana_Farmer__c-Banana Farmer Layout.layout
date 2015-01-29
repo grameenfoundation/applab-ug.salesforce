@@ -30,8 +30,61 @@
                 <behavior>Readonly</behavior>
                 <field>GPS_Longitude__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Amount_in_UGX_spent_in_herbicides__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Amount_in_UGX_spent_on_banana_fertilizer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Can_easily_detect_pest_disease_attacks__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Secondary_Submission__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Updated_GPS_Latitude__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Updated_GPS_Longitude__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Focus_Farmer_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Person_ID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Geolocation__c</field>
+            </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Does_Value_Addition_on_Bananas__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Value_addition__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Do_you_practise_any_on_your_bananas__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>agro_inputs_access__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
@@ -54,14 +107,20 @@
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
-        <customLabel>false</customLabel>
+        <customLabel>true</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>true</editHeading>
+        <label>Custom Links</label>
         <layoutColumns/>
         <layoutColumns/>
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Top_5_Preferred_GAPs_for_Support__c</fields>
+        <relatedList>Banana_Farmer_GAPs_Selection__c.Banana_Farmer__c</relatedList>
+    </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHO_NAME</fields>

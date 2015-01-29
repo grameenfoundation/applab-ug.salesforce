@@ -6,6 +6,10 @@
         <name>Case_Count__c</name>
     </fields>
     <fields>
+        <label><!-- Case Resolution Time --></label>
+        <name>Case_Resolution_Time__c</name>
+    </fields>
+    <fields>
         <help>Porfavor seleccione una categoria para los proveedores</help>
         <label>Categoria</label>
         <name>Category__c</name>
@@ -109,6 +113,11 @@
             <masterLabel>Tests</masterLabel>
             <translation><!-- Tests --></translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Merge To Case --></label>
+        <name>FbD_CM__Merge_To_Case__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
     </fields>
     <fields>
         <name>Origin</name>
@@ -248,6 +257,48 @@
             <translation>Prueba</translation>
         </picklistValues>
     </fields>
+    <fields>
+        <label><!-- Created At --></label>
+        <name>Zendesk__Created_At__c</name>
+    </fields>
+    <fields>
+        <label><!-- Initially Assigned At --></label>
+        <name>Zendesk__Initially_Assigned_At__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolution Time --></label>
+        <name>Zendesk__Resolution_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Solved At --></label>
+        <name>Zendesk__Solved_At__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated At --></label>
+        <name>Zendesk__Updated_At__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zendesk Ticket ID --></label>
+        <name>Zendesk__Zendesk_Ticket_ID__c</name>
+    </fields>
+    <layouts>
+        <layout>Case Layout</layout>
+        <sections>
+            <label><!-- Jira Issue Section --></label>
+            <section>Jira Issue Section</section>
+        </sections>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Self Serve Case Layout</layout>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+    </layouts>
     <recordTypes>
         <label>MoTeCH caso de asistencia</label>
         <name>MoTeCH_Support_Case</name>
@@ -263,6 +314,14 @@
     <webLinks>
         <label>Crear asunto JIRA</label>
         <name>Create_JIRA_Issue</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Merge_Case --></label>
+        <name>FbD_CM__Merge_Case</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Merge_Cases --></label>
+        <name>FbD_CM__Merge_Cases</name>
     </webLinks>
     <webLinks>
         <label>Edicion masiva</label>

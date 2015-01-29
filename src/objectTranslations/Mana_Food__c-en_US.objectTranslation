@@ -12,29 +12,37 @@
         <label><!-- Category --></label>
         <name>Category__c</name>
         <picklistValues>
-            <masterLabel>Cereals</masterLabel>
-            <translation><!-- Cereals --></translation>
+            <masterLabel>Carne y Huevos</masterLabel>
+            <translation><!-- Carne y Huevos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cereales</masterLabel>
+            <translation><!-- Cereales --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Dairy</masterLabel>
             <translation><!-- Dairy --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Fruits</masterLabel>
-            <translation><!-- Fruits --></translation>
+            <masterLabel>Frutas</masterLabel>
+            <translation><!-- Frutas --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Legumes</masterLabel>
-            <translation><!-- Legumes --></translation>
+            <masterLabel>Legumbres</masterLabel>
+            <translation><!-- Legumbres --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Meat And Eggs</masterLabel>
-            <translation><!-- Meat And Eggs --></translation>
+            <masterLabel>Vegetales</masterLabel>
+            <translation><!-- Vegetales --></translation>
         </picklistValues>
-        <picklistValues>
-            <masterLabel>Vegetables</masterLabel>
-            <translation><!-- Vegetables --></translation>
-        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Number of Consumption Records --></label>
+        <name>Number_of_Consumption_Records__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Quantity Codes --></label>
+        <name>Number_of_Quantity_Codes__c</name>
     </fields>
     <fields>
         <label><!-- Units --></label>
@@ -42,6 +50,10 @@
         <picklistValues>
             <masterLabel>Grams</masterLabel>
             <translation><!-- Grams --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Kilograms</masterLabel>
+            <translation><!-- Kilograms --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Liters</masterLabel>
@@ -60,5 +72,12 @@
             <translation><!-- Units --></translation>
         </picklistValues>
     </fields>
+    <layouts>
+        <layout>Mana Food Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

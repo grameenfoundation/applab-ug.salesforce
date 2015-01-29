@@ -5,10 +5,6 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -21,19 +17,11 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -44,15 +32,11 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>LAC_SFL_Scores_Farm__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -62,7 +46,6 @@
         <relationshipLabel>LAC_SFL_Scores_Farm</relationshipLabel>
         <relationshipName>LAC_SFL_Scores_Farm</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -74,7 +57,6 @@
         <relationshipName>LAC_SFL_Scores_Farmer</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -106,7 +88,6 @@ IF(LAC_SFL_Scores_Farmer__r.totalFarmArea__c &lt;= 21, 4, 3
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -126,7 +107,6 @@ IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c &lt; 100.0, 4, 2)
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -151,7 +131,6 @@ IF(INCLUDES(LAC_SFL_Scores_Farm__r.organicFertilizersLastYr__c, &quot;Otros&quot
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -172,7 +151,6 @@ IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c &lt; 100, 8, 10
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -193,7 +171,6 @@ IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c &lt; 100, 1, 0
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -214,7 +191,6 @@ IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c &lt; 100, 8, 10
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -231,7 +207,6 @@ IF(TEXT(LAC_SFL_Scores_Farm__r.promotesFloraAndFaunaPreservation__c) = &apos;Se 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -245,7 +220,6 @@ IF(TEXT(LAC_SFL_Scores_Farm__r.promotesFloraAndFaunaPreservation__c) = &apos;Se 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -259,7 +233,6 @@ IF(TEXT(LAC_SFL_Scores_Farm__r.promotesFloraAndFaunaPreservation__c) = &apos;Se 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -279,7 +252,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoDoesntStudy__c) = &apos;Quienes deber
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -296,7 +268,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -310,7 +281,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -324,7 +294,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -341,7 +310,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -355,7 +323,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -373,7 +340,6 @@ IF(LAC_SFL_Scores_Farmer__r.productivity__c &lt; 5500, 8, 10
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -406,7 +372,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_creditServiceScoring__c) = &apos;Malo&a
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -417,7 +382,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_creditServiceScoring__c) = &apos;Malo&a
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -436,7 +400,6 @@ IF(((LAC_SFL_Scores_Farm__r.Organic_fertilized_area_Ha__c / LAC_SFL_Scores_Farm_
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -473,7 +436,6 @@ IF(INCLUDES(LAC_SFL_Scores_Farmer__r.service_meetingsParticipation__c, &quot;Par
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -487,7 +449,6 @@ IF(INCLUDES(LAC_SFL_Scores_Farmer__r.service_meetingsParticipation__c, &quot;Par
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -504,7 +465,6 @@ IF(INCLUDES(LAC_SFL_Scores_Farmer__r.commer_enoughInformation__c, &quot;Fuentes 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -525,7 +485,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_mechanismsComplaints__c) = &apos;No&apo
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -543,7 +502,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_mechanismsComplaints__c) = &apos;No&apo
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -555,7 +513,6 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_mechanismsComplaints__c) = &apos;No&apo
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -591,7 +548,6 @@ Coffee value is getting from www.federaciondecafeteros.org (125 kgs/COP)
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -605,7 +561,6 @@ Coffee value is getting from www.federaciondecafeteros.org (125 kgs/COP)
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -619,7 +574,6 @@ Coffee value is getting from www.federaciondecafeteros.org (125 kgs/COP)
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -639,7 +593,6 @@ Coffee value is getting from www.federaciondecafeteros.org (125 kgs/COP)
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>

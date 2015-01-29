@@ -65,6 +65,50 @@
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- Backyard Garden Type --></label>
+        <name>Backyard_Garden_Type__c</name>
+        <picklistValues>
+            <masterLabel>Activa</masterLabel>
+            <translation><!-- Activa --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactiva</masterLabel>
+            <translation><!-- Inactiva --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Estado entrega aves --></label>
+        <name>Estado_entrega_aves__c</name>
+        <picklistValues>
+            <masterLabel>Completo y en buen estado</masterLabel>
+            <translation><!-- Completo y en buen estado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incompleto</masterLabel>
+            <translation><!-- Incompleto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mal estado</masterLabel>
+            <translation><!-- Mal estado --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Estado entrega insumos --></label>
+        <name>Estado_entrega_insumos__c</name>
+        <picklistValues>
+            <masterLabel>Completo y en buen estado</masterLabel>
+            <translation><!-- Completo y en buen estado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incompleto</masterLabel>
+            <translation><!-- Incompleto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mal estado</masterLabel>
+            <translation><!-- Mal estado --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- FS_10 --></label>
         <name>FS_10__c</name>
         <picklistValues>
@@ -294,6 +338,10 @@
         <relationshipLabel><!-- Repeatable Data --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Is this the last date? --></label>
+        <name>Is_this_the_last_date__c</name>
+    </fields>
+    <fields>
         <label><!-- Nombre del taller --></label>
         <name>Nombre_del_taller__c</name>
         <picklistValues>
@@ -370,8 +418,431 @@
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- Tipo de entrega (productos) --></label>
+        <name>Tipo_de_entrega_productos__c</name>
+        <picklistValues>
+            <masterLabel>Aves</masterLabel>
+            <translation><!-- Aves --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Insumos</masterLabel>
+            <translation><!-- Insumos --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Uso de Biopreparados --></label>
+        <name>Uso_de_Biopreparados__c</name>
+    </fields>
+    <fields>
+        <label><!-- Uso de Quimicos --></label>
+        <name>Uso_de_Quimicos__c</name>
+    </fields>
+    <fields>
         <label><!-- Weekly Food Spend --></label>
         <name>Weekly_Food_Spend__c</name>
     </fields>
+    <fields>
+        <label><!-- allows SMS --></label>
+        <name>allows_SMS__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- applies food conservation methods --></label>
+        <name>applies_food_conservation_methods__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- backyard garden area --></label>
+        <name>backyard_garden_area__c</name>
+    </fields>
+    <fields>
+        <label><!-- conservation aired --></label>
+        <name>conservation_aired__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- conservation cooling --></label>
+        <name>conservation_cooling__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- conservation freezing --></label>
+        <name>conservation_freezing__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- conservation others --></label>
+        <name>conservation_others__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- conservation preserved --></label>
+        <name>conservation_preserved__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- conservation salty --></label>
+        <name>conservation_salty__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- diarrhea in under 5 year children --></label>
+        <name>diarrhea_in_under_5_year_children__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- excretion waste system --></label>
+        <name>excretion_waste_system__c</name>
+        <picklistValues>
+            <masterLabel>Campo abierto</masterLabel>
+            <translation><!-- Campo abierto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Letrinas</masterLabel>
+            <translation><!-- Letrinas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unidad sanitaria</masterLabel>
+            <translation><!-- Unidad sanitaria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unisafa</masterLabel>
+            <translation><!-- Unisafa --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- family income --></label>
+        <name>family_income__c</name>
+        <picklistValues>
+            <masterLabel>1 SMLV</masterLabel>
+            <translation><!-- 1 SMLV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Menos de 1 SMLV</masterLabel>
+            <translation><!-- Menos de 1 SMLV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Más de 1 SMLV</masterLabel>
+            <translation><!-- Más de 1 SMLV --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- has mobile phone --></label>
+        <name>has_mobile_phone__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- knows how to sign --></label>
+        <name>knows_how_to_sign__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- method for food preparation --></label>
+        <name>method_for_food_preparation__c</name>
+        <picklistValues>
+            <masterLabel>Carbón de leña</masterLabel>
+            <translation><!-- Carbón de leña --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Carbón mineral</masterLabel>
+            <translation><!-- Carbón mineral --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Electricidad</masterLabel>
+            <translation><!-- Electricidad --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gas</masterLabel>
+            <translation><!-- Gas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gasolina</masterLabel>
+            <translation><!-- Gasolina --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Leña</masterLabel>
+            <translation><!-- Leña --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Petróleo</masterLabel>
+            <translation><!-- Petróleo --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- mobile phone --></label>
+        <name>mobile_phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- name of interviewee --></label>
+        <name>name_of_interviewee__c</name>
+    </fields>
+    <fields>
+        <label><!-- place of survey --></label>
+        <name>place_of_survey__c</name>
+        <picklistValues>
+            <masterLabel>Otro lugar</masterLabel>
+            <translation><!-- Otro lugar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Residencia de la familia</masterLabel>
+            <translation><!-- Residencia de la familia --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- preparation method fruits vegetables --></label>
+        <name>preparation_method_fruits_vegetables__c</name>
+        <picklistValues>
+            <masterLabel>Asado</masterLabel>
+            <translation><!-- Asado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cocido</masterLabel>
+            <translation><!-- Cocido --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Crudo</masterLabel>
+            <translation><!-- Crudo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fritura</masterLabel>
+            <translation><!-- Fritura --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Horneado</masterLabel>
+            <translation><!-- Horneado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation><!-- Otro --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Salteado</masterLabel>
+            <translation><!-- Salteado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vapor</masterLabel>
+            <translation><!-- Vapor --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- seeds source --></label>
+        <name>seeds_source__c</name>
+        <picklistValues>
+            <masterLabel>Compra</masterLabel>
+            <translation><!-- Compra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Entrega en programas de huertas</masterLabel>
+            <translation><!-- Entrega en programas de huertas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otra</masterLabel>
+            <translation><!-- Otra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Produce</masterLabel>
+            <translation><!-- Produce --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trueque</masterLabel>
+            <translation><!-- Trueque --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- sewage system --></label>
+        <name>sewage_system__c</name>
+        <picklistValues>
+            <masterLabel>A campo abierto</masterLabel>
+            <translation><!-- A campo abierto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alcantarillado</masterLabel>
+            <translation><!-- Alcantarillado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pozo séptico</masterLabel>
+            <translation><!-- Pozo séptico --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sumidero</masterLabel>
+            <translation><!-- Sumidero --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- social groups --></label>
+        <name>social_groups__c</name>
+        <picklistValues>
+            <masterLabel>Asociación</masterLabel>
+            <translation><!-- Asociación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cooperativa</masterLabel>
+            <translation><!-- Cooperativa --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Corporación</masterLabel>
+            <translation><!-- Corporación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Empresa comunitaria</masterLabel>
+            <translation><!-- Empresa comunitaria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fundación</masterLabel>
+            <translation><!-- Fundación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Junta de acción comunal</masterLabel>
+            <translation><!-- Junta de acción comunal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ninguna</masterLabel>
+            <translation><!-- Ninguna --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-cooperativa</masterLabel>
+            <translation><!-- Pre-cooperativa --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- source of wather --></label>
+        <name>source_of_wather__c</name>
+        <picklistValues>
+            <masterLabel>Acueducto con tratamiento</masterLabel>
+            <translation><!-- Acueducto con tratamiento --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Acueducto sin tratamiento</masterLabel>
+            <translation><!-- Acueducto sin tratamiento --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aguas lluvias</masterLabel>
+            <translation><!-- Aguas lluvias --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nacimiento</masterLabel>
+            <translation><!-- Nacimiento --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otra</masterLabel>
+            <translation><!-- Otra --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- wather treatment --></label>
+        <name>wather_treatment__c</name>
+        <picklistValues>
+            <masterLabel>Aplican cloro</masterLabel>
+            <translation><!-- Aplican cloro --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compran agua embotellada o en bolsa</masterLabel>
+            <translation><!-- Compran agua embotellada o en bolsa --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La decantan o utilizan filtros naturales</masterLabel>
+            <translation><!-- La decantan o utilizan filtros naturales --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La exponen a la luz solar</masterLabel>
+            <translation><!-- La exponen a la luz solar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La hierven</masterLabel>
+            <translation><!-- La hierven --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No hace tratamiento</masterLabel>
+            <translation><!-- No hace tratamiento --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Utilizan filtros</masterLabel>
+            <translation><!-- Utilizan filtros --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Mana Household Repeatable Data Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

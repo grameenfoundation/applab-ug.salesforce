@@ -1,0 +1,12 @@
+<apex:page standardcontroller="LAC_Coffee_CKW__c"  extensions="LACCoffeeCKWFarmers" sidebar="false" language="es">
+<apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockSection title="Productores">
+        <apex:pageBlockTable value="{!farmers}" var="fmrs">
+          <apex:column headerValue="ID" value="{!fmrs.Name}"/>
+          <apex:column headerValue="Nombre" value="{!fmrs.Contact__r.Contact_Full_Name__c}"/>
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

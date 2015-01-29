@@ -172,6 +172,42 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>Sugarcane</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sweetpotatoes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cabbages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Avocado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mongoes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pigeon Peas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pumpkin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soya</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Other</fullName>
                 <default>false</default>
             </picklistValues>
@@ -184,6 +220,16 @@
         <trackHistory>true</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>GPS_Location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>GPS Location</label>
+        <required>false</required>
+        <scale>7</scale>
+        <trackHistory>false</trackHistory>
+        <type>Location</type>
     </fields>
     <fields>
         <fullName>Had_Credit_Access__c</fullName>
@@ -278,11 +324,33 @@
                 <fullName>Rabbits</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Fish</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bees</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Guinea Fowl</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>true</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Mobile_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Mobile_Number__c</formula>
+        <label>Mobile Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Performance_Date__c</fullName>

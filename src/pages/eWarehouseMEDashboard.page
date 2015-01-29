@@ -83,27 +83,25 @@
     }
     </style>
     <apex:pageBlock title="M & E Dashboard" id="General">
-        <apex:pageBlockSection title="Harvest locations and farmer size" columns="2">
+        <apex:pageBlockSection title="Harvest locations and Payment Processing Statistics" columns="2">
             <iframe title="Click to enlarge" src="{!$Page.MetricMap}?mapObject=HARVEST&zoom=6&startLat=-0.17&startLng=37.20&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="450px" height="350px" onload="injectOnclickJs(this, 'HARVEST', null);" scrolling="no" style="border:1px solid #A8B8CF;"/>
-            <apex:pageBlockSectionItem >
-                <apex:chart height="350" width="450" id="FarmSize" data="{!FarmersByAcre}">
-                    <label class="graph-caption" for="FarmSize">Farm size of farmers</label>
-                    <apex:pieSeries dataField="count" labelField="name">
-                        <apex:chartLabel field="count2"/>
-                    </apex:pieSeries>
-                    <apex:legend position="right"/>
-                </apex:chart>
-            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockTable value="{!paymentProcessingData}" var="item">
+                <apex:facet name="caption">Payment Processing statistics as of September 30, 2014</apex:facet>
+                <apex:column value="{!item.name}" headerValue="Description" width="200px"/>
+                <apex:column width="70px" value="{!item.count}" headerValue="Value"/>
+            </apex:pageBlockTable>
+            
         </apex:pageBlockSection>
     
         <apex:pageBlockSection title="General information" columns="2">
             <apex:pageBlockTable value="{!impactData}" var="item">
-                <apex:facet name="caption">General statistics</apex:facet>
+                <apex:facet name="caption">General statistics as of March 31, 2014</apex:facet>
                 <apex:column value="{!item.name}" headerValue="Description" width="200px"/>
                 <apex:column width="70px" value="{!item.count}" headerValue="Value"/>
             </apex:pageBlockTable>
             <apex:pageBlockTable value="{!FciInformation}" var="item">
-                <apex:facet name="caption">FCI Information</apex:facet>
+                <apex:facet name="caption">FCI Information as of March 31, 2014</apex:facet>
                 <apex:column value="{!item.name}" headerValue="Description" width="200px"/>
                 <apex:column width="70px" value="{!item.count}" headerValue="Value"/>
             </apex:pageBlockTable>
@@ -115,7 +113,7 @@
                 <apex:chart id="FarmersByCrop" height="350" width="700" data="{!GrainCollected}">
                     <apex:legend position="right"/>
                     <apex:axis type="Category" position="bottom" fields="name" title="Crops by type"/>
-                    <apex:axis type="Numeric" minimum="0" position="left" fields="count,count2" title="Volume in tons"/>
+                    <apex:axis type="Numeric" minimum="0" steps="8" maximum="300" position="left" fields="count,count2" title="Volume in tons"/>
                     <apex:barSeries title="Collected/stored,Sold" orientation="vertical" axis="left" yField="count,count2" xField="name"/>
                 </apex:chart>
  
@@ -131,19 +129,24 @@
 
         </apex:pageBlockSection>
            
-        <apex:pageBlockSection title="Farmers per storage location and material" columns="2">
+        <apex:pageBlockSection title="Farmers per storage location and Farmer Farm Size (Based on total farmers registered)" columns="2">            
             <apex:pageBlockSectionItem >
-                <apex:chart height="350" width="450" data="{!FarmersByStorageLocation}">
-                    <apex:axis type="Category" position="bottom" fields="name" title="Storage location"/>
-                    <apex:axis type="Numeric" position="left" fields="count" minimum="0" title="No of farmers"/>
-                    <apex:barSeries orientation="vertical" axis="bottom" yField="count" xField="name"/>
+                <apex:chart height="350" width="480" id="StorageLocation" data="{!FarmersByStorageLocation}">
+                    <label class="graph-caption" for="StorageLocation">Storage Location</label>
+                    <apex:pieSeries dataField="count" labelField="name">
+                        <apex:chartLabel field="count2"/>
+                    </apex:pieSeries>
+                    <apex:legend position="right"/>
                 </apex:chart>
             </apex:pageBlockSectionItem>
+            
             <apex:pageBlockSectionItem >
-                <apex:chart height="350" width="450" data="{!FarmersByStorageMaterial}">
-                    <apex:axis type="Category" position="bottom" fields="name" title="Storage material"/>
-                    <apex:axis type="Numeric" position="left" fields="count" minimum="0" title="No of farmers"/>
-                    <apex:barSeries orientation="vertical" axis="bottom" yField="count" xField="name"/>
+                <apex:chart height="350" width="480" id="FarmSize" data="{!FarmersByAcre}">
+                    <label class="graph-caption" for="FarmSize">Farm size of farmers</label>
+                    <apex:pieSeries dataField="count" labelField="name">
+                        <apex:chartLabel field="count2"/>
+                    </apex:pieSeries>
+                    <apex:legend position="right"/>
                 </apex:chart>
             </apex:pageBlockSectionItem>
         </apex:pageBlockSection>

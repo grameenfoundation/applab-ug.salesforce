@@ -42,6 +42,18 @@
         <relationshipLabel><!-- Farmer Product Deliveries --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Is Delivery On Time --></label>
+        <name>Is_Delivery_On_Time__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sí</masterLabel>
+            <translation><!-- Sí --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Number of Baskets --></label>
         <name>Number_of_Baskets__c</name>
     </fields>
@@ -54,8 +66,64 @@
         <name>Number_of_Units_of_Presentation__c</name>
     </fields>
     <fields>
+        <label><!-- Order Code --></label>
+        <name>Order_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Presentación --></label>
+        <name>Presentacion__c</name>
+        <picklistValues>
+            <masterLabel>5 al día</masterLabel>
+            <translation><!-- 5 al día --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bandeja</masterLabel>
+            <translation><!-- Bandeja --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bolsa transparente</masterLabel>
+            <translation><!-- Bolsa transparente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ekono</masterLabel>
+            <translation><!-- Ekono --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Malla</masterLabel>
+            <translation><!-- Malla --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Por paquete</masterLabel>
+            <translation><!-- Por paquete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Solo a mil</masterLabel>
+            <translation><!-- Solo a mil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Todo a 2000</masterLabel>
+            <translation><!-- Todo a 2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vitafilado</masterLabel>
+            <translation><!-- Vitafilado --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Receipt Number --></label>
         <name>Receipt_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type of delivery --></label>
+        <name>TypeOfDelivery__c</name>
+        <picklistValues>
+            <masterLabel>Entrega DIFERENTE a asignación</masterLabel>
+            <translation><!-- Entrega DIFERENTE a asignación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Entrega IGUAL a asignación</masterLabel>
+            <translation><!-- Entrega IGUAL a asignación --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- Unit of Presentation --></label>
@@ -145,5 +213,12 @@
             <translation><!-- a $2000 --></translation>
         </picklistValues>
     </fields>
+    <layouts>
+        <layout>Farmer Product Delivery Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

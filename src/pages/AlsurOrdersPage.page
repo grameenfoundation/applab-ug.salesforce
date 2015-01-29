@@ -1,19 +1,19 @@
-<apex:page controller="AlsurOrdersController" sidebar="false">
+<apex:page controller="AlsurOrdersController" sidebar="false" docType="html-5.0">
     <apex:form >
-    <apex:pageblock >
-             <p><strong>Use this form to create Orders from Clients. </strong><br/><br/><strong>Note:</strong> Choose the client first, 
-             and then <strong>click Get Products.</strong> Thereafter choose a product and <strong>click Create Order</strong>.
-             Thereafter click Save and the order you created will show up at the bottom of the screen</p>
-             <p>Click the <strong>Next</strong> button to assign these orders to Associations</p>
+    <apex:pageBlock title="{!$Label.ALSUR_CREATE_ORDER_FORM}">
+         {!$Label.ALSUR_ORDER_INSTRUCTIONS}
          <br/>
         <div>
-        <apex:selectList size="3" value="{!client}" onchange="">
+        <br/>
+        <apex:selectList size="3" value="{!client}">
             <apex:selectOptions value="{!clientItems}"/>
         </apex:selectList>
          </div>
+         <br/>
          <div>
-        <apex:commandButton reRender="cpas" value="Get Products"/>
+        <apex:commandButton reRender="cpas" value="{!$Label.ALSUR_GET_PRODUCTS_BTN}"/>
         </div>
+        <br/>
         <div>
         <apex:outputPanel id="cpas">
         <apex:selectList size="3" value="{!product}" >
@@ -21,9 +21,11 @@
         </apex:selectList>
         </apex:outputPanel>
         </div>
+        <br/>
         <div>
-        <apex:commandButton action="{!createOrder}" value="Create Order"/>
+        <apex:commandButton action="{!createOrder}" value="{!$Label.ALSUR_CREATE_ORDER}"/>
         </div>
+        <br/>
         <apex:outputPanel id="clientproductassociations" rendered="{!showOrderPanel}">
         <apex:pageBlockSection >
         <div>
@@ -33,7 +35,7 @@
         <apex:inputField value="{!currentOrder.Presentacion__c}"/>
         <apex:inputField value="{!currentOrder.Expected_Delivery_Date__c}"/>
         <apex:inputField value="{!currentOrder.Number_of_Units_of_Presentation__c}"/>
-        <apex:inputField value="{!currentOrder.Number_of_Kilos__c}"/>
+        <apex:inputField value="{!currentOrder.Number_of_Kilos__c}" type="text"/>
         <apex:inputField value="{!currentOrder.Number_of_Baskets__c}"/>
         <apex:inputField value="{!currentOrder.Price_per_Kilo__c }"/>
         </div>
@@ -41,11 +43,13 @@
         </apex:outputPanel>
         
         <div>
-        <apex:commandButton value="Save" action="{!save}"/>
+        <apex:commandButton value="{!$Label.SAVE}" action="{!save}"/>
         </div>
-        <apex:pageBlockSection >
+        <br/>
+        <apex:pageBlockSection title="{!$Label.ALSUR_CURRENT_ORDERS}" collapsible="false">
             <apex:outputPanel id="currentOrders">
-                <apex:pageBlockTable columns="9" value="{!ordersToCreate}" var="order">
+                <apex:pageBlockTable columns="10" value="{!ordersToCreate}" var="order">
+                    <apex:column value="{!order.Order_Code__c}"/>
                     <apex:column value="{!order.Client__c}"/>
                     <apex:column value="{!order.Product_Name__c}"/>
                     <apex:column value="{!order.Unit_of_Presentation__c}"/>
@@ -57,7 +61,7 @@
                     <apex:column value="{!order.Expected_Delivery_Date__c}"/>
                 </apex:pageBlockTable>
             </apex:outputPanel>
-            <apex:commandButton rendered="{!showOrderPanel}" action="{!next}" value="Next"/>
+            <apex:commandButton rendered="{!showOrderPanel}" action="{!next}" value="{!$Label.ALSUR_NEXT_BUTTON}"/>
         </apex:pageBlockSection>
     </apex:pageblock>
     </apex:form>

@@ -25,6 +25,10 @@
         <name>From_USSD__c</name>
     </fields>
     <fields>
+        <label><!-- Group Search --></label>
+        <name>Group_Search__c</name>
+    </fields>
+    <fields>
         <help>El grupo al cual el entrevistador</help>
         <label>Grupo</label>
         <name>Group__c</name>
@@ -42,6 +46,11 @@
         <label>Entrevistado</label>
         <name>Interviewee__c</name>
         <relationshipLabel>Buscar registros (busquedas administradas)</relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Interviewer Contact --></label>
+        <name>Interviewer_Contact__c</name>
+        <relationshipLabel><!-- Search Logs --></relationshipLabel>
     </fields>
     <fields>
         <label>Distancia de entrevistador (Km)</label>
@@ -85,6 +94,18 @@
         <name>Server_Entry_Time__c</name>
     </fields>
     <fields>
+        <label><!-- Source --></label>
+        <name>Source__c</name>
+        <picklistValues>
+            <masterLabel>Search</masterLabel>
+            <translation><!-- Search --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TaroWorks</masterLabel>
+            <translation><!-- TaroWorks --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label>Presicion de envio</label>
         <name>Submission_Accuracy__c</name>
     </fields>
@@ -105,5 +126,5 @@
         <name>Submission_Longitude__c</name>
     </fields>
     <gender>Masculine</gender>
-    <nameFieldLabel>Custom Object Label Name</nameFieldLabel>
+    <nameFieldLabel><!-- Custom Object Label Name --></nameFieldLabel>
 </CustomObjectTranslation>

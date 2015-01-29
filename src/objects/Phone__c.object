@@ -85,8 +85,20 @@
         <label>Brand</label>
         <picklist>
             <picklistValues>
-                <fullName>HTC Dream - G1</fullName>
+                <fullName>Samsung Galaxy Pocket</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Samsung Galaxy Pocket Duos</fullName>
                 <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Samsung Galaxy Pocket NEO Duo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HTC Dream - G1</fullName>
+                <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>HTC MyTouch2 - G2</fullName>
@@ -117,10 +129,6 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Samsung Galaxy Pocket</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
                 <fullName>Samsung Young</fullName>
                 <default>false</default>
             </picklistValues>
@@ -134,10 +142,6 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Otro...</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Samsung Galaxy Pocket Duos</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -382,6 +386,8 @@
     <label>Handset</label>
     <listViews>
         <fullName>All_Handsets</fullName>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
         <columns>NAME</columns>
         <columns>SIM__c</columns>
         <columns>Brand__c</columns>
@@ -390,7 +396,7 @@
         <columns>Serial_Number__c</columns>
         <columns>Notes__c</columns>
         <columns>OBJECT_ID</columns>
-        <filterScope>Everything</filterScope>
+        <filterScope>Mine</filterScope>
         <label>All Handsets</label>
         <language>en_US</language>
     </listViews>

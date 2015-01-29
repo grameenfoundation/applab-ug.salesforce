@@ -303,10 +303,10 @@ CASE(TRIM(Commercial_Villages__c),
         <label>Registration Date</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <type>Date</type>
+        <type>DateTime</type>
     </fields>
     <fields>
-        <fullName>Sale_Status__c</fullName>
+        <fullName>Sale__c</fullName>
         <externalId>false</externalId>
         <label>Sale Status</label>
         <picklist>
@@ -329,6 +329,10 @@ CASE(TRIM(Commercial_Villages__c),
         <label>Status</label>
         <picklist>
             <picklistValues>
+                <fullName>New</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Processed</fullName>
                 <default>false</default>
             </picklistValues>
@@ -339,6 +343,10 @@ CASE(TRIM(Commercial_Villages__c),
             <picklistValues>
                 <fullName>Failed</fullName>
                 <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Farmer</fullName>
+                <default>true</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
@@ -361,6 +369,7 @@ CASE(TRIM(Commercial_Villages__c),
         <columns>Ewarehouse_Person__c</columns>
         <columns>CREATED_DATE</columns>
         <columns>Contact__c</columns>
+        <columns>Status__c</columns>
         <columns>NAME</columns>
         <columns>Auto_Generated_Farmer_ID__c</columns>
         <columns>Registered_By__c</columns>

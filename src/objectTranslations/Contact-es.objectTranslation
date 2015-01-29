@@ -46,6 +46,10 @@
         <name>Interest__c</name>
     </fields>
     <fields>
+        <label><!-- Lac Farmer Count --></label>
+        <name>Lac_Farmer_Count__c</name>
+    </fields>
+    <fields>
         <name>LeadSource</name>
         <picklistValues>
             <masterLabel>Employee Referral</masterLabel>
@@ -163,7 +167,7 @@
         <name>Picture__c</name>
     </fields>
     <fields>
-        <label><!-- Signature --></label>
+        <label>Firma</label>
         <name>Signature__c</name>
     </fields>
     <fields>
@@ -193,6 +197,34 @@
             <masterLabel>Program Management</masterLabel>
             <translation>Administración de programa</translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Zendesk Result --></label>
+        <name>Zendesk__Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tags --></label>
+        <name>Zendesk__Tags__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zendesk_OutofSync --></label>
+        <name>Zendesk__Zendesk_OutofSync__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zendesk_oldTags --></label>
+        <name>Zendesk__Zendesk_oldTags__c</name>
+    </fields>
+    <fields>
+        <label><!-- isCreatedUpdatedFlag --></label>
+        <name>Zendesk__isCreatedUpdatedFlag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Notes --></label>
+        <name>Zendesk__notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zendesk User Id --></label>
+        <name>Zendesk__zendesk_id__c</name>
     </fields>
     <fields>
         <label><!-- Age --></label>
@@ -247,6 +279,29 @@
         <label><!-- Surveyor Username --></label>
         <name>gfsurveys__mobilesurveys_Username__c</name>
     </fields>
+    <layouts>
+        <layout>Contact Layout</layout>
+        <sections>
+            <label><!-- Mailing Information --></label>
+            <section>Mailing Information</section>
+        </sections>
+        <sections>
+            <label><!-- Mobile Survey Information --></label>
+            <section>Mobile Survey Information</section>
+        </sections>
+        <sections>
+            <label><!-- Personal Information --></label>
+            <section>Personal Information</section>
+        </sections>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+        <sections>
+            <label><!-- Volunteer Information --></label>
+            <section>Volunteer Information</section>
+        </sections>
+    </layouts>
     <webLinks>
         <label>Configurar garantia</label>
         <name>Contact_Pledge</name>
@@ -291,4 +346,8 @@
         <label>Mapa de google</label>
         <name>map</name>
     </webLinks>
+    <workflowTasks>
+        <name>SendBirthdayCard</name>
+        <subject>Enviar Tarjeta de Cumpleaños</subject>
+    </workflowTasks>
 </CustomObjectTranslation>

@@ -43,7 +43,7 @@
         <label>Bulking Marketing</label>
         <picklist>
             <picklistValues>
-                <fullName>Bulking marketing</fullName>
+                <fullName>Bulking and marketing</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -256,11 +256,11 @@
     </fields>
     <fields>
         <fullName>Knowledge_Discussion_Datetime__c</fullName>
-        <defaultValue>Now()</defaultValue>
+        <defaultValue>Today()</defaultValue>
         <externalId>false</externalId>
         <label>Knowledge Discussion Datetime</label>
         <required>true</required>
-        <type>DateTime</type>
+        <type>Date</type>
     </fields>
     <fields>
         <fullName>Maize_Farmer_GAPs_Selection__c</fullName>
@@ -437,6 +437,23 @@
         </picklist>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Source__c</fullName>
+        <externalId>false</externalId>
+        <label>Source</label>
+        <picklist>
+            <picklistValues>
+                <fullName>TaroWorks</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Search</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <label>Maize GAPs Knowledge</label>
     <listViews>

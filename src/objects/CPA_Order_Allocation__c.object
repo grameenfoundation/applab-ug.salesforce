@@ -103,7 +103,7 @@
         <label>Number of Kilos</label>
         <precision>18</precision>
         <required>false</required>
-        <scale>2</scale>
+        <scale>0</scale>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -120,7 +120,7 @@
     <fields>
         <fullName>Order_Code__c</fullName>
         <externalId>false</externalId>
-        <formula>CPA_Order__r.Order_Code__c</formula>
+        <formula>Association__r.Name + &apos;-&apos;+CPA_Order__r.Order_Code__c</formula>
         <label>Order Code</label>
         <required>false</required>
         <type>Text</type>
@@ -141,6 +141,19 @@
         <formula>CPA_Order__r.Price_per_Kilo__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Price per Kilo</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_per_Order__c</fullName>
+        <description>Muestra el valor económico de cada orden</description>
+        <externalId>false</externalId>
+        <formula>Price_per_Kilo__c * Number_of_Kilos__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Price per Order</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -184,11 +197,11 @@
         <type>Summary</type>
     </fields>
     <fields>
-        <fullName>Unallocated_Number_of_Baskets__c</fullName>
+        <fullName>Unallocated_Baskets__c</fullName>
         <externalId>false</externalId>
         <formula>Number_of_Baskets__c -  Total_Number_of_Allocated_Baskets__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Unallocated Number of Baskets</label>
+        <label>Unallocated Baskets</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -196,11 +209,11 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Unallocated_Number_of_Kilos__c</fullName>
+        <fullName>Unallocated_Kilos__c</fullName>
         <externalId>false</externalId>
         <formula>Number_of_Kilos__c -  Total_Number_of_Allocated_Kilos__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Unallocated Number of Kilos</label>
+        <label>Unallocated Kilos</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -229,6 +242,17 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>client_group__c</fullName>
+        <description>Agrupa las sucursales en un solo cliente</description>
+        <externalId>false</externalId>
+        <formula>IF (  CONTAINS(Client__c, &apos;Éxito&apos;) , &apos;EXITO&apos;, (IF (  CONTAINS(Client__c, &apos;Alkosto&apos;) , &apos;ALKOSTO&apos;, (IF (  CONTAINS(Client__c, &apos;Agrofresco&apos;) , &apos;AGROFRESCO&apos;, (IF (  CONTAINS(Client__c, &apos;Cañaveral&apos;) , &apos;CAÑAVERAL&apos;, (IF (  CONTAINS(Client__c, &apos;Cencosud&apos;) , &apos;CENCOSUD&apos;, (IF (  CONTAINS(Client__c, &apos;Olimpica&apos;) , &apos;OLIMPICA&apos;,Client__c)))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client group</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <label>CPA Order Allocation</label>
     <listViews>
         <fullName>All</fullName>
@@ -244,6 +268,7 @@
         <columns>Number_of_Kilos__c</columns>
         <columns>Number_of_Units_of_Presentation__c</columns>
         <columns>Price_per_Kilo__c</columns>
+        <columns>CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>

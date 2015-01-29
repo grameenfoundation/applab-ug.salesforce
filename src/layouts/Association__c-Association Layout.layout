@@ -51,6 +51,7 @@
     </layoutSections>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Order_Code__c</fields>
         <relatedList>CPA_Order_Allocation__c.Association__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -60,14 +61,9 @@
         <relatedList>Alsur_Farmer__c.Association__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>TASK.SUBJECT</fields>
-        <fields>TASK.WHO_NAME</fields>
-        <fields>ACTIVITY.TASK</fields>
-        <fields>TASK.DUE_DATE</fields>
-        <fields>TASK.STATUS</fields>
-        <fields>TASK.PRIORITY</fields>
-        <fields>CORE.USERS.FULL_NAME</fields>
-        <relatedList>RelatedActivityList</relatedList>
+        <fields>NAME</fields>
+        <fields>Contact.Contact_Full_Name__c</fields>
+        <relatedList>Association_Contact_Association__c.Association__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
@@ -77,6 +73,9 @@
         <fields>CORE.USERS.FULL_NAME</fields>
         <fields>TASK.LAST_UPDATE</fields>
         <relatedList>RelatedHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

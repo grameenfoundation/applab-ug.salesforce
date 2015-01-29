@@ -360,11 +360,35 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>FHI_MONITORING</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>AGROWAYS_FARMER_REG</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>AGROWAYS_GROUP_REG</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GUMUTINDO_GCCE_FARM_ENTRANCE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FARMERS_USING_ATLEAST_3_AGROC_PRACTICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GCCE_FARMER_GROUP_ASSESSMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUCCODEG_CAFE_PROJECT_KENYA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MBUGO</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -514,6 +538,24 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
     </fields>
     <label>Survey</label>
     <listViews>
+        <fullName>BUCCODEG</fullName>
+        <columns>Survey_Name__c</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Number_of_Questions__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OWNER.LAST_NAME</field>
+            <operation>equals</operation>
+            <value>BUCCODEG</value>
+        </filters>
+        <label>BUCCODEG</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
         <fullName>List_of_All_Surveys</fullName>
         <columns>Survey_Name__c</columns>
         <columns>OBJECT_ID</columns>
@@ -521,8 +563,26 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
         <columns>Number_of_Questions__c</columns>
         <columns>CREATED_DATE</columns>
         <columns>CREATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>LAST_ACTIVITY</columns>
         <filterScope>Everything</filterScope>
         <label>List of All Surveys</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>lac_surveys</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Account__c</columns>
+        <columns>Survey_Name__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OWNER.FIRST_NAME</field>
+            <operation>contains</operation>
+            <value>MANA</value>
+        </filters>
+        <label>lac surveys</label>
         <language>en_US</language>
     </listViews>
     <nameField>

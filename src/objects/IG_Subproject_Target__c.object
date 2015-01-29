@@ -38,6 +38,18 @@
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
     <fields>
+        <fullName>Code__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>IG project code</description>
+        <externalId>false</externalId>
+        <inlineHelpText>subproject code needed for reference by IG</inlineHelpText>
+        <label>Subproject Code</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
         <fullName>DateFollowupVisit1__c</fullName>
         <description>Follow up visit 1</description>
         <externalId>false</externalId>
@@ -234,8 +246,14 @@
     <label>IG Subproject Target</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>IG_Region__c</columns>
+        <columns>District__c</columns>
+        <columns>Subcounty__c</columns>
+        <columns>OWNER.LAST_NAME</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Subproject Target Name</label>
@@ -246,10 +264,10 @@
     <sharingModel>ReadWrite</sharingModel>
     <startsWith>Vowel</startsWith>
     <validationRules>
-        <fullName>Avoid_edit_target_details</fullName>
-        <active>true</active>
-        <description>Only phone submissions should change this value</description>
-        <errorConditionFormula>AND( NOT($Setup.IGTargetsValidationRule__c.Allow_Edit_Field__c), OR(IsChanged( DateFollowupVisit1__c ),IsChanged(  DateFollowupVisit2__c  ),IsChanged(DateFollowupVisit3__c ),IsChanged(DateMobilization__c ),IsChanged(DatePreliminaryTrainingDay1__c ),IsChanged(DatePreliminaryTrainingDay2__c ),IsChanged(DatePreliminaryTrainingDay3__c)) )</errorConditionFormula>
-        <errorMessage>Only phone submissions can change this value</errorMessage>
+        <fullName>NUSAF_Persons</fullName>
+        <active>false</active>
+        <errorConditionFormula>$Organization.Name  = &apos;IG NUSAF&apos;</errorConditionFormula>
+        <errorDisplayField>Person__c</errorDisplayField>
+        <errorMessage>only people of account IG NUSAF can be added</errorMessage>
     </validationRules>
 </CustomObject>

@@ -43,7 +43,7 @@
         <label>Category</label>
         <picklist>
             <picklistValues>
-                <fullName>Cereals</fullName>
+                <fullName>Cereales</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -51,25 +51,43 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Fruits</fullName>
+                <fullName>Frutas</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Legumes</fullName>
+                <fullName>Legumbres</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Meat And Eggs</fullName>
+                <fullName>Carne y Huevos</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Vegetables</fullName>
+                <fullName>Vegetales</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Consumption_Records__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Consumption Records</label>
+        <summaryForeignKey>Mana_Food_Consumption_Record__c.Food__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Quantity_Codes__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Quantity Codes</label>
+        <summaryForeignKey>Mana_Food_Quantity_Code__c.Food__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
     </fields>
     <fields>
         <fullName>Units__c</fullName>
@@ -96,6 +114,10 @@
                 <fullName>Units</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Kilograms</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -107,15 +129,22 @@
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
         <columns>Category__c</columns>
+        <columns>Units__c</columns>
+        <columns>Number_of_Consumption_Records__c</columns>
+        <columns>Number_of_Quantity_Codes__c</columns>
         <columns>OWNER.ALIAS</columns>
         <columns>CREATED_DATE</columns>
         <columns>CREATEDBY_USER</columns>
         <columns>UPDATEDBY_USER</columns>
         <columns>LAST_UPDATE</columns>
-        <columns>Units__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>Todos</label>
     </listViews>
     <nameField>
         <label>Name</label>

@@ -50,9 +50,69 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Lot_Age_years__c</fullName>
+        <externalId>false</externalId>
+        <formula>(TODAY() -  lotPlantingDate__c )/365.2425</formula>
+        <label>Lot Age (years)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lot_Code_Guat__c</fullName>
+        <externalId>false</externalId>
+        <label>Lot Code Guat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>B</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>D</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>E</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>F</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>G</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>H</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>J</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Lot_area_Ha__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(text( lotAreaUnits__c ) = &quot;Cuadras&quot;, lotArea__c *1.5625, 
+        <formula>IF(text( lotAreaUnits__c ) = &quot;Cuadra&quot;, lotArea__c *1.5625, 
 IF(text( lotAreaUnits__c ) = &quot;Manzanas&quot;, lotArea__c *0.6988, 
 IF(text( lotAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, lotArea__c *22.89, 
 IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotArea__c ))))</formula>

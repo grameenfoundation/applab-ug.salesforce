@@ -85,7 +85,7 @@
         <fullName>Farmer_FCI_ID__c</fullName>
         <externalId>false</externalId>
         <label>Farmer FCI ID</label>
-        <length>13</length>
+        <length>14</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Text</type>
@@ -133,8 +133,15 @@
     <label>Ewarehouse Sale Maize Association</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Ewarehouse_Sale__c</columns>
+        <columns>Farmer_FCI_ID__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Ewarehouse Sale Maize Association Name</label>

@@ -1,5 +1,5 @@
 <apex:page standardController="Mana_Household__c" extensions="ManaConsumptionChart" showHeader="false" sidebar="false">
-	<apex:chart height="350" width="500" data="{!pieData}">
+    <apex:chart height="400" width="500" data="{!pieData}">
         <apex:pieSeries dataField="data" labelField="name"/>
         <apex:legend position="right"/>
     </apex:chart>

@@ -343,6 +343,10 @@ public class SaleFarmerAssociationCreator{
  public static void getSaleDetails(Sale_Record__c[] ewarehouse_sale) {
      for(Sale_Record__c current_sale :ewarehouse_sale){
          //Trim the District value to its accronymn (i.e TW or TE)
+         if(current_sale.District__c == null){
+             current_sale.District__c = 'TIGANIA WEST';
+         }
+         
          String district = current_sale.District__c.trim().left(1)+current_sale.District__c.trim().mid(8,1);
          
          //Get the commercial viallage ID

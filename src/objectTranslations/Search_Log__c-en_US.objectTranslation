@@ -25,6 +25,10 @@
         <name>From_USSD__c</name>
     </fields>
     <fields>
+        <label><!-- Group Search --></label>
+        <name>Group_Search__c</name>
+    </fields>
+    <fields>
         <help><!-- The group to which the interviewer/CKW is associated --></help>
         <label><!-- Group --></label>
         <name>Group__c</name>
@@ -42,6 +46,11 @@
         <label><!-- Interviewee --></label>
         <name>Interviewee__c</name>
         <relationshipLabel><!-- Search Logs (Searches Administered) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Interviewer Contact --></label>
+        <name>Interviewer_Contact__c</name>
+        <relationshipLabel><!-- Search Logs --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- Interviewer Distance (km) --></label>
@@ -83,6 +92,18 @@
     <fields>
         <label><!-- Server Entry Time --></label>
         <name>Server_Entry_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source --></label>
+        <name>Source__c</name>
+        <picklistValues>
+            <masterLabel>Search</masterLabel>
+            <translation><!-- Search --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TaroWorks</masterLabel>
+            <translation><!-- TaroWorks --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- Submission Accuracy --></label>

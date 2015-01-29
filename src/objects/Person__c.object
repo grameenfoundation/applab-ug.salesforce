@@ -527,15 +527,15 @@ IF( NOT( ISBLANK( Handset__c)),
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-            	<fullName>BUCCODEG Farmer</fullName>
-            	<default>false</default>
+                <fullName>BUCCODEG Farmer</fullName>
+                <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Focus Farmer</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>RCT Dairy Farmer</fullName>
+                <fullName>Dairy Farmer</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -569,8 +569,10 @@ IF( NOT( ISBLANK( Handset__c)),
         <columns>District_Name__c</columns>
         <columns>GPS_Location_E__c</columns>
         <columns>GPS_Location_N__c</columns>
+        <columns>OWNER.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>Lac_People</fullName>
@@ -592,16 +594,23 @@ IF( NOT( ISBLANK( Handset__c)),
         </filters>
         <label>LAC People</label>
         <language>en_US</language>
+        <sharedTo>
+            <role>LAC_Admin_User</role>
+            <role>LAC_Demo_Role</role>
+            <role>LAC_Self_Serve_User</role>
+        </sharedTo>
     </listViews>
     <listViews>
         <fullName>Overview</fullName>
+        <columns>NAME</columns>
         <columns>First_Name__c</columns>
-        <columns>Middle_Name__c</columns>
         <columns>Last_Name__c</columns>
+        <columns>Middle_Name__c</columns>
         <columns>Mobile_Number__c</columns>
         <columns>Gender__c</columns>
         <filterScope>Everything</filterScope>
         <label>Overview</label>
+        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>eWarehouse_People</fullName>

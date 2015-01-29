@@ -47,8 +47,16 @@
         <name>Order_Code__c</name>
     </fields>
     <fields>
+        <label><!-- Presentación --></label>
+        <name>Presentacion__c</name>
+    </fields>
+    <fields>
         <label>Precio por Kilo</label>
         <name>Price_per_Kilo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Price per Order --></label>
+        <name>Price_per_Order__c</name>
     </fields>
     <fields>
         <label>Nombre del Producto</label>
@@ -68,20 +76,31 @@
     </fields>
     <fields>
         <label>Número de Canastillas Sin Asignar</label>
-        <name>Unallocated_Number_of_Baskets__c</name>
+        <name>Unallocated_Baskets__c</name>
     </fields>
     <fields>
         <label>Número de Kilos Sin Asignar</label>
-        <name>Unallocated_Number_of_Kilos__c</name>
+        <name>Unallocated_Kilos__c</name>
     </fields>
     <fields>
         <label>Unidades de Presentación Sin Asignar</label>
         <name>Unallocated_Units_of_Presentation__c</name>
     </fields>
     <fields>
-        <label>Unidad de Presentación</label>
+        <label>Unidad</label>
         <name>Unit_of_Presentation__c</name>
     </fields>
+    <fields>
+        <label><!-- Client group --></label>
+        <name>client_group__c</name>
+    </fields>
     <gender>Feminine</gender>
-    <nameFieldLabel>CPA Asignación del pedido</nameFieldLabel>
+    <layouts>
+        <layout>CPA Order Allocation Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- CPA Order Allocation Number --></nameFieldLabel>
 </CustomObjectTranslation>

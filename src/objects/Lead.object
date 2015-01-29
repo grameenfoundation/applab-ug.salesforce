@@ -224,6 +224,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -263,10 +264,16 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PartnerAccountId</fullName>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -286,6 +293,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -303,7 +311,88 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Result__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk Result</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Tags__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_OutofSync__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk_OutofSync</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk User Id</label>
+        <length>70</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_oldTags__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk_oldTags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__isCreatedUpdatedFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>isCreatedUpdatedFlag</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__notes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__organization__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Organization</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Leads</relationshipLabel>
+        <relationshipName>Leads</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
     </fields>
     <listViews>
         <fullName>AllOpenLeads</fullName>

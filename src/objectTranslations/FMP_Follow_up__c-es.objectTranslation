@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>FMP Seguimiento</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>FMP Seguimientos</value>
+    </caseValues>
+    <fields>
+        <label><!-- CofeePackaging --></label>
+        <name>CofeePackaging__c</name>
+        <picklistValues>
+            <masterLabel>Están limpios y aptos para la cosecha</masterLabel>
+            <translation><!-- Están limpios y aptos para la cosecha --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Están sucios</masterLabel>
+            <translation><!-- Están sucios --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sirven para manipular abonos orgánicos</masterLabel>
+            <translation><!-- Sirven para manipular abonos orgánicos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sirven para manipular agroquímicos</masterLabel>
+            <translation><!-- Sirven para manipular agroquímicos --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- FMP Follow up location --></label>
+        <name>FMP_Follow_up_location__c</name>
+    </fields>
+    <fields>
+        <label><!-- FMP Target --></label>
+        <name>FMP_Target__c</name>
+        <relationshipLabel><!-- FMP_Followup_Target --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- FaunaFloraRecoveryPlan --></label>
+        <name>FaunaFloraRecoveryPlan__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- FriendlyMethodsReducingHerbicide --></label>
+        <name>FriendlyMethodsReducingHerbicide__c</name>
+        <picklistValues>
+            <masterLabel>Control físico/mecánico</masterLabel>
+            <translation><!-- Control físico/mecánico --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Control químico/herbicidas</masterLabel>
+            <translation><!-- Control químico/herbicidas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cultivos de cobertura</masterLabel>
+            <translation><!-- Cultivos de cobertura --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Distancias de siembra</masterLabel>
+            <translation><!-- Distancias de siembra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manejo de sombra</masterLabel>
+            <translation><!-- Manejo de sombra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mulch (colchón material orgánico)</masterLabel>
+            <translation><!-- Mulch (colchón material orgánico) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ninguno de los anteriores</masterLabel>
+            <translation><!-- Ninguno de los anteriores --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RecordsAgrochemicalsApplications --></label>
+        <name>RecordsAgrochemicalsApplications__c</name>
+        <picklistValues>
+            <masterLabel>Dosis</masterLabel>
+            <translation><!-- Dosis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fecha de aplicación</masterLabel>
+            <translation><!-- Fecha de aplicación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lote</masterLabel>
+            <translation><!-- Lote --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No registra ningún dato</masterLabel>
+            <translation><!-- No registra ningún dato --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RecoveryErodedAreas --></label>
+        <name>RecoveryErodedAreas__c</name>
+        <picklistValues>
+            <masterLabel>Acequias</masterLabel>
+            <translation><!-- Acequias --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Barreras físicas</masterLabel>
+            <translation><!-- Barreras físicas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Barreras vivas</masterLabel>
+            <translation><!-- Barreras vivas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cultivos de cobertura de suelo</masterLabel>
+            <translation><!-- Cultivos de cobertura de suelo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Curvas de nivel</masterLabel>
+            <translation><!-- Curvas de nivel --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mulch (colchón de materia orgánica)</masterLabel>
+            <translation><!-- Mulch (colchón de materia orgánica) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No realiza ninguna de esas prácticas</masterLabel>
+            <translation><!-- No realiza ninguna de esas prácticas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Terrazas de banco</masterLabel>
+            <translation><!-- Terrazas de banco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Terrazas individuales</masterLabel>
+            <translation><!-- Terrazas individuales --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RegulationOfShadow --></label>
+        <name>RegulationOfShadow__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission --></label>
+        <name>Submission__c</name>
+        <relationshipLabel><!-- FMP_Followups_Submission --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TransformationPulpsForUse --></label>
+        <name>TransformationPulpsForUse__c</name>
+        <picklistValues>
+            <masterLabel>La amontona sin protección</masterLabel>
+            <translation><!-- La amontona sin protección --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La bota</masterLabel>
+            <translation><!-- La bota --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La escurre</masterLabel>
+            <translation><!-- La escurre --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La protege de la lluvia</masterLabel>
+            <translation><!-- La protege de la lluvia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lo vende sin procesar</masterLabel>
+            <translation><!-- Lo vende sin procesar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lo vierte al río</masterLabel>
+            <translation><!-- Lo vierte al río --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Procesa en compost en cuanto es posible</masterLabel>
+            <translation><!-- Procesa en compost en cuanto es posible --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- UsingNativeSpeciesAsShading --></label>
+        <name>UsingNativeSpeciesAsShading__c</name>
+    </fields>
+    <fields>
+        <label><!-- WastewaterManagement --></label>
+        <name>WastewaterManagement__c</name>
+        <picklistValues>
+            <masterLabel>Escurrimiento superficial</masterLabel>
+            <translation><!-- Escurrimiento superficial --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La utiliza como modo de fertilización</masterLabel>
+            <translation><!-- La utiliza como modo de fertilización --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Las vierte en fuente de agua sin tratar</masterLabel>
+            <translation><!-- Las vierte en fuente de agua sin tratar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Las vierte en pozos de infiltración</masterLabel>
+            <translation><!-- Las vierte en pozos de infiltración --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Planta de tratamiento de aguas mieles</masterLabel>
+            <translation><!-- Planta de tratamiento de aguas mieles --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- WetmillSafety --></label>
+        <name>WetmillSafety__c</name>
+        <picklistValues>
+            <masterLabel>Contaminación de fuentes de agua</masterLabel>
+            <translation><!-- Contaminación de fuentes de agua --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ningún riesgo</masterLabel>
+            <translation><!-- Ningún riesgo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Riesgo de contaminación del café</masterLabel>
+            <translation><!-- Riesgo de contaminación del café --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Riesgo de mezcla de café cert y no cert</masterLabel>
+            <translation><!-- Riesgo de mezcla de café cert y no cert --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Riesgo de mezcla de diferentes calidades</masterLabel>
+            <translation><!-- Riesgo de mezcla de diferentes calidades --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- WetmillWaterManagement --></label>
+        <name>WetmillWaterManagement__c</name>
+        <picklistValues>
+            <masterLabel>Escurrimiento superficial</masterLabel>
+            <translation><!-- Escurrimiento superficial --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La utiliza como modo de fertilización</masterLabel>
+            <translation><!-- La utiliza como modo de fertilización --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Las vierte en fuente de agua sin tratar</masterLabel>
+            <translation><!-- Las vierte en fuente de agua sin tratar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Las vierte en pozos de infiltración</masterLabel>
+            <translation><!-- Las vierte en pozos de infiltración --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Planta de tratamiento de aguas mieles</masterLabel>
+            <translation><!-- Planta de tratamiento de aguas mieles --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- adequateTransportation --></label>
+        <name>adequateTransportation__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- channelsScamperOk --></label>
+        <name>channelsScamperOk__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- checklist --></label>
+        <name>checklist__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- coffeeDryingSystemOk --></label>
+        <name>coffeeDryingSystemOk__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- controlAccordingMonitoring --></label>
+        <name>controlAccordingMonitoring__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- evaluationPulping --></label>
+        <name>evaluationPulping__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- farmMap --></label>
+        <name>farmMap__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- fermentationTanksOk --></label>
+        <name>fermentationTanksOk__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- followUpFaunaFloraRecoveryPlan --></label>
+        <name>followUpFaunaFloraRecoveryPlan__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUp_Total_Score --></label>
+        <name>followUp_Total_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpadequateTransportation --></label>
+        <name>followUpadequateTransportation__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpchannelsScamperOk --></label>
+        <name>followUpchannelsScamperOk__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpchecklist --></label>
+        <name>followUpchecklist__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpcoffeeDryingSystemOk --></label>
+        <name>followUpcoffeeDryingSystemOk__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpcoffeePackaging --></label>
+        <name>followUpcoffeePackaging__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpcontrolAccordingMonitoring --></label>
+        <name>followUpcontrolAccordingMonitoring__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpevaluationPulping --></label>
+        <name>followUpevaluationPulping__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfarmMap --></label>
+        <name>followUpfarmMap__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfermentationTanksOk --></label>
+        <name>followUpfermentationTanksOk__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Agrochemicals_Score --></label>
+        <name>followUpfmp_Agrochemicals_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Environment_Score --></label>
+        <name>followUpfmp_Environment_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Harvest_Score --></label>
+        <name>followUpfmp_Harvest_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Lot_Score --></label>
+        <name>followUpfmp_Lot_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_MIPE_Score --></label>
+        <name>followUpfmp_MIPE_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Record_score --></label>
+        <name>followUpfmp_Record_score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Seedbed_Score --></label>
+        <name>followUpfmp_Seedbed_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Shadow_Score --></label>
+        <name>followUpfmp_Shadow_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Soil_Score --></label>
+        <name>followUpfmp_Soil_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Wedmill_Score --></label>
+        <name>followUpfmp_Wedmill_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfmp_Weeds_Score --></label>
+        <name>followUpfmp_Weeds_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpfriendlyMethodsReducingHerbicide --></label>
+        <name>followUpfriendlyMethodsReducingHerbicide__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpharvestEvaluation --></label>
+        <name>followUpharvestEvaluation__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpharvestRecord --></label>
+        <name>followUpharvestRecord__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUphasProtectionEquipment --></label>
+        <name>followUphasProtectionEquipment__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUphoneyWaterTreatmentTank --></label>
+        <name>followUphoneyWaterTreatmentTank__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpidentifyingErodedAreas --></label>
+        <name>followUpidentifyingErodedAreas__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpimplemetationSeedbedPlan --></label>
+        <name>followUpimplemetationSeedbedPlan__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpknowledgeAreasLots --></label>
+        <name>followUpknowledgeAreasLots__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpmakingMonitoringPestsDiseases --></label>
+        <name>followUpmakingMonitoringPestsDiseases__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpmonitoringRecordPestDisease --></label>
+        <name>followUpmonitoringRecordPestDisease__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUppostControlEvaluation --></label>
+        <name>followUppostControlEvaluation__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpproperCoffeeStorage --></label>
+        <name>followUpproperCoffeeStorage__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpproperSubstratesPreparation --></label>
+        <name>followUpproperSubstratesPreparation__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUppulpCompostingPit --></label>
+        <name>followUppulpCompostingPit__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUppulpingMachineOk --></label>
+        <name>followUppulpingMachineOk__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecordHarvesting --></label>
+        <name>followUprecordHarvesting__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecordOfLabor --></label>
+        <name>followUprecordOfLabor__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecordPesticideApplications --></label>
+        <name>followUprecordPesticideApplications__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecordPurchasingInputs --></label>
+        <name>followUprecordPurchasingInputs__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecordSalesCPS --></label>
+        <name>followUprecordSalesCPS__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecordVarietiesTreesPerLot --></label>
+        <name>followUprecordVarietiesTreesPerLot__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecordsAgrochemicalsApplications --></label>
+        <name>followUprecordsAgrochemicalsApplications__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUprecoveryErodedAreas --></label>
+        <name>followUprecoveryErodedAreas__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpreforestationNativeSpecies --></label>
+        <name>followUpreforestationNativeSpecies__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpregistrationWorkPerLot --></label>
+        <name>followUpregistrationWorkPerLot__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpregulationOfShadow --></label>
+        <name>followUpregulationOfShadow__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpseparationCoffeePerLot --></label>
+        <name>followUpseparationCoffeePerLot__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpseparationCoffeeQuality --></label>
+        <name>followUpseparationCoffeeQuality__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUptanksMucilageRemoverOk --></label>
+        <name>followUptanksMucilageRemoverOk__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUptrainsStaffAgrochemicalsHandling --></label>
+        <name>followUptrainsStaffAgrochemicalsHandling__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUptransformationPulpsForUse --></label>
+        <name>followUptransformationPulpsForUse__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpuseProtectionEquipment --></label>
+        <name>followUpuseProtectionEquipment__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpusingControlMethodsForPYE --></label>
+        <name>followUpusingControlMethodsForPYE__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpusingNativeSpeciesAsShading --></label>
+        <name>followUpusingNativeSpeciesAsShading__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpwarehouseSafety --></label>
+        <name>followUpwarehouseSafety__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpwastewaterManagement --></label>
+        <name>followUpwastewaterManagement__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpwetmillSafety --></label>
+        <name>followUpwetmillSafety__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpwetmillWaterManagement --></label>
+        <name>followUpwetmillWaterManagement__c</name>
+    </fields>
+    <fields>
+        <label><!-- followUpzarandaGoodCondition --></label>
+        <name>followUpzarandaGoodCondition__c</name>
+    </fields>
+    <fields>
+        <label><!-- harvestEvaluation --></label>
+        <name>harvestEvaluation__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- harvestRecord --></label>
+        <name>harvestRecord__c</name>
+        <picklistValues>
+            <masterLabel>Adecuadamente identificado</masterLabel>
+            <translation><!-- Adecuadamente identificado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Adecuadamente separado</masterLabel>
+            <translation><!-- Adecuadamente separado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Con documentación/registros de soporte</masterLabel>
+            <translation><!-- Con documentación/registros de soporte --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No hay adecuadas medidas de trazabilidad</masterLabel>
+            <translation><!-- No hay adecuadas medidas de trazabilidad --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- hasProtectionEquipment --></label>
+        <name>hasProtectionEquipment__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- honeyWaterTreatmentTank --></label>
+        <name>honeyWaterTreatmentTank__c</name>
+        <picklistValues>
+            <masterLabel>Escurrimiento superficial</masterLabel>
+            <translation><!-- Escurrimiento superficial --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La utiliza como modo de fertilización</masterLabel>
+            <translation><!-- La utiliza como modo de fertilización --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Las vierte en fuente de agua sin tratar</masterLabel>
+            <translation><!-- Las vierte en fuente de agua sin tratar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Las vierte en pozos de infiltración</masterLabel>
+            <translation><!-- Las vierte en pozos de infiltración --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Planta de tratamiento de aguas mieles</masterLabel>
+            <translation><!-- Planta de tratamiento de aguas mieles --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- identifyingErodedAreas --></label>
+        <name>identifyingErodedAreas__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- implemetationSeedbedPlan --></label>
+        <name>implemetationSeedbedPlan__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- knowledgeAreasLots --></label>
+        <name>knowledgeAreasLots__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- makingMonitoringPestsDiseases --></label>
+        <name>makingMonitoringPestsDiseases__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- monitoringRecordPestDisease --></label>
+        <name>monitoringRecordPestDisease__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- postControlEvaluation --></label>
+        <name>postControlEvaluation__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- properCoffeeStorage --></label>
+        <name>properCoffeeStorage__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- properSubstratesPreparation --></label>
+        <name>properSubstratesPreparation__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pulpCompostingPit --></label>
+        <name>pulpCompostingPit__c</name>
+        <picklistValues>
+            <masterLabel>La amontona sin protección</masterLabel>
+            <translation><!-- La amontona sin protección --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La bota</masterLabel>
+            <translation><!-- La bota --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La escurre</masterLabel>
+            <translation><!-- La escurre --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>La protege de la lluvia</masterLabel>
+            <translation><!-- La protege de la lluvia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lo vende sin procesar</masterLabel>
+            <translation><!-- Lo vende sin procesar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lo vierte al río</masterLabel>
+            <translation><!-- Lo vierte al río --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Procesa en compost en cuanto es posible</masterLabel>
+            <translation><!-- Procesa en compost en cuanto es posible --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pulpingMachineOk --></label>
+        <name>pulpingMachineOk__c</name>
+        <picklistValues>
+            <masterLabel>Granos enteros y limpios</masterLabel>
+            <translation><!-- Granos enteros y limpios --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Granos quebrados o mordidos</masterLabel>
+            <translation><!-- Granos quebrados o mordidos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Presenta otro daño o defecto</masterLabel>
+            <translation><!-- Presenta otro daño o defecto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tira grano con la pulpa</masterLabel>
+            <translation><!-- Tira grano con la pulpa --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tira pulpa con el grano</masterLabel>
+            <translation><!-- Tira pulpa con el grano --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- recordHarvesting --></label>
+        <name>recordHarvesting__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- recordOfLabor --></label>
+        <name>recordOfLabor__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- recordPesticideApplications --></label>
+        <name>recordPesticideApplications__c</name>
+        <picklistValues>
+            <masterLabel>Dosis</masterLabel>
+            <translation><!-- Dosis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fecha de aplicación</masterLabel>
+            <translation><!-- Fecha de aplicación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lote</masterLabel>
+            <translation><!-- Lote --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No registra ningún dato</masterLabel>
+            <translation><!-- No registra ningún dato --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- recordPurchasingInputs --></label>
+        <name>recordPurchasingInputs__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- recordSalesCPS --></label>
+        <name>recordSalesCPS__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- recordVarietiesTreesPerLot --></label>
+        <name>recordVarietiesTreesPerLot__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- reforestationNativeSpecies --></label>
+        <name>reforestationNativeSpecies__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- registrationWorkPerLot --></label>
+        <name>registrationWorkPerLot__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- separationCoffeePerLot --></label>
+        <name>separationCoffeePerLot__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- separationCoffeeQuality --></label>
+        <name>separationCoffeeQuality__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- tanksMucilageRemoverOk --></label>
+        <name>tanksMucilageRemoverOk__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- trainsStaffAgrochemicalsHandling --></label>
+        <name>trainsStaffAgrochemicalsHandling__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- useProtectionEquipment --></label>
+        <name>useProtectionEquipment__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- usingControlMethodsForPYE --></label>
+        <name>usingControlMethodsForPYE__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- warehouseSafety --></label>
+        <name>warehouseSafety__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- zarandaGoodCondition --></label>
+        <name>zarandaGoodCondition__c</name>
+        <picklistValues>
+            <masterLabel>Cumple</masterLabel>
+            <translation><!-- Cumple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No cumple</masterLabel>
+            <translation><!-- No cumple --></translation>
+        </picklistValues>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel><!-- FMP Follow up Name --></nameFieldLabel>
+</CustomObjectTranslation>

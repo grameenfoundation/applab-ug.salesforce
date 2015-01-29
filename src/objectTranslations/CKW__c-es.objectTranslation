@@ -18,6 +18,10 @@
         <name>Alternative_Contact_Number__c</name>
     </fields>
     <fields>
+        <label><!-- Assigned Farmer Count --></label>
+        <name>Assigned_Farmer_Count__c</name>
+    </fields>
+    <fields>
         <label>Asigando en</label>
         <name>Assigned_On__c</name>
     </fields>
@@ -344,7 +348,53 @@
         </picklistValues>
     </fields>
     <gender>Feminine</gender>
-    <nameFieldLabel>CKW ID</nameFieldLabel>
+    <layouts>
+        <layout>CKW Layout</layout>
+        <sections>
+            <label><!-- Active Case Status --></label>
+            <section>Active Case Status</section>
+        </sections>
+        <sections>
+            <label><!-- Bio data --></label>
+            <section>Bio data</section>
+        </sections>
+        <sections>
+            <label><!-- CKW Kit --></label>
+            <section>CKW Kit</section>
+        </sections>
+        <sections>
+            <label><!-- CKW Pulse Info --></label>
+            <section>CKW Pulse Info</section>
+        </sections>
+        <sections>
+            <label><!-- CKW contractual obligations --></label>
+            <section>CKW contractual obligations</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Location --></label>
+            <section>Location</section>
+        </sections>
+        <sections>
+            <label><!-- Training Evaluation --></label>
+            <section>Training Evaluation</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>LAC CKW Layout</layout>
+        <sections>
+            <label><!-- Basic Information --></label>
+            <section>Basic Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- CKW ID --></nameFieldLabel>
     <webLinks>
         <label>Edicion masiva</label>
         <name>Mass_Edit</name>

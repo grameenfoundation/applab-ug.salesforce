@@ -32,14 +32,14 @@ locations = records.getArray("records");
       mapTypeControl: true,
       panControl: false,
       zoomControl: false,
-      zoom: 9,
+      zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
     var infowindow = new google.maps.InfoWindow({
         maxWidth: 200,
         disableAutoPan: true,
-        pixelOffset: new google.maps.Size(10,10) 
+        pixelOffset: new google.maps.Size(100,100) 
     });
 
 google.maps.event.addListener(map, 'click', function() {
@@ -72,6 +72,7 @@ marker.html = '<div style="background-color:#003366; width: 190px;">This is the 
           return function() {
             infowindow.setContent('<a href="/'+locations[i].Id+ '" target="_blank">'+locations[i].Name +'</a>');
             infowindow.open(map, this);
+
             }
           })(marker,i));
      };

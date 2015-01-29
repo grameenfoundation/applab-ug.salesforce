@@ -3,7 +3,7 @@ public class MaizeSaleFarmerAssociationCreator{
      public static void getSaleFarmerDetails(Ewarehouse_Sale_Maize_Association__c[] maize_association) {
          
          //Variable to hold the FCI ID's from the Maize association record
-         List <String> ewarehouse_farmer_fci_ids = new List<String>();
+         List <String> ewarehouse_farmer_fci_ids = new List<String>();         
          
          //List Variable to be used to hold the details of the Sale ID's included in the Current Maize Sale Association
          //List <Id> sale_ids = new List <Id> ();
@@ -16,8 +16,13 @@ public class MaizeSaleFarmerAssociationCreator{
          } 
          
          //The Variable object to fetch the Ewarehouse Farmer ID to be used to create a new Ewarehouse Sale Farmer Association Record
-         Ewarehouse_Farmer__c[] existing_farmer = [SELECT Ewarehouse_Farmer__c.Id, Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c IN : ewarehouse_farmer_fci_ids];    
-         
+         Ewarehouse_Farmer__c[] existing_farmer = [SELECT Ewarehouse_Farmer__c.Id, Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c, Ewarehouse_Farmer__c.Status__c FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Farmer__c.Auto_Generated_Farmer_ID__c IN : ewarehouse_farmer_fci_ids];    
+         for(Ewarehouse_Farmer__c farmer_details : existing_farmer){
+             if(farmer_details.Status__c == 'New Farmer'){
+                 farmer_details.Status__c = 'New';
+             }             
+         }
+         update existing_farmer;
         //Sale_Record__c current_sale_Record = [SELECT Sale_Record__c.Id,Sale_Record__c.Status__c FROM Sale_Record__c WHERE Sale_Record__c.Id IN : sale_ids];
          
          //Create a variable to hold the new Sale Farmer Association records to be inserted

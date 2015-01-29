@@ -127,6 +127,16 @@
         <type>Summary</type>
     </fields>
     <fields>
+        <fullName>Storage_Locale__c</fullName>
+        <externalId>false</externalId>
+        <label>Storage Locale</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Storage_Location__c</fullName>
         <externalId>false</externalId>
         <label>Storage Location</label>
@@ -188,7 +198,7 @@
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
-        <columns>Harvest_Date__c</columns>
+        <columns>Storage_Location__c</columns>
         <columns>Notification_Sent__c</columns>
         <columns>CREATEDBY_USER</columns>
         <columns>Ewarehouse_Farmer__c</columns>

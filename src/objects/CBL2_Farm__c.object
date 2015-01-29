@@ -5,10 +5,6 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -21,19 +17,11 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -44,15 +32,11 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>CBL2_Farms_Farmer__c</fullName>
         <externalId>false</externalId>
@@ -62,7 +46,6 @@
         <relationshipName>CBL2_Farms_Farmer</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -71,7 +54,6 @@
         <externalId>false</externalId>
         <label>CP Calculation Date</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -83,24 +65,21 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
         <fullName>Coffee_planted_area_Ha__c</fullName>
         <externalId>false</externalId>
-        <formula>CASE(TEXT(coffeePlantedAreaUnits__c),&quot;Cuadras&quot;, coffeePlantedArea__c *1.5625, 
-&quot;Manzanas&quot;, coffeePlantedArea__c *0.6988, 
-&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *0.044,
-&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *0.112,
-coffeePlantedArea__c)</formula>
+        <formula>IF(text( coffeePlantedAreaUnits__c ) = &quot;Cuadras&quot;, coffeePlantedArea__c *1.5625, 
+IF(text( coffeePlantedAreaUnits__c ) = &quot;Manzanas&quot;, coffeePlantedArea__c *0.6988, 
+IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *0.044, 
+IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *0.112, coffeePlantedArea__c ))))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Coffee planted area (Ha)</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -111,7 +90,6 @@ coffeePlantedArea__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Desp - Mal estado tira grano en la pulpa</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -122,7 +100,6 @@ coffeePlantedArea__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Desp - Mal estado tira pulpa con el gran</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -173,7 +150,6 @@ coffeePlantedArea__c)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -185,7 +161,6 @@ coffeePlantedArea__c)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -201,7 +176,6 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -212,7 +186,6 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>FarmerId</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -225,7 +198,6 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
         <relationshipLabel>CBL2_Farms_LFD</relationshipLabel>
         <relationshipName>CBL2_Farms_LFD</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -237,7 +209,6 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -253,7 +224,6 @@ IF(text( unitForestArea__c )=&quot;Cuerdas (40x40)&quot;, forestArea__c *0.112, 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -264,33 +234,30 @@ IF(text( unitForestArea__c )=&quot;Cuerdas (40x40)&quot;, forestArea__c *0.112, 
         <precision>4</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
         <fullName>Latitude_farm__c</fullName>
         <externalId>false</externalId>
-        <formula>Submission_Farm__r.gfsurveys__gps_y__c</formula>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Latitude_farm</label>
         <precision>18</precision>
         <required>false</required>
         <scale>6</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
         <fullName>Longitude_farm__c</fullName>
         <externalId>false</externalId>
-        <formula>Submission_Farm__r.gfsurveys__gps_x__c</formula>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Longitude_farm</label>
         <precision>18</precision>
         <required>false</required>
         <scale>6</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -303,7 +270,6 @@ IF(text( unitForestArea__c )=&quot;Cuerdas (40x40)&quot;, forestArea__c *0.112, 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -319,7 +285,6 @@ IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -332,24 +297,21 @@ IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
         <fullName>Organic_fertilized_area_Ha__c</fullName>
         <externalId>false</externalId>
-        <formula>CASE(TEXT(organicFertAreaThisYrUnits__c),&quot;Cuadras&quot;, organicFertAreaThisYr__c *1.5625, 
-&quot;Manzanas&quot;, organicFertAreaThisYr__c *0.6988, 
-&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *0.044,
-&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *0.112,
-organicFertAreaThisYr__c )</formula>
+        <formula>IF(text( organicFertAreaThisYrUnits__c ) = &quot;Cuadras&quot;, organicFertAreaThisYr__c *1.5625, 
+IF(text( organicFertAreaThisYrUnits__c ) = &quot;Manzanas&quot;, organicFertAreaThisYr__c *0.6988, 
+IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *0.044, 
+IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *0.112, organicFertAreaThisYr__c ))))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Organic fertilized area (Ha)</label>
         <precision>18</precision>
         <required>false</required>
         <scale>4</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -362,7 +324,6 @@ organicFertAreaThisYr__c )</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -378,7 +339,6 @@ IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, otherActivit
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -393,7 +353,6 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -406,7 +365,6 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -419,7 +377,6 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -432,7 +389,6 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -445,7 +401,6 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -458,7 +413,6 @@ IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c 
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -474,7 +428,6 @@ IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (40x40)&quot;, pruneAreaLasty
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -487,7 +440,6 @@ IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (40x40)&quot;, pruneAreaLasty
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -503,7 +455,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -514,21 +465,8 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Signature</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Submission_Farm__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Submission_Farm</label>
-        <referenceTo>gfsurveys__Submission__c</referenceTo>
-        <relationshipLabel>CBL2_Farms_Submission_Farm</relationshipLabel>
-        <relationshipName>CBL2_Farms_Submission</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Submission_Wetmill__c</fullName>
@@ -539,7 +477,17 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <relationshipLabel>CBL2_Farms_Submission_Wetmill</relationshipLabel>
         <relationshipName>CBL2_Farms_Submission_Wetmill</relationshipName>
         <required>false</required>
-        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL2_Farms_Submission</relationshipLabel>
+        <relationshipName>CBL2_Farms_Submission</relationshipName>
+        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -557,7 +505,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -579,7 +526,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -605,7 +551,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -616,7 +561,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>4</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -647,7 +591,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -657,7 +600,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -667,7 +609,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>biologicalDiversityContrib</label>
         <picklist>
             <picklistValues>
-                <fullName>Sí</fullName>
+                <fullName>Si</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -676,7 +618,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -746,7 +687,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -773,7 +713,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -796,7 +735,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -831,7 +769,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -858,7 +795,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -888,7 +824,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -898,7 +833,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -929,7 +863,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -955,7 +888,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -993,7 +925,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1032,7 +963,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1083,7 +1013,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1106,7 +1035,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1128,7 +1056,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1186,7 +1113,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1197,7 +1123,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1256,7 +1181,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1275,7 +1199,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1293,7 +1216,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1319,7 +1241,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1345,7 +1266,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1371,7 +1291,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1381,7 +1300,15 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>erosionRiskPercentage_porcentajeRiesgoEr__c</fullName>
+        <externalId>false</externalId>
+        <label>erosionRiskPercentage porcentajeRiesgoEr</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
@@ -1399,7 +1326,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1465,7 +1391,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1475,7 +1400,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>farmCode</label>
         <length>20</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1485,7 +1409,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>farmCountry</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1495,7 +1418,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>farmDepartment</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1505,7 +1427,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>farmDistrict</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1515,7 +1436,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>farmLocation</label>
         <length>40</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1590,7 +1510,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1613,7 +1532,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1622,7 +1540,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>farmMunicipality</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1632,7 +1549,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>farmName</label>
         <length>40</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1671,7 +1587,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1681,7 +1596,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1692,7 +1606,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>2</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1715,7 +1628,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1725,7 +1637,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1752,7 +1663,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1763,7 +1673,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <summarizedField>FMP_Diagnostic__c.fmp_Total_Score__c</summarizedField>
         <summaryForeignKey>FMP_Diagnostic__c.PMF_Farm__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
-        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -1853,7 +1762,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1904,7 +1812,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1915,7 +1822,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1926,7 +1832,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>4</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1989,7 +1894,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2036,7 +1940,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2063,7 +1966,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2086,7 +1988,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2128,7 +2029,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2163,7 +2063,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2190,7 +2089,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2217,7 +2115,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2227,7 +2124,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2238,7 +2134,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2293,7 +2188,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2304,7 +2198,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>4</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2335,7 +2228,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2345,7 +2237,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>12</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2354,7 +2245,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <externalId>false</externalId>
         <label>nonConformancePicURL</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
@@ -2364,7 +2254,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>nonConformancePic</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2375,7 +2264,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>10</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2386,7 +2274,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2417,7 +2304,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2427,7 +2313,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2478,7 +2363,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2533,7 +2417,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2560,7 +2443,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2590,7 +2472,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2600,7 +2481,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2610,7 +2490,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherChemicalFertilizers</label>
         <length>220</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2620,7 +2499,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherDiseaseControlAgrochem</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2630,7 +2508,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherDiseaseControlOrganicProd</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2640,7 +2517,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherDiseaseControl</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2650,7 +2526,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherFoliarFertilizerLastYr</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2660,7 +2535,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherHighDisease</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2670,7 +2544,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherHighIncidencePlagues</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2680,7 +2553,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherOrganicFertIngredients</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2690,7 +2562,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherOrganizFertilizers</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2700,7 +2571,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherPlagueCtrlAgrochemicals</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2710,7 +2580,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherProdSoilTreatment</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2720,7 +2589,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>otherWeedsCtrlHerbicides</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2731,7 +2599,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2741,7 +2608,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2751,7 +2617,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2761,7 +2626,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2771,7 +2635,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2781,7 +2644,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2791,7 +2653,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>5</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2801,7 +2662,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>8</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2824,7 +2684,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2878,7 +2737,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2909,7 +2767,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2928,7 +2785,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2950,7 +2806,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2968,7 +2823,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2978,7 +2832,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>8</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3009,7 +2862,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3032,7 +2884,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3062,7 +2913,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3072,7 +2922,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3091,7 +2940,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3113,7 +2961,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3140,7 +2987,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3159,7 +3005,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3185,7 +3030,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3195,7 +3039,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3204,7 +3047,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <externalId>false</externalId>
         <label>signatureURL</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
@@ -3234,7 +3076,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3244,7 +3085,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3291,7 +3131,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3302,7 +3141,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>8</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3333,7 +3171,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3343,7 +3180,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3353,7 +3189,7 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>turnedForestInCropArea</label>
         <picklist>
             <picklistValues>
-                <fullName>Sí</fullName>
+                <fullName>Si</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -3362,7 +3198,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3384,7 +3219,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3418,7 +3252,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3441,7 +3274,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3471,7 +3303,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3501,7 +3332,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3519,7 +3349,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3541,7 +3370,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3571,7 +3399,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3626,7 +3453,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3665,7 +3491,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3684,7 +3509,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3694,7 +3518,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>6</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3704,7 +3527,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>wetMillCountry</label>
         <length>20</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -3714,7 +3536,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>wetMillDepartment</label>
         <length>30</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -3724,7 +3545,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>wetMillDistrict</label>
         <length>25</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -3739,7 +3559,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3748,7 +3567,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <label>wetMillMunicipality</label>
         <length>20</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -3767,7 +3585,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3785,7 +3602,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3803,7 +3619,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3821,7 +3636,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3831,7 +3645,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <precision>12</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3850,7 +3663,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3868,7 +3680,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3918,7 +3729,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3944,7 +3754,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3971,7 +3780,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3989,7 +3797,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4007,7 +3814,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4025,7 +3831,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4043,7 +3848,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4073,7 +3877,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4112,7 +3915,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4131,7 +3933,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4149,7 +3950,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4167,7 +3967,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4185,7 +3984,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4219,7 +4017,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4237,7 +4034,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4259,7 +4055,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4277,7 +4072,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4295,7 +4089,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4313,7 +4106,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4331,7 +4123,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4353,7 +4144,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4372,7 +4162,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4390,7 +4179,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4408,7 +4196,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4426,7 +4213,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4452,7 +4238,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4471,7 +4256,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4489,7 +4273,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4555,7 +4338,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4578,7 +4360,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4617,7 +4398,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4636,7 +4416,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4678,7 +4457,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4697,7 +4475,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4723,7 +4500,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4750,7 +4526,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4769,7 +4544,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4787,7 +4561,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4817,7 +4590,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4836,7 +4608,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4854,7 +4625,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4888,7 +4658,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4907,7 +4676,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4941,7 +4709,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -4960,7 +4727,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -4978,7 +4744,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -5008,7 +4773,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -5027,7 +4791,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -5037,7 +4800,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>wm_Desp - Granos enteros y limpios</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -5048,7 +4810,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>wm_Desp - granos quebrados o mordidos</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -5075,7 +4836,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>CBL2_Farm</label>
