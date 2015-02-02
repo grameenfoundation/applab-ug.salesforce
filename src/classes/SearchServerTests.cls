@@ -10,7 +10,8 @@
 public class SearchServerTests {
 
     static testMethod void testGetImagesHelper() {
-        //Crete test data
+        
+	//Crete test data
         Menu__c menu = new Menu__c();
         menu.Label__c = 'Test menu label';
         insert(menu);

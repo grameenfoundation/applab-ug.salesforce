@@ -162,6 +162,16 @@
         <visibleLines>6</visibleLines>
     </fields>
     <fields>
+        <fullName>Coffee_Value_Addition__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c,&apos;On farm coffee value addition (PHH)&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Value Addition</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Coffee_desuckering_pruning_stumping__c</fullName>
         <externalId>false</externalId>
         <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c, &apos;Coffee desuckering, pruning and stumping&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
