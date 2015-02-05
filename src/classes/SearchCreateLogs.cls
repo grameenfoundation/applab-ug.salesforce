@@ -64,8 +64,11 @@ global class SearchCreateLogs {
             log.Accuracy__c = len > 3 ? Double.valueOf(location[3]) : null;
             log.Altitude__c = len > 2 ? Double.valueOf(location[2]) : null;
             log.Handset_Submit_Time__c = Datetime.now();
-            log.Interviewee__c = searchLog.clientId.equals(SearchGetFarmersHelper.GROUP_SEARCH_FARMER_TEMPLATE_ID) ? null :
-            	[SELECT Person__r.Id FROM Focus_Farmer__c WHERE Id = :searchLog.clientId].get(0).Person__r.Id;
+            //group-search has no iterviewee (group-search checkbox is ticked), my-search has interviewer as interviewee
+            //normal search, we find the person id from the focus-farmer id's object
+            log.Interviewee__c = searchLog.clientId.equals(SearchGetFarmersHelper.MY_SEARCHES_FARMER_TEMPLATE_ID) ? interviewer.Id : 
+            	(searchLog.clientId.equals(SearchGetFarmersHelper.GROUP_SEARCH_FARMER_TEMPLATE_ID) ? null :
+            	[SELECT Person__r.Id FROM Focus_Farmer__c WHERE Id = :searchLog.clientId].get(0).Person__r.Id);
         	log.Group_Search__c = searchLog.clientId.equals(SearchGetFarmersHelper.GROUP_SEARCH_FARMER_TEMPLATE_ID) ? true : false;
             log.Interviewer__c = interviewer.Id;
             log.Interviewer_Contact__c = interviewer.Contact__c;

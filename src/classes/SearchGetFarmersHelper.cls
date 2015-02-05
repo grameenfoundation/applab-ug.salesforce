@@ -9,6 +9,7 @@ public class SearchGetFarmersHelper {
     
     private final static String DEFAULT_FARMERS_VERSION = '2014-11-03 00:00:00';
     public final static String GROUP_SEARCH_FARMER_TEMPLATE_ID = 'ID1234567891011';
+    public final static String MY_SEARCHES_FARMER_TEMPLATE_ID = 'ID1234567891012';
     
     /**
      * @param jsonRequestString -   JSON request containing the create-date of the latest
@@ -128,7 +129,8 @@ public class SearchGetFarmersHelper {
 		//this user will be attached to all group searches
 		//this is added onl on first load hence the IF statement
 		FarmerData groupSearchTemplateUser = new FarmerData();
-		if(DEFAULT_FARMERS_VERSION.equals('2014-11-03 00:00:00')) {
+		FarmerData mySearchTemplateUser = new FarmerData();
+		if(DEFAULT_FARMERS_VERSION.equals(request.farmersVersion)) {
 			groupSearchTemplateUser.farmerId = GROUP_SEARCH_FARMER_TEMPLATE_ID;
 	        groupSearchTemplateUser.firstName = 'Group';
 	        groupSearchTemplateUser.lastName = 'Search';
@@ -136,6 +138,13 @@ public class SearchGetFarmersHelper {
 	        groupSearchTemplateUser.subcounty = '';
 	        groupSearchTemplateUser.village = '';            
 	        farmersDataList.add(groupSearchTemplateUser);
+			mySearchTemplateUser.farmerId = MY_SEARCHES_FARMER_TEMPLATE_ID;
+	        mySearchTemplateUser.firstName = 'My';
+	        mySearchTemplateUser.lastName = 'Searches';
+	        mySearchTemplateUser.creationDate = String.valueOf(datetime.now());
+	        mySearchTemplateUser.subcounty = '';
+	        mySearchTemplateUser.village = '';            
+	        farmersDataList.add(mySearchTemplateUser);
 		}
          
         responseWrapper.resultCode = '0';
