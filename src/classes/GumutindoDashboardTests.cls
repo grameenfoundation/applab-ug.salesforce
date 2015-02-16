@@ -390,4 +390,13 @@ public with sharing class GumutindoDashboardTests {
 
 
     }
+    
+	public static testMethod void testCkwDetailsPopup() {
+		CKW__c obj = new CKW__c();
+		ApexPages.StandardController sc = new ApexPages.StandardController(obj);
+		CkwDetailMiniStartsController c = new CkwDetailMiniStartsController(sc);
+		
+		system.assertEquals(c.getTotalSearches(), '0');
+		system.assertEquals(c.getTotalFarmers(), 'N/A');
+	}
 }
