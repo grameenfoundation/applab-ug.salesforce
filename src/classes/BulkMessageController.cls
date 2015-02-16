@@ -286,10 +286,14 @@ public with sharing class BulkMessageController {
 
     public List<SelectOption> getUserItems() {
 
+		String name = UserInfo.getUserId();
         List<SelectOption> options = new List<SelectOption>();
         for (User[] currentUsers :  [SELECT Id, Name FROM User WHERE IsActive = true ORDER BY Name ASC]) {
             for (User currentUser : currentUsers) {
                 options.add(new SelectOption(currentUser.id, currentUser.name));
+                if(name.equals(currentUser.id)) {
+                	senderId = currentUser.id;
+                }
             }
         }
         return options;
