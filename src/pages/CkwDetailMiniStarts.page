@@ -21,10 +21,7 @@
                     <apex:pageBlock tabStyle="CKW__c" title="{!$Label.PERFORMANCE}">
                         <apex:pageBlockSection columns="1">
                             <apex:outputText value="{!totalFarmers}" label="{!$Label.REGISTERED_FARMER}"/>
-                            <!-- <apex:outputText value="{!totalSurveys}" label="{!$Label.SURVEYS_ADMINISTERED}"/> -->
                             <apex:outputText value="{!totalSearches}" label="{!$Label.SEARCHES_ADMINISTERED}"/>
-                            <apex:outputText value="{!ckwToFarmerRadius}" label="{!$Label.CKW_TO_FARMER_RADIUS}"/>
-                            <!-- <apex:outputText value="{!interactionsPerFarmerPerQuarter}" label="{!$Label.INTERACTIONS_PER_FARMER_PER_QUARTER}"/> -->
                         </apex:pageBlockSection>
                     </apex:pageBlock>
                 </div>
