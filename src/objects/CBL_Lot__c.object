@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,12 +44,28 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the information for a farm lot on a Coffee Baseline</description>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>CBL2_Lot__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CBL2_Lot</label>
+        <referenceTo>CBL2_Lot__c</referenceTo>
+        <relationshipLabel>CBL_Lot_CBL2_Lot</relationshipLabel>
+        <relationshipName>CBL_Lot_CBL2_Lot</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
     <fields>
         <fullName>Farm__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -47,12 +75,75 @@
         <relationshipLabel>CBL_Lots</relationshipLabel>
         <relationshipName>CBL_Lots</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lot_Age_years__c</fullName>
+        <externalId>false</externalId>
+        <formula>(TODAY() -  lotPlantingDate__c )/365.2425</formula>
+        <label>Lot Age (years)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lot_Code_Guat__c</fullName>
+        <externalId>false</externalId>
+        <label>Lot Code Guat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>B</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>D</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>E</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>F</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>G</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>H</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>J</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Lot_area_Ha__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(text( lotAreaUnits__c ) = &quot;Cuadras&quot;, lotArea__c *1.5625, 
+        <formula>IF(text( lotAreaUnits__c ) = &quot;Cuadra&quot;, lotArea__c *1.5625, 
 IF(text( lotAreaUnits__c ) = &quot;Manzanas&quot;, lotArea__c *0.6988, 
 IF(text( lotAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, lotArea__c *22.89, 
 IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotArea__c ))))</formula>
@@ -60,8 +151,21 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL_Lot_Submission</relationshipLabel>
+        <relationshipName>CBL_Lot_Submission</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>lotAreaUnits__c</fullName>
@@ -90,6 +194,7 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -99,6 +204,7 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
         <precision>6</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -108,6 +214,7 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
         <label>lotCode</label>
         <length>20</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -262,6 +369,7 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -271,6 +379,7 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
         <label>lotName</label>
         <length>20</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -281,6 +390,7 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
         <precision>8</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -289,7 +399,30 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
         <externalId>false</externalId>
         <label>lotPlantingDate</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <externalId>false</externalId>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
     </fields>
     <label>CBL_Lot</label>
     <nameField>

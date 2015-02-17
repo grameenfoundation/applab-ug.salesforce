@@ -54,23 +54,12 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>FaunaFloraRecoveryPlan__c</fullName>
+        <fullName>CBL2_Farm__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.promotesFloraAndFaunaPreservation__c) = &quot;Si se cumple&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>FaunaFloraRecoveryPlan</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>PMF_Farm__c</fullName>
-        <externalId>false</externalId>
-        <label>PMF_Farm</label>
+        <label>CBL2_Farm</label>
         <referenceTo>CBL2_Farm__c</referenceTo>
-        <relationshipLabel>FMP_Diagnostics_Farm</relationshipLabel>
-        <relationshipName>FMP_Diagnostics_Farm</relationshipName>
+        <relationshipLabel>FMP Diagnostic_CBL2_Farm</relationshipLabel>
+        <relationshipName>FMP_Diagnostic_CBL2_Farm</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackTrending>false</trackTrending>
@@ -78,110 +67,11 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
-        <fullName>adequateTransportation__c</fullName>
+        <fullName>env1_Environment_Score__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.wetmill_protectsTransport__c) = &quot;Sí&quot; &amp;&amp; TEXT(PMF_Farm__r.wetmill_transportWithChemicals__c) = &quot;No&quot; , &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
+        <formula>IF(TEXT( env_FaunaFloraRecoveryPlan__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( env_transformationPulpsForUse__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( env_wastewaterManagement__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( env_wetmillWaterManagement__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>adequateTransportation</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>channelsScamperOk__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_coffeWashMeans__c, &quot;Canal de correteo&quot;) = TRUE &amp;&amp; TEXT( PMF_Farm__r.wetmill_washInfrastructureStatus__c) = &quot;Sin ranuras o grietas&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>channelsScamperOk</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>checklist__c</fullName>
-        <defaultValue>&quot;No definida&quot;</defaultValue>
-        <externalId>false</externalId>
-        <label>checklist</label>
-        <length>5</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>coffeeDryingSystemOk__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.wetmill_patioAndMecanicDryerStatus__c) = &quot;Sin granos de secados anteriores&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>coffeeDryingSystemOk</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>coffeePackaging__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.cleanTransportContainers__c, &quot;Están limpios y aptos para la cosecha&quot;)=TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>coffeePackaging</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>controlAccordingMonitoring__c</fullName>
-        <defaultValue>&quot;No definida&quot;</defaultValue>
-        <externalId>false</externalId>
-        <label>controlAccordingMonitoring</label>
-        <length>5</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>evaluationPulping__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.wetmill_pulpingMachineWashedBeforeUse__c) = &quot;Se limpia antes de cada proceso&quot; &amp;&amp; INCLUDES( PMF_Farm__r.wetmill_pulpingMachinesStatus__c, &quot;Granos enteros y limpios&quot;) = TRUE , &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>evaluationPulping</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>farmMap__c</fullName>
-        <externalId>false</externalId>
-        <formula>&quot;No definida&quot;</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>farmMap</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>fermentationTanksOk__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.wetmill_fermentationTanksStatus__c) = &quot;Sin ranuras o grietas&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fermentationTanksOk</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>fmp_Agrochemicals_Score__c</fullName>
-        <externalId>false</externalId>
-        <formula>(IF( hasProtectionEquipment__c = &quot;Cumple&quot;, 1, 0) + IF( useProtectionEquipment__c = &quot;Cumple&quot;, 1, 0)) + (IF( recordsAgrochemicalsApplications__c = &quot;Cumple&quot;, 1, 0) + IF( trainsStaffAgrochemicalsHandling__c = &quot;Cumple&quot;, 1, 0))</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Agrochemicals_Score</label>
+        <label>env1 Environment Score</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -190,11 +80,83 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>fmp_Environment_Score__c</fullName>
+        <fullName>env_FaunaFloraRecoveryPlan__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( wastewaterManagement__c = &quot;Cumple&quot;, 1, 0) + IF( wetmillWaterManagement__c = &quot;Cumple&quot;, 1, 0) + IF( transformationPulpsForUse__c = &quot;Cumple&quot;, 1, 0) + IF( FaunaFloraRecoveryPlan__c = &quot;Cumple&quot;, 1, 0)</formula>
+        <label>env Fauna Flora Recovery Plan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>env_transformationPulpsForUse__c</fullName>
+        <externalId>false</externalId>
+        <label>env Transformation Pulps For Use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>env_wastewaterManagement__c</fullName>
+        <externalId>false</externalId>
+        <label>env Wastewater Management</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>env_wetmillWaterManagement__c</fullName>
+        <externalId>false</externalId>
+        <label>env Wetmill Water Management</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>fmp_Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>env1_Environment_Score__c + har1_Harvest_Score__c + lot1_Lot_Score__c + mipe1_MIPE_Score__c + pes1_Pesticides_Score__c + rec1_Record_Score__c + seed1_Seedbed_Score__c + sha1_Shadow_Score__c + soil1_Soil_Score__c + weed1_Weeds_Score__c + wet1_Wetmill_Score__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Environment_Score</label>
+        <label>fmp_Total_Score</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -203,11 +165,11 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>fmp_Harvest_Score__c</fullName>
+        <fullName>har1_Harvest_Score__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( harvestRecord__c = &quot;Cumple&quot;, 1, 0) + IF( harvestEvaluation__c = &quot;Cumple&quot;, 1, 0) + IF( wetmillSafety__c = &quot;Cumple&quot;, 1, 0) + IF( evaluationPulping__c = &quot;Cumple&quot;, 1, 0) + IF( warehouseSafety__c = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF(TEXT( har_evaluationPulping__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( har_harvestEvaluation__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( har_harvestRecord__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( har_warehouseSafety__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( har_wetmillSafety__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Harvest_Score</label>
+        <label>har1 Harvest Score</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -216,11 +178,101 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>fmp_Lot_Score__c</fullName>
+        <fullName>har_evaluationPulping__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( farmMap__c = &quot;Cumple&quot;, 1, 0) + IF( knowledgeAreasLots__c = &quot;Cumple&quot;, 1, 0) + IF(recordVarietiesTreesPerLot__c = &quot;Cumple&quot;, 1, 0) + IF( registrationWorkPerLot__c = &quot;Cumple&quot;, 1, 0)</formula>
+        <label>har Evaluation Pulping</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>har_harvestEvaluation__c</fullName>
+        <externalId>false</externalId>
+        <label>har Harvest Evaluation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>har_harvestRecord__c</fullName>
+        <externalId>false</externalId>
+        <label>har Harvest Record</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>har_warehouseSafety__c</fullName>
+        <externalId>false</externalId>
+        <label>har Warehouse Safety</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>har_wetmillSafety__c</fullName>
+        <externalId>false</externalId>
+        <label>har Wetmill Safety</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>lot1_Lot_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT( lot_farmMap__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( lot_knowledgeAreasLots__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( lot_recordVarietiesTreesPerLot__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( lot_registrationWorkPerLot__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Lot_Score</label>
+        <label>lot1 Lot Score</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -229,89 +281,83 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>fmp_MIPE_Score__c</fullName>
+        <fullName>lot_farmMap__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( monitoringRecordPestDisease__c = &quot;Cumple&quot;, 1, 0) + IF( makingMonitoringPestsDiseases__c = &quot;Cumple&quot;, 1, 0) + IF(controlAccordingMonitoring__c = &quot;Cumple&quot;, 1, 0) + IF(postControlEvaluation__c = &quot;Cumple&quot;, 1, 0)+IF( usingControlMethodsForPYE__c = &quot;Cumple&quot;, 1, 0)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_MIPE_Score</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
+        <label>lot Farm Map</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>fmp_Record_score__c</fullName>
+        <fullName>lot_knowledgeAreasLots__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(recordHarvesting__c = &quot;Cumple&quot;, 1, 0) + IF(recordOfLabor__c = &quot;Cumple&quot;, 1, 0) + IF(recordPesticideApplications__c = &quot;Cumple&quot;, 1, 0) + IF(recordPurchasingInputs__c = &quot;Cumple&quot;, 1, 0) + IF(recordSalesCPS__c = &quot;Cumple&quot;, 1, 0)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Record_score</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>0</scale>
+        <label>lot Knowledge Areas Lots</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>fmp_Seedbed_Score__c</fullName>
+        <fullName>lot_recordVarietiesTreesPerLot__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(implemetationSeedbedPlan__c = &quot;Cumple&quot;, 1, 0) + IF(properSubstratesPreparation__c = &quot;Cumple&quot;, 1, 0)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Seedbed_Score</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>0</scale>
+        <label>lot Record Varieties Trees Per Lot</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>fmp_Shadow_Score__c</fullName>
+        <fullName>lot_registrationWorkPerLot__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( usingNativeSpeciesAsShading__c = &quot;Cumple&quot;, 1, 0)+IF( regulationOfShadow__c = &quot;Cumple&quot;, 1, 0)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Shadow_Score</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>0</scale>
+        <label>lot Registration Work Per Lot</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>fmp_Soil_Score__c</fullName>
+        <fullName>mipe1_MIPE_Score__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(identifyingErodedAreas__c = &quot;Cumple&quot;, 1,0) + IF(recoveryErodedAreas__c = &quot;Cumple&quot;, 1, 0) + IF(reforestationNativeSpecies__c = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF(TEXT( mipe_controlAccordingMonitoring__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( mipe_makingMonitoringPestsDiseases__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( mipe_monitoringRecordPestDisease__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( mipe_postControlEvaluation__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( mipe_usingControlMethodsForPYE__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Soil_Score</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>0</scale>
-        <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>fmp_Weeds_Score__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( friendlyMethodsReducingHerbicide__c = &quot;Cumple&quot;, 1, 0)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Weeds_Score</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>0</scale>
-        <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>fmp_Wetmill_Score__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(checklist__c = &quot;Cumple&quot;, 1, 0) + IF(separationCoffeePerLot__c = &quot;Cumple&quot;, 1, 0) + IF(separationCoffeeQuality__c = &quot;Cumple&quot;, 1, 0) + IF(pulpingMachineOk__c = &quot;Cumple&quot;, 1, 0) + IF(zarandaGoodCondition__c = &quot;Cumple&quot;, 1, 0) + IF(fermentationTanksOk__c = &quot;Cumple&quot;, 1, 0) + IF(tanksMucilageRemoverOk__c = &quot;Cumple&quot;, 1, 0) + IF(channelsScamperOk__c = &quot;Cumple&quot;, 1, 0) + IF(pulpCompostingPit__c = &quot;Cumple&quot;, 1, 0) + IF(honeyWaterTreatmentTank__c = &quot;Cumple&quot;, 1, 0) + IF(coffeePackaging__c = &quot;Cumple&quot;, 1, 0) + IF(properCoffeeStorage__c = &quot;Cumple&quot;, 1, 0) + IF(adequateTransportation__c = &quot;Cumple&quot;, 1, 0) + IF(coffeeDryingSystemOk__c = &quot;Cumple&quot;, 1, 0)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>fmp_Wetmill_Score</label>
+        <label>mipe1 MIPE Score</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -320,312 +366,447 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>friendlyMethodsReducingHerbicide__c</fullName>
+        <fullName>mipe_controlAccordingMonitoring__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.weedsControlMethods__c, &quot;Control físico/mecánico&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.weedsControlMethods__c, &quot;Cultivos de cobertura&quot;) = TRUE  ||  INCLUDES(  PMF_Farm__r.weedsControlMethods__c, &quot;Mulch (colchón material orgánico)&quot;) = TRUE ||  INCLUDES(  PMF_Farm__r.weedsControlMethods__c, &quot;Distancias de siembra&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.weedsControlMethods__c, &quot;Manejo de Sombra&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
+        <label>mipe Control According Monitoring</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mipe_makingMonitoringPestsDiseases__c</fullName>
+        <externalId>false</externalId>
+        <label>mipe Making Monitoring Pests Diseases</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mipe_monitoringRecordPestDisease__c</fullName>
+        <externalId>false</externalId>
+        <label>mipe Monitoring Record Pest Disease</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mipe_postControlEvaluation__c</fullName>
+        <externalId>false</externalId>
+        <label>mipe Post Control Evaluation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mipe_usingControlMethodsForPYE__c</fullName>
+        <externalId>false</externalId>
+        <label>mipe Using Control Methods For PYE</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>pes1_Pesticides_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT( pes_hasProtectionEquipment__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( pes_recordsAgrochemicalsApplications__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( pes_trainsStaffAgrochemicalsHandling__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( pes_useProtectionEquipment__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>friendlyMethodsReducingHerbicide</label>
+        <label>pes1 Pesticides Score</label>
+        <precision>18</precision>
         <required>false</required>
+        <scale>0</scale>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>harvestEvaluation__c</fullName>
+        <fullName>pes_hasProtectionEquipment__c</fullName>
         <externalId>false</externalId>
-        <formula>&quot;No definida&quot;</formula>
+        <label>pes Has Protection Equipment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>pes_recordsAgrochemicalsApplications__c</fullName>
+        <externalId>false</externalId>
+        <label>pes Records Agrochemicals Applications</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>pes_trainsStaffAgrochemicalsHandling__c</fullName>
+        <externalId>false</externalId>
+        <label>pes Trains Staff Agrochemicals Handling</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>pes_useProtectionEquipment__c</fullName>
+        <externalId>false</externalId>
+        <label>pes Use Protection Equipment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>rec1_Record_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT(rec_recordHarvesting__c)= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( rec_recordOfLabor__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( rec_recordPesticideApplications__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( rec_recordPurchasingInputs__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( rec_recordSalesCPS__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>harvestEvaluation</label>
+        <label>rec1 Record Score</label>
+        <precision>18</precision>
         <required>false</required>
+        <scale>0</scale>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>harvestRecord__c</fullName>
+        <fullName>rec_recordHarvesting__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.identifiesHarvestedCoffee__c, &quot;Con documentación/registros de soporte&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
+        <label>rec Record Harvesting</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>rec_recordOfLabor__c</fullName>
+        <externalId>false</externalId>
+        <label>rec Record Of Labor</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>rec_recordPesticideApplications__c</fullName>
+        <externalId>false</externalId>
+        <label>rec Record Pesticide Applications</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>rec_recordPurchasingInputs__c</fullName>
+        <externalId>false</externalId>
+        <label>rec Record Purchasing Inputs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>rec_recordSalesCPS__c</fullName>
+        <externalId>false</externalId>
+        <label>rec Record Sales CPS</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>seed1_Seedbed_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT( seed_implemetationSeedbedPlan__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( seed_properSubstratesPreparation__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>harvestRecord</label>
+        <label>seed1 Seedbed Score</label>
+        <precision>18</precision>
         <required>false</required>
+        <scale>0</scale>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>hasProtectionEquipment__c</fullName>
+        <fullName>seed_implemetationSeedbedPlan__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.useOfProtApplicationDangSubstances__c) = &quot;Sí, siempre&quot; || TEXT(PMF_Farm__r.useOfProtApplicationDangSubstances__c) = &quot;Sí, algunas veces&quot; || TEXT(PMF_Farm__r.useOfProtApplicationDangSubstances__c) = &quot;No, pero si hay equipo de protección&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
+        <label>seed Implemetation Seedbed Plan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>seed_properSubstratesPreparation__c</fullName>
+        <externalId>false</externalId>
+        <label>seed Proper Substrates Preparation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>sha1_Shadow_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT( sha_regulationOfShadow__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( sha_usingNativeSpeciesAsShading__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>hasProtectionEquipment</label>
+        <label>sha1 Shadow Score</label>
+        <precision>18</precision>
         <required>false</required>
+        <scale>0</scale>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>honeyWaterTreatmentTank__c</fullName>
+        <fullName>sha_regulationOfShadow__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_residualWaterDisposal__c, &quot;Las vierte en pozos de infiltración&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.wetmill_residualWaterDisposal__c, &quot;Planta de tratamiento de aguas mieles&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
+        <label>sha Regulation Of Shadow</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>sha_usingNativeSpeciesAsShading__c</fullName>
+        <externalId>false</externalId>
+        <label>sha Using Native Species As Shading</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>soil1_Soil_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT( soil_identifyingErodedAreas__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( soil_recoveryErodedAreas__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( soil_reforestationNativeSpecies__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>honeyWaterTreatmentTank</label>
+        <label>soil1 Soil Score</label>
+        <precision>18</precision>
         <required>false</required>
+        <scale>0</scale>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>identifyingErodedAreas__c</fullName>
+        <fullName>soil_identifyingErodedAreas__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.erosionZonesIdentified__c) = &quot;Sí&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>identifyingErodedAreas</label>
-        <required>false</required>
+        <label>soil Identifying Eroded Areas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>implemetationSeedbedPlan__c</fullName>
+        <fullName>soil_recoveryErodedAreas__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.farmManagmtDocuments__c, &quot;Plan de Manejo de Almácigos&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>implemetationSeedbedPlan</label>
-        <required>false</required>
+        <label>soil Recovery Eroded Areas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>knowledgeAreasLots__c</fullName>
+        <fullName>soil_reforestationNativeSpecies__c</fullName>
         <externalId>false</externalId>
-        <formula>&quot;No definida&quot;</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>knowledgeAreasLots</label>
-        <required>false</required>
+        <label>soil Reforestation Native Species</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>makingMonitoringPestsDiseases__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.doesPlagues_DiseaseSampling__c) = &quot;Sí hace muestreos&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>makingMonitoringPestsDiseases</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>monitoringRecordPestDisease__c</fullName>
-        <defaultValue>&quot;No Definida&quot;</defaultValue>
-        <externalId>false</externalId>
-        <label>monitoringRecordPestDisease</label>
-        <length>5</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>postControlEvaluation__c</fullName>
-        <defaultValue>&quot;No definida&quot;</defaultValue>
-        <externalId>false</externalId>
-        <label>postControlEvaluation</label>
-        <length>5</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>properCoffeeStorage__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT( PMF_Farm__r.wetmill_storageCleanlinessStatus__c) = &quot;Buenas condiciones de limpieza&quot; &amp;&amp; TEXT( PMF_Farm__r.wetmill_baseUsedForStorage__c) = &quot;Sobre madera o estibas&quot; &amp;&amp; TEXT( PMF_Farm__r.wetmill_hasPestControl__c) = &quot;Adecuado control de plagas y roedodres&quot; &amp;&amp; TEXT( PMF_Farm__r.wetmill_humidityRisk__c) = &quot;No presenta riesgos de humedad&quot; &amp;&amp; TEXT( PMF_Farm__r.wetmill_contaminationRisk__c) = &quot;No hay riesgos de contaminación&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>properCoffeeStorage</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>properSubstratesPreparation__c</fullName>
-        <externalId>false</externalId>
-        <formula>&quot;No definida&quot;</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>properSubstratesPreparation</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>pulpCompostingPit__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_pulpManagement__c, &quot;Procesa en compost en cuanto es posible&quot;)= TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>pulpCompostingPit</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>pulpingMachineOk__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_pulpingMachinesStatus__c, &quot;Granos enteros y limpios&quot;)=TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>pulpingMachineOk</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recordHarvesting__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES(PMF_Farm__r.identifiesHarvestedCoffee__c, &quot;Con documentación/registros de soporte&quot;)=TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recordHarvesting</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recordOfLabor__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.hires_RegistersTempStaff__c) = &quot;Si contrata y tiene registros&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recordOfLabor</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recordPesticideApplications__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.registersPlague_DiseaseCtrlSupplies__c, &quot;Fecha de aplicación,Dosis,Lote&quot;)=TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recordPesticideApplications</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recordPurchasingInputs__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.farmManagmtDocuments__c, &quot;Registro de insumos&quot;)=TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recordPurchasingInputs</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recordSalesCPS__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.coffeeInvoicesRegistered__c) = &quot;Sí, con toda la información requerida&quot; || TEXT(PMF_Farm__r.coffeeInvoicesRegistered__c) = &quot;Sí, pero NO con toda la información&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recordSalesCPS</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recordVarietiesTreesPerLot__c</fullName>
-        <externalId>false</externalId>
-        <formula>&quot;No definida&quot;</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recordVarietiesTreesPerLot</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recordsAgrochemicalsApplications__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.registersPlague_DiseaseCtrlSupplies__c, &quot;Fecha de aplicación&quot;) = TRUE &amp;&amp; INCLUDES( PMF_Farm__r.registersPlague_DiseaseCtrlSupplies__c, &quot;Dosis&quot;) = TRUE  &amp;&amp;  INCLUDES( PMF_Farm__r.registersPlague_DiseaseCtrlSupplies__c, &quot;Lote&quot;) = TRUE , &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recordsAgrochemicalsApplications</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>recoveryErodedAreas__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(INCLUDES(PMF_Farm__r.soilConservationPractices__c, &quot;Curvas a nivel&quot;) = TRUE || INCLUDES(PMF_Farm__r.soilConservationPractices__c, &quot;Terrazas individuales&quot;) = TRUE || INCLUDES(PMF_Farm__r.soilConservationPractices__c, &quot;Terrazas de banco&quot;) = TRUE || INCLUDES( PMF_Farm__r.soilConservationPractices__c, &quot;Barreras vivas&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.soilConservationPractices__c, &quot;Barreras físicas&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.soilConservationPractices__c, &quot;Acequias&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.soilConservationPractices__c, &quot;Cultivos de cobertura de suelo&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.soilConservationPractices__c, &quot;Mulch (colchon de materia orgánica)&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>recoveryErodedAreas</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>reforestationNativeSpecies__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.biologicalDiversityContrib__c) = &quot;Sí&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>reforestationNativeSpecies</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>registrationWorkPerLot__c</fullName>
-        <externalId>false</externalId>
-        <formula>&quot;No definida&quot;</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>registrationWorkPerLot</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>regulationOfShadow__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( PMF_Farm__r.percentageShade__c &gt; 20, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>regulationOfShadow</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>separationCoffeePerLot__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.wetmill_canSeparateByLot__c) = &quot;Puede separar lotes/calidades/certif.&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>separationCoffeePerLot</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>separationCoffeeQuality__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.wetmill_classifiesInputCoffeeQuality__c) = &quot;Sí&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>separationCoffeeQuality</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>submission__c</fullName>
@@ -640,125 +821,320 @@
         <type>Lookup</type>
     </fields>
     <fields>
-        <fullName>tanksMucilageRemoverOk__c</fullName>
+        <fullName>sync_Farm__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_coffeWashMeans__c, &quot;Desmucilaginadora&quot;) = TRUE &amp;&amp; TEXT( PMF_Farm__r.wetmill_washInfrastructureStatus__c) = &quot;Sin ranuras o grietas&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>tanksMucilageRemoverOk</label>
+        <label>sync Farm</label>
+        <length>5</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>trainsStaffAgrochemicalsHandling__c</fullName>
+        <fullName>sync_Wetmill__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.dangSubstancesManipulatorsTrained__c) = &quot;Sí&quot; || TEXT(PMF_Farm__r.dangSubstancesManipulatorsTrained__c) = &quot;No aplica, no usa sustancias peligrosas&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>trainsStaffAgrochemicalsHandling</label>
+        <label>sync Wetmill</label>
+        <length>5</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>transformationPulpsForUse__c</fullName>
+        <fullName>weed1_Weeds_Score__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_pulpManagement__c, &quot;Procesa en compost en cuanto es posible&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
+        <formula>IF(TEXT( weed_friendlyMethodsReducingHerbicide__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>transformationPulpsForUse</label>
+        <label>weed1 Weeds Score</label>
+        <precision>18</precision>
         <required>false</required>
+        <scale>0</scale>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>useProtectionEquipment__c</fullName>
+        <fullName>weed_friendlyMethodsReducingHerbicide__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.useOfProtApplicationDangSubstances__c) = &quot;Sí, siempre&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>useProtectionEquipment</label>
-        <required>false</required>
+        <label>weed Friendly Methods Reducing Herbicide</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet1_Wetmill_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT( wet_adequateTransportation__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_channelsScamperOk__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_checklist__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_coffeeDryingSystemOk__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_coffeePackaging__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_fermentationTanksOk__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_honeyWaterTreatmentTank__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_properCoffeeStorage__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_pulpCompostingPit__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_pulpingMachineOk__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_separationCoffeePerLot__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_separationCoffeeQuality__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_tanksMucilageRemoverOk__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)+IF(TEXT( wet_zarandaGoodCondition__c )= &quot;Cumple desde la Línea Base&quot; , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>wet1 Wetmill Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>usingControlMethodsForPYE__c</fullName>
+        <fullName>wet_adequateTransportation__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.howDoesDiseaseControl__c, &quot;Variedades resistentes&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.howDoesDiseaseControl__c, &quot;Regulando distanciamientos y sombra&quot;) = TRUE  ||  INCLUDES(  PMF_Farm__r.howDoesDiseaseControl__c, &quot;Controlando malezas&quot;) = TRUE ||  INCLUDES(  PMF_Farm__r.howDoesDiseaseControl__c, &quot;Podas y renovación de cafetales&quot;) = TRUE ||  INCLUDES( PMF_Farm__r.howDoesDiseaseControl__c, &quot;Uso de fungicidas sistémicos&quot;) = TRUE ||  INCLUDES(  PMF_Farm__r.howDoesDiseaseControl__c, &quot;Uso de fungicidas de contacto&quot;) = TRUE ||  INCLUDES(  PMF_Farm__r.howDoesDiseaseControl__c, &quot;Otros&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>usingControlMethodsForPYE</label>
-        <required>false</required>
+        <label>wet Adequate Transportation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>usingNativeSpeciesAsShading__c</fullName>
+        <fullName>wet_channelsScamperOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( PMF_Farm__r.percShadeNativeSpecies__c&gt; 50 , &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>usingNativeSpeciesAsShading</label>
-        <required>false</required>
+        <label>wet Channels Scamper Ok</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>warehouseSafety__c</fullName>
+        <fullName>wet_checklist__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.wetmill_storageCleanlinessStatus__c) = &quot;Buenas condiciones de limpieza&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>warehouseSafety</label>
-        <required>false</required>
+        <label>wet Checklist</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>wastewaterManagement__c</fullName>
+        <fullName>wet_coffeeDryingSystemOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_residualWaterDisposal__c, &quot;Las vierte en pozos de infiltración&quot;) = TRUE || INCLUDES( PMF_Farm__r.wetmill_residualWaterDisposal__c, &quot;Planta de tratamiento de aguas mieles&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>wastewaterManagement</label>
-        <required>false</required>
+        <label>wet Coffee Drying System Ok</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>wetmillSafety__c</fullName>
+        <fullName>wet_coffeePackaging__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_majorNonCompliance__c, &quot;Aprobado para la certificación&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>wetmillSafety</label>
-        <required>false</required>
+        <label>wet Coffee Packaging</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>wetmillWaterManagement__c</fullName>
+        <fullName>wet_fermentationTanksOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( INCLUDES( PMF_Farm__r.wetmill_residualWaterDisposal__c, &quot;La utiliza como modo de fertilización&quot;) = TRUE, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>wetmillWaterManagement</label>
-        <required>false</required>
+        <label>wet Fermentation Tanks Ok</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>zarandaGoodCondition__c</fullName>
+        <fullName>wet_honeyWaterTreatmentTank__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( TEXT(PMF_Farm__r.Wetmill_separatedGrainsProcessedAppart__c) = &quot;Sí&quot;, &quot;Cumple&quot;, &quot;No Cumple&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>zarandaGoodCondition</label>
-        <required>false</required>
+        <label>wet Honey Water Treatment Tank</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet_properCoffeeStorage__c</fullName>
+        <externalId>false</externalId>
+        <label>wet Proper Coffee Storage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet_pulpCompostingPit__c</fullName>
+        <externalId>false</externalId>
+        <label>wet Pulp Composting Pit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet_pulpingMachineOk__c</fullName>
+        <externalId>false</externalId>
+        <label>wet Pulping Machine Ok</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet_separationCoffeePerLot__c</fullName>
+        <externalId>false</externalId>
+        <label>wet Separation Coffee Per Lot</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet_separationCoffeeQuality__c</fullName>
+        <externalId>false</externalId>
+        <label>wet Separation Coffee Quality</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet_tanksMucilageRemoverOk__c</fullName>
+        <externalId>false</externalId>
+        <label>wet Tanks Mucilage Remover Ok</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wet_zarandaGoodCondition__c</fullName>
+        <externalId>false</externalId>
+        <label>wet Zaranda Good Condition</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cumple desde la Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
     </fields>
     <label>FMP Diagnostic</label>
     <nameField>
