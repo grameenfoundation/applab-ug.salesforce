@@ -1,4 +1,4 @@
-<apex:page controller="MbugoDashboardController" title="Mbugo Dashboard" sidebar="false">
+<apex:page controller="MbugoDashboardController" title="Mbugo Dashboard" sidebar="true">
     <style>
         body .pbBody table.list tr.dataRow .htmlDetailElementTable td {
             border:none; !important
@@ -6,8 +6,8 @@
     </style>
     <apex:stylesheet value="{!$Resource.CommonCSS}"/>
     <apex:includeScript value="{!$Resource.CommonJS}"/>
-    <script>
-        function openEditWindow(recordId) {
+    <script> 
+      function openEditWindow(recordId) {
              popup = window.open("{!$Page.MetricEdit}?operation=mbugo&sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
              popup.focus(); 
         };
@@ -23,7 +23,7 @@
                 popup = null;
                 window.location.reload();
             }
-        };
+        }; 
 
         function injectOnclickJs(iframe, type, nameVar) {
             iframe.contentWindow.document.body.onclick=function() { openMap(type, null, null, null, null, null, null, null, null, null); }
@@ -66,7 +66,7 @@
 
              popup = window.open(url,"lookup");
              popup.focus(); 
-        };
+        }; 
     </script>
 
     <apex:form >
@@ -103,6 +103,7 @@
                         <apex:commandButton value="Refresh Section" action="{!changeFilters}"></apex:commandButton>                     
                     </td>
                 </tr>
+                
             </table>
         </apex:pageBlock>
 
@@ -179,7 +180,7 @@
                             &nbsp;<apex:param value="{!item.currentValue}"/>
                         </apex:outputText>
                     </div>
-                </apex:column>
+                </apex:column> -->
                 
                 <!-- <apex:column rendered="{!isEditMode}" width="50px">
                     <apex:facet name="header">Update</apex:facet>
