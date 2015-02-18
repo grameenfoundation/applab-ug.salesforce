@@ -4,9 +4,8 @@ public with sharing class MbugoDashboardTests {
 
 	}
 
-	static testMethod void testController()
-    {
-        
+	static testMethod void testController() {
+    
         District__c testDistrict = new District__c();
         testDistrict.Name = 'TestMasaka';
         testDistrict.Region__c = 'Central';
