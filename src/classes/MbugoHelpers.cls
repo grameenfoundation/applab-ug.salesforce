@@ -14,7 +14,6 @@ public with sharing class MbugoHelpers {
     public static final String PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE = 'MBUGO_percentage_of_farmers_purchasing_inputs_from_mbugo_ace';
     
 
-
     //A List of the Metric Names used on the Mbugo Dashboard
     public static List<String> getMetricNames(){
         List<String> gumutindoMetricNames = new List<String> {
@@ -32,6 +31,7 @@ public with sharing class MbugoHelpers {
 
         return gumutindoMetricNames;
     }
+
 
 	public static String getSubcounties(){
         String inclause =
@@ -55,219 +55,194 @@ public with sharing class MbugoHelpers {
     }
 
 
-    public static List<MetricDataWrapper> getFarmerGroupsData()
-    {
-        List<MetricDataWrapper> farmerGroupsData = new List<MetricDataWrapper>();
+    public static List<MetricDataWrapper> getFarmerGroupsData(){
+        List<MetricDataWrapper> farmerGroupsData;
         M_E_Metric_Data__c metricData;
-
+                
         MetricDataWrapper vslaMetricWrapper = new MetricDataWrapper();
         vslaMetricWrapper.setLabel('Number of farmer learning groups/VSLA registered');
-        metricData = getMetricData(NUMBER_OF_VSLAS_REGISTERED);
-        vslaMetricWrapper.setMetricId(String.valueOf(metricData.Id));
-        vslaMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        vslaMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-
-
-
-        MetricDataWrapper totalVslaFarmerMetricWrapper = new MetricDataWrapper();
-        totalVslaFarmerMetricWrapper.setLabel('Number of members registered in the farmer learning groups/VSLA ');
-        metricData = getMetricData(TOTAL_NUMBER_OF_FARMERS_IN_VSLAS);
-        totalVslaFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
-        totalVslaFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        totalVslaFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-
-
-        MetricDataWrapper totalVslaMaleFarmerMetricWrapper = new MetricDataWrapper();
-        totalVslaMaleFarmerMetricWrapper.setLabel('Number of male members registered in the farmer learning groups');
-        metricData = getMetricData(TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS);
-        totalVslaMaleFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
-        totalVslaMaleFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        totalVslaMaleFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-
-
-
+        
         MetricDataWrapper totalVslaFemaleFarmerMetricWrapper = new MetricDataWrapper();
         totalVslaFemaleFarmerMetricWrapper.setLabel('Number of female members registered in the farmer learning groups');
-        metricData = getMetricData(TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS);
-        totalVslaFemaleFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
-        totalVslaFemaleFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        totalVslaFemaleFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-
-
-
-
-        List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {vslaMetricWrapper, totalVslaFarmerMetricWrapper, 
+        
+        MetricDataWrapper totalVslaFarmerMetricWrapper = new MetricDataWrapper();
+        totalVslaFarmerMetricWrapper.setLabel('Number of members registered in the farmer learning groups/VSLA ');
+        
+        MetricDataWrapper totalVslaMaleFarmerMetricWrapper = new MetricDataWrapper();
+        totalVslaMaleFarmerMetricWrapper.setLabel('Number of male members registered in the farmer learning groups');
+       
+       try{
+            metricData = getMetricDataT(NUMBER_OF_VSLAS_REGISTERED);
+            vslaMetricWrapper.setMetricId(String.valueOf(metricData.Id));
+            vslaMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
+            vslaMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+             
+            metricData = getMetricDataT(TOTAL_NUMBER_OF_FARMERS_IN_VSLAS);
+            totalVslaFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
+            totalVslaFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
+            totalVslaFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+ 
+            metricData = getMetricDataT(TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS);
+            totalVslaMaleFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
+            totalVslaMaleFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
+            totalVslaMaleFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+       
+            metricData = getMetricDataT(TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS);
+            totalVslaFemaleFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
+            totalVslaFemaleFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
+            totalVslaFemaleFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+         } catch(Exception ex){}
+        
+        farmerGroupsData = new List<MetricDataWrapper>{vslaMetricWrapper, totalVslaFarmerMetricWrapper, 
             totalVslaMaleFarmerMetricWrapper, totalVslaFemaleFarmerMetricWrapper};
-    
-        return wrapper;
+          
+        return farmerGroupsData; 
     }
 
 
-
-
-
-
-
-    public static List<MetricDataWrapper> getCooperativeGroupsData()
-    {
-        
-        M_E_Metric_Data__c metricData;
-
+    public static List<MetricDataWrapper> getCooperativeGroupsData(){
+		List<MetricDataWrapper>  cooperativeGroupsData ;
+       	M_E_Metric_Data__c metricData;
+  
         MetricDataWrapper cooperativesMetricWrapper = new MetricDataWrapper();
         cooperativesMetricWrapper.setLabel('Number of cooperatives registered');
-        metricData = getMetricData(NUMBER_OF_COOPERATIVES_REGISTERED);
-        cooperativesMetricWrapper.setMetricId(String.valueOf(metricData.Id));
-        cooperativesMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        cooperativesMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-        //TODO: Get these from db
-
-
         MetricDataWrapper coopPurchasingFarmerMetricWrapper = new MetricDataWrapper();
         coopPurchasingFarmerMetricWrapper.setLabel('Percent of targeted farmers purchasing inputs from Mbugo Ace through their cooperatives');
-        metricData = getMetricData(PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE);
-        coopPurchasingFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
-        coopPurchasingFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        coopPurchasingFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-        //TODO: Get these from db
+       
+		try{  
+			//TODO: Get these from db
+        	metricData = getMetricDataT(NUMBER_OF_COOPERATIVES_REGISTERED);
+        	cooperativesMetricWrapper.setMetricId(String.valueOf(metricData.Id));
+        	cooperativesMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
+        	cooperativesMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        	
+        	//TODO: Get these from db
+			metricData = getMetricDataT(PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE);
+        	coopPurchasingFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
+        	coopPurchasingFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
+        	coopPurchasingFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        }catch(Exception ex){}
 
-        
+        cooperativeGroupsData = new List<MetricDataWrapper> {cooperativesMetricWrapper, coopPurchasingFarmerMetricWrapper};
 
-
-        List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {cooperativesMetricWrapper, coopPurchasingFarmerMetricWrapper};
-    
-        return wrapper;
+        return cooperativeGroupsData;
     }
+    
 
-
-
-
-    public static List<MetricDataWrapper> getVslaServicesData()
-    {
-        
+    public static List<MetricDataWrapper> getVslaServicesData(){
+		List<MetricDataWrapper> vslaServicesData;
         M_E_Metric_Data__c metricData;
 
         MetricDataWrapper loaningWrapper = new MetricDataWrapper();
         loaningWrapper.setLabel('Percentage of target farmers with access to Loaning Financial Services');
-        metricData = getMetricData(FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS);
-        loaningWrapper.setMetricId(String.valueOf(metricData.Id));
-        loaningWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        loaningWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-        //TODO: Get these from db
-
-
-        MetricDataWrapper savingsWrapper = new MetricDataWrapper();
-        savingsWrapper.setLabel('Percentage of target farmers with access to Savings Financial Services');
-         metricData = getMetricData(FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS);
-        savingsWrapper.setMetricId(String.valueOf(metricData.Id));
-        savingsWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        savingsWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-
-
+        
         MetricDataWrapper insuranceWrapper = new MetricDataWrapper();
         insuranceWrapper.setLabel('Percentage of target farmers with access to Micro Insurance Financial Services');
-        metricData = getMetricData(FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS);
-        insuranceWrapper.setMetricId(String.valueOf(metricData.Id));
-        insuranceWrapper.setCurrentTarget(metricData.Projected_Value__c);
-        insuranceWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
         
-        List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {loaningWrapper, savingsWrapper, insuranceWrapper};
-    
-        return wrapper;
+        MetricDataWrapper savingsWrapper = new MetricDataWrapper();
+        savingsWrapper.setLabel('Percentage of target farmers with access to Savings Financial Services');
+
+		try{
+        	metricData = getMetricDataT(FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS);
+        	loaningWrapper.setMetricId(String.valueOf(metricData.Id));
+        	loaningWrapper.setCurrentTarget(metricData.Projected_Value__c);
+        	loaningWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        
+       		// TODO: Get these from db   
+        	metricData = getMetricDataT(FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS);
+        	savingsWrapper.setMetricId(String.valueOf(metricData.Id));
+        	savingsWrapper.setCurrentTarget(metricData.Projected_Value__c);
+        	savingsWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+       
+        	metricData = getMetricDataT(FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS);
+        	insuranceWrapper.setMetricId(String.valueOf(metricData.Id));
+        	insuranceWrapper.setCurrentTarget(metricData.Projected_Value__c);
+        	insuranceWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
+        
+        }catch(Exception ex){}
+            
+        vslaServicesData = new List<MetricDataWrapper> {loaningWrapper, savingsWrapper, insuranceWrapper};
+       
+        return vslaServicesData;
     }
 
 
-    public static List<FinancialServicesUsageData> getFinancialServicesChartData()
-    {
-
-        
+	public static List<FinancialServicesUsageData> getFinancialServicesChartData(){        
         List<FinancialServicesUsageData> data = new List<FinancialServicesUsageData>();
-        M_E_Metric_Data__c metricData = getMetricData(FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS);
-        data.add(new FinancialServicesUsageData('MicroInsurance', metricData.Manual_Value__c));
+        
+        try{
+        	M_E_Metric_Data__c metricData = getMetricData(FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS);
+        	data.add(new FinancialServicesUsageData('MicroInsurance', metricData.Manual_Value__c));
 
-        metricData = getMetricData(FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS);
-        data.add(new FinancialServicesUsageData('Savings', metricData.Manual_Value__c));
+        	metricData = getMetricData(FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS);
+        	data.add(new FinancialServicesUsageData('Savings', metricData.Manual_Value__c));
 
-        metricData = getMetricData(FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS);
-        data.add(new FinancialServicesUsageData('Loaning', metricData.Manual_Value__c));
+        	metricData = getMetricData(FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS);
+        	data.add(new FinancialServicesUsageData('Loaning', metricData.Manual_Value__c));
+        }catch(Exception ex){}
         
         return data;
     }
 
 
-    public static List<MetricDataWrapper> getFarmersReachedData()
-    {
-        List<MetricDataWrapper> farmersReachedData = new List<MetricDataWrapper>();
-
+    public static List<MetricDataWrapper> getFarmersReachedData(){
+        List<MetricDataWrapper> farmersReachedData;
         M_E_Metric_Data__c metricData;
        
-        
         Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'Mbugo CKWs\' and Person__r.Type__c=\'CKW\'');
 
         List<String> personIds = new List<String>();
         for(Person_Group_Association__c p : associations) {
             personIds.add(p.Person__r.Id);
         }
-
+        
         //These are the ckw person ids
+    	List<Farmer__c> farmersRegisteredByMbugoCkws = [select Registered_by__C, Person__r.id, Person__r.Gender__c, Person__r.First_Name__c, Person__r.Last_Name__c from Farmer__c where Registered_by__C in :personIds and Person__r.First_Name__c<>'Not Registered'  limit 10000];
+    	MetricDataWrapper farmersReachedMetricWrapper = new MetricDataWrapper();
+    	farmersReachedMetricWrapper.setLabel('Total Farmers Reached');
+    	farmersReachedMetricWrapper.setCurrentRealValue(0);
 
-    List<Farmer__c> farmersRegisteredByMbugoCkws = [select Registered_by__C, Person__r.id, Person__r.Gender__c, Person__r.First_Name__c, Person__r.Last_Name__c from Farmer__c where Registered_by__C in :personIds and Person__r.First_Name__c<>'Not Registered'  limit 10000];
+    	MetricDataWrapper maleFarmersReachedMetricWrapper = new MetricDataWrapper();
+    	maleFarmersReachedMetricWrapper.setLabel('Total Male Farmers Reached');
+    	maleFarmersReachedMetricWrapper.setCurrentRealValue(0);
 
-    MetricDataWrapper farmersReachedMetricWrapper = new MetricDataWrapper();
-    farmersReachedMetricWrapper.setLabel('Total Farmers Reached');
-    farmersReachedMetricWrapper.setCurrentRealValue(0);
+    	MetricDataWrapper femaleFarmersReachedMetricWrapper = new MetricDataWrapper();
+    	femaleFarmersReachedMetricWrapper.setLabel('Total Female Farmers Reached');
+    	femaleFarmersReachedMetricWrapper.setCurrentRealValue(0);
 
+    	Decimal totalFarmerCount = 0;
+    	Decimal totalMaleFarmerCount = 0;
+    	Decimal totalFemaleFarmerCount = 0;
 
-    MetricDataWrapper maleFarmersReachedMetricWrapper = new MetricDataWrapper();
-    maleFarmersReachedMetricWrapper.setLabel('Total Male Farmers Reached');
-    maleFarmersReachedMetricWrapper.setCurrentRealValue(0);
+    	for(Farmer__c farmer : farmersRegisteredByMbugoCkws){
+        	totalFarmerCount += 1;
+        	if('male'.equalsIgnoreCase(farmer.Person__r.Gender__c)){
+            	totalMaleFarmerCount += 1;
+        	}
+        	else {
+            	totalFemaleFarmerCount += 1;
+        	}
+    	}
 
+    	farmersReachedMetricWrapper.setCurrentRealValue(totalFarmerCount);
+    	maleFarmersReachedMetricWrapper.setCurrentRealValue(totalMaleFarmerCount);
+    	femaleFarmersReachedMetricWrapper.setCurrentRealValue(totalFemaleFarmerCount);
 
-    MetricDataWrapper femaleFarmersReachedMetricWrapper = new MetricDataWrapper();
-    femaleFarmersReachedMetricWrapper.setLabel('Total Female Farmers Reached');
-    femaleFarmersReachedMetricWrapper.setCurrentRealValue(0);
-
-    Decimal totalFarmerCount = 0;
-    Decimal totalMaleFarmerCount = 0;
-    Decimal totalFemaleFarmerCount = 0;
-
-    for(Farmer__c farmer : farmersRegisteredByMbugoCkws)
-    {
-        totalFarmerCount += 1;
-
-        if('male'.equalsIgnoreCase(farmer.Person__r.Gender__c))
-        {
-            totalMaleFarmerCount += 1;
-        }
-        else {
-            totalFemaleFarmerCount += 1;
-        }
-    }
-
-    farmersReachedMetricWrapper.setCurrentRealValue(totalFarmerCount);
-    maleFarmersReachedMetricWrapper.setCurrentRealValue(totalMaleFarmerCount);
-    femaleFarmersReachedMetricWrapper.setCurrentRealValue(totalFemaleFarmerCount);
-
-    List<MetricDataWrapper> wrapper = new List<MetricDataWrapper> {farmersReachedMetricWrapper, maleFarmersReachedMetricWrapper, femaleFarmersReachedMetricWrapper};
+    	farmersReachedData = new List<MetricDataWrapper> {farmersReachedMetricWrapper, maleFarmersReachedMetricWrapper, femaleFarmersReachedMetricWrapper};
     
-    return wrapper;
+    	return farmersReachedData;
     }
 
 
     //Attempts to create missing metic datas
-public void getAllMetricDatas()
-{
-    for(String metricName : getMetricNames())
-    {
-     getMetricData(metricName);   
-    }
-}
+	public void getAllMetricDatas(){
+    	for(String metricName : getMetricNames()){
+     		getMetricData(metricName);   
+    	}
+	}
 
-
-    public static M_E_Metric_Data__c getMetricData(String metricName) {
-        Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0));
-        Date quarterLastDay = MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0));
-    
-        M_E_Metric_Data__c[] metric = [
+	public static M_E_Metric_Data__c getMetricDataT(String metricName) {
+        M_E_Metric_Data__c metric = [
             SELECT 
                 Name,
                 Id,
@@ -286,76 +261,12 @@ public void getAllMetricDatas()
                 M_E_Metric_Data__c
             WHERE
                 M_E_Metric__r.Name = :metricName
-                  
-        ];
-
-
-        if(metric.size() == 0) {
-            //Metric data was not found, create it with quarter first day as the date
-            System.debug('Gumutindo metric data '+metricName+' not found, going to create it');
-            M_E_Metric_Data__c metricdata = new M_E_Metric_Data__C();
-            List<M_E_Metric__C> metr = [select Id,Label__c from M_E_Metric__C where Name = :metricName];
-            M_E_Metric__C tempMetric;
-            if(metr.size() == 0)
-            {
-                //If parent metric is not found, attempt to a create it
-                System.debug('Gumutindo metric '+metricName+' not found, create metric');
-                tempMetric = new M_E_Metric__C();
-                tempMetric.Name = metricName;
-                tempMetric.Label__c = metricName.replace('_', ' ');
-                insert(tempMetric);
-                
-                
-            }
-            else
-            {
-              tempMetric = metr[0];  
-            }
-            metricdata.M_E_Metric__c=tempMetric.Id;
-            metricdata.Comment__c = tempMetric.Label__c;
-            metricdata.Date__c = quarterFirstDay;
-            metricdata.Numerator__c=0;
-            metricdata.Denumerator__c=0;
-            metricdata.Projected_Value__c=0;
-            metricdata.Manual_Value__c=0;
-            Database.saveResult saveResult = database.insert(metricdata);
-            String newMetricId = saveResult.getId();
-            metric = [
-            SELECT 
-                Name,
-                Id,
-                Date__c,
-                Actual_Value__c,
-                Comment__c,
-                Projected_Value__c,
-                Manual_Value__c,
-                Real_Value__c,
-                Is_Cumulative__c,
-                Numerator__c,
-                Denumerator__c,
-                M_E_Metric__r.Label__c,
-                M_E_Metric__r.Id
-            FROM
-                M_E_Metric_Data__c
-            WHERE
-                Id = :newMetricId
-        ];
-
-        }
-        if (metric.size() != 1) {
-
-            // Found more than one of the metric. Error that calling procedure should handle.
-            return null;
-        }
-        return metric[0];
+            LIMIT 1];
+        
+           return metric;
     }
 
-
-
-
     public enum SubmissionType { MBUGO_ACE_SURVEY, MBUGO_VSLA_ASSESSMENT_SURVEY, NONE }
-
-
 
     /**
     *  Post-processing method for MBUGO surveys that affect dashboard indicators
@@ -483,9 +394,6 @@ public void getAllMetricDatas()
     }
 
 
-
-
-
     public static List<CkwPerformanceWrapper> getCkwPerfomanceData()
     {
         //Get mbugo ckw ids
@@ -525,7 +433,6 @@ public void getAllMetricDatas()
     }
 
 
-
     public static MetricMapWrapper[] getFOMapMarkers()
     {
     	//Field officers
@@ -563,7 +470,6 @@ public void getAllMetricDatas()
     }
 
 
-
     public static MetricMapWrapper[] getCKWMapMarkers()
     {
       Map<String, MetricMapWrapper> markers = new Map<String, MetricMapWrapper>();
@@ -572,7 +478,6 @@ public void getAllMetricDatas()
         for(Person_Group_Association__c assoc : associations) {
             personIds.add(assoc.Person__r.Id);
         }
-
         
         CKW__c[] ckws = [SELECT id, Name, Person__r.First_Name__c, Person__r.Last_Name__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c from CKW__c where Person__r.Id in :personIds];
             for (CKW__c ckw : ckws) {
@@ -583,16 +488,13 @@ public void getAllMetricDatas()
                 
                 PageReference ref = new PageReference('/apex/CkwDetailMini?id='+ckw.Id);
                 String content = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
-
                 
                 marker.addName(content);
                 marker.markerTitle = ckw.Person__r.First_Name__c+' '+ckw.Person__r.Last_Name__c;
                 markers.put(ckw.Id, marker);
 
             }
-
-
-            
+       
             System.debug(markers.size()+' map markers found'); 
             return markers.values();
     }
@@ -606,8 +508,7 @@ public void getAllMetricDatas()
     }
 
 
-
-// Wrapper class for financial services chart data
+	// Wrapper class for financial services chart data
     public class FinancialServicesUsageData {
         public String name { get; set; }
         public Decimal data1 { get; set; }

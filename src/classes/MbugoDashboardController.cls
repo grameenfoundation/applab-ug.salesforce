@@ -29,62 +29,65 @@ public with sharing class MbugoDashboardController {
       district = new District__c();
       subcounty = new Subcounty__c();
       setUp(ApexPages.currentPage());
+     
     }
 
 
- public void setUp(PageReference pageRef) {
+ 	public void setUp(PageReference pageRef) {
 
         // Try to keep the tab we're on
         String tabName = pageRef.getParameters().get('sfdc.tabName');
         this.tabName = tabName != null ? tabName : tabName;
-        this.isEditMode = (pageRef.getParameters().get('editMode') == 'true');
+        this.isEditMode = (pageRef.getParameters().get('editMode') == 'true'); 
 
         //this.dateFrom = pageRef.getParameters().get('dateFrom');
         //this.dateTo = pageRef.getParameters().get('dateTo');
         
     } 
+    
 
-
-     public String getIsUpdateable() {
+	public String getIsUpdateable() {
         return this.isUpdateable;
     }
+    
+    
     public void setIsUpdateable(String value) {
         this.isUpdateable = value;
     }
+        
         
     public String getIsEditMode() {
         String isEditing = 'false';
         isEditing = this.isEditMode ? 'true' : 'false';
         return isEditing;
     }  
+    
 
-
-
- public void setDistrictList(List<SelectOption> option) {
+	public void setDistrictList(List<SelectOption> option) {
         this.districtList = option;
     }
+    
+    
     public List<SelectOption> getDistrictList() {
         List<SelectOption> options = new List<SelectOption>();
-
         District__c[] districts = database.query(SoqlHelpers.getDistricts(orgName));
         options.add(new SelectOption('','-- In All Districts --'));
-
+        
         //Add all districts to list
         for (District__c district : districts) {
                options.add(new SelectOption(district.Name, district.Name));
-        } 
+               } 
         return options;
     }
-
 
 
     public void setSubcountiesList(List<SelectOption> option) {
         this.districtList = option;
     }
 
+
     public List<SelectOption> getSubcountiesList() {
         List<SelectOption> options = new List<SelectOption>();
-
         Subcounty__c[] subcounties = database.query(MbugoHelpers.getSubcounties());
         options.add(new SelectOption('','-- In All Subcounties --'));
 
@@ -95,38 +98,14 @@ public with sharing class MbugoDashboardController {
         return options;
     }
 
+
     public List<MetricDataWrapper> getFarmersReachedData(){
-    	return MbugoHelpers.getFarmersReachedData();
+        return MbugoHelpers.getFarmersReachedData();
     }
 
 
-    public List<MetricDataWrapper> getFarmerGroupsData(){
-        return MbugoHelpers.getFarmerGroupsData();
-    }
-
-    public List<MetricDataWrapper> getCooperativeGroupsData(){
-        return MbugoHelpers.getCooperativeGroupsData();
-    }
-
-    public List<MbugoHelpers.CkwPerformanceWrapper> getCkwPerfomanceData()
-    {
+    public List<MbugoHelpers.CkwPerformanceWrapper> getCkwPerfomanceData(){
         return MbugoHelpers.getCkwPerfomanceData();
-
-    }
-
-
-
-    public List<MetricDataWrapper> getVslaServicesData(){
-        
-   
-        return MbugoHelpers.getVslaServicesData();
-    }
-
-
-
-    public List<MbugoHelpers.FinancialServicesUsageData> getFinancialServicesChartData() {
-        return MbugoHelpers.getFinancialServicesChartData();
-        
     }
 
 
@@ -144,5 +123,22 @@ public with sharing class MbugoDashboardController {
     }
 
 
+	public List<MetricDataWrapper> getVslaServicesData(){    
+        return MbugoHelpers.getVslaServicesData();
+    }
+    
+    
+	public List<MbugoHelpers.FinancialServicesUsageData> getFinancialServicesChartData(){
+            return MbugoHelpers.getFinancialServicesChartData();
+    }
+  
 
-}
+    public List<MetricDataWrapper> getFarmerGroupsData(){
+    	return MbugoHelpers.getFarmerGroupsData();
+    }
+    
+    
+      public  List<MetricDataWrapper> getCooperativeGroupsData(){
+      	return MbugoHelpers.getCooperativeGroupsData();
+    }
+    
