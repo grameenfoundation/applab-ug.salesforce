@@ -186,7 +186,7 @@ public with sharing class GumutindoDashboardController {
 				totalFemaleFarmerCount = (Decimal)ar.get('total');
 			}
 		}
-		totalMaleFarmerCount = totalFemaleFarmerCount + totalMaleFarmerCount;
+		totalFarmerCount = totalFemaleFarmerCount + totalMaleFarmerCount;
 		/*
 		for (Farmer__c farmer: farmersRegisteredByGumutindoCkws) {
 			totalFarmerCount += 1;
