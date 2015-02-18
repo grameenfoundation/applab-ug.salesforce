@@ -455,17 +455,23 @@ public class GumutindoHelpers {
 		Gumutindo_Primary_Society__c[] primarySocieties = [SELECT id, Name, Latitude__c, Longitude__c from Gumutindo_Primary_Society__c];
 		for (Gumutindo_Primary_Society__c society: primarySocieties) {
 			MetricMapWrapper marker = null;
-			marker = new MetricMapWrapper('District', '0000FF', society.Id, false);
+			marker = new MetricMapWrapper('CKW', '0000FF', society.Id, false);
 			marker.gpsLatitude = '' + society.Latitude__c;
 			marker.gpsLongitude = '' + society.Longitude__c;
 
 			String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Society Name: ' + society.Name + '<br/>';
 			//Show CKWs in this society
 			Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Primary_Society__r.Id = : society.Id];
+			List<Id> ckws = new List<Id>();
+			for(Gumutindo_CKW__c ckw : gumutindoCkws) {
+				ckws.add(ckw.Person__r.Id);
+			}
 			if (gumutindoCkws.size() == 0) {
 				profile += 'There are no CKWs in ' + society.Name;
 			} else {
-				profile += '<hr><b>CKWs in ' + society.Name + ' (' + gumutindoCkws.size() + ')</b><br/>';
+				Decimal totalFarmers = [SELECT COUNT() FROM Farmer__c WHERE Registered_By__c IN  :ckws];
+				profile += '<hr><b>Has ' + totalFarmers + ' farmers</b><br/>';
+				profile += '<b>CKWs in ' + society.Name + ' (' + gumutindoCkws.size() + ')</b><br/>';
 				for (Gumutindo_CKW__c gckw: gumutindoCkws) {
 					profile += gckw.Person__r.First_Name__c + ' ' + gckw.Person__r.Last_Name__c + '<br/>';
 				}
