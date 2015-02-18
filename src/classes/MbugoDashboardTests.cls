@@ -1,11 +1,14 @@
 @isTest
 public with sharing class MbugoDashboardTests {
 	public MbugoDashboardTests() {
-
+	
+	
 	}
 
-	static testMethod void testController() {
-    
+	static testMethod void testController()
+    {
+        
+        
         District__c testDistrict = new District__c();
         testDistrict.Name = 'TestMasaka';
         testDistrict.Region__c = 'Central';
@@ -16,11 +19,18 @@ public with sharing class MbugoDashboardTests {
         testSubcounty.District__c = testDistrict.Id;
         insert testSubcounty;      
 
+       
+
+
+        
+
+
         Phone__c testHandset = new Phone__c();
         testHandset.IMEI__c = '123456789101112';
         testHandset.Serial_Number__c = '123456789101112';
         testHandset.Purchase_Value_USD__c = 100.00;
         insert testHandset;
+
 
         Person__c testPerson = new Person__c();
         testPerson.First_Name__c = 'John';
@@ -32,9 +42,15 @@ public with sharing class MbugoDashboardTests {
         testPerson.Handset__c = testHandset.Id;
         insert testPerson;
 
+        
+
+
         CKW__c testCkw = new CKW__c();
         testCkw.Person__c = testPerson.Id;
         insert(testCkw);
+
+
+
 
         Person__c testFOPerson = new Person__c();
         testFOPerson.First_Name__c = 'John FO';
@@ -44,6 +60,7 @@ public with sharing class MbugoDashboardTests {
         //testPerson.Handset__c = testHandset.Id;
         testFOPerson.Type__c = 'CKW';
         insert testFOPerson;
+
 
         //Create FO
         Mbugo_Field_Officer__c mbugoFO = new Mbugo_Field_Officer__c();
@@ -55,6 +72,9 @@ public with sharing class MbugoDashboardTests {
         mbugoCkw.Person__c = testPerson.Id;        
         insert(mbugoCkw);
 
+
+
+
         Group__c testGroup = new Group__c();
         testGroup.Name = 'Mbugo CKWs';
         insert(testGroup);
@@ -64,6 +84,11 @@ public with sharing class MbugoDashboardTests {
         testPersonGroupAssociation.Person__c = testPerson.Id;
         insert(testPersonGroupAssociation);
 
+
+
+
+         
+
         PageReference resultPage =  new PageReference('/a00/e');
         resultPage.getParameters().put('district', String.valueOf(testDistrict.Id));
         resultPage.getParameters().put('subcounty', String.valueOf(testSubcounty.Id));
@@ -71,6 +96,7 @@ public with sharing class MbugoDashboardTests {
         resultPage.getParameters().put('dateTo', '2013-12-18');
         resultPage.getParameters().put('cbt', String.valueOf(testPerson.Id));
         resultPage.getParameters().put('sfdc.tabName', 'a00');
+
 
         Account testOrg = new Account();
         testOrg.Name = MbugoHelpers.ORG_NAME;
@@ -82,10 +108,14 @@ public with sharing class MbugoDashboardTests {
          orgAssocTest.Organisation__c = testOrg.Id;
         insert(orgAssocTest);
         
+
+
+
         MbugoDashboardController controller = new MbugoDashboardController();
         //controller.setOrgName(testOrg.Name);
         controller.setUp(resultPage);
         controller.setIsUpdateable('true');
+
 
         //Create test surveys
         Survey__c acesurvey = new Survey__c();
@@ -96,6 +126,7 @@ public with sharing class MbugoDashboardTests {
         acesurvey.End_Date__c = Date.valueOf((date.today().year() + 4) + '-01-01');
         insert acesurvey;
 
+
         //Create test surveys
         Survey__c vslasurvey = new Survey__c();
         vslasurvey.Post_Processing_Method__c = 'MBUGO';
@@ -105,9 +136,12 @@ public with sharing class MbugoDashboardTests {
         vslasurvey.End_Date__c = Date.valueOf((date.today().year() + 4) + '-01-01');
         insert vslasurvey;
 
+
         Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
         List<String> returnValues = new List<String>();
-                
+        
+
+        
         Test.startTest();
         
         List<MetricDataWrapper> wrappers = controller.getFarmersReachedData();
@@ -128,6 +162,7 @@ public with sharing class MbugoDashboardTests {
         System.assert(MbugoHelpers.getCKWMapMarkers().size() == 1);
         System.assert(MbugoHelpers.getFOMapMarkers().size() == 1);
 
+
         //Test survey post processing
         ProcessSurveySubmission.SurveySubmission submission = new ProcessSurveySubmission.SurveySubmission();
         submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
@@ -142,6 +177,8 @@ public with sharing class MbugoDashboardTests {
         System.assert(returnValues.get(1).contains('success'));
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED).Manual_Value__c == 1);
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE).Manual_Value__c == 1);
+
+
 
         submission = new ProcessSurveySubmission.SurveySubmission();
         submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
@@ -162,6 +199,10 @@ public with sharing class MbugoDashboardTests {
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS).Manual_Value__c == 50);
         
         Test.stopTest();
+
+
     }
+
+
 
 }
