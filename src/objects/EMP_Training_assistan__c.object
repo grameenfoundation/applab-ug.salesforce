@@ -46,75 +46,60 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
+    <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
+    <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Fecha_recepcion_de_insumos__c</fullName>
+        <fullName>Document_number__c</fullName>
         <externalId>false</externalId>
-        <label>Fecha recepción de insumos</label>
+        <label>Document number</label>
+        <length>12</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
-        <type>Date</type>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Fecha_y_hora_de_inicio_del_taller__c</fullName>
+        <fullName>Document_type__c</fullName>
         <externalId>false</externalId>
-        <label>Fecha y hora de inicio del taller</label>
-        <required>false</required>
+        <label>Document type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <trackTrending>false</trackTrending>
-        <type>Date</type>
+        <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Technician__c</fullName>
+        <fullName>Training__c</fullName>
         <externalId>false</externalId>
-        <label>Technician</label>
-        <referenceTo>Mana_Technician__c</referenceTo>
-        <relationshipLabel>Mana Technician Repeatable Data</relationshipLabel>
-        <relationshipName>Mana_Technician_Repeatable_Data</relationshipName>
+        <label>Training</label>
+        <referenceTo>EMP_Training__c</referenceTo>
+        <relationshipLabel>Training</relationshipLabel>
+        <relationshipName>EMP_Training_assistant_non_members</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
-    <fields>
-        <fullName>Tipo_de_Recepcion_de_Insumos__c</fullName>
-        <externalId>false</externalId>
-        <label>Tipo de Recepción de Insumos</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Primera</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Segunda</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Tercera</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Única</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>true</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <label>Mana Technician Repeatable Data</label>
+    <label>EMP Training assistant non member</label>
     <nameField>
-        <displayFormat>A-{00000000}</displayFormat>
-        <label>Id</label>
-        <type>AutoNumber</type>
+        <label>EMP_Training_assistant_non_member</label>
+        <type>Text</type>
     </nameField>
-    <pluralLabel>Mana Technician Repeatable Data</pluralLabel>
+    <pluralLabel>EMP Training assistant non members</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

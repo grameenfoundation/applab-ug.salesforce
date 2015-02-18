@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>BPA_Not_Implemented__c</fullName>
+        <externalId>false</externalId>
+        <label>BPA Not Implemented</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Registros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manejo adecuado de agroquímicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Análisis de suelos y de aguas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Instalaciones para almacenar insumos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tiene todos los procesos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tiene ningún proceso</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Beans_To_Be_Harvested_Kg__c</fullName>
+        <externalId>false</externalId>
+        <label>Beans To Be Harvested Kg</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Commercialization_to_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Commercialization to date</label>
+        <picklist>
+            <picklistValues>
+                <fullName>SI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Commercialized_Kg__c</fullName>
+        <externalId>false</externalId>
+        <label>Commercialized Kg</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Commitment_Agri_Input_Storage__c</fullName>
+        <externalId>false</externalId>
+        <label>Commitment Agri Input Storage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Commitment_Agrochem_Management__c</fullName>
+        <externalId>false</externalId>
+        <label>Commitment Agrochem Management</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Commitment_Registration__c</fullName>
+        <externalId>false</externalId>
+        <label>Commitment Registration</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Commitment_Soil_Water_Analysis__c</fullName>
+        <externalId>false</externalId>
+        <label>Commitment Soil Water Analysis</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Crop_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Crop Area</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Crop_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Crop Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Preparación del terreno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crecimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cosecha</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Destination_Sold_Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Destination Sold Product</label>
+        <picklist>
+            <picklistValues>
+                <fullName>A clientes del mercado local</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A clientes del mercado regional</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A clientes Mayoristas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A clientes Minoristas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A clientes nacionales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A clientes extranjeros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Farm__c</fullName>
+        <externalId>false</externalId>
+        <label>Farm</label>
+        <referenceTo>EMP_Farm__c</referenceTo>
+        <relationshipLabel>EMP Farm diagnosis and targets</relationshipLabel>
+        <relationshipName>EMP_Farm_Diagnosis_and_Targets</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Farmer_signature__c</fullName>
+        <externalId>false</externalId>
+        <label>Farmer signature</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Green_Dried_Beans__c</fullName>
+        <externalId>false</externalId>
+        <label>Green Dried Beans</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Verde</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Id_Productor__c</fullName>
+        <externalId>false</externalId>
+        <label>Id Productor</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>L_der_Productor__c</fullName>
+        <externalId>false</externalId>
+        <label>Líder Productor</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nombre_del_Productor__c</fullName>
+        <externalId>false</externalId>
+        <label>Nombre del Productor</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_plots__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of plots</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Destination_Sold_Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Destination Sold Product</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Reason_Agri_Input_Storage__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Reason Agri Input Storage</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Reason_Agrochem_Management__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Reason Agrochem Management</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Reason_Not_Registration__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Reason Not Registration</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Reason_Soil_Water_Analysis__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Reason Soil Water Analysis</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Use_of_Resources__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Use of Resources</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Photo_visit__c</fullName>
+        <externalId>false</externalId>
+        <label>Photo visit</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Planting_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Planting date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Price_Kg__c</fullName>
+        <externalId>false</externalId>
+        <label>Price Kg</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_per_Kg_to_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Price per Kg to date</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Production_Commercialized__c</fullName>
+        <externalId>false</externalId>
+        <label>Production Commercialized</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Production_Kg__c</fullName>
+        <externalId>false</externalId>
+        <label>Production Kg</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Production_to_date_Kg__c</fullName>
+        <externalId>false</externalId>
+        <label>Production to date (Kg)</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Productive_sector__c</fullName>
+        <externalId>false</externalId>
+        <label>Productive sector</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fríjol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tomate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arroz</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hortalizas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_Agri_Input_Storage__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason Agri Input Storage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No tiene recursos económicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tiene tiempo disponible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>El proceso no aporta ningún beneficio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No sabe cómo implementarlo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reason_Agrochem_Management__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason Agrochem Management</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No tiene recursos económicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tiene tiempo disponible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>El proceso no aporta ningún beneficio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No sabe cómo implementarlo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reason_Registration__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason Registration</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No tiene recursos económicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tiene tiempo disponible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>El proceso no aporta ningún beneficio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No sabe cómo implementarlo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reason_Soil_Water_Analysis__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason Soil Water Analysis</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No tiene recursos económicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tiene tiempo disponible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>El proceso no aporta ningún beneficio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No sabe cómo implementarlo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Requires_Org_Resources__c</fullName>
+        <externalId>false</externalId>
+        <label>Requires Org. Resources</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Surveyor_signature__c</fullName>
+        <externalId>false</externalId>
+        <label>Surveyor signature</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Tomato_material__c</fullName>
+        <externalId>false</externalId>
+        <label>Tomato material</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_of_vegetable__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of vegetable</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cebolla de rama</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cilantro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maíz</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chócolo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Use_of_Resources__c</fullName>
+        <externalId>false</externalId>
+        <label>Use of Resources</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Compra de semillas o plántulas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compra abonos, enmiendas y fertilizantes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compra de productos fitosanitarios</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compra de elementos para el tutorado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infraestructura</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Visit_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Visit Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Visit_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Visit Number</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>kilos_plant_replica__c</fullName>
+        <externalId>false</externalId>
+        <label>kilos plant replica</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>kilos_will_plant_replica__c</fullName>
+        <externalId>false</externalId>
+        <label>kilos will plant replica</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>plant_spacing_cm__c</fullName>
+        <externalId>false</externalId>
+        <label>plant spacing cm</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>row_spacing_cm__c</fullName>
+        <externalId>false</externalId>
+        <label>row spacing cm</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>submissionIBT__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>EMP Farm Diagnosis and Targets</relationshipLabel>
+        <relationshipName>EMP_Farm_Diagnosis_and_Targets</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>EMP Farm Diagnosis and Targets</label>
+    <nameField>
+        <label>EMP Farm Diagnostic and Targets Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>EMP Farm Diagnosis and Targets</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

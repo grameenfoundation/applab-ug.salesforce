@@ -50,32 +50,16 @@
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
+    <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Fecha_recepcion_de_insumos__c</fullName>
+        <fullName>EMP_Knowledge_Information__c</fullName>
         <externalId>false</externalId>
-        <label>Fecha recepción de insumos</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Date</type>
-    </fields>
-    <fields>
-        <fullName>Fecha_y_hora_de_inicio_del_taller__c</fullName>
-        <externalId>false</externalId>
-        <label>Fecha y hora de inicio del taller</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Date</type>
-    </fields>
-    <fields>
-        <fullName>Technician__c</fullName>
-        <externalId>false</externalId>
-        <label>Technician</label>
-        <referenceTo>Mana_Technician__c</referenceTo>
-        <relationshipLabel>Mana Technician Repeatable Data</relationshipLabel>
-        <relationshipName>Mana_Technician_Repeatable_Data</relationshipName>
+        <label>EMP Knowledge Information</label>
+        <referenceTo>EMP_Organization__c</referenceTo>
+        <relationshipLabel>EMP Knowledge Informations</relationshipLabel>
+        <relationshipName>EMP_Knowledge_Informations</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackTrending>false</trackTrending>
@@ -83,38 +67,24 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
-        <fullName>Tipo_de_Recepcion_de_Insumos__c</fullName>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
-        <label>Tipo de Recepción de Insumos</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Primera</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Segunda</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Tercera</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Única</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>true</sorted>
-        </picklist>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>EMP Knowledge Informations</relationshipLabel>
+        <relationshipName>EMP_Knowledge_Informations</relationshipName>
+        <required>false</required>
         <trackTrending>false</trackTrending>
-        <type>Picklist</type>
+        <type>Lookup</type>
     </fields>
-    <label>Mana Technician Repeatable Data</label>
+    <label>EMP Knowledge Information</label>
     <nameField>
-        <displayFormat>A-{00000000}</displayFormat>
-        <label>Id</label>
+        <displayFormat>{0000}</displayFormat>
+        <label>EMP Knowledge Information Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Mana Technician Repeatable Data</pluralLabel>
+    <pluralLabel>EMP Knowledge Informations</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>
