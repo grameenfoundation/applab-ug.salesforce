@@ -15,20 +15,14 @@ public with sharing class MbugoHelpers {
     
     //A List of the Metric Names used on the Mbugo Dashboard
     public static List<String> getMetricNames() {
-    	List<String> gumutindoMetricNames = new List<String> {
-    		FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS,
-            FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS,
-            FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS,
-            NUMBER_OF_VSLAS_REGISTERED,
-            TOTAL_NUMBER_OF_FARMERS_IN_VSLAS,
-            TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS,
-            TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS,
-            NUMBER_OF_COOPERATIVES_REGISTERED,
-            PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE
+    	List<String> gumutindoMetricNames = new List<String> {FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS,
+            FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS, FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS,
+            NUMBER_OF_VSLAS_REGISTERED, TOTAL_NUMBER_OF_FARMERS_IN_VSLAS, TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS, TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS,
+            NUMBER_OF_COOPERATIVES_REGISTERED, PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE
         };
         return gumutindoMetricNames;
     }
-
+    
     public static String getSubcounties() {
     	String inclause =
                 ' AND '                                             +
@@ -49,7 +43,7 @@ public with sharing class MbugoHelpers {
                     inclause                    +
                 'ORDER BY Display_Name__c ';
     }
-
+    
     public static List<MetricDataWrapper> getFarmerGroupsData() {
     	List<MetricDataWrapper> farmerGroupsData;
         M_E_Metric_Data__c metricData;
@@ -83,13 +77,13 @@ public with sharing class MbugoHelpers {
             totalVslaFemaleFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
             totalVslaFemaleFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
         } catch (NullPointerException ex) {
-            	System.debug('Error'+ ex.getMessage());
+            	System.debug(loggingLevel.Error, ex.getMessage());
         }
         farmerGroupsData = new List<MetricDataWrapper>{vslaMetricWrapper, totalVslaFarmerMetricWrapper, 
         totalVslaMaleFarmerMetricWrapper, totalVslaFemaleFarmerMetricWrapper};
         return farmerGroupsData; 
     }
-
+    
     public static List<MetricDataWrapper> getCooperativeGroupsData() {
     	List<MetricDataWrapper>  cooperativeGroupsData ;
        	M_E_Metric_Data__c metricData;
@@ -109,7 +103,7 @@ public with sharing class MbugoHelpers {
         	coopPurchasingFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
         	coopPurchasingFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
         } catch (NullPointerException ex) {
-        	System.debug('Error'+ ex.getMessage());
+        	System.debug(loggingLevel.Error, ex.getMessage());
         }
         cooperativeGroupsData = new List<MetricDataWrapper> {cooperativesMetricWrapper, coopPurchasingFarmerMetricWrapper};
         return cooperativeGroupsData;
@@ -141,7 +135,7 @@ public with sharing class MbugoHelpers {
         	insuranceWrapper.setCurrentTarget(metricData.Projected_Value__c);
         	insuranceWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
         }catch (NullPointerException ex) {
-        	System.debug('Error'+ ex.getMessage());
+        	System.debug(loggingLevel.Error, ex.getMessage());
         }
         vslaServicesData = new List<MetricDataWrapper> {loaningWrapper, savingsWrapper, insuranceWrapper};
         return vslaServicesData;
@@ -150,19 +144,21 @@ public with sharing class MbugoHelpers {
     public static List<FinancialServicesUsageData> getFinancialServicesChartData() {
     	List<FinancialServicesUsageData> data = new List<FinancialServicesUsageData>();
         try {
+        	// TODO: Get these from db
         	M_E_Metric_Data__c metricData = getMetricData(FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS);
         	data.add(new FinancialServicesUsageData('MicroInsurance', metricData.Manual_Value__c));
+        	// TODO: Get these from db
         	metricData = getMetricData(FARMERS_WHO_ACCESS_SAVINGS_FINANCIAL_SERVICES_THROUGH_VSLAS);
         	data.add(new FinancialServicesUsageData('Savings', metricData.Manual_Value__c));
+        	// TODO: Get these from db
         	metricData = getMetricData(FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS);
         	data.add(new FinancialServicesUsageData('Loaning', metricData.Manual_Value__c));
         } catch (NullPointerException ex) {
-        	System.debug('Error'+ ex.getMessage());
+        	System.debug(loggingLevel.Error, ex.getMessage());
         }
         return data;
     }
-
-
+    
     public static List<MetricDataWrapper> getFarmersReachedData() {
     	List<MetricDataWrapper> farmersReachedData;
         M_E_Metric_Data__c metricData;
@@ -188,7 +184,7 @@ public with sharing class MbugoHelpers {
     	for (Farmer__c farmer : farmersRegisteredByMbugoCkws) {
     		totalFarmerCount += 1;
         	if ('male'.equalsIgnoreCase(farmer.Person__r.Gender__c)) {
-            	totalMaleFarmerCount += 1;
+        		totalMaleFarmerCount += 1;
         	}
         	else {
             	totalFemaleFarmerCount += 1;
@@ -204,10 +200,12 @@ public with sharing class MbugoHelpers {
     //Attempts to create missing metic datas
     public void getAllMetricDatas() {
     	for (String metricName : getMetricNames()) {
+    		// TODO: Get these from db
     		getMetricData(metricName);   
     	}
 	}
 	
+	//Attempts to get the first metric data
 	public static M_E_Metric_Data__c getMetricData (String metricName) {
 		M_E_Metric_Data__c metric = [
             SELECT 
@@ -231,7 +229,7 @@ public with sharing class MbugoHelpers {
             LIMIT 1];
            return metric;
     }
-
+    
     public enum SubmissionType { MBUGO_ACE_SURVEY, MBUGO_VSLA_ASSESSMENT_SURVEY, NONE }
     
     /**
@@ -276,13 +274,11 @@ public with sharing class MbugoHelpers {
             List<String> metricNames = null;
             // get information from farmer registration
             if (type == SubmissionType.MBUGO_ACE_SURVEY) {
-            	metricNames = new List<String> {
-            		NUMBER_OF_COOPERATIVES_REGISTERED,
-                    PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE
-                };
+            	metricNames = new List<String> {NUMBER_OF_COOPERATIVES_REGISTERED, PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE};
                 String agroInputsUsage = answers.get('q12_0').Answer__c;
                 // Loop through the list of metrics and check that they all exist and then update them
                 for (String key : metricNames) {
+                	// TODO: Get these from db
                 	M_E_Metric_Data__c totalNewData = getMetricData(key);
                     // Update the metric based on the key
                     if (key.equals(NUMBER_OF_COOPERATIVES_REGISTERED)) {
@@ -299,17 +295,14 @@ public with sharing class MbugoHelpers {
                 }
             }
             else if (type == SubmissionType.MBUGO_VSLA_ASSESSMENT_SURVEY) {
-            	metricNames = new List<String> {
-            		NUMBER_OF_VSLAS_REGISTERED,
-                    TOTAL_NUMBER_OF_FARMERS_IN_VSLAS,
-                    TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS,
-                    TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS
-                };
+            	metricNames = new List<String> {NUMBER_OF_VSLAS_REGISTERED, TOTAL_NUMBER_OF_FARMERS_IN_VSLAS,
+                    TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS, TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS};
                 String totalFarmersInVslas = answers.get('q24_0').Answer__c;
                 String totalMaleFarmersInVslas = answers.get('q22_0').Answer__c;
                 String totalFemaleFarmersInVslas = answers.get('q23_0').Answer__c;
                 // Loop through the list of metrics and check that they all exist and then update them
                 for (String key : metricNames) {
+                	// TODO: Get these from db
                 	M_E_Metric_Data__c totalNewData = getMetricData(key);
                     // Update the metric based on the key
                     if (key.equals(NUMBER_OF_VSLAS_REGISTERED)) {
@@ -422,14 +415,14 @@ public with sharing class MbugoHelpers {
         System.debug(markers.size()+' map markers found'); 
         return markers.values();
     }
-
+    
     public class CkwPerformanceWrapper {
         public String name { get; set; }
         public Decimal  farmerRegistrations { get; set; }
         public Decimal  searches { get; set; }
         public Decimal  surveys { get; set; }
     }
-
+    
 	// Wrapper class for financial services chart data
     public class FinancialServicesUsageData {
     	public String name { get; set; }
@@ -439,5 +432,4 @@ public with sharing class MbugoHelpers {
             this.data1 = data1;
         }
     }
-
 }

@@ -70,7 +70,7 @@ public with sharing class MbugoDashboardController {
     public void setSubcountiesList(List<SelectOption> option) {
     	this.districtList = option;
     }
-
+    
     public List<SelectOption> getSubcountiesList() {
     	List<SelectOption> options = new List<SelectOption>();
         Subcounty__c[] subcounties = database.query(MbugoHelpers.getSubcounties());
