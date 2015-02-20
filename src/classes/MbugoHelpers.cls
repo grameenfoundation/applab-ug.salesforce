@@ -76,7 +76,7 @@ public with sharing class MbugoHelpers {
             totalVslaFemaleFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
             totalVslaFemaleFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
             totalVslaFemaleFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-        } catch (NullPointerException ex) {
+        } catch (Exception ex) {
             	System.debug(loggingLevel.Error, ex.getMessage());
         }
         farmerGroupsData = new List<MetricDataWrapper>{vslaMetricWrapper, totalVslaFarmerMetricWrapper, 
@@ -102,7 +102,7 @@ public with sharing class MbugoHelpers {
         	coopPurchasingFarmerMetricWrapper.setMetricId(String.valueOf(metricData.Id));
         	coopPurchasingFarmerMetricWrapper.setCurrentTarget(metricData.Projected_Value__c);
         	coopPurchasingFarmerMetricWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-        } catch (NullPointerException ex) {
+        } catch (Exception ex) {
         	System.debug(loggingLevel.Error, ex.getMessage());
         }
         cooperativeGroupsData = new List<MetricDataWrapper> {cooperativesMetricWrapper, coopPurchasingFarmerMetricWrapper};
@@ -134,7 +134,7 @@ public with sharing class MbugoHelpers {
         	insuranceWrapper.setMetricId(String.valueOf(metricData.Id));
         	insuranceWrapper.setCurrentTarget(metricData.Projected_Value__c);
         	insuranceWrapper.setCurrentRealValue((Decimal) metricData.Manual_Value__c);
-        }catch (NullPointerException ex) {
+        }catch (Exception ex) {
         	System.debug(loggingLevel.Error, ex.getMessage());
         }
         vslaServicesData = new List<MetricDataWrapper> {loaningWrapper, savingsWrapper, insuranceWrapper};
@@ -153,7 +153,7 @@ public with sharing class MbugoHelpers {
         	// TODO: Get these from db
         	metricData = getMetricData(FARMERS_WHO_ACCESS_LOANING_FINANCIAL_SERVICES_THROUGH_VSLAS);
         	data.add(new FinancialServicesUsageData('Loaning', metricData.Manual_Value__c));
-        } catch (NullPointerException ex) {
+        } catch (Exception ex) {
         	System.debug(loggingLevel.Error, ex.getMessage());
         }
         return data;
@@ -207,9 +207,8 @@ public with sharing class MbugoHelpers {
 	
 	//Attempts to get the first metric data
 	public static M_E_Metric_Data__c getMetricData (String metricName) {
-		M_E_Metric_Data__c metric = null;
-		metric = [
-		        SELECT 
+		M_E_Metric_Data__c[] metric = [
+            SELECT 
                 Name,
                 Id,
                 Date__c,
@@ -226,9 +225,8 @@ public with sharing class MbugoHelpers {
             FROM
                 M_E_Metric_Data__c
             WHERE
-                M_E_Metric__r.Name = :metricName
-            LIMIT 1];
-           return metric;
+                M_E_Metric__r.Name = :metricName];
+           return metric[0];
     }
     
     public enum SubmissionType { MBUGO_ACE_SURVEY, MBUGO_VSLA_ASSESSMENT_SURVEY, NONE }
