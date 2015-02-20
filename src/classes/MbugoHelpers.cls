@@ -207,8 +207,9 @@ public with sharing class MbugoHelpers {
 	
 	//Attempts to get the first metric data
 	public static M_E_Metric_Data__c getMetricData (String metricName) {
-		M_E_Metric_Data__c metric = [
-            SELECT 
+		M_E_Metric_Data__c metric = null;
+		metric = [
+		        SELECT 
                 Name,
                 Id,
                 Date__c,
