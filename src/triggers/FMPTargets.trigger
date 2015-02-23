@@ -1,5 +1,6 @@
 trigger FMPTargets on FMP_Target__c (before insert, before update) {
 	if (Trigger.isInsert) {
+		boolean targetExists = false;
 		List <FMP_Target__c> targetsToInsert = new List <FMP_Target__c>();
 		List<String> newTargetFarmids = new List<String>();
 		for (FMP_Target__c newTargetFarm : Trigger.new) {
@@ -8,7 +9,12 @@ trigger FMPTargets on FMP_Target__c (before insert, before update) {
 		List <FMP_Target__c> existingTargets = [Select FMP_Diagnostic__c From FMP_Target__c Where FMP_Diagnostic__c in :newTargetFarmids];
 
 		for (FMP_Target__c newTarget : Trigger.new) {
-			if (existingTargets.size() == 0) {
+			targetExists = false;
+			for(FMP_Target__c targets : existingTargets){
+				if(newTarget.FMP_Diagnostic__c == targets.FMP_Diagnostic__c)
+				targetExists = true;				
+			}		
+			if (!targetExists) {
 				FMP_Target__c ntarget = new FMP_Target__c ();
 				ntarget.adequateTransportation__c = newTarget.adequateTransportation__c;
 				ntarget.channelsScamperOk__c = newTarget.channelsScamperOk__c;
