@@ -159,6 +159,16 @@
         <visibleLines>10</visibleLines>
     </fields>
     <fields>
+        <fullName>CKW_Full_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>CKW Full Name</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>CKW__c</fullName>
         <deleteConstraint>Restrict</deleteConstraint>
         <externalId>false</externalId>
@@ -166,7 +176,7 @@
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>3.0 CKW Cluster Meetings (Contact)</relationshipLabel>
         <relationshipName>X3_0_CKW_Cluster_Meetings1</relationshipName>
-        <required>true</required>
+        <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -321,9 +331,15 @@
         <type>Picklist</type>
     </fields>
     <label>3.0 CKW Cluster Meeting</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
+        <displayFormat>CCM{YYYY}{MM}{DD}{0000}</displayFormat>
         <label>CKW Cluster Meeting Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>3.0 CKW Cluster Meetings</pluralLabel>
     <searchLayouts/>
