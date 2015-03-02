@@ -382,7 +382,7 @@ public class SendSMSHelpers {
             }
             this.fullName = firstName + ' ' + lastName;
             this.phoneNumber = phoneNumber;
-            this.countryDialingCode = countryDialingCode.intValue();
+            this.countryDialingCode = countryDialingCode != null ? countryDialingCode.intValue() : null;
             this.personId = personId;
             this.messages = new Map<String, Scheduled_Message_Queue__c>();
             if (message != null) {

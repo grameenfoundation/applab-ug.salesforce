@@ -14,6 +14,7 @@ public class SendSmsTest {
      *    SendSMSViaKannel
      *    SendSMSViaYellowPepper
      *    SendViaSMSGateway
+     *	  SendSMSViaEdnetUg
      */
 
     static List<Group__c> groups;
@@ -609,5 +610,41 @@ public class SendSmsTest {
 
         // Check the new queue size. It should be 0 as all messages were sent and as this is test none of the messages were rescheduled
         System.AssertEquals(database.countquery('SELECT COUNT() FROM Scheduled_Message_Queue__c WHERE LastModifiedDate <= ' + MetricHelpers.convertDateTimeToString(DateTime.now().addMinutes(-2) , false)), 0);
+    }
+    
+    
+    // TESTS FOR SendSMSViaEdnetUg
+    static testMethod void testEdnet() {
+    	
+        addGatewaySettings('EdnetUg', 'bulk', 'single', 'username', 'password', 123);
+        addCountrySetting('JJ', 'SendSMSViaEdnetUg', 256, 'JJ');
+
+        List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient> {
+            SendSMSHelpers.generateRecipient('id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null)       
+        };
+		// add message with  no country code. will be skipped
+        SMS_Gateway_Country_Settings__c setting = [SELECT Id, Country_Code__c FROM SMS_Gateway_Country_Settings__c WHERE Name = 'JJ'][0];
+        setting.Country_Code__c = null;
+        update setting;
+        SendSMSHelpers.Recipient nullCoded = SendSMSHelpers.generateRecipient('id1', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null);
+        recipients.add(nullCoded);
+        
+        messages = new List<Message>{
+            createMessage('Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients),
+            createMessage('Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients)
+        };
+        SendSMSViaEdnetUg gateway = new SendSMSViaEdnetUg();
+        //gateway.loadSetting();
+        Boolean fail = false;
+        try {
+            gateway.createBody(messages, true);
+        }
+        catch (Exception e) {
+            System.assert(e.getMessage().equals('Can only send one message through EdnetUg at once'), 'Error message is wrong');
+            fail = true;
+        }
+        System.assert(fail, 'Should have failed to build the body as there were too many messages');        
+        System.assert(gateway.execute(messages).equals('status=-2,credits=92052'));
+        System.assert(gateway.callback('status=-2,credits=92052', new Map<String, Boolean> { }).size() == 0);
     }
 }

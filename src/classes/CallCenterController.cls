@@ -2,13 +2,56 @@ public class CallCenterController {
         
     String caseId = '';
     String phoneNumber;  
+    String district;
+    String sex;
     String response;
     Boolean isNewFarmer;
     Farmer__c[] farmers;
     Farmer__c farmer;
     Case[] cases;
     Case currentCase;
+    Person__c[] ckws;
+    
+    public String type { get; set; }
+    public String fname { get; set; }
+    public String lname { get; set; }
+    public String callerType { get; set; }
         
+	public String getDistrict() {
+		return district;
+	}
+	
+	public void setDistrict(String district) {
+		this.district = district;
+	}	
+	
+    public List<SelectOption> personType { 
+    	get {
+	        List<SelectOption> options = new List<SelectOption>();
+			options.add(new SelectOption('', ''));
+			for(Schema.PicklistEntry item : Person__c.Type__c.getDescribe().getPicklistValues()) {
+				options.add(new SelectOption(item.getLabel(), item.getLabel()));
+			}
+	        return options;
+    	}
+	}
+	
+    public String getSex() {
+		return sex;
+    }
+            
+    public void setSex(String sex) {
+		this.sex = sex;
+    }
+    
+    public Person__c[] getCkws() {
+        return ckws;
+    }
+        
+    public void setCkws(Person__c[] ckws) {
+        this.ckws = ckws;
+    }
+	
     public String getPhoneNumber() {
         return phoneNumber;     
     }
@@ -66,18 +109,17 @@ public class CallCenterController {
         else if (phoneNumber.length() == 10) {
             phoneNumber = phoneNumber.substring(1);
         }
-        if (isWellFormedPhoneNumber(phoneNumber)) {                   
-            farmers = getByPhoneNumber(phoneNumber);
-            // Check if there is any farmer with a matching phone number  
-            if (farmers.isEmpty() || farmers == null) {
-                farmer = createDefaultFarmer();
-                isNewFarmer  = true;
-                farmers = getByPhoneNumber(phoneNumber);
-                farmer = farmers[0];
-            }  
-            else {
-                farmer = farmers[0];
-            }     
+        if (isWellFormedPhoneNumber(phoneNumber)) {     
+        	if(callerType.equals('Farmer')) {              
+	            farmers = getByPhoneNumber(phoneNumber);
+	            // Check if there is any farmer with a matching phone number  
+	            if (farmers != null && !farmers.isEmpty()) {
+	                farmer = farmers[0];
+	            }     
+        	}
+        	else if(callerType.equals('CKW')) {
+        		ckws = getCkwByPhoneNumber(phoneNumber);
+        	}
         }      
         return null;        
     }
@@ -87,7 +129,7 @@ public class CallCenterController {
         PageReference pageRef = new PageReference('/' + farmerId);
         return pageRef.setRedirect(true);
     }
-    
+    /*
     public PageReference saveFarmerChanges() {
         database.update(farmer.Person__r);
         database.update(farmer);
@@ -96,7 +138,7 @@ public class CallCenterController {
         isNewFarmer = false;
         return null;
     }
-       
+      */ 
     public PageReference getCaseDetails () {
         String caseId= ApexPages.currentPage().getParameters().get('cId');
         PageReference pageRef = new PageReference('/' + caseId + '?isdtp=mn&retURL=/ui/desktop/DesktopMainDefaultPage?isdtp=mn');
@@ -200,29 +242,66 @@ public class CallCenterController {
     }
     
     public Farmer__c[] getByPhoneNumber(String phoneContact) {
-        farmers = [
-                SELECT 
-                    Id,
-                    Name,
-                    Crops__c,
-                    Livestock__c,
-                    Topics_of_Interest__c,
-                    Person__c,
-                    Person__r.First_Name__c,
-                    Person__r.Middle_Name__c,
-                    Person__r.Last_Name__c,
-                     Person__r.District_Name__c,
-                    Person__r.District__c,
-                    Person__r.Mobile_Number__c,
-                    Person__r.Raw_Mobile_Number__c
-                FROM
-                    Farmer__c 
-                WHERE
-                    Mobile_Number__c
-                    LIKE
-                    :('%' + phoneContact)
-                ];
-        return farmers; 
+        String farmersQuery =
+	        'SELECT '													+
+	            'Id,'													+
+	            'Name,'													+
+	            'Crops__c,'												+
+	            'Livestock__c,'											+
+	            'Topics_of_Interest__c,'								+
+	            'Person__c,'											+
+	            'Person__r.First_Name__c,'								+
+	            'Person__r.Middle_Name__c,'								+
+	            'Person__r.Last_Name__c,'								+
+	          	'Person__r.District_Name__c,'							+
+	            'Person__r.District__c,'								+
+	            'Person__r.Mobile_Number__c,'							+
+	            'Person__r.Raw_Mobile_Number__c '						+
+	        'FROM '														+
+	            'Farmer__c ' 											+
+	        'WHERE '													+
+	            'Mobile_Number__c LIKE \'%' + phoneContact + '\' ';
+		farmersQuery = sex != null && sex != '' ? 
+			farmersQuery + 'AND Person__r.Gender__c = \'' + sex + '\' ' : farmersQuery;
+		farmersQuery = type != null && type != '' ? 
+			farmersQuery + 'AND Person__r.Type__c = \'' + type + '\' ' : farmersQuery;
+		farmersQuery = (district != null && district != '') ? 
+			farmersQuery + 'AND Person__r.District_Name__c = \'' + district + '\' ' : farmersQuery;
+		farmersQuery = (fname != null && fname != '') ? 
+			farmersQuery + 'AND Person__r.First_Name__c = \'' + fname + '\' ' : farmersQuery;
+		farmersQuery = (lname != null && lname != '') ? 
+			farmersQuery + 'AND Person__r.Last_Name__c = \'' + lname + '\' ' : farmersQuery;
+        return database.query(farmersQuery); 
+    }
+    
+        
+    public Person__c[] getCkwByPhoneNumber(String phoneContact) {
+        String query =
+	        'SELECT '													+
+	            'Id,'													+
+	            'Name,'													+
+	            'First_Name__c,'										+
+	            'Middle_Name__c,'										+
+	            'Last_Name__c,'											+
+	          	'District_Name__c,'										+
+	            'District__c,'											+
+	            'Mobile_Number__c,'										+
+	            'Raw_Mobile_Number__c '									+
+	        'FROM '														+
+	            'Person__c ' 											+
+	        'WHERE '													+
+	            'Mobile_Number__c LIKE \'%' + phoneContact + '\' ';
+		query = sex != null && sex != '' ? 
+			query + 'AND Gender__c = \'' + sex + '\' ' : query;
+		query = type != null && type != '' ? 
+			query + 'AND Type__c = \'' + type + '\' ' : query;
+		query = (district != null && district != '') ? 
+			query + 'AND District_Name__c = \'' + district + '\' ' : query;
+		query = (fname != null && fname != '') ? 
+			query + 'AND First_Name__c = \'' + fname + '\' ' : query;
+		query = (lname != null && lname != '') ? 
+			query + 'AND Last_Name__c = \'' + lname + '\' ' : query;
+        return database.query(query); 
     }
     
     public Case[] getFarmerCases(Farmer__c farmer) {
@@ -237,7 +316,6 @@ public class CallCenterController {
                         Status,
                         Description,
                         CreatedDate
-                        
                     FROM
                         Case
                     WHERE
@@ -257,5 +335,6 @@ public class CallCenterController {
     public void clearAllFarmers() {
         farmers = null;
         farmer = null;
+        ckws = null;
     }
 }

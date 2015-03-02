@@ -10,6 +10,7 @@ public with sharing class BulkMessageController {
     public Boolean sendViaSms { get; set; }
     public Boolean sendViaPulse { get; set; }
     public String senderId { get; set; }
+    public String category { get; set; }
 
     // We need this message field so that we can create a DatePicker on the VF
     // page using the apex:inputField control (it will only create a DatePicker
@@ -33,6 +34,17 @@ public with sharing class BulkMessageController {
         return null;
     }
 
+    public List<SelectOption> categoryType { 
+    	get {
+	        List<SelectOption> options = new List<SelectOption>();
+			options.add(new SelectOption('', ''));
+			for(Schema.PicklistEntry item : Case.Category__c.getDescribe().getPicklistValues()) {
+				options.add(new SelectOption(item.getLabel(), item.getLabel()));
+			}
+	        return options;
+    	}
+	}
+	
     /**
      * Submit the message. This will either send it immediately or schedule it for sending at a later date
      * A Scheduled_Message_Queue__c object can link to a person or a group. If it is linked to a group
@@ -119,7 +131,8 @@ public with sharing class BulkMessageController {
                        Send_Via_Pulse__c = this.sendViaPulse,
                        Send_Via_SMS__c = this.sendViaSms,
                        Send_Date_Time__c = this.dummyMessage.Expiration_Time__c,
-                       Person__c = recipient
+                       Person__c = recipient,
+                       Category__c = category
                     );
                     messageQueue.add(message);
                 }
@@ -132,7 +145,8 @@ public with sharing class BulkMessageController {
                        Send_Via_Pulse__c = this.sendViaPulse,
                        Send_Via_SMS__c = this.sendViaSms,
                        Send_Date_Time__c = this.dummyMessage.Expiration_Time__c,
-                       Group__c = g
+                       Group__c = g,
+                       Category__c = category
                     );
                     messageQueue.add(message);
                 }
