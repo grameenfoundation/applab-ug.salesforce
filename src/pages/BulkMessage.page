@@ -84,7 +84,7 @@
             <apex:outputText value="{!$Label.BULK_MESSAGE_PAGE_INSTRUCTIONS}" escape="false"/>
             <br/>
             <br/>
-            <table>
+            <table>	
                 <tr>
                     <td style="font-weight:bold;width:370px;">
                         <div style="width:70px;float:left;">{!$Label.From}</div>
@@ -154,6 +154,16 @@
                         <ul id="{!$Component.parent_container}:sendee_selectedItems"/>
                     </td>
                 </tr>
+            	<tr>
+            		<td colspan="2">
+            			<div style="width:70px;float:left;font-weight:bold">Category</div>
+                        <div style="float:left">
+                            <apex:selectList id="category" value="{!category}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!categoryType}"/>
+                            </apex:selectList>
+                        </div>
+            		</td>
+            	</tr>
                 <tr>
                     <td>
                         <div style="width:70px;float:left;font-weight:bold">
