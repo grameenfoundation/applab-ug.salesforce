@@ -129,7 +129,7 @@ public class CallCenterController {
         PageReference pageRef = new PageReference('/' + farmerId);
         return pageRef.setRedirect(true);
     }
-    /*
+    
     public PageReference saveFarmerChanges() {
         database.update(farmer.Person__r);
         database.update(farmer);
@@ -138,7 +138,7 @@ public class CallCenterController {
         isNewFarmer = false;
         return null;
     }
-      */ 
+       
     public PageReference getCaseDetails () {
         String caseId= ApexPages.currentPage().getParameters().get('cId');
         PageReference pageRef = new PageReference('/' + caseId + '?isdtp=mn&retURL=/ui/desktop/DesktopMainDefaultPage?isdtp=mn');
