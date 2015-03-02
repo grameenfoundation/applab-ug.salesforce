@@ -68,6 +68,16 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>FMP_Target_location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>FMP Target location</label>
+        <required>false</required>
+        <scale>15</scale>
+        <trackTrending>false</trackTrending>
+        <type>Location</type>
+    </fields>
+    <fields>
         <fullName>FaunaFloraRecoveryPlan__c</fullName>
         <externalId>false</externalId>
         <label>FaunaFloraRecoveryPlan</label>
@@ -262,7 +272,7 @@
     <fields>
         <fullName>followFaunaFloraRecoveryPlan__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.FaunaFloraRecoveryPlan__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.FaunaFloraRecoveryPlan__c= &quot;No Cumple&quot; &amp;&amp; TEXT(FaunaFloraRecoveryPlan__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.FaunaFloraRecoveryPlan__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.FaunaFloraRecoveryPlan__c= &quot;No cumple&quot; &amp;&amp; TEXT(FaunaFloraRecoveryPlan__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followFaunaFloraRecoveryPlan</label>
         <required>false</required>
@@ -273,7 +283,7 @@
     <fields>
         <fullName>followadequateTransportation__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.adequateTransportation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.adequateTransportation__c= &quot;No Cumple&quot; &amp;&amp; TEXT(adequateTransportation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.adequateTransportation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.adequateTransportation__c= &quot;No cumple&quot; &amp;&amp; TEXT(adequateTransportation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followadequateTransportation</label>
         <required>false</required>
@@ -284,7 +294,7 @@
     <fields>
         <fullName>followchannelsScamperOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.channelsScamperOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.channelsScamperOk__c= &quot;No Cumple&quot; &amp;&amp; TEXT(channelsScamperOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.channelsScamperOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.channelsScamperOk__c= &quot;No cumple&quot; &amp;&amp; TEXT(channelsScamperOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followchannelsScamperOk</label>
         <required>false</required>
@@ -295,7 +305,7 @@
     <fields>
         <fullName>followchecklist__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.checklist__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.checklist__c= &quot;No Cumple&quot; &amp;&amp; TEXT(checklist__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.checklist__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.checklist__c= &quot;No cumple&quot; &amp;&amp; TEXT(checklist__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followchecklist</label>
         <required>false</required>
@@ -306,7 +316,7 @@
     <fields>
         <fullName>followcoffeeDryingSystemOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.coffeeDryingSystemOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.coffeeDryingSystemOk__c= &quot;No Cumple&quot; &amp;&amp; TEXT(coffeeDryingSystemOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.coffeeDryingSystemOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.coffeeDryingSystemOk__c= &quot;No cumple&quot; &amp;&amp; TEXT(coffeeDryingSystemOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followcoffeeDryingSystemOk</label>
         <required>false</required>
@@ -317,7 +327,7 @@
     <fields>
         <fullName>followcoffeePackaging__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.coffeePackaging__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.coffeePackaging__c= &quot;No Cumple&quot; &amp;&amp; TEXT(coffeePackaging__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.coffeePackaging__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.coffeePackaging__c= &quot;No cumple&quot; &amp;&amp; TEXT(coffeePackaging__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followcoffeePackaging</label>
         <required>false</required>
@@ -328,7 +338,7 @@
     <fields>
         <fullName>followcontrolAccordingMonitoring__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.controlAccordingMonitoring__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.controlAccordingMonitoring__c= &quot;No Cumple&quot; &amp;&amp; TEXT(controlAccordingMonitoring__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.controlAccordingMonitoring__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.controlAccordingMonitoring__c= &quot;No cumple&quot; &amp;&amp; TEXT(controlAccordingMonitoring__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followcontrolAccordingMonitoring</label>
         <required>false</required>
@@ -339,7 +349,7 @@
     <fields>
         <fullName>followevaluationPulping__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.evaluationPulping__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.evaluationPulping__c= &quot;No Cumple&quot; &amp;&amp; TEXT(evaluationPulping__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.evaluationPulping__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.evaluationPulping__c= &quot;No cumple&quot; &amp;&amp; TEXT(evaluationPulping__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followevaluationPulping</label>
         <required>false</required>
@@ -350,7 +360,7 @@
     <fields>
         <fullName>followfarmMap__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.farmMap__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.farmMap__c= &quot;No Cumple&quot; &amp;&amp; TEXT(farmMap__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.farmMap__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.farmMap__c= &quot;No cumple&quot; &amp;&amp; TEXT(farmMap__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followfarmMap</label>
         <required>false</required>
@@ -361,7 +371,7 @@
     <fields>
         <fullName>followfermentationTanksOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.fermentationTanksOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.fermentationTanksOk__c= &quot;No Cumple&quot; &amp;&amp; TEXT(fermentationTanksOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.fermentationTanksOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.fermentationTanksOk__c= &quot;No cumple&quot; &amp;&amp; TEXT(fermentationTanksOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followfermentationTanksOk</label>
         <required>false</required>
@@ -372,7 +382,7 @@
     <fields>
         <fullName>followfriendlyMethodsReducingHerbicide__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.friendlyMethodsReducingHerbicide__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.friendlyMethodsReducingHerbicide__c= &quot;No Cumple&quot; &amp;&amp; TEXT(friendlyMethodsReducingHerbicide__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.friendlyMethodsReducingHerbicide__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.friendlyMethodsReducingHerbicide__c= &quot;No cumple&quot; &amp;&amp; TEXT(friendlyMethodsReducingHerbicide__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followfriendlyMethodsReducingHerbicide</label>
         <required>false</required>
@@ -383,7 +393,7 @@
     <fields>
         <fullName>followharvestEvaluation__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.harvestEvaluation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.harvestEvaluation__c= &quot;No Cumple&quot; &amp;&amp; TEXT(harvestEvaluation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.harvestEvaluation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.harvestEvaluation__c= &quot;No cumple&quot; &amp;&amp; TEXT(harvestEvaluation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followharvestEvaluation</label>
         <required>false</required>
@@ -394,7 +404,7 @@
     <fields>
         <fullName>followharvestRecord__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.harvestRecord__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.harvestRecord__c= &quot;No Cumple&quot; &amp;&amp; TEXT(harvestRecord__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.harvestRecord__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.harvestRecord__c= &quot;No cumple&quot; &amp;&amp; TEXT(harvestRecord__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followharvestRecord</label>
         <required>false</required>
@@ -405,7 +415,7 @@
     <fields>
         <fullName>followhasProtectionEquipment__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.hasProtectionEquipment__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.hasProtectionEquipment__c= &quot;No Cumple&quot; &amp;&amp; TEXT(hasProtectionEquipment__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.hasProtectionEquipment__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.hasProtectionEquipment__c= &quot;No cumple&quot; &amp;&amp; TEXT(hasProtectionEquipment__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followhasProtectionEquipment</label>
         <required>false</required>
@@ -416,7 +426,7 @@
     <fields>
         <fullName>followhoneyWaterTreatmentTank__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.honeyWaterTreatmentTank__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.honeyWaterTreatmentTank__c= &quot;No Cumple&quot; &amp;&amp; TEXT(honeyWaterTreatmentTank__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.honeyWaterTreatmentTank__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.honeyWaterTreatmentTank__c= &quot;No cumple&quot; &amp;&amp; TEXT(honeyWaterTreatmentTank__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followhoneyWaterTreatmentTank</label>
         <required>false</required>
@@ -427,7 +437,7 @@
     <fields>
         <fullName>followidentifyingErodedAreas__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.identifyingErodedAreas__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.identifyingErodedAreas__c= &quot;No Cumple&quot; &amp;&amp; TEXT(identifyingErodedAreas__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.identifyingErodedAreas__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.identifyingErodedAreas__c= &quot;No cumple&quot; &amp;&amp; TEXT(identifyingErodedAreas__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followidentifyingErodedAreas</label>
         <required>false</required>
@@ -438,7 +448,7 @@
     <fields>
         <fullName>followimplemetationSeedbedPlan__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.implemetationSeedbedPlan__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.implemetationSeedbedPlan__c= &quot;No Cumple&quot; &amp;&amp; TEXT(implemetationSeedbedPlan__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.implemetationSeedbedPlan__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.implemetationSeedbedPlan__c= &quot;No cumple&quot; &amp;&amp; TEXT(implemetationSeedbedPlan__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followimplemetationSeedbedPlan</label>
         <required>false</required>
@@ -449,7 +459,7 @@
     <fields>
         <fullName>followknowledgeAreasLots__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.knowledgeAreasLots__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.knowledgeAreasLots__c= &quot;No Cumple&quot; &amp;&amp; TEXT(knowledgeAreasLots__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.knowledgeAreasLots__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.knowledgeAreasLots__c= &quot;No cumple&quot; &amp;&amp; TEXT(knowledgeAreasLots__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followknowledgeAreasLots</label>
         <required>false</required>
@@ -460,7 +470,7 @@
     <fields>
         <fullName>followmakingMonitoringPestsDiseases__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.makingMonitoringPestsDiseases__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.makingMonitoringPestsDiseases__c= &quot;No Cumple&quot; &amp;&amp; TEXT(makingMonitoringPestsDiseases__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.makingMonitoringPestsDiseases__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.makingMonitoringPestsDiseases__c= &quot;No cumple&quot; &amp;&amp; TEXT(makingMonitoringPestsDiseases__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followmakingMonitoringPestsDiseases</label>
         <required>false</required>
@@ -471,7 +481,7 @@
     <fields>
         <fullName>followmonitoringRecordPestDisease__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.monitoringRecordPestDisease__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.monitoringRecordPestDisease__c= &quot;No Cumple&quot; &amp;&amp; TEXT(monitoringRecordPestDisease__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.monitoringRecordPestDisease__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.monitoringRecordPestDisease__c= &quot;No cumple&quot; &amp;&amp; TEXT(monitoringRecordPestDisease__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followmonitoringRecordPestDisease</label>
         <required>false</required>
@@ -482,7 +492,7 @@
     <fields>
         <fullName>followpostControlEvaluation__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.postControlEvaluation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.postControlEvaluation__c= &quot;No Cumple&quot; &amp;&amp; TEXT(postControlEvaluation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.postControlEvaluation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.postControlEvaluation__c= &quot;No cumple&quot; &amp;&amp; TEXT(postControlEvaluation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followpostControlEvaluation</label>
         <required>false</required>
@@ -493,7 +503,7 @@
     <fields>
         <fullName>followproperCoffeeStorage__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.properCoffeeStorage__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.properCoffeeStorage__c= &quot;No Cumple&quot; &amp;&amp; TEXT(properCoffeeStorage__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.properCoffeeStorage__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.properCoffeeStorage__c= &quot;No cumple&quot; &amp;&amp; TEXT(properCoffeeStorage__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followproperCoffeeStorage</label>
         <required>false</required>
@@ -504,7 +514,7 @@
     <fields>
         <fullName>followproperSubstratesPreparation__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.properSubstratesPreparation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.properSubstratesPreparation__c= &quot;No Cumple&quot; &amp;&amp; TEXT(properSubstratesPreparation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.properSubstratesPreparation__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.properSubstratesPreparation__c= &quot;No cumple&quot; &amp;&amp; TEXT(properSubstratesPreparation__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followproperSubstratesPreparation</label>
         <required>false</required>
@@ -515,7 +525,7 @@
     <fields>
         <fullName>followpulpCompostingPit__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.pulpCompostingPit__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.pulpCompostingPit__c= &quot;No Cumple&quot; &amp;&amp; TEXT(pulpCompostingPit__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.pulpCompostingPit__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.pulpCompostingPit__c= &quot;No cumple&quot; &amp;&amp; TEXT(pulpCompostingPit__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followpulpCompostingPit</label>
         <required>false</required>
@@ -526,7 +536,7 @@
     <fields>
         <fullName>followpulpingMachineOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.pulpingMachineOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.pulpingMachineOk__c= &quot;No Cumple&quot; &amp;&amp; TEXT(pulpingMachineOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.pulpingMachineOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.pulpingMachineOk__c= &quot;No cumple&quot; &amp;&amp; TEXT(pulpingMachineOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followpulpingMachineOk</label>
         <required>false</required>
@@ -537,7 +547,7 @@
     <fields>
         <fullName>followrecordHarvesting__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recordHarvesting__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordHarvesting__c= &quot;No Cumple&quot; &amp;&amp; TEXT(recordHarvesting__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recordHarvesting__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordHarvesting__c= &quot;No cumple&quot; &amp;&amp; TEXT(recordHarvesting__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecordHarvesting</label>
         <required>false</required>
@@ -548,7 +558,7 @@
     <fields>
         <fullName>followrecordOfLabor__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recordOfLabor__c = &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordOfLabor__c = &quot;No Cumple&quot; &amp;&amp; TEXT(recordOfLabor__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recordOfLabor__c = &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordOfLabor__c = &quot;No cumple&quot; &amp;&amp; TEXT(recordOfLabor__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecordOfLabor</label>
         <required>false</required>
@@ -559,7 +569,7 @@
     <fields>
         <fullName>followrecordPesticideApplications__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recordPesticideApplications__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordPesticideApplications__c= &quot;No Cumple&quot; &amp;&amp; TEXT(recordPesticideApplications__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recordPesticideApplications__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordPesticideApplications__c= &quot;No cumple&quot; &amp;&amp; TEXT(recordPesticideApplications__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecordPesticideApplications</label>
         <required>false</required>
@@ -570,7 +580,7 @@
     <fields>
         <fullName>followrecordPurchasingInputs__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recordPurchasingInputs__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordPurchasingInputs__c= &quot;No Cumple&quot; &amp;&amp; TEXT(recordPurchasingInputs__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recordPurchasingInputs__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordPurchasingInputs__c= &quot;No cumple&quot; &amp;&amp; TEXT(recordPurchasingInputs__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecordPurchasingInputs</label>
         <required>false</required>
@@ -581,7 +591,7 @@
     <fields>
         <fullName>followrecordSalesCPS__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recordSalesCPS__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordSalesCPS__c= &quot;No Cumple&quot; &amp;&amp; TEXT(recordSalesCPS__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recordSalesCPS__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordSalesCPS__c= &quot;No cumple&quot; &amp;&amp; TEXT(recordSalesCPS__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecordSalesCPS</label>
         <required>false</required>
@@ -592,7 +602,7 @@
     <fields>
         <fullName>followrecordVarietiesTreesPerLot__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recordVarietiesTreesPerLot__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordVarietiesTreesPerLot__c= &quot;No Cumple&quot; &amp;&amp; TEXT(recordVarietiesTreesPerLot__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recordVarietiesTreesPerLot__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordVarietiesTreesPerLot__c= &quot;No cumple&quot; &amp;&amp; TEXT(recordVarietiesTreesPerLot__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecordVarietiesTreesPerLot</label>
         <required>false</required>
@@ -603,7 +613,7 @@
     <fields>
         <fullName>followrecordsAgrochemicalsApplications__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recordsAgrochemicalsApplications__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordsAgrochemicalsApplications__c= &quot;No Cumple&quot; &amp;&amp; TEXT(recordsAgrochemicalsApplications__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recordsAgrochemicalsApplications__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recordsAgrochemicalsApplications__c= &quot;No cumple&quot; &amp;&amp; TEXT(recordsAgrochemicalsApplications__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecordsAgrochemicalsApplications</label>
         <required>false</required>
@@ -614,7 +624,7 @@
     <fields>
         <fullName>followrecoveryErodedAreas__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.recoveryErodedAreas__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recoveryErodedAreas__c= &quot;No Cumple&quot; &amp;&amp; TEXT(recoveryErodedAreas__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.recoveryErodedAreas__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.recoveryErodedAreas__c= &quot;No cumple&quot; &amp;&amp; TEXT(recoveryErodedAreas__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followrecoveryErodedAreas</label>
         <required>false</required>
@@ -625,7 +635,7 @@
     <fields>
         <fullName>followreforestationNativeSpecies__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.reforestationNativeSpecies__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.reforestationNativeSpecies__c= &quot;No Cumple&quot; &amp;&amp; TEXT(reforestationNativeSpecies__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.reforestationNativeSpecies__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.reforestationNativeSpecies__c= &quot;No cumple&quot; &amp;&amp; TEXT(reforestationNativeSpecies__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followreforestationNativeSpecies</label>
         <required>false</required>
@@ -636,7 +646,7 @@
     <fields>
         <fullName>followregistrationWorkPerLot__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.registrationWorkPerLot__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.registrationWorkPerLot__c= &quot;No Cumple&quot; &amp;&amp; TEXT(registrationWorkPerLot__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.registrationWorkPerLot__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.registrationWorkPerLot__c= &quot;No cumple&quot; &amp;&amp; TEXT(registrationWorkPerLot__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followregistrationWorkPerLot</label>
         <required>false</required>
@@ -647,7 +657,7 @@
     <fields>
         <fullName>followregulationOfShadow__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.regulationOfShadow__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.regulationOfShadow__c= &quot;No Cumple&quot; &amp;&amp; TEXT(regulationOfShadow__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.regulationOfShadow__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.regulationOfShadow__c= &quot;No cumple&quot; &amp;&amp; TEXT(regulationOfShadow__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followregulationOfShadow</label>
         <required>false</required>
@@ -658,7 +668,7 @@
     <fields>
         <fullName>followseparationCoffeePerLot__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.separationCoffeePerLot__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.separationCoffeePerLot__c= &quot;No Cumple&quot; &amp;&amp; TEXT(separationCoffeePerLot__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.separationCoffeePerLot__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.separationCoffeePerLot__c= &quot;No cumple&quot; &amp;&amp; TEXT(separationCoffeePerLot__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followseparationCoffeePerLot</label>
         <required>false</required>
@@ -669,7 +679,7 @@
     <fields>
         <fullName>followseparationCoffeeQuality__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.separationCoffeeQuality__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.separationCoffeeQuality__c= &quot;No Cumple&quot; &amp;&amp; TEXT(separationCoffeeQuality__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.separationCoffeeQuality__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.separationCoffeeQuality__c= &quot;No cumple&quot; &amp;&amp; TEXT(separationCoffeeQuality__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followseparationCoffeeQuality</label>
         <required>false</required>
@@ -680,7 +690,7 @@
     <fields>
         <fullName>followtanksMucilageRemoverOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.tanksMucilageRemoverOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.tanksMucilageRemoverOk__c= &quot;No Cumple&quot; &amp;&amp; TEXT(tanksMucilageRemoverOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.tanksMucilageRemoverOk__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.tanksMucilageRemoverOk__c= &quot;No cumple&quot; &amp;&amp; TEXT(tanksMucilageRemoverOk__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followtanksMucilageRemoverOk</label>
         <required>false</required>
@@ -691,7 +701,7 @@
     <fields>
         <fullName>followtrainsStaffAgrochemicalsHandling__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.trainsStaffAgrochemicalsHandling__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.trainsStaffAgrochemicalsHandling__c= &quot;No Cumple&quot; &amp;&amp; TEXT(trainsStaffAgrochemicalsHandling__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.trainsStaffAgrochemicalsHandling__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.trainsStaffAgrochemicalsHandling__c= &quot;No cumple&quot; &amp;&amp; TEXT(trainsStaffAgrochemicalsHandling__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followtrainsStaffAgrochemicalsHandling</label>
         <required>false</required>
@@ -702,7 +712,7 @@
     <fields>
         <fullName>followtransformationPulpsForUse__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.transformationPulpsForUse__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.transformationPulpsForUse__c= &quot;No Cumple&quot; &amp;&amp; TEXT(transformationPulpsForUse__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.transformationPulpsForUse__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.transformationPulpsForUse__c= &quot;No cumple&quot; &amp;&amp; TEXT(transformationPulpsForUse__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followtransformationPulpsForUse</label>
         <required>false</required>
@@ -713,7 +723,7 @@
     <fields>
         <fullName>followuseProtectionEquipment__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.useProtectionEquipment__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.useProtectionEquipment__c= &quot;No Cumple&quot; &amp;&amp; TEXT(useProtectionEquipment__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.useProtectionEquipment__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.useProtectionEquipment__c= &quot;No cumple&quot; &amp;&amp; TEXT(useProtectionEquipment__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followuseProtectionEquipment</label>
         <required>false</required>
@@ -724,7 +734,7 @@
     <fields>
         <fullName>followusingControlMethodsForPYE__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.usingControlMethodsForPYE__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.usingControlMethodsForPYE__c= &quot;No Cumple&quot; &amp;&amp; TEXT(usingControlMethodsForPYE__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.usingControlMethodsForPYE__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.usingControlMethodsForPYE__c= &quot;No cumple&quot; &amp;&amp; TEXT(usingControlMethodsForPYE__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followusingControlMethodsForPYE</label>
         <required>false</required>
@@ -735,7 +745,7 @@
     <fields>
         <fullName>followusingNativeSpeciesAsShading__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.usingNativeSpeciesAsShading__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.usingNativeSpeciesAsShading__c= &quot;No Cumple&quot; &amp;&amp; TEXT(usingNativeSpeciesAsShading__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.usingNativeSpeciesAsShading__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.usingNativeSpeciesAsShading__c= &quot;No cumple&quot; &amp;&amp; TEXT(usingNativeSpeciesAsShading__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followusingNativeSpeciesAsShading</label>
         <required>false</required>
@@ -746,7 +756,7 @@
     <fields>
         <fullName>followwarehouseSafety__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.warehouseSafety__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.warehouseSafety__c= &quot;No Cumple&quot; &amp;&amp; TEXT(warehouseSafety__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.warehouseSafety__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.warehouseSafety__c= &quot;No cumple&quot; &amp;&amp; TEXT(warehouseSafety__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followwarehouseSafety</label>
         <required>false</required>
@@ -757,7 +767,7 @@
     <fields>
         <fullName>followwastewaterManagement__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.wastewaterManagement__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.wastewaterManagement__c= &quot;No Cumple&quot; &amp;&amp; TEXT(wastewaterManagement__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.wastewaterManagement__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.wastewaterManagement__c= &quot;No cumple&quot; &amp;&amp; TEXT(wastewaterManagement__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followwastewaterManagement</label>
         <required>false</required>
@@ -768,7 +778,7 @@
     <fields>
         <fullName>followwetmillSafety__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.wetmillSafety__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.wetmillSafety__c= &quot;No Cumple&quot; &amp;&amp; TEXT(wetmillSafety__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.wetmillSafety__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.wetmillSafety__c= &quot;No cumple&quot; &amp;&amp; TEXT(wetmillSafety__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followwetmillSafety</label>
         <required>false</required>
@@ -779,7 +789,7 @@
     <fields>
         <fullName>followwetmillWaterManagement__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.wetmillWaterManagement__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.wetmillWaterManagement__c= &quot;No Cumple&quot; &amp;&amp; TEXT(wetmillWaterManagement__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.wetmillWaterManagement__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.wetmillWaterManagement__c= &quot;No cumple&quot; &amp;&amp; TEXT(wetmillWaterManagement__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followwetmillWaterManagement</label>
         <required>false</required>
@@ -790,7 +800,7 @@
     <fields>
         <fullName>followzarandaGoodCondition__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( FMP_Diagnostic__r.zarandaGoodCondition__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.zarandaGoodCondition__c= &quot;No Cumple&quot; &amp;&amp; TEXT(zarandaGoodCondition__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formula>IF( FMP_Diagnostic__r.zarandaGoodCondition__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.zarandaGoodCondition__c= &quot;No cumple&quot; &amp;&amp; TEXT(zarandaGoodCondition__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followzarandaGoodCondition</label>
         <required>false</required>
