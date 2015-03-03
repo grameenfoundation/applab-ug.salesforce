@@ -151,6 +151,18 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL2_Farmers_Submission</relationshipLabel>
+        <relationshipName>CBL2_Farmers_Submission</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>attitude_chooseToBeFarmer__c</fullName>
         <externalId>false</externalId>
         <label>attitude_chooseToBeFarmer</label>
@@ -603,7 +615,7 @@
         <fullName>baselineName__c</fullName>
         <externalId>false</externalId>
         <label>baselineName</label>
-        <length>20</length>
+        <length>40</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -2165,23 +2177,23 @@
         <label>service_visitUsefulness</label>
         <picklist>
             <picklistValues>
-                <fullName>Mejorar el cultivo/plantación</fullName>
+                <fullName>Muy en desacuerdo</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Mejorar almácigos/plantillas</fullName>
+                <fullName>De algún modo en desacuerdo</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Mejorar calidad</fullName>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>cumplir con certificaciones</fullName>
+                <fullName>De algún modo de acuerdo</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>No le han sido útiles</fullName>
+                <fullName>Muy de acuerdo</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>

@@ -67,6 +67,16 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>FMP_Target_location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>FMP Target location</label>
+        <required>false</required>
+        <scale>15</scale>
+        <trackTrending>false</trackTrending>
+        <type>Location</type>
+    </fields>
+    <fields>
         <fullName>FaunaFloraRecoveryPlan__c</fullName>
         <externalId>false</externalId>
         <label>FaunaFloraRecoveryPlan</label>
@@ -693,6 +703,17 @@
         <formula>IF( FMP_Diagnostic__r.trainsStaffAgrochemicalsHandling__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.trainsStaffAgrochemicalsHandling__c= &quot;No Cumple&quot; &amp;&amp; TEXT(trainsStaffAgrochemicalsHandling__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followtrainsStaffAgrochemicalsHandling</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>followtransformationPulpsForUse__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( FMP_Diagnostic__r.transformationPulpsForUse__c= &quot;Cumple&quot;, &quot;Se cumplía en la Línea Base&quot;, IF( FMP_Diagnostic__r.transformationPulpsForUse__c= &quot;No Cumple&quot; &amp;&amp; TEXT(transformationPulpsForUse__c)=&quot;Sí&quot;,&quot;No se cumplía y se fijaron metas&quot;, &quot;No se cumplía y no fijaron metas&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>followtransformationPulpsForUse</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>

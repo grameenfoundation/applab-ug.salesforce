@@ -54,6 +54,43 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
+        <fullName>CofeePackaging__c</fullName>
+        <externalId>false</externalId>
+        <label>CofeePackaging</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Están limpios y aptos para la cosecha</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Están sucios</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sirven para manipular agroquímicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sirven para manipular abonos orgánicos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>FMP_Follow_up_location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>FMP Follow up location</label>
+        <required>false</required>
+        <scale>15</scale>
+        <trackTrending>false</trackTrending>
+        <type>Location</type>
+    </fields>
+    <fields>
         <fullName>FMP_Target__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -84,6 +121,130 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>FriendlyMethodsReducingHerbicide__c</fullName>
+        <externalId>false</externalId>
+        <label>FriendlyMethodsReducingHerbicide</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Control físico/mecánico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cultivos de cobertura</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulch (colchón material orgánico)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Distancias de siembra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manejo de sombra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Control químico/herbicidas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno de los anteriores</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>RecordsAgrochemicalsApplications__c</fullName>
+        <externalId>false</externalId>
+        <label>RecordsAgrochemicalsApplications</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fecha de aplicación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dosis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No registra ningún dato</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>RecoveryErodedAreas__c</fullName>
+        <externalId>false</externalId>
+        <label>RecoveryErodedAreas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Curvas de nivel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terrazas individuales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terrazas de banco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Barreras vivas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Barreras físicas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Acequias</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cultivos de cobertura de suelo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulch (colchón de materia orgánica)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No realiza ninguna de esas prácticas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>RegulationOfShadow__c</fullName>
+        <externalId>false</externalId>
+        <label>RegulationOfShadow</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Submission__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -94,6 +255,161 @@
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TransformationPulpsForUse__c</fullName>
+        <externalId>false</externalId>
+        <label>TransformationPulpsForUse</label>
+        <picklist>
+            <picklistValues>
+                <fullName>La escurre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La protege de la lluvia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Procesa en compost en cuanto es posible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lo vende sin procesar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La amontona sin protección</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lo vierte al río</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La bota</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>UsingNativeSpeciesAsShading__c</fullName>
+        <externalId>false</externalId>
+        <label>UsingNativeSpeciesAsShading</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WastewaterManagement__c</fullName>
+        <externalId>false</externalId>
+        <label>WastewaterManagement</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Las vierte en fuente de agua sin tratar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Las vierte en pozos de infiltración</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Escurrimiento superficial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planta de tratamiento de aguas mieles</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La utiliza como modo de fertilización</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>WetmillSafety__c</fullName>
+        <externalId>false</externalId>
+        <label>WetmillSafety</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Contaminación de fuentes de agua</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Riesgo de contaminación del café</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Riesgo de mezcla de café cert y no cert</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Riesgo de mezcla de diferentes calidades</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ningún riesgo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>WetmillWaterManagement__c</fullName>
+        <externalId>false</externalId>
+        <label>WetmillWaterManagement</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Las vierte en fuente de agua sin tratar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Las vierte en pozos de infiltración</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Escurrimiento superficial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planta de tratamiento de aguas mieles</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La utiliza como modo de fertilización</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>adequateTransportation__c</fullName>
@@ -153,24 +469,6 @@
         <fullName>coffeeDryingSystemOk__c</fullName>
         <externalId>false</externalId>
         <label>coffeeDryingSystemOk</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>coffeePackaging__c</fullName>
-        <externalId>false</externalId>
-        <label>coffeePackaging</label>
         <picklist>
             <picklistValues>
                 <fullName>Cumple</fullName>
@@ -271,6 +569,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>followUp_Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>followUp_Total_Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>followUpadequateTransportation__c</fullName>
         <externalId>false</externalId>
         <formula>IF(TEXT(adequateTransportation__c ) = &quot;Cumple&quot;, 1, 0)</formula>
@@ -325,12 +634,12 @@
     <fields>
         <fullName>followUpcoffeePackaging__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT(coffeePackaging__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( CofeePackaging__c, &quot;Están limpios y aptos para la cosecha&quot;)=TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpcoffeePackaging</label>
         <precision>18</precision>
         <required>false</required>
-        <scale>2</scale>
+        <scale>0</scale>
         <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
@@ -533,7 +842,7 @@
     <fields>
         <fullName>followUpfriendlyMethodsReducingHerbicide__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( friendlyMethodsReducingHerbicide__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( FriendlyMethodsReducingHerbicide__c, &quot;Control físico/mecánico&quot;) = TRUE || INCLUDES( FriendlyMethodsReducingHerbicide__c, &quot;Cultivos de cobertura&quot;) = TRUE || INCLUDES( FriendlyMethodsReducingHerbicide__c, &quot;Mulch (colchón material orgánico)&quot;) = TRUE || INCLUDES( FriendlyMethodsReducingHerbicide__c, &quot;Distancias de siembra&quot;) = TRUE || INCLUDES( FriendlyMethodsReducingHerbicide__c, &quot;Manejo de Sombra&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpfriendlyMethodsReducingHerbicide</label>
         <precision>18</precision>
@@ -559,7 +868,7 @@
     <fields>
         <fullName>followUpharvestRecord__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( harvestRecord__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( harvestRecord__c, &quot;Con documentación/registros de soporte&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpharvestRecord</label>
         <precision>18</precision>
@@ -585,7 +894,7 @@
     <fields>
         <fullName>followUphoneyWaterTreatmentTank__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT(honeyWaterTreatmentTank__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( honeyWaterTreatmentTank__c, &quot;Las vierte en pozos de infiltración&quot;) = TRUE || INCLUDES( honeyWaterTreatmentTank__c, &quot;Planta de tratamiento de aguas mieles&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUphoneyWaterTreatmentTank</label>
         <precision>18</precision>
@@ -702,7 +1011,7 @@
     <fields>
         <fullName>followUppulpCompostingPit__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT(pulpCompostingPit__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( pulpCompostingPit__c, &quot;Procesa en compost en cuanto es posible&quot;)= TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUppulpCompostingPit</label>
         <precision>18</precision>
@@ -715,7 +1024,7 @@
     <fields>
         <fullName>followUppulpingMachineOk__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT(pulpingMachineOk__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( pulpingMachineOk__c, &quot;Granos enteros y limpios&quot;)=TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUppulpingMachineOk</label>
         <precision>18</precision>
@@ -754,7 +1063,7 @@
     <fields>
         <fullName>followUprecordPesticideApplications__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT(recordPesticideApplications__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( recordPesticideApplications__c, &quot;Fecha de aplicación,Dosis,Lote&quot;)=TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUprecordPesticideApplications</label>
         <precision>18</precision>
@@ -806,7 +1115,7 @@
     <fields>
         <fullName>followUprecordsAgrochemicalsApplications__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( recordsAgrochemicalsApplications__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( RecordsAgrochemicalsApplications__c, &quot;Fecha de aplicación&quot;) = TRUE &amp;&amp; INCLUDES( RecordsAgrochemicalsApplications__c, &quot;Dosis&quot;) = TRUE &amp;&amp; INCLUDES( RecordsAgrochemicalsApplications__c, &quot;Lote&quot;) = TRUE , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUprecordsAgrochemicalsApplications</label>
         <precision>18</precision>
@@ -819,7 +1128,7 @@
     <fields>
         <fullName>followUprecoveryErodedAreas__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT(recoveryErodedAreas__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF(INCLUDES(RecoveryErodedAreas__c, &quot;Curvas a nivel&quot;) = TRUE || INCLUDES(RecoveryErodedAreas__c, &quot;Terrazas individuales&quot;) = TRUE || INCLUDES(RecoveryErodedAreas__c, &quot;Terrazas de banco&quot;) = TRUE || INCLUDES( RecoveryErodedAreas__c, &quot;Barreras vivas&quot;) = TRUE || INCLUDES( RecoveryErodedAreas__c, &quot;Barreras físicas&quot;) = TRUE || INCLUDES( RecoveryErodedAreas__c, &quot;Acequias&quot;) = TRUE || INCLUDES( RecoveryErodedAreas__c, &quot;Cultivos de cobertura de suelo&quot;) = TRUE || INCLUDES( RecoveryErodedAreas__c, &quot;Mulch (colchon de materia orgánica)&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUprecoveryErodedAreas</label>
         <precision>18</precision>
@@ -858,7 +1167,7 @@
     <fields>
         <fullName>followUpregulationOfShadow__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( regulationOfShadow__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( RegulationOfShadow__c &gt; 20, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpregulationOfShadow</label>
         <precision>18</precision>
@@ -923,7 +1232,7 @@
     <fields>
         <fullName>followUptransformationPulpsForUse__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( transformationPulpsForUse__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( TransformationPulpsForUse__c, &quot;Procesa en compost en cuanto es posible&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUptransformationPulpsForUse</label>
         <precision>18</precision>
@@ -962,7 +1271,7 @@
     <fields>
         <fullName>followUpusingNativeSpeciesAsShading__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( usingNativeSpeciesAsShading__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( UsingNativeSpeciesAsShading__c&gt; 50 , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpusingNativeSpeciesAsShading</label>
         <precision>18</precision>
@@ -988,7 +1297,7 @@
     <fields>
         <fullName>followUpwastewaterManagement__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( wastewaterManagement__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( WastewaterManagement__c, &quot;Las vierte en pozos de infiltración&quot;) = TRUE || INCLUDES( WastewaterManagement__c, &quot;Planta de tratamiento de aguas mieles&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpwastewaterManagement</label>
         <precision>18</precision>
@@ -1001,7 +1310,7 @@
     <fields>
         <fullName>followUpwetmillSafety__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( wetmillSafety__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( WetmillSafety__c, &quot;Aprobado para la certificación&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpwetmillSafety</label>
         <precision>18</precision>
@@ -1014,7 +1323,7 @@
     <fields>
         <fullName>followUpwetmillWaterManagement__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(TEXT( wetmillWaterManagement__c ) = &quot;Cumple&quot;, 1, 0)</formula>
+        <formula>IF( INCLUDES( WetmillWaterManagement__c, &quot;La utiliza como modo de fertilización&quot;) = TRUE, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>followUpwetmillWaterManagement</label>
         <precision>18</precision>
@@ -1036,24 +1345,6 @@
         <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>friendlyMethodsReducingHerbicide__c</fullName>
-        <externalId>false</externalId>
-        <label>friendlyMethodsReducingHerbicide</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>harvestEvaluation__c</fullName>
@@ -1079,17 +1370,26 @@
         <label>harvestRecord</label>
         <picklist>
             <picklistValues>
-                <fullName>Cumple</fullName>
+                <fullName>Adecuadamente identificado</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>No cumple</fullName>
+                <fullName>Con documentación/registros de soporte</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adecuadamente separado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No hay adecuadas medidas de trazabilidad</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackTrending>false</trackTrending>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>hasProtectionEquipment__c</fullName>
@@ -1115,17 +1415,34 @@
         <label>honeyWaterTreatmentTank</label>
         <picklist>
             <picklistValues>
-                <fullName>Cumple</fullName>
+                <fullName>Las vierte en fuente de agua sin tratar</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>No cumple</fullName>
+                <fullName>Las vierte en pozos de infiltración</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Escurrimiento superficial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planta de tratamiento de aguas mieles</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La utiliza como modo de fertilización</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackTrending>false</trackTrending>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>identifyingErodedAreas__c</fullName>
@@ -1218,6 +1535,19 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>percentTargetsComplete__c</fullName>
+        <externalId>false</externalId>
+        <formula>targetsComplete1__c/totalTargets1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Percent Targets Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>postControlEvaluation__c</fullName>
         <externalId>false</externalId>
         <label>postControlEvaluation</label>
@@ -1277,17 +1607,42 @@
         <label>pulpCompostingPit</label>
         <picklist>
             <picklistValues>
-                <fullName>Cumple</fullName>
+                <fullName>La escurre</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>No cumple</fullName>
+                <fullName>La protege de la lluvia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Procesa en compost en cuanto es posible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lo vende sin procesar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La amontona sin protección</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lo vierte al río</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La bota</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackTrending>false</trackTrending>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>pulpingMachineOk__c</fullName>
@@ -1295,17 +1650,30 @@
         <label>pulpingMachineOk</label>
         <picklist>
             <picklistValues>
-                <fullName>Cumple</fullName>
+                <fullName>Granos enteros y limpios</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>No cumple</fullName>
+                <fullName>Granos quebrados o mordidos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tira pulpa con el grano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tira grano con la pulpa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Presenta otro daño o defecto</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackTrending>false</trackTrending>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>recordHarvesting__c</fullName>
@@ -1349,17 +1717,26 @@
         <label>recordPesticideApplications</label>
         <picklist>
             <picklistValues>
-                <fullName>Cumple</fullName>
+                <fullName>Fecha de aplicación</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>No cumple</fullName>
+                <fullName>Dosis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No registra ningún dato</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackTrending>false</trackTrending>
-        <type>Picklist</type>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>recordPurchasingInputs__c</fullName>
@@ -1416,42 +1793,6 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>recordsAgrochemicalsApplications__c</fullName>
-        <externalId>false</externalId>
-        <label>recordsAgrochemicalsApplications</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>recoveryErodedAreas__c</fullName>
-        <externalId>false</externalId>
-        <label>recoveryErodedAreas</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>reforestationNativeSpecies__c</fullName>
         <externalId>false</externalId>
         <label>reforestationNativeSpecies</label>
@@ -1473,24 +1814,6 @@
         <fullName>registrationWorkPerLot__c</fullName>
         <externalId>false</externalId>
         <label>registrationWorkPerLot</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>regulationOfShadow__c</fullName>
-        <externalId>false</externalId>
-        <label>regulationOfShadow</label>
         <picklist>
             <picklistValues>
                 <fullName>Cumple</fullName>
@@ -1560,27 +1883,89 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>targetsComplete1__c</fullName>
+        <externalId>false</externalId>
+        <label>Targets Complete 1</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>targetsComplete2__c</fullName>
+        <externalId>false</externalId>
+        <label>Targets Complete 2</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>targetsComplete3__c</fullName>
+        <externalId>false</externalId>
+        <label>Targets Complete 3</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>targetsComplete__c</fullName>
+        <externalId>false</externalId>
+        <formula>targetsComplete1__c+targetsComplete2__c+targetsComplete3__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Targets Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>totalTargets1__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Targets 1</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>totalTargets2__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Targets 2</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>totalTargets__c</fullName>
+        <externalId>false</externalId>
+        <formula>totalTargets1__c+totalTargets2__c</formula>
+        <label>Total Targets</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>trainsStaffAgrochemicalsHandling__c</fullName>
         <externalId>false</externalId>
         <label>trainsStaffAgrochemicalsHandling</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>transformationPulpsForUse__c</fullName>
-        <externalId>false</externalId>
-        <label>transformationPulpsForUse</label>
         <picklist>
             <picklistValues>
                 <fullName>Cumple</fullName>
@@ -1632,81 +2017,9 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>usingNativeSpeciesAsShading__c</fullName>
-        <externalId>false</externalId>
-        <label>usingNativeSpeciesAsShading</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>warehouseSafety__c</fullName>
         <externalId>false</externalId>
         <label>warehouseSafety</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>wastewaterManagement__c</fullName>
-        <externalId>false</externalId>
-        <label>wastewaterManagement</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>wetmillSafety__c</fullName>
-        <externalId>false</externalId>
-        <label>wetmillSafety</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No cumple</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>wetmillWaterManagement__c</fullName>
-        <externalId>false</externalId>
-        <label>wetmillWaterManagement</label>
         <picklist>
             <picklistValues>
                 <fullName>Cumple</fullName>

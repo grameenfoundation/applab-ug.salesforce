@@ -105,28 +105,6 @@ coffeePlantedArea__c)</formula>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Desp_Mal_estado_tira_grano_en_la_pulpa__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Mal estado tira grano en la pulpa&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Desp - Mal estado tira grano en la pulpa</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Desp_Mal_estado_tira_pulpa_con_el_gran__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Mal estado tira pulpa con el grano&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Desp - Mal estado tira pulpa con el gran</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>Farm_Code_Guat__c</fullName>
         <externalId>false</externalId>
         <label>Farm Code Guat</label>
@@ -541,24 +519,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Wetmill_separatedGrainsProcessedAppart__c</fullName>
-        <externalId>false</externalId>
-        <label>Wetmill_separatedGrainsProcessedAppart</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Si</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>agrochemElimin100MtsAwayWater__c</fullName>
@@ -3670,9 +3630,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>wetMillAlreadyRegistered__c</fullName>
+        <fullName>wetmill_AlreadyRegistered__c</fullName>
         <externalId>false</externalId>
-        <label>wetMillAlreadyRegistered</label>
+        <label>wetmill_AlreadyRegistered</label>
         <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
@@ -3688,9 +3648,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>wetMillCode__c</fullName>
+        <fullName>wetmill_Code__c</fullName>
         <externalId>false</externalId>
-        <label>wetMillCode</label>
+        <label>wetmill_Code</label>
         <precision>6</precision>
         <required>false</required>
         <scale>0</scale>
@@ -3699,9 +3659,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>wetMillCountry__c</fullName>
+        <fullName>wetmill_Country__c</fullName>
         <externalId>false</externalId>
-        <label>wetMillCountry</label>
+        <label>wetmill_Country</label>
         <length>20</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -3709,9 +3669,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>wetMillDepartment__c</fullName>
+        <fullName>wetmill_Department__c</fullName>
         <externalId>false</externalId>
-        <label>wetMillDepartment</label>
+        <label>wetmill_Department</label>
         <length>30</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -3719,9 +3679,53 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>wetMillDistrict__c</fullName>
+        <fullName>wetmill_DespMalEstado_TiraGranoEnLaPulpa__c</fullName>
         <externalId>false</externalId>
-        <label>wetMillDistrict</label>
+        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Mal estado tira grano en la pulpa&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>wetmill_DespMalEstado_TiraGranoEnLaPulpa</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wetmill_DespMalEstado_TiraPulpaConElGran__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Mal estado tira pulpa con el grano&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>wetmill_DespMalEstado_TiraPulpaConElGran</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wetmill_Desp_Granos_enteros_y_limpios__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Granos enteros y limpios&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>wetmill_Desp_Granos_enteros_y_limpios</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wetmill_Desp_granos_quebrados_o_mordidos__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Mal estado, granos quebrados o mordidos&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>wetmill_Desp_granos_quebrados_o_mordidos</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wetmill_District__c</fullName>
+        <externalId>false</externalId>
+        <label>wetmill_District</label>
         <length>25</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -3729,9 +3733,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>wetMillLocation__c</fullName>
+        <fullName>wetmill_Location__c</fullName>
         <externalId>false</externalId>
-        <label>wetMillLocation</label>
+        <label>wetmill_Location</label>
         <picklist>
             <picklistValues>
                 <fullName>Medellin</fullName>
@@ -3743,9 +3747,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>wetMillMunicipality__c</fullName>
+        <fullName>wetmill_Municipality__c</fullName>
         <externalId>false</externalId>
-        <label>wetMillMunicipality</label>
+        <label>wetmill_Municipality</label>
         <length>20</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -4457,9 +4461,9 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>wetmill_ownsWetMill__c</fullName>
+        <fullName>wetmill_owns__c</fullName>
         <externalId>false</externalId>
-        <label>wetmill_ownsWetMill</label>
+        <label>wetmill_owns</label>
         <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
@@ -4822,6 +4826,24 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>wetmill_separatedGrainsProcessedAppart__c</fullName>
+        <externalId>false</externalId>
+        <label>wetmill_separatedGrainsProcessedAppart</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>wetmill_separationNetUsedToClasify__c</fullName>
         <externalId>false</externalId>
         <label>wetmill_separationNetUsedToClasify</label>
@@ -5029,28 +5051,6 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
         </picklist>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>wm_Desp_Granos_enteros_y_limpios__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Granos enteros y limpios&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>wm_Desp - Granos enteros y limpios</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>wm_Desp_granos_quebrados_o_mordidos__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(INCLUDES(wetmill_pulpingMachinesStatus__c , &quot;Mal estado, granos quebrados o mordidos&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>wm_Desp - granos quebrados o mordidos</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>workersPaidRegularly__c</fullName>
