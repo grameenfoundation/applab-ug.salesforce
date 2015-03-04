@@ -340,26 +340,36 @@ public with sharing class MbugoHelpers {
         for (Person_Group_Association__c p : associations) {
         	personIds.add(p.Person__r.Id);
         }
-        AggregateResult[] mbugoCkwPerfomance = [
-        select 
-        CKW_c__r.Person__r.Id personId, 
-        CKW_c__r.Person__r.First_Name__c fname, 
-        CKW_c__r.Person__r.Last_Name__c lname, 
-        sum(Farmers_Registered__c) farmersRegistered, 
-        sum(Total_Searches__c) searches, 
-        sum(Total_Surveys_Submitted__c) surveys 
-        from 
-        CKW_Performance_Review__c
-        where CKW_c__r.Person__r.Id in: personIds 
-        group by CKW_c__r.Person__r.Id, CKW_c__r.Person__r.First_Name__c, CKW_c__r.Person__r.Last_Name__c];
-        for (AggregateResult aggResult : mbugoCkwPerfomance) {
-        	CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
-            thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
-            thisWrapper.farmerRegistrations = (Decimal) aggResult.get('farmersRegistered');
-            thisWrapper.searches = (Decimal) aggResult.get('searches');
-            thisWrapper.surveys = (Decimal) aggResult.get('surveys');
-            wrapper.add(thisWrapper);
+        
+        MbugoDashboardController controller = new MbugoDashboardController();       
+        if(controller.dateFrom != null && controller.dateTo != null){
+        	AggregateResult[] mbugoCkwPerfomance = [select CKW_c__r.Person__r.Id personId, CKW_c__r.Person__r.First_Name__c fname, CKW_c__r.Person__r.Last_Name__c lname, sum(Farmers_Registered__c) farmersRegistered, 
+        	sum(Total_Searches__c) searches, sum(Total_Surveys_Submitted__c) surveys from CKW_Performance_Review__c 
+        	where CKW_c__r.Person__r.Id in: personIds and Start_Date__c >= :controller.dateFrom and Start_Date__c <= :controller.dateTo
+        	group by CKW_c__r.Person__r.Id, CKW_c__r.Person__r.First_Name__c, CKW_c__r.Person__r.Last_Name__c];
+            for (AggregateResult aggResult : mbugoCkwPerfomance) {
+        	    CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
+                thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
+                thisWrapper.farmerRegistrations = (Decimal) aggResult.get('farmersRegistered');
+                thisWrapper.searches = (Decimal) aggResult.get('searches');
+                thisWrapper.surveys = (Decimal) aggResult.get('surveys');
+                wrapper.add(thisWrapper);
+            }
         }
+        else{
+        	AggregateResult[] mbugoCkwPerfomance = [select CKW_c__r.Person__r.Id personId, CKW_c__r.Person__r.First_Name__c fname, CKW_c__r.Person__r.Last_Name__c lname, sum(Farmers_Registered__c) farmersRegistered, 
+        	sum(Total_Searches__c) searches, sum(Total_Surveys_Submitted__c) surveys from CKW_Performance_Review__c where CKW_c__r.Person__r.Id in: personIds 
+        	group by CKW_c__r.Person__r.Id, CKW_c__r.Person__r.First_Name__c, CKW_c__r.Person__r.Last_Name__c];
+            for (AggregateResult aggResult : mbugoCkwPerfomance) {
+        	    CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
+                thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
+                thisWrapper.farmerRegistrations = (Decimal) aggResult.get('farmersRegistered');
+                thisWrapper.searches = (Decimal) aggResult.get('searches');
+                thisWrapper.surveys = (Decimal) aggResult.get('surveys');
+                wrapper.add(thisWrapper);
+            }
+        }
+        
         return wrapper;
     }
     

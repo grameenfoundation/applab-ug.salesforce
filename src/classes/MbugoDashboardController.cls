@@ -94,10 +94,12 @@ public with sharing class MbugoDashboardController {
     	PageReference resultPage = ApexPages.currentPage(); 
         resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
         resultPage.getParameters().put('district', district.Name);
-        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': 
-            Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd'));
-        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': 
-            Datetime.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd'));
+        
+        dateFrom = Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd');
+        dateTo = Datetime.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd');
+        
+        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': dateFrom);
+        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': dateTo);
         resultPage.getParameters().put('sfdc.tabName', this.tabName);
         resultPage.setRedirect(true);
         return resultPage;

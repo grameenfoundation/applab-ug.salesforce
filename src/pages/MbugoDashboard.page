@@ -73,7 +73,7 @@
         <apex:pageBlock title="Filter By">
             <table>
                 <tr>
-                    <!-- <td>
+                    <td>
                         <strong>District: </strong><apex:selectList value="{!district.Name}" multiselect="false" size="1">
                             <apex:selectOptions value="{!districtList}"></apex:selectOptions>
                         </apex:selectList>
@@ -82,7 +82,7 @@
                          <strong>Subcounty: </strong><apex:selectList value="{!subcounty.Display_Name__c}" multiselect="false" size="1">
                             <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
                         </apex:selectList>                  
-                    </td> -->
+                    </td>
                     <td>
                         <strong>Date From: </strong><apex:inputField value="{!dummyObject.Start_Date__c}"></apex:inputField>
                     </td>
@@ -114,11 +114,11 @@
               <apex:pageBlock id="map">
             <apex:pageBlockSection title="Maps" columns="2">
                 <apex:pageBlockSectionItem >
-                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=MBUGO_CKWS&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'CKW', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=MBUGO_CKWS&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'MBUGO_CKWS', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem >
-                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=MBUGO_FIELD_OFFICERS&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'CKW', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=MBUGO_FIELD_OFFICERS&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'MBUGO_FIELD_OFFICERS', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
                 </apex:pageBlockSectionItem>
                 
             </apex:pageBlockSection>
