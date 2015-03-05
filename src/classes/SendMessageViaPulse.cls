@@ -16,7 +16,8 @@ public class SendMessageViaPulse implements SendViaSMSGateway {
                     Subject__c = inputMessage.subject,
                     From__c = inputMessage.senderId,
                     Expiration_Time__c = inputMessage.expirationTime,
-                    Sent_Time__c = inputMessage.sentTime
+                    Sent_Time__c = inputMessage.sentTime,
+                    Category__c = inputMessage.catgory
                 ));
                 output += recipient.personId + '_splitter_' + inputMessage.getMessageHash() + ',';
             }
