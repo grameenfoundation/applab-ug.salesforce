@@ -40,7 +40,7 @@ global class MarketPriceSender implements Database.Batchable<sObject> {
                 // Send the messages immediately through the relevant gateways
                 rescheduled = SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
-                        recipients, subject, messageText, sender.Id, sender.Name, false, true, datetime.now(), datetime.now().addDays(1)
+                        recipients, subject, messageText, sender.Id, sender.Name, false, true, datetime.now(), datetime.now().addDays(1), ''
                     ), true
                 );
             
