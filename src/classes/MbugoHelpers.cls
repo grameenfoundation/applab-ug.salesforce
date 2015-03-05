@@ -13,6 +13,9 @@ public with sharing class MbugoHelpers {
     public static final String NUMBER_OF_COOPERATIVES_REGISTERED = 'MBUGO_number_of_cooperatives_registered';
     public static final String PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE = 'MBUGO_percentage_of_farmers_purchasing_inputs_from_mbugo_ace';
     
+    public Date date1 {get; set;}
+    public Date date2 {get; set;}
+    
     //A List of the Metric Names used on the Mbugo Dashboard
     public static List<String> getMetricNames() {
     	List<String> gumutindoMetricNames = new List<String> {FARMERS_WHO_ACCESS_MICRO_INSURANCE_FINANCIAL_SERVICES_THROUGH_VSLAS,
@@ -340,26 +343,50 @@ public with sharing class MbugoHelpers {
         for (Person_Group_Association__c p : associations) {
         	personIds.add(p.Person__r.Id);
         }
-        AggregateResult[] mbugoCkwPerfomance = [
-        select 
-        CKW_c__r.Person__r.Id personId, 
-        CKW_c__r.Person__r.First_Name__c fname, 
-        CKW_c__r.Person__r.Last_Name__c lname, 
-        sum(Farmers_Registered__c) farmersRegistered, 
-        sum(Total_Searches__c) searches, 
-        sum(Total_Surveys_Submitted__c) surveys 
-        from 
-        CKW_Performance_Review__c
-        where CKW_c__r.Person__r.Id in: personIds 
-        group by CKW_c__r.Person__r.Id, CKW_c__r.Person__r.First_Name__c, CKW_c__r.Person__r.Last_Name__c];
-        for (AggregateResult aggResult : mbugoCkwPerfomance) {
-        	CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
-            thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
-            thisWrapper.farmerRegistrations = (Decimal) aggResult.get('farmersRegistered');
-            thisWrapper.searches = (Decimal) aggResult.get('searches');
-            thisWrapper.surveys = (Decimal) aggResult.get('surveys');
-            wrapper.add(thisWrapper);
+               
+        if(date1 != null && date2 != null){
+        	AggregateResult[] mbugoCkwPerfomance = [
+        		SELECT 
+        			CKW_c__r.Person__r.Id personId, 
+        			CKW_c__r.Person__r.First_Name__c fname, 
+        			CKW_c__r.Person__r.Last_Name__c lname, 
+        			SUM(Farmers_Registered__c) farmersRegistered, 
+        			SUM(Total_Searches__c) searches, 
+        			SUM(Total_Surveys_Submitted__c) surveys 
+    			FROM 
+    				CKW_Performance_Review__c 
+        		WHERE 
+        			CKW_c__r.Person__r.Id IN: personIds AND 
+        			Start_Date__c >= :date1 AND 
+        			Start_Date__c <= :date2
+        		GROUP BY 
+        			CKW_c__r.Person__r.Id, 
+        			CKW_c__r.Person__r.First_Name__c, 
+        			CKW_c__r.Person__r.Last_Name__c
+			];
+            for (AggregateResult aggResult : mbugoCkwPerfomance) {
+        	    CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
+                thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
+                thisWrapper.farmerRegistrations = (Decimal) aggResult.get('farmersRegistered');
+                thisWrapper.searches = (Decimal) aggResult.get('searches');
+                thisWrapper.surveys = (Decimal) aggResult.get('surveys');
+                wrapper.add(thisWrapper);
+            }
         }
+        else{
+        	AggregateResult[] mbugoCkwPerfomance = [select CKW_c__r.Person__r.Id personId, CKW_c__r.Person__r.First_Name__c fname, CKW_c__r.Person__r.Last_Name__c lname, sum(Farmers_Registered__c) farmersRegistered, 
+        	sum(Total_Searches__c) searches, sum(Total_Surveys_Submitted__c) surveys from CKW_Performance_Review__c where CKW_c__r.Person__r.Id in: personIds 
+        	group by CKW_c__r.Person__r.Id, CKW_c__r.Person__r.First_Name__c, CKW_c__r.Person__r.Last_Name__c];
+            for (AggregateResult aggResult : mbugoCkwPerfomance) {
+        	    CkwPerformanceWrapper thisWrapper = new CkwPerformanceWrapper();
+                thisWrapper.name = aggResult.get('fname') + ' ' + aggResult.get('lname');
+                thisWrapper.farmerRegistrations = (Decimal) aggResult.get('farmersRegistered');
+                thisWrapper.searches = (Decimal) aggResult.get('searches');
+                thisWrapper.surveys = (Decimal) aggResult.get('surveys');
+                wrapper.add(thisWrapper);
+            }
+        }
+        
         return wrapper;
     }
     
