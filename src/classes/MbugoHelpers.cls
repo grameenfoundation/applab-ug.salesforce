@@ -355,8 +355,8 @@ public with sharing class MbugoHelpers {
     				CKW_Performance_Review__c 
         		WHERE 
         			CKW_c__r.Person__r.Id IN: personIds AND 
-        			Start_Date__c >= :dateFrom AND 
-        			Start_Date__c <= :dateTo
+        			Start_Date__c >= :Date.valueOf(dateFrom) AND 
+        			Start_Date__c <= :Date.valueOf(dateTo)
         		GROUP BY 
         			CKW_c__r.Person__r.Id, 
         			CKW_c__r.Person__r.First_Name__c, 
