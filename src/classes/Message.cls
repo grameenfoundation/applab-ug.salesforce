@@ -11,6 +11,7 @@ public with sharing class Message {
     public DateTime expirationTime;
     public DateTime sentTime;
     public String medium;
+    public String catgory;
 
     public Message(
             String subject,
@@ -18,7 +19,7 @@ public with sharing class Message {
             Id senderId,
             String senderName,
             DateTime sentTime,
-	    DateTime expirationTime,
+	    	DateTime expirationTime,
             String medium
     ) {
 

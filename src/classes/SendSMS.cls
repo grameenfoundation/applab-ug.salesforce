@@ -71,6 +71,7 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
                         if (messageToSend == null) {
                             messageToSend = new Message(message.Subject__c, message.Message__c, message.Sender__c, message.Sender__r.Name, message.Expiration_Date__c, message.Send_Date_Time__c, 'SMS');
                         }
+                    	messageToSend.catgory = message.Category__c;
                     }
 
                     // Send message via pulse as well if needed
@@ -83,6 +84,7 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
                         if (pulseMessage == null) {
                             pulseMessage = new Message(message.Subject__c, message.Message__c, message.Sender__c, message.Sender__r.Name, message.Expiration_Date__c, message.Send_Date_Time__c, pulse);
                         }
+                    	pulseMessage.catgory = message.Category__c;
                     }
                     for (SendSMSHelpers.Recipient recipient : groupMap.get(message.Group__c).get(countryCode)) {
                         recipient.addMessage(message);
@@ -134,6 +136,7 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
                     if (messageToSend == null) {
                         messageToSend = new Message(message.Subject__c, message.Message__c, message.Sender__c, message.Sender__r.Name, message.Expiration_Date__c, message.Send_Date_Time__c, 'SMS');
                     }
+                    messageToSend.catgory = message.Category__c;
                     messageToSend.addRecipient(recipient);
                     messages.get(recipient.countryCode).put(messageHash, messageToSend);
                 }
@@ -147,6 +150,7 @@ global class SendSMS implements Database.Batchable<sObject>, Database.Stateful, 
                     if (messageToSend == null) {
                         messageToSend = new Message(message.Subject__c, message.Message__c, message.Sender__c, message.Sender__r.Name, message.Expiration_Date__c, message.Send_Date_Time__c, pulse);
                     }
+                    messageToSend.catgory = message.Category__c;
                     messageToSend.addRecipient(recipient);
                     messages.get(pulse).put(messageHash, messageToSend);
                 }

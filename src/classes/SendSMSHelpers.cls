@@ -115,7 +115,8 @@ public class SendSMSHelpers {
             Boolean sendViaPulse,
             Boolean sendViaSms,
             DateTime sendTime,
-            DateTime expirationTime
+            DateTime expirationTime,
+            String catgory
     ) {
 
         Map<String, Map<String, Message>> messages = new Map<String, Map<String, Message>>();
@@ -164,6 +165,7 @@ public class SendSMSHelpers {
                         message = new Message(subject, messageText, senderId, senderName, sendTime, expirationTime, 'SMS');
                     }
                     message.addRecipient(recipient);
+                    message.catgory = catgory;
                     messages.get(recipient.countryCode).put(messageHash, message);
                 }
                 if (sendViaPulse) {
@@ -175,6 +177,7 @@ public class SendSMSHelpers {
                         message = new Message(subject, messageText, senderId, senderName, sendTime, expirationTime, pulse);
                     }
                     message.addRecipient(recipient);
+                    message.catgory = catgory;
                     messages.get(pulse).put(messageHash, message);
                 }
             }

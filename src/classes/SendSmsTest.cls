@@ -491,19 +491,19 @@ public class SendSmsTest {
         controller.submit();
         System.assertEquals(3, ApexPages.getMessages().size());
         System.assertEquals(ApexPages.getMessages()[2].getSeverity(), ApexPages.Severity.ERROR);
-        System.assertEquals(ApexPages.getMessages()[2].getSummary(), 'You must select at least one "send via" option (SMS or Pulse).');
+        //System.assertEquals(ApexPages.getMessages()[2].getSummary(), 'You must select at least one "send via" option (SMS or Pulse).');//default was set as pulse
 
         controller.sendViaPulse = true;
         controller.submit();
-        System.assertEquals(4, ApexPages.getMessages().size());
-        System.assertEquals(ApexPages.getMessages()[3].getSeverity(), ApexPages.Severity.ERROR);
-        System.assertEquals(ApexPages.getMessages()[3].getSummary(), 'Subject is a required field.');
+        System.assertEquals(3, ApexPages.getMessages().size());
+        System.assertEquals(ApexPages.getMessages()[2].getSeverity(), ApexPages.Severity.ERROR);
+        System.assertEquals(ApexPages.getMessages()[2].getSummary(), 'Subject is a required field.');
 
         controller.subject = 'Subject';
         controller.submit();
-        System.assertEquals(5, ApexPages.getMessages().size());
-        System.assertEquals(ApexPages.getMessages()[4].getSeverity(), ApexPages.Severity.ERROR);
-        System.assertEquals(ApexPages.getMessages()[4].getSummary(), 'Message is a required field.');
+        System.assertEquals(4, ApexPages.getMessages().size());
+        System.assertEquals(ApexPages.getMessages()[3].getSeverity(), ApexPages.Severity.ERROR);
+        System.assertEquals(ApexPages.getMessages()[3].getSummary(), 'Message is a required field.');
     }
 
     static testMethod void testGetGroups() {

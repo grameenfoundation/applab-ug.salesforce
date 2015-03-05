@@ -8,7 +8,7 @@
 public class SendSMSViaEdnetUg implements SendViaSMSGateway {
     
     private SMS_Gateway_Settings__c setting;
-    private String senderName = 'GF';    	
+    private String senderName = 'Grameen';    	
 	private Map<Integer, String> RESPONSE_MAP;
 	private String MESSAGE_XML_RECIPIENT_FORMAT = '<gsm messageId="{0}">{1}</gsm>';
 	private String MESSAGE_XML_REQUEST_FORMAT = 
@@ -124,15 +124,18 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
     	// If the response code "> 0" then messages have been sent and. Here we can only know
     	// the count of messages sent and not the status of each one-by-one. 
     	System.debug(results);
-    	Map<String, Boolean> response = new Map<String, Boolean> { };
     	Integer status = Integer.valueOf(results.split(',')[0].split('=')[1]); 
-    	if(!String.isEmpty(results) && messagesSent != null && messagesSent.size() > 0 && status > 0) {
+    	if(!String.isEmpty(results) && messagesSent != null && messagesSent.size() > 0) {
     		for (SendSMSHelpers.Recipient recipient : messagesSent[0].recipients.values()) {
-            	String messageHash = EncodingUtil.base64Encode(Crypto.generateDigest('MD5', Blob.valueOf(messagesSent[0].body)));
-    			response.put(recipient.personId + '_splitter_' + messageHash, true);
+    			resultMap.put(
+    				recipient.personId + 
+    				'_splitter_' + 
+    				EncodingUtil.base64Encode(Crypto.generateDigest('MD5', Blob.valueOf(messagesSent[0].body))), 
+    				status > 0 ? true : false
+    			);
     		}
     	}
-    	return response;
+    	return resultMap;
     }
 
 	/**

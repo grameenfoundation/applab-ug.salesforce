@@ -23,7 +23,7 @@ public with sharing class BulkMessageController {
         this.dummyMessage = new Message__c();
         this.dummyMessage2 = new Message__c();
         this.sendViaSms = false;
-        this.sendViaPulse = false;
+        this.sendViaPulse = true;//default true
         this.groups = new List<String>();
         this.people = new List<String>();
         this.sendees = new List<String>();
@@ -112,7 +112,7 @@ public with sharing class BulkMessageController {
                 recipients.addAll(groupRecipients);
                 rescheduled = SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
-                        recipients, this.subject, this.messageText, sender.Id, sender.Name, this.sendViaPulse, this.sendViaSms, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c
+                        recipients, this.subject, this.messageText, sender.Id, sender.Name, this.sendViaPulse, this.sendViaSms, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c, category 
                     ), true
                 );
             }
@@ -239,34 +239,30 @@ public with sharing class BulkMessageController {
             }
 
             // This needs to be an aggregate query so as to only get distinct people
+            // Limit of records set to less. User should user groups to avoid dealing with alot of data
             String selectClause =
                 'SELECT '+
                 'Person__c, '+
-                'Person__r.First_Name__c firstname, '+
-                'Person__r.Middle_Name__c middlename, '+
-                'Person__r.Last_Name__c lastname '+
+                'Person__r.First_Name__c, '+
+                'Person__r.Middle_Name__c, '+
+                'Person__r.Last_Name__c '+
             'FROM ' +
                 'Person_Group_Association__c ' +
             'WHERE ' +
                  'Group__c IN (' + MetricHelpers.generateCommaSeperatedString(groups,true) + ') '  +
-            'GROUP BY ' + 
-                'Person__c, ' +
-                'Person__r.First_Name__c, ' +
-                'Person__r.Middle_Name__c, ' +
-                'Person__r.Last_Name__c ' +
             'ORDER BY ' +
                 'Person__r.First_Name__c ' +
-            'LIMIT ' + (1000 - groups.size());
-            for (AggregateResult[] people : database.query(SelectClause)) {
-                for (AggregateResult person : people) {
-                    String fullName = (String)person.get('firstname');
-                    if (person.get('middlename') != null) {
-                       fullName += ' ' + (String)person.get('middlename');
+            'LIMIT 200';
+            for (Person_Group_Association__c[] people : database.query(SelectClause)) {
+                for (Person_Group_Association__c person : people) {
+                    String fullName = person.Person__r.First_Name__c;
+                    if (person.Person__r.Middle_Name__c != null) {
+                       fullName += ' ' + person.Person__r.Middle_Name__c;
                     }
-                    if (person.get('lastname') != null) {
-                       fullName += ' ' + (String)person.get('lastname');
+                    if (person.Person__r.Last_Name__c != null) {
+                       fullName += ' ' + person.Person__r.Last_Name__c;
                     }
-                    options.add(new SelectOption((String)person.get('Person__c'), fullName));
+                    options.add(new SelectOption(String.valueOf(person.Person__r.Id), fullName));
                 }
             }
         }
