@@ -33,8 +33,8 @@ public with sharing class MbugoDashboardController {
         String tabName = pageRef.getParameters().get('sfdc.tabName');
         this.tabName = tabName != null ? tabName : tabName;
         this.isEditMode = (pageRef.getParameters().get('editMode') == 'true'); 
-        //this.dateFrom = pageRef.getParameters().get('dateFrom');
-        //this.dateTo = pageRef.getParameters().get('dateTo');
+        this.dateFrom = pageRef.getParameters().get('dateFrom');
+        this.dateTo = pageRef.getParameters().get('dateTo');
     }
     
     public String getIsUpdateable() {
@@ -86,21 +86,16 @@ public with sharing class MbugoDashboardController {
     	return MbugoHelpers.getFarmersReachedData();
     }
 
-    public List<MbugoHelpers.CkwPerformanceWrapper> getCkwPerfomanceData() {
-    	return MbugoHelpers.getCkwPerfomanceData();
+    public List<MbugoHelpers.CkwPerformanceWrapper> getCkwPerfomanceData(String dateFrom, String dateTo) {
+    	return MbugoHelpers.getCkwPerfomanceData(dateFrom, dateTo);
     }
 
     public PageReference changeFilters() {
     	PageReference resultPage = ApexPages.currentPage(); 
         resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
         resultPage.getParameters().put('district', district.Name);
-        
-        MbugoHelpers helper = new MbugoHelpers();
-        helper.date1 = Date.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd');
-        helper.date2 = Date.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd');
-        
-        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': date1);
-        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': date2);
+        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd'));
+        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': Datetime.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd'));
         resultPage.getParameters().put('sfdc.tabName', this.tabName);
         resultPage.setRedirect(true);
         return resultPage;
