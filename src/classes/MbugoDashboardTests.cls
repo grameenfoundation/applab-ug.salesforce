@@ -122,7 +122,7 @@ public with sharing class MbugoDashboardTests {
         System.assert(wrappers.size() == 2);
         System.assert(controller.getDistrictList() != null);
 
-        System.assert(controller.getCkwPerfomanceData() != null);
+        System.assert(controller.getCkwPerfomanceData(null, null) != null);
         System.assert(controller.getIsUpdateable().equals('true'));
         System.assert(controller.getSubcountiesList() != null);
         System.assert(controller.changeFilters() != null);
