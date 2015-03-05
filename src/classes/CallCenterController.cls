@@ -11,6 +11,7 @@ public class CallCenterController {
     Case[] cases;
     Case currentCase;
     Person__c[] ckws;
+    Person__c ckw;
     
     public String type { get; set; }
     public String fname { get; set; }
@@ -75,9 +76,17 @@ public class CallCenterController {
     public void setFarmer(Farmer__c farmer) {
         this.farmer = farmer;
     }
+     
+    public Person__c getCkw() {
+        return ckw;
+    }
+        
+    public void setCkw(Person__c ckw) {
+        this.ckw = ckw;
+    }
         
     public Case[] getCases() {
-        cases = getFarmerCases(farmer);
+        cases = farmer != null ? getFarmerCases(farmer) : getPersonCases(ckw);
         return cases;
     }
         
@@ -113,12 +122,11 @@ public class CallCenterController {
         	if(callerType.equals('Farmer')) {              
 	            farmers = getByPhoneNumber(phoneNumber);
 	            // Check if there is any farmer with a matching phone number  
-	            if (farmers != null && !farmers.isEmpty()) {
-	                farmer = farmers[0];
-	            }     
+	            farmer = (farmers != null && !farmers.isEmpty()) ? farmers[0] : null;   
         	}
-        	else if(callerType.equals('CKW')) {
-        		ckws = getCkwByPhoneNumber(phoneNumber);
+        	else {
+        		ckws = getCkwByPhoneNumber(phoneNumber);       
+	            ckw = (ckws != null && !ckws.isEmpty()) ? ckws[0] : null;		
         	}
         }      
         return null;        
@@ -139,6 +147,14 @@ public class CallCenterController {
         return null;
     }
        
+    public PageReference savePersonChanges() {
+        database.update(ckw);
+        farmers = getByPhoneNumber(ckw.Mobile_Number__c);
+        ckw = ckws[0];
+        isNewFarmer = false;
+        return null;
+    }
+    
     public PageReference getCaseDetails () {
         String caseId= ApexPages.currentPage().getParameters().get('cId');
         PageReference pageRef = new PageReference('/' + caseId + '?isdtp=mn&retURL=/ui/desktop/DesktopMainDefaultPage?isdtp=mn');
@@ -146,7 +162,7 @@ public class CallCenterController {
     }
          
     public PageReference linkArticles() {
-        if (saveCurrentCase(farmer)) {
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
             PageReference pageRef = new PageReference('/knowledge/knowledgeHome.apexp?id=' + currentCase.Id + '&isdtp=mn');
             return pageRef.setRedirect(true);
         }            
@@ -154,7 +170,7 @@ public class CallCenterController {
     }
     
     public PageReference saveCaseAndClear() {
-        if (saveCurrentCase(farmer)) {
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
             if (currentCase.Status == 'Closed') {
                 // For all closed cases update total_complete_interactions_call_center
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
@@ -169,7 +185,7 @@ public class CallCenterController {
     
     public PageReference saveCaseAndClose() {
         currentCase.Status = 'Closed';
-        if (saveCurrentCase(farmer)) {
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
              // For all closed cases update total_complete_interactions_call_center
             MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
             MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
@@ -181,7 +197,7 @@ public class CallCenterController {
     }
     
     public PageReference saveCase() {
-        if (saveCurrentCase(farmer)) {  
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {  
             if (currentCase.Status == 'Closed') {
                 // For all closed cases update total_complete_interactions_call_center
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
@@ -200,6 +216,21 @@ public class CallCenterController {
         }      
         currentCase.Type = 'Question';            
         currentCase.Person__c = farmer.Person__r.Id;            
+        currentCase.Reason = 'reason';
+        currentCase.Response__c = this.response;
+        currentcase.Origin = 'Phone Call';
+        database.upsert(currentCase);               
+        return true;
+     }
+     
+    public boolean saveCurrentCase(Person__c person) {     
+        if (currentCase.Subject == null || currentCase.Category__c == null || currentCase.Status == null) {
+            ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'The case must have Subject, Category and Status values');
+            ApexPages.addMessage(errorMessage);
+            return false;
+        }      
+        currentCase.Type = 'Question';            
+        currentCase.Person__c = person.Id;            
         currentCase.Reason = 'reason';
         currentCase.Response__c = this.response;
         currentcase.Origin = 'Phone Call';
@@ -305,25 +336,46 @@ public class CallCenterController {
     }
     
     public Case[] getFarmerCases(Farmer__c farmer) {
-        if (farmer == null) {
-           return null;
-        }
-        cases = [
-                    SELECT
-                        Id,                        
-                        Subject,
-                        CaseNumber,
-                        Status,
-                        Description,
-                        CreatedDate
-                    FROM
-                        Case
-                    WHERE
-                        Person__c = :farmer.Person__r.Id
-                    ORDER BY CreatedDate DESC
-                    LIMIT 5
+        return farmer == null ?
+        	null :
+        	[
+                SELECT
+                    Id,                        
+                    Subject,
+                    CaseNumber,
+                    Status,
+                    Description,
+                    CreatedDate
+                FROM
+                    Case
+                WHERE
+                    Person__c = :farmer.Person__r.Id
+                ORDER BY CreatedDate DESC
+                LIMIT 5
                                                
-               ];
+           ];
+        return cases;
+    }
+    
+    public Case[] getPersonCases(Person__c person) {
+        return ckw == null ?
+        	null :
+        	[
+                SELECT
+                    Id,                        
+                    Subject,
+                    CaseNumber,
+                    Status,
+                    Description,
+                    CreatedDate
+                FROM
+                    Case
+                WHERE
+                    Person__c = :person.Id
+                ORDER BY CreatedDate DESC
+                LIMIT 5
+                                               
+           ];
         return cases;
     }
         
@@ -336,5 +388,6 @@ public class CallCenterController {
         farmers = null;
         farmer = null;
         ckws = null;
+        ckw = null;
     }
 }

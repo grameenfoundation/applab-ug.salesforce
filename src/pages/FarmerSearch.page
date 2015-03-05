@@ -81,7 +81,7 @@
                 </apex:pageBlockTable>               
             </apex:pageBlockSection>
             <apex:pageBlockSection id="farmerDetails" title="Farmer Details" rendered="{!NOT(ISNULL(farmer))}">       
-            <apex:outputText value="{!farmer.Name}"/>         
+            	<apex:outputText value="{!farmer.Name}"/>         
                <apex:inputField value="{!farmer.Person__r.First_Name__c}"/>
                <apex:inputField value="{!farmer.Person__r.Middle_Name__c}"/>
                <apex:inputField value="{!farmer.Person__r.Last_Name__c}"/>
@@ -91,6 +91,15 @@
                <apex:outputText value="{!farmer.Livestock__c}"/> 
                <apex:outputText value="{!farmer.Topics_of_Interest__c}"/>                   
                <apex:commandButton action="{!saveFarmerChanges}" reRender="block" status="statusSave" value="Save Changes"/>                                    
+            </apex:pageBlockSection> 
+            <apex:pageBlockSection id="personDetails" title="Person Details" rendered="{!NOT(ISNULL(ckws))}">       
+            	<apex:outputText value="{!ckw.Name}"/>         
+               	<apex:inputField value="{!ckw.First_Name__c}"/>
+               	<apex:inputField value="{!ckw.Middle_Name__c}"/>
+               	<apex:inputField value="{!ckw.Last_Name__c}"/>
+               	<apex:inputField value="{!ckw.District__c}"/>
+               	<apex:outputText value="{!ckw.Mobile_Number__c}"/>                 
+               	<apex:commandButton action="{!savePersonChanges}" reRender="block" status="statusSave" value="Save Changes"/>                                    
             </apex:pageBlockSection> 
             <apex:actionStatus id="statusSave" style="foreground:red" startText="Saving..."/>
             <apex:pageBlockSection id="caseDetails" title="Previous Farmer Cases" rendered="{!NOT(ISNULL(cases)) && NOT(isNewFarmer)}" columns="1">
@@ -107,10 +116,10 @@
                     <apex:column value="{!c.CreatedDate}"/>           
                 </apex:pageBlockTable>                
             </apex:pageBlockSection>
-            <apex:pageblockSection id="erroPort" rendered="{!NOT(ISNULL(farmers)) && NOT(isNewFarmer)}">
+            <apex:pageblockSection id="erroPort" rendered="{! (NOT(ISNULL(farmers)) || NOT(ISNULL(ckws))) && NOT(isNewFarmer) }">
                 <apex:pageMessages />
             </apex:pageblockSection>
-            <apex:pageBlockSection id="thisCase" title="Add New Case" rendered="{!NOT(ISNULL(farmers)) && NOT(isNewFarmer)}">                
+            <apex:pageBlockSection id="thisCase" title="Add New Case" rendered="{! (NOT(ISNULL(farmers)) || NOT(ISNULL(ckws))) && NOT(isNewFarmer) }">                
                 <apex:inputField id="subjectText" value="{!currentCase.Subject}" style="width:400px" /> <br/>
                 <apex:inputField value="{!currentCase.Category__c}" /> <br/>
                 <apex:inputField value="{!currentCase.Status}" /> <br/>
