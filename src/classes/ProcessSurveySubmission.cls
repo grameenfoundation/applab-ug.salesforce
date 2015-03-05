@@ -108,7 +108,7 @@ global class ProcessSurveySubmission {
                 ];
                 SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
-                        new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0))
+                        new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0)), ''
                     ), true
                 );
             }
