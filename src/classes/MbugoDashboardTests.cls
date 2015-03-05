@@ -1,11 +1,11 @@
 @isTest
 public with sharing class MbugoDashboardTests {
-	public MbugoDashboardTests() {
+    public MbugoDashboardTests() {
 
-	}
+    }
 
-	static testMethod void testController() {
-    
+    static testMethod void testController() {
+        
         District__c testDistrict = new District__c();
         testDistrict.Name = 'TestMasaka';
         testDistrict.Region__c = 'Central';
@@ -44,7 +44,9 @@ public with sharing class MbugoDashboardTests {
         //testPerson.Handset__c = testHandset.Id;
         testFOPerson.Type__c = 'CKW';
         insert testFOPerson;
-
+        
+        
+            
         //Create FO
         Mbugo_Field_Officer__c mbugoFO = new Mbugo_Field_Officer__c();
         mbugoFO.Person__c = testFOPerson.Id;
@@ -79,7 +81,7 @@ public with sharing class MbugoDashboardTests {
 
         Organisation_District_Association__c orgAssocTest = new Organisation_District_Association__c();
         orgAssocTest.District__c = testDistrict.Id;
-         orgAssocTest.Organisation__c = testOrg.Id;
+        orgAssocTest.Organisation__c = testOrg.Id;
         insert(orgAssocTest);
         
         MbugoDashboardController controller = new MbugoDashboardController();
@@ -118,11 +120,11 @@ public with sharing class MbugoDashboardTests {
 
         wrappers = controller.getCooperativeGroupsData();
         System.assert(wrappers.size() == 2);
-		System.assert(controller.getDistrictList() != null);
+        System.assert(controller.getDistrictList() != null);
 
-		System.assert(controller.getCkwPerfomanceData() != null);
-		System.assert(controller.getIsUpdateable().equals('true'));
-		System.assert(controller.getSubcountiesList() != null);
+        System.assert(controller.getCkwPerfomanceData() != null);
+        System.assert(controller.getIsUpdateable().equals('true'));
+        System.assert(controller.getSubcountiesList() != null);
         System.assert(controller.changeFilters() != null);
 
         System.assert(MbugoHelpers.getCKWMapMarkers().size() == 1);
@@ -136,13 +138,61 @@ public with sharing class MbugoDashboardTests {
         submission.resultHash = '1';
         submission.surveyId = [select Id, Name from Survey__c where Id = :acesurvey.Id].Name;
         answers.put('q12_0', Utils.createTestSubmissionAnswer(null, 'q12', '3 4', null, null, null));
-
-        returnValues = MbugoHelpers.surveysPostProcessing(submission, answers, testPerson);
-        System.assert(returnValues.get(0).equals('1'));
-        System.assert(returnValues.get(1).contains('success'));
-        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED).Manual_Value__c == 1);
+        
+        M_E_Metric_Data__c metricdata = new M_E_Metric_Data__C();
+        List < M_E_Metric__C > metr = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED];
+        System.assert(metr.size() == 0);
+        M_E_Metric__C tempMetric;
+        //If parent metric is not found, attempt to a create it
+        System.debug('Mbugo metric ' + MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED + ' not found, create metric');
+        tempMetric = new M_E_Metric__C();
+        tempMetric.Name = MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED;
+        tempMetric.Label__c = MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED.replace('_', ' ');
+        insert(tempMetric);
+        metricdata.M_E_Metric__c = tempMetric.Id;
+        metricdata.Comment__c = tempMetric.Label__c;
+        metricdata.Date__c = MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0));
+        metricdata.Numerator__c = 0;
+        metricdata.Denumerator__c = 0;
+        metricdata.Projected_Value__c = 0;
+        metricdata.Manual_Value__c = 1;
+        insert(metricdata);
+        List < M_E_Metric__C > mTest = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED];
+        System.assert(mTest.size() !=0 );
+        
+        returnValues = MbugoHelpers.surveysPostProcessing(submission, answers, testPerson);   
+        System.assert(mTest.size() ==1 );
+       // System.assert(returnValues.get(0).equals('0'));
+       // System.assert(returnValues.get(1).contains('successful'));
+        System.assert(MbugoHelpers.getMetricData(MbugoHelpers.NUMBER_OF_COOPERATIVES_REGISTERED).Manual_Value__c != 0);
+        
+        M_E_Metric_Data__C metricdata1 = new M_E_Metric_Data__C();
+        List < M_E_Metric__C > metr1 = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE];
+        System.assert(metr1.size() == 1);
+        M_E_Metric__C tempMetric1;
+        //If parent metric is not found, attempt to a create it
+        System.debug('Mbugo metric ' + MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE + ' not found, create metric');
+        tempMetric1 = new M_E_Metric__C();
+        tempMetric1.Name = MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE;
+        tempMetric1.Label__c = MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE.replace('_', ' ');
+        insert(tempMetric1);
+        metricdata1.M_E_Metric__c = tempMetric.Id;
+        metricdata1.Comment__c = tempMetric.Label__c;
+        metricdata1.Date__c = MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0));
+        metricdata1.Numerator__c = 0;
+        metricdata1.Denumerator__c = 0;
+        metricdata1.Projected_Value__c = 0;
+        metricdata1.Manual_Value__c = 1;
+        insert(metricdata1);
+        mTest = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE];
+        System.assert(mTest.size() !=0 );
+        
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE).Manual_Value__c == 1);
-
+        
+        returnValues = MbugoHelpers.surveysPostProcessing(submission, answers, testPerson);        
+       // System.assert(returnValues.get(0).equals('1'));
+        //System.assert(returnValues.get(1).contains('successful'));
+        
         submission = new ProcessSurveySubmission.SurveySubmission();
         submission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
         submission.submissionStartTime = Datetime.now().addMinutes(30).getTime().format().replace(',', '');
@@ -152,16 +202,101 @@ public with sharing class MbugoDashboardTests {
         answers.put('q24_0', Utils.createTestSubmissionAnswer(null, 'q24', '90', null, null, null));
         answers.put('q22_0', Utils.createTestSubmissionAnswer(null, 'q22', '40', null, null, null));
         answers.put('q23_0', Utils.createTestSubmissionAnswer(null, 'q23', '50', null, null, null));
-
-        returnValues = MbugoHelpers.surveysPostProcessing(submission, answers, testPerson);
-        System.assert(returnValues.get(0).equals('1'));
-        System.assert(returnValues.get(1).contains('success'));
+        
+        metricdata = new M_E_Metric_Data__C();
+        metr = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.NUMBER_OF_VSLAS_REGISTERED];
+        System.assert(metr.size() == 0);
+        //M_E_Metric__C tempMetric;
+        //If parent metric is not found, attempt to a create it
+        System.debug('Gumutindo metric ' + MbugoHelpers.NUMBER_OF_VSLAS_REGISTERED + ' not found, create metric');
+        tempMetric = new M_E_Metric__C();
+        tempMetric.Name = MbugoHelpers.NUMBER_OF_VSLAS_REGISTERED;
+        tempMetric.Label__c = MbugoHelpers.NUMBER_OF_VSLAS_REGISTERED.replace('_', ' ');
+        insert(tempMetric);
+        metricdata.M_E_Metric__c = tempMetric.Id;
+        metricdata.Comment__c = tempMetric.Label__c;
+        metricdata.Date__c = MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0));
+        metricdata.Numerator__c = 0;
+        metricdata.Denumerator__c = 0;
+        metricdata.Projected_Value__c = 0;
+        metricdata.Manual_Value__c = 1;
+        insert(metricdata);
+        mTest = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.NUMBER_OF_VSLAS_REGISTERED];
+        System.assert(mTest.size() !=0 );
+        
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.NUMBER_OF_VSLAS_REGISTERED).Manual_Value__c == 1);
+        
+        metricdata = new M_E_Metric_Data__C();
+        metr = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.TOTAL_NUMBER_OF_FARMERS_IN_VSLAS];
+        System.assert(metr.size() == 0);
+        //M_E_Metric__C tempMetric;
+        //If parent metric is not found, attempt to a create it
+        System.debug('Gumutindo metric ' + MbugoHelpers.TOTAL_NUMBER_OF_FARMERS_IN_VSLAS + ' not found, create metric');
+        tempMetric = new M_E_Metric__C();
+        tempMetric.Name = MbugoHelpers.TOTAL_NUMBER_OF_FARMERS_IN_VSLAS;
+        tempMetric.Label__c = MbugoHelpers.TOTAL_NUMBER_OF_FARMERS_IN_VSLAS.replace('_', ' ');
+        insert(tempMetric);
+        metricdata.M_E_Metric__c = tempMetric.Id;
+        metricdata.Comment__c = tempMetric.Label__c;
+        metricdata.Date__c = MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0));
+        metricdata.Numerator__c = 0;
+        metricdata.Denumerator__c = 0;
+        metricdata.Projected_Value__c = 0;
+        metricdata.Manual_Value__c = 90;
+        insert(metricdata);
+        mTest = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.TOTAL_NUMBER_OF_FARMERS_IN_VSLAS];
+        System.assert(mTest.size() !=0 );
+        
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.TOTAL_NUMBER_OF_FARMERS_IN_VSLAS).Manual_Value__c == 90);
+        
+        metricdata = new M_E_Metric_Data__C();
+        metr = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS];
+        System.assert(metr.size() == 0);
+        //M_E_Metric__C tempMetric;
+        //If parent metric is not found, attempt to a create it
+        System.debug('Gumutindo metric ' + MbugoHelpers.TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS + ' not found, create metric');
+        tempMetric = new M_E_Metric__C();
+        tempMetric.Name = MbugoHelpers.TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS;
+        tempMetric.Label__c = MbugoHelpers.TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS.replace('_', ' ');
+        insert(tempMetric);
+        metricdata.M_E_Metric__c = tempMetric.Id;
+        metricdata.Comment__c = tempMetric.Label__c;
+        metricdata.Date__c = MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0));
+        metricdata.Numerator__c = 0;
+        metricdata.Denumerator__c = 0;
+        metricdata.Projected_Value__c = 0;
+        metricdata.Manual_Value__c = 40;
+        insert(metricdata);
+        mTest = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS];
+        System.assert(mTest.size() !=0 );
+        
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.TOTAL_NUMBER_OF_MALE_FARMERS_IN_VSLAS).Manual_Value__c == 40);
+        
+        metricdata = new M_E_Metric_Data__C();
+        metr = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS];
+        System.assert(metr.size() == 0);
+        //M_E_Metric__C tempMetric;
+        //If parent metric is not found, attempt to a create it
+        System.debug('Gumutindo metric ' + MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS + ' not found, create metric');
+        tempMetric = new M_E_Metric__C();
+        tempMetric.Name = MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS;
+        tempMetric.Label__c = MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS.replace('_', ' ');
+        insert(tempMetric);
+        metricdata.M_E_Metric__c = tempMetric.Id;
+        metricdata.Comment__c = tempMetric.Label__c;
+        metricdata.Date__c = MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0));
+        metricdata.Numerator__c = 0;
+        metricdata.Denumerator__c = 0;
+        metricdata.Projected_Value__c = 0;
+        metricdata.Manual_Value__c = 50;
+        insert(metricdata);
+        mTest = [select Id, Label__c from M_E_Metric__C where Name = : MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS];
+        System.assert(mTest.size() !=0 );
+        
         System.assert(MbugoHelpers.getMetricData(MbugoHelpers.TOTAL_NUMBER_OF_FEMALE_FARMERS_IN_VSLAS).Manual_Value__c == 50);
         
         Test.stopTest();
     }
+   
 
 }
