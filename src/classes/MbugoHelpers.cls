@@ -13,8 +13,6 @@ public with sharing class MbugoHelpers {
     public static final String NUMBER_OF_COOPERATIVES_REGISTERED = 'MBUGO_number_of_cooperatives_registered';
     public static final String PERCENTAGE_OF_FARMERS_PURCHASING_INPUTS_FROM_MBUGO_ACE = 'MBUGO_percentage_of_farmers_purchasing_inputs_from_mbugo_ace';
     
-    public Date date1 {get; set;}
-    public Date date2 {get; set;}
     
     //A List of the Metric Names used on the Mbugo Dashboard
     public static List<String> getMetricNames() {
@@ -335,7 +333,7 @@ public with sharing class MbugoHelpers {
         return new String[]{ '1', 'MBUGO submission successful for IMEI: ' + submission.imei, 'SUPRESSMSG' };
     }
     
-    public static List<CkwPerformanceWrapper> getCkwPerfomanceData() {
+    public static List<CkwPerformanceWrapper> getCkwPerfomanceData(String dateFrom, String dateTo) {
     	//Get mbugo ckw ids
         List<CkwPerformanceWrapper> wrapper = new List<CkwPerformanceWrapper>();
         Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'Mbugo CKWs\' and Person__r.Type__c=\'CKW\'');
@@ -344,7 +342,7 @@ public with sharing class MbugoHelpers {
         	personIds.add(p.Person__r.Id);
         }
                
-        if(date1 != null && date2 != null){
+        if(dateFrom != null && dateTo != null){
         	AggregateResult[] mbugoCkwPerfomance = [
         		SELECT 
         			CKW_c__r.Person__r.Id personId, 
@@ -357,8 +355,8 @@ public with sharing class MbugoHelpers {
     				CKW_Performance_Review__c 
         		WHERE 
         			CKW_c__r.Person__r.Id IN: personIds AND 
-        			Start_Date__c >= :date1 AND 
-        			Start_Date__c <= :date2
+        			Start_Date__c >= :dateFrom AND 
+        			Start_Date__c <= :dateTo
         		GROUP BY 
         			CKW_c__r.Person__r.Id, 
         			CKW_c__r.Person__r.First_Name__c, 
