@@ -95,11 +95,12 @@ public with sharing class MbugoDashboardController {
         resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
         resultPage.getParameters().put('district', district.Name);
         
-        dateFrom = Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd');
-        dateTo = Datetime.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd');
+        MbugoHelpers helper = new MbugoHelpers();
+        helper.date1 = Date.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd');
+        helper.date2 = Date.newInstance(dummyObject.End_Date__c.year(), dummyObject.End_Date__c.month(), dummyObject.End_Date__c.day()).format('yyyy-MM-dd');
         
-        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': dateFrom);
-        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': dateTo);
+        resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': date1);
+        resultPage.getParameters().put('dateTo', dummyObject.End_Date__c == null? '': date2);
         resultPage.getParameters().put('sfdc.tabName', this.tabName);
         resultPage.setRedirect(true);
         return resultPage;
