@@ -18,7 +18,7 @@ trigger OnSupportResponseChanged on Case (after update) {
         // Send the message through the pulse gateway. This will reschedule if there is a failure
         SendSmsHelpers.sendThroughGateways(
             SendSmsHelpers.generateMessage(
-                new List<Id>{ supportCase.Person__c }, subject, body, sender.Id, sender.Name, true, false, DateTime.now(), expirationDate
+                new List<Id>{ supportCase.Person__c }, subject, body, sender.Id, sender.Name, true, false, DateTime.now(), expirationDate, ''
             ), true
         );
     }
