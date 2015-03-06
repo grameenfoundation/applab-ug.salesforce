@@ -577,32 +577,33 @@ public class SendSmsTest {
 
         // Add some schduled messages
         DateTime sendTime = DateTime.now().addMinutes(-5);
-        Scheduled_Message_Queue__c m1 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = true, Send_Via_SMS__c = false, Sender__c = UserInfo.getUserId(), Group__c = groups[0].Id);
-        Scheduled_Message_Queue__c m2 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[0].Id);
-        Scheduled_Message_Queue__c m3 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[1].Id);
+        Scheduled_Message_Queue__c m1 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = true, Send_Via_SMS__c = false, Sender__c = UserInfo.getUserId(), Group__c = groups[0].Id, Category__c = 'Payments');
+        Scheduled_Message_Queue__c m2 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[0].Id, Category__c = 'Payments');
+        Scheduled_Message_Queue__c m3 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[1].Id, Category__c = 'Payments');
         Database.insert(new List<Scheduled_Message_Queue__c>{ m1, m2, m3 });
 
         // Send the scheduled messages
-        String queryString = 'SELECT ' +
-                'Id, ' +
-                'Group__c, ' +
-                'Person__c, ' +
-                'Person__r.First_Name__c, ' +
-                'Person__r.Middle_Name__c, ' +
-                'Person__r.Last_Name__c, ' +
-                'Person__r.Mobile_Number__c, ' +
-                'Person__r.Country__r.ISO_Standard_Code__c, ' +
-                'Message__c, ' +
-                'Sender__c, ' +
-                'Sender__r.Name, ' +
-                'Subject__c, ' +
-                'Send_Date_Time__c, ' +
-                'Expiration_Date__c, ' +
-                'Send_Via_Pulse__c, ' +
-                'Send_Via_Sms__c ' +
-            'FROM ' +
-                'Scheduled_Message_Queue__c ' +
-            'WHERE ' +
+        String queryString = 'SELECT ' 							+
+                'Id, ' 											+
+                'Group__c, ' 									+
+                'Person__c, '									+
+                'Person__r.First_Name__c, ' 					+
+                'Person__r.Middle_Name__c, ' 					+
+                'Person__r.Last_Name__c, ' 						+
+                'Person__r.Mobile_Number__c, ' 					+
+                'Person__r.Country__r.ISO_Standard_Code__c, ' 	+
+                'Message__c, ' 									+
+                'Sender__c, ' 									+
+                'Sender__r.Name, ' 								+
+                'Subject__c, ' 									+
+                'Send_Date_Time__c, ' 							+
+                'Expiration_Date__c, ' 							+
+                'Send_Via_Pulse__c, ' 							+
+                'Category__c, ' 								+
+                'Send_Via_Sms__c ' 								+
+            'FROM ' 											+
+                'Scheduled_Message_Queue__c ' 					+
+            'WHERE ' 											+
                 'Send_Date_Time__c <= ' + MetricHelpers.convertDateTimeToString(DateTime.now(), false);
         Test.StartTest();
         ID batchprocessid = Database.executeBatch(new SendSMS(queryString, DateTime.now()), 10);

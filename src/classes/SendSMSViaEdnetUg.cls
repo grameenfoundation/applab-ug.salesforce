@@ -168,5 +168,21 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
             Messaging.SingleEmailMessage[] mail = new Messaging.SingleEmailMessage[] { EmailHelpers.createEmail(toAddress, subject, message) };
             EmailHelpers.sendEmails(mail);
 		}
+		else {
+			List<Message__c> messages = new List<Message__c>();
+			for (SendSMSHelpers.Recipient recipient : messagesSent[0].recipients.values()) {
+				Message__c mesge = new Message__c();
+				mesge.Recipient__c = recipient.personId;
+				mesge.Body__c = messagesSent[0].body;
+				mesge.Subject__c = messagesSent[0].subject;
+				mesge.Sent_Time__c = Datetime.now();
+				mesge.Expiration_Time__c = messagesSent[0].expirationTime;
+				mesge.Category__c = messagesSent[0].catgory;
+				mesge.From__c = messagesSent[0].senderId;
+				mesge.OwnerId = messagesSent[0].senderId;
+				messages.add(mesge);
+			}
+			insert messages;
+		}
 	}
 }

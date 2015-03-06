@@ -12,6 +12,7 @@ public class CallCenterController {
     Case currentCase;
     Person__c[] ckws;
     Person__c ckw;
+    Boolean callBackRequired;
     
     public String type { get; set; }
     public String fname { get; set; }
@@ -103,6 +104,14 @@ public class CallCenterController {
     
     public void setResponse(String response) {
         this.response = response;
+    }
+    
+    public Boolean getCallBackRequired() {
+        return this.callBackRequired;
+    }
+    
+    public void setCallBackRequired(Boolean callback) {
+        this.callBackRequired = callback;
     }
                         
     public PageReference searchByPhoneNumber() {  
@@ -219,7 +228,15 @@ public class CallCenterController {
         currentCase.Reason = 'reason';
         currentCase.Response__c = this.response;
         currentcase.Origin = 'Phone Call';
-        database.upsert(currentCase);               
+        currentcase.Subject = callBackRequired ? '[CALLBACK REQUIRED] ' + currentcase.Subject : currentcase.Subject;
+        database.upsert(currentCase);      
+        if(callBackRequired) {
+        	CaseComment newCom = new CaseComment();
+ 			newCom.CommentBody = 'This Case Requires a Callback before closing';
+ 			newCom.IsPublished = FALSE;
+ 			newCom.ParentId = currentCase.Id;
+        	insert newCom;
+        }
         return true;
      }
      
@@ -234,7 +251,15 @@ public class CallCenterController {
         currentCase.Reason = 'reason';
         currentCase.Response__c = this.response;
         currentcase.Origin = 'Phone Call';
-        database.upsert(currentCase);               
+        currentcase.Subject = callBackRequired ? '[CALLBACK REQUIRED] ' + currentcase.Subject : currentcase.Subject;
+        database.upsert(currentCase);   
+        if(callBackRequired) {
+        	CaseComment newCom = new CaseComment();
+ 			newCom.CommentBody = 'This Case Requires a Callback before closing';
+ 			newCom.IsPublished = FALSE;
+ 			newCom.ParentId = currentCase.Id;
+        	insert newCom;
+        }            
         return true;
      }
         
