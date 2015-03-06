@@ -277,7 +277,7 @@ public with sharing class BulkMessageController {
                         Person__c
                     ORDER BY
                         First_Name__c
-                    LIMIT 1000
+                    LIMIT 100
             ]) {
                 for (Person__c person : people) {
                     String fullName = person.First_Name__c;
