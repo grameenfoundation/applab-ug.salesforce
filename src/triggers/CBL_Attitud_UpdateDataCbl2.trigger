@@ -5,8 +5,7 @@ trigger CBL_Attitud_UpdateDataCbl2 on CBL_Attitude__c (after insert) {
     //get a list with Baseline id related to attitude rows inserted
     for (CBL_Attitude__c newRow : Trigger.new) {
         att_Ids.add(newRow.Id);
-        if(!cbl_Ids.contains(newRow.Baseline__c))
-            cbl_Ids.add(newRow.Baseline__c);
+        cbl_Ids.add(newRow.Baseline__c);
     }
     
     //get a list with attitude rows completed (field Baseline__r.Farmer__c)
