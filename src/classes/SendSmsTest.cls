@@ -520,7 +520,7 @@ public class SendSmsTest {
         ref.getParameters().put('groups', groups[0].Id);
         Test.setCurrentPage(ref);
         BulkMessageController controller = new BulkMessageController();
-        System.assertEquals(controller.getSendeeItems().size(), 6);
+        System.assertEquals(controller.getSendeeItems().size(), 0);//if this returns values, pageload will timeout
         controller.getSelectedGroups();
         System.assertEquals(controller.getSendeeItems().size(), 7);
     }

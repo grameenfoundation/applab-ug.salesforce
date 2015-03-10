@@ -37,6 +37,7 @@ public class PulseMessagesTab {
         Message__c[] messages = [select Subject__c, From__r.Name, Sent_Time__c,Body__c 
                         from Message__c where Recipient__r.Handset__r.IMEI__c =: imei 
                         and Expiration_Time__c >= YESTERDAY 
+                        and (Type__c = null OR Type__c = 'Pulse')
                         order by Sent_Time__c Desc];
         
         if(messages.size() == 0) {

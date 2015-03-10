@@ -124,9 +124,10 @@
                 <apex:inputField value="{!currentCase.Category__c}" /> <br/>
                 <apex:inputField value="{!currentCase.Status}" /> <br/>
                 <apex:inputField value="{!currentCase.isEscalated}"/> <br/>
+                <apex:inputCheckbox value="{!callBackRequired}" label="Requires Callback"/> <br/>
                 <apex:inputField value="{!currentCase.Description}" style="width:500px;height:50px"/> <br/> 
                 <apex:outputLabel for="responseText" styleClass="labelCol" style="float:center">Response</apex:outputLabel> <br/>
-                <apex:inputTextarea id="responseText" value="{!response}" styleClass="dataCol" style="width:500px;height:200px; float:right"/> <br/>                         
+                <apex:inputTextarea id="responseText" value="{!response}" styleClass="dataCol" style="width:500px;height:200px;"/> <br/>                         
                 <apex:panelGroup style="float:right">
                     <apex:commandLink value="Link Articles" action="{!linkArticles}" rendered="{!NOT(ISNULL(currentCase.Id))}" target="_blank" />
                     <apex:commandButton rendered="{!NOT(ISNULL(currentCase.Id))}" action="{!saveCase}" value="Save Changes" reRender="block" status="statusSaveCase" />

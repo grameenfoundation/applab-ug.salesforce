@@ -252,7 +252,7 @@ public with sharing class BulkMessageController {
                  'Group__c IN (' + MetricHelpers.generateCommaSeperatedString(groups,true) + ') '  +
             'ORDER BY ' +
                 'Person__r.First_Name__c ' +
-            'LIMIT 200';
+            'LIMIT 1000';
             for (Person_Group_Association__c[] people : database.query(SelectClause)) {
                 for (Person_Group_Association__c person : people) {
                     String fullName = person.Person__r.First_Name__c;
@@ -267,7 +267,8 @@ public with sharing class BulkMessageController {
             }
         }
         else {
-            for (Person__c[] people : [
+            // degailt loading of people makes pageload time out
+            /*for (Person__c[] people : [
                     SELECT
                         Id,
                         First_Name__c,
@@ -289,7 +290,7 @@ public with sharing class BulkMessageController {
                     }
                     options.add(new SelectOption(person.Id, fullName));
                 }
-            }
+            }*/
         }
         return options;
     }
