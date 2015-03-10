@@ -74,16 +74,6 @@
             <table>
                 <tr>
                     <td>
-                        <strong>District: </strong><apex:selectList value="{!district.Name}" multiselect="false" size="1">
-                            <apex:selectOptions value="{!districtList}"></apex:selectOptions>
-                        </apex:selectList>
-                    </td>
-                    <td>
-                         <strong>Subcounty: </strong><apex:selectList value="{!subcounty.Display_Name__c}" multiselect="false" size="1">
-                            <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
-                        </apex:selectList>                  
-                    </td>
-                    <td>
                         <strong>Date From: </strong><apex:inputField value="{!dummyObject.Start_Date__c}"></apex:inputField>
                     </td>
                     <td>
@@ -276,7 +266,7 @@
 
 
 
-        <apex:pageBlock title="Mbugo CKW Performance" id="mbugoCkwPerformance">
+          <apex:pageBlock title="Mbugo CKW Performance" id="mbugoCkwPerformance">
             <br/>
             <apex:pageBlockTable value="{!ckwPerfomanceData}" var="item">
                 <apex:column headerValue="CKW Name" width="300px">
@@ -302,6 +292,7 @@
                         </apex:outputText>
                     </div>
                 </apex:column>
+
 
 
                 <apex:column width="200px">

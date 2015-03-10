@@ -22,14 +22,14 @@ public with sharing class MbugoDashboardController {
     public Date_Picker__c dummyObject { get; set; }
     
     public MbugoDashboardController() {
-    	dummyObject = new Date_Picker__c();
+        dummyObject = new Date_Picker__c();
         district = new District__c();
         subcounty = new Subcounty__c();
         setUp(ApexPages.currentPage());
     }
     
     public void setUp(PageReference pageRef) {
-    	// Try to keep the tab we're on
+        // Try to keep the tab we're on
         String tabName = pageRef.getParameters().get('sfdc.tabName');
         this.tabName = tabName != null ? tabName : tabName;
         this.isEditMode = (pageRef.getParameters().get('editMode') == 'true'); 
@@ -38,60 +38,60 @@ public with sharing class MbugoDashboardController {
     }
     
     public String getIsUpdateable() {
-    	return this.isUpdateable;
+        return this.isUpdateable;
     }
         
     public void setIsUpdateable(String value) {
-    	this.isUpdateable = value;
+        this.isUpdateable = value;
     }
 
     public String getIsEditMode() {
-    	String isEditing = 'false';
+        String isEditing = 'false';
         isEditing = this.isEditMode ? 'true' : 'false';
         return isEditing;
-    }    	 
+    }        
     
     public void setDistrictList(List<SelectOption> option) {
-    	this.districtList = option;
+        this.districtList = option;
     }
     
     public List<SelectOption> getDistrictList() {
-    	List<SelectOption> options = new List<SelectOption>();
+        List<SelectOption> options = new List<SelectOption>();
         District__c[] districts = database.query(SoqlHelpers.getDistricts(orgName));
         options.add(new SelectOption('','-- In All Districts --'));
         
         //Add all districts to list
         for (District__c district : districts) {
-        	options.add(new SelectOption(district.Name, district.Name));
+            options.add(new SelectOption(district.Name, district.Name));
         }
         return options;
     }
 
     public void setSubcountiesList(List<SelectOption> option) {
-    	this.districtList = option;
+        this.districtList = option;
     }
     
     public List<SelectOption> getSubcountiesList() {
-    	List<SelectOption> options = new List<SelectOption>();
+        List<SelectOption> options = new List<SelectOption>();
         Subcounty__c[] subcounties = database.query(MbugoHelpers.getSubcounties());
         options.add(new SelectOption('','-- In All Subcounties --'));
         //Add all subcounties to list
         for (Subcounty__c subcounty : subcounties) {
-        	options.add(new SelectOption(subcounty.Display_Name__c, subcounty.Display_Name__c));
+            options.add(new SelectOption(subcounty.Display_Name__c, subcounty.Display_Name__c));
         }
         return options;
     }
 
     public List<MetricDataWrapper> getFarmersReachedData() {
-    	return MbugoHelpers.getFarmersReachedData();
+        return MbugoHelpers.getFarmersReachedData();
     }
 
-    public List<MbugoHelpers.CkwPerformanceWrapper> getCkwPerfomanceData(String dateFrom, String dateTo) {
-    	return MbugoHelpers.getCkwPerfomanceData(dateFrom, dateTo);
+    public List<MbugoHelpers.CkwPerformanceWrapper> getCkwPerfomanceData() {
+        return MbugoHelpers.getCkwPerfomanceData(dateFrom, dateTo);
     }
 
     public PageReference changeFilters() {
-    	PageReference resultPage = ApexPages.currentPage(); 
+        PageReference resultPage = ApexPages.currentPage(); 
         resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
         resultPage.getParameters().put('district', district.Name);
         resultPage.getParameters().put('dateFrom', dummyObject.Start_Date__c == null? '': Datetime.newInstance(dummyObject.Start_Date__c.year(), dummyObject.Start_Date__c.month(), dummyObject.Start_Date__c.day()).format('yyyy-MM-dd'));
@@ -102,19 +102,19 @@ public with sharing class MbugoDashboardController {
     }
 
     public List<MetricDataWrapper> getVslaServicesData() {
-    	return MbugoHelpers.getVslaServicesData();
+        return MbugoHelpers.getVslaServicesData();
     }
     
     public List<MbugoHelpers.FinancialServicesUsageData> getFinancialServicesChartData() {
-    	return MbugoHelpers.getFinancialServicesChartData();
+        return MbugoHelpers.getFinancialServicesChartData();
     }
   
     public List<MetricDataWrapper> getFarmerGroupsData() {
-    	return MbugoHelpers.getFarmerGroupsData();
+        return MbugoHelpers.getFarmerGroupsData();
     }
       
     public  List<MetricDataWrapper> getCooperativeGroupsData() {
-    	return MbugoHelpers.getCooperativeGroupsData();
+        return MbugoHelpers.getCooperativeGroupsData();
     }
     
 }
