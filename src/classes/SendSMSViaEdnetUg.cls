@@ -39,15 +39,18 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
 	}
 	
 	public List<Message> messagesSent{ get; set; }
+	public List<Message__c> messageLogs{ get; set; }
 
     // Send the messages via the gateway
     public String execute(List<Message> inputMessages) {
     	
     	String responseBody = '';
     	String result = '';
+        messagesSent = inputMessages;
         // Loop through the messages
         for (Message message : inputMessages) {
-       		HttpRequest request = buildRequest(createBody(new List<Message>{ message }, true), true);
+       		//HttpRequest request = buildRequest(createBody(new List<Message>{ message }, true), true);
+        	//insertMessages();
             // If this is not a test then send the call out
             if (Test.isRunningTest()) {
                 responseBody = 
@@ -61,12 +64,12 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
 				result = processResponse(doc);
             }
             else {
-                HttpResponse response = sendRequest(request);
-                result = response.getStatusCode() == 200 ? processResponse(response.getBodyDocument()) : '';
-                messagesSent = response.getStatusCode() == 200 ? inputMessages : new List<Message>{};
+            	sendRequest(createBody(new List<Message>{ message }, true), setting.Bulk_End_Point__c, JSON.serialize(message));
+                //HttpResponse response = sendRequest(request);
+                //result = response.getStatusCode() == 200 ? processResponse(response.getBodyDocument()) : '';
             }       		
         }
-        System.debug(result);
+        System.debug(LoggingLevel.INFO, result);
         return result;
     }
 
@@ -80,7 +83,7 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
     	String requestBody = MESSAGE_XML_REQUEST_FORMAT;
     	String recipients = '';
         for (SendSMSHelpers.Recipient recipient : inputMessages[0].recipients.values()) {
-            if (recipient.countryDialingCode == null) {
+            if (recipient.countryDialingCode == null || recipient.phoneNumber == null) {
                 continue;
             }
             if (recipient.phoneNumber.startsWith('0')) {
@@ -123,7 +126,7 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
     public Map<String, Boolean> callback(String results, Map<String, Boolean> resultMap) {
     	// If the response code "> 0" then messages have been sent and. Here we can only know
     	// the count of messages sent and not the status of each one-by-one. 
-    	System.debug(results);
+ /*   	System.debug(results);
     	Integer status = Integer.valueOf(results.split(',')[0].split('=')[1]); 
     	if(!String.isEmpty(results) && messagesSent != null && messagesSent.size() > 0) {
     		for (SendSMSHelpers.Recipient recipient : messagesSent[0].recipients.values()) {
@@ -134,7 +137,7 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
     				status > 0 ? true : false
     			);
     		}
-    	}
+    	}**/
     	return resultMap;
     }
 
@@ -156,33 +159,79 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
         return 'status=' + status + ',credits=' + credits;
 	}
 	
-	private void notify(String status) {
+	private static void notify(String message) {			
+        // Send mail to info services. This implies that the reponse is below 0 hence messages were not sent
+        String[] toAddress = new String[]{};
+        toAddress.add('InformationServices@grameenfoundation.org');
+        toAddress.add('uganda_tech@grameenfoundation.org');
+        String subject = 'Could not send SMS ';
+        Messaging.SingleEmailMessage[] mail = new Messaging.SingleEmailMessage[] { EmailHelpers.createEmail(toAddress, subject, message) };
+        EmailHelpers.sendEmails(mail);
+	}
+
+	/**
+	 * To make a callout and perform DML in one transaction, we have to do so only in a @future method
+	 * This comes at a disadvantage of rendering the callback method unusable
+	 *
+	 * @param xml 		- request body
+	 * @param endpoint 	- gateway endpoint
+	 * @param JSON 		- the Message class serialised to JSON since @future methods only take pirimitives
+	 * 
+	 */	
+	@Future(callout=true)
+	private static void sendRequest(String body, String endpoint, String datum) {
 		
-		if(status.startsWith('-')) {			
-            // Send mail to info services. This implies that the reponse is below 0 hence messages were not sent
-            String[] toAddress = new String[]{};
-            toAddress.add('InformationServices@grameenfoundation.org');
-            toAddress.add('uganda_tech@grameenfoundation.org');
-            String subject = 'Could not send SMSs ';
-            String message = 'System failed to send messages. Reason : ' + RESPONSE_MAP.get(Integer.valueOf(status));
-            Messaging.SingleEmailMessage[] mail = new Messaging.SingleEmailMessage[] { EmailHelpers.createEmail(toAddress, subject, message) };
-            EmailHelpers.sendEmails(mail);
+        HttpRequest request = new HttpRequest();
+        request.setMethod('POST');
+        request.setBodyAsBlob(Blob.valueOf('XML=' + EncodingUtil.urlEncode(body, 'UTF-8')));
+        request.setHeader('Content-Type', 'application/xml');
+        request.setHeader('Content-Length', String.valueOf(body.length()));
+        request.setEndpoint(endpoint);
+        System.debug(LoggingLevel.INFO, body);
+        
+        HttpResponse resp = new Http().send(request);
+        
+		Map<Integer, String> RESPONSE_MAP  = new Map<Integer, String>();
+		RESPONSE_MAP.put(-1, 'Invalid username and/or password');
+		RESPONSE_MAP.put(-2, 'Incorrect XML format');
+		RESPONSE_MAP.put(-3, 'Not enough credits in user account');
+		RESPONSE_MAP.put(-4, 'No good recipients');
+		RESPONSE_MAP.put(-5, 'Error in processing your request');
+		String status = '';
+		if(resp.getStatusCode() == 200) {
+			
+			String response = '';
+	        Dom.XMLNode res = resp.getBodyDocument().getRootElement();//RESPONSE
+	        
+	        status = res.getChildElement('status', null).getText();
+	        String credits = res.getChildElement('credits', null).getText();
+	        String result = 'status=' + status + ',credits=' + credits;
+        	System.debug(LoggingLevel.INFO, result);
+	        if(!status.contains('-')) {
+				Message messagesSent = (Message)JSON.deserialize(datum, Message.class);
+				List<Message__c> messages = new List<Message__c>();
+				for (SendSMSHelpers.Recipient recipient : messagesSent.recipients.values()) {
+					Message__c mesge = new Message__c();
+					mesge.Recipient__c = recipient.personId;
+					mesge.Body__c = messagesSent.body;
+					mesge.Subject__c = messagesSent.subject;
+					mesge.Sent_Time__c = Datetime.now();
+					mesge.Expiration_Time__c = messagesSent.expirationTime;
+					mesge.Category__c = messagesSent.catgory;
+					mesge.From__c = messagesSent.senderId;
+					mesge.OwnerId = messagesSent.senderId;
+					mesge.Type__c = 'SMS';
+					messages.add(mesge);
+				}
+				insert messages;
+        		System.debug(LoggingLevel.INFO, '*** Message Logs Created ***');
+	        }
+	        else {
+	        	notify('System failed to send messages. Reason : ' + RESPONSE_MAP.get(Integer.valueOf(status)));
+	        }
 		}
 		else {
-			List<Message__c> messages = new List<Message__c>();
-			for (SendSMSHelpers.Recipient recipient : messagesSent[0].recipients.values()) {
-				Message__c mesge = new Message__c();
-				mesge.Recipient__c = recipient.personId;
-				mesge.Body__c = messagesSent[0].body;
-				mesge.Subject__c = messagesSent[0].subject;
-				mesge.Sent_Time__c = Datetime.now();
-				mesge.Expiration_Time__c = messagesSent[0].expirationTime;
-				mesge.Category__c = messagesSent[0].catgory;
-				mesge.From__c = messagesSent[0].senderId;
-				mesge.OwnerId = messagesSent[0].senderId;
-				messages.add(mesge);
-			}
-			insert messages;
+            System.debug(LoggingLevel.ERROR, Label.BULK_MESSAGE_PAGE_FAILED_QUEUE_ADD);     			
 		}
 	}
 }

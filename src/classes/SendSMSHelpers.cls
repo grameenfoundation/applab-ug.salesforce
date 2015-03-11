@@ -211,6 +211,9 @@ public class SendSMSHelpers {
                     system.debug(LoggingLevel.WARN, 'Sending through default gateway: ' + className);
                 }
             }
+            if(countryCode.equals(pulse)) {
+            	className = 'SendMessageViaPulse';
+            }
             if (className == null) {
                 // Gateway setting does not exist so skip. Send email to inform setup that this has happened
                 // TODO - SEND AN EMAIL TO TECH INFORMING THEM OF THIS
@@ -276,7 +279,8 @@ public class SendSMSHelpers {
                                 Send_Via_Pulse__c = messageToBeResent.medium.equals('PULSE'),
                                 Send_Via_SMS__c = messageToBeResent.medium.equals('SMS'),
                                 Send_Date_Time__c = DateTime.now().addMinutes(5),
-                                Person__c = recipient.personId
+                                Person__c = recipient.personId,
+                                Category__c = messageToBeResent.catgory
                             );  
                             resendMessages.add(message);
                             rescheduled = true;
