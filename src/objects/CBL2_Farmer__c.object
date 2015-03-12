@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,12 +44,16 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>CBL2_Farmer object replaced CBL_Coffebaseliine, CBL_Socioeconomic, CBL_attitude, CBL_service, CBL_commercialization</description>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>LAC_Farmer_Details__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -47,6 +63,7 @@
         <relationshipLabel>LAC_Farmer_Details</relationshipLabel>
         <relationshipName>LAC_Farmer_Details</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -58,6 +75,7 @@
         <relationshipLabel>CBL2_Farmers_Submission_Actitud</relationshipLabel>
         <relationshipName>CBL2_Farmers_Submission_Actitud</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -69,6 +87,7 @@
         <relationshipLabel>CBL2_Farmers_Submission_Comercializacion</relationshipLabel>
         <relationshipName>CBL2_Farmers_Submission_Comercializacion</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -80,6 +99,7 @@
         <relationshipLabel>CBL2_Farmers_Submission_PPI</relationshipLabel>
         <relationshipName>CBL2_Farmers_Submission_PPI</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -91,6 +111,7 @@
         <relationshipLabel>CBL2_Farmers_Submission_Registro</relationshipLabel>
         <relationshipName>CBL2_Farmers_Submission_Registro</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -102,6 +123,7 @@
         <relationshipLabel>CBL2_Farmers_Submission_SegAlim</relationshipLabel>
         <relationshipName>CBL2_Farmers_Submission_SegAlim</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -113,6 +135,7 @@
         <relationshipLabel>CBL2_Farmers_Submission_Servicios</relationshipLabel>
         <relationshipName>CBL2_Farmers_Submission_Servicios</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -124,17 +147,7 @@
         <relationshipLabel>CBL2_Farmers_Submission_SocioE</relationshipLabel>
         <relationshipName>CBL2_Farmers_Submission_SocioE</relationshipName>
         <required>false</required>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Submission</label>
-        <referenceTo>gfsurveys__Submission__c</referenceTo>
-        <relationshipLabel>CBL2_Farmers_Submission</relationshipLabel>
-        <relationshipName>CBL2_Farmers_Submission</relationshipName>
-        <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -164,6 +177,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -193,6 +207,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -222,6 +237,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -251,6 +267,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -280,6 +297,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -317,6 +335,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -347,6 +366,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -372,6 +392,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -394,6 +415,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -423,6 +445,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -460,6 +483,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -482,6 +506,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -511,6 +536,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -540,6 +566,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -569,6 +596,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -577,6 +605,7 @@
         <label>baselineName</label>
         <length>40</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -599,6 +628,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -616,6 +646,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -645,6 +676,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -654,6 +686,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -680,6 +713,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -690,6 +724,7 @@
         <precision>2</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -700,6 +735,7 @@
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -733,6 +769,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -767,6 +804,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -801,6 +839,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -827,6 +866,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -846,6 +886,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -866,6 +907,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -876,6 +918,7 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>food_Food security status (chronic)</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -886,6 +929,7 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>food_Food security status (prevalence)</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -904,6 +948,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -925,6 +970,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -946,6 +992,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -967,6 +1014,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -988,6 +1036,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1009,6 +1058,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1030,6 +1080,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1051,6 +1102,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1072,6 +1124,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1089,6 +1142,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1106,6 +1160,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1123,6 +1178,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1140,6 +1196,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1157,6 +1214,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1174,6 +1232,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1191,6 +1250,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1208,6 +1268,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1217,6 +1278,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_150_Nacional__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 100, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 99.8, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 99.7, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 99.7, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 98.6, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 97.2, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 92.2, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 85.3, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 83, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 64, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 63.5, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 39.2, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 35, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 15.9, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 11.7, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 7.8, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 1.6, IF(ppi_Score__c &gt;= 90 &amp;&amp; ppi_Score__c &lt;= 94 , 1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 100, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 98.7, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 99.3, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 97.2, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 93.9, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 87.6, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 77.4, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 61.9, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 49.7, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 33, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 22.9, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 14.9, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 7.7, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 4.1, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 1.7, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0.7, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_150%_Nacional</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1227,6 +1302,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_1_25__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 30.2 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 16.4, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 21.4, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 16.5, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 9.3, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 ,9.5, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 2.1, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 1.5, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 2, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 0.5, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 0, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 0, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 0, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 0, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 81.1 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 71.6, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 64.4, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 45.7, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 33.7, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 24.7, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 15.9, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 8.9, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 6.1, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 3.2, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 1.3, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 0.8, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 0.5, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0.1, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 0.1, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0.1, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_$1.25</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1237,6 +1326,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_200_Nacional__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 100, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 99.8, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 100, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 100, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 100, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 99.4, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 98.8, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 95.6, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 95.7, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 89.9, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 87.8, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 73.5, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 56.2, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 31.2, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 29.7, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 24.1, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 4.2,IF(ppi_Score__c &gt;= 90 &amp;&amp; ppi_Score__c &lt;= 94 , 4.5, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 100, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 99.3, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 99.8, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 99.2, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 97.3, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 94.1, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 87.9, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 76.8, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 66.6, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 52, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 40.6, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 29.9, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 18.5, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 9.2, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 5.5, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 1.9, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 1.9, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_200%_Nacional</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1247,6 +1350,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_2_50__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 99.4, IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 95.2, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 93.6, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 88.5, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 68.5, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 63.2, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 46.1, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 34.5, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 26.5, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 15.6, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 5.3, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 3.6, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 0.4, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0.6, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 0.4, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 97.7, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 93.8, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 87.9, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 74, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 60.7, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 42.6, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 26.7, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 16.8, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 9.1, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 3.6, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 2.1, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 1.1, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0.4, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 0.3, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0.1, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0.3, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_$2.50</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1257,6 +1374,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_3_75__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 100, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 99.1, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 99.3, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 90.9, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 91.3, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 84.3, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 73.1, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 62.3, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 54.2, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 27.3, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 21.3, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 8.5, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 7.5, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 4.7, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0.5, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 1.9, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0.6, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 99.1, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 97.6, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 97.1, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 91.5, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 83.1, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 69.6, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 51.2, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 35, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 20, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 8.8, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 4.4, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 2.5, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0.9, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 0.6, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0.2, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0.4, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_$3.75</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1267,6 +1398,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_5_00__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 100, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 99.8, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 99.7, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 99.1, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 96.7, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 95.9, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 89.4, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 79.8, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 78.8, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 54.2, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 55.8, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 29.9, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 23.4, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 11.6, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 ,7, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 3.8, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 1.1,IF(ppi_Score__c &gt;= 90 &amp;&amp; ppi_Score__c &lt;= 94 , 1, 0)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 99.9, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 98.7, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 99.2, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 97.2, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 92.4, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 89.2, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 69, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 52.2, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 35.2, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 18.7, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 10.2, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 5.3, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 2.3, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 1.1, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0.7, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0.5, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_$5.00</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1277,6 +1422,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_Alimentaria__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4, 71.7, IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 64.5, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 64.4, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 45.3, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 33.5, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 25, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 15.9, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 11.3, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 7.3, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 2.2, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 0.7, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 0.4, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 0, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0.1, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 0, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_Alimentaria</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1288,6 +1447,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_Extrema_USAID__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 86.2 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 81.5, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 80.9, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 74.5, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 59.2, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 50.2, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 41.1, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 30.9, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 21.3, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 11.8, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 7.8, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 4.6, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 1.3, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0.8, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 1.6, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0.1, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0, 0.1) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4 , 100 , IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 89.8, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14 , 84, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19 , 68.9, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24 , 58, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29 , 47.1, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34 , 34.2, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39 , 21.9, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44 , 13.6, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49 , 7.5, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54 , 3.9, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59 , 2.5, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64 , 1.4, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69 , 0.6, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74 , 0.3, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79 , 0.1, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84 , 0.3, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89 , 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_&apos;Extrema&apos;_USAID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1298,6 +1471,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_Nacional_Indigencia__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, 0, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4, 98.1, IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 87.3, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14, 77.8, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19, 60.7, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24, 46.1, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29, 36.9, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34, 23.4, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39, 13.9, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44, 8.6, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49, 4.7, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54, 2.4, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59, 1.2, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64, 0.9, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69, 0.4, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74, 0.2, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79, 0.1, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84, 0.3, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89, 0, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_Nacional_Indigencia</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1308,6 +1495,20 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ppi_Nacional__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(LAC_Farmer_Details__r.Country__c = &apos;Guatemala&apos;, IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4, 100, IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 100, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14, 99.1, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19, 99.2, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24, 91.7, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29, 90, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34, 83, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39, 70.3, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44, 60.3, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49, 52.2, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54, 25.3, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59, 25.5, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64, 8.1, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69, 7.3, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74, 3.9, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79, 4.4, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84, 1.9, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89, 0.2, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ), IF( ppi_Score__c &gt;= 0 &amp;&amp; ppi_Score__c &lt;= 4, 100, IF(ppi_Score__c &gt;= 5 &amp;&amp; ppi_Score__c &lt;= 9, 99.7, IF(ppi_Score__c &gt;= 10 &amp;&amp; ppi_Score__c &lt;= 14, 97.1, IF(ppi_Score__c &gt;= 15 &amp;&amp; ppi_Score__c &lt;= 19, 95.5, IF(ppi_Score__c &gt;= 20 &amp;&amp; ppi_Score__c &lt;= 24, 89.6, IF(ppi_Score__c &gt;= 25 &amp;&amp; ppi_Score__c &lt;= 29, 82.6, IF(ppi_Score__c &gt;= 30 &amp;&amp; ppi_Score__c &lt;= 34, 69.4, IF(ppi_Score__c &gt;= 35 &amp;&amp; ppi_Score__c &lt;= 39, 53.4, IF(ppi_Score__c &gt;= 40 &amp;&amp; ppi_Score__c &lt;= 44, 37.3, IF(ppi_Score__c &gt;= 45 &amp;&amp; ppi_Score__c &lt;= 49, 24.9, IF(ppi_Score__c &gt;= 50 &amp;&amp; ppi_Score__c &lt;= 54, 14, IF(ppi_Score__c &gt;= 55 &amp;&amp; ppi_Score__c &lt;= 59, 7.6, IF(ppi_Score__c &gt;= 60 &amp;&amp; ppi_Score__c &lt;= 64, 4.1, IF(ppi_Score__c &gt;= 65 &amp;&amp; ppi_Score__c &lt;= 69, 1.7, IF(ppi_Score__c &gt;= 70 &amp;&amp; ppi_Score__c &lt;= 74, 0.9, IF(ppi_Score__c &gt;= 75 &amp;&amp; ppi_Score__c &lt;= 79, 0.6, IF(ppi_Score__c &gt;= 80 &amp;&amp; ppi_Score__c &lt;= 84, 0.4, IF(ppi_Score__c &gt;= 85 &amp;&amp; ppi_Score__c &lt;= 89, 0.1, 0) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ppi_Nacional</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1318,6 +1519,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1330,6 +1532,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1340,6 +1543,7 @@
         <precision>8</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -1348,6 +1552,7 @@
         <label>sbuxSegment</label>
         <length>25</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1370,6 +1575,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1379,6 +1585,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1445,6 +1652,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1463,6 +1671,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1492,6 +1701,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1522,6 +1732,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1551,6 +1762,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1581,6 +1793,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1598,6 +1811,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1623,6 +1837,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1657,6 +1872,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1718,6 +1934,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1744,6 +1961,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1774,6 +1992,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1879,6 +2098,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1909,6 +2129,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1935,6 +2156,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1964,6 +2186,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1975,6 +2198,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1987,6 +2211,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1999,6 +2224,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2011,6 +2237,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2023,6 +2250,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2035,6 +2263,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2065,6 +2294,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2074,6 +2304,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2104,6 +2335,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2113,6 +2345,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2131,6 +2364,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2160,6 +2394,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2169,6 +2404,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2179,6 +2415,7 @@
         <precision>4</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2189,6 +2426,7 @@
         <precision>4</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2219,6 +2457,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2228,6 +2467,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2246,6 +2486,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2275,6 +2516,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2284,6 +2526,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2314,6 +2557,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2323,6 +2567,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2369,6 +2614,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2379,6 +2625,7 @@
         <precision>4</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2389,6 +2636,7 @@
         <precision>7</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2407,6 +2655,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2424,6 +2673,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2458,6 +2708,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2492,6 +2743,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2509,6 +2761,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2526,6 +2779,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2555,6 +2809,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2564,6 +2819,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2594,6 +2850,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2603,6 +2860,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2613,6 +2871,7 @@
         <precision>4</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2659,6 +2918,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2668,6 +2928,7 @@
         <precision>4</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2710,6 +2971,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2728,6 +2990,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2745,6 +3008,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2786,6 +3050,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2796,6 +3061,7 @@
         <precision>9</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2805,6 +3071,7 @@
         <label>socioe_otherActivities</label>
         <length>100</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -2887,6 +3154,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -2917,6 +3185,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -2926,6 +3195,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2936,6 +3206,7 @@
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2945,6 +3216,7 @@
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -2954,6 +3226,7 @@
         <precision>15</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2964,6 +3237,7 @@
         <precision>4</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -2974,6 +3248,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3020,6 +3295,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3054,6 +3330,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3064,6 +3341,7 @@
         <precision>2</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3090,6 +3368,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3119,6 +3398,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -3149,6 +3429,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3178,6 +3459,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3187,6 +3469,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3209,6 +3492,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3238,6 +3522,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3247,6 +3532,7 @@
         <precision>5</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -3273,6 +3559,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3298,6 +3585,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3323,6 +3611,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3340,6 +3629,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -3349,6 +3639,7 @@
         <summarizedField>CBL2_Farm__c.Coffee_planted_area_Ha__c</summarizedField>
         <summaryForeignKey>CBL2_Farm__c.CBL2_Farms_Farmer__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -3358,6 +3649,7 @@
         <summarizedField>CBL2_Farm__c.Farm_area_Ha__c</summarizedField>
         <summaryForeignKey>CBL2_Farm__c.CBL2_Farms_Farmer__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -3367,6 +3659,7 @@
         <summarizedField>CBL2_Farm__c.Production_last_year_Kg__c</summarizedField>
         <summaryForeignKey>CBL2_Farm__c.CBL2_Farms_Farmer__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <label>CBL2_Farmer</label>
