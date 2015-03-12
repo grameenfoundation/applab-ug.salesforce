@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,11 +44,15 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Extrema_USAID__c</fullName>
         <externalId>false</externalId>
@@ -46,6 +62,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -57,6 +74,7 @@
         <relationshipName>Mana_Household_PPI_Scores</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -69,6 +87,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -80,6 +99,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -89,7 +109,21 @@
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <description>The Stage indicates if the survey (submission) belongs to Baseline or Ex-Post</description>
+        <externalId>false</externalId>
+        <formula>IF(CONTAINS(Household__r.Registration_Submission_Record__r.gfsurveys__Survey__r.Name, &apos;PRD_02&apos;),&apos;LB&apos;, 
+IF(CONTAINS(Household__r.Registration_Submission_Record__r.gfsurveys__Survey__r.Name, &apos;PRD_03&apos;),&apos;XP&apos;,&apos;&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Stage</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -101,6 +135,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -112,6 +147,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -123,6 +159,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -134,6 +171,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -145,6 +183,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -156,6 +195,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <label>Mana Household PPI Score</label>
