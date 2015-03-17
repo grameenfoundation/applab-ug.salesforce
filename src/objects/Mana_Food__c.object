@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,22 +44,22 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Category__c</fullName>
         <externalId>false</externalId>
         <label>Category</label>
         <picklist>
             <picklistValues>
-<<<<<<< HEAD
-                <fullName>Cereals</fullName>
-=======
                 <fullName>Cereales</fullName>
->>>>>>> origin/ci
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -55,21 +67,6 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-<<<<<<< HEAD
-                <fullName>Fruits</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Legumes</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Meat And Eggs</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Vegetables</fullName>
-=======
                 <fullName>Frutas</fullName>
                 <default>false</default>
             </picklistValues>
@@ -83,23 +80,22 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Vegetales</fullName>
->>>>>>> origin/ci
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Number_of_Consumption_Records__c</fullName>
         <externalId>false</externalId>
         <label>Number of Consumption Records</label>
         <summaryForeignKey>Mana_Food_Consumption_Record__c.Food__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -109,10 +105,10 @@
         <summaryForeignKey>Mana_Food_Quantity_Code__c.Food__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Units__c</fullName>
         <externalId>false</externalId>
         <label>Units</label>
@@ -137,21 +133,17 @@
                 <fullName>Units</fullName>
                 <default>false</default>
             </picklistValues>
-<<<<<<< HEAD
-=======
             <picklistValues>
                 <fullName>Kilograms</fullName>
                 <default>false</default>
             </picklistValues>
->>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>Mana Food</label>
-<<<<<<< HEAD
-=======
     <listViews>
         <fullName>All</fullName>
         <columns>OBJECT_ID</columns>
@@ -174,7 +166,6 @@
         <filterScope>Everything</filterScope>
         <label>Todos</label>
     </listViews>
->>>>>>> origin/ci
     <nameField>
         <label>Name</label>
         <trackHistory>false</trackHistory>

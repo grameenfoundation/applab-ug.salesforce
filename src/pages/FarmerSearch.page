@@ -1,60 +1,13 @@
 <apex:page controller="CallCenterController">
-    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
-
-	<!-- To set focus -->
-	<script>
-	    window.onload = function(){
-	        jQuery('input[type=text]').blur();
-	        jQuery('[id$=searchText]').focus();
-	    };
-	</script> 
-	  
     <apex:form >
-        <apex:pageBlock mode="maindetail" id="block" title="Farmer Queries' Management">
-            <apex:pageBlockSection columns="2" collapsible="true" title="Search Farmer">        
-                <apex:pageBlockSectionItem >  
-                  	<apex:outputLabel for="searchText9">Caller Type: </apex:outputLabel>
-					<apex:selectList id="chooseGroup" value="{!callerType}" size="1" >
-			            <apex:selectOption itemValue="Farmer" itemLabel="Farmer" />
-			            <apex:selectOption itemValue="CKW" itemLabel="CKW"/>
-			            <apex:selectOption itemValue="Other" itemLabel="Other"/>
-			        </apex:selectList>   
-                </apex:pageBlockSectionItem>            
-                <apex:pageBlockSectionItem >             
-                  	<apex:outputLabel for="searchText1">Farmer Phone Number: </apex:outputLabel> 
-					<apex:outputPanel layout="block" styleClass="requiredInput">
-						<apex:outputPanel layout="block" styleClass="requiredBlock" />
-						<apex:inputText id="searchText" value="{!phoneNumber}" required="true" />
-				   	</apex:outputPanel>               		
-           		</apex:pageBlockSectionItem>    
-                <apex:pageBlockSectionItem >  
-                  	<apex:outputLabel for="searchText2">Sex: </apex:outputLabel>
-					<apex:selectList id="chooseSex" value="{!sex}" size="1" >
-			            <apex:selectOption itemValue="" itemLabel="" />
-			            <apex:selectOption itemValue="Male" itemLabel="Male"/>
-			            <apex:selectOption itemValue="Female" itemLabel="Female"/>
-			        </apex:selectList>   
-                </apex:pageBlockSectionItem>                 
-                <apex:pageBlockSectionItem >             
-                  	<apex:outputLabel for="searchText3">First Name: </apex:outputLabel> 
-               		<apex:inputText id="searchText4" value="{!fname}" />
-           		</apex:pageBlockSectionItem>     
-                <apex:pageBlockSectionItem >  
-                   	<apex:outputLabel for="searchText5">District:</apex:outputLabel>
-               		<apex:inputText id="district" value="{!district}" />      
-                </apex:pageBlockSectionItem>                  
-                <apex:pageBlockSectionItem >             
-                  	<apex:outputLabel for="searchText6">Last Name: </apex:outputLabel> 
-               		<apex:inputText id="searchText7" value="{!lname}" />
-           		</apex:pageBlockSectionItem>        
-                <apex:pageBlockSectionItem >  
-			        <apex:outputLabel for="searchText8">Type: </apex:outputLabel>
-                   	<apex:selectList id="chooseType" value="{!type}" >
-			            <apex:selectOptions value="{!personType}"/>
-			        </apex:selectList>    
-                </apex:pageBlockSectionItem>        
-                <apex:pageBlockSectionItem >  
+        <apex:pageBlock mode="edit" id="block" title="Farmer Queries' Management">
+            <apex:pageBlockSection >                
+                <apex:pageBlockSectionItem >                    
+                    <apex:outputLabel for="searchText">Farmer Phone Number: </apex:outputLabel>
+                    <apex:panelGroup >
+                        <apex:inputText id="searchText" value="{!phoneNumber}"/>
                         <apex:commandButton value="Search!" action="{!searchByPhoneNumber}" reRender="block" status="status"/>
+                    </apex:panelGroup>
                 </apex:pageBlockSectionItem>               
             </apex:pageBlockSection>
             <apex:actionStatus id="status" style="foreground:red" startText="Searching..."/>
@@ -69,19 +22,8 @@
                     <apex:column value="{!f.Person__r.Mobile_Number__c}"/>
                 </apex:pageBlockTable>               
             </apex:pageBlockSection>
-            <apex:pageBlockSection title="Results" rendered="{!NOT(ISNULL(ckws))}" id="people" columns="1">
-                <apex:pageBlockTable value="{!ckws}" var="f" rendered="{!NOT(ISNULL(ckws))}" cellpadding="4" border="1">
-                   <apex:column >
-                        <apex:commandLink action="{!getFarmerDetails}" target="_blank">
-                            {!f.First_Name__c} {!f.Middle_Name__c} {!f.Last_Name__c}
-                            <apex:param name="fId" value="{!f.Id}"/>
-                        </apex:commandLink>
-                    </apex:column>
-                    <apex:column value="{!f.Mobile_Number__c}"/>
-                </apex:pageBlockTable>               
-            </apex:pageBlockSection>
             <apex:pageBlockSection id="farmerDetails" title="Farmer Details" rendered="{!NOT(ISNULL(farmer))}">       
-            	<apex:outputText value="{!farmer.Name}"/>         
+            <apex:outputText value="{!farmer.Name}"/>         
                <apex:inputField value="{!farmer.Person__r.First_Name__c}"/>
                <apex:inputField value="{!farmer.Person__r.Middle_Name__c}"/>
                <apex:inputField value="{!farmer.Person__r.Last_Name__c}"/>
@@ -91,15 +33,6 @@
                <apex:outputText value="{!farmer.Livestock__c}"/> 
                <apex:outputText value="{!farmer.Topics_of_Interest__c}"/>                   
                <apex:commandButton action="{!saveFarmerChanges}" reRender="block" status="statusSave" value="Save Changes"/>                                    
-            </apex:pageBlockSection> 
-            <apex:pageBlockSection id="personDetails" title="Person Details" rendered="{!NOT(ISNULL(ckws))}">       
-            	<apex:outputText value="{!ckw.Name}"/>         
-               	<apex:inputField value="{!ckw.First_Name__c}"/>
-               	<apex:inputField value="{!ckw.Middle_Name__c}"/>
-               	<apex:inputField value="{!ckw.Last_Name__c}"/>
-               	<apex:inputField value="{!ckw.District__c}"/>
-               	<apex:outputText value="{!ckw.Mobile_Number__c}"/>                 
-               	<apex:commandButton action="{!savePersonChanges}" reRender="block" status="statusSave" value="Save Changes"/>                                    
             </apex:pageBlockSection> 
             <apex:actionStatus id="statusSave" style="foreground:red" startText="Saving..."/>
             <apex:pageBlockSection id="caseDetails" title="Previous Farmer Cases" rendered="{!NOT(ISNULL(cases)) && NOT(isNewFarmer)}" columns="1">
@@ -116,18 +49,17 @@
                     <apex:column value="{!c.CreatedDate}"/>           
                 </apex:pageBlockTable>                
             </apex:pageBlockSection>
-            <apex:pageblockSection id="erroPort" rendered="{! (NOT(ISNULL(farmers)) || NOT(ISNULL(ckws))) && NOT(isNewFarmer) }">
+            <apex:pageblockSection id="erroPort" rendered="{!NOT(ISNULL(farmers)) && NOT(isNewFarmer)}">
                 <apex:pageMessages />
             </apex:pageblockSection>
-            <apex:pageBlockSection id="thisCase" title="Add New Case" rendered="{! (NOT(ISNULL(farmers)) || NOT(ISNULL(ckws))) && NOT(isNewFarmer) }">                
+            <apex:pageBlockSection id="thisCase" title="Add New Case" rendered="{!NOT(ISNULL(farmers)) && NOT(isNewFarmer)}">                
                 <apex:inputField id="subjectText" value="{!currentCase.Subject}" style="width:400px" /> <br/>
                 <apex:inputField value="{!currentCase.Category__c}" /> <br/>
                 <apex:inputField value="{!currentCase.Status}" /> <br/>
                 <apex:inputField value="{!currentCase.isEscalated}"/> <br/>
-                <apex:inputCheckbox value="{!callBackRequired}" label="Requires Callback"/> <br/>
                 <apex:inputField value="{!currentCase.Description}" style="width:500px;height:50px"/> <br/> 
                 <apex:outputLabel for="responseText" styleClass="labelCol" style="float:center">Response</apex:outputLabel> <br/>
-                <apex:inputTextarea id="responseText" value="{!response}" styleClass="dataCol" style="width:500px;height:200px;"/> <br/>                         
+                <apex:inputTextarea id="responseText" value="{!response}" styleClass="dataCol" style="width:500px;height:200px; float:right"/> <br/>                         
                 <apex:panelGroup style="float:right">
                     <apex:commandLink value="Link Articles" action="{!linkArticles}" rendered="{!NOT(ISNULL(currentCase.Id))}" target="_blank" />
                     <apex:commandButton rendered="{!NOT(ISNULL(currentCase.Id))}" action="{!saveCase}" value="Save Changes" reRender="block" status="statusSaveCase" />

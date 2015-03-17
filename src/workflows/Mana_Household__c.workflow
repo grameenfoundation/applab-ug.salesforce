@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<Workflow xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
-=======
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldUpdates>
         <fullName>Update_Household_Latitude</fullName>
@@ -43,4 +39,3 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
 </Workflow>
->>>>>>> origin/ci

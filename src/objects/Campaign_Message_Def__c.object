@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -19,6 +23,10 @@
         <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -27,6 +35,10 @@
         <content>CampaignMessageDefAddEdit</content>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Tab</actionName>
@@ -38,24 +50,25 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Visualforce</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>The message campaign message definition. This is the message that is set to enrollments.</description>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Content__c</fullName>
         <description>The message content that is sent to the users that are enrolled to a campaign in which this message belongs to.</description>
         <externalId>false</externalId>
         <inlineHelpText>Text Message to send to the subscribers.</inlineHelpText>
-<<<<<<< HEAD
-        <label>Content</label>
-=======
         <label>Text</label>
->>>>>>> origin/ci
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
@@ -66,6 +79,7 @@
         <label>Cron</label>
         <length>80</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -76,6 +90,7 @@
         <inlineHelpText>The date on which the absolute message will be sent.</inlineHelpText>
         <label>Date</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -90,6 +105,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -106,6 +122,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -116,33 +133,22 @@
         <inlineHelpText>The message campaign related to this message.</inlineHelpText>
         <label>Message Campaign</label>
         <referenceTo>MessageCampaign__c</referenceTo>
-<<<<<<< HEAD
-        <relationshipLabel>Campaign Messages</relationshipLabel>
-=======
->>>>>>> origin/ci
         <relationshipName>Campaign_Messages</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Message_Key__c</fullName>
-<<<<<<< HEAD
-        <description>A key uniquely identifying this message.</description>
-        <externalId>false</externalId>
-        <inlineHelpText>A key uniquely identifying this message.</inlineHelpText>
-        <label>Message Key</label>
-        <length>80</length>
-        <required>true</required>
-=======
         <description>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</description>
         <externalId>false</externalId>
         <inlineHelpText>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</inlineHelpText>
         <label>Message Key</label>
         <length>80</length>
         <required>false</required>
->>>>>>> origin/ci
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -154,6 +160,7 @@
         <label>Offset Time</label>
         <length>80</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -165,6 +172,7 @@
         <label>Repeat Every</label>
         <length>80</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -205,6 +213,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -216,23 +225,15 @@
         <label>Start Time</label>
         <length>10</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
-<<<<<<< HEAD
-    <label>Campaign Message</label>
-=======
     <label>Message</label>
->>>>>>> origin/ci
     <nameField>
         <label>Name</label>
         <type>Text</type>
     </nameField>
-<<<<<<< HEAD
-    <pluralLabel>Campaign Messages</pluralLabel>
-    <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
-=======
     <pluralLabel>Messages</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
@@ -249,5 +250,4 @@
         <requireRowSelection>true</requireRowSelection>
         <url>{!URLFOR( $Action.Campaign_Message_Def__c.New , null, [saveURL=MessageCampaign__c.Link, retURL=MessageCampaign__c.Link, CampaignId=MessageCampaign__c.Id , CampaignName=MessageCampaign__c.Name])}</url>
     </webLinks>
->>>>>>> origin/ci
 </CustomObject>

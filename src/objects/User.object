@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
-<<<<<<< HEAD
-        <actionName>Edit</actionName>
-=======
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>DeletePhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>EditUserAction</actionName>
->>>>>>> origin/ci
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -25,30 +41,29 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>UpdatePhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>UserActivationAction</actionName>
         <type>Default</type>
     </actionOverrides>
-<<<<<<< HEAD
-    <enableFeeds>true</enableFeeds>
-    <fields>
-        <fullName>CallCenterId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>ContactId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>DelegatedApproverId</fullName>
-        <type>Lookup</type>
-=======
+    <actionOverrides>
+        <actionName>ViewPhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>true</enableFeeds>
+    <externalSharingModel>Private</externalSharingModel>
     <fields>
         <fullName>ManagerId</fullName>
         <trackFeedHistory>true</trackFeedHistory>
         <type>Hierarchy</type>
->>>>>>> origin/ci
     </fields>
     <fields>
         <fullName>Nonprofit_Template_Version__c</fullName>
@@ -59,18 +74,6 @@
         <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>ProfileId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>UserRoleId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>WorkspaceId</fullName>
-        <type>Lookup</type>
     </fields>
     <listViews>
         <fullName>ActiveUsers</fullName>
@@ -146,28 +149,6 @@
         <label>LAC</label>
         <language>en_US</language>
     </listViews>
-    <listViews>
-        <fullName>Uganda_Active_Users</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <columns>CORE.USERS.USERNAME</columns>
-        <columns>CORE.USERS.LAST_LOGIN</columns>
-        <columns>CORE.USERS.ACTIVE</columns>
-        <columns>CORE.PROFILE.NAME</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CORE.USERS.ACTIVE</field>
-            <operation>equals</operation>
-            <value>1</value>
-        </filters>
-        <filters>
-            <field>CORE.USERS.ADDRESS_COUNTRY</field>
-            <operation>equals</operation>
-            <value>Uganda</value>
-        </filters>
-        <label>Uganda Active Users</label>
-        <language>en_US</language>
-    </listViews>
     <searchLayouts>
         <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CORE.USER_ROLE.NAME</lookupDialogsAdditionalFields>
@@ -184,4 +165,5 @@
         <searchResultsAdditionalFields>CORE.USERS.EMAIL</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CORE.USER_ROLE.NAME</searchResultsAdditionalFields>
     </searchLayouts>
+    <sharingModel>Read</sharingModel>
 </CustomObject>

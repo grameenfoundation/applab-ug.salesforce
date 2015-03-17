@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,13 +44,17 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>M &amp; E Metrics</description>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Automated__c</fullName>
         <description>Is this value automated or not? This will determine whether it is editable on the Metric Admin page.</description>
@@ -56,6 +72,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -78,6 +95,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -87,6 +105,7 @@
         <inlineHelpText>Put something meaningful and human readable</inlineHelpText>
         <label>Further Link Text</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
@@ -96,6 +115,7 @@
         <inlineHelpText>Only needs to be the file extensions. Will assume that it is on the same server</inlineHelpText>
         <label>Further Link Url</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
@@ -104,6 +124,7 @@
         <description>This metric is a header. This means that it is a dummy metric that is used to have a header for another set of metrics below it. Will have no values other than a Label, area and order</description>
         <externalId>false</externalId>
         <label>Is Header</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -113,6 +134,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if this metric is part of a lickert scale. Format for lickert scale Name is &lt;param name&gt;_&lt;lickert order number&gt; e.g. Do_You_Like_Bread_1</inlineHelpText>
         <label>Is Lickert</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -122,6 +144,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Only check this if you know what you are doing</inlineHelpText>
         <label>Is On Fly</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -131,6 +154,7 @@
         <inlineHelpText>The label for this metric. Will be displayed on the dashboard.</inlineHelpText>
         <label>Label</label>
         <length>32000</length>
+        <trackTrending>false</trackTrending>
         <type>Html</type>
         <visibleLines>25</visibleLines>
     </fields>
@@ -167,6 +191,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -180,6 +205,7 @@
         <relationshipLabel>M&amp;E Metrics</relationshipLabel>
         <relationshipName>M_E_Metrics</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -189,6 +215,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Select true if this metric should not be shown on the public dashboard</inlineHelpText>
         <label>Not For Public</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -216,6 +243,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -227,6 +255,7 @@
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -239,6 +268,7 @@
         <relationshipLabel>M&amp;E Metrics</relationshipLabel>
         <relationshipName>M_E_Metrics</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -251,6 +281,7 @@
         <precision>18</precision>
         <required>true</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -261,6 +292,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Leave this alone unless you are told to change it</inlineHelpText>
         <label>Propagate Targets</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -269,6 +301,7 @@
         <description>If checked that means that the actual value should be below the target value</description>
         <externalId>false</externalId>
         <label>Reverse Comparison</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -296,6 +329,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -304,6 +338,7 @@
         <externalId>false</externalId>
         <label>Sub Area</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
@@ -312,6 +347,7 @@
         <description>Check this to allow this metric to be divided in to smaller sub metrics</description>
         <externalId>false</externalId>
         <label>Sub Divide</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -335,6 +371,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -377,6 +414,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>M&amp;E Metric</label>

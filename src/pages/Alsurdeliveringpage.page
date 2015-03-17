@@ -3,7 +3,7 @@
     <apex:pageBlock >
       <apex:pageBlockSection title="Selección organización">
         <apex:outputLabel value="Seleccione una organización"/>
-        <apex:selectList id="asociation" size="3" value="{!association}" >
+        <apex:selectList id="asociation" size="3" value="{!asociation}" >
               <apex:selectOptions value="{!associationItems}"/>
               <apex:actionSupport event="onchange" reRender="nameQuery2"/>
         </apex:selectList>

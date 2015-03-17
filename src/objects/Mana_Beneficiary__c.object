@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,14 +44,16 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Age__c</fullName>
         <externalId>false</externalId>
         <formula>IF(ISNULL(Date_of_Birth__c),0,FLOOR((TODAY()-Date_of_Birth__c)/365.2425))</formula>
@@ -48,11 +62,11 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Attends_School__c</fullName>
         <externalId>false</externalId>
         <label>Attends School</label>
@@ -68,11 +82,10 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Centro_de_Recuperacion_Nutricional__c</fullName>
         <externalId>false</externalId>
         <label>Centro de Recuperación Nutricional</label>
@@ -88,10 +101,10 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Contact__c</fullName>
         <externalId>false</externalId>
         <label>Contact</label>
@@ -101,12 +114,11 @@
         <relationshipOrder>1</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Control_prenatal__c</fullName>
         <externalId>false</externalId>
         <label>Control prenatal</label>
@@ -122,6 +134,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -140,6 +153,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -150,6 +164,7 @@
         <label>Date of Birth</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -168,6 +183,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -186,10 +202,10 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Education_Level__c</fullName>
         <externalId>false</externalId>
         <label>Education Level</label>
@@ -213,6 +229,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -231,6 +248,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -243,15 +261,11 @@
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Poblacion_vulnerable_Desmovilizados__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - Desmovilizados</label>
-=======
         <fullName>Id_Like_HH__c</fullName>
         <externalId>false</externalId>
         <formula>IF( Household__r.Name == Name, 1, 0)</formula>
@@ -261,6 +275,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -268,7 +283,6 @@
         <fullName>LGTBI__c</fullName>
         <externalId>false</externalId>
         <label>LGTBI</label>
->>>>>>> origin/ci
         <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
@@ -281,19 +295,10 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Poblacion_vulnerable_Discapacitados__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - Discapacitados</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-=======
         <fullName>Labor_activity__c</fullName>
         <externalId>false</externalId>
         <label>Labor activity</label>
@@ -321,6 +326,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -339,6 +345,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -346,35 +353,21 @@
         <externalId>false</externalId>
         <label>Otros programas</label>
         <picklist>
->>>>>>> origin/ci
             <picklistValues>
                 <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
-<<<<<<< HEAD
-            <sorted>false</sorted>
-=======
             <picklistValues>
                 <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>true</sorted>
->>>>>>> origin/ci
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Poblacion_vulnerable_LGTBI__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - LGTBI</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-=======
         <fullName>PAE__c</fullName>
         <externalId>false</externalId>
         <label>PAE</label>
@@ -390,6 +383,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -400,6 +394,7 @@
         <label>Permitir_SMS_Household</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -427,6 +422,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -434,30 +430,21 @@
         <externalId>false</externalId>
         <label>Red unidos</label>
         <picklist>
->>>>>>> origin/ci
             <picklistValues>
                 <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
-<<<<<<< HEAD
-            <sorted>false</sorted>
-=======
             <picklistValues>
                 <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>true</sorted>
->>>>>>> origin/ci
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Poblacion_vulnerable_Victimas_del_conf__c</fullName>
-        <externalId>false</externalId>
-        <label>Poblacion vulnerable - Victimas del conf</label>
-=======
         <fullName>Registration_Date__c</fullName>
         <externalId>false</externalId>
         <formula>Household__r.CreatedDate</formula>
@@ -465,6 +452,7 @@
         <label>Registration Date</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -475,6 +463,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -482,7 +471,6 @@
         <fullName>Victimas_del_conflicto__c</fullName>
         <externalId>false</externalId>
         <label>Victimas del conflicto</label>
->>>>>>> origin/ci
         <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
@@ -495,11 +483,9 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
-<<<<<<< HEAD
-    <label>Mana Beneficiary</label>
-=======
     <fields>
         <fullName>id_type__c</fullName>
         <externalId>false</externalId>
@@ -520,6 +506,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -554,6 +541,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -576,6 +564,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -654,6 +643,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -663,6 +653,7 @@
         <length>30</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -673,6 +664,7 @@
         <length>20</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -704,6 +696,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>Mana Beneficiary</label>
@@ -754,7 +747,6 @@
         <label>test</label>
         <language>en_US</language>
     </listViews>
->>>>>>> origin/ci
     <nameField>
         <label>Id</label>
         <trackHistory>false</trackHistory>

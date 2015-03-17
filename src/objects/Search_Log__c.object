@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,13 +44,17 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>This is a generic template for Custom Object.  With this template, you may adjust the default elements and values and add new elements and values.</description>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Accuracy__c</fullName>
         <externalId>false</externalId>
@@ -47,6 +63,7 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -58,6 +75,7 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -68,6 +86,7 @@
         <length>50</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -78,15 +97,7 @@
         <externalId>false</externalId>
         <label>From USSD</label>
         <trackHistory>false</trackHistory>
-        <type>Checkbox</type>
-    </fields>
-    <fields>
-        <fullName>Group_Search__c</fullName>
-        <defaultValue>false</defaultValue>
-        <description>CKW 3.O tracks group searches with this flag</description>
-        <externalId>false</externalId>
-        <label>Group Search</label>
-        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -101,6 +112,7 @@
         <relationshipName>Search_Logs</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -110,6 +122,7 @@
         <label>Handset Submit Time</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -121,6 +134,7 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -135,18 +149,7 @@
         <relationshipName>Interviewee_Search_Logs</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Interviewer_Contact__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Interviewer Contact</label>
-        <referenceTo>Contact</referenceTo>
-        <relationshipLabel>Search Logs</relationshipLabel>
-        <relationshipName>Search_Logs</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -158,6 +161,7 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -172,6 +176,7 @@
         <relationshipName>Search_Logs</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -182,6 +187,7 @@
         <length>20</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -193,6 +199,7 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -204,6 +211,7 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -216,6 +224,7 @@
         <label>Person Owner Id</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -226,6 +235,7 @@
         <length>255</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -236,6 +246,7 @@
         <externalId>false</externalId>
         <label>Record ID</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>AutoNumber</type>
     </fields>
     <fields>
@@ -244,6 +255,7 @@
         <label>Response</label>
         <length>5000</length>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -254,25 +266,8 @@
         <label>Server Entry Time</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
-    </fields>
-    <fields>
-        <fullName>Source__c</fullName>
-        <externalId>false</externalId>
-        <label>Source</label>
-        <picklist>
-            <picklistValues>
-                <fullName>TaroWorks</fullName>
-                <default>true</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Search</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Submission_Accuracy__c</fullName>
@@ -283,6 +278,7 @@
         <required>false</required>
         <scale>13</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -295,6 +291,7 @@
         <required>false</required>
         <scale>13</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -305,6 +302,7 @@
         <label>Submission GPS Timestamp</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -316,6 +314,7 @@
         <required>false</required>
         <scale>13</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -328,13 +327,13 @@
         <required>false</required>
         <scale>13</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <label>Search Log</label>
     <listViews>
         <fullName>All</fullName>
-        <booleanFilter>1</booleanFilter>
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
         <columns>Interviewee__c</columns>
@@ -355,14 +354,11 @@
             <field>Handset_Submit_Time__c</field>
             <operation>greaterThan</operation>
             <value>9/1/2012 12:00 AM</value>
-<<<<<<< HEAD
         </filters>
         <filters>
             <field>From_USSD__c</field>
             <operation>equals</operation>
             <value>1</value>
-=======
->>>>>>> origin/ci
         </filters>
         <label>All</label>
         <language>en_US</language>

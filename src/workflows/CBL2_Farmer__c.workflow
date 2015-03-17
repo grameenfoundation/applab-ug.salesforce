@@ -139,6 +139,6 @@
             <value>0</value>
         </criteriaItems>
         <description>calculate all the ppi scores on CBL2_Farmer base on field ppi_Score__c</description>
-        <triggerType>onAllChanges</triggerType>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
 </Workflow>

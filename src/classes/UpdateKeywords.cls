@@ -276,19 +276,11 @@ global class UpdateKeywords {
                  idToItemMap.put(menuItem.Id, mItem);
             }
         }
-<<<<<<< HEAD
-        buildSearchContentInMenuItems(idToItemMap, itemToArticleMap);
-    }
-
-    // loads content into menu items
-    private static void buildSearchContentInMenuItems(Map<String, LocalMenuItem> idToItemMap, Map<String, List<String>> itemToArticleMap) {
-=======
         //buildSearchContentInMenuItems(idToItemMap, itemToArticleMap);
     }
 
     // loads content into menu items
     /*private static void buildSearchContentInMenuItems(Map<String, LocalMenuItem> idToItemMap, Map<String, List<String>> itemToArticleMap) {
->>>>>>> origin/ci
 
         for (KnowledgeArticleVersion article : [
             SELECT
@@ -320,11 +312,7 @@ global class UpdateKeywords {
             }
         }
 
-<<<<<<< HEAD
-    }
-=======
     }*/
->>>>>>> origin/ci
 
     private static void getNewUpdatedAndDeletedImages(List<LocalMenuItem> menuItems, List<ObjectId> deletedMenuIds,
                                                    List<ObjectId> updatedImages, List<ObjectId> deletedImages,

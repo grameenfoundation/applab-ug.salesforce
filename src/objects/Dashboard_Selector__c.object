@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,12 +44,16 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Controls what selectors are to go on a dashboard selector</description>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Dashboard_Section__c</fullName>
         <externalId>false</externalId>
@@ -47,6 +63,7 @@
         <relationshipName>Dashboard_Selectors</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -71,6 +88,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -78,6 +96,7 @@
         <defaultValue>true</defaultValue>
         <externalId>false</externalId>
         <label>Is Active</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -87,6 +106,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Displays a dropdown box to select the CIW for the BVAT Dashboard</inlineHelpText>
         <label>Show BVAT CIW</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -94,6 +114,7 @@
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Show Brac Area</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -101,6 +122,7 @@
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Show Brac PA</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -110,6 +132,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the CKW selector in the dashboard selector</inlineHelpText>
         <label>Show CKW</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -119,6 +142,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to display the country selector</inlineHelpText>
         <label>Show Country</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -128,6 +152,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the Data Validator selector in the dashboard selector</inlineHelpText>
         <label>Show Data Validator</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -137,6 +162,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to show the date range selectors</inlineHelpText>
         <label>Show Dates</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -146,6 +172,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Show the district selector</inlineHelpText>
         <label>Show District</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -155,6 +182,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the farmer selector in the dashboard selector</inlineHelpText>
         <label>Show Farmer</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -164,6 +192,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the field officer selector in the dashboard selector</inlineHelpText>
         <label>Show Field Officer</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -173,6 +202,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Displays Kenyan Counties used for the BVAT Dashboard</inlineHelpText>
         <label>Show Kenyan County</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -182,6 +212,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the MTN Channels selector</inlineHelpText>
         <label>Show MTN Chan</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -191,6 +222,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to show the metric date selector. Only check if not showing the normal date selector</inlineHelpText>
         <label>Show Metric Date Selector</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -200,6 +232,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the opportunity farmer selector in the dashboard selector</inlineHelpText>
         <label>Show Opportunity Farmer</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -209,6 +242,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to show the person selector</inlineHelpText>
         <label>Show Person</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -218,6 +252,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to include the region selector</inlineHelpText>
         <label>Show Region</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -227,6 +262,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to show the subcounty selector</inlineHelpText>
         <label>Show Subcounty</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -236,6 +272,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Uncheck to hide the submit button on the selector</inlineHelpText>
         <label>Show Submit Button</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -245,15 +282,12 @@
         <inlineHelpText>Choose the date that is the earliest you wish to see data from</inlineHelpText>
         <label>Start Date</label>
         <required>true</required>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <label>Dashboard Selector</label>
     <listViews>
         <fullName>All</fullName>
-<<<<<<< HEAD
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-=======
         <columns>OBJECT_ID</columns>
         <columns>CREATEDBY_USER</columns>
         <columns>CREATED_DATE</columns>
@@ -262,7 +296,6 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>
->>>>>>> origin/ci
     </listViews>
     <nameField>
         <displayFormat>DSC{0000000000}</displayFormat>

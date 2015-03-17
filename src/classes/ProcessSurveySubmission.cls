@@ -96,11 +96,7 @@ global class ProcessSurveySubmission {
             System.debug(results);
             // Send Pulse and SMS feedback to the submitter
             if (!results.get(2).equals('SUPRESSMSG')) {
-<<<<<<< HEAD
-                messageBody = results.get(2);
-=======
                 messageBody = results.get(1);
->>>>>>> origin/ci
                 User sender = [
                     SELECT
                         Id,
@@ -112,11 +108,7 @@ global class ProcessSurveySubmission {
                 ];
                 SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
-<<<<<<< HEAD
                         new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0))
-=======
-                        new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0)), ''
->>>>>>> origin/ci
                     ), true
                 );
             }
@@ -593,75 +585,6 @@ global class ProcessSurveySubmission {
             }
             else if (survey.Post_Processing_Method__c.equals('MBUGO')) {
                 return MbugoHelpers.surveysPostProcessing(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE')) {
-                return UDoMSurveyProcessing.processDailyRainGauge(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE_REG')) {
-                return UDoMSurveyProcessing.registerRainGauge(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('MTN_CHANNELS')) {
-                return MtnChannelsHelpers.processChannelsFFPSSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('FHI_GROUP_REGISTRATION')) {
-                return FHISurveysHelpers.processGroupRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
-            }
-            else if (survey.Post_Processing_Method__c.equals('FHI_HOUSEHOLD_REGISTRATION')) {
-                return FHISurveysHelpers.processHouseholdRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
-            }
-            else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
-                return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_SPOT_CHECK')) {
-               return DataValidatorHelpers.processSpotCheck(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
-                return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('EQUIPMENT_TRACKING')) {
-                return EquipmentTrackingHelpers.processFieldOfficerSubmission(surveySubmission, answers, interviewer);
-            }
-            if (survey.Post_Processing_Method__c.equals('BVAT_CIW_INFORMATION')) {
-                return BvatHelpers.processCiwInformationSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('BVAT_FARMER_REGISTRATION')) {
-                return BvatHelpers.processFarmerRegistrationSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('BVAT_CONTENT_SURVEY')) {
-                return BvatHelpers.processContentSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('EW_FARMER_REG')) {
-                return ProcessEwarehouseSurveys.processEwarehouseFarmerRegistration(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('EW_HARVEST_REG')) {
-                return ProcessEwarehouseSurveys.processEwarehouseHarvestSurvey(surveySubmission, answers, interviewer);
-            }
-			else if (survey.Post_Processing_Method__c.equals('EW_SALE_REG')) {
-                return ProcessEwarehouseSurveys.processSaleRegistration(answers);
-            }
-			else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
-                return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
-            }
-			else if (survey.Post_Processing_Method__c.equals('EADD_HUB')) {
-                return ProcessEADDSurveys.processEADDHubRegistration(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
-                return BracSurveysHelpers.processHealthProgrammeSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
-                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
-            }
-            else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
-                return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('TDR_PA_PRODUCTS')) {
-                return TdrHelpers.processTdrPaProductsSurvey(surveySubmission, interviewer);
-            }
-            else if (survey.Post_Processing_Method__c.equals('MTN_WEEKLY_REPORT')) {
-                return TdrHelpers.processWeeklyReportVisit(surveySubmission, answers, interviewer);
-            }
-        else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
-                return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
             }
         }
         catch (Exception e) {

@@ -11,10 +11,7 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     static final String BASEKEYWORD = 'Market_Prices';
     static final String CATEGORY = 'Market_Information';
     static final String MENU_NAME = 'CKW Search';
-<<<<<<< HEAD
-=======
     static final String SECONDARY_MENU_NAME = 'CKW Test';
->>>>>>> origin/ci
     private Datetime changeDate = datetime.now();
     private String url = '';
     global String notificationContent = '';
@@ -38,12 +35,8 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     */
     global Iterable<MisLoadFitRss.Item> start(Database.BatchableContext info){
         System.debug(Logginglevel.INFO,'MIS: Loading data for batching');
-<<<<<<< HEAD
-        MisLoadFitRss.Rss data = loadRssFeed();
-=======
         //MisLoadFitRss.Rss data = loadRssFeed();
         MisLoadFitRss.Rss data = loadAgRssFeed(); //Call via new implementation since the xml from fit changed
->>>>>>> origin/ci
         notificationContent += 'Items loaded from feed = ' + data.items.size();
         notificationContent += '\n Markets in feed missing in Salesforce = ' + data.missingMarkets.size();
         return data.items;
@@ -55,12 +48,6 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     */
     global void execute(Database.BatchableContext info, List<MisLoadFitRss.Item> scope){
         List<ImportBackendServerKeywords.MenuItemAdapter> menuItemAdapters = generateItemAdapters(scope);
-<<<<<<< HEAD
-        boolean result = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, MENU_NAME);
-        notificationContent += '\n Batch processing = ' + scope.size() 
-                            + '. ItemAdapters = ' + menuItemAdapters.size() 
-                            + '. Returned=>' + result;
-=======
         boolean result2 = ImportBackendServerKeywords.importBackendKeywords(menuItemAdapters, MENU_NAME);
         notificationContent += '\n Batch processing = ' + scope.size() 
                             + '. ItemAdapters = ' + menuItemAdapters.size() 
@@ -73,7 +60,6 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
                             + '. Returned=>' + result;
 
         
->>>>>>> origin/ci
     }
     
     /**
@@ -82,11 +68,7 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
     global void finish(Database.BatchableContext info){
         notificationContent += '\n Processing completed successfully';
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-<<<<<<< HEAD
-        mail.setToAddresses(new String[] {'dmugume@grameenfoundation.org'});
-=======
         mail.setToAddresses(new String[] {'jluyima@grameenfoundation.org'});
->>>>>>> origin/ci
         mail.setReplyTo('noreply@applab.org');
         mail.setSenderDisplayName('Batch Process');
         mail.setSubject('Batch Process Load FIT Prices');
@@ -195,8 +177,6 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
         //insert result.items;
         return result;
     }
-<<<<<<< HEAD
-=======
 
 
 
@@ -318,7 +298,6 @@ global class MisLoadFitRss implements Database.batchable<MisLoadFitRss.Item>, Da
 
 
 
->>>>>>> origin/ci
     
     /*
     *   creates MenuItemAdapters for the given market prices passed

@@ -101,6 +101,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL_CoffeeBaselin_Submission</relationshipLabel>
+        <relationshipName>CBL_CoffeeBaselin_Submission</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Total_Coffee_Planted_Area__c</fullName>
         <externalId>false</externalId>
         <label>Total Coffee Planted Area</label>

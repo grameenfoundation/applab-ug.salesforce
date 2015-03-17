@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,17 +44,22 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Almacenamiento_de_cafe_adecuado__c</fullName>
         <externalId>false</externalId>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Almacenamiento de café adecuado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Almacenamiento de café adecuado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -61,6 +78,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -127,6 +145,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -136,6 +155,7 @@
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Canales de correteo en buen estado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Canales de correteo en buen estado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -152,6 +172,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -161,6 +182,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Manejo_Plaguicidas__c, &apos;Capacita personal manejo de agroquimicos&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Capacita el personal en manejo de agroqu</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -170,6 +192,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Lotes__c, &apos;Conocimiento de áreas de lotes&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Conocimiento de áreas de lotes</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -192,6 +215,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -206,6 +230,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -215,6 +240,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(MIPE__c, &apos;Control de acuerdo a resultado monitoreo&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Control de acuerdo al resultado del moni</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -245,6 +271,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -254,6 +281,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Empaques de café en buen estado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Empaques de café</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -263,6 +291,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Cosecha_Postcosecha__c, &apos;Evaluación de recolección&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Evaluación de recolección</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -272,6 +301,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Cosecha_Postcosecha__c, &apos;Evaluación del despulpado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Evaluación del despulpado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -281,6 +311,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(MIPE__c, &apos;Evaluación post-control&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Evaluación post-control</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -290,6 +321,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>Farm__r.farmName__c</formula>
         <label>Farm Name</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -301,6 +333,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <referenceTo>CBL_Farm__c</referenceTo>
         <relationshipName>Farm_Management_Plans</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -310,6 +343,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Farmer Name</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -318,6 +352,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <externalId>false</externalId>
         <label>Fecha definicion metas</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -326,6 +361,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Fosa de compostaje de pulpa&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Fosa de compostaje de pulpa</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -352,6 +388,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -361,6 +398,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Conservacion_Suelos__c, &apos;Identificación de zonas erosionadas&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Identificación de zonas erosionadas</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -370,6 +408,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Gestion_Ambiental__c, &apos;Plan de conserv. y recuper. flora/fauna&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Implementación de Plan de Consevación</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -379,6 +418,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Almacigo__c, &apos;Implementación plan de Almácigo&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Implemetación de Plan Almacigo</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -388,6 +428,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Cosecha_Postcosecha__c, &apos;Inocuidad bodegas&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Inocuidad bodegas</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -397,6 +438,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Cosecha_Postcosecha__c, &apos;Inocuidad del beneficio&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Inocuidad del beneficio</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -406,6 +448,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Lista de chequeo&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Lista de chequeo</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -432,6 +475,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -462,6 +506,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -488,6 +533,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -506,6 +552,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -515,6 +562,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Gestion_Ambiental__c, &apos;Manejo alternativo para aguas beneficio&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Manejo alternativo para aguas de benefic</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -524,6 +572,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Gestion_Ambiental__c, &apos;Manejo de aguas residuales (hogar/benef)&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Manejo de aguas residuales (hogar/benefi</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -533,6 +582,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Lotes__c, &apos;Mapa de la finca&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Mapa de la finca</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -542,6 +592,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Maquina despulpadora en buen estado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Maquina despulpadora en buen estado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -551,6 +602,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>Farm__r.Baseline__r.Farmer__r.District__c</formula>
         <label>Nucleo</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -560,6 +612,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Manejo_Plaguicidas__c, &apos;Posee equipos de protección&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Posee equipos de protección</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -569,6 +622,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Almacigo__c, &apos;Preparación adecuada de sustratos&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Preparación adecuada de sustratos</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -578,6 +632,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>Farm__r.Baseline__r.Farmer__r.Contact__r.Contact_Full_Name__c</formula>
         <label>Productor</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -587,6 +642,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(MIPE__c, &apos;Realización de monitoreo de PyE&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Realización de monitoreo de Plagas y enf</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -596,6 +652,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Conservacion_Suelos__c, &apos;Recuperación de zonas erosionadas&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Recuperación de zonas erosionadas</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -605,6 +662,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Conservacion_Suelos__c, &apos;Reforestación con especies nativas&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Reforestación con especies nativas</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -614,6 +672,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Manejo_Plaguicidas__c, &apos;Registra las aplicaciones (agroquimicos)&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registra las aplicaciones (agroquimicos)</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -623,6 +682,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Registros__c, &apos;Registro aplicación de pesticidas&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro aplicación de pesticidas</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -632,6 +692,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Registros__c, &apos;Registro compra de insumos&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro compra de insumos</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -641,6 +702,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Lotes__c, &apos;Registro arboles y variedades por lote&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro de arboles y variedades por lot</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -650,6 +712,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Registros__c, &apos;Registro de labores (Jornales)&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro de labores (Jornales)</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -659,6 +722,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Lotes__c, &apos;Registro de labores por lote&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro de labores por lote</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -668,6 +732,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(MIPE__c, &apos;Registro de monitoreo de PyE&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro de monitoreo de Plagas y Enferm</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -677,6 +742,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Cosecha_Postcosecha__c, &apos;Registro de recolección&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro de recolección</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -686,6 +752,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Registros__c, &apos;Registro recolección&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro recolección</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -695,6 +762,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Registros__c, &apos;Registro ventas Café Pergamino Seco CPS&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Registro ventas Café Pergamino Seco (CPS</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -725,6 +793,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -734,6 +803,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Manejo_Sombra__c, &apos;Regulación de sombra&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Regulación de sombra</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -743,6 +813,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Separación de café por calidad&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Separación de café por calidad</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -752,6 +823,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Separación de café por lote&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Separación de café por lote</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -761,6 +833,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Sistema de secado de café en buen estado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Sistema de secado de café en buen estado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -770,6 +843,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Tanques de desmucilaginadora buen estado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Tanques de desmucilaginadora buen estado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -779,6 +853,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Tanques de fermenación en buen estado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Tanques de fermenación en buen estado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -788,6 +863,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Tanque de tratamiento de agua miel&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Tanque de tratamiento de agua miel</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -797,6 +873,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Gestion_Ambiental__c, &apos;Transformación pulpas uso en cultivo&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Transformación de pulpas</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -806,6 +883,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Transporte adecuado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Transporte adecuado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -815,6 +893,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Manejo_Plaguicidas__c, &apos;Usa equipos de protección&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Usa equipos de protección</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -824,6 +903,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Manejo_Sombra__c, &apos;Uso de especies nativas como sombrio&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Uso de especies nativas como sombrio</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -833,6 +913,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Control_Malezas__c, &apos;Uso metodos reducción herbicidas&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Uso de metodos amigables para reducción</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -842,6 +923,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(MIPE__c, &apos;Uso de metodos de control para PyE&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Uso de metodos de control para PyE</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -896,6 +978,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -904,6 +987,7 @@ IF(INCLUDES(  Registros__c, &apos;Registro recolección&apos;), 1, 0)</formula>
         <formula>IF (  INCLUDES(Beneficio__c, &apos;Zaranda en buen estado&apos;) , &apos;Sí&apos;, &apos;No&apos;)</formula>
         <label>Zaranda en buen estado</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>

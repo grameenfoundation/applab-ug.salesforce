@@ -14,10 +14,6 @@ public class SendSmsTest {
      *    SendSMSViaKannel
      *    SendSMSViaYellowPepper
      *    SendViaSMSGateway
-<<<<<<< HEAD
-=======
-     *	  SendSMSViaEdnetUg
->>>>>>> origin/ci
      */
 
     static List<Group__c> groups;
@@ -325,17 +321,10 @@ public class SendSmsTest {
         };
         messages = new List<Message>{
             createMessage(
-<<<<<<< HEAD
-                'Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients
-            ),
-            createMessage(
-                'Subject2', 'body2', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients
-=======
                 'Subject', 'body', UserInfo.getUserId(), 'crmadmin@applab.org', DateTime.now(), DateTime.now(), 'SMS', recipients
             ),
             createMessage(
                 'Subject2', 'body2', UserInfo.getUserId(), 'crmadmin@applab.org', DateTime.now(), DateTime.now(), 'SMS', recipients
->>>>>>> origin/ci
             )
         };
         SendSMSViaKannel gateway = new SendSMSViaKannel();
@@ -501,7 +490,6 @@ public class SendSmsTest {
         controller.submit();
         System.assertEquals(3, ApexPages.getMessages().size());
         System.assertEquals(ApexPages.getMessages()[2].getSeverity(), ApexPages.Severity.ERROR);
-<<<<<<< HEAD
         System.assertEquals(ApexPages.getMessages()[2].getSummary(), 'You must select at least one "send via" option (SMS or Pulse).');
 
         controller.sendViaPulse = true;
@@ -515,21 +503,6 @@ public class SendSmsTest {
         System.assertEquals(5, ApexPages.getMessages().size());
         System.assertEquals(ApexPages.getMessages()[4].getSeverity(), ApexPages.Severity.ERROR);
         System.assertEquals(ApexPages.getMessages()[4].getSummary(), 'Message is a required field.');
-=======
-        //System.assertEquals(ApexPages.getMessages()[2].getSummary(), 'You must select at least one "send via" option (SMS or Pulse).');//default was set as pulse
-
-        controller.sendViaPulse = true;
-        controller.submit();
-        System.assertEquals(3, ApexPages.getMessages().size());
-        System.assertEquals(ApexPages.getMessages()[2].getSeverity(), ApexPages.Severity.ERROR);
-        System.assertEquals(ApexPages.getMessages()[2].getSummary(), 'Subject is a required field.');
-
-        controller.subject = 'Subject';
-        controller.submit();
-        System.assertEquals(4, ApexPages.getMessages().size());
-        System.assertEquals(ApexPages.getMessages()[3].getSeverity(), ApexPages.Severity.ERROR);
-        System.assertEquals(ApexPages.getMessages()[3].getSummary(), 'Message is a required field.');
->>>>>>> origin/ci
     }
 
     static testMethod void testGetGroups() {
@@ -546,11 +519,7 @@ public class SendSmsTest {
         ref.getParameters().put('groups', groups[0].Id);
         Test.setCurrentPage(ref);
         BulkMessageController controller = new BulkMessageController();
-<<<<<<< HEAD
         System.assertEquals(controller.getSendeeItems().size(), 6);
-=======
-        System.assertEquals(controller.getSendeeItems().size(), 0);//if this returns values, pageload will timeout
->>>>>>> origin/ci
         controller.getSelectedGroups();
         System.assertEquals(controller.getSendeeItems().size(), 7);
     }
@@ -607,7 +576,6 @@ public class SendSmsTest {
 
         // Add some schduled messages
         DateTime sendTime = DateTime.now().addMinutes(-5);
-<<<<<<< HEAD
         Scheduled_Message_Queue__c m1 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = true, Send_Via_SMS__c = false, Sender__c = UserInfo.getUserId(), Group__c = groups[0].Id);
         Scheduled_Message_Queue__c m2 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[0].Id);
         Scheduled_Message_Queue__c m3 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[1].Id);
@@ -634,35 +602,6 @@ public class SendSmsTest {
             'FROM ' +
                 'Scheduled_Message_Queue__c ' +
             'WHERE ' +
-=======
-        Scheduled_Message_Queue__c m1 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = true, Send_Via_SMS__c = false, Sender__c = UserInfo.getUserId(), Group__c = groups[0].Id, Category__c = 'Payments');
-        Scheduled_Message_Queue__c m2 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[0].Id, Category__c = 'Payments');
-        Scheduled_Message_Queue__c m3 = new Scheduled_Message_Queue__c( Subject__c = 'subject1', Message__c = 'body1', Send_Date_Time__c = sendTime, Send_Via_Pulse__c = false, Send_Via_SMS__c = true, Sender__c = UserInfo.getUserId(), Person__c = people[1].Id, Category__c = 'Payments');
-        Database.insert(new List<Scheduled_Message_Queue__c>{ m1, m2, m3 });
-
-        // Send the scheduled messages
-        String queryString = 'SELECT ' 							+
-                'Id, ' 											+
-                'Group__c, ' 									+
-                'Person__c, '									+
-                'Person__r.First_Name__c, ' 					+
-                'Person__r.Middle_Name__c, ' 					+
-                'Person__r.Last_Name__c, ' 						+
-                'Person__r.Mobile_Number__c, ' 					+
-                'Person__r.Country__r.ISO_Standard_Code__c, ' 	+
-                'Message__c, ' 									+
-                'Sender__c, ' 									+
-                'Sender__r.Name, ' 								+
-                'Subject__c, ' 									+
-                'Send_Date_Time__c, ' 							+
-                'Expiration_Date__c, ' 							+
-                'Send_Via_Pulse__c, ' 							+
-                'Category__c, ' 								+
-                'Send_Via_Sms__c ' 								+
-            'FROM ' 											+
-                'Scheduled_Message_Queue__c ' 					+
-            'WHERE ' 											+
->>>>>>> origin/ci
                 'Send_Date_Time__c <= ' + MetricHelpers.convertDateTimeToString(DateTime.now(), false);
         Test.StartTest();
         ID batchprocessid = Database.executeBatch(new SendSMS(queryString, DateTime.now()), 10);
@@ -671,43 +610,4 @@ public class SendSmsTest {
         // Check the new queue size. It should be 0 as all messages were sent and as this is test none of the messages were rescheduled
         System.AssertEquals(database.countquery('SELECT COUNT() FROM Scheduled_Message_Queue__c WHERE LastModifiedDate <= ' + MetricHelpers.convertDateTimeToString(DateTime.now().addMinutes(-2) , false)), 0);
     }
-<<<<<<< HEAD
-=======
-    
-    
-    // TESTS FOR SendSMSViaEdnetUg
-    static testMethod void testEdnet() {
-    	
-        addGatewaySettings('EdnetUg', 'bulk', 'single', 'username', 'password', 123);
-        addCountrySetting('JJ', 'SendSMSViaEdnetUg', 256, 'JJ');
-
-        List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient> {
-            SendSMSHelpers.generateRecipient('id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null)       
-        };
-		// add message with  no country code. will be skipped
-        SMS_Gateway_Country_Settings__c setting = [SELECT Id, Country_Code__c FROM SMS_Gateway_Country_Settings__c WHERE Name = 'JJ'][0];
-        setting.Country_Code__c = null;
-        update setting;
-        SendSMSHelpers.Recipient nullCoded = SendSMSHelpers.generateRecipient('id1', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null);
-        recipients.add(nullCoded);
-        
-        messages = new List<Message>{
-            createMessage('Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients),
-            createMessage('Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', recipients)
-        };
-        SendSMSViaEdnetUg gateway = new SendSMSViaEdnetUg();
-        //gateway.loadSetting();
-        Boolean fail = false;
-        try {
-            gateway.createBody(messages, true);
-        }
-        catch (Exception e) {
-            System.assert(e.getMessage().equals('Can only send one message through EdnetUg at once'), 'Error message is wrong');
-            fail = true;
-        }
-        System.assert(fail, 'Should have failed to build the body as there were too many messages');        
-        System.assert(gateway.execute(messages).equals('status=-2,credits=92052'));
-        System.assert(gateway.callback('status=-2,credits=92052', new Map<String, Boolean> { }).size() == 0);
-    }
->>>>>>> origin/ci
 }

@@ -67,6 +67,18 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>CBL2_Farm__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CBL2_Farm</label>
+        <referenceTo>CBL2_Farm__c</referenceTo>
+        <relationshipLabel>CBL_WetMill_CBL2_Farm</relationshipLabel>
+        <relationshipName>CBL_WetMill_CBL2_Farm</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Desp_Granos_enteros_y_limpios__c</fullName>
         <externalId>false</externalId>
         <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Granos enteros y limpios&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
@@ -1323,6 +1335,28 @@
             </picklistValues>
             <picklistValues>
                 <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <externalId>false</externalId>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>

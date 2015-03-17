@@ -55,6 +55,18 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
+        <fullName>CBL2_Lot__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CBL2_Lot</label>
+        <referenceTo>CBL2_Lot__c</referenceTo>
+        <relationshipLabel>CBL_Lot_CBL2_Lot</relationshipLabel>
+        <relationshipName>CBL_Lot_CBL2_Lot</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Farm__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -389,6 +401,28 @@ IF(text( lotAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, lotArea__c *8.94, lotAre
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <externalId>false</externalId>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
     </fields>
     <label>CBL_Lot</label>
     <nameField>

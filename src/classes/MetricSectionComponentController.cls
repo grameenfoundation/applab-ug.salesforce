@@ -35,8 +35,7 @@ global with sharing class MetricSectionComponentController {
                 FROM 
                     M_E_Metric__c 
                 WHERE 
-                    Metric_Section__r.Id = :metricId AND
-                    Not_For_Public__c = false
+                    Metric_Section__r.Id = :metricId 
                 ORDER BY Order__c
             ];
         }

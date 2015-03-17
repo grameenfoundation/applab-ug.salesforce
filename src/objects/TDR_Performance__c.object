@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,14 +44,18 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A performance record for a TDR. This is the container object for their metrics.
 Records can be YEARLY||MONTHLY||WEEKLY||DAILY
 This is to get around the limits that salesforce imposes</description>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Corporate_Sales_Calls_Target__c</fullName>
         <defaultValue>0</defaultValue>
@@ -49,6 +65,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -61,6 +78,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -73,6 +91,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -85,6 +104,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -96,6 +116,7 @@ This is to get around the limits that salesforce imposes</description>
         <label>Distances</label>
         <length>255</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -105,6 +126,7 @@ This is to get around the limits that salesforce imposes</description>
         <externalId>false</externalId>
         <label>End Time</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -116,6 +138,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -128,6 +151,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -140,6 +164,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -152,6 +177,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -164,6 +190,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -176,6 +203,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -188,6 +216,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -200,6 +229,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -211,6 +241,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -222,6 +253,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -235,6 +267,7 @@ This is to get around the limits that salesforce imposes</description>
         <relationshipName>TDR_Performance_Records</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -247,6 +280,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -259,6 +293,7 @@ This is to get around the limits that salesforce imposes</description>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -268,6 +303,7 @@ This is to get around the limits that salesforce imposes</description>
         <externalId>false</externalId>
         <label>Start Date</label>
         <required>true</required>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -276,6 +312,7 @@ This is to get around the limits that salesforce imposes</description>
         <externalId>false</externalId>
         <label>Start Time</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -285,6 +322,7 @@ This is to get around the limits that salesforce imposes</description>
         <label>Times</label>
         <length>255</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -312,6 +350,7 @@ This is to get around the limits that salesforce imposes</description>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>TDR Performance Record</label>
@@ -320,19 +359,6 @@ This is to get around the limits that salesforce imposes</description>
         <label>TDR Performance Record Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <namedFilters>
-        <fullName>nf_01I70000000QLR3EAO_00N70000002s9MTEAY</fullName>
-        <active>true</active>
-        <field>TDR_Activity__c.TDR_Performance_Record__c</field>
-        <filterItems>
-            <field>TDR_Performance__c.Type__c</field>
-            <operation>equals</operation>
-            <value>Daily</value>
-        </filterItems>
-        <infoMessage>Must select a TDR Performance Record of type Daily</infoMessage>
-        <isOptional>false</isOptional>
-        <name>TDR Activity_TDR Performance Record</name>
-    </namedFilters>
     <pluralLabel>TDR Performance Records</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 public with sharing class MessageCampaignController {
 	private MessageCampaign__c messageCampaign;
 	
@@ -6,13 +5,4 @@ public with sharing class MessageCampaignController {
 		this.messageCampaign = (MessageCampaign__c)controller.getRecord();
 	}
 	
-=======
-public with sharing class MessageCampaignController {
-	private MessageCampaign__c messageCampaign;
-	
-	public MessageCampaignController(ApexPages.StandardController controller) {
-		this.messageCampaign = (MessageCampaign__c)controller.getRecord();
-	}
-	
->>>>>>> origin/ci
 }

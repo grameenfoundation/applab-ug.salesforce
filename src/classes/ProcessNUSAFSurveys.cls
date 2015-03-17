@@ -242,7 +242,6 @@ public with sharing class ProcessNUSAFSurveys {
 	
 	            dateOfVisit = Date.valueOf(ProcessSubmissionHelpers.getAnswerString(answers.get('date_0')));
 	            gps = ProcessSubmissionHelpers.getAnswerString(answers.get('gps_0'));
-		    gps = String.isNotEmpty(gps) ? gps : ProcessSubmissionHelpers.getAnswerString(answers.get('Record_GPS_location_0'));
 	            if(String.isNotEmpty(gps)){
 	                gps = gps.split(' ')[0] + ' ' + gps.split(' ')[1];
 	            }
@@ -252,7 +251,7 @@ public with sharing class ProcessNUSAFSurveys {
 	
 	            //if enrollment, update gps and date
 	            if(type == SubmissionType.ENROLLMENT){
-	                Boolean completed = ProcessSubmissionHelpers.getAnswerString(answers.get('completed_0')).equalsIgnoreCase('Yes');
+	                Boolean completed = ProcessSubmissionHelpers.getAnswerString(answers.get('completed_0')).equals('1');
 	                target.DateMobilization__c = dateOfVisit;
 	                target.LocationMobilization__c = gps;
 	                targetsToSave.put(target.Id, target);

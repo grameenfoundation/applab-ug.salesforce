@@ -785,7 +785,7 @@ private class IGDashboardTests {
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('training was marked as Not-Completed'));
 
-        answers.put('completed_0', Utils.createTestSubmissionAnswer(null, 'completed', 'Yes', null, null, null));
+        answers.put('completed_0', Utils.createTestSubmissionAnswer(null, 'completed', '1', null, null, null));
         returnValues = ProcessNUSAFSurveys.registerNusafActivityVisit(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('submission successful'));

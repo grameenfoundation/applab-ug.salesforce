@@ -63,18 +63,17 @@ public class BuccodecHelpers {
 
         String organisationString = 'AND M_E_Metric__r.Organisation__r.Name = ' + organisationName + ' ';
 
-        String query1 = query 										+
-            'FROM '                                     			+
-                'M_E_Metric_Data__c '                   			+
-            'WHERE ' 												+
-                'Date__c >= :quarterFirstDay '         	 			+
-                'AND Date__c <= :quarterLastDay '       			+
-                'AND Is_Cumulative__c = false '         			+
-                'AND M_E_Metric__r.Not_For_Public__c = false ' 		+
-                notForPublicString 									+
-                organisationString 									+
-            'ORDER BY '                                 			+
-                'M_E_Metric__r.Order__c ASC, '          			+
+        String query1 = query +
+            'FROM '                                     +
+                'M_E_Metric_Data__c '                   +
+            'WHERE ' +
+                'Date__c >= :quarterFirstDay '          +
+                'AND Date__c <= :quarterLastDay '       +
+                'AND Is_Cumulative__c = false '         +
+                notForPublicString +
+                organisationString +
+            'ORDER BY '                                 +
+                'M_E_Metric__r.Order__c ASC, '          +
                 'Date__c ASC ';
 
         String metricName = '';
@@ -155,7 +154,7 @@ public class BuccodecHelpers {
             }
 
             // calculate the % actual for this quarter: skip if quarter projected value is not provided
-            Decimal percentQuarter = (metricDataWrapper.percent_quarter_actual_reached != null &&
+            Decimal percentQuarter = (metricDataWrapper.quarter_actual_reached != null &&
                     metric.Projected_Value__c != null && metric.Projected_Value__c != 0.0) ?
                     (metricDataWrapper.quarter_actual_reached / metric.Projected_Value__c) * 100 : null;
             metricDataWrapper.percent_quarter_actual_reached = percentQuarter;
@@ -237,12 +236,6 @@ public class BuccodecHelpers {
         else if(survey.Survey_Name__c.containsIgnoreCase('CKW Monitoring')){
             type = SubmissionType.CKW_MONITORING;
         }
-        else if(survey.Survey_Name__c.containsIgnoreCase('VSLA Registration')){
-            type = SubmissionType.VSLA_REGISTRATION;
-        }
-        else if(survey.Survey_Name__c.containsIgnoreCase('FFS Registration')){
-            type = SubmissionType.FFS_REGISTRATION;
-        }
         else {
             type = SubmissionType.NONE;
             // someone used an incorrect post-processing method. tech should fix this
@@ -294,7 +287,7 @@ public class BuccodecHelpers {
                 farmerPerson.Parish__c = subLocation;
                 farmerPerson.Gender__c = gender;
                 farmerPerson.Country__c = [SELECT Id FROM Country__c WHERE Name = 'Kenya'].get(0).Id;
-                farmerPerson.Type__c = 'Farmer';
+                farmerPerson.Type__c = 'BUCCODEG Farmer';
                 farmerPerson.OwnerId = owner[0].Id;
                 farmerPerson.GPS_Location_E__c = submission.interviewLongitude != null ? submission.interviewLongitude : '';
                 farmerPerson.GPS_Location_N__c = submission.interviewLatitude != null ? submission.interviewLatitude : '';
@@ -381,55 +374,6 @@ public class BuccodecHelpers {
 	                }
 	            }            
 	        }
-	        else if(type == SubmissionType.VSLA_REGISTRATION) {
-	        	// get information from vsla registration
-	        	metricNames = new List<String> { 
-	                'BUCCODEC_total_VSLA_held'
-	            };
-                List<M_E_Metric_Data__c> datas = getMetricDatas(metricNames, currentDate);
-	            // Loop through the data and see which ones we have already got. 
-	            // If they are not there already create them
-	            for (M_E_Metric_Data__c mData : datas) {
-	                 dataMap.put(mData.M_E_Metric__r.Name, mData);
-	            }
-	            // Loop through the list of metrics and check that they all exist and then update them
-	            for (String key : metricNames) {
-	                // Check that the three metrics for each metric name exists
-	                M_E_Metric_Data__c totalNewData = dataMap.get(key);
-	                totalNewData = totalNewData == null ? createNewMetric(key, currentDate) : totalNewData;
-	                
-	                // Update the metric based on the key
-	                if (key.equals('BUCCODEC_total_VSLA_held')) {
-                        totalNewData = updateMetricDataValues(totalNewData);
-	                    dataMap.put(key, totalNewData);
-	                }
-	            }	        		        	
-	        }
-	        else if(type == SubmissionType.FFS_REGISTRATION) {
-	        	// get information from vsla registration
-	        	metricNames = new List<String> { 
-	                'BUCCODEC_total_FFS_held'
-	            };
-                List<M_E_Metric_Data__c> datas = getMetricDatas(metricNames, currentDate);
-	            // Loop through the data and see which ones we have already got. 
-	            // If they are not there already create them
-	            for (M_E_Metric_Data__c mData : datas) {
-	                 dataMap.put(mData.M_E_Metric__r.Name, mData);
-	            }
-	            // Loop through the list of metrics and check that they all exist and then update them
-	            for (String key : metricNames) {
-	                // Check that the three metrics for each metric name exists
-	                M_E_Metric_Data__c totalNewData = dataMap.get(key);
-	                totalNewData = totalNewData == null ? createNewMetric(key, currentDate) : totalNewData;
-	                
-	                // Update the metric based on the key
-	                if (key.equals('BUCCODEC_total_FFS_held')) {
-                        totalNewData = updateMetricDataValues(totalNewData);
-	                    dataMap.put(key, totalNewData);
-	                }
-	            }	        		        	
-	        }
-	        
 	        List<Database.upsertResult> uResults = Database.upsert(dataMap.values());
 	        for(Database.upsertResult result : uResults) {
                 system.debug(LoggingLevel.INFO, 'succeeded ' + result.getId());
@@ -472,7 +416,6 @@ public class BuccodecHelpers {
             WHERE
                 Date__c = :quarterStartDate 
                 AND M_E_Metric__r.Name IN :metricNames
-                AND M_E_Metric__r.Not_For_Public__c = false
         ];
     }
     
@@ -521,7 +464,6 @@ public class BuccodecHelpers {
             WHERE
                 Date__c = :previousQuaterDate
                 AND M_E_Metric__r.Name = :key
-                AND M_E_Metric__r.Not_For_Public__c = false
         ];
         if(!datas.isEmpty()) {
             M_E_Metric_Data__c pData = datas[0];
@@ -655,7 +597,6 @@ public class BuccodecHelpers {
                 WHERE
                     Date__c = :currentDate
                     AND M_E_Metric__r.Name = :metricName
-                    AND M_E_Metric__r.Not_For_Public__c = false
         ];
         if(datas.isEmpty()){
             datas.add(createNewMetric(metricName, currentDate));
@@ -764,5 +705,5 @@ public class BuccodecHelpers {
     /**
     * Each BUCCODEG survey is of a particular submission type
     */
-    public enum SubmissionType { FARMER_REGISTRATION, VSLA_REGISTRATION, FFS_REGISTRATION, CKW_MONITORING,  NONE }
+    public enum SubmissionType { FARMER_REGISTRATION, CKW_MONITORING, NONE }
 }

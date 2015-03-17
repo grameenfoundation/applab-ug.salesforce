@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>ChangeStatus</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -29,6 +33,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -38,6 +46,10 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>NewCase</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -90,31 +102,27 @@
             <default>true</default>
         </values>
     </businessProcesses>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>AccountId</fullName>
-<<<<<<< HEAD
-=======
         <trackFeedHistory>false</trackFeedHistory>
->>>>>>> origin/ci
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>AssetId</fullName>
-<<<<<<< HEAD
-=======
         <trackFeedHistory>false</trackFeedHistory>
->>>>>>> origin/ci
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>BusinessHoursId</fullName>
-<<<<<<< HEAD
-        <type>Lookup</type>
-    </fields>
-    <fields>
-=======
         <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -128,6 +136,7 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -155,11 +164,11 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Category__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Please select a category for the support request based on the content of support</inlineHelpText>
@@ -265,136 +274,50 @@
                 <fullName>NAADS</fullName>
                 <default>false</default>
             </picklistValues>
-<<<<<<< HEAD
-=======
-
-	    <picklistValues>
-                <fullName>Banana GAP1: Soil Fertility</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP2: Desuckering, Pruning</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP3: Soil and Water Conservation</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP4: Support for Banana Plants</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP5: Record Keeping</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP6: Group Production, Marketing</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP7: Weed Control</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP8: Pests and Disease</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP9: Value Addition</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Banana GAP10: Agro-inputs</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP1: Soil Fertility</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP2: Desuckering, Pruning</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP3: Soil and Water Conservation</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP4: Value Addition</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP5: Record Keeping</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP6: Group Production/ Marketing</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP7: Weed Control</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP8: Pests and Disease</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP9: Processing</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee GAP10: Agro-inputs</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP1: Land Preparation</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP2: Proper Planting</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP3: Seed Selection</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP4: Soil Fertility Management</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP5: Pest and Disease</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP6: Harvesting</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP7: Bulking Marketing</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAP8: Record Keeping</fullName>
-                <default>false</default>
-            </picklistValues>
-
->>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>6</visibleLines>
     </fields>
     <fields>
+        <fullName>ClosedDate</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Comments</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactFax</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
         <fullName>ContactId</fullName>
-<<<<<<< HEAD
-=======
         <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactMobile</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
     </fields>
     <fields>
         <fullName>FbD_CM__Merge_To_Case__c</fullName>
@@ -408,8 +331,32 @@
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
->>>>>>> origin/ci
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IsClosedOnCreate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsEscalated</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsSelfServiceClosed</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsVisibleInSelfService</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
     </fields>
     <fields>
         <fullName>Origin</fullName>
@@ -437,22 +384,22 @@
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>OwnerId</fullName>
-<<<<<<< HEAD
-=======
         <trackFeedHistory>true</trackFeedHistory>
->>>>>>> origin/ci
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>ParentId</fullName>
-<<<<<<< HEAD
-=======
         <trackFeedHistory>false</trackFeedHistory>
->>>>>>> origin/ci
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -465,6 +412,7 @@
         <label>Person Owner Id</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -480,6 +428,7 @@
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -500,6 +449,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -523,6 +474,7 @@
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -542,6 +494,8 @@
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -553,6 +507,7 @@
         <length>16000</length>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Html</type>
         <visibleLines>10</visibleLines>
     </fields>
@@ -582,7 +537,31 @@
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedCompany</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedName</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedPhone</fullName>
+        <trackTrending>false</trackTrending>
     </fields>
     <fields>
         <fullName>Type</fullName>
@@ -619,16 +598,15 @@
                 <fullName>CKW Performance</fullName>
                 <default>false</default>
             </picklistValues>
-<<<<<<< HEAD
-=======
             <picklistValues>
                 <fullName>Extension Tool</fullName>
                 <default>false</default>
             </picklistValues>
->>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -639,6 +617,7 @@
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -649,6 +628,7 @@
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -661,6 +641,7 @@
         <scale>0</scale>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -672,6 +653,7 @@
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -682,6 +664,7 @@
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
@@ -694,6 +677,7 @@
         <scale>0</scale>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -709,13 +693,10 @@
         <columns>CASES.ORIGIN</columns>
         <filterScope>Everything</filterScope>
         <label>All Cases</label>
-<<<<<<< HEAD
-=======
         <language>en_US</language>
         <sharedTo>
             <group>CKWGroup</group>
         </sharedTo>
->>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>All_Closed_Cases</fullName>
@@ -736,13 +717,10 @@
             <value>Closed</value>
         </filters>
         <label>All Closed Cases</label>
-<<<<<<< HEAD
-=======
         <language>en_US</language>
         <sharedTo>
             <group>CKWGroup</group>
         </sharedTo>
->>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>All_Closed_Pulse_Cases</fullName>
@@ -759,9 +737,6 @@
             <operation>equals</operation>
             <value>Closed</value>
         </filters>
-<<<<<<< HEAD
-        <label>All New Cases</label>
-=======
         <filters>
             <field>CASES.ORIGIN</field>
             <operation>equals</operation>
@@ -772,7 +747,6 @@
         <sharedTo>
             <group>CKWGroup</group>
         </sharedTo>
->>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>All_Open_Cases</fullName>
@@ -804,8 +778,6 @@
         <filterScope>Queue</filterScope>
         <label>CKW Cases Queue</label>
         <queue>CKWCasesQueue</queue>
-<<<<<<< HEAD
-=======
     </listViews>
     <listViews>
         <fullName>Calls</fullName>
@@ -824,7 +796,6 @@
         </filters>
         <label>Calls</label>
         <language>en_US</language>
->>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>MyCases</fullName>
@@ -1116,13 +1087,10 @@
                 <default>false</default>
             </values>
             <values>
-<<<<<<< HEAD
-=======
                 <fullName>Extension Tool</fullName>
                 <default>false</default>
             </values>
             <values>
->>>>>>> origin/ci
                 <fullName>FVR-Suggestion</fullName>
                 <default>false</default>
             </values>
@@ -1158,10 +1126,7 @@
         <customTabListAdditionalFields>CASES.CREATED_DATE</customTabListAdditionalFields>
         <customTabListAdditionalFields>CASES.PRIORITY</customTabListAdditionalFields>
         <customTabListAdditionalFields>CASES.TYPE</customTabListAdditionalFields>
-<<<<<<< HEAD
-=======
         <listViewButtons>FbD_CM__Merge_Cases</listViewButtons>
->>>>>>> origin/ci
         <lookupDialogsAdditionalFields>CASES.CASE_NUMBER</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CASES.SUBJECT</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
@@ -1179,6 +1144,7 @@
         <searchResultsAdditionalFields>CASES.CREATED_DATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
+    <sharingModel>Private</sharingModel>
     <webLinks>
         <fullName>CreateContactfromWebInfo</fullName>
         <availability>online</availability>
@@ -1217,8 +1183,6 @@
         <showsLocation>false</showsLocation>
         <showsStatus>false</showsStatus>
         <url>https://applab.atlassian.net/plugins/servlet/customware/connector/issue/2/Case/create.action?id={!Case.Id}&amp;project=CKW+General&amp;issueType=Issue&amp;skipSearch=true&amp;os_username=pmo&amp;os_password=pmo123</url>
-<<<<<<< HEAD
-=======
     </webLinks>
     <webLinks>
         <fullName>FbD_CM__Merge_Case</fullName>
@@ -1240,7 +1204,6 @@
         <page>FbD_CM__MultiMergeCaseManager</page>
         <protected>false</protected>
         <requireRowSelection>true</requireRowSelection>
->>>>>>> origin/ci
     </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>

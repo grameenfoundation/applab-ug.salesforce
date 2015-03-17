@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,11 +44,15 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Acelga__c</fullName>
         <externalId>false</externalId>
@@ -44,12 +60,11 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Activity_type__c</fullName>
         <externalId>false</externalId>
         <label>Activity type</label>
@@ -60,6 +75,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -68,17 +84,18 @@
         <label>Adress or ubication</label>
         <length>200</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Aji__c</fullName>
         <externalId>false</externalId>
         <label>Aji</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -89,6 +106,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -99,6 +117,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -109,6 +128,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -119,6 +139,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -128,13 +149,10 @@
         <label>Backyard Garden Stage</label>
         <picklist>
             <picklistValues>
-<<<<<<< HEAD
-=======
                 <fullName>Ninguna</fullName>
                 <default>true</default>
             </picklistValues>
             <picklistValues>
->>>>>>> origin/ci
                 <fullName>Cosecha</fullName>
                 <default>false</default>
             </picklistValues>
@@ -143,21 +161,12 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-<<<<<<< HEAD
-                <fullName>Ninguna</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Preparación</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>true</sorted>
-=======
                 <fullName>Preparación</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -174,27 +183,26 @@
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
->>>>>>> origin/ci
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Backyard_garden_photo__c</fullName>
         <externalId>false</externalId>
         <label>Backyard garden photo</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Banano__c</fullName>
         <externalId>false</externalId>
         <label>Banano</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -205,6 +213,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -215,6 +224,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -225,6 +235,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -235,6 +246,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -245,6 +257,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -255,6 +268,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -265,6 +279,7 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -275,28 +290,28 @@
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Corregimiento__c</fullName>
         <externalId>false</externalId>
         <label>Corregimiento</label>
         <length>50</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Curuba__c</fullName>
         <externalId>false</externalId>
         <label>Curuba</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -315,6 +330,7 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -332,6 +348,7 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -349,6 +366,7 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -366,6 +384,7 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -383,6 +402,7 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -400,47 +420,20 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>DS_7__c</fullName>
-        <externalId>false</externalId>
-        <label>DS_7</label>
-        <picklist>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>true</sorted>
-        </picklist>
-        <type>Picklist</type>
-=======
         <fullName>Date__c</fullName>
         <externalId>false</externalId>
         <label>Date</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
->>>>>>> origin/ci
     </fields>
     <fields>
         <fullName>De_Sostenibilidad_Score__c</fullName>
         <externalId>false</externalId>
-<<<<<<< HEAD
-        <formula>IF(TEXT(DS_1__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_2__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_3__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_4__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_5__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)+
-IF(TEXT(DS_7__c)==&apos;Sí&apos;,1,0)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>De Sostenibilidad Score</label>
-=======
         <formula>IF(TEXT(DS_1__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(DS_2__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(DS_3__c)==&apos;Sí&apos;,1,0)+
@@ -449,10 +442,10 @@ IF(TEXT(DS_5__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Sostenibilidad Score</label>
->>>>>>> origin/ci
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -463,6 +456,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -473,6 +467,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -481,12 +476,9 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <externalId>false</externalId>
         <label>Family Visits</label>
         <precision>18</precision>
-<<<<<<< HEAD
-        <required>true</required>
-=======
         <required>false</required>
->>>>>>> origin/ci
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -497,6 +489,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -507,6 +500,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -517,6 +511,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -529,12 +524,11 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <relationshipName>Mana_Household_Production_Records</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Huerta_activa__c</fullName>
         <description>1 = Huerta activa = Cosecha, preparación ó desarrollo
 0 = No está activa = Ninguna</description>
@@ -545,6 +539,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -563,6 +558,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -580,16 +576,17 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Lechuga__c</fullName>
         <externalId>false</externalId>
         <label>Lechuga</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -600,6 +597,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -610,6 +608,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -620,6 +619,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -630,17 +630,17 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Municipio__c</fullName>
         <externalId>false</externalId>
         <label>Municipio</label>
         <length>50</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -651,6 +651,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -661,6 +662,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -669,10 +671,10 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <externalId>false</externalId>
         <label>Other topics TA</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>PC_10__c</fullName>
         <externalId>false</externalId>
         <label>PC_10</label>
@@ -687,11 +689,10 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>PC_11__c</fullName>
         <externalId>false</externalId>
         <label>PC_11</label>
@@ -706,6 +707,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -723,10 +725,10 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>PC_1__c</fullName>
         <externalId>false</externalId>
         <label>PC_1</label>
@@ -741,6 +743,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -758,6 +761,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -775,6 +779,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -792,6 +797,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -809,6 +815,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -826,6 +833,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -843,6 +851,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -860,6 +869,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -877,6 +887,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -886,6 +897,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -896,6 +908,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -906,6 +919,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -916,6 +930,7 @@ IF(TEXT(DS_6__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -931,130 +946,26 @@ IF(TEXT(PC_6__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_7__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_8__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_9__c)==&apos;Sí&apos;,1,0)+
-<<<<<<< HEAD
-IF(TEXT(PC_10__c)==&apos;Sí&apos;,1,0)</formula>
-=======
 IF(TEXT(PC_10__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_11__c)==&apos;Sí&apos;,1,0)+
 IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
->>>>>>> origin/ci
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Planning Carried Out Score</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Rabano__c</fullName>
-        <externalId>false</externalId>
-        <label>Rabano</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Remolacha__c</fullName>
-        <externalId>false</externalId>
-        <label>Remolacha</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Repollo__c</fullName>
-        <externalId>false</externalId>
-        <label>Repollo</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Sandia__c</fullName>
-        <externalId>false</externalId>
-        <label>Sandia</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Tomate_Alino__c</fullName>
-        <externalId>false</externalId>
-        <label>Tomate Alino</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Tomate_De_Arbol__c</fullName>
-        <externalId>false</externalId>
-        <label>Tomate De Arbol</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Trueque_Destination_Amount__c</fullName>
-        <externalId>false</externalId>
-        <label>Trueque Destination Amount</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Uchuva__c</fullName>
-        <externalId>false</externalId>
-        <label>Uchuva</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Venta_Destination_Amount__c</fullName>
-        <externalId>false</externalId>
-        <label>Venta Destination Amount</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Zanahoria__c</fullName>
-        <externalId>false</externalId>
-        <label>Zanahoria</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <label>Mana Household Production Record</label>
-=======
         <fullName>Planning_carried_out_category__c</fullName>
         <externalId>false</externalId>
         <formula>IF(Planning_Carried_Out_Score__c&lt;4,&apos;Insuficiente&apos;, IF(Planning_Carried_Out_Score__c&gt;3 &amp;&amp; Planning_Carried_Out_Score__c&lt;7, &apos;Aceptable&apos;, &apos;Suficiente&apos;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Planning carried out category</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1209,6 +1120,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -1235,6 +1147,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -1245,6 +1158,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1254,6 +1168,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>Region</label>
         <length>50</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1264,6 +1179,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1274,6 +1190,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1283,6 +1200,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>Respondent Id</label>
         <length>30</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1292,6 +1210,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>Respondent name</label>
         <length>45</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1302,6 +1221,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1314,6 +1234,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <relationshipLabel>Mana Household Production Records</relationshipLabel>
         <relationshipName>Mana_Household_Production_Records</relationshipName>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -1323,6 +1244,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1333,6 +1255,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1343,6 +1266,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1381,6 +1305,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -1393,6 +1318,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>1</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1403,6 +1329,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1413,6 +1340,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1423,6 +1351,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1433,6 +1362,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -1443,6 +1373,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Categoria sostenibilidad</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1457,6 +1388,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1465,6 +1397,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>garden duration</label>
         <length>20</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1495,6 +1428,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1503,6 +1437,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>head household</label>
         <length>30</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1521,6 +1456,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1562,6 +1498,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1599,6 +1536,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1608,6 +1546,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <formula>if( Household__r.Last_production_date__c = CreatedDate, &quot;Y&quot;, &quot;N&quot;)</formula>
         <label>last production record</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1626,6 +1565,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1633,6 +1573,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <externalId>false</externalId>
         <label>notes for inactivity</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
@@ -1641,6 +1582,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>other reason for inactive garden</label>
         <length>200</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1650,6 +1592,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>respondent phone</label>
         <length>50</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1668,6 +1611,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1676,6 +1620,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <formula>IF(    Household__r.ultima_toma_de_producci_n__c    = CreatedDate ,&quot;Sí&quot;,&quot;No&quot;)</formula>
         <label>Última visita</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1694,6 +1639,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -1702,6 +1648,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>where live now</label>
         <length>200</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1728,6 +1675,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -1737,6 +1685,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>which entity</label>
         <length>20</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1746,6 +1695,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>wich other supplies</label>
         <length>200</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1755,6 +1705,7 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>zona</label>
         <length>50</length>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -1772,7 +1723,6 @@ IF(TEXT(PC_12__c)==&apos;Sí&apos;,1,0)</formula>
         <label>All</label>
         <language>en_US</language>
     </listViews>
->>>>>>> origin/ci
     <nameField>
         <displayFormat>{0000000000}</displayFormat>
         <label>Mana Household Production Name</label>

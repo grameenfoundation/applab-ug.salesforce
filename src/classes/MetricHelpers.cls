@@ -261,11 +261,7 @@ public with sharing class MetricHelpers {
         System.debug(LoggingLevel.INFO, 'Metric Created Successfully');
         return metricData;
     }
-<<<<<<< HEAD
-	
-=======
     
->>>>>>> origin/ci
     public static M_E_Metric_Data__c createNewMetric(
             String metricName,
             Date startDate,
@@ -293,21 +289,12 @@ public with sharing class MetricHelpers {
         metricData.Date__c = startDate;
         metricData.Actual_Value__c = actualValue;
         metricData.Is_Cumulative__c = isCumulative;
-<<<<<<< HEAD
-		metricData.Denumerator__c = 0;
-		metricData.Numerator__c = 0;
-        if (districtId != null) {
-            metricData.District__c = districtId;
-        }
-		metricData.Subcounty__c = subcountyId;
-=======
         metricData.Denumerator__c = 0;
         metricData.Numerator__c = 0;
         if (districtId != null) {
             metricData.District__c = districtId;
         }
         metricData.Subcounty__c = subcountyId;
->>>>>>> origin/ci
         // If no target supplied get the target from the parent metric
         if (target == null) {
             if (metric != null) {
@@ -1541,8 +1528,6 @@ public with sharing class MetricHelpers {
         return endDate;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * sends email to tech there there happens to be errors in the scheduled job or
      * the job's status is not 'Completed'
@@ -1564,7 +1549,6 @@ public with sharing class MetricHelpers {
             }
     }
 
->>>>>>> origin/ci
     // END OF METHODS USED BY NEW COMPONENT DASHBOARD
 
     static testMethod void testGetSMS() {
@@ -1658,11 +1642,7 @@ public with sharing class MetricHelpers {
         MetricHelpers.calculateAverageMetric('TEST_THIS_CODE');
 
         // Check the date manipulations
-<<<<<<< HEAD
-        Date testDate1 = date.newInstance(2013, 2, 1);
-=======
         Date testDate1 = date.newInstance(Datetime.now().year(), 2, 1);
->>>>>>> origin/ci
         Integer firstQuarter = getQuarter(testDate1);
         String firstQuarterStartMonth = getQuarterStartMonth(firstQuarter);
         String firstQuarterEndMonth = getQuarterEndMonth(firstQuarter);
@@ -1700,11 +1680,7 @@ public with sharing class MetricHelpers {
         Date quarterIntStringLast = getQuarterLastDay(quarterString);
         Date quarterDateStringFirst = getQuarterFirstDay(quarterDateString);
         Date quarterDateStringLast = getQuarterLastDay(quarterDateString);
-<<<<<<< HEAD
-        System.AssertEquals(quarterString,'Jan - Mar 2013');
-=======
         System.AssertEquals(quarterString,'Jan - Mar ' + Datetime.now().year());
->>>>>>> origin/ci
         System.assertEquals(quarterString, quarterDateString);
         System.assertEquals(quarterIntStringFirst, quarterDateStringFirst);
         System.assertEquals(quarterIntStringLast, quarterDateStringLast);

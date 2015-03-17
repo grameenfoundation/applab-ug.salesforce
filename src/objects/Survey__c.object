@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,13 +44,17 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Surveys run by CKWs. There is one entry here for each type of survey. Survey questions (and responses) are NOT stored here.</description>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Account__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -46,11 +62,21 @@
         <externalId>false</externalId>
         <inlineHelpText>Select the customer who ordered to run the survey</inlineHelpText>
         <label>Account</label>
+        <lookupFilter>
+            <active>false</active>
+            <filterItems>
+                <field>Account.OwnerId</field>
+                <operation>equals</operation>
+                <valueField>$User.Id</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Account</referenceTo>
         <relationshipLabel>Surveys</relationshipLabel>
         <relationshipName>Surveys</relationshipName>
         <required>false</required>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -60,6 +86,7 @@
         <externalId>false</externalId>
         <label>Allow No Interviewee</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -70,6 +97,7 @@
         <inlineHelpText>Check this to stop the a submission from being saved to Salesforce once they have been sent to SF. Leave unchecked if you do not know what this does</inlineHelpText>
         <label>Block Submission Saving</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -80,6 +108,7 @@
         <inlineHelpText>Post processing should not be run immediately until a submission has been approved</inlineHelpText>
         <label>Defer Post Processing</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -90,6 +119,7 @@
         <label>End Date</label>
         <required>false</required>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -102,6 +132,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -114,6 +145,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
@@ -133,6 +165,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -143,6 +176,7 @@
         <label>Export URL</label>
         <required>true</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
@@ -152,6 +186,7 @@
         <label>Form Data</label>
         <length>32000</length>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -189,6 +224,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -198,6 +234,7 @@
         <externalId>false</externalId>
         <label>Include Poverty Scorecard</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -210,6 +247,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -225,6 +263,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <required>true</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -355,8 +394,6 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
                 <fullName>BVAT_CONTENT_SURVEY</fullName>
                 <default>false</default>
             </picklistValues>
-<<<<<<< HEAD
-=======
             <picklistValues>
                 <fullName>IG_CBT_VISITS</fullName>
                 <default>false</default>
@@ -393,10 +430,10 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
                 <fullName>MBUGO</fullName>
                 <default>false</default>
             </picklistValues>
->>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -409,6 +446,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <relationshipName>CKW_Surveys</relationshipName>
         <required>false</required>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -421,6 +459,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -432,6 +471,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <inlineHelpText>If you don&apos;t know what this is for please leave it unchecked</inlineHelpText>
         <label>Save To Backend</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -441,6 +481,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <externalId>false</externalId>
         <label>Save To Salesforce</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -451,6 +492,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <label>Start Date</label>
         <required>false</required>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -460,6 +502,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <externalId>false</externalId>
         <label>Stop Save To Backend</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -472,6 +515,7 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <length>25</length>
         <required>false</required>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>true</unique>
     </fields>
@@ -509,6 +553,7 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -537,6 +582,7 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>Survey</label>
@@ -547,14 +593,6 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
         <columns>NAME</columns>
         <columns>Number_of_Questions__c</columns>
         <columns>CREATED_DATE</columns>
-<<<<<<< HEAD
-        <columns>Start_Date__c</columns>
-        <columns>End_Date__c</columns>
-        <columns>OWNER.ALIAS</columns>
-        <columns>CREATEDBY_USER</columns>
-        <columns>OWNER.FIRST_NAME</columns>
-        <columns>OWNER.LAST_NAME</columns>
-=======
         <columns>CREATEDBY_USER</columns>
         <columns>LAST_UPDATE</columns>
         <filterScope>Everything</filterScope>
@@ -575,26 +613,8 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
         <columns>CREATED_DATE</columns>
         <columns>CREATEDBY_USER</columns>
         <columns>LAST_UPDATE</columns>
-        <columns>LAST_ACTIVITY</columns>
         <filterScope>Everything</filterScope>
         <label>List of All Surveys</label>
-        <language>en_US</language>
-    </listViews>
-    <listViews>
-        <fullName>lac_surveys</fullName>
-        <columns>NAME</columns>
-        <columns>OBJECT_ID</columns>
-        <columns>Account__c</columns>
-        <columns>Survey_Name__c</columns>
-        <columns>OWNER.ALIAS</columns>
->>>>>>> origin/ci
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>OWNER.FIRST_NAME</field>
-            <operation>contains</operation>
-            <value>MANA</value>
-        </filters>
-        <label>lac surveys</label>
         <language>en_US</language>
     </listViews>
     <nameField>

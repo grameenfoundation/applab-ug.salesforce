@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,11 +44,15 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Backyard_Garden_Generates_Surplus__c</fullName>
         <externalId>false</externalId>
@@ -53,6 +69,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -83,6 +100,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -93,6 +111,7 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -116,6 +135,7 @@
             <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -125,22 +145,11 @@
         <length>50</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Has_Backyard_Garden__c</fullName>
-        <externalId>false</externalId>
-        <label>Has_Backyard_Garden</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-=======
         <fullName>Count_Children_With_Duplicate_Ids__c</fullName>
         <externalId>false</externalId>
         <label>Count Children With Duplicate Ids Temp</label>
@@ -148,6 +157,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -170,32 +180,15 @@
             </picklistValues>
             <picklistValues>
                 <fullName>4</fullName>
->>>>>>> origin/ci
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Interviewer__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Interviewer</label>
-        <referenceTo>Contact</referenceTo>
-        <relationshipLabel>Registered Households</relationshipLabel>
-        <relationshipName>Mana_Households</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Municipio__c</fullName>
-        <externalId>false</externalId>
-        <label>Municipio</label>
-=======
         <fullName>District_Correct__c</fullName>
         <externalId>false</externalId>
         <formula>substitute( Corrigimiento__c , &quot;_&quot;, &quot; &quot;)</formula>
@@ -203,6 +196,7 @@
         <label>District (Correct)</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -212,6 +206,7 @@
         <externalId>false</externalId>
         <label>Duplicate Processed</label>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -223,6 +218,7 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -231,37 +227,14 @@
         <description>This field get it&apos;s value from the backyard garden stage field on the household production record, whenever a new household production record is created.</description>
         <externalId>false</externalId>
         <label>Fase de la huerta</label>
->>>>>>> origin/ci
         <length>50</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Programas_Centro_de_Recuperacion_Nutri__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Centro de Recuperacion Nutri</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Control_prenatal__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Control prenatal</label>
-=======
         <fullName>Foto__c</fullName>
         <externalId>false</externalId>
         <formula>IF(ISBLANK( Photo__c) || ISNULL(Photo__c), &quot;&quot;, IMAGE(Photo__c ,&quot;Profile Picture&quot;, 263, 223))</formula>
@@ -269,6 +242,7 @@
         <label>Foto</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -276,7 +250,6 @@
         <fullName>Has_Backyard_Garden__c</fullName>
         <externalId>false</externalId>
         <label>Has_Backyard_Garden</label>
->>>>>>> origin/ci
         <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
@@ -289,96 +262,10 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Programas_Crecimiento_y_desarrollo__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Crecimiento y desarrollo</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Mana_infantil__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Mana infantil</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Otros__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Otros</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_PAE__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - PAE</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackHistory>false</trackHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>Programas_Red_unidos__c</fullName>
-        <externalId>false</externalId>
-        <label>Programas - Red unidos</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Sí</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>No</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-=======
         <fullName>Interviewer__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -388,6 +275,7 @@
         <relationshipName>Mana_Households</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -398,6 +286,7 @@
         <summaryForeignKey>Mana_Household_Repeatable_Data__c.Household__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -408,6 +297,7 @@
         <summaryForeignKey>Mana_Household_Production_Record__c.Household__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -420,6 +310,7 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -433,8 +324,21 @@
         <required>false</required>
         <scale>5</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Max_CD__c</fullName>
+        <description>MAx Created Date</description>
+        <externalId>false</externalId>
+        <label>Max_CD</label>
+        <summarizedField>Mana_Household_Repeatable_Data__c.CreatedDate</summarizedField>
+        <summaryForeignKey>Mana_Household_Repeatable_Data__c.Household__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
     </fields>
     <fields>
         <fullName>Miembros_del_hogar_Correcto__c</fullName>
@@ -443,6 +347,7 @@
         <summaryForeignKey>Mana_Beneficiary__c.Household__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -453,6 +358,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -464,6 +370,7 @@
         <label>Municipality (Correct)</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -474,6 +381,7 @@
         <length>50</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -491,19 +399,18 @@
                 <default>false</default>
             </picklistValues>
             <sorted>true</sorted>
->>>>>>> origin/ci
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Photo__c</fullName>
         <externalId>false</externalId>
         <label>Photo</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
@@ -514,17 +421,18 @@
         <label>Region (Correct)</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>Region__c</fullName>
         <externalId>false</externalId>
         <label>Region</label>
         <length>50</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -539,6 +447,7 @@
         <relationshipName>Mana_Households</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -549,16 +458,11 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Vereda__c</fullName>
-        <externalId>false</externalId>
-        <label>Vereda</label>
-        <length>50</length>
-=======
         <fullName>Survey_Place__c</fullName>
         <externalId>false</externalId>
         <label>Survey Place</label>
@@ -574,6 +478,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -581,19 +486,13 @@
         <externalId>false</externalId>
         <label>Teléfono</label>
         <length>20</length>
->>>>>>> origin/ci
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>Weekly_Food_Spend__c</fullName>
-        <externalId>false</externalId>
-        <label>Weekly Food Spend</label>
-        <length>20</length>
-=======
         <fullName>Usa_quimicos__c</fullName>
         <externalId>false</externalId>
         <formula>if(text( Backyard_Garden_Pest_Control_Method__c )=&quot;Químico&quot;,1,0)</formula>
@@ -603,6 +502,7 @@
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -611,9 +511,9 @@
         <externalId>false</externalId>
         <label>Vereda</label>
         <length>50</length>
->>>>>>> origin/ci
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -624,18 +524,18 @@
         <length>50</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>address__c</fullName>
         <externalId>false</externalId>
         <label>address</label>
         <length>20</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -655,10 +555,10 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>gps_approximation__c</fullName>
         <description>The GPS approximation value from the submission that created this record</description>
         <externalId>false</externalId>
@@ -669,35 +569,11 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
-<<<<<<< HEAD
-        <fullName>gps_x__c</fullName>
-        <description>The GPS X coordinate for the submission</description>
-        <externalId>false</externalId>
-        <formula>IF(ISBLANK(Registration_Submission_Record__c),0, Registration_Submission_Record__r.gfsurveys__gps_x__c)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>gps x</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>6</scale>
-        <trackHistory>false</trackHistory>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>gps_y__c</fullName>
-        <description>The GPS y coordinate from the submission that created this household</description>
-        <externalId>false</externalId>
-        <formula>IF(ISBLANK(Registration_Submission_Record__c),0, Registration_Submission_Record__r.gfsurveys__gps_y__c)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>gps y</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>6</scale>
-=======
         <fullName>has_SISBEN__c</fullName>
         <externalId>false</externalId>
         <label>has SISBEN</label>
@@ -713,6 +589,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -722,6 +599,7 @@
         <length>20</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -731,6 +609,7 @@
         <label>signature</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
@@ -742,14 +621,11 @@
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
->>>>>>> origin/ci
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
-<<<<<<< HEAD
-    <label>Mana Household</label>
-=======
     <fields>
         <fullName>ultima_toma_de_producci_n__c</fullName>
         <externalId>false</externalId>
@@ -758,6 +634,7 @@
         <summaryForeignKey>Mana_Household_Production_Record__c.Household__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
     <fields>
@@ -776,6 +653,7 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>Mana Household</label>
@@ -813,7 +691,6 @@
         <label>Mana Households_Same_Ids</label>
         <language>en_US</language>
     </listViews>
->>>>>>> origin/ci
     <nameField>
         <label>Id</label>
         <trackHistory>false</trackHistory>
@@ -821,9 +698,5 @@
     </nameField>
     <pluralLabel>Mana Households</pluralLabel>
     <searchLayouts/>
-<<<<<<< HEAD
-    <sharingModel>ReadWrite</sharingModel>
-=======
     <sharingModel>Private</sharingModel>
->>>>>>> origin/ci
 </CustomObject>

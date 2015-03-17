@@ -31,8 +31,6 @@ public with sharing class CampaignMessageDefController {
 			campaign = campaignMessage.Message_Campaign__r;
 		} else {
 			campaignMessage = new Campaign_Message_Def__c();
-<<<<<<< HEAD
-=======
 			String campaignId = ApexPages.currentPage().getParameters().get('CampaignId');
 			if(campaignId != null ){
 				campaign = [SELECT
@@ -47,7 +45,6 @@ public with sharing class CampaignMessageDefController {
 				
 				campaignMessage.Message_Campaign__c = campaign.Id;
 			}
->>>>>>> origin/ci
 		}
 	}
 	

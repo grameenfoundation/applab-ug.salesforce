@@ -68,13 +68,25 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>CBL2_Farmer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CBL2_Farmer</label>
+        <referenceTo>CBL2_Farmer__c</referenceTo>
+        <relationshipLabel>CBL_Attitud_CBL2_Farmer</relationshipLabel>
+        <relationshipName>CBL_Attitud_CBL2_Farmer</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Submission__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
-        <relationshipLabel>CBL_Attitude_Submission</relationshipLabel>
-        <relationshipName>CBL_Attitude_Submission</relationshipName>
+        <relationshipLabel>CBL_Attitud_Submission</relationshipLabel>
+        <relationshipName>CBL_Attitud_Submission</relationshipName>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
@@ -461,6 +473,28 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <externalId>false</externalId>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>

@@ -68,6 +68,18 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+        <fullName>CBL2_Farmer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CBL2_Farmer</label>
+        <referenceTo>CBL2_Farmer__c</referenceTo>
+        <relationshipLabel>CBL_SocioEconomic_CBL2_Farmer</relationshipLabel>
+        <relationshipName>CBL_SocioEconomic_CBL2_Farmer</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Financing_source_Banco__c</fullName>
         <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Banco&quot;), 1, 0)</formula>
@@ -1417,6 +1429,28 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>type__c</fullName>
+        <externalId>false</externalId>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>vegetablesAreaUnits__c</fullName>
         <externalId>false</externalId>
         <label>vegetablesAreaUnits</label>
@@ -1441,7 +1475,7 @@
                 <fullName>Manzanas</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
         </picklist>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>

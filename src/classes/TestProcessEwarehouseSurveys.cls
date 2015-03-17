@@ -148,27 +148,6 @@ private class TestProcessEwarehouseSurveys {
         Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
         answers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', 'ABC123', null, null, 0));
         answers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', ' ', null, null, 0));
-<<<<<<< HEAD
-        answers.put('q8_0', Utils.createTestSubmissionAnswer(null, 'q8', '1', null, null, 0));
-        answers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 0));
-        answers.put('q8_1', Utils.createTestSubmissionAnswer(null, 'q8', '2', null, null, 1));
-        answers.put('q9_1', Utils.createTestSubmissionAnswer(null, 'q9', '40', null, null, 1));
-        answers.put('q8_2', Utils.createTestSubmissionAnswer(null, 'q8', '3', null, null, 2));
-        answers.put('q9_2', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 2));
-        answers.put('q11_0', Utils.createTestSubmissionAnswer(null, 'q11', '1', null, null, 0));
-        answers.put('q12_0', Utils.createTestSubmissionAnswer(null, 'q12', '2', null, null, 0));
-        answers.put('q11_1', Utils.createTestSubmissionAnswer(null, 'q11', '2', null, null, 1));
-        answers.put('q13_0', Utils.createTestSubmissionAnswer(null, 'q13', '2', null, null, 0));
-        answers.put('q11_2', Utils.createTestSubmissionAnswer(null, 'q11', '3', null, null, 2));
-        answers.put('q13_1', Utils.createTestSubmissionAnswer(null, 'q13', '2', null, null, 1));
-        answers.put('q19_0', Utils.createTestSubmissionAnswer(null, 'q19', '1', null, null, 0));
-        answers.put('q20_0', Utils.createTestSubmissionAnswer(null, 'q20', '25', null, null, 0));
-        answers.put('q21_0', Utils.createTestSubmissionAnswer(null, 'q21', '5', null, null, 0));
-        answers.put('q19_1', Utils.createTestSubmissionAnswer(null, 'q19', '2', null, null, 1));
-        answers.put('q20_1', Utils.createTestSubmissionAnswer(null, 'q20', '30', null, null, 1));
-        answers.put('q21_1', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 1));
-        answers.put('q19_2', Utils.createTestSubmissionAnswer(null, 'q19', '3', null, null, 2));
-=======
         answers.put('q8_0', Utils.createTestSubmissionAnswer(null, 'q8', 'Maize', null, null, 0));
         answers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 0));
         answers.put('q8_1', Utils.createTestSubmissionAnswer(null, 'q8', 'Beans', null, null, 1));
@@ -188,7 +167,6 @@ private class TestProcessEwarehouseSurveys {
         answers.put('q20_1', Utils.createTestSubmissionAnswer(null, 'q20', '30', null, null, 1));
         answers.put('q21_1', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 1));
         answers.put('q19_2', Utils.createTestSubmissionAnswer(null, 'q19', 'Pigeonpeas', null, null, 2));
->>>>>>> origin/ci
         answers.put('q20_2', Utils.createTestSubmissionAnswer(null, 'q20', '20', null, null, 2));
         answers.put('q21_2', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 2));
         answers.put('q22_0', Utils.createTestSubmissionAnswer(null, 'q22', '0', null, null, 0));
@@ -197,27 +175,6 @@ private class TestProcessEwarehouseSurveys {
         Map<String, Submission_Answer__c> nonMaizeAnswers = new Map<String, Submission_Answer__c>();
         nonMaizeAnswers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', 'ABC123', null, null, 0));
         nonMaizeAnswers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', ' ', null, null, 0));
-<<<<<<< HEAD
-        nonMaizeAnswers.put('q8_0', Utils.createTestSubmissionAnswer(null, 'q8', '4', null, null, 0));
-        nonMaizeAnswers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 0));
-        nonMaizeAnswers.put('q8_1', Utils.createTestSubmissionAnswer(null, 'q8', '2', null, null, 1));
-        nonMaizeAnswers.put('q9_1', Utils.createTestSubmissionAnswer(null, 'q9', '40', null, null, 1));
-        nonMaizeAnswers.put('q8_2', Utils.createTestSubmissionAnswer(null, 'q8', '3', null, null, 2));
-        nonMaizeAnswers.put('q9_2', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 2));
-        nonMaizeAnswers.put('q11_0', Utils.createTestSubmissionAnswer(null, 'q11', '4', null, null, 0));
-        nonMaizeAnswers.put('q13_0', Utils.createTestSubmissionAnswer(null, 'q13', '2', null, null, 0));
-        nonMaizeAnswers.put('q11_1', Utils.createTestSubmissionAnswer(null, 'q11', '2', null, null, 1));
-        nonMaizeAnswers.put('q13_1', Utils.createTestSubmissionAnswer(null, 'q13', '2', null, null, 1));
-        nonMaizeAnswers.put('q11_2', Utils.createTestSubmissionAnswer(null, 'q11', '3', null, null, 2));
-        nonMaizeAnswers.put('q13_2', Utils.createTestSubmissionAnswer(null, 'q13', '2', null, null, 2));
-        nonMaizeAnswers.put('q19_0', Utils.createTestSubmissionAnswer(null, 'q19', '4', null, null, 0));
-        nonMaizeAnswers.put('q20_0', Utils.createTestSubmissionAnswer(null, 'q20', '25', null, null, 0));
-        nonMaizeAnswers.put('q21_0', Utils.createTestSubmissionAnswer(null, 'q21', '5', null, null, 0));
-        nonMaizeAnswers.put('q19_1', Utils.createTestSubmissionAnswer(null, 'q19', '2', null, null, 1));
-        nonMaizeAnswers.put('q20_1', Utils.createTestSubmissionAnswer(null, 'q20', '30', null, null, 1));
-        nonMaizeAnswers.put('q21_1', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 1));
-        nonMaizeAnswers.put('q19_2', Utils.createTestSubmissionAnswer(null, 'q19', '3', null, null, 2));
-=======
         nonMaizeAnswers.put('q8_0', Utils.createTestSubmissionAnswer(null, 'q8', 'Blackbeans', null, null, 0));
         nonMaizeAnswers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 0));
         nonMaizeAnswers.put('q8_1', Utils.createTestSubmissionAnswer(null, 'q8', 'Beans', null, null, 1));
@@ -237,36 +194,10 @@ private class TestProcessEwarehouseSurveys {
         nonMaizeAnswers.put('q20_1', Utils.createTestSubmissionAnswer(null, 'q20', '30', null, null, 1));
         nonMaizeAnswers.put('q21_1', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 1));
         nonMaizeAnswers.put('q19_2', Utils.createTestSubmissionAnswer(null, 'q19', 'Pigeonpeas', null, null, 2));
->>>>>>> origin/ci
         nonMaizeAnswers.put('q20_2', Utils.createTestSubmissionAnswer(null, 'q20', '20', null, null, 2));
         nonMaizeAnswers.put('q21_2', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 2));
         nonMaizeAnswers.put('q22_0', Utils.createTestSubmissionAnswer(null, 'q22', '0', null, null, 0));
         nonMaizeAnswers.put('q30_0', Utils.createTestSubmissionAnswer(null, 'q30', '1234 5678', null, null, null));
-<<<<<<< HEAD
-		nonMaizeAnswers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', '4 2 3', null, null, 0));
-
-        Map<String, Submission_Answer__c> maizeAnswers = new Map<String, Submission_Answer__c>();
-        maizeAnswers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', 'ABC123', null, null, 0));
-        maizeAnswers.put('q8_0', Utils.createTestSubmissionAnswer(null, 'q8', '4', null, null, 0));
-        maizeAnswers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 0));
-        maizeAnswers.put('q8_1', Utils.createTestSubmissionAnswer(null, 'q8', '1', null, null, 1));
-        maizeAnswers.put('q9_1', Utils.createTestSubmissionAnswer(null, 'q9', '40', null, null, 1));
-        maizeAnswers.put('q8_2', Utils.createTestSubmissionAnswer(null, 'q8', '3', null, null, 2));
-        maizeAnswers.put('q9_2', Utils.createTestSubmissionAnswer(null, 'q9', '30', null, null, 2));
-        maizeAnswers.put('q11_0', Utils.createTestSubmissionAnswer(null, 'q11', '4', null, null, 0));
-        maizeAnswers.put('q13_0', Utils.createTestSubmissionAnswer(null, 'q13', '2', null, null, 0));
-        maizeAnswers.put('q11_1', Utils.createTestSubmissionAnswer(null, 'q11', '1', null, null, 1));
-        maizeAnswers.put('q12_0', Utils.createTestSubmissionAnswer(null, 'q12', '2', null, null, 0));
-        maizeAnswers.put('q11_2', Utils.createTestSubmissionAnswer(null, 'q11', '3', null, null, 2));
-        maizeAnswers.put('q13_1', Utils.createTestSubmissionAnswer(null, 'q13', '2', null, null, 1));
-        maizeAnswers.put('q19_0', Utils.createTestSubmissionAnswer(null, 'q19', '4', null, null, 0));
-        maizeAnswers.put('q20_0', Utils.createTestSubmissionAnswer(null, 'q20', '25', null, null, 0));
-        maizeAnswers.put('q21_0', Utils.createTestSubmissionAnswer(null, 'q21', '5', null, null, 0));
-        maizeAnswers.put('q19_1', Utils.createTestSubmissionAnswer(null, 'q19', '1', null, null, 1));
-        maizeAnswers.put('q20_1', Utils.createTestSubmissionAnswer(null, 'q20', '30', null, null, 1));
-        maizeAnswers.put('q21_1', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 1));
-        maizeAnswers.put('q19_2', Utils.createTestSubmissionAnswer(null, 'q19', '3', null, null, 2));
-=======
 		nonMaizeAnswers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', 'Blackbeans Beans Pigeonpeas', null, null, 0));
 
         Map<String, Submission_Answer__c> maizeAnswers = new Map<String, Submission_Answer__c>();
@@ -290,16 +221,11 @@ private class TestProcessEwarehouseSurveys {
         maizeAnswers.put('q20_1', Utils.createTestSubmissionAnswer(null, 'q20', '30', null, null, 1));
         maizeAnswers.put('q21_1', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 1));
         maizeAnswers.put('q19_2', Utils.createTestSubmissionAnswer(null, 'q19', 'Pigeonpeas', null, null, 2));
->>>>>>> origin/ci
         maizeAnswers.put('q20_2', Utils.createTestSubmissionAnswer(null, 'q20', '20', null, null, 2));
         maizeAnswers.put('q21_2', Utils.createTestSubmissionAnswer(null, 'q21', '10', null, null, 2));
         maizeAnswers.put('q22_0', Utils.createTestSubmissionAnswer(null, 'q22', '0', null, null, 0));
         maizeAnswers.put('q30_0', Utils.createTestSubmissionAnswer(null, 'q30', '1234 5678', null, null, null));
-<<<<<<< HEAD
-		maizeAnswers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', '4 1 3', null, null, 0));
-=======
 		maizeAnswers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', 'Blackbeans Maize Pigeonpeas', null, null, 0));
->>>>>>> origin/ci
 
         List<String> returnValues = new List<String>();
         test.startTest();
@@ -309,11 +235,7 @@ private class TestProcessEwarehouseSurveys {
         System.assert(returnValues.get(0).equals('0'));
                
         // Test for success
-<<<<<<< HEAD
-        answers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', '1 2 3', null, null, 0));
-=======
         answers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', 'Maize Beans Pigeonpeas', null, null, 0));
->>>>>>> origin/ci
         returnValues = ProcessEwarehouseSurveys.processEwarehouseHarvestSurvey(submission, answers, person);         
         System.assert(returnValues.get(0).equals('1'));
         
@@ -352,24 +274,6 @@ private class TestProcessEwarehouseSurveys {
 		Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
         answers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', 'ABC123', null, null, 0));
         answers.put('q15_0', Utils.createTestSubmissionAnswer(null, 'q15', 'xyz123', null, null, 0));
-<<<<<<< HEAD
-        answers.put('q5_0', Utils.createTestSubmissionAnswer(null, 'q5', '1', null, null, 0));
-        answers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', '2', null, null, 0));
-        answers.put('q7_0', Utils.createTestSubmissionAnswer(null, 'q7', '30', null, null, 0));
-        answers.put('q5_1', Utils.createTestSubmissionAnswer(null, 'q5', '2', null, null, 1));
-        answers.put('q6_1', Utils.createTestSubmissionAnswer(null, 'q6', '3', null, null, 1));
-        answers.put('q7_1', Utils.createTestSubmissionAnswer(null, 'q7', '40', null, null, 1));
-        answers.put('q5_2', Utils.createTestSubmissionAnswer(null, 'q5', '3', null, null, 2));
-        answers.put('q6_2', Utils.createTestSubmissionAnswer(null, 'q6', '5', null, null, 2));
-        answers.put('q7_2', Utils.createTestSubmissionAnswer(null, 'q7', '60', null, null, 2));
-        answers.put('q5_3', Utils.createTestSubmissionAnswer(null, 'q5', '4', null, null, 3));
-        answers.put('q6_3', Utils.createTestSubmissionAnswer(null, 'q6', '2', null, null, 3));
-        answers.put('q7_3', Utils.createTestSubmissionAnswer(null, 'q7', '30', null, null, 3));
-        answers.put('q5_4', Utils.createTestSubmissionAnswer(null, 'q5', '5', null, null, 4));
-        answers.put('q6_4', Utils.createTestSubmissionAnswer(null, 'q6', '3', null, null, 4));
-        answers.put('q7_4', Utils.createTestSubmissionAnswer(null, 'q7', '40', null, null, 4));
-        answers.put('q5_5', Utils.createTestSubmissionAnswer(null, 'q5', '6', null, null, 5));
-=======
         answers.put('q5_0', Utils.createTestSubmissionAnswer(null, 'q5', 'Maize', null, null, 0));
         answers.put('q6_0', Utils.createTestSubmissionAnswer(null, 'q6', '2', null, null, 0));
         answers.put('q7_0', Utils.createTestSubmissionAnswer(null, 'q7', '30', null, null, 0));
@@ -386,7 +290,6 @@ private class TestProcessEwarehouseSurveys {
         answers.put('q6_4', Utils.createTestSubmissionAnswer(null, 'q6', '3', null, null, 4));
         answers.put('q7_4', Utils.createTestSubmissionAnswer(null, 'q7', '40', null, null, 4));
         answers.put('q5_5', Utils.createTestSubmissionAnswer(null, 'q5', 'Greengrams', null, null, 5));
->>>>>>> origin/ci
         answers.put('q6_5', Utils.createTestSubmissionAnswer(null, 'q6', '5', null, null, 5));
         answers.put('q7_5', Utils.createTestSubmissionAnswer(null, 'q7', '60', null, null, 5));
         

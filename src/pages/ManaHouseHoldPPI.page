@@ -1,0 +1,12 @@
+<apex:page standardcontroller="Mana_Household__c"  extensions="ManaHHPPIProfile" sidebar="false" language="es">
+<apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockSection title="PPI">
+        <apex:pageBlockTable value="{!ppi}" var="p">
+          <apex:column headerValue="Tabla Usada" value="{!p.PPI_Table_Used__c}"/>
+          <apex:column headerValue="Probabilidad" value="{!p.Probability_from_Line__c}"/>
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

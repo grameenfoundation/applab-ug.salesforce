@@ -18,7 +18,7 @@ global class ScheduledMarketPriceSender implements Schedulable {
             recipients = EwarehouseHelpers.generateRecipients((String)results.get('Name'));
             rescheduled = SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
-                        recipients, subject, messageText, sender.Id, sender.Name, false, true, datetime.now(), datetime.now().addDays(1), ''
+                        recipients, subject, messageText, sender.Id, sender.Name, false, true, datetime.now(), datetime.now().addDays(1)
                     ), false
                 );
             marketPricesToUpdate.addAll(EwarehouseHelpers.setNotificationFlag((String)results.get('Name')));

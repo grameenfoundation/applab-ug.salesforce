@@ -185,8 +185,6 @@ public class MetricMapController {
             markers.addAll(diaryHubsMapMarkers);
             diaryHubsMapMarkers.clear();
         }
-<<<<<<< HEAD
-=======
         if(mapObject.equals('IG')){
             List<MetricMapWrapper> fieldVisits = IGDashboardHelpers.getFieldVisitsMapMarkers(getNamedVariable('ig_region'), getNamedVariable('ig_district'), getNamedVariable('ig_subcounty'), getNamedVariable('ig_startdate'), getNamedVariable('ig_enddate'), getNamedVariable('ig_cbt'));
             setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
@@ -217,7 +215,6 @@ public class MetricMapController {
             markers.addAll(fieldVisits);
             fieldVisits.clear();
         }
->>>>>>> origin/ci
         System.debug('Should show ' + markers.size() + ' map markers');
         if (markers.size() == 0) {
             setFeedbackMessage('No map markers match your selection. Please refine your search to see a map');

@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,12 +44,16 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A section that holds metrics to be shown on a dashboard</description>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Allow_Update__c</fullName>
         <defaultValue>false</defaultValue>
@@ -45,6 +61,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if users should be allowed to update the metrics</inlineHelpText>
         <label>Allow Update</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -58,6 +75,7 @@
         <relationshipName>Metric_Sections</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -69,6 +87,7 @@
         <precision>1</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -79,6 +98,7 @@
         <inlineHelpText>Enter the description that will be displayed for this metric section</inlineHelpText>
         <label>Description</label>
         <length>32768</length>
+        <trackTrending>false</trackTrending>
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -89,6 +109,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Uncheck this to indicate that the metric section should be displayed</inlineHelpText>
         <label>Is Active</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -116,6 +137,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -125,6 +147,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if the section should show the break down link</inlineHelpText>
         <label>Show Break Down</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -134,6 +157,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to allow comments to be displayed in the section</inlineHelpText>
         <label>Show Comments</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -143,6 +167,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if a link to a further VF page needs to be added. Will only display if M E Metric records in this section have a value for Further Link url</inlineHelpText>
         <label>Show Further Link</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -152,6 +177,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if you want to see the previous quarters value</inlineHelpText>
         <label>Show Previous Quarter</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -161,6 +187,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check to have individual time selector for this section</inlineHelpText>
         <label>Show RollOver Selector</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -170,6 +197,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if the selector should be shown on the break down page</inlineHelpText>
         <label>Show Selector On Break Down</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -179,6 +207,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if a spark line should be shown</inlineHelpText>
         <label>Show Spark Line</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -188,6 +217,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if the targets for the metric period should be shown</inlineHelpText>
         <label>Show Targets</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -197,6 +227,7 @@
         <inlineHelpText>Set to the date that data collection started. Should be the start of the time period i.e. if collection started 02/02/2012 and the roll over period is quarterly then the start date is 01/01/2012</inlineHelpText>
         <label>Start Date</label>
         <required>true</required>
+        <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
     <fields>
@@ -206,6 +237,7 @@
         <inlineHelpText>Enter a title for this section</inlineHelpText>
         <label>Title</label>
         <required>true</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
@@ -224,6 +256,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>Metric Section</label>

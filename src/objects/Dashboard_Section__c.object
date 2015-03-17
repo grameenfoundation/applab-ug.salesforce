@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,12 +44,16 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A section of a dashboard that contains the maps, graphs, selectors, etc. Allows for independent sections to be in the same dashboard</description>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Dashboard__c</fullName>
         <description>A section of a dashboard that contains the maps, graphs, selectors, etc. Allows for independent sections to be in the same dashboard</description>
@@ -49,6 +65,7 @@
         <relationshipName>Dashboard_Sections</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -62,6 +79,7 @@
         <precision>3</precision>
         <required>true</required>
         <scale>0</scale>
+        <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -72,6 +90,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if this section has graphs in it</inlineHelpText>
         <label>Has Graphs</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -81,6 +100,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if the section contains any maps</inlineHelpText>
         <label>Has Maps</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -90,6 +110,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if this section contains any metrics</inlineHelpText>
         <label>Has Metrics</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -99,6 +120,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check if this selection has a selector in it that controls the metrics, maps, graphs, etc displayed</inlineHelpText>
         <label>Has Selector</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -108,6 +130,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Uncheck if this section should not be on the dashboard</inlineHelpText>
         <label>Is Active</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -117,6 +140,7 @@
         <inlineHelpText>Enter the title that will head this section on the dashboard</inlineHelpText>
         <label>Title</label>
         <required>true</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <label>Dashboard Section</label>

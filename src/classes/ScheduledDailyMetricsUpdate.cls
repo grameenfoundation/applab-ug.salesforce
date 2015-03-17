@@ -47,11 +47,7 @@ global class ScheduledDailyMetricsUpdate implements Schedulable {
                 'Person__r.First_Name__c != \'Not Registered\' ' +
                 'AND Name LIKE \'U%\'';
 
-<<<<<<< HEAD
-        ID batchprocessid = Database.executeBatch(new FarmerMetrics(farmerQuery, farmerMetricList, calculateRepeats, partner));
-=======
         ID batchprocessid = Database.executeBatch(new FarmerMetrics(farmerQuery, farmerMetricList, calculateRepeats, partner), 200);
->>>>>>> origin/ci
 
         // Start the Batch Apex for the CKW metrics
         String ckwQuery = 

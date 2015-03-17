@@ -34,11 +34,8 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         District__c district = getTestDistrict();
         insert district;
         
-<<<<<<< HEAD
-=======
         Contact contact = getTestContact();
         insert contact;
->>>>>>> origin/ci
         
         // create and insert 2 Persons
         Person__c person3 = getTestPerson(country, district);
@@ -53,14 +50,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         insert person4;
         
         // with the person id, create and insert a Farmer
-<<<<<<< HEAD
-        Farmer__c farmer3 = getTestFarmer(person3);
-        Farmer__c farmer4 = getTestFarmer(person4);
-        farmer3.Name = '3eyUUD';
-        farmer4.Name = '4eyUUD';
-        insert farmer3;
-        insert farmer4;
-=======
         Ewarehouse_Farmer__c farmer3 = getTestFarmer(person3,contact);
         Ewarehouse_Farmer__c farmer4 = getTestFarmer(person4,contact);
         farmer3.Name = '3eyUUD';
@@ -69,7 +58,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         farmer4.Farmer_ID__c = '998';
         //insert farmer3;
         //insert farmer4;
->>>>>>> origin/ci
         
         PPI_Data__c ppi1 = new PPI_Data__c();
         ppi1.Person__c = person3.Id;
@@ -91,53 +79,23 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         EWarehouseMEDashboardController controller = new EWarehouseMEDashboardController();
         List<EWarehouseMEDashboardController.NameCount> impactData = controller.getImpactData();
         System.debug('impactData = ' + impactData);
-<<<<<<< HEAD
-        System.assertEquals(15, impactData.size());
-        Integer x = 0;
-        System.assertEquals('No of farmers registered', impactData[x].Name);
-        System.assertEquals('4', impactData[x++].Count);
-=======
         System.assertEquals(11, impactData.size());
         Integer x = 0;
         System.assertEquals('No of farmers registered', impactData[x].Name);
         System.assertEquals('2', impactData[x++].Count);
->>>>>>> origin/ci
         System.assertEquals('By gender:', impactData[x].Name);
         System.assertEquals('', impactData[x++].Count);
         System.assertEquals('- Male', impactData[x].Name);
         System.assertEquals('50.0%', impactData[x++].Count);
         System.assertEquals('- Female', impactData[x].Name);
-<<<<<<< HEAD
-        System.assertEquals('25.0%', impactData[x++].Count);
-        System.assertEquals('- Unknown', impactData[x].Name);
-        System.assertEquals('25.0%', impactData[x++].Count);
-        
-        System.assertEquals('Poverty distribution:', impactData[x].Name);
-        System.assertEquals('', impactData[x++].Count);
-        System.assertEquals('- Below $2.50/day poverty line', impactData[x].Name);
-        System.assertEquals('2.2%', impactData[x++].Count);
-        System.assertEquals('- Below 150% of national poverty line', impactData[x].Name);
-        System.assertEquals('6.7%', impactData[x++].Count);
-        System.assertEquals('- Below extreme poverty line', impactData[x].Name);
-        System.assertEquals('0.4%', impactData[x++].Count);
-        
-        System.assertEquals('No of farmers trained on post-harvest handling', impactData[x].Name);
-        System.assertEquals('75.0%', impactData[x++].Count);
-        System.assertEquals('No of farmers implementing new storage techniques', impactData[x].Name);
-        System.assertEquals('100.0%', impactData[x++].Count);
-        
-        System.assertEquals('Total loans disbursed', impactData[x].Name);
-=======
         System.assertEquals('50.0%', impactData[x++].Count);
         System.assertEquals('Poverty distribution:', impactData[x].Name);
         System.assertEquals('', impactData[x++].Count);
         
         System.assertEquals('No of farmers trained on post-harvest handling, Prior to e-Warehouse project', impactData[x].Name);
-        //System.assertEquals('0.0%', impactData[x++].Count);
-        System.assertEquals('20,470', impactData[x++].Count);
+        System.assertEquals('0.0%', impactData[x++].Count);
         System.assertEquals('No of farmers implementing new storage techniques', impactData[x].Name);
-        //System.assertEquals('0.0%', impactData[x++].Count);
-        System.assertEquals('12,552', impactData[x++].Count);
+        System.assertEquals('0.0%', impactData[x++].Count);
         System.assertEquals('Total loans disbursed', impactData[x].Name);
         System.assertEquals('33', impactData[x++].Count);
         System.assertEquals('Total loans repaid', impactData[x].Name);
@@ -150,18 +108,13 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         
         //List Iindex Exception
         /*System.assertEquals('Total loans disbursed', impactData[x].Name);
->>>>>>> origin/ci
         System.assertEquals('2', impactData[x++].Count);
         System.assertEquals('Total loans repaid', impactData[x].Name);
         System.assertEquals('1', impactData[x++].Count);
         System.assertEquals('Loan repayment rate', impactData[x].Name);
         System.assertEquals('50.0%', impactData[x++].Count);
         System.assertEquals('No of farmers fully paid for sales', impactData[x].Name);
-<<<<<<< HEAD
-        System.assertEquals('4', impactData[x++].Count);
-=======
         System.assertEquals('4', impactData[x++].Count);*/
->>>>>>> origin/ci
         
         /*
         Part of FCI information
@@ -182,15 +135,9 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         List<EWarehouseMEDashboardController.NameCount> testData = controller.getFarmersByAcre();
         
         System.assertEquals(2, testData.size());
-<<<<<<< HEAD
-        System.assertEquals('6 - 10 acre', testData[0].Name);
-        System.assertEquals('50.0', testData[0].Count);
-        System.assertEquals('31 - 40 acre', testData[1].Name);
-=======
         System.assertEquals('9 - 11 acre', testData[0].Name);
         System.assertEquals('50.0', testData[0].Count);
         System.assertEquals('> 14 acre', testData[1].Name);
->>>>>>> origin/ci
         System.assertEquals('50.0', testData[1].Count);
         
     }
@@ -202,13 +149,8 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         List<EWarehouseMEDashboardController.NameCount> testData = controller.getGrainCollected();
         System.debug('getGrainCollected' + testData);
         System.assertEquals(6, testData.size());
-<<<<<<< HEAD
-        System.assertEquals('Beans', testData[0].Name);
-        System.assertEquals('180', testData[0].Count);
-=======
         System.assertEquals('Green grams', testData[0].Name);
         System.assertEquals('0', testData[0].Count);
->>>>>>> origin/ci
     }
     
     static testMethod void getGrainSold(){
@@ -228,12 +170,9 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         
         Map<String, String> ids = new Map<String, String>();
         
-<<<<<<< HEAD
-=======
         Contact contact = getTestContact();
         insert contact;
        
->>>>>>> origin/ci
         // create and insert country
         Country__c country = getTestCountry();
         insert country;
@@ -241,8 +180,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         // create and insert district
         District__c district = getTestDistrict();
         insert district;
-<<<<<<< HEAD
-=======
        
        // create bank deposits
         Bank_Deposit__c deposit1_1 = getBankDeposit(contact);
@@ -253,7 +190,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         insert deposit1_2;
         insert deposit2_1;
         insert deposit2_2;
->>>>>>> origin/ci
         
         // create and insert 2 Persons
         Person__c person1 = getTestPerson(country, district);
@@ -265,20 +201,12 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         insert person2;
         
         // with the person id, create and insert a Farmer
-<<<<<<< HEAD
-        Farmer__c farmer1 = getTestFarmer(person1);
-        Farmer__c farmer2 = getTestFarmer(person2);
-        farmer2.Name = '2eyUUD';
-        farmer2.Land_Size__c = 10;
-        farmer2.Had_Post_Harvest_Handling_Training__c = false;
-=======
         Ewarehouse_Farmer__c farmer1 = getTestFarmer(person1,contact);
         Ewarehouse_Farmer__c farmer2 = getTestFarmer(person2,contact);
         farmer2.Name = '2eyUUD';
         farmer2.Farmer_ID__c = '997';
         farmer2.Land_Size__c = 10;
         farmer2.Post_Harvest_Training__c = false;
->>>>>>> origin/ci
         insert farmer1;
         insert farmer2;
         
@@ -290,73 +218,42 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         insert pga1;
         insert pga2;
         
-<<<<<<< HEAD
-        Harvest__c harvest1 = getHarvest(farmer1);
-        Harvest__c harvest2 = getHarvest(farmer2);
-=======
         Ewarehouse_Harvest__c harvest1 = getHarvest(farmer1);
         Ewarehouse_Harvest__c harvest2 = getHarvest(farmer2);
->>>>>>> origin/ci
         insert harvest1;
         insert harvest2;
         
         // create a loan
-<<<<<<< HEAD
-        Loan__c loan1 = getLoan(farmer1, harvest1);
-        Loan__c loan2 = getLoan(farmer2, harvest2);
-=======
         Ewarehouse_Loan__c loan1 = getLoan(farmer1, harvest1);
         Ewarehouse_Loan__c loan2 = getLoan(farmer2, harvest2);
->>>>>>> origin/ci
         loan2.Status__c = 'Repaid';
         insert loan1;
         insert loan2;
         
         // create sales
-<<<<<<< HEAD
-        Sale__c sale1_1 = getSale(farmer1);
-        Sale__c sale1_2 = getSale(farmer1);
-        Sale__c sale2_1 = getSale(farmer2);
-        Sale__c sale2_2 = getSale(farmer2);
-=======
         Sale_Record__c sale1_1 = getSale(farmer1,deposit1_1);
         Sale_Record__c sale1_2 = getSale(farmer1,deposit1_2);
         Sale_Record__c sale2_1 = getSale(farmer2,deposit2_1);
         Sale_Record__c sale2_2 = getSale(farmer2,deposit2_2);
->>>>>>> origin/ci
         insert sale1_1;
         insert sale1_2;
         insert sale2_1;
         insert sale2_2;
         
         // create loan repayments
-<<<<<<< HEAD
-        Loan_Repayment__c loanRepayment1_1 = getLoanRepayment(loan1, sale1_1);
-        Loan_Repayment__c loanRepayment1_2 = getLoanRepayment(loan1, sale1_2);
-        Loan_Repayment__c loanRepayment2_1 = getLoanRepayment(loan2, sale2_1);
-        Loan_Repayment__c loanRepayment2_2 = getLoanRepayment(loan2, sale2_2);
-=======
         Loan_Repayments__c loanRepayment1_1 = getLoanRepayment(loan1, sale1_1);
         Loan_Repayments__c loanRepayment1_2 = getLoanRepayment(loan1, sale1_2);
         Loan_Repayments__c loanRepayment2_1 = getLoanRepayment(loan2, sale2_1);
         Loan_Repayments__c loanRepayment2_2 = getLoanRepayment(loan2, sale2_2);
->>>>>>> origin/ci
         insert loanRepayment1_1;
         insert loanRepayment1_2;
         insert loanRepayment2_1;
         insert loanRepayment2_2;   
         
-<<<<<<< HEAD
-        Sale_Farmer_Association__c sf1 = getSaleFarmer(sale1_1, farmer1);
-        Sale_Farmer_Association__c sf2 = getSaleFarmer(sale1_1, farmer2);
-        Sale_Farmer_Association__c sf3 = getSaleFarmer(sale2_1, farmer1);
-        Sale_Farmer_Association__c sf4 = getSaleFarmer(sale2_1, farmer2);
-=======
         Sale_Farmer_Associations__c sf1 = getSaleFarmer(sale1_1, farmer1);
         Sale_Farmer_Associations__c sf2 = getSaleFarmer(sale1_1, farmer2);
         Sale_Farmer_Associations__c sf3 = getSaleFarmer(sale2_1, farmer1);
         Sale_Farmer_Associations__c sf4 = getSaleFarmer(sale2_1, farmer2);
->>>>>>> origin/ci
         insert sf1;
         insert sf2;
         insert sf3;
@@ -364,14 +261,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         
         ids.put('person1Id', person1.Id);
         ids.put('person2Id', person2.Id);
-<<<<<<< HEAD
-        ids.put('farmer1Id', farmer1.Id);
-        ids.put('farmer2Id', farmer2.Id);
-        ids.put('farmer1Name', farmer1.Name);
-        ids.put('farmer2Name', farmer2.Name);
-        ids.put('loan1Id', loan1.Id);
-        ids.put('loan2Id', loan2.Id);
-=======
        
         ids.put('farmer1Id', farmer1.Id);
         ids.put('farmer2Id', farmer2.Id);
@@ -387,15 +276,11 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         ids.put('deposit2_1Id', deposit2_1.Id);
         ids.put('deposit2_2Id', deposit2_2.Id);
        
->>>>>>> origin/ci
         ids.put('sale1_1Id', sale1_1.Id);
         ids.put('sale1_2Id', sale1_2.Id);
         ids.put('sale2_1Id', sale2_1.Id);
         ids.put('sale2_2Id', sale2_2.Id);
-<<<<<<< HEAD
-=======
        
->>>>>>> origin/ci
         ids.put('loanRepayment1_1Id', loanRepayment1_1.Id);
         ids.put('loanRepayment1_2Id', loanRepayment1_2.Id);
         ids.put('loanRepayment2_1Id', loanRepayment2_1.Id);
@@ -448,16 +333,10 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         return person;
     }
     
-<<<<<<< HEAD
-    public static Farmer__c getTestFarmer(Person__c person){
-        Farmer__c farmer = new Farmer__c();
-        farmer.Name = '3eyUUD';
-=======
     /*public static Farmer__c getTestFarmer(Person__c person){
         Farmer__c farmer = new Farmer__c();
         farmer.Name = '3eyUUD';
         farmer.Farmer_ID__c = 
->>>>>>> origin/ci
         farmer.Person__c = person.Id;
         farmer.Status__c = 'Processed';
         farmer.Sale_Status__c = 'Paid';
@@ -467,8 +346,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         farmer.Had_Post_Harvest_Handling_Training__c = true;
         farmer.Crop_Storage_Material__c = 'Plastic bags';
         return farmer;
-<<<<<<< HEAD
-=======
     }*/
     
      public static Contact getTestContact(){
@@ -504,7 +381,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         //farmer.Commercial_Purchase_Groups__c = 'KARATHIA WOMEN GROUP';
         farmer.Registered_By__c = contact.Id;
         return farmer;
->>>>>>> origin/ci
     }
     
     public static Group__c getGroup(){
@@ -521,11 +397,7 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         return pga;
     }
     
-<<<<<<< HEAD
-    public static Harvest__c getHarvest(Farmer__c farmer){
-=======
     /*public static Harvest__c getHarvest(Farmer__c farmer){
->>>>>>> origin/ci
         Harvest__c h = new Harvest__c();
         h.Crop__c = 'Beans';
         h.Date_Harvested__c = date.newinstance(2013, 4, 30);
@@ -535,11 +407,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         h.Quantity_Rejected__c = 1000.02;
         h.Storage_Location__c = 'Home';
         return h;
-<<<<<<< HEAD
-    }
-    
-    public static Loan__c getLoan(Farmer__c farmer, Harvest__c harvest){
-=======
     }*/
     //New Method with Ewarehouse_Farmer__c as the Object instead of Famer__c
     
@@ -559,7 +426,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
     }
     
    /* public static Loan__c getLoan(Farmer__c farmer, Harvest__c harvest){
->>>>>>> origin/ci
         
         Loan__c loan = new Loan__c();
         loan.Amount_Applied_For__c = 130000;
@@ -575,11 +441,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         
         return loan;
         
-<<<<<<< HEAD
-    }
-    
-    public static Sale__c getSale(Farmer__c farmer){
-=======
     }*/
     //New Method with Ewarehouse_Farmer__c as the Object instead of Famer__c
      public static Ewarehouse_Loan__c getLoan(Ewarehouse_Farmer__c farmer, Ewarehouse_Harvest__c harvest){
@@ -603,18 +464,12 @@ public with sharing class EWarehouseMEDashboardControllerTest {
     }
     
    /* public static Sale__c getSale(Farmer__c farmer){
->>>>>>> origin/ci
         Sale__c sale = new Sale__c();
         //sale.Farmer__c = farmer.Id;
         sale.Status__c = 'New';
         
         return sale;
         
-<<<<<<< HEAD
-    }
-    
-    public static Sale_Farmer_Association__c getSaleFarmer(Sale__c sale, Farmer__c farmer){
-=======
     }*/
     
     //Add Deposit details
@@ -664,7 +519,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
     }
     
     /*public static Sale_Farmer_Association__c getSaleFarmer(Sale__c sale, Farmer__c farmer){
->>>>>>> origin/ci
         Sale_Farmer_Association__c sf = new Sale_Farmer_Association__c();
         //sf.Amount_Applied__c = 6000.10;
         sf.Fee_Due__c = 5000.10;
@@ -672,18 +526,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         sf.Farmer__c = farmer.Id;
         sf.Sale__c = sale.Id;
         return sf;
-<<<<<<< HEAD
-    }
-    
-    public static Loan_Repayment__c getLoanRepayment(Loan__c loan, Sale__c sale){
-
-        Loan_Repayment__c lr = new Loan_Repayment__c();
-        lr.Amount__c = 1500.00;
-        lr.Payment_Date__c = date.newinstance(2013, 4, 30);
-        lr.Remarks__c = 'reason';
-        lr.Loan__c = loan.Id;
-        lr.Sale__c = sale.Id;
-=======
     }*/
     //New Method with Ewarehouse_Farmer__c as the Object instead of Famer__c
     public static Sale_Farmer_Associations__c getSaleFarmer(Sale_Record__c sale, Ewarehouse_Farmer__c farmer){
@@ -711,7 +553,6 @@ public with sharing class EWarehouseMEDashboardControllerTest {
         lr.Remarks__c = 'reason';
         lr.Ewarehouse_Loan__c = loan.Id;
         lr.Ewarehouse_Sale__c = sale.Id;
->>>>>>> origin/ci
         
         return lr;
         

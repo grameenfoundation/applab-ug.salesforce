@@ -6,7 +6,6 @@ global class ScheduledMessageSender implements Schedulable {
      global void execute(SchedulableContext sc) {
 
         DateTime startTime = DateTime.now();
-<<<<<<< HEAD
         String queryString = 'SELECT ' +
                 'Id, ' +
                 'Group__c, ' +
@@ -27,30 +26,6 @@ global class ScheduledMessageSender implements Schedulable {
             'FROM ' +
                 'Scheduled_Message_Queue__c ' +
             'WHERE ' +
-=======
-        String queryString = 
-        	'SELECT ' 											+
-                'Id, ' 											+
-                'Group__c, ' 									+
-                'Person__c, ' 									+
-                'Person__r.First_Name__c, ' 					+
-                'Person__r.Middle_Name__c, ' 					+
-                'Person__r.Last_Name__c, ' 						+
-                'Person__r.Mobile_Number__c, ' 					+
-                'Person__r.Country__r.ISO_Standard_Code__c, ' 	+
-                'Message__c, ' 									+
-                'Sender__c, ' 									+
-                'Sender__r.Name, ' 								+
-                'Subject__c, ' 									+
-                'Send_Date_Time__c, ' 							+
-                'Expiration_Date__c, ' 							+
-                'Send_Via_Pulse__c, ' 							+
-                'Category__c, ' 								+
-                'Send_Via_Sms__c ' 								+
-            'FROM ' 											+
-                'Scheduled_Message_Queue__c ' 					+
-            'WHERE ' 											+
->>>>>>> origin/ci
                 'Send_Date_Time__c <= ' + MetricHelpers.convertDateTimeToString(startTime, false);
         ID batchprocessid = Database.executeBatch(new SendSMS(queryString, startTime), 10);
         //Message.sendScheduledMessages();

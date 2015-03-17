@@ -5,6 +5,10 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,11 +21,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -32,12 +44,16 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Defines a generic dashboard</description>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Account__c</fullName>
         <description>The client&apos;s account that own this dashboard</description>
@@ -49,6 +65,7 @@
         <relationshipName>Dasboards</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -59,6 +76,7 @@
         <inlineHelpText>Enter a description that will be displayed at the top of the dashboard that explains what it is for</inlineHelpText>
         <label>Description</label>
         <required>false</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <fields>
@@ -68,6 +86,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check this box is this dashboard is no longer being calculated</inlineHelpText>
         <label>Is Active</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
@@ -77,15 +96,12 @@
         <inlineHelpText>Enter a titile that will be displayed on the dashboard</inlineHelpText>
         <label>Title</label>
         <required>true</required>
+        <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
     <label>Dashboard</label>
     <listViews>
         <fullName>All</fullName>
-<<<<<<< HEAD
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-=======
         <columns>OBJECT_ID</columns>
         <columns>Title__c</columns>
         <columns>NAME</columns>
@@ -94,7 +110,6 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>
->>>>>>> origin/ci
     </listViews>
     <nameField>
         <label>Dashboard Name</label>

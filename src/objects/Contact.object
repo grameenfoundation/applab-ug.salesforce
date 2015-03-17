@@ -5,6 +5,14 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -14,6 +22,10 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -29,11 +41,19 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>ListClean</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MapHighlightAction</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -46,6 +66,10 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -68,17 +92,13 @@
         <actionName>ViewSelfService</actionName>
         <type>Default</type>
     </actionOverrides>
-<<<<<<< HEAD
-    <enableFeeds>true</enableFeeds>
-    <fields>
-        <fullName>AccountId</fullName>
-=======
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
     <fields>
         <fullName>AccountId</fullName>
         <trackFeedHistory>true</trackFeedHistory>
->>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -101,6 +121,22 @@
         <scale>0</scale>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AssistantName</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>AssistantPhone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Birthdate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>CanAllowPortalSelfReg</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
     </fields>
     <fields>
         <fullName>Certified__c</fullName>
@@ -151,6 +187,18 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Department</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>DoNotCall</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
         <fullName>Do_Not_Mail__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
@@ -159,12 +207,32 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Email</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Fax</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>HasOptedOutOfEmail</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>HasOptedOutOfFax</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
         <fullName>Head_Of_Household__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Head Of Household?</label>
         <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HomePhone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
     </fields>
     <fields>
         <fullName>Household_Links__c</fullName>
@@ -188,6 +256,10 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Jigsaw</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
         <fullName>Lac_Farmer_Count__c</fullName>
         <defaultValue>0</defaultValue>
         <externalId>false</externalId>
@@ -198,6 +270,12 @@
         <trackFeedHistory>false</trackFeedHistory>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastCURequestDate</fullName>
+    </fields>
+    <fields>
+        <fullName>LastCUUpdateDate</fullName>
     </fields>
     <fields>
         <fullName>LeadSource</fullName>
@@ -240,6 +318,10 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>MailingAddress</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
         <fullName>Map__c</fullName>
         <externalId>false</externalId>
         <formula>hyperlink (&quot;/servlet/servlet.Integration?lid=00b70000000mQmi&amp;eid=&quot; &amp;Id, IMAGE( &quot;servlet/servlet.FileDownload?file=01570000000LVBl&quot;, &quot;image from Documents tab&quot;))</formula>
@@ -272,6 +354,14 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>MobilePhone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+    </fields>
+    <fields>
         <fullName>ONEN_Household__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -284,11 +374,16 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>OtherAddress</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>OtherPhone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
         <fullName>OwnerId</fullName>
-<<<<<<< HEAD
-=======
         <trackFeedHistory>true</trackFeedHistory>
->>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -343,6 +438,10 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+        <fullName>Phone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
         <fullName>Picture_Attachment_Id__c</fullName>
         <caseSensitive>false</caseSensitive>
         <description>Stores the Id of the attachment that is used for the profile picture for this contact</description>
@@ -367,11 +466,7 @@
     <fields>
         <fullName>Picture__c</fullName>
         <externalId>false</externalId>
-<<<<<<< HEAD
-        <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 153, 153))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
-=======
         <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 300, 300))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 300, 300))</formula>
->>>>>>> origin/ci
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Picture</label>
         <required>false</required>
@@ -380,10 +475,7 @@
     </fields>
     <fields>
         <fullName>ReportsToId</fullName>
-<<<<<<< HEAD
-=======
         <trackFeedHistory>false</trackFeedHistory>
->>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -404,6 +496,10 @@
         <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Title</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
     </fields>
     <fields>
         <fullName>Volunteer_Interests__c</fullName>
@@ -437,8 +533,6 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
-<<<<<<< HEAD
-=======
         <fullName>Zendesk__Result__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -507,7 +601,6 @@
         <unique>false</unique>
     </fields>
     <fields>
->>>>>>> origin/ci
         <fullName>gfsurveys__Age__c</fullName>
         <deprecated>false</deprecated>
         <description>The age of the contact</description>
@@ -782,8 +875,6 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
             <value>philanthropy</value>
         </filters>
         <label>Philanthropy</label>
-<<<<<<< HEAD
-=======
     </listViews>
     <listViews>
         <fullName>Salgar_Contacts</fullName>
@@ -804,7 +895,6 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <sharedTo>
             <role>LAC_Admin_User</role>
         </sharedTo>
->>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>Technology</fullName>
@@ -868,18 +958,6 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         </filters>
         <label>Surveyors</label>
     </listViews>
-    <namedFilters>
-        <fullName>gfsurveys__nf_01IE0000000kHoZMAU_00NE0000004AO1bMAG</fullName>
-        <active>false</active>
-        <field>gfsurveys__Client_Assignation__c.gfsurveys__Client__c</field>
-        <filterItems>
-            <field>Contact.gfsurveys__IsClient__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Client Assignation_Client</name>
-    </namedFilters>
     <searchLayouts>
         <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
@@ -905,6 +983,7 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <searchResultsAdditionalFields>CONTACT.EMAIL</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
+    <sharingModel>Private</sharingModel>
     <webLinks>
         <fullName>Contact_Pledge</fullName>
         <availability>online</availability>
