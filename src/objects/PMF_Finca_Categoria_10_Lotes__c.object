@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Conocimiento_de_areas_de_lotes__c</fullName>
+        <externalId>false</externalId>
+        <label>Conocimiento de áreas de lotes</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Conoce el área de todos los lotes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No conoce el área de todos los lotes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fecha__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Mapa_de_la_finca__c</fullName>
+        <externalId>false</externalId>
+        <label>Mapa de la finca</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Tiene mapa de la finca</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No se ha levantado mapa de la finca</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Nivel_categoria__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Puntaje_categoria__c &lt; 1, &apos;b. Bajo&apos;, &apos;a. Alto&apos;)</formula>
+        <label>Nivel categoría</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nombre_categoria__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;Lotes&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nombre categoría</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nombre_tipo_fecha__c</fullName>
+        <externalId>false</externalId>
+        <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nombre tipo fecha</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Plan_de_Manejo_de_Finca__c</fullName>
+        <externalId>false</externalId>
+        <label>Plan de Manejo de Finca</label>
+        <referenceTo>Farm_Management_Plan__c</referenceTo>
+        <relationshipLabel>PMF Finca Categoria 10 - Lotes</relationshipLabel>
+        <relationshipName>PMF_Finca_Categorias_10_Lotes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Conocimiento_de_areas_de_lotes__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( Conocimiento_de_areas_de_lotes__c , &apos;Conoce el área de todos los lotes&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Conocimiento de áreas de lotes</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Mapa_de_la_finca__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(  Mapa_de_la_finca__c , &apos;Tiene mapa de la finca&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Mapa de la finca</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Registro_arboles_variedades_lote__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(  Registro_rboles_y_variedades_por_lotes__c , &apos;Tiene registro completo de árboles y variedades por lote&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Registro árboles variedades lote</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Registro_de_labores_por_lote__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(  Registro_de_labores_por_lote__c , &apos;Registra labores por lote&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Registro de labores por lote</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_categoria__c</fullName>
+        <externalId>false</externalId>
+        <formula>Puntaje_Mapa_de_la_finca__c + 
+Puntaje_Conocimiento_de_areas_de_lotes__c + 
+Puntaje_Registro_arboles_variedades_lote__c + 
+Puntaje_Registro_de_labores_por_lote__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje categoría</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Registro_de_labores_por_lote__c</fullName>
+        <externalId>false</externalId>
+        <label>Registro de labores por lote</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Registra labores por lote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No registra labores por lote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Registro_rboles_y_variedades_por_lotes__c</fullName>
+        <externalId>false</externalId>
+        <label>Registro árboles y variedades por lotes</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Tiene registro completo de árboles y variedades por lote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>El registro de árboles y variedades por lote no está completo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tipo__c</fullName>
+        <externalId>false</externalId>
+        <label>Tipo</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Metas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>PMF Finca Categoria 10 - Lotes</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>PMF Finca Categoria 10 - Lotes Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PMF Finca Categorias 10 - Lotes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

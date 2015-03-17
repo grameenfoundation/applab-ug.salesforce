@@ -40,6 +40,10 @@
         <actionName>ViewCustomerPortalUser</actionName>
         <type>Default</type>
     </actionOverrides>
+<<<<<<< HEAD
+=======
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+>>>>>>> origin/ci
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>AccountSource</fullName>
@@ -78,6 +82,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Picklist</type>
     </fields>
     <fields>
@@ -247,6 +255,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -343,6 +352,10 @@
     </fields>
     <fields>
         <fullName>OwnerId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>true</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -366,11 +379,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>ParentId</fullName>
+<<<<<<< HEAD
         <type>Lookup</type>
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Hierarchy</type>
+>>>>>>> origin/ci
     </fields>
     <fields>
         <fullName>Rating</fullName>
@@ -389,6 +408,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -472,6 +492,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -558,6 +579,102 @@
         <trackFeedHistory>false</trackFeedHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Domain_Mapping__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Domain Mapping</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Notes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Result__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Contains the result of whether the Zendesk system was updated with the Account record changes</description>
+        <externalId>false</externalId>
+        <label>Zendesk Result</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Tags__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_Organization_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Contains the Zendesk ORG Id</description>
+        <externalId>false</externalId>
+        <label>Zendesk Organization Id</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_Organization__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Specify your Zendesk Organization name here if you&apos;d like to override the default behavior of the ticket view.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show Zendesk tickets for the specified organization instead of the combined tickets for all users in the account.</inlineHelpText>
+        <label>Zendesk Organization</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_OutofSync__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set to True if the record is not synced with Zendesk Organization</description>
+        <externalId>false</externalId>
+        <label>Zendesk_OutofSync</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_oldTags__c</fullName>
+        <deprecated>false</deprecated>
+        <description>contains the old tags before changes were made to the tags. To handle deleting tags in Zendesk system.</description>
+        <externalId>false</externalId>
+        <label>Zendesk_oldTags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__createdUpdatedFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Used in trigger to prevent looping of after insert and update. This flag is used to stop the account that came for creation to get updated again thereby preventing the loop</description>
+        <externalId>false</externalId>
+        <label>createdUpdatedFlag</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
     </fields>
     <listViews>
         <fullName>AllBusinesses</fullName>

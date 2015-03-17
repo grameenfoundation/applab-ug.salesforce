@@ -1,3 +1,9 @@
+/**
+ *
+ * Copyright (c) 2014 AppLab, Grameen Foundation
+ *
+ *  Test methods in class TestPerformanceDataCollector
+ **/
 public with sharing class PerformanceDataCollector {
 
     private date currentStartDate;
@@ -10,13 +16,13 @@ public with sharing class PerformanceDataCollector {
     private Incentive_Structure__c currentIncentiveStructure;
     private Incentive_Structure__c previousIncentiveStructure;
 
-    private Map<string,ckwPerformanceData> currentCkwStatistics;
+    public Map<string,ckwPerformanceData> currentCkwStatistics {get; set;}
     private Map<string,ckwPerformanceData> previousCkwStatistics;
     private Map<String,Integer> surveyPoints; 
 
-    private String surveyDatabase;
-    private String searchDatabase;
-    private String serverUrl;
+    public String surveyDatabase {get; set;}
+    public String searchDatabase {get; set;}
+    public String serverUrl {get; set;}
 
     public PerformanceDataCollector() {
 
@@ -147,7 +153,7 @@ public with sharing class PerformanceDataCollector {
         this.searchDatabase = configuration.Search_Database__c; 
     }
 
-    private CKW__c[] getCkwsWithNoReviewObject() {
+    public CKW__c[] getCkwsWithNoReviewObject() {
 
         CKW__c[] ckwsWithoutReviews = [
             SELECT
@@ -187,7 +193,7 @@ public with sharing class PerformanceDataCollector {
         return ckwsWithoutPreviousReviews;
     }
 
-    private void validateCkwPerformanceReviewObjects() {
+    public void validateCkwPerformanceReviewObjects() {
 
         CKW__c[] ckwsWithoutReviews = getCkwsWithNoReviewObject();
         CKW__c[] ckwsWithoutPreviousReviews = getCkwsWithNoPreviousReviewObject();
@@ -244,7 +250,7 @@ public with sharing class PerformanceDataCollector {
         }
     }
 
-    private List<CKW_Performance_Review__c> createCkwPerformanceReviews(CKW__c ckw, Boolean createPreviousReviewObject) {       
+    public List<CKW_Performance_Review__c> createCkwPerformanceReviews(CKW__c ckw, Boolean createPreviousReviewObject) {       
 
         List<CKW_Performance_Review__c> createdReviews = new List<CKW_Performance_Review__c>();
 
@@ -344,7 +350,7 @@ public with sharing class PerformanceDataCollector {
         parseSurveyResults(queryResult, ckwStatistics);
     }
 
-    private void getFarmersRegistered(String monthString, Map<string,ckwPerformanceData> ckwStatistics) {
+    public void getFarmersRegistered(String monthString, Map<string,ckwPerformanceData> ckwStatistics) {
 
         Map<Id, Integer> farmerPersonId = new Map<Id, Integer>();
         List<String> personIds = new List<String>();
@@ -385,7 +391,7 @@ public with sharing class PerformanceDataCollector {
         }
     }
 
-    private void getSalesforceSurveys(String monthString, Map<string,ckwPerformanceData> ckwStatistics) {
+    public void getSalesforceSurveys(String monthString, Map<string,ckwPerformanceData> ckwStatistics) {
 
         Map<String, CkwSalesforceSurveys> submissionNameMap = new Map<String, CkwSalesforceSurveys>();
         Set<String> personIdsSet = new Set<String>();
@@ -466,7 +472,7 @@ public with sharing class PerformanceDataCollector {
         }
     }
 
-    private void getDailySearchStatistics() {
+    public void getDailySearchStatistics() {
 
         // Get the count of the search log. Annoyingly cant group by Interviewer__r.Name.
         // This is why we need to go throug the long process below
@@ -606,7 +612,7 @@ public with sharing class PerformanceDataCollector {
         return requestBody;
     }
 
-    private void parseSurveyResults(String surveyResultXml, Map<string,ckwPerformanceData> ckwStatistics) {
+    public void parseSurveyResults(String surveyResultXml, Map<string,ckwPerformanceData> ckwStatistics) {
         XmlStreamReader surveyResultReader = new XmlStreamReader(surveyResultXml);
         surveyResultReader.next(); // skip the opening <results> tag
                 
@@ -675,31 +681,8 @@ public with sharing class PerformanceDataCollector {
             return points;
         }
     }
-
-    private String fakeSurveyQuery() {
-        String result = '<results>' +
-            '<row><ckw>CKW-10-000007</ckw><survey_id>2010070025</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '<row><ckw>CKW-10-000009</ckw><survey_id>2010070025</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '<row><ckw>CKW-10-000115</ckw><survey_id>2010070025</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '<row><ckw>CKW-10-000122</ckw><survey_id>2010070025</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '<row><ckw>CKW-10-000123</ckw><survey_id>2010070025</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '<row><ckw>CKW-10-000250</ckw><survey_id>2010070025</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '<row><ckw>CKW-10-000250</ckw><survey_id>2010070026</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '<row><ckw>CKW-10-000251</ckw><survey_id>2010070025</survey_id><approved>1</approved><rejected>2</rejected>' +
-                '<pending>1</pending><not_reviewed>1</not_reviewed><duplicates>1</duplicates></row>' +
-            '</results>';
         
-        return result;      
-    }
-        
-    private void updateReviewObjects() {
+    public void updateReviewObjects() {
         List<CKW_Performance_Review__c> updatedPerformanceReviews = new List<CKW_Performance_Review__c>();
 
         CKW_Performance_Review__c[] performanceReviews =
@@ -976,7 +959,7 @@ public with sharing class PerformanceDataCollector {
         }
     }
 
-    class CkwPerformanceData {
+    public class CkwPerformanceData {
         public Integer totalSearches;
         public Integer totalTestSearches;
         public Integer totalInvalidSearches;
@@ -1001,6 +984,7 @@ public with sharing class PerformanceDataCollector {
             this.farmersRegistered = 0;
         }
     }
+<<<<<<< HEAD
 
     static testMethod void testInitializeServerConstants() {
         PerformanceDataCollector dataCollector = new PerformanceDataCollector();
@@ -1453,4 +1437,6 @@ public with sharing class PerformanceDataCollector {
             System.assertEquals(perfReview.Number_Of_Test_Searches_Running_Total__c, 1);
         }
     }
+=======
+>>>>>>> origin/ci
 }

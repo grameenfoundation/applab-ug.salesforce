@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Client Product Association Order object</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Client_Product_Association__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Client Product Association</label>
+        <referenceTo>Client_Product_Association__c</referenceTo>
+        <relationshipLabel>CPA Orders</relationshipLabel>
+        <relationshipName>CPA_Orders</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Client__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client_Product_Association__r.Client_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>CPA Orders</relationshipLabel>
+        <relationshipName>CPA_Orders</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contar__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contar</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expected_Delivery_Date__c</fullName>
+        <defaultValue>TODAY() + 2</defaultValue>
+        <externalId>false</externalId>
+        <label>Expected Delivery Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Baskets__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Baskets</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Kilos__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Kilos</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Units_of_Presentation__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Units of Presentation</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client__c + &apos; &apos; +  Client_Product_Association__r.Product_Name__c + &apos; &apos; + TEXT(Expected_Delivery_Date__c)</formula>
+        <label>Order Code</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Preferred_Delivery_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Preferred Delivery City</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Preferred_Delivery_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Preferred Delivery Location</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Presentacion__c</fullName>
+        <externalId>false</externalId>
+        <label>Presentación</label>
+        <picklist>
+            <picklistValues>
+                <fullName>5 al día</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bandeja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bolsa transparente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ekono</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Malla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Por paquete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solo a mil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Todo a 2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vitafilado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kilos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banda</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solo hoja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Price_per_Kilo__c</fullName>
+        <externalId>false</externalId>
+        <label>Price per Kilo</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client_Product_Association__r.Product_Name__c</formula>
+        <label>Product Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Allocated_Units_of_Presentation__c</fullName>
+        <description>The quantity of the units of presentation that have already been allocated to the various Associations</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The quantity of the units of presentation that have already been allocated to the various Associations</inlineHelpText>
+        <label>Total Allocated Units of Presentation</label>
+        <summarizedField>CPA_Order_Allocation__c.Number_of_Units_of_Presentation__c</summarizedField>
+        <summaryForeignKey>CPA_Order_Allocation__c.CPA_Order__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Number_of_Allocated_Baskets__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Number of Allocated Baskets</label>
+        <summarizedField>CPA_Order_Allocation__c.Number_of_Baskets__c</summarizedField>
+        <summaryForeignKey>CPA_Order_Allocation__c.CPA_Order__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Number_of_Allocated_Kilos__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Number of Allocated Kilos</label>
+        <summarizedField>CPA_Order_Allocation__c.Number_of_Kilos__c</summarizedField>
+        <summaryForeignKey>CPA_Order_Allocation__c.CPA_Order__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Unallocated_Number_of_Baskets__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_of_Baskets__c -  Total_Number_of_Allocated_Baskets__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Unallocated Number of Baskets</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Unallocated_Number_of_Kilos__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_of_Kilos__c -  Total_Number_of_Allocated_Kilos__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Unallocated Number of Kilos</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Unallocated_Units_of_Presentation__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_of_Units_of_Presentation__c - Total_Allocated_Units_of_Presentation__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Unallocated Units of Presentation</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Unit_of_Presentation__c</fullName>
+        <externalId>false</externalId>
+        <label>Unit of Presentation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>100 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>125 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>250 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>300 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>400 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>450 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>500 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>600 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>700 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>800 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1000 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1200 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3000 gr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Granel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>CPA Order</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Order_Code__c</columns>
+        <columns>Client__c</columns>
+        <columns>Expected_Delivery_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Number_of_Baskets__c</columns>
+        <columns>Number_of_Kilos__c</columns>
+        <columns>Number_of_Units_of_Presentation__c</columns>
+        <columns>Preferred_Delivery_City__c</columns>
+        <columns>Preferred_Delivery_Location__c</columns>
+        <columns>Price_per_Kilo__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>Order-{00000}</displayFormat>
+        <label>CPA Order Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CPA Orders</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

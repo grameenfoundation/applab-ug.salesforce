@@ -47,7 +47,12 @@ public with sharing class MetricComponentController extends ChildComponentBase {
                 Show_Break_Down__c,
                 Show_Further_Link__c,
                 Default_Show__c,
+<<<<<<< HEAD
                 Allow_Update__c
+=======
+                Allow_Update__c,
+                View_Mode__c
+>>>>>>> origin/ci
             FROM
                 Metric_Section__c
             WHERE
@@ -58,6 +63,11 @@ public with sharing class MetricComponentController extends ChildComponentBase {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'No active metric section found for id ' + this.sObjectId + '. Please check your set up. Contact support if this persists'));
             return false;
         }
+<<<<<<< HEAD
+=======
+        System.debug('View Mode is '+section[0].View_Mode__c);
+
+>>>>>>> origin/ci
         setsObjectRecord((sObject)section[0]);
         return true;
     }
@@ -129,11 +139,20 @@ public with sharing class MetricComponentController extends ChildComponentBase {
 
     private List<String> metricIds;
     public List<String> getMetricIds() {
+<<<<<<< HEAD
+=======
+        //loaded = false;
+>>>>>>> origin/ci
         if (!loaded) {
             if (this.fieldMap == null) {
                 initFieldMap('Metric_Section__c');
             }
             loadMetricDatas();
+<<<<<<< HEAD
+=======
+            //System.debug('Metric id count is '+metricIds.size());
+            
+>>>>>>> origin/ci
         }
         loaded = true;
         return this.metricIds;
@@ -169,6 +188,7 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         }
 
         this.metricDatas = new List<MetricDataWrapper>();
+<<<<<<< HEAD
         this.metricIds = new List<String>();       
 
          if ((String.valueOf(getFieldValue('View_Mode__c')).equalsIgnoreCase('Aggregated')) && !(Boolean.valueOf(getIsRefresh()))) {
@@ -182,6 +202,24 @@ public with sharing class MetricComponentController extends ChildComponentBase {
         }
         else {
             setStartDate(MetricHelpers.decreaseDateRollOver(getStartDate(), getRollOverPeriod()));
+=======
+        this.metricIds = new List<String>(); 
+
+        //Load metric Ids into list
+
+         
+        if ((String.valueOf(getFieldValue('View_Mode__c')).equalsIgnoreCase('Aggregated')) && !(Boolean.valueOf(getIsRefresh()))) {
+            String[] startDateArray = getFieldValue('Start_Date__c').split('==');
+            setStartDate((DateTime.newInstance(integer.valueOf(startDateArray[0]), integer.valueOf(startDateArray[1]), integer.valueOf(startDateArray[2]))).date());
+            return loadAggregateMetrics();
+        } 
+         /*else if (setDates()) {
+            return loadAggregateMetrics(); 
+        } */
+        else {
+            setStartDate(((Metric_Section__c) this.getsObjectRecord()).Start_Date__c);
+            //setStartDate(MetricHelpers.decreaseDateRollOver(getStartDate(), getRollOverPeriod()));
+>>>>>>> origin/ci
             return loadStandardMetrics();
         }
     }
@@ -256,6 +294,11 @@ public with sharing class MetricComponentController extends ChildComponentBase {
             wrapper.setOnFly(metric.Is_On_Fly__c);
             wrapper.setCalculation(metric.On_The_Fly_Calculation_Type__c);
             wrapper.setName(metric.Name);
+<<<<<<< HEAD
+=======
+  
+            
+>>>>>>> origin/ci
         }
         this.metricDatas.addAll(wrappers.values());
         this.metricDatas.sort();
@@ -270,7 +313,11 @@ public with sharing class MetricComponentController extends ChildComponentBase {
      * @return - Boolean indicating success
      */
     private Boolean loadStandardMetrics() {
+<<<<<<< HEAD
 
+=======
+        System.debug('Loading standard metrics');
+>>>>>>> origin/ci
         String query =
             getSelectClause() +
             generateLegacyWhereClause() +
@@ -285,10 +332,18 @@ public with sharing class MetricComponentController extends ChildComponentBase {
 
         String metricName = '';
         MetricDataWrapper metricDataWrapper = null;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/ci
         for (M_E_Metric_Data__c metric : database.query(query)) {
 
             // See if we have a valid metric name and that it is not the same as the next metric in the list.
             // If it isn't then we need to save the metric from the last loop and move on to a new metric
+<<<<<<< HEAD
+=======
+            this.metricIds.add(metric.Id);
+>>>>>>> origin/ci
             if (!metricName.equals(metric.M_E_Metric__r.Name)) {
 
                 // Save the previous object to the list
@@ -322,6 +377,7 @@ public with sharing class MetricComponentController extends ChildComponentBase {
             metricDataWrapper.isHeader = metric.M_E_Metric__r.Is_Header__c;
             metricDataWrapper.updatePeriod = metric.M_E_Metric__r.Update_Period__c;
             metricDataWrapper.setMetricId(metric.M_E_Metric__r.Id);
+<<<<<<< HEAD
 
             // See which quarter the metric is for.
             if (getStartDate().dayOfYear() <= metric.Date__c.dayOfYear() && getStartDate().year() == metric.Date__c.year()) {
@@ -329,6 +385,20 @@ public with sharing class MetricComponentController extends ChildComponentBase {
                 // Current quarter
                 metricDataWrapper.setHasCurrent(true);
                 metricDataWrapper.setCurrentId(metric.Id);
+=======
+            metricDataWrapper.setCurrentId(metric.Id);
+            
+            // See which quarter the metric is for.
+            System.debug('start date day of year and metric day of year '+getStartDate().dayOfYear() +'<=' +metric.Date__c.dayOfYear());
+
+            System.debug('day of years '+getStartDate().year() +'=' +metric.Date__c.year());
+            if (getStartDate().dayOfYear() <= metric.Date__c.dayOfYear() && getStartDate().year() == metric.Date__c.year()) {
+
+                // Current quarter
+                System.debug('Metric for current quarter');
+                metricDataWrapper.setHasCurrent(true);
+                
+>>>>>>> origin/ci
                 metricDataWrapper.setCurrentRealValue(metric.Real_Value__c);
                 metricDataWrapper.setCurrentNumerator(metric.Numerator__c);
                 metricDataWrapper.setCurrentDenumerator(metric.Denumerator__c);
@@ -343,6 +413,10 @@ public with sharing class MetricComponentController extends ChildComponentBase {
             }
             else {
 
+<<<<<<< HEAD
+=======
+                System.debug('Metric for previous quarter');
+>>>>>>> origin/ci
                 // Previous quarter
                 metricDataWrapper.setPreviousId(metric.Id);
                 metricDataWrapper.setPreviousRealValue(metric.Real_Value__c);

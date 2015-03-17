@@ -1,3 +1,10 @@
+/**
+ *
+ * Copyright (c) 2014 AppLab, Grameen Foundation
+ *
+ *  API calls to create search logs. Called by devices
+ *  Tests are in TestCreateSearchLogEntry
+ **/
 global class CreateSearchLogEntry {
 
     // Define an object in apex that is exposed in apex web service
@@ -70,7 +77,11 @@ global class CreateSearchLogEntry {
             if(interviewee != null) {
                 searchLog.Interviewee__c = interviewee.Id;
                 searchLog.Interviewer__c = interviewee.Id;
+<<<<<<< HEAD
              	searchLog.OwnerId = interviewee.OwnerId;   
+=======
+                searchLog.OwnerId = interviewee.OwnerId;   
+>>>>>>> origin/ci
             }
 
             searchLogs.add(searchLog);
@@ -276,7 +287,11 @@ global class CreateSearchLogEntry {
         }
 
         createFarmerObjects(personMsisdnMap, msisdnMap);
+<<<<<<< HEAD
         return personMsisdnMap;	          
+=======
+        return personMsisdnMap;           
+>>>>>>> origin/ci
     }
 
     public static Person__c getFarmerPersonObject(SearchLogEntry searchLogEntry) {
@@ -285,6 +300,7 @@ global class CreateSearchLogEntry {
 
             //Check if person exists: Get Id corresponding to msisdn
             Person__c[] people = [
+<<<<<<< HEAD
 	            SELECT 
 	                Id, OwnerId 
 	            FROM 
@@ -295,6 +311,18 @@ global class CreateSearchLogEntry {
 	        if(people.isEmpty()) {
 	            person = createFarmerPersonObject(searchLogEntry);
 	            createfarmerobject(person);
+=======
+                SELECT 
+                    Id, OwnerId 
+                FROM 
+                    Person__c 
+                WHERE
+                    Raw_Mobile_Number__c =:searchLogEntry.msisdn 
+                LIMIT 1]; 
+            if(people.isEmpty()) {
+                person = createFarmerPersonObject(searchLogEntry);
+                createfarmerobject(person);
+>>>>>>> origin/ci
             }
             else {
                 person = people[0];
@@ -445,9 +473,15 @@ global class CreateSearchLogEntry {
 
         List<Farmer__c> farmers = new List<Farmer__c>();
         for (Person__c person : persons) {
+<<<<<<< HEAD
         	Farmer__c farmer = new Farmer__c();
         	farmer.Person__c = person.Id;
         	farmers.add(farmer);
+=======
+            Farmer__c farmer = new Farmer__c();
+            farmer.Person__c = person.Id;
+            farmers.add(farmer);
+>>>>>>> origin/ci
         }
         insert farmers;
     }
@@ -489,6 +523,7 @@ global class CreateSearchLogEntry {
         }
         return person;
     }
+<<<<<<< HEAD
 
     static testMethod void testcreateFarmerObject() {
 
@@ -624,4 +659,6 @@ global class CreateSearchLogEntry {
         System.assert(createNewSearchLogEntries(searchLogs));
 
     }
+=======
+>>>>>>> origin/ci
 }

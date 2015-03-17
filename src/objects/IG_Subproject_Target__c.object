@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Code__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>IG project code</description>
+        <externalId>false</externalId>
+        <inlineHelpText>subproject code needed for reference by IG</inlineHelpText>
+        <label>Subproject Code</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>DateFollowupVisit1__c</fullName>
+        <description>Follow up visit 1</description>
+        <externalId>false</externalId>
+        <label>DateFollowupVisit1</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateFollowupVisit2__c</fullName>
+        <description>Follow up visit 2</description>
+        <externalId>false</externalId>
+        <label>DateFollowupVisit2</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateFollowupVisit3__c</fullName>
+        <description>Follow up visit 3</description>
+        <externalId>false</externalId>
+        <label>DateFollowupVisit3</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateMobilization__c</fullName>
+        <description>Date of the first visit to mobilize and register</description>
+        <externalId>false</externalId>
+        <label>DateMobilization</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DatePreliminaryTrainingDay1__c</fullName>
+        <description>Training day 1</description>
+        <externalId>false</externalId>
+        <label>DatePreliminaryTrainingDay1</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DatePreliminaryTrainingDay2__c</fullName>
+        <description>Training day 2</description>
+        <externalId>false</externalId>
+        <label>DatePreliminaryTrainingDay2</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DatePreliminaryTrainingDay3__c</fullName>
+        <description>Training day 3</description>
+        <externalId>false</externalId>
+        <label>DatePreliminaryTrainingDay3</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>District__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>District</label>
+        <referenceTo>District__c</referenceTo>
+        <relationshipName>IG_Targets</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IG_Region__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>IG Region</label>
+        <referenceTo>IG_Region__c</referenceTo>
+        <relationshipName>IG_Targets</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LocationFollowupVisit1__c</fullName>
+        <description>GPS location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>latitude the longitude</inlineHelpText>
+        <label>Location Followup Visit1</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationFollowupVisit2__c</fullName>
+        <description>GPS location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>latitude the longitude</inlineHelpText>
+        <label>Location Followup Visit2</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationFollowupVisit3__c</fullName>
+        <description>GPS location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>latitude the longitude</inlineHelpText>
+        <label>Location Followup Visit3</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationMobilization__c</fullName>
+        <description>GPS location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>latitude then longitude</inlineHelpText>
+        <label>Location Mobilization</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationPreliminaryTrainingDay1__c</fullName>
+        <description>GPS location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>latitude then longitude</inlineHelpText>
+        <label>Location Preliminary Training Day1</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationPreliminaryTrainingDay2__c</fullName>
+        <description>GPS location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>latitude then longitude</inlineHelpText>
+        <label>Location Preliminary Training Day2</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationPreliminaryTrainingDay3__c</fullName>
+        <description>GPS location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>latitude then longitude</inlineHelpText>
+        <label>Location Preliminary Training Day3</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monitoring_Concluded__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>A flag set when all monitoring info for this object is received</description>
+        <externalId>false</externalId>
+        <label>Monitoring Concluded</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Person__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Person</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>IG Subproject Targets</relationshipLabel>
+        <relationshipName>IG_Subproject_Targets</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone_Display_Item_Position__c</fullName>
+        <description>The position number this item is displayed at amidst other subprojects in that subcounty. This is important and should match whats in the survey</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The position number this item is displayed at amidst other subprojects in that subcounty. This is important and should match whats in the survey</inlineHelpText>
+        <label>Phone Display Item Position</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subcounty__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Subcounty</label>
+        <referenceTo>Subcounty__c</referenceTo>
+        <relationshipName>IG_Targets</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <label>IG Subproject Target</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>IG_Region__c</columns>
+        <columns>District__c</columns>
+        <columns>Subcounty__c</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Subproject Target Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>IG Subproject Targets</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>NUSAF_Persons</fullName>
+        <active>false</active>
+        <errorConditionFormula>$Organization.Name  = &apos;IG NUSAF&apos;</errorConditionFormula>
+        <errorDisplayField>Person__c</errorDisplayField>
+        <errorMessage>only people of account IG NUSAF can be added</errorMessage>
+    </validationRules>
+</CustomObject>

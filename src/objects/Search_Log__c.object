@@ -81,6 +81,15 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Group_Search__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>CKW 3.O tracks group searches with this flag</description>
+        <externalId>false</externalId>
+        <label>Group Search</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Group__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>The group to which the interviewer/CKW is associated</description>
@@ -124,6 +133,18 @@
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>Search Logs (Searches Administered)</relationshipLabel>
         <relationshipName>Interviewee_Search_Logs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Interviewer_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Interviewer Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Search Logs</relationshipLabel>
+        <relationshipName>Search_Logs</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
@@ -236,6 +257,24 @@
         <type>DateTime</type>
     </fields>
     <fields>
+        <fullName>Source__c</fullName>
+        <externalId>false</externalId>
+        <label>Source</label>
+        <picklist>
+            <picklistValues>
+                <fullName>TaroWorks</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Search</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Submission_Accuracy__c</fullName>
         <description>The accuracy of the GPS reading when the log was sent from the phone</description>
         <externalId>false</externalId>
@@ -295,6 +334,7 @@
     <label>Search Log</label>
     <listViews>
         <fullName>All</fullName>
+        <booleanFilter>1</booleanFilter>
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
         <columns>Interviewee__c</columns>
@@ -315,11 +355,14 @@
             <field>Handset_Submit_Time__c</field>
             <operation>greaterThan</operation>
             <value>9/1/2012 12:00 AM</value>
+<<<<<<< HEAD
         </filters>
         <filters>
             <field>From_USSD__c</field>
             <operation>equals</operation>
             <value>1</value>
+=======
+>>>>>>> origin/ci
         </filters>
         <label>All</label>
         <language>en_US</language>

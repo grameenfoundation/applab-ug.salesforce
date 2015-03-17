@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Fecha__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Nivel_Sin_Orden__c</fullName>
+        <externalId>false</externalId>
+        <formula>TRIM(RIGHT( Nivel_categor_a__c, 5))</formula>
+        <label>Nivel Sin Orden</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nivel_categor_a__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Puntaje_categor_a__c &lt; 2, &apos;c. Bajo&apos;, IF (Puntaje_categor_a__c &lt; 4, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
+        <label>Nivel categoría</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nombre_categoria__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;Registros&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nombre categoría</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nombre_tipo_fecha__c</fullName>
+        <externalId>false</externalId>
+        <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nombre tipo fecha</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Plan_de_Manejo_de_Finca__c</fullName>
+        <externalId>false</externalId>
+        <label>Plan de Manejo de Finca</label>
+        <referenceTo>Farm_Management_Plan__c</referenceTo>
+        <relationshipLabel>PMF Finca Categoría 1 - Registro</relationshipLabel>
+        <relationshipName>PMF_Finca_Categorias_1</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Registro_aplicacion_de_pesticida__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( AND(INCLUDES( Registro_aplicacion_de_pesticidas__c ,&apos;Fecha de aplicación&apos;),INCLUDES(Registro_aplicacion_de_pesticidas__c,&apos;Dosis&apos;),INCLUDES(Registro_aplicacion_de_pesticidas__c,&apos;Lote&apos;)), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Registro aplicación de pesticida</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Registro_compra_de_insumos__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  CONTAINS(TEXT(Registro_compra_de_insumos__c) , &apos;Registro de insumos&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Registro compra de insumos</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Registro_de_labores_Jornales__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL( Registro_de_labores_Jornales__c , &apos;Si contrata y tiene registros&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Registro de labores (Jornales)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Registro_recolecci_n__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( Registro_recoleccion__c , &apos;Con documentación/registros de soporte&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Registro recolección</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Registro_ventas_Caf_Pergamino_S__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR( ISPICKVAL(  Registro_ventas_CPS__c , &apos;Sí, con toda la información requerida&apos;), ISPICKVAL(  Registro_ventas_CPS__c , &apos;Sí, pero NO con toda la información&apos;)) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Registro ventas Café Pergamino S</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_categor_a__c</fullName>
+        <externalId>false</externalId>
+        <formula>Puntaje_Registro_de_labores_Jornales__c +  Puntaje_Registro_aplicacion_de_pesticida__c +  Puntaje_Registro_compra_de_insumos__c +  Puntaje_Registro_ventas_Caf_Pergamino_S__c +  Puntaje_Registro_recolecci_n__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje categoría</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Registro_aplicacion_de_pesticidas__c</fullName>
+        <externalId>false</externalId>
+        <label>Registro aplicación de pesticidas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fecha de aplicación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dosis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No registra ningún dato</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Registro_compra_de_insumos__c</fullName>
+        <externalId>false</externalId>
+        <label>Registro compra de insumos</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Registro de insumos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No registra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Registro_de_labores_Jornales__c</fullName>
+        <externalId>false</externalId>
+        <label>Registro de labores (Jornales)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si contrata y tiene registros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Si contrata y no tiene registros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No contrata</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Registro_recoleccion__c</fullName>
+        <externalId>false</externalId>
+        <label>Registro recolección</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Con documentación/registros de soporte</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No registra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Registro_ventas_CPS__c</fullName>
+        <externalId>false</externalId>
+        <label>Registro ventas Café Pergamino Seco (CPS</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí, con toda la información requerida</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí, pero NO con toda la información</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cuenta con registro facturas/recibos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No aplica</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tipo__c</fullName>
+        <externalId>false</externalId>
+        <label>Tipo</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Metas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>PMF Finca Categoria 1 - Registro</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>PMF Finca Categoria 1 Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PMF Finca Categorias 1</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

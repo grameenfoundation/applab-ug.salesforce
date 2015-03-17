@@ -146,76 +146,95 @@ global class FarmerMetrics implements Database.Batchable<sObject>, Database.Stat
 
     global void finish(Database.BatchableContext BC){
 
-        // Do any calculations that are required
-        Decimal total = farmerMetricValues.get('total_farmers_reached');
-        Decimal fiveOrMoreTotal = farmerMetricValues.get('percent_repeat_farmers');
+        try {
+            // Do any calculations that are required
+            Decimal total = farmerMetricValues.get('total_farmers_reached');
+            Decimal fiveOrMoreTotal = farmerMetricValues.get('percent_repeat_farmers');
 
-        if (total != null && total > 0) {
-            Decimal totalWomen = farmerMetricValues.get('total_female_farmers_reached');
-            Decimal totalPoor = farmerMetricValues.get('total_poor_farmers_reached');
-            if (totalWomen != null && totalWomen > 0) {
-                farmerMetricValues.put('total_female_farmers_reached', (totalWomen/total) * 100);
-            }
-            if (totalPoor != null && totalPoor > 0) {
-                farmerMetricValues.put('total_poor_farmers_reached', (totalPoor/total));
-            }
-
-            if (fiveOrMoreTotal != null && fiveOrMoreTotal > 0) {
-                farmerMetricValues.put('percent_repeat_farmers', (fiveOrMoreTotal/total) * 100);
-                Decimal fiveOrMoreWomen = farmerMetricValues.get('percent_repeat_farmers_female');
-                if (fiveOrMoreWomen != null && fiveOrMoreWomen > 0) {
-                    farmerMetricValues.put('percent_repeat_farmers_female', (fiveOrMoreWomen/totalWomen) * 100);
+            if (total != null && total > 0) {
+                Decimal totalWomen = farmerMetricValues.get('total_female_farmers_reached');
+                Decimal totalPoor = farmerMetricValues.get('total_poor_farmers_reached');
+                if (totalWomen != null && totalWomen > 0) {
+                    farmerMetricValues.put('total_female_farmers_reached', (totalWomen/total) * 100);
                 }
-                Decimal fiveOrMorePoor  = farmerMetricValues.get('percent_repeat_farmers_poor');
-                if (fiveOrMorePoor != null && fiveOrMorePoor > 0) {
-                    farmerMetricValues.put('percent_repeat_farmers_poor', (fiveOrMorePoor/totalPoor) * 100);
+                if (totalPoor != null && totalPoor > 0) {
+                    farmerMetricValues.put('total_poor_farmers_reached', (totalPoor/total));
                 }
-            }
-        }
-        
-        farmerMetricValues.put('total_villages', villages.size());
-        farmerMetricValues.put('average_quarterly_total_repeat_usage', MetricHelpers.calculateAverageMetric('percent_repeat_farmers'));
-        farmerMetricValues.put('average_quarterly_poor_repeat_usage', MetricHelpers.calculateAverageMetric('percent_repeat_farmers_female'));
-        farmerMetricValues.put('average_quarterly_woman_repeat_usage', MetricHelpers.calculateAverageMetric('percent_repeat_farmers_poor'));
 
-        List<M_E_Metric_Data__c> updateMetrics = new List<M_E_Metric_Data__c>();
-        List<M_E_Metric_Data__c> newMetrics = new List<M_E_Metric_Data__c>();
-        Map<String, M_E_Metric_Data__c> updateMetricMap = new Map<String, M_E_Metric_Data__c>();
-        Map<String, M_E_Metric_Data__c> newMetricMap = new Map<String, M_E_Metric_Data__c>();
-
-        // Check that we have the M_E_Metric_Data__c object created already
-        M_E_Metric_Data__c[] metrics = MetricHelpers.getMetricDatas(farmerMetricsList, quarterStartDate, quarterEndDate, null);
-        for (M_E_Metric_Data__c metric : metrics) {
-            metric.Actual_Value__c = farmerMetricValues.get(metric.M_E_Metric__r.Name);
-            updateMetricMap.put(metric.M_E_Metric__r.Name, metric);
-        }
-
-        // Generate any new metric if required
-        for (String id : farmerMetricsList) {
-            M_E_Metric_Data__c metric = updateMetricMap.get(id);
-            if (metric == null) {
-                M_E_Metric_Data__c newMetric = MetricHelpers.createNewMetric(id, quarterStartDate, farmerMetricValues.get(id), 0.0, null, null, false);
-                if (newMetric != null) {
-                    newMetricMap.put(id, newMetric);
+                if (fiveOrMoreTotal != null && fiveOrMoreTotal > 0) {
+                    farmerMetricValues.put('percent_repeat_farmers', (fiveOrMoreTotal/total) * 100);
+                    Decimal fiveOrMoreWomen = farmerMetricValues.get('percent_repeat_farmers_female');
+                    if (fiveOrMoreWomen != null && fiveOrMoreWomen > 0) {
+                        farmerMetricValues.put('percent_repeat_farmers_female', (fiveOrMoreWomen/totalWomen) * 100);
+                    }
+                    Decimal fiveOrMorePoor  = farmerMetricValues.get('percent_repeat_farmers_poor');
+                    if (fiveOrMorePoor != null && fiveOrMorePoor > 0) {
+                        farmerMetricValues.put('percent_repeat_farmers_poor', (fiveOrMorePoor/totalPoor) * 100);
+                    }
                 }
             }
-        }
+            
+            farmerMetricValues.put('total_villages', villages.size());
+            farmerMetricValues.put('average_quarterly_total_repeat_usage', MetricHelpers.calculateAverageMetric('percent_repeat_farmers'));
+            farmerMetricValues.put('average_quarterly_poor_repeat_usage', MetricHelpers.calculateAverageMetric('percent_repeat_farmers_female'));
+            farmerMetricValues.put('average_quarterly_woman_repeat_usage', MetricHelpers.calculateAverageMetric('percent_repeat_farmers_poor'));
 
-        // Add the metrics to the correct list
-        for (String id : updateMetricMap.keySet()) {
-            updateMetrics.add(updateMetricMap.get(id));
-        }
-        for (String id : newMetricMap.keySet()) {
-            newMetrics.add(newMetricMap.get(id));
-        }
+            List<M_E_Metric_Data__c> updateMetrics = new List<M_E_Metric_Data__c>();
+            List<M_E_Metric_Data__c> newMetrics = new List<M_E_Metric_Data__c>();
+            Map<String, M_E_Metric_Data__c> updateMetricMap = new Map<String, M_E_Metric_Data__c>();
+            Map<String, M_E_Metric_Data__c> newMetricMap = new Map<String, M_E_Metric_Data__c>();
 
-        // Save the new details to the database
-        if (updateMetrics.size() > 0) {
-            update updateMetrics;
-        }
+            // Check that we have the M_E_Metric_Data__c object created already
+            M_E_Metric_Data__c[] metrics = MetricHelpers.getMetricDatas(farmerMetricsList, quarterStartDate, quarterEndDate, null);
+            for (M_E_Metric_Data__c metric : metrics) {
+                metric.Actual_Value__c = farmerMetricValues.get(metric.M_E_Metric__r.Name);
+                updateMetricMap.put(metric.M_E_Metric__r.Name, metric);
+            }
 
-        if (newMetrics.size() > 0) {
-            insert newMetrics;
+            // Generate any new metric if required
+            for (String id : farmerMetricsList) {
+                M_E_Metric_Data__c metric = updateMetricMap.get(id);
+                if (metric == null) {
+                    M_E_Metric_Data__c newMetric = MetricHelpers.createNewMetric(id, quarterStartDate, farmerMetricValues.get(id), 0.0, null, null, false);
+                    if (newMetric != null) {
+                        newMetricMap.put(id, newMetric);
+                    }
+                }
+            }
+
+            // Add the metrics to the correct list
+            for (String id : updateMetricMap.keySet()) {
+                updateMetrics.add(updateMetricMap.get(id));
+            }
+            for (String id : newMetricMap.keySet()) {
+                newMetrics.add(newMetricMap.get(id));
+            }
+
+            // Save the new details to the database
+            if (updateMetrics.size() > 0) {
+                update updateMetrics;
+            }
+
+            if (newMetrics.size() > 0) {
+                insert newMetrics;
+            }
+        }
+        finally {
+            //fetch the status of the scheduled job and analyse for errors
+            AsyncApexJob jobResult = [
+                SELECT 
+                        Id, 
+                        Status, 
+                        NumberOfErrors, 
+                        JobItemsProcessed, 
+                        TotalJobItems,
+                        ExtendedStatus 
+                FROM 
+                        AsyncApexJob 
+                WHERE 
+                        Id = :BC.getJobId()
+            ];
+            MetricHelpers.sendMetricsCalculationEmailNotification(jobResult, 'Farmer Metrics aggregation completed with errors on ' + DateTime.now().format());
         }
     }
 

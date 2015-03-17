@@ -50,7 +50,11 @@
         <description>The message content that is sent to the users that are enrolled to a campaign in which this message belongs to.</description>
         <externalId>false</externalId>
         <inlineHelpText>Text Message to send to the subscribers.</inlineHelpText>
+<<<<<<< HEAD
         <label>Content</label>
+=======
+        <label>Text</label>
+>>>>>>> origin/ci
         <required>false</required>
         <type>TextArea</type>
     </fields>
@@ -112,7 +116,10 @@
         <inlineHelpText>The message campaign related to this message.</inlineHelpText>
         <label>Message Campaign</label>
         <referenceTo>MessageCampaign__c</referenceTo>
+<<<<<<< HEAD
         <relationshipLabel>Campaign Messages</relationshipLabel>
+=======
+>>>>>>> origin/ci
         <relationshipName>Campaign_Messages</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
@@ -121,12 +128,21 @@
     </fields>
     <fields>
         <fullName>Message_Key__c</fullName>
+<<<<<<< HEAD
         <description>A key uniquely identifying this message.</description>
         <externalId>false</externalId>
         <inlineHelpText>A key uniquely identifying this message.</inlineHelpText>
         <label>Message Key</label>
         <length>80</length>
         <required>true</required>
+=======
+        <description>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</inlineHelpText>
+        <label>Message Key</label>
+        <length>80</length>
+        <required>false</required>
+>>>>>>> origin/ci
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -203,12 +219,35 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+<<<<<<< HEAD
     <label>Campaign Message</label>
+=======
+    <label>Message</label>
+>>>>>>> origin/ci
     <nameField>
         <label>Name</label>
         <type>Text</type>
     </nameField>
+<<<<<<< HEAD
     <pluralLabel>Campaign Messages</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
+=======
+    <pluralLabel>Messages</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>New_Message</fullName>
+        <availability>online</availability>
+        <description>Button to create a new message</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Message</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!URLFOR( $Action.Campaign_Message_Def__c.New , null, [saveURL=MessageCampaign__c.Link, retURL=MessageCampaign__c.Link, CampaignId=MessageCampaign__c.Id , CampaignName=MessageCampaign__c.Name])}</url>
+    </webLinks>
+>>>>>>> origin/ci
 </CustomObject>

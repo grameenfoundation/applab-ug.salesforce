@@ -1,0 +1,1081 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Agro_Inputs_Access__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Agro inputs access&apos;),&apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Agro Inputs Access</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_of_chemical_fertilizer_to_use__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c,&apos;Amount of chemical fertilizer to use&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount of chemical fertilizer to use</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_of_herbicide_for_use__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_and_Timely_Weed_Control_Targets__c, &apos;Amount of herbicide for use&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <label>Amount of herbicide for use</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_of_manure_per_tree__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c,&apos;Amount of manure per tree&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <label>Amount of manure per tree</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CKW_Contact__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>The Contact to whom the Coffee Farmer is assigned. This is the same Contact who registered this farmer</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Contact to whom the Coffee Farmer is assigned. This is the same Contact who registered this farmer</inlineHelpText>
+        <label>CKW Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Coffee Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Coffee_Farmer_GAPs_Selections</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Coffee_Farmer__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Coffee Farmer</label>
+        <referenceTo>Coffee_Farmer__c</referenceTo>
+        <relationshipLabel>Coffee Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Coffee_Farmer_GAPs_Selections</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Coffee_Marketing_and_Certification__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee marketing and certification&apos;),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Marketing and Certification</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_Nursery_Management__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee nursery management&apos;),&apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Nursery Management</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_Pests_and_Disease_Control__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee pests and disease control&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Pests and Disease Control</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_Processing_pulping_of_coffee__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Coffee processing (pulping of coffee)&apos;),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Processing (pulping of coffee)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_Value_Addition_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Coffee Value Addition Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Coffee pulping (parchment)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee roasting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Making coffee (for drinking)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Coffee_Value_Addition__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c,&apos;On farm coffee value addition (PHH)&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee Value Addition</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_desuckering_pruning_stumping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Top_5_Preferred_GAPs_for_Support__c, &apos;Coffee desuckering, pruning and stumping&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee desuckering, pruning &amp; stumping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_pests_and_disease_control_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Coffee pests and disease control Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Detection of pest and disease attack</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pest &amp; disease control measures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency of pesticide application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Coffee_pulping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Coffee pulping (parchment)&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee pulping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_roasting__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Coffee roasting&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee roasting</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_sorting_grading__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Coffee sorting/grading&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee sorting/grading</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coffee_storage_practices__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Coffee storage practices&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Coffee storage practices</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collective_marketing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Group_Production_and_Marketing_Targets__c, &apos;Collective marketing&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collective marketing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collective_production__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Group_Production_and_Marketing_Targets__c, &apos;Collective production&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collective production</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collective_purchase_of_agro_inputs__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Ease_of_access_to_agro_inputs__c, &apos;Collective purchase of agro-inputs&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collective purchase of agro-inputs</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Detection_of_pest_and_disease_attack__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_pests_and_disease_control_Targets__c, &apos;Detection of pest and disease attack&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Detection of pest and disease attack</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Digging_trenches_or_terraces__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_and_Water_Conservation_Targets__c,&apos;Digging trenches or terraces&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Digging trenches or terraces</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ease_of_access_to_agro_inputs__c</fullName>
+        <externalId>false</externalId>
+        <label>Ease of access to agro-inputs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Obtaining quality agro-inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Registered input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collective purchase of agro-inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>General information on agro-inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Farmer_Full_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Coffee_Farmer__r.Focus_Farmer__r.Person__r.First_Name__c + &apos; &apos; + Coffee_Farmer__r.Focus_Farmer__r.Person__r.Last_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Full Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farmer_Identifier__c</fullName>
+        <externalId>false</externalId>
+        <formula>Coffee_Farmer__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Farmer Identifier</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_De_suckering__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pruning_desuckering_Targets__c,&apos;Frequency of De-suckering&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequency of De-suckering</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_fertilizer_application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c, &apos;Frequency of fertilizer application&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequency of fertilizer application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_herbicide_application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_and_Timely_Weed_Control_Targets__c, &apos;Frequency of herbicide application&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequency of herbicide application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_pesticide_application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_pests_and_disease_control_Targets__c, &apos;Frequency of pesticide application&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequency of pesticide application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_weeding__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_and_Timely_Weed_Control_Targets__c, &apos;Frequency of weeding&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequency of weeding</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>General_information_on_agro_inputs__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Ease_of_access_to_agro_inputs__c, &apos;General information on agro-inputs&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>General information on agro-inputs</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Production_and_Marketing_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Group Production and Marketing Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Collective production</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collective marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Group_Production_and_Marketing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Group production and marketing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Group Production and Marketing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Harvesting_handling_practices__c</fullName>
+        <description>Harvesting &amp; post handling practices</description>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Harvesting handling practices&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Harvesting handling practices</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>How_to_use_protective_gear__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_and_Timely_Weed_Control_Targets__c, &apos;How to use protective gear&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>How to use protective gear</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Kind_or_types_of_records_kept__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Record_Keeping_Targets__c, &apos;Kind or types of records kept&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Kind or types of records kept</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_x__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Level_for_coffee_stumping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pruning_desuckering_Targets__c,&apos;Level for coffee stumping&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Level for coffee stumping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Location</type>
+    </fields>
+    <fields>
+        <fullName>Longitude__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission__r.gfsurveys__gps_y__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Making_coffee__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Making coffee (for drinking)&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Making coffee</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Market_information__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Group_Production_and_Marketing_Targets__c, &apos;Market information&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Market information</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Means_of_Soil_Fertilization__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c, &apos;Means of soil fertilization&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <label>Means of Soil Fertilization</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Method_of_drying_coffee__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Method of drying coffee&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Method of drying coffee</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Methods_of_on_farm_coffee_processing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Methods of on-farm coffee processing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Methods of on-farm coffee processing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mode_of_Fertilizer_or_Manure_Placement__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c, &apos;Mode of fertilizer or manure placement&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Mode of Fertilizer or Manure Placement</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mulching__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_and_Water_Conservation_Targets__c,&apos;Mulching&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Mulching</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Stems_to_leave_per_tree__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pruning_desuckering_Targets__c,&apos;Number of Stems to leave per tree&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Number of Stems to leave per tree</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Obtaining_quality_agro_inputs__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Ease_of_access_to_agro_inputs__c, &apos;Obtaining quality agro-inputs&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Obtaining quality agro-inputs</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pest_disease_control_measures__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_pests_and_disease_control_Targets__c, &apos;Pest &amp; disease control measures&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pest &amp; disease control measures</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Planting_grass_across_the_slope__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_and_Water_Conservation_Targets__c,&apos;Planting grass across the slope&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Planting grass across the slope</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Planting_shade_trees_or_wind_breakers__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_and_Water_Conservation_Targets__c,&apos;Planting shade trees or wind breakers&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Planting shade trees or wind breakers</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Post_harvest_handling_and_processing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c, &apos;Post harvest handling and processing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Post harvest handling and processing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Post_harvest_handling_processing_targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Post harvest handling processing targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Harvesting and post-harvest practices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methods of on-farm coffee processing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Steps in wet processing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Method of drying coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee sorting/grading</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee storage practices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Proper_Coffee_farm_Record_Keeping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper Coffee farm record keeping&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper Coffee farm Record Keeping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_and_Timely_Weed_Control_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Proper and Timely Weed Control Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Weed control methods</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency of weeding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time of weeding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weed control program or plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amount of herbicide for use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>How to use protective gear</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Proper_and_Timely_Weed_Control__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c ,&apos;Proper and timely weed control&apos;),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proper and Timely Weed Control</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pruning_desuckering_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Pruning, desuckering Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Frequency of De-suckering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tool used for de-suckering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of Stems to leave per tree</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time of pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tool used for pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time of coffee stumping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Level for coffee stumping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>7</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Record_Keeping_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Keeping Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Kind or types of records kept</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ways of storing records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use of records to make decisions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Registered_input_dealers__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Ease_of_access_to_agro_inputs__c, &apos;Registered input dealers&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Registered input dealers</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Soil_Fertility_Management_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Soil Fertility Management Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Means of soil fertilization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Type of chemical or inorganic fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amount of chemical fertilizer to use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amount of manure per tree</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage of fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency of fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mode of fertilizer or manure placement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time of fertilizer application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Soil_and_Water_Conservation_Targets__c</fullName>
+        <externalId>false</externalId>
+        <label>Soil and Water Conservation Targets</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Digging trenches or terraces</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planting grass across the slope</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planting shade trees or wind breakers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Soil_and_Water_Conservation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Top_5_Preferred_GAPs_for_Support__c , &quot;Soil and water conservation&quot;), &apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Soil and Water Conservation</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Soil_fertility_management__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Top_5_Preferred_GAPs_for_Support__c , &quot;Soil fertility management&quot;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Soil fertility management</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage_of_fertilizer_application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c,&apos;Stage of fertilizer application&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <label>Stage of fertilizer application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Steps_in_wet_processing__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Coffee_Value_Addition_Targets__c, &apos;Steps in wet processing&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Steps in wet processing</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Coffee Farmer GAPs Selections</relationshipLabel>
+        <relationshipName>Coffee_Farmer_GAPs_Selections</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Time_of_Fertilizer_Application__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c,&apos;Time of fertilizer application&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time of Fertilizer Application</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_of_coffee_stumping__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pruning_desuckering_Targets__c,&apos;Time of coffee stumping&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time of coffee stumping</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_of_pruning__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pruning_desuckering_Targets__c,&apos;Time of pruning&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time of pruning</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_of_weeding__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_and_Timely_Weed_Control_Targets__c, &apos;Time of weeding&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time of weeding</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tool_used_for_de_suckering__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pruning_desuckering_Targets__c,&apos;Tool used for de-suckering&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tool used for de-suckering</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tool_used_for_pruning__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Pruning_desuckering_Targets__c,&apos;Tool used for pruning&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tool used for pruning</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Top_5_Preferred_GAPs_for_Support__c</fullName>
+        <externalId>false</externalId>
+        <label>Top 5 Preferred GAPs for Support</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Soil fertility management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper and timely weed control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee desuckering, pruning and stumping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee pests and disease control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soil and water conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Easily access agro-inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee processing (pulping)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On farm coffee value addition (PHH)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group production and marketing of coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proper Coffee farm record keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Type_of_chemical_or_inorganic_fertilizer__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Soil_Fertility_Management_Targets__c, &apos;Type of chemical or inorganic fertilizer&apos;), &apos;Yes&apos;,&apos;No&apos;)</formula>
+        <label>Type of chemical or inorganic fertilizer</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_of_records_to_make_decisions__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Record_Keeping_Targets__c, &apos;Use of records to make decisions&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Use of records to make decisions</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ways_of_storing_records__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Record_Keeping_Targets__c, &apos;Ways of storing records&apos;), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ways of storing records</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weed_control_methods__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_and_Timely_Weed_Control_Targets__c, &apos;Weed control methods&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Weed control methods</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weed_control_program_or_plan__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Proper_and_Timely_Weed_Control_Targets__c, &apos;Weed control program or plan&apos;), &apos;Yes&apos;, &apos;No&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Weed control program or plan</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Coffee Farmer GAPs Selection</label>
+    <nameField>
+        <displayFormat>CG{YYYY}{MM}{DD}{0}</displayFormat>
+        <label>Coffee Farmer GAPs Selection Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Coffee Farmer GAPs Selections</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

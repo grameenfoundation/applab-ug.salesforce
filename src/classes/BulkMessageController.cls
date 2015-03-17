@@ -10,6 +10,10 @@ public with sharing class BulkMessageController {
     public Boolean sendViaSms { get; set; }
     public Boolean sendViaPulse { get; set; }
     public String senderId { get; set; }
+<<<<<<< HEAD
+=======
+    public String category { get; set; }
+>>>>>>> origin/ci
 
     // We need this message field so that we can create a DatePicker on the VF
     // page using the apex:inputField control (it will only create a DatePicker
@@ -22,7 +26,11 @@ public with sharing class BulkMessageController {
         this.dummyMessage = new Message__c();
         this.dummyMessage2 = new Message__c();
         this.sendViaSms = false;
+<<<<<<< HEAD
         this.sendViaPulse = false;
+=======
+        this.sendViaPulse = true;//default true
+>>>>>>> origin/ci
         this.groups = new List<String>();
         this.people = new List<String>();
         this.sendees = new List<String>();
@@ -33,6 +41,20 @@ public with sharing class BulkMessageController {
         return null;
     }
 
+<<<<<<< HEAD
+=======
+    public List<SelectOption> categoryType { 
+    	get {
+	        List<SelectOption> options = new List<SelectOption>();
+			options.add(new SelectOption('', ''));
+			for(Schema.PicklistEntry item : Case.Category__c.getDescribe().getPicklistValues()) {
+				options.add(new SelectOption(item.getLabel(), item.getLabel()));
+			}
+	        return options;
+    	}
+	}
+	
+>>>>>>> origin/ci
     /**
      * Submit the message. This will either send it immediately or schedule it for sending at a later date
      * A Scheduled_Message_Queue__c object can link to a person or a group. If it is linked to a group
@@ -100,7 +122,11 @@ public with sharing class BulkMessageController {
                 recipients.addAll(groupRecipients);
                 rescheduled = SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
+<<<<<<< HEAD
                         recipients, this.subject, this.messageText, sender.Id, sender.Name, this.sendViaPulse, this.sendViaSms, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c
+=======
+                        recipients, this.subject, this.messageText, sender.Id, sender.Name, this.sendViaPulse, this.sendViaSms, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c, category 
+>>>>>>> origin/ci
                     ), true
                 );
             }
@@ -119,7 +145,12 @@ public with sharing class BulkMessageController {
                        Send_Via_Pulse__c = this.sendViaPulse,
                        Send_Via_SMS__c = this.sendViaSms,
                        Send_Date_Time__c = this.dummyMessage.Expiration_Time__c,
+<<<<<<< HEAD
                        Person__c = recipient
+=======
+                       Person__c = recipient,
+                       Category__c = category
+>>>>>>> origin/ci
                     );
                     messageQueue.add(message);
                 }
@@ -132,7 +163,12 @@ public with sharing class BulkMessageController {
                        Send_Via_Pulse__c = this.sendViaPulse,
                        Send_Via_SMS__c = this.sendViaSms,
                        Send_Date_Time__c = this.dummyMessage.Expiration_Time__c,
+<<<<<<< HEAD
                        Group__c = g
+=======
+                       Group__c = g,
+                       Category__c = category
+>>>>>>> origin/ci
                     );
                     messageQueue.add(message);
                 }
@@ -225,16 +261,27 @@ public with sharing class BulkMessageController {
             }
 
             // This needs to be an aggregate query so as to only get distinct people
+<<<<<<< HEAD
             String selectClause =
                 'SELECT '+
                 'Person__c, '+
                 'Person__r.First_Name__c firstname, '+
                 'Person__r.Middle_Name__c middlename, '+
                 'Person__r.Last_Name__c lastname '+
+=======
+            // Limit of records set to less. User should user groups to avoid dealing with alot of data
+            String selectClause =
+                'SELECT '+
+                'Person__c, '+
+                'Person__r.First_Name__c, '+
+                'Person__r.Middle_Name__c, '+
+                'Person__r.Last_Name__c '+
+>>>>>>> origin/ci
             'FROM ' +
                 'Person_Group_Association__c ' +
             'WHERE ' +
                  'Group__c IN (' + MetricHelpers.generateCommaSeperatedString(groups,true) + ') '  +
+<<<<<<< HEAD
             'GROUP BY ' + 
                 'Person__c, ' +
                 'Person__r.First_Name__c, ' +
@@ -253,11 +300,31 @@ public with sharing class BulkMessageController {
                        fullName += ' ' + (String)person.get('lastname');
                     }
                     options.add(new SelectOption((String)person.get('Person__c'), fullName));
+=======
+            'ORDER BY ' +
+                'Person__r.First_Name__c ' +
+            'LIMIT 1000';
+            for (Person_Group_Association__c[] people : database.query(SelectClause)) {
+                for (Person_Group_Association__c person : people) {
+                    String fullName = person.Person__r.First_Name__c;
+                    if (person.Person__r.Middle_Name__c != null) {
+                       fullName += ' ' + person.Person__r.Middle_Name__c;
+                    }
+                    if (person.Person__r.Last_Name__c != null) {
+                       fullName += ' ' + person.Person__r.Last_Name__c;
+                    }
+                    options.add(new SelectOption(String.valueOf(person.Person__r.Id), fullName));
+>>>>>>> origin/ci
                 }
             }
         }
         else {
+<<<<<<< HEAD
             for (Person__c[] people : [
+=======
+            // degailt loading of people makes pageload time out
+            /*for (Person__c[] people : [
+>>>>>>> origin/ci
                     SELECT
                         Id,
                         First_Name__c,
@@ -267,7 +334,11 @@ public with sharing class BulkMessageController {
                         Person__c
                     ORDER BY
                         First_Name__c
+<<<<<<< HEAD
                     LIMIT 1000
+=======
+                    LIMIT 100
+>>>>>>> origin/ci
             ]) {
                 for (Person__c person : people) {
                     String fullName = person.First_Name__c;
@@ -279,17 +350,25 @@ public with sharing class BulkMessageController {
                     }
                     options.add(new SelectOption(person.Id, fullName));
                 }
+<<<<<<< HEAD
             }
+=======
+            }*/
+>>>>>>> origin/ci
         }
         return options;
     }
 
     public List<SelectOption> getUserItems() {
 
+		String name = UserInfo.getUserId();
         List<SelectOption> options = new List<SelectOption>();
         for (User[] currentUsers :  [SELECT Id, Name FROM User WHERE IsActive = true ORDER BY Name ASC]) {
             for (User currentUser : currentUsers) {
                 options.add(new SelectOption(currentUser.id, currentUser.name));
+                if(name.equals(currentUser.id)) {
+                	senderId = currentUser.id;
+                }
             }
         }
         return options;

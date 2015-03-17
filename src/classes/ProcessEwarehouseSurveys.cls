@@ -530,12 +530,21 @@ public with sharing class ProcessEwarehouseSurveys {
 
     // Map of the crops grown by the Kenya farmers
     private static Map<String, String> cropMap = new Map<String, String> {
+<<<<<<< HEAD
         '1' => 'Maize',
         '2' => 'Beans',
         '3' => 'Pigeon peas',
         '4' => 'Black beans(Dolichos)',
         '5' => 'Cow peas',
         '6' => 'Green grams'
+=======
+        'Maize' => 'Maize',
+        'Beans' => 'Beans',
+        'Pigeonpeas' => 'Pigeon peas',
+        'Blackbeans' => 'Black beans(Dolichos)',
+        'Cowpeas' => 'Cow peas',
+        'Greengrams' => 'Green grams'
+>>>>>>> origin/ci
     };
 
     // Map of the foreign matter variables in the survey

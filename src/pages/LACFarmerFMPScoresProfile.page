@@ -1,0 +1,74 @@
+<apex:page tabStyle="LAC_Farmer_Details__c" standardController="LAC_Farmer_Details__c" extensions="LacFarmerProfilePageController" language="{!PageLanguage}">
+
+    <style>
+        .clsCenter{ 
+            text-align:center;
+        }
+        .valueColumn{
+            background-color:'#82FA58';
+        }
+        .redCell{
+            background-color:'Red';
+            font-weight:'Bold'; 
+        }
+    </style>
+
+    <script type="text/javascript">
+        function changeCellsColor() {
+            var table = document.getElementById('{!$Component.mainBlock.mainSection.fmpTable}');
+            var rowCount = table.rows.length;
+            for (var i = 0; i < rowCount; i++) {
+                var cells = table.rows[i].getElementsByTagName('*');
+                for(var j=0; j < cells.length; j++) {
+                    var value = cells[j].innerHTML;
+                    if (value == 'Alto') {
+                        //cells[j].style.backgroundColor = 'Green';
+                        cells[j].style.color = '#009900';
+                        cells[j].style.fontweight = 'bold';
+                        cells[j].style.fontWeight = 'bold';
+                    } else if (value == 'Medio') {
+                        //cells[j].style.backgroundColor = 'Yellow';
+                        cells[j].style.color = '#FFCC00';
+                        cells[j].style.fontweight = 'bold';
+                        cells[j].style.fontWeight = 'bold';
+                    } else if (value == 'Bajo') {
+                        //cells[j].style.backgroundColor = 'Red';
+                        cells[j].style.color = 'Red';      
+                        cells[j].style.fontWeight = 'bold';             
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <apex:pageBlock id="mainBlock">
+    
+        <apex:pageBlockSection title="{!$Label.Farm_Management_Plans}" collapsible="false" columns="1" id="mainSection">
+                    
+            <apex:pageBlockTable value="{!FMPFarmScores}" var="score" id="fmpTable">
+                <apex:column headervalue="Finca" style="clsCenter" value="{!score.Farm_Name__c}"/>
+                <apex:column headervalue="A�o" style="clsCenter" value="{!score.Year__c}"/>
+                <apex:column headervalue="Tipo" style="clsCenter" value="{!score.Type__c}"/>
+                <apex:column headervalue="Registros" style="text-align: center" headerClass="clsCenter" value="{!score.Registries_Score__c}"/>
+                <apex:column headervalue="Beneficio" style="text-align: center" value="{!score.Mill_Score__c}"/>
+                <apex:column headervalue="Conservaci�n suelos" style="text-align: center" headerClass="clsCenter" value="{!score.Soil_Conservation_Score__c}"/>
+                <apex:column headervalue="Manejo sombra" style="text-align: center" headerClass="clsCenter" value="{!score.Shadow_Management_Score__c}"/>
+                <apex:column headervalue="MIPE" style="text-align: center" headerClass="clsCenter" value="{!score.MIPE_Score__c}"/>
+                <apex:column headervalue="Control malezas" style="text-align: center" headerClass="clsCenter" value="{!score.Undergrowth_Control_Score__c}"/>
+                <apex:column headervalue="Manejo plaguicidas" style="text-align: center" headerClass="clsCenter" value="{!score.Pesticide_Management_Score__c}"/>
+                <apex:column headervalue="Gesti�n ambiental" style="text-align: center" headerClass="clsCenter" value="{!score.Enviromental_Management_Score__c}"/>
+                <apex:column headervalue="Cosecha postcosecha" style="text-align: center" headerClass="clsCenter" value="{!score.Harvest_and_Post_Harvest_Score__c}"/>
+                <apex:column headervalue="Lotes" style="text-align: center" headerClass="clsCenter" value="{!score.Lots_Score__c}"/>
+                <apex:column headervalue="Alm�cigo" style="text-align: center" headerClass="clsCenter" value="{!score.Seedbed_Score__c}"/>
+                <!-- style="background-color:{!IF(fs.FS_Prevalence_score__c == 'Alto','#82FA58', IF(fs.FS_Prevalence_score__c == 'Medio', '#F3F781', '#F79F81')))}" -->
+            </apex:pageBlockTable> 
+             
+        </apex:pageBlockSection>
+    
+    </apex:pageBlock> 
+
+    <script type="text/javascript">
+        changeCellsColor();
+    </script>
+
+</apex:page>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Fecha__c</fullName>
+        <externalId>false</externalId>
+        <label>Fecha</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Identificacion_de_zonas_erosionadas__c</fullName>
+        <externalId>false</externalId>
+        <label>Identificación de zonas erosionadas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Nivel_categoria__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Puntaje_categoria__c &lt; 2, &apos;c. Bajo&apos;, IF (Puntaje_categoria__c &lt; 3, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nivel categoría</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nombre_categoria__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;Conservación de suelos&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nombre categoría</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nombre_tipo_fecha__c</fullName>
+        <externalId>false</externalId>
+        <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nombre tipo fecha</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Plan_de_Manejo_de_Finca__c</fullName>
+        <externalId>false</externalId>
+        <label>Plan de Manejo de Finca</label>
+        <referenceTo>Farm_Management_Plan__c</referenceTo>
+        <relationshipLabel>PMF Finca Categoria 3 - Conserv suelos</relationshipLabel>
+        <relationshipName>PMF_Finca_Categorias_3</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Identificacion_de_zonas_erosiona__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( Identificacion_de_zonas_erosionadas__c , &apos;Sí&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Identificación de zonas erosiona</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Recuperacion_de_zonas_erosionada__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  OR( 
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Curvas a nivel&apos;),
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Terrazas individuales&apos;),
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Terrazas de banco&apos;),
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Barreras vivas&apos;),
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Barreras físicas&apos;),
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Acequias&apos;),
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Cultivos de cobertura de suelo&apos;),
+INCLUDES( Recuperacion_de_zonas_erosionadas__c , &apos;Mulch (colchon de materia orgánica)&apos;)
+)  , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Recuperación de zonas erosionada</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_Reforestacion_especies_nativas__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(  Reforestacion_con_especies_nativas__c , &apos;Sí&apos;) , 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje Reforestación especies nativas</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Puntaje_categoria__c</fullName>
+        <externalId>false</externalId>
+        <formula>Puntaje_Identificacion_de_zonas_erosiona__c +  
+Puntaje_Recuperacion_de_zonas_erosionada__c +  
+Puntaje_Reforestacion_especies_nativas__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Puntaje categoría</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recuperacion_de_zonas_erosionadas__c</fullName>
+        <externalId>false</externalId>
+        <label>Recuperación de zonas erosionadas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Curvas a nivel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terrazas individuales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terrazas de banco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Barreras vivas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Barreras físicas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Acequias</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cultivos de cobertura de suelo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulch (colchon de materia orgánica)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No realiza ninguna de esas prácticas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reforestacion_con_especies_nativas__c</fullName>
+        <externalId>false</externalId>
+        <label>Reforestación con especies nativas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tipo__c</fullName>
+        <externalId>false</externalId>
+        <label>Tipo</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Metas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>PMF Finca Categoria 3 - Conserv. suelos</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>PMF Finca Categoria 3 Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PMF Finca Categorias 3</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

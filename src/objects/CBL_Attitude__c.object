@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Represents the farmer attitude information for a Coffee Baseline</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Baseline__c</fullName>
+        <externalId>false</externalId>
+        <label>Baseline</label>
+        <referenceTo>CBL_CoffeeBaseline__c</referenceTo>
+        <relationshipLabel>CBL_Attitudes</relationshipLabel>
+        <relationshipName>CBL_Attitudes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>CBL_Attitude_Submission</relationshipLabel>
+        <relationshipName>CBL_Attitude_Submission</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>chooseToBeFarmer__c</fullName>
+        <externalId>false</externalId>
+        <label>chooseToBeFarmer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>destinedToBeFarmer__c</fullName>
+        <externalId>false</externalId>
+        <label>destinedToBeFarmer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>discussMethodsWOthers__c</fullName>
+        <externalId>false</externalId>
+        <label>discussMethodsWOthers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>effortInAgriculturePays__c</fullName>
+        <externalId>false</externalId>
+        <label>effortInAgriculturePays</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>farmersLifeWillBeBetter__c</fullName>
+        <externalId>false</externalId>
+        <label>farmersLifeWillBeBetter</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>futureCoffeePlans__c</fullName>
+        <externalId>false</externalId>
+        <label>futureCoffeePlans</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Comprar tierras para sembrarlas de café</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sembrar café en tierras que ya tiene</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mejorar tecnificación de su plantación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inversiones en su beneficio húmedo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vender parte o todo su cultivo de café</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sustituir el café por otro cultivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No realizará cambios</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>7</visibleLines>
+    </fields>
+    <fields>
+        <fullName>happyToBeFarmer__c</fullName>
+        <externalId>false</externalId>
+        <label>happyToBeFarmer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>limitationsCauses__c</fullName>
+        <externalId>false</externalId>
+        <label>limitationsCauses</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No tengo sufientes recursos financieros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Falta tiempo para dedicarme al cafetal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Falta de conocimiento técnico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>neighborsProductivityLvl__c</fullName>
+        <externalId>false</externalId>
+        <label>neighborsProductivityLvl</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Productividad alta comparado a conocidos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Productividad similar a conocidos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Menor comparado a conocidos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>payForAgriAdvise__c</fullName>
+        <externalId>false</externalId>
+        <label>payForAgriAdvise</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>productivityImprovmntLimitations__c</fullName>
+        <externalId>false</externalId>
+        <label>productivityImprovmntLimitations</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Plantación muy vieja (más de 25 años)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Variedad no adecuada para la zona</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mala calidad de plantía (almácigo)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Falta de fertilizante</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plagas y enfermedades</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clima no favorable para el café</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>productivityTrend5Years__c</fullName>
+        <externalId>false</externalId>
+        <label>productivityTrend5Years</label>
+        <picklist>
+            <picklistValues>
+                <fullName>La productividad se incrementó</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La productividad permanece estable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>La productividad ha disminuido</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>takeAdvise__c</fullName>
+        <externalId>false</externalId>
+        <label>takeAdvise</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>wishChildrenBecomeFarmers__c</fullName>
+        <externalId>false</externalId>
+        <label>wishChildrenBecomeFarmers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>worthInvestingMoneyTimeAgr__c</fullName>
+        <externalId>false</externalId>
+        <label>worthInvestingMoneyTimeAgr</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Muy en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ni de acuerdo o en desacuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>De algún modo de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Muy de acuerdo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>CBL_Attitude</label>
+    <nameField>
+        <displayFormat>AT-{0000000}</displayFormat>
+        <label>CBL_Attitude Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CBL_Attitudes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

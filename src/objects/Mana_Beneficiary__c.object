@@ -38,6 +38,21 @@
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>Age__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(Date_of_Birth__c),0,FLOOR((TODAY()-Date_of_Birth__c)/365.2425))</formula>
+        <label>Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Attends_School__c</fullName>
         <externalId>false</externalId>
         <label>Attends School</label>
@@ -56,6 +71,27 @@
         <type>Picklist</type>
     </fields>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>Centro_de_Recuperacion_Nutricional__c</fullName>
+        <externalId>false</externalId>
+        <label>Centro de Recuperación Nutricional</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Contact__c</fullName>
         <externalId>false</externalId>
         <label>Contact</label>
@@ -69,6 +105,91 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>Control_prenatal__c</fullName>
+        <externalId>false</externalId>
+        <label>Control prenatal</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Crecimiento_y_desarrollo__c</fullName>
+        <externalId>false</externalId>
+        <label>Crecimiento y desarrollo</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Date_of_Birth__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.Birthdate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Date of Birth</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Desmovilizados__c</fullName>
+        <externalId>false</externalId>
+        <label>Desmovilizados</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Discapacitados__c</fullName>
+        <externalId>false</externalId>
+        <label>Discapacitados</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Education_Level__c</fullName>
         <externalId>false</externalId>
         <label>Education Level</label>
@@ -126,9 +247,28 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
+<<<<<<< HEAD
         <fullName>Poblacion_vulnerable_Desmovilizados__c</fullName>
         <externalId>false</externalId>
         <label>Poblacion vulnerable - Desmovilizados</label>
+=======
+        <fullName>Id_Like_HH__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Household__r.Name == Name, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Id Like HH Temp</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LGTBI__c</fullName>
+        <externalId>false</externalId>
+        <label>LGTBI</label>
+>>>>>>> origin/ci
         <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
@@ -144,6 +284,7 @@
         <type>Picklist</type>
     </fields>
     <fields>
+<<<<<<< HEAD
         <fullName>Poblacion_vulnerable_Discapacitados__c</fullName>
         <externalId>false</externalId>
         <label>Poblacion vulnerable - Discapacitados</label>
@@ -152,8 +293,29 @@
                 <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
+=======
+        <fullName>Labor_activity__c</fullName>
+        <externalId>false</externalId>
+        <label>Labor activity</label>
+        <picklist>
             <picklistValues>
-                <fullName>No</fullName>
+                <fullName>Trabajador(a) independiente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Empleado(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jornalero(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Empleado(a) doméstico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trabajador familiar sin remuneración</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -162,6 +324,48 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Mana_infantil__c</fullName>
+        <externalId>false</externalId>
+        <label>Maná infantil</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Otros_programas__c</fullName>
+        <externalId>false</externalId>
+        <label>Otros programas</label>
+        <picklist>
+>>>>>>> origin/ci
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+<<<<<<< HEAD
+            <sorted>false</sorted>
+=======
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+>>>>>>> origin/ci
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+<<<<<<< HEAD
         <fullName>Poblacion_vulnerable_LGTBI__c</fullName>
         <externalId>false</externalId>
         <label>Poblacion vulnerable - LGTBI</label>
@@ -170,19 +374,115 @@
                 <fullName>Sí</fullName>
                 <default>false</default>
             </picklistValues>
+=======
+        <fullName>PAE__c</fullName>
+        <externalId>false</externalId>
+        <label>PAE</label>
+        <picklist>
             <picklistValues>
                 <fullName>No</fullName>
                 <default>false</default>
             </picklistValues>
-            <sorted>false</sorted>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Permitir_SMS_Household__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(Household__r.Permitir_SMS__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Permitir_SMS_Household</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Poblacion_diferencial__c</fullName>
+        <externalId>false</externalId>
+        <label>Población diferencial</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Afrocolombiano(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indígena</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ninguno</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Red_unidos__c</fullName>
+        <externalId>false</externalId>
+        <label>Red unidos</label>
+        <picklist>
+>>>>>>> origin/ci
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+<<<<<<< HEAD
+            <sorted>false</sorted>
+=======
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+>>>>>>> origin/ci
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+<<<<<<< HEAD
         <fullName>Poblacion_vulnerable_Victimas_del_conf__c</fullName>
         <externalId>false</externalId>
         <label>Poblacion vulnerable - Victimas del conf</label>
+=======
+        <fullName>Registration_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Household__r.CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Registration Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reported_Age__c</fullName>
+        <externalId>false</externalId>
+        <label>Reported Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Victimas_del_conflicto__c</fullName>
+        <externalId>false</externalId>
+        <label>Victimas del conflicto</label>
+>>>>>>> origin/ci
         <picklist>
             <picklistValues>
                 <fullName>Sí</fullName>
@@ -197,7 +497,264 @@
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
+<<<<<<< HEAD
     <label>Mana Beneficiary</label>
+=======
+    <fields>
+        <fullName>id_type__c</fullName>
+        <externalId>false</externalId>
+        <label>id type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Registro civil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Número único de identificación personal NUIP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Menor sin identificación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>marital_status__c</fullName>
+        <externalId>false</externalId>
+        <label>marital status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Soltero(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Casado(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unión libre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Viudo(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Divorciado(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Separado(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ocuppation__c</fullName>
+        <externalId>false</externalId>
+        <label>ocuppation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Estudiante</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oficios del hogar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>relationship_with_head_of_hh__c</fullName>
+        <externalId>false</externalId>
+        <label>relationship with head of hh</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Jefe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cónyuge</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hijo(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nieto(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Padre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Madre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hermano(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yerno o nuera</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Abuelo(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Suegro(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tío(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sobrino(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primo(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuñado(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro(a)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No pariente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Servicio soméstico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>second_last_name__c</fullName>
+        <externalId>false</externalId>
+        <label>second last name</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>second_name__c</fullName>
+        <externalId>false</externalId>
+        <label>second name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>social_security_type__c</fullName>
+        <externalId>false</externalId>
+        <label>social security type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Contributivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subsidiado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Excepción</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vinculado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No afiliado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <label>Mana Beneficiary</label>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Id_Like_HH</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>Household__c</columns>
+        <columns>Date_of_Birth__c</columns>
+        <columns>Age__c</columns>
+        <columns>Reported_Age__c</columns>
+        <columns>Attends_School__c</columns>
+        <columns>Registration_Date__c</columns>
+        <columns>Id_Like_HH__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Id_Like_HH__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>All Id Like HH</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>test</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>Household__c</columns>
+        <columns>Date_of_Birth__c</columns>
+        <columns>Age__c</columns>
+        <columns>Reported_Age__c</columns>
+        <columns>Attends_School__c</columns>
+        <columns>Registration_Date__c</columns>
+        <columns>Id_Like_HH__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Age__c</field>
+            <operation>equals</operation>
+            <value>114</value>
+        </filters>
+        <label>test</label>
+        <language>en_US</language>
+    </listViews>
+>>>>>>> origin/ci
     <nameField>
         <label>Id</label>
         <trackHistory>false</trackHistory>

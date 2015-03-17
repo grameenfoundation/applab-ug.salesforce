@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @charset "utf-8";
 /**
  * CSS for the "toChecklist" jQuery plugin, by Scott Horlbeck
@@ -32,3 +33,39 @@ div.findInList input.blurred { background-color: white; color: gray; }
 
 div.checklist li.optgroup { font-size: 1.1em; font-weight: bold; font-style: italic; background-color: #ccc; border-top: 1px solid #777; border-bottom: 1px solid #777; padding-left: 7px; }
 div.checklist li.optgroup:hover { background-color: #ccc; }
+=======
+@charset "utf-8";
+/**
+ * CSS for the "toChecklist" jQuery plugin, by Scott Horlbeck
+*/
+
+div.checklist, div.checklistHighlighted { overflow-y: auto; overflow-x: hidden; /* If you don't want scrollbars, leave this one blank. */ }
+div.checklist { border: 1px solid gray; border-left: 3px solid #ccc; color: #555; font-family: arial; font-size: 12px;  line-height: 1.6em; width: 137px}
+div.checklistHighlighted { border: 1px solid gray; border-left: 3px solid #ffffa7; }
+
+ul.checklist { list-style-type: none; margin: 0; padding: 0; }
+div.checklist li { padding: 3px; list-style-type: none; width: 137px}
+div.checklist li.even { background-color: white; list-style-type: none; width: 137px}
+div.checklist li.odd { background-color: #f7f7f7; list-style-type: none; width: 137px}
+div.checklist li.even:hover, div.checklist li.odd:hover, div.checklist li.focused, div.checklist li:hover label { background-color: #dde; }
+div.checklist li.checked { background: #ffffa7; font-style: italic; }
+div.checklist li.checked:hover, div.checklist li.checked:hover label { background: #ffff22; font-style: italic; }
+
+div.checklist label.disabled { color: #ddd; }
+
+/*div.checklist li { position: relative; }*/
+div.checklist li input { display: block; float: left; }
+div.checklist label { display: block; margin: 0; padding: 0; }
+div.checklist label.leaveRoomForCheckbox { display: block; padding-left: 25px; /* If hiding checkboxes, set padding-left to 3px */ } 
+
+ul.showSelectedItems { color: #770; font-size: 13px; list-style-position: outside; margin-left: 0; padding-left: 1.4em; }
+ul.showSelectedItems li:hover { cursor: pointer; color: red; text-decoration: blink; }
+
+/**** Search box ****/
+div.findInList { margin-bottom: 5px; }
+div.findInList input { background-color: #ffffef; border: solid 1px #eee; color: black; font-family: arial; font-size: .8em; padding: 2px; }
+div.findInList input.blurred { background-color: white; color: gray; }
+
+div.checklist li.optgroup { font-size: 1.1em; font-weight: bold; font-style: italic; background-color: #ccc; border-top: 1px solid #777; border-bottom: 1px solid #777; padding-left: 7px; }
+div.checklist li.optgroup:hover { background-color: #ccc; }
+>>>>>>> origin/ci

@@ -2,13 +2,58 @@ public class CallCenterController {
         
     String caseId = '';
     String phoneNumber;  
+    String district;
+    String sex;
     String response;
     Boolean isNewFarmer;
     Farmer__c[] farmers;
     Farmer__c farmer;
     Case[] cases;
     Case currentCase;
+    Person__c[] ckws;
+    Person__c ckw;
+    Boolean callBackRequired = false;
+    
+    public String type { get; set; }
+    public String fname { get; set; }
+    public String lname { get; set; }
+    public String callerType { get; set; }
         
+    public String getDistrict() {
+        return district;
+    }
+    
+    public void setDistrict(String district) {
+        this.district = district;
+    }   
+    
+    public List<SelectOption> personType { 
+        get {
+            List<SelectOption> options = new List<SelectOption>();
+            options.add(new SelectOption('', ''));
+            for(Schema.PicklistEntry item : Person__c.Type__c.getDescribe().getPicklistValues()) {
+                options.add(new SelectOption(item.getLabel(), item.getLabel()));
+            }
+            return options;
+        }
+    }
+    
+    public String getSex() {
+        return sex;
+    }
+            
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    
+    public Person__c[] getCkws() {
+        return ckws;
+    }
+        
+    public void setCkws(Person__c[] ckws) {
+        this.ckws = ckws;
+    }
+    
     public String getPhoneNumber() {
         return phoneNumber;     
     }
@@ -32,9 +77,17 @@ public class CallCenterController {
     public void setFarmer(Farmer__c farmer) {
         this.farmer = farmer;
     }
+     
+    public Person__c getCkw() {
+        return ckw;
+    }
+        
+    public void setCkw(Person__c ckw) {
+        this.ckw = ckw;
+    }
         
     public Case[] getCases() {
-        cases = getFarmerCases(farmer);
+        cases = farmer != null ? getFarmerCases(farmer) : getPersonCases(ckw);
         return cases;
     }
         
@@ -52,6 +105,14 @@ public class CallCenterController {
     public void setResponse(String response) {
         this.response = response;
     }
+    
+    public Boolean getCallBackRequired() {
+        return this.callBackRequired;
+    }
+    
+    public void setCallBackRequired(Boolean callback) {
+        this.callBackRequired = callback;
+    }
                         
     public PageReference searchByPhoneNumber() {  
         // Clear all farmer details in preparation for new search
@@ -66,18 +127,16 @@ public class CallCenterController {
         else if (phoneNumber.length() == 10) {
             phoneNumber = phoneNumber.substring(1);
         }
-        if (isWellFormedPhoneNumber(phoneNumber)) {                   
-            farmers = getByPhoneNumber(phoneNumber);
-            // Check if there is any farmer with a matching phone number  
-            if (farmers.isEmpty() || farmers == null) {
-                farmer = createDefaultFarmer();
-                isNewFarmer  = true;
+        if (isWellFormedPhoneNumber(phoneNumber)) {     
+            if(callerType.equals('Farmer')) {              
                 farmers = getByPhoneNumber(phoneNumber);
-                farmer = farmers[0];
-            }  
+                // Check if there is any farmer with a matching phone number  
+                farmer = (farmers != null && !farmers.isEmpty()) ? farmers[0] : null;   
+            }
             else {
-                farmer = farmers[0];
-            }     
+                ckws = getCkwByPhoneNumber(phoneNumber);       
+                ckw = (ckws != null && !ckws.isEmpty()) ? ckws[0] : null;       
+            }
         }      
         return null;        
     }
@@ -97,6 +156,14 @@ public class CallCenterController {
         return null;
     }
        
+    public PageReference savePersonChanges() {
+        database.update(ckw);
+        farmers = getByPhoneNumber(ckw.Mobile_Number__c);
+        ckw = ckws[0];
+        isNewFarmer = false;
+        return null;
+    }
+    
     public PageReference getCaseDetails () {
         String caseId= ApexPages.currentPage().getParameters().get('cId');
         PageReference pageRef = new PageReference('/' + caseId + '?isdtp=mn&retURL=/ui/desktop/DesktopMainDefaultPage?isdtp=mn');
@@ -104,7 +171,7 @@ public class CallCenterController {
     }
          
     public PageReference linkArticles() {
-        if (saveCurrentCase(farmer)) {
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
             PageReference pageRef = new PageReference('/knowledge/knowledgeHome.apexp?id=' + currentCase.Id + '&isdtp=mn');
             return pageRef.setRedirect(true);
         }            
@@ -112,12 +179,21 @@ public class CallCenterController {
     }
     
     public PageReference saveCaseAndClear() {
+<<<<<<< HEAD
         if (saveCurrentCase(farmer)) {
         	if (currentCase.Status == 'Closed') {
         	    // For all closed cases update total_complete_interactions_call_center
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
                 MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
         	}
+=======
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
+            if (currentCase.Status == 'Closed') {
+                // For all closed cases update total_complete_interactions_call_center
+                MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+                MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
+            }
+>>>>>>> origin/ci
             clearCaseFields();    
             // Reset all fields and prepare for next search 
             clearAllFarmers();  
@@ -127,8 +203,13 @@ public class CallCenterController {
     
     public PageReference saveCaseAndClose() {
         currentCase.Status = 'Closed';
+<<<<<<< HEAD
         if (saveCurrentCase(farmer)) {
         	 // For all closed cases update total_complete_interactions_call_center
+=======
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
+             // For all closed cases update total_complete_interactions_call_center
+>>>>>>> origin/ci
             MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
             MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
             clearCaseFields();    
@@ -139,9 +220,13 @@ public class CallCenterController {
     }
     
     public PageReference saveCase() {
-        if (saveCurrentCase(farmer)) {  
+        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {  
             if (currentCase.Status == 'Closed') {
+<<<<<<< HEAD
             	// For all closed cases update total_complete_interactions_call_center
+=======
+                // For all closed cases update total_complete_interactions_call_center
+>>>>>>> origin/ci
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
                 MetricHelpers.updateMetric('total_info_services_offered', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
                 clearCaseFields(); 
@@ -150,7 +235,7 @@ public class CallCenterController {
         return null;
     }
     
-    private boolean saveCurrentCase(Farmer__c farmer) {     
+    public boolean saveCurrentCase(Farmer__c farmer) {     
         if (currentCase.Subject == null || currentCase.Category__c == null || currentCase.Status == null) {
             ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'The case must have Subject, Category and Status values');
             ApexPages.addMessage(errorMessage);
@@ -159,13 +244,47 @@ public class CallCenterController {
         currentCase.Type = 'Question';            
         currentCase.Person__c = farmer.Person__r.Id;            
         currentCase.Reason = 'reason';
+<<<<<<< HEAD
+=======
         currentCase.Response__c = this.response;
         currentcase.Origin = 'Phone Call';
-        database.upsert(currentCase);               
+        currentcase.Subject = callBackRequired ? '[CALLBACK REQUIRED] ' + currentcase.Subject : currentcase.Subject;
+        database.upsert(currentCase);      
+        if(callBackRequired) {
+            CaseComment newCom = new CaseComment();
+            newCom.CommentBody = 'This Case Requires a Callback before closing';
+            newCom.IsPublished = FALSE;
+            newCom.ParentId = currentCase.Id;
+            insert newCom;
+        }
+        return true;
+     }
+     
+    public boolean saveCurrentCase(Person__c person) {     
+        if (currentCase.Subject == null || currentCase.Category__c == null || currentCase.Status == null) {
+            ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'The case must have Subject, Category and Status values');
+            ApexPages.addMessage(errorMessage);
+            return false;
+        }      
+        currentCase.Type = 'Question';            
+        currentCase.Person__c = person.Id;            
+        currentCase.Reason = 'reason';
+>>>>>>> origin/ci
+        currentCase.Response__c = this.response;
+        currentcase.Origin = 'Phone Call';
+        currentcase.Subject = callBackRequired ? '[CALLBACK REQUIRED] ' + currentcase.Subject : currentcase.Subject;
+        database.upsert(currentCase);   
+        if(callBackRequired) {
+            CaseComment newCom = new CaseComment();
+            newCom.CommentBody = 'This Case Requires a Callback before closing';
+            newCom.IsPublished = FALSE;
+            newCom.ParentId = currentCase.Id;
+            insert newCom;
+        }            
         return true;
      }
         
-    private Farmer__c createDefaultFarmer() {   
+    public Farmer__c createDefaultFarmer() {   
         Farmer__c farmer;
         Person__c person;        
         farmer = new Farmer__c();
@@ -199,53 +318,110 @@ public class CallCenterController {
         return numberMatch.matches();
     }
     
-    private Farmer__c[] getByPhoneNumber(String phoneContact) {
-        farmers = [
-                SELECT 
-                    Id,
-                    Name,
-                    Crops__c,
-                    Livestock__c,
-                    Topics_of_Interest__c,
-                    Person__c,
-                    Person__r.First_Name__c,
-                    Person__r.Middle_Name__c,
-                    Person__r.Last_Name__c,
-                     Person__r.District_Name__c,
-                    Person__r.District__c,
-                    Person__r.Mobile_Number__c,
-                    Person__r.Raw_Mobile_Number__c
-                FROM
-                    Farmer__c 
-                WHERE
-                    Person__r.Mobile_Number__c
-                    LIKE
-                    :('%' + phoneContact)
-                ];
-        return farmers; 
+    public Farmer__c[] getByPhoneNumber(String phoneContact) {
+        String farmersQuery =
+            'SELECT '                                                   +
+                'Id,'                                                   +
+                'Name,'                                                 +
+                'Crops__c,'                                             +
+                'Livestock__c,'                                         +
+                'Topics_of_Interest__c,'                                +
+                'Person__c,'                                            +
+                'Person__r.First_Name__c,'                              +
+                'Person__r.Middle_Name__c,'                             +
+                'Person__r.Last_Name__c,'                               +
+                'Person__r.District_Name__c,'                           +
+                'Person__r.District__c,'                                +
+                'Person__r.Mobile_Number__c,'                           +
+                'Person__r.Raw_Mobile_Number__c '                       +
+            'FROM '                                                     +
+                'Farmer__c '                                            +
+            'WHERE '                                                    +
+                'Mobile_Number__c LIKE \'%' + phoneContact + '\' ';
+        farmersQuery = sex != null && sex != '' ? 
+            farmersQuery + 'AND Person__r.Gender__c = \'' + sex + '\' ' : farmersQuery;
+        farmersQuery = type != null && type != '' ? 
+            farmersQuery + 'AND Person__r.Type__c = \'' + type + '\' ' : farmersQuery;
+        farmersQuery = (district != null && district != '') ? 
+            farmersQuery + 'AND Person__r.District_Name__c = \'' + district + '\' ' : farmersQuery;
+        farmersQuery = (fname != null && fname != '') ? 
+            farmersQuery + 'AND Person__r.First_Name__c = \'' + fname + '\' ' : farmersQuery;
+        farmersQuery = (lname != null && lname != '') ? 
+            farmersQuery + 'AND Person__r.Last_Name__c = \'' + lname + '\' ' : farmersQuery;
+        return database.query(farmersQuery); 
     }
     
-    private Case[] getFarmerCases(Farmer__c farmer) {
-        if (farmer == null) {
-           return null;
-        }
-        cases = [
-                    SELECT
-                        Id,                        
-                        Subject,
-                        CaseNumber,
-                        Status,
-                        Description,
-                        CreatedDate
-                        
-                    FROM
-                        Case
-                    WHERE
-                        Person__c = :farmer.Person__r.Id
-                    ORDER BY CreatedDate DESC
-                    LIMIT 5
+        
+    public Person__c[] getCkwByPhoneNumber(String phoneContact) {
+        String query =
+            'SELECT '                                                   +
+                'Id,'                                                   +
+                'Name,'                                                 +
+                'First_Name__c,'                                        +
+                'Middle_Name__c,'                                       +
+                'Last_Name__c,'                                         +
+                'District_Name__c,'                                     +
+                'District__c,'                                          +
+                'Mobile_Number__c,'                                     +
+                'Raw_Mobile_Number__c '                                 +
+            'FROM '                                                     +
+                'Person__c '                                            +
+            'WHERE '                                                    +
+                'Mobile_Number__c LIKE \'%' + phoneContact + '\' ';
+        query = sex != null && sex != '' ? 
+            query + 'AND Gender__c = \'' + sex + '\' ' : query;
+        query = type != null && type != '' ? 
+            query + 'AND Type__c = \'' + type + '\' ' : query;
+        query = (district != null && district != '') ? 
+            query + 'AND District_Name__c = \'' + district + '\' ' : query;
+        query = (fname != null && fname != '') ? 
+            query + 'AND First_Name__c = \'' + fname + '\' ' : query;
+        query = (lname != null && lname != '') ? 
+            query + 'AND Last_Name__c = \'' + lname + '\' ' : query;
+        return database.query(query); 
+    }
+    
+    public Case[] getFarmerCases(Farmer__c farmer) {
+        return farmer == null ?
+            null :
+            [
+                SELECT
+                    Id,                        
+                    Subject,
+                    CaseNumber,
+                    Status,
+                    Description,
+                    CreatedDate
+                FROM
+                    Case
+                WHERE
+                    Person__c = :farmer.Person__r.Id
+                ORDER BY CreatedDate DESC
+                LIMIT 5
                                                
-               ];
+           ];
+        return cases;
+    }
+    
+    public Case[] getPersonCases(Person__c person) {
+        return ckw == null ?
+            null :
+            [
+                SELECT
+                    Id,                        
+                    Subject,
+                    CaseNumber,
+                    Status,
+                    Description,
+                    CreatedDate
+                FROM
+                    Case
+                WHERE
+                    Person__c = :person.Id
+                ORDER BY CreatedDate DESC
+                LIMIT 5
+                                               
+           ];
         return cases;
     }
         
@@ -257,7 +433,10 @@ public class CallCenterController {
     public void clearAllFarmers() {
         farmers = null;
         farmer = null;
+        ckws = null;
+        ckw = null;
     }
+<<<<<<< HEAD
    
     static testmethod void testGetByPhoneNumber() {
         CallCenterController controller = new CallCenterController();
@@ -329,4 +508,6 @@ public class CallCenterController {
         system.assert(controller.getResponse() != 'response');
     }
     
+=======
+>>>>>>> origin/ci
 }

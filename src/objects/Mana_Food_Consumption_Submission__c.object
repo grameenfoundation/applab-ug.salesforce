@@ -62,7 +62,34 @@
         <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
+<<<<<<< HEAD
     <label>Mana Food Consumption Submission</label>
+=======
+    <fields>
+        <fullName>temp_processed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>temp processed</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <label>Mana Food Consumption Submission</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Household__c</columns>
+        <columns>Submission__c</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>UPDATEDBY_USER.ALIAS</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>temp_processed__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+>>>>>>> origin/ci
     <nameField>
         <displayFormat>{0000000000}</displayFormat>
         <label>Id</label>

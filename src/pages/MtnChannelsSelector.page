@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <apex:page controller="MtnChannelsSelector" sidebar="false">
     <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
     <apex:includeScript value="{!$Resource.CommonJS}"/>
@@ -160,4 +161,168 @@
         toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block}')), 'mtnMainBackground');
         toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block}')), 'mtnPageBlock');
     </script>
+=======
+<apex:page controller="MtnChannelsSelector" sidebar="false">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <apex:styleSheet value="{!$Resource.selectorComponenetCss}"/>
+    <apex:stylesheet value="{!$Resource.MTN_CSS}"/>
+    <apex:includeScript value="{!$Resource.googleCharts}"/>
+    <apex:includeScript value="{!$Resource.MTN_Chan_Graph_JS}"/>
+    <apex:styleSheet value="{!$Resource.graphComponentCss}"/>
+    <c:MtnChanModal />
+    <c:ErrorMessage />
+    <apex:pageBlock id="block">
+        <apex:pageBlockSection id="section" title="Select the data you would like to see" columns="1">
+            <apex:form id="form">
+
+                <apex:actionFunction name="refreshAllGraphs" action="{!refreshAll}" rerender="{!$Component.block.allGraphs}">
+                    <apex:param name="showOutlet" value=""/>
+                    <apex:param name="showPromotion" value=""/>
+                    <apex:param name="showStockGraph" value=""/>
+                    <apex:param name="showDSD" value=""/>
+                    <apex:param name="showCompetitorGraph" value=""/>
+                    <apex:param name="showCompetitorStockGraph" value=""/>
+                    <apex:param name="outletType" value=""/>
+                    <apex:param name="stockType" value=""/>
+                    <apex:param name="merchandiseType" value=""/>
+                    <apex:param name="xAxisType" value=""/>
+                </apex:actionFunction>
+
+
+                <c:DashboardSelector sectionKey="key" key="DashboardSelectorKey" pageController="{!this}" accountName="MTN Channels" selector="{!selector}"/>
+                <div id="graphSelectorCheckBoxes" class="tableRow">
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showOutlet"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                        <span style="font-weight:bold">Show Outlet Visit Graph</span>
+                    </div>
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showPromotion"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                        <span style="font-weight:bold">Show Promotion Graph</span>
+                    </div>
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showStockGraph"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                        <span style="font-weight:bold">Show Stock Graph</span>
+                    </div>
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showDSD"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                        <span style="font-weight:bold">Show DSD Graph</span>
+                    </div>
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showCompetitorGraph"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                        <span style="font-weight:bold">Show Competitor Graph</span>
+                    </div>
+                    <div class="tableColumnSelectBox">
+                        <apex:inputCheckbox id="showCompetitorStockGraph"/>
+                    </div>
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium left">
+                        <span style="font-weight:bold">Show Competitor Stock Graph</span>
+                    </div>
+                </div>
+                <div id="xAxisSelector" class="tableRow">
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="xAxis" value="1" checked="checked" onchange="setXAxisType(this)"/><span style="font-weight:bold">Show Region</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="xAxis" value="2" onchange="setXAxisType(this)"/><span style="font-weight:bold">Show Staff Member</span>
+                        </div>
+                        <div id="radioDiv" style="display:inline">
+                            <input type="radio" name="xAxis" value="3" onchange="setXAxisType(this)"/><span style="font-weight:bold">Show Outlet Type</span>
+                        </div>
+                </div>
+                <div id="optionalSelectorSelector" class="tableRow">
+                    <div id="outletTypes">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            <span style="font-weight:bold">Select Outlet Type:</span>
+                        </div>
+                        <div class="tableColumnNarrowDropDown">
+                            <apex:selectList id="outletType" styleClass="apexNarrowDropDown" multiselect="false" size="1" title="Choose an outlet type to view data about">
+                                <apex:selectOptions value="{!outletTypes}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                    </div>
+                    <div id="stockTypes">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            <span style="font-weight:bold">Select Stock Type:</span>
+                        </div>
+                        <div class="tableColumnNarrowDropDown">
+                            <apex:selectList id="stockType" styleClass="apexNarrowDropDown" multiselect="false" size="1" title="Choose a stock type to view data about">
+                                <apex:selectOptions value="{!stockTypes}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                    </div>
+                    <div id="merchandiseTypes">
+                        <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                            <span style="font-weight:bold">Select Merchandise Type:</span>
+                        </div>
+                        <div class="tableColumnNarrowDropDown">
+                            <apex:selectList id="merchandiseType" styleClass="apexNarrowDropDown" multiselect="false" size="1" title="Choose a merchandise type to view data about">
+                                <apex:selectOptions value="{!merchandiseTypes}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="submitButtonGeneralWrapper submitButtonOneWrapper">
+                        <div class="submitButtonWrapper">
+                            <button id="submit" class="submitButton mtnBackgroundTwo" type="button" onclick="submitForm()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </apex:form>
+        </apex:pageBlockSection>
+        <apex:outputPanel id="allGraphs">
+            <apex:form >
+            <apex:outputPanel rendered="{!showOutlet}">
+                <c:MtnChannelsGraph sectionKey="key" key="outletGraph" pageController="{!this}" graph="OutletsVisited" xAxisType="{!xAxisType}" showEnlarge="true" showData="{!showOutlet}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!showPromotion}">
+                <c:MtnChannelsGraph sectionKey="key" key="PromotionalActivities" pageController="{!this}" graph="PromotionType" xAxisType="{!xAxisType}" showEnlarge="true" showData="{!showPromotion}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!showStockGraph}">
+                <c:MtnChannelsGraph sectionKey="key" key="Stock" pageController="{!this}" graph="StockGraph" xAxisType="{!xAxisType}" showEnlarge="true" showData="{!showStockGraph}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!showDSD}">
+                <c:MtnChannelsGraph sectionKey="key" key="DSD" pageController="{!this}" graph="DSDGraph" xAxisType="{!xAxisType}" showEnlarge="true" showData="{!showDSD}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!showCompetitorGraph}">
+                <c:MtnChannelsGraph sectionKey="key" key="Competitor" pageController="{!this}" graph="CompetitorSellGraph" xAxisType="{!xAxisType}" showEnlarge="true" showData="{!showCompetitorGraph}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!showCompetitorStockGraph}">
+                <c:MtnChannelsGraph sectionKey="key" key="CompetitorStockGraph" pageController="{!this}" graph="CompetitorMerchGraph" xAxisType="{!xAxisType}" showEnlarge="true" showData="{!showCompetitorStockGraph}"/>
+            </apex:outputPanel>
+            </apex:form>
+        </apex:outputPanel>
+    </apex:pageBlock>
+    <apex:includeScript value="{!$Resource.Mtn_Chan_Dash_JS}"/>
+    <script type="text/javascript">
+
+        // Add the stuff that cannot be in a static resource
+        var idPrefix = '{!$Component.block.section.form}' + ":";
+    </script>
+    <script type="text/javascript">
+        //addEvent(window, 'load', setFocus(), false);
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block.section}') + ' >div:first'), 'mtnPageBlockSection');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block.section}') + ' >div:first'), 'mtnPageBlockSectionFirst');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block.section}') + ' >div:first'), 'pbSubheader');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block.section}') + ' >div:first'), 'first');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block.section}') + ' >div:first'), 'tertiaryPalette');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block.section}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block}')), 'bPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block}')), 'apexDefaultPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block}')), 'secondaryPalette');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.block}')), 'mtnPageBlock');
+    </script>
+>>>>>>> origin/ci
 </apex:page>

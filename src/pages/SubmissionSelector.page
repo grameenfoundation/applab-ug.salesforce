@@ -1,6 +1,5 @@
 <apex:page controller="DashboardSelectorController" extensions="SubmissionSelectorController">
-
-    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+<apex:stylesheet value="{!$Resource.CommonCSS}"/>
     <apex:includeScript value="{!$Resource.CommonJS}"/>
 
     <apex:pageBlock id="thePageBlock">
@@ -30,9 +29,14 @@
                                 Choose CKW options
                             </div>
                             <div class="tableColumnDropDown">
-                                <apex:selectList id="ckws" value="{!selectedCkws}" styleClass="apexDropDown"  multiselect="true"  size="6">
-                                    <apex:selectOptions value="{!ckwList}"></apex:selectOptions>
-                                </apex:selectList>
+                                <select id="{!$Component.detailSelectorForm}:ckws" name="{!$Component.detailSelectorForm}:ckws" class="apexDropDown" multiple="multiple">
+                                    <apex:repeat value="{!ckwBatchList}" var="ckList" >
+                                        <apex:repeat value="{!ckwBatchList[ckList]}" var="selectItem">
+                                            <option value="{!selectItem.value}">{!selectItem.label}</option>
+                                        </apex:repeat>
+                                     
+                                    </apex:repeat> 
+                                </select>
                             </div>
                         </div>
                     </div>

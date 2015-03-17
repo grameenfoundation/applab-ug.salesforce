@@ -44,7 +44,10 @@
         <externalId>false</externalId>
         <label>Group</label>
         <referenceTo>gfsurveys__ContactGroup__c</referenceTo>
+<<<<<<< HEAD
         <relationshipLabel>Campaign Enrollments</relationshipLabel>
+=======
+>>>>>>> origin/ci
         <relationshipName>Message_Campaign_Group_Associations</relationshipName>
         <required>true</required>
         <type>Lookup</type>
@@ -54,7 +57,10 @@
         <externalId>false</externalId>
         <label>MessageCampaign</label>
         <referenceTo>MessageCampaign__c</referenceTo>
+<<<<<<< HEAD
         <relationshipLabel>Campaign Enrollments</relationshipLabel>
+=======
+>>>>>>> origin/ci
         <relationshipName>Message_Campaign_Group_Associations</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
@@ -66,17 +72,29 @@
         <defaultValue>Today()</defaultValue>
         <externalId>false</externalId>
         <inlineHelpText>The reference date determines the calendar date that the campaign will begin for this enrollment</inlineHelpText>
+<<<<<<< HEAD
         <label>Reference Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <label>Campaign Enrollment</label>
+=======
+        <label>Subscription Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <label>Subscription</label>
+>>>>>>> origin/ci
     <nameField>
         <displayFormat>CE-{00000000}</displayFormat>
         <label>Campaign Enrollment</label>
         <type>AutoNumber</type>
     </nameField>
+<<<<<<< HEAD
     <pluralLabel>Campaign Enrollments</pluralLabel>
+=======
+    <pluralLabel>Subscriptions</pluralLabel>
+>>>>>>> origin/ci
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

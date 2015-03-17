@@ -78,7 +78,11 @@
                     <div class="graphButton">
                         <apex:outputPanel id="refreshButton" styleClass="submitButtonGeneralWrapper">
                             <button id="graphRefresh" type="button" class="submitButton" onclick="clearErrorsFromPage();refreshComponent('{!key}')">Refresh Graph</button>
+<<<<<<< HEAD
                             <button id="enlarge" type="button" class="submitButton" style="visibility:{!IF(showEnlarge,'visible','hidden')}" onclick="openGraphInNewWindow('{!$Page.MtnChannelsExpandedGraph}', '{!graph}')">Enlarge Graph</button>
+=======
+                        <!-- <button id="enlarge" type="button" class="submitButton" style="visibility:{!IF(showEnlarge,'visible','hidden')}" onclick="openGraphInNewWindow('{!$Page.MtnChannelsExpandedGraph}', '{!graph}')">Enlarge Graph</button> -->
+>>>>>>> origin/ci
                         </apex:outputPanel>
                     </div>
                 </div>

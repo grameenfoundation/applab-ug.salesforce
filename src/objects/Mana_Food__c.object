@@ -43,7 +43,11 @@
         <label>Category</label>
         <picklist>
             <picklistValues>
+<<<<<<< HEAD
                 <fullName>Cereals</fullName>
+=======
+                <fullName>Cereales</fullName>
+>>>>>>> origin/ci
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -51,6 +55,7 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+<<<<<<< HEAD
                 <fullName>Fruits</fullName>
                 <default>false</default>
             </picklistValues>
@@ -64,6 +69,21 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Vegetables</fullName>
+=======
+                <fullName>Frutas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legumbres</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Carne y Huevos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetales</fullName>
+>>>>>>> origin/ci
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -72,6 +92,27 @@
         <type>Picklist</type>
     </fields>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>Number_of_Consumption_Records__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Consumption Records</label>
+        <summaryForeignKey>Mana_Food_Consumption_Record__c.Food__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Quantity_Codes__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Quantity Codes</label>
+        <summaryForeignKey>Mana_Food_Quantity_Code__c.Food__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Units__c</fullName>
         <externalId>false</externalId>
         <label>Units</label>
@@ -96,12 +137,44 @@
                 <fullName>Units</fullName>
                 <default>false</default>
             </picklistValues>
+<<<<<<< HEAD
+=======
+            <picklistValues>
+                <fullName>Kilograms</fullName>
+                <default>false</default>
+            </picklistValues>
+>>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <label>Mana Food</label>
+<<<<<<< HEAD
+=======
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Category__c</columns>
+        <columns>Units__c</columns>
+        <columns>Number_of_Consumption_Records__c</columns>
+        <columns>Number_of_Quantity_Codes__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>Todos</label>
+    </listViews>
+>>>>>>> origin/ci
     <nameField>
         <label>Name</label>
         <trackHistory>false</trackHistory>

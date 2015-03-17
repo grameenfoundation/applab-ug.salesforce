@@ -11,20 +11,36 @@
                     value="{!$Label.DELETE}" />
             </apex:form>
         </apex:pageBlockButtons>
+<<<<<<< HEAD
         <apex:pageBlockSection columns="1" id="fieldSection">
             <apex:outputField value="{!campaignMessage.Name}" />
             <apex:outputField value="{!campaignMessage.Format__c}" />
             <apex:outputField value="{!campaignMessage.Language__c}" />
             <apex:outputField value="{!campaignMessage.Message_Key__c}" />
+=======
+        <apex:pageBlockSection columns="1">
+        	<apex:outputField value="{!campaignMessage.Name}" />
+            <apex:outputField value="{!campaign.Name}" label="{!$Label.CAMPAIGN}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" id="fieldSection" title="{!$Label.PARAMETERS}">
+>>>>>>> origin/ci
             <apex:outputField value="{!campaignMessage.Date__c}" rendered="{!campaign.Campaign_Type__c == 'Absolute'}"/>
             <apex:outputField value="{!campaignMessage.Start_Time__c}"/>
             <apex:outputField value="{!campaignMessage.Offset_Time__c}" rendered="{!campaign.Campaign_Type__c == 'Offset'}" />
             <apex:outputField value="{!campaignMessage.Repeat_Every__c}" rendered="{!campaign.Campaign_Type__c == 'Repeat Interval'}"/>
             <apex:outputField value="{!campaignMessage.Cron__c}" rendered="{!campaign.Campaign_Type__c == 'Cron'}" />
             <apex:outputField value="{!campaignMessage.Repeat_On__c}" rendered="{!campaign.Campaign_Type__c == 'Day of Week'}"/>
+<<<<<<< HEAD
             <apex:outputField value="{!campaign.Campaign_Type__c}" />
             <apex:outputField value="{!campaign.Name}"/>
             <apex:outputField value="{!campaignMessage.Content__c}"/>
+=======
+            <apex:outputField value="{!campaignMessage.Content__c}"/>
+            <!--<apex:outputField value="{!campaignMessage.Format__c}" />
+            <apex:outputField value="{!campaignMessage.Language__c}" />
+            <apex:outputField value="{!campaignMessage.Message_Key__c}" />
+            -->
+>>>>>>> origin/ci
         </apex:pageBlockSection>
     </apex:pageBlock>
     

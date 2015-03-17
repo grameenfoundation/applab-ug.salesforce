@@ -67,6 +67,22 @@
         <unique>false</unique>
     </fields>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>Assigned_Farmer_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Contact__r.Lac_Farmer_Count__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Assigned Farmer Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Assigned_On__c</fullName>
         <description>The date charger was assigned to the CKW</description>
         <externalId>false</externalId>
@@ -98,6 +114,16 @@
         </picklist>
         <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CKW_Picture__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Contact__r.Picture__c</formula>
+        <label>CKW Picture</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>CKW_Rank__c</fullName>
@@ -540,11 +566,11 @@ BR()&amp;
         <label>CKW Status</label>
         <picklist>
             <picklistValues>
-                <fullName>Hired</fullName>
+                <fullName>Nominee</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>In Training</fullName>
+                <fullName>Predeployment</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -552,15 +578,47 @@ BR()&amp;
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Suspended</fullName>
+                <fullName>On Performance Improvement Plan</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>On vacation</fullName>
+                <fullName>Sick leave</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Dropped</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Made Field Officer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive due to faulty phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive because phone was stolen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Made Data Validator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive due to faulty charging solution</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive because charging solution was stolen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contract expired</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -569,6 +627,7 @@ BR()&amp;
         <type>Picklist</type>
     </fields>
     <label>CKW</label>
+<<<<<<< HEAD
     <listViews>
         <fullName>tabitha</fullName>
         <columns>NAME</columns>
@@ -582,6 +641,8 @@ BR()&amp;
         <label>All CKWs</label>
         <language>en_US</language>
     </listViews>
+=======
+>>>>>>> origin/ci
     <nameField>
         <displayFormat>CKW-{YY}-{000000}</displayFormat>
         <label>CKW ID</label>

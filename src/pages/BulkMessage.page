@@ -84,7 +84,11 @@
             <apex:outputText value="{!$Label.BULK_MESSAGE_PAGE_INSTRUCTIONS}" escape="false"/>
             <br/>
             <br/>
+<<<<<<< HEAD
             <table>
+=======
+            <table>	
+>>>>>>> origin/ci
                 <tr>
                     <td style="font-weight:bold;width:370px;">
                         <div style="width:70px;float:left;">{!$Label.From}</div>
@@ -123,6 +127,10 @@
                     </td>
                 </tr>
                 <tr>
+<<<<<<< HEAD
+                    <td>&nbsp;</td>
+=======
+>>>>>>> origin/ci
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
@@ -130,6 +138,12 @@
                     <td style="font-weight:bold;">{!$Label.BULK_MESSAGE_PAGE_SEND_TO_GROUPS} {!$Label.MEMBERS}:</td>
                 </tr>
                 <tr>
+<<<<<<< HEAD
+                    <td style="font-weight:bold;">{!$Label.BULK_MESSAGE_PAGE_SEND_TO_GROUPS} {!$Label.MEMBERS}:</td>
+                </tr>
+                <tr>
+=======
+>>>>>>> origin/ci
                     <td>
                         <div style="padding-left:20px">
                             <p>{!$Label.BULK_MESSAGE_PAGE_MEMBERS_REFRESH_INSTRUCTIONS}</p><br/>
@@ -154,6 +168,7 @@
                         <ul id="{!$Component.parent_container}:sendee_selectedItems"/>
                     </td>
                 </tr>
+<<<<<<< HEAD
                 <tr>
                     <td>
                         <div style="width:70px;float:left;font-weight:bold">
@@ -201,6 +216,65 @@
                         </div>
                         <div style="float:left">
                             <apex:inputCheckbox id="Pulse" value="{!sendViaPulse}"/>
+=======
+            	<tr>
+            		<td colspan="2">
+            			<div style="width:70px;float:left;font-weight:bold">Category</div>
+                        <div style="float:left">
+                            <apex:selectList id="category" value="{!category}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!categoryType}"/>
+                            </apex:selectList>
+                        </div>
+            		</td>
+            	</tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.Subject}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputText value="{!subject}"/>
+                        </div>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.MESSAGE}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputTextArea value="{!messageText}"/>
+                        </div>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.SEND_DATE}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputField value="{!dummyMessage.Expiration_Time__c}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="width:100px;float:left;font-weight:bold">
+                            {!$Label.EXPIRATION_DATE}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputField value="{!dummyMessage2.Expiration_Time__c}"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:70px;float:left;font-weight:bold">
+                            {!$Label.Send} {!$Label.VIA}:
+                        </div>
+                        <div style="float:left">
+                            <apex:inputCheckbox id="Pulse" value="{!sendViaPulse}" selected="true"/>
+>>>>>>> origin/ci
                             &nbsp;Pulse&nbsp;&nbsp;&nbsp;
                             <apex:inputCheckbox id="SMS" value="{!sendViaSms}"/>
                             &nbsp;SMS

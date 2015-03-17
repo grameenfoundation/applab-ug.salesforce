@@ -1,0 +1,173 @@
+<apex:page controller="MtnChannelsRegistrationController" sidebar="false">
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+    <apex:stylesheet value="{!$Resource.MTN_CSS}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <c:ModalComponent />
+    <apex:pageBlock id="registrationBlock">
+        <c:ErrorMessage />
+        <apex:pageBlockSection id="registrationSection" collapsible="false" columns="1" showHeader="false">
+        <apex:form id="registrationForm">
+            <apex:actionFunction name="submitForm" action="{!submitMtnChannelsRegistration}" rerender="pageErrors, pageReset" oncomplete="closeModal('');">
+                <apex:param name="regionParam" value=""/>
+                <apex:param name="firstNameParam" value=""/>
+                <apex:param name="middleNameParam" value=""/>
+                <apex:param name="lastNameParam" value=""/>
+                <apex:param name="emailAddressParam" value=""/>
+                <apex:param name="genderParam" value=""/>
+                <apex:param name="dobParam" value=""/>
+                <apex:param name="usingExistingPhoneParam" value=""/>
+                <apex:param name="existingPhoneParam" value=""/>
+                <apex:param name="newPhoneImeiParam" value=""/>
+                <apex:param name="newPhoneNumberParam" value=""/>
+                <apex:param name="newPhoneSerialNumberParam" value=""/>
+                <apex:param name="newPhonePurcahseValueParam" value=""/>
+                <apex:param name="newPhoneTypeParam" value=""/>
+            </apex:actionFunction>
+            <div class="tableRow">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                    <span style="font-weight:bold">Region:</span>
+                </div>
+                <div class="tableColumnDropDown">
+                    <apex:selectList id="region" value="{!region}" styleClass="apexDropDown" multiselect="false" size="1" title="Select the region this TDR is going to work in" label="Region: ">
+                        <apex:selectOptions value="{!regions}"></apex:selectOptions>
+                    </apex:selectList>
+                </div>
+            </div>
+            <div class="tableRow">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                    <span style="font-weight:bold">First Name:</span>
+                </div>
+                <apex:inputText id="firstName" styleClass="inputField"/>
+           </div>
+           <div class="tableRow">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                    <span style="font-weight:bold">Middle Name:</span>
+                </div>
+                <apex:inputText id="middleName" styleClass="inputField"/>
+           </div>
+           <div class="tableRow">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                    <span style="font-weight:bold">Last Name:</span>
+                </div>
+                <apex:inputText id="lastName" styleClass="inputField"/>
+           </div>
+           <div class="tableRow">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                    <span style="font-weight:bold">Email Address:</span>
+                </div>
+                <apex:inputText id="emailAddress" styleClass="inputField"/>
+           </div>
+           <div class="tableRow">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                    <span style="font-weight:bold">Gender:</span>
+                </div>
+                <div class="tableColumnDropDown">
+                    <apex:selectList id="gender" styleClass="apexDropDown" multiselect="false" size="1" title="Select the gender for this TDR">
+                        <apex:selectOptions value="{!genders}"></apex:selectOptions>
+                    </apex:selectList>
+                </div>
+           </div>
+           <div class="tableRow">
+                <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                    <span style="font-weight:bold">Date Of Birth:</span>
+                 </div>
+                <apex:inputField id="dob" value="{!dobDatePicker.Start_Date__c}" styleClass="inputField"/>
+           </div>
+           <div class="tableRow">
+            <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                <span style="font-weight:bold">Enter Phone:</span>
+                </div>
+                <div class="tableColumnDropDown">
+                    <apex:selectList id="useExistingPhone"
+                            styleClass="apexDropDown"
+                            multiselect="false"
+                            size="1"
+                            title="Select yes to use an existing phone. No to enter a new phone"
+                            onchange="showPhoneDetails(this);"
+                    >
+                        <apex:selectOptions value="{!existingPhonesBoolean}"></apex:selectOptions>
+                    </apex:selectList>
+                </div>
+            </div>
+            <div id="existingPhoneFormSection"  style="display:none">
+                <div class="tableRow">
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                        <span style="font-weight:bold">Select existing phone:</span>
+                    </div>
+                    <div class="tableColumnDropDown">
+                        <apex:selectList id="existingPhone"
+                                styleClass="apexDropDown"
+                                multiselect="false"
+                                size="1"
+                                title="Select the phone that this TDR is going to use"
+                        >
+                            <apex:selectOptions value="{!existingPhones}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>
+                </div>
+            </div>
+            <div id="newPhoneFormSection" style="display:none">
+                <div class="tableRow">
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                        <span style="font-weight:bold">IMEI:</span>
+                    </div>
+                    <apex:inputText id="phoneImei" styleClass="tableColumnRowLabelInline inputField"/>
+                </div>
+                <div class="tableRow">
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                        <span style="font-weight:bold">Phone Number:</span>
+                    </div>
+                    <apex:inputText id="phoneNumber" styleClass="tableColumnRowLabelInline inputField"/>
+                </div>
+                <div class="tableRow">
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                        <span style="font-weight:bold">Serial Number:</span>
+                    </div>
+                    <apex:inputText id="phoneSerialNumber" styleClass="tableColumnRowLabelInline inputField"/>
+                </div>
+                <div class="tableRow">
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                        <span style="font-weight:bold">Purchase Value USD:</span>
+                    </div>
+                    <apex:inputText id="phonePurchaseValue" styleClass="tableColumnRowLabelInline inputField"/>
+                </div>
+                <div class="tableRow">
+                    <div class="tableColumnRowLabel tableColumnRowLabelInline tableColumnRowLabelMedium right">
+                        <span style="font-weight:bold">Phone Brand:</span>
+                    </div>
+                    <div class="tableColumnDropDown">
+                        <apex:selectList id="phoneType" styleClass="apexDropDown" multiselect="false" size="1" title="Select phone type: " label="Select phone type: ">
+                            <apex:selectOptions value="{!phoneTypes}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>
+                </div>
+            </div>
+            <div id="submitSection" style="display:none">
+                <div class="tableRow">
+                    <div class="submitButtonGeneralWrapper submitButtonOneWrapper">
+                        <div class="submitButtonWrapper">
+                            <button id="submit" class="submitTdrReg" type="button" onclick="submitMtnChannelsRegForm()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:form>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <script type="text/javascript">
+        var idPrefix = '{!$Component.registrationBlock.registrationSection.registrationForm}' + ":";
+    </script>
+    <apex:includeScript value="{!$Resource.MTN_Chan_Reg_JS}"/>
+    <script type="text/javascript">
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock.registrationSection}') + ' >div:first'), 'mtnPageBlockBody');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock.registrationSection}') + ' >div:first'), 'mtnPageBlockSectionFirst');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock.registrationSection}') + ' >div:first'), 'pbSubsection');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock.registrationSection}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock}')), 'bPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock}')), 'apexDefaultPageBlock');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock}')), 'secondaryPalette');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock}')), 'mtnMainBackground');
+        toggleClass(j$('#' + makeStringJQueryOK('{!$Component.registrationBlock}')), 'mtnPageBlock');
+    </script>
+</apex:page>

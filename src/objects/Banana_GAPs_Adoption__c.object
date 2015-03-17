@@ -1,0 +1,1256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Amount_of_Fertilizer_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.3 Amount of Fertilizer Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>50-60 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 200 grams</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GeoLocation__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>GeoLocation</label>
+        <required>false</required>
+        <scale>7</scale>
+        <type>Location</type>
+    </fields>
+    <fields>
+        <fullName>Amount_of_Herbicide_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 7.5 Amount of Herbicide Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>150ml in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>200mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>75mls in 15/20 ltrs of water</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not measure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Amount_of_Manure_per_Tree__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.4 Amount of Manure per Tree</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One basin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 basins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Banana_Farmer_GAPs_Selection__c</fullName>
+        <externalId>false</externalId>
+        <label>Banana Farmer GAPs Selection</label>
+        <referenceTo>Banana_Farmer_GAPs_Selection__c</referenceTo>
+        <relationshipLabel>Banana GAPs Adoptions</relationshipLabel>
+        <relationshipName>Banana_GAPs_Adoptions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Corm_Removal__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 2.3 Corm Removal</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fill spaces with well decomposed manure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leave half the corm attached with bunch</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Split corm into pieces &amp; leave to dry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not remove corms</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Desuckering_Full_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (TEXT(Number_of_Plants_per_Mat__c)==&apos;Two suckers and a mature plant&apos;, &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 2 Desuckering Full Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Easy_Access_Agro_Inputs_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (
+     OR(TEXT(Obtain_Quality_Agro_Chemicals__c)==&apos;Buy from registered input dealers&apos;, 
+        TEXT(Obtain_Quality_Agro_Chemicals__c)==&apos;Collective purchase&apos;, 
+        TEXT(Obtain_Quality_Agro_Chemicals__c)==&apos;Seek for guidance from fellow farmers/CKW&apos;, 
+        TEXT(Obtain_Quality_Agro_Chemicals__c)==&apos;I call the GF farmer call center for guidance&apos;
+     )
+     ,&apos;Yes&apos;, &apos;No&apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 10 Easy Access Agro Inputs Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Form_of_Value_Addition__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 9.2 Form of Value Addition</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana wine making</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana crisps</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana flour</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pan cakes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Frequency_Pesticide_Application__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 8.2 Frequency Pesticide Application</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_Fertilizer_Use__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.6 Frequency of Fertilizer Use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_Weeding__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 7.2 Frequency of Weeding</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Once a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Twice a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thrice a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 3 times in a year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GAP_3_Full_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (OR( TEXT(Soil_Water_Conservation_Measures__c)==&apos;Mulching&apos;,
+TEXT(Soil_Water_Conservation_Measures__c)==&apos;Digging trenches or terraces&apos;,
+TEXT(Soil_Water_Conservation_Measures__c)==&apos;Plant grass across the slope&apos;,
+TEXT(Soil_Water_Conservation_Measures__c)==&apos;Plant shade trees or wind breakers&apos;), &apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 3 Full Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GAP_6_Full_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (TEXT(Group_Production_and_Marketing__c)==&apos;Yes&apos;, &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 6 Full Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Production_and_Marketing__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 6.1 Group Production and Marketing</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Kind_of_Records_Kept_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Kind_of_Records_Kept__c, &apos;Production records&apos;), 1, 0) + 
+IF (INCLUDES(Kind_of_Records_Kept__c, &apos;Farm planning records&apos;), 1, 0) +
+IF (INCLUDES(Kind_of_Records_Kept__c, &apos;Sales records&apos;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 5.2 Kind of Records Kept Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Kind_of_Records_Kept__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 5.2 Kind of Records Kept</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Production records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm planning records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Leaves_Removed_Selection_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Leaves_Removed_in_Desuckering__c, &apos;Old leaves&apos;), 1, 0) +
+IF (INCLUDES(Leaves_Removed_in_Desuckering__c, &apos;Dead or dry leaves&apos;), 1, 0) +
+IF (INCLUDES(Leaves_Removed_in_Desuckering__c, &apos;Broken leaves&apos;), 1, 0) +
+IF (INCLUDES(Leaves_Removed_in_Desuckering__c, &apos;Any excess leaves&apos;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 2.1 Leaves Removed Selection Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Leaves_Removed_in_Desuckering__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 2.1 Leaves Removed in Desuckering</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Old leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dead or dry leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leaves turning yellow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broken leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Any excess leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Means_of_Soil_Fertilization__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.1 Means of Soil Fertilization</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inorganic/chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Both manure and inorganic/chemical fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Method_of_Record_Storage__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 5.3 Method of Record Storage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Book/chart</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memory/Head</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On paper sheets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Mode_Fertilizer_Manure_Placement__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.7 Mode Fertilizer/Manure Placement</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Placed around the banana plant/mat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spot application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broad casting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Placed in trenches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Plants_per_Mat__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 2.2 Number of Plants per Mat</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Two suckers and a mature plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Three suckers and a mature plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Four suckers and a mature plant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Obtain_Quality_Agro_Chemicals__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 10.1 Obtain Quality Agro Chemicals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Buy from registered input dealers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just buy from any input dealer (Do not mind where I Buy)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collective purchase</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seek for guidance from fellow farmers/CKW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>I call the GF farmer call center for guidance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do not use any of these inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Pest_Disease_Control_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (
+	OR(TEXT(Pest_and_Disease_Control_Measure__c) == &apos;Spray with chemicals (pesticides)&apos;, 
+		TEXT(Pest_and_Disease_Control_Measure__c) == &apos;Use local technology/cultural means&apos;, 
+		TEXT(Pest_and_Disease_Control_Measure__c) == &apos;Use a combination of methods&apos;,
+		TEXT(Pest_and_Disease_Control_Measure__c) == &apos;Mechanical means (e.g. uprooting)&apos;
+	)
+	,&apos;Yes&apos;, &apos;No&apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 8 Pest &amp; Disease Control Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pest_and_Disease_Control_Measure__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 8.1 Pest and Disease Control Measure</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spray with chemicals (pesticides)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use local technology/cultural means</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use a combination of methods</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanical means (e.g. uprooting)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Proper_Record_Keeping_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (
+	AND(Kind_of_Records_Kept_Count__c &gt;= 2, OR(TEXT(Method_of_Record_Storage__c) == &apos;Book/chart&apos;, TEXT(Method_of_Record_Storage__c) == &apos;Computer&apos;))
+	, &apos;Yes&apos;, &apos;No&apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 5 Proper Record Keeping Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proper_Weed_Control_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (
+	OR(
+		AND(
+			OR(TEXT(Weed_Control_Methods__c) == &apos;By hand hoeing&apos;, TEXT(Weed_Control_Methods__c) == &apos;Mulching&apos;, TEXT(Weed_Control_Methods__c) == &apos;A combination of methods above&apos;
+			),
+			OR(TEXT(Frequency_of_Weeding__c) == &apos;. Twice a year&apos;, TEXT(Frequency_of_Weeding__c) == &apos;Thrice a year&apos;, TEXT(Frequency_of_Weeding__c) == &apos;More than 3 times in a year&apos;
+			),
+			OR(TEXT(Time_of_Weeding__c) == &apos;During the rainy season&apos;, TEXT(Time_of_Weeding__c) == &apos;When weeds are too many&apos;
+			)
+		), 
+
+		AND(TEXT(Weed_Control_Methods__c) == &apos;Use herbicides&apos;, OR(TEXT(Amount_of_Herbicide_Used__c) == &apos;150ml in 15/20 ltrs of water&apos;, 
+																	TEXT(Amount_of_Herbicide_Used__c) == &apos;200mls in 15/20 ltrs of water&apos;, 
+																	TEXT(Amount_of_Herbicide_Used__c) == &apos;75mls in 15/20 ltrs of water&apos;
+																),
+																TEXT(Use_of_Protective_Gear__c) == &apos;Yes&apos;
+		)
+	)
+	,
+	&apos;Yes&apos;
+	,
+	&apos;No&apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 7 Proper Weed Control Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Propping_Full_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (AND( NOT(INCLUDES(Providing_Support_for_Banana__c,&apos;NA&apos;)), 
+        NOT(INCLUDES(Providing_Support_for_Banana__c,&apos;When plant has too much leaves&apos;))), &apos;Yes&apos;, &apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 4 Propping Full Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Providing_Support_for_Banana__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 4.1 Providing Support for Banana</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When plant has bigger bunches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When plant is attacked by pests</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When plant has too much leaves</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Pruning_Full_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( 
+	AND(!INCLUDES(Leaves_Removed_in_Desuckering__c, &apos;NA&apos;), !INCLUDES(Leaves_Removed_in_Desuckering__c, &apos;None done&apos;), Leaves_Removed_Selection_Count__c &gt;=2,
+		OR(INCLUDES(Corm_Removal__c, &apos;Fill spaces with well decomposed manure&apos;), 
+			INCLUDES(Corm_Removal__c, &apos;Leave half the corm attached with bunch&apos;), 
+			INCLUDES(Corm_Removal__c, &apos;Split corm into pieces &amp; leave to dry&apos;)
+		), 
+		OR(INCLUDES(Removal_of_Pseudo_Stems__c, &apos;Cut stem into short pieces &amp; split them&apos;), 
+			INCLUDES(Removal_of_Pseudo_Stems__c, &apos;Cut stem at ground level &amp; cover stump&apos;), 
+			INCLUDES(Removal_of_Pseudo_Stems__c, &apos;Leave stem standing &amp; remove it later&apos;)
+		)
+	)
+	,
+	&apos;Yes&apos;
+	,
+	&apos;No&apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 2 Pruning Full Adoption?</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Removal_of_Pseudo_Stems__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 2.4 Removal of Pseudo-Stems</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cut stem into short pieces &amp; split them</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cut stem at ground level &amp; cover stump</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leave stem standing &amp; remove it later</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Soil_Fertility_Management_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (	
+		OR(		AND(TEXT(Means_of_Soil_Fertilization__c) == &apos;Manure&apos;, 	
+					OR(TEXT(Amount_of_Manure_per_Tree__c) == &apos;One basin&apos;, 
+						TEXT(Amount_of_Manure_per_Tree__c) == &apos;Two basins&apos;
+					)
+					, Stage_of_Fertilizer_Count__c &gt;=2
+					, 	OR(TEXT(Mode_Fertilizer_Manure_Placement__c) == &apos;Placed around the banana plant/mat&apos;,
+							TEXT(Mode_Fertilizer_Manure_Placement__c) == &apos;Placed in trenches&apos;
+						)
+					, TEXT(Time_of_Fertilizer_Application__c) == &apos;At the beginning of rains&apos;
+				),  
+
+				AND(TEXT(Means_of_Soil_Fertilization__c) == &apos;Inorganic/chemical fertilizer&apos;, 
+					AND(!INCLUDES(Type_of_Fertilizers_Used__c, &apos;NA&apos;), 
+						!INCLUDES(Type_of_Fertilizers_Used__c, &apos;None used&apos;)
+					),
+					OR(TEXT(Amount_of_Fertilizer_Used__c) == &apos;50-60 grams&apos;,
+						TEXT(Amount_of_Fertilizer_Used__c) == &apos;100 grams&apos;
+					),
+					Stage_of_Fertilizer_Count__c &gt;=2,
+					OR(TEXT(Mode_Fertilizer_Manure_Placement__c) == &apos;Placed around the banana plant/mat&apos;,
+							TEXT(Mode_Fertilizer_Manure_Placement__c) == &apos;Placed in trenches&apos;
+					),
+					TEXT(Time_of_Fertilizer_Application__c) == &apos;At the beginning of rains&apos;
+				),
+
+				AND(TEXT(Means_of_Soil_Fertilization__c) == &apos;Both manure and inorganic/chemical fertilizer&apos;,
+					OR(TEXT(Amount_of_Manure_per_Tree__c) == &apos;One basin&apos;, 
+						TEXT(Amount_of_Manure_per_Tree__c) == &apos;Two basins&apos;
+					),
+					AND(!INCLUDES(Type_of_Fertilizers_Used__c, &apos;NA&apos;), 
+						!INCLUDES(Type_of_Fertilizers_Used__c, &apos;None used&apos;)
+					),
+					OR(TEXT(Amount_of_Fertilizer_Used__c) == &apos;50-60 grams&apos;,
+						TEXT(Amount_of_Fertilizer_Used__c) == &apos;100 grams&apos;
+					),
+					Stage_of_Fertilizer_Count__c &gt;=2,
+					OR(TEXT(Mode_Fertilizer_Manure_Placement__c) == &apos;Placed around the banana plant/mat&apos;,
+							TEXT(Mode_Fertilizer_Manure_Placement__c) == &apos;Placed in trenches&apos;
+					),
+					TEXT(Time_of_Fertilizer_Application__c) == &apos;At the beginning of rains&apos;
+				)
+		)
+	,
+	&apos;Yes&apos;
+	,
+	&apos;No&apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 1 Soil Fertility Management Adoption</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Soil_Water_Conservation_Measures__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 3.1Soil &amp; Water Conservation Measure</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Digging trenches or terraces</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant grass across the slope</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plant shade trees or wind breakers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Stage_of_Fertilizer_Application__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.5 Stage of Fertilizer Application</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-2 months after planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At flowering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>After harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Stage_of_Fertilizer_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (INCLUDES(Stage_of_Fertilizer_Application__c, &apos;At planting&apos;), 1, 0) + 
+IF (INCLUDES(Stage_of_Fertilizer_Application__c, &apos;1-2 months after planting&apos;), 1, 0) + 
+IF (INCLUDES(Stage_of_Fertilizer_Application__c, &apos;At flowering&apos;), 1, 0) +
+IF (INCLUDES(Stage_of_Fertilizer_Application__c, &apos;After Harvesting&apos;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 1.5 Stage of Fertilizer Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_of_Fertilizer_Application__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.8 Time of Fertilizer Application</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>At the beginning of rains</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mid-Rain season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Later in the season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Time_of_Weeding__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 7.3 Time of Weeding</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>During the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>When weeds are too many</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Fertilizers_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 1.2 Type of Fertilizers Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NPK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DAP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Urea</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Use_Production_Marketing_Record__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 5.1Use Production &amp; Marketing Record</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Use_of_Protective_Gear__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 7.6 Use of Protective Gear</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Value_Addition_Full_Adoption__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Value_Addition__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GAP 9 Value Addition Full Adoption</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Value_Addition__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 9.1 Value Addition</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Weed_Control_Methods__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 7.1 Weed Control Methods</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>By hand hoeing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slashing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Animals feeding on the weeds (grazing animals in the banana garden)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A combination of methods above</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Weed_control_program_plan__c</fullName>
+        <externalId>false</externalId>
+        <label>GAP 7.4 Weed control program/plan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slash during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slash during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use herbicides during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hand hoe during the dry season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Use hand hoe during the rainy season</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <label>Banana GAPs Adoption</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>BGA{YYYY}{MM}{0}</displayFormat>
+        <label>Banana GAPs Adoption Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Banana GAPs Adoptions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -86,10 +86,66 @@ public class DashboardSelectorController {
         this.ckwList = options;
     }
 
+//Return ckws as a list of lists       
+        public Map<Integer, List<SelectOption> > ckwBatchList;
+    public Map<Integer, List<SelectOption> > getCkwBatchList() {
+
+        Map<Integer, List<SelectOption> > optionsBatch = new Map<Integer, List<SelectOption> >();
+        
+        CKW__c[] ckws = database.query(SoqlHelpers.getCkws(variableMap, true));
+
+        Integer count = 0;
+        Integer batchSize=0;
+       
+        List<SelectOption> options = new List<SelectOption>();
+        
+         options.add(new SelectOption('','All CKWs'));
+                options.add(new SelectOption('male', 'All Male CKWs'));
+                options.add(new SelectOption('woman', 'All Female CKWs'));
+                options.add(new SelectOption('non', 'All Poor CKWs'));
+                options.add(new SelectOption('poor', 'All Very Poor CKWs'));
+                buildLists();
+        for (CKW__c ckw : ckws) {
+
+            //if we are at the beginning, add the common entries
+            if(options.size()==1000) {
+                //Add this to large list, and reinitialize it
+
+                optionsBatch.put(batchSize, options);
+                options = new List<SelectOption>();
+                batchSize++;
+                
+            }
+            
+
+            if (UserInfo.getUserType() != 'GUEST') {
+                options.add(new SelectOption(ckw.Person__r.Id, ckw.Name + ' ' + ckw.Person__r.Last_Name__c + ' ' + ckw.Person__r.First_Name__c));
+            }
+            else {
+                options.add(new SelectOption(ckw.Person__r.Id, ckw.Name));
+            }
+            count++;
+        }
+
+        //Add to large list
+        optionsBatch.put(batchSize, options);
+        System.debug('items added to list '+options.size());
+        //setCkwBatchList(optionsBatch);
+        //ckwBatchList = optionsBatch;
+        return optionsBatch;
+    }
+    public void setCkwBatchList(Map<Integer, List<SelectOption> > optionsBatch) {
+        this.ckwBatchList = optionsBatch;
+    }
+
+
+
+
+
+
     public String[] farmers { get; set; }
     public List<SelectOption> farmerList;
     public List<SelectOption> getFarmerList() {
-
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('','All Farmers'));
         options.add(new SelectOption('male', 'All Male Farmers'));

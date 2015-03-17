@@ -1,0 +1,238 @@
+<apex:page controller="IGDashboardController" title="IG/NUSAF Dashboard" sidebar="false">
+    <style>
+        body .pbBody table.list tr.dataRow .htmlDetailElementTable td {
+            border:none; !important
+        }
+        #acholi {
+            width: 60px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #606060;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+        #bukedi {
+            width: 60px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #A00000;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+        #elgon {
+            width: 60px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #33CC00;
+            margin-bottom: 5px;
+            padding-left: 20px
+        }
+        #skaramoja {
+            width: 70px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #0000FF;
+            margin-bottom: 5px;
+            padding-left: 10px;
+        }
+        #nkaramoja {
+            width: 70px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #FFFF00;
+            margin-bottom: 5px;
+            padding-left: 10px;
+        }
+        #lango {
+            width: 60px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #FF00FF;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+        #westnile {
+            width: 60px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            border-color: black;
+            border-width: 1px;
+            background-color: #FFFFFF;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+        #other {
+            width: 60px;
+            height: 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #FFA500;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+
+    </style>
+    <apex:stylesheet value="{!$Resource.CommonCSS}"/>
+    <apex:includeScript value="{!$Resource.CommonJS}"/>
+    <script>       
+        function openGraph(recordId) {
+             popup = window.open("{!$Page.MetricGraph}?metricId=" + recordId,"lookup","width=710,height=310");
+             popup.focus(); 
+        };
+
+        function injectOnclickJs(iframe, type, region, district, subcounty, startdate, enddate, cbt) {
+            iframe.contentWindow.document.body.onclick=function() { openMap(type, null, region, district, subcounty, startdate, enddate, cbt); }
+        };
+
+        // objectType must be present. The rest can be null
+        function openMap(objectType, orgName, region, district, subcounty, startdate, enddate, cbt) {
+            if (objectType == null) {
+                return false;
+            }
+            var fromdate = document.getElementById("{!$Component.TheForm.filters_block.fromdate}");
+            var todate = document.getElementById("{!$Component.TheForm.filters_block.todate}");
+            var personcbt = document.getElementById("{!$Component.TheForm.filters_block.cbt}");
+            var url = "{!$Page.MetricMap}?mapObject=" + objectType;
+
+            if (region != null && region.length > 0) {
+                url = url + "&ig_region=" + region;
+            }
+            if (district != null && district.length > 0) {
+                url = url + "&ig_district=" + district;
+            }
+            if (subcounty != null && subcounty.length > 0) {
+                url = url + "&ig_subcounty=" + subcounty;
+            }
+            if(fromdate != null && fromdate.value.length > 0){
+                var dateTokens = fromdate.value.split('/');
+                url = url + "&ig_startdate=" + dateTokens[2] + "-" + dateTokens[1] + "-" +  dateTokens[0];
+            }
+            if(todate != null && todate.value.length > 0){
+                var dateTokens = todate.value.split('/');
+                url = url + "&ig_enddate=" + dateTokens[2] + "-" + dateTokens[1] + "-" +  dateTokens[0];
+            }
+            if (personcbt != null && personcbt.value.length > 0) {
+                url = url + "&ig_cbt=" + personcbt.value;
+            }
+            popup = window.open(url,"lookup");
+            popup.focus(); 
+        };
+    </script>
+
+    <apex:form id="TheForm">
+        <apex:pageBlock id="filters_block" title="Field Activity Filters">
+            <table>
+                <tr>
+                    <td>
+                        <strong>Region: </strong>
+                        <apex:selectList value="{!subregion}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!subregionsList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onRegionChanged}" rerender="TheForm" event="onchange"/>
+                        </apex:selectList>
+                    </td>
+                    <td>
+                        <strong>District: </strong>
+                        <apex:selectList value="{!district.Id}" multiselect="false" size="1" id="districtsListBox">
+                            <apex:selectOptions value="{!districtList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onDistrictChanged}" rerender="TheForm" event="onchange"/>
+                        </apex:selectList>
+                    </td>
+                    <td align="right">
+                         <strong>Subcounty: </strong>
+                         <apex:selectList value="{!subcounty.Id}" multiselect="false" size="1" id="subcountiesListbox">
+                            <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
+                            <apex:actionSupport action="{!onSubcountyChanged}" rerender="TheForm" event="onchange"/>
+                        </apex:selectList>                  
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Date Range: </strong><apex:inputField id="fromdate" value="{!dummyObject.Start_Date__c}"></apex:inputField>
+                    </td>
+                    <td>
+                        <strong>to </strong><apex:inputField id="todate" value="{!dummyObject.End_Date__c}"></apex:inputField>                        
+                    </td>  
+                    <td align="right">
+                        <strong>&nbsp;&nbsp;&nbsp;Trainer: </strong>
+                        <apex:selectList value="{!cbt.Id}" multiselect="false" size="1" id="cbt">
+                            <apex:selectOptions value="{!communityBasedTrainers}"></apex:selectOptions>
+                        </apex:selectList>                       
+                    </td>                  
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td align="right">
+                        <apex:commandButton value="Refresh Section" action="{!changeFilters}"></apex:commandButton>                     
+                    </td>
+                </tr>
+            </table>
+        </apex:pageBlock>
+        <apex:pageBlock id="map">
+            <apex:pageBlockSection title="Maps" columns="2">
+                <apex:pageBlockSectionItem >
+                    <table border="0">
+                        <tr>
+                            <td>
+                                <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=IG&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'IG', '{!subregion}', '{!district.Id}', '{!subcounty.Id}', '{!dummyObject.Start_Date__c}', '{!dummyObject.End_Date__c}', '{!cbt.Id}');" scrolling="no" style="border:1px solid #A8B8CF;"/><br />
+                                <strong>CTs Field Visits</strong><br />
+                                <a href="javascript:openMap('IG', 'CKW', '{!subregion}', '{!district.Id}', '{!subcounty.Id}', '{!dummyObject.Start_Date__c}', '{!dummyObject.End_Date__c}', '{!cbt.Id}');">Enlarge Map</a>                                
+                            </td>
+                            <td>
+                                <div id="acholi">acholi</div> <div id="bukedi">bukedi</div> <div id="elgon">elgon</div> 
+                                <div id="skaramoja">s/karamoja</div> <div id="nkaramoja">n/karamoja</div>
+                                <div id="lango">lango</div> <div id="westnile">westnile</div>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Regional Targets" id="metrics">
+            <br/>
+            <apex:pageBlockTable value="{!regionalMetricsData}" var="item">
+                <apex:column headerValue="Region" width="200px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="90px" value="{!item.mobilization_count}/{!item.count}" headerValue="Mobilization"/>
+                <apex:column width="90px" value="{!item.preliminary_count}/{!item.count * 3}" headerValue="Preliminary training"/>
+                <apex:column width="90px" value="{!item.followup_visits_count}/{!item.count * 3}" headerValue="Followup Visits"/>
+                <apex:column width="90px" value="{! ROUND( ((item.mobilization_count + item.preliminary_count + item.followup_visits_count)/(item.count + (item.count * 6) )) * 100 , 1) } %" headerValue="Percentage Completed"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Individual Targets" id="metricsCTs" rendered="{!isRegionalManager || (subregion != null && subregion != '')}">
+            <br/>
+            <apex:pageBlockTable value="{!cTMetricsData}" var="item">
+                <apex:column headerValue="Community Trainer" width="200px">
+                    <apex:outputText escape="false">
+                        {!item.label}
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="90px" value="{!item.mobilization_count}/{!item.count}" headerValue="Mobilization"/>
+                <apex:column width="90px" value="{!item.preliminary_count}/{!item.count * 3}" headerValue="Preliminary training"/>
+                <apex:column width="90px" value="{!item.followup_visits_count}/{!item.count * 3}" headerValue="Followup Visits"/>
+                <apex:column width="90px" value="{! ROUND( ((item.mobilization_count + item.preliminary_count + item.followup_visits_count)/(item.count + (item.count * 6) )) * 100 , 1) } %" headerValue="Percentage Completed"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+         
+    </apex:form>
+</apex:page>

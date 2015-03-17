@@ -31,8 +31,13 @@
             loadSurveys();
 
             // Run validation when user change the value
+<<<<<<< HEAD
             $("#surveyList").change(function() {
                 $("#deleteForm").validate().form();
+=======
+            $("#surveyList").change(function() {$("#deleteForm").validate().form();
+                
+>>>>>>> origin/ci
             });
 
             // Set up the validation of the form
@@ -62,17 +67,30 @@
 
             $('#surveyList').html('');
             var options = '<option id="selectOne" value="default"> ---Select Version To Delete--- </option>';
+<<<<<<< HEAD
 
             Visualforce.remoting.Manager.invokeAction(
                 '{!$RemoteAction.DeleteSurveyController.getLatestSurveyVersion}',
                 function(result, event) {
+=======
+            var searchStr = document.getElementById("searchText").value;  
+
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.DeleteSurveyController.getLatestSurveyVersion}', 
+                searchStr, 
+                function(result, event) {  
+>>>>>>> origin/ci
                     if (event.status) {
                         if (result.length == 0) {
                             addMessageToPage('There are no surveys available to delete', false);
                         }
                         else {
                             for (var i = 0; i < result.length; i++) {
+<<<<<<< HEAD
                                 options += createOption(result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c, result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c, result[i].gfsurveys__Survey__r.Name); 
+=======
+                                options += createOption(result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c, result[i].Id + '_sp_' + result[i].gfsurveys__Survey__c,result[i].gfsurveys__Survey__r.Name + ' [' + result[i].gfsurveys__Survey__r.Id + ']'); 
+>>>>>>> origin/ci
                             }
                         }
                     }
@@ -143,6 +161,13 @@
             <apex:pageBlockButtons Location="top">
                 <button id="submitForm" type="button" onclick="deleteSurvey()">Delete</button>            
             </apex:pageBlockButtons>
+<<<<<<< HEAD
+=======
+            <apex:pageBlockSection title="Search by Text">
+                <input type="text" id="searchText"/>
+                <button id="SearchButton" type="button" onclick="loadSurveys()">Search Surveys</button>
+            </apex:pageBlockSection>
+>>>>>>> origin/ci
             <apex:pageBlockSection columns="1">
                 <apex:pageBlockSectionItem >
                     <div id="errorDiv"></div>

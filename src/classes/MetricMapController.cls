@@ -29,7 +29,6 @@ public class MetricMapController {
     public Boolean defaultedSubmissionEndDate;
 
     public MetricMapController() {
-
         setUpPage();
     }
 
@@ -186,6 +185,39 @@ public class MetricMapController {
             markers.addAll(diaryHubsMapMarkers);
             diaryHubsMapMarkers.clear();
         }
+<<<<<<< HEAD
+=======
+        if(mapObject.equals('IG')){
+            List<MetricMapWrapper> fieldVisits = IGDashboardHelpers.getFieldVisitsMapMarkers(getNamedVariable('ig_region'), getNamedVariable('ig_district'), getNamedVariable('ig_subcounty'), getNamedVariable('ig_startdate'), getNamedVariable('ig_enddate'), getNamedVariable('ig_cbt'));
+            setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
+            markers.addAll(fieldVisits);
+            fieldVisits.clear();
+        }
+        if(mapObject.equals('GUMUTINDO_CKWS')){
+            List<MetricMapWrapper> fieldVisits = GumutindoHelpers.getCKWMapMarkers();
+            setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
+            markers.addAll(fieldVisits);
+            fieldVisits.clear();
+        }
+        if(mapObject.equals('GUMUTINDO_PRIMARY_SOCIETIES')){
+            List<MetricMapWrapper> fieldVisits = GumutindoHelpers.getGumutindoPrimarySocietyMarkers();
+            setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
+            markers.addAll(fieldVisits);
+            fieldVisits.clear();
+        }
+        if(mapObject.equals('MBUGO_CKWS')){
+            List<MetricMapWrapper> fieldVisits = MbugoHelpers.getCKWMapMarkers();
+            setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
+            markers.addAll(fieldVisits);
+            fieldVisits.clear();
+        }
+        if(mapObject.equals('GUMUTINDO_FIELD_OFFICERS')){
+            List<MetricMapWrapper> fieldVisits = MbugoHelpers.getFOMapMarkers();
+            setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
+            markers.addAll(fieldVisits);
+            fieldVisits.clear();
+        }
+>>>>>>> origin/ci
         System.debug('Should show ' + markers.size() + ' map markers');
         if (markers.size() == 0) {
             setFeedbackMessage('No map markers match your selection. Please refine your search to see a map');
@@ -935,7 +967,7 @@ public class MetricMapController {
         Test.setCurrentPageReference(pageRef);
         MetricMapController mapController = new MetricMapController();
         Map<String, String> variableMap = new Map<String, String>();
-        variableMap.put('mapObject', 'FARMERS');
+        variableMap.put('mapObject', 'FARMER');
         variableMap.put('colourType', 'Gender');
         variableMap.put('district', 'Gulu');
         mapController.variables = variableMap;
@@ -985,6 +1017,48 @@ public class MetricMapController {
         MetricMapController mapController = new MetricMapController();
         Map<String, String> variableMap = new Map<String, String>();
         variableMap.put('mapObject', 'METRICS');
+        variableMap.put('colourType', 'Gender');
+        mapController.variables = variableMap;
+        Test.startTest();
+        mapController.setCkwMarkers();
+        Test.stopTest();
+    }
+    
+    static testMethod void testHubsMapController() {
+
+        PageReference pageRef = Page.MetricMap;
+        Test.setCurrentPageReference(pageRef);
+        MetricMapController mapController = new MetricMapController();
+        Map<String, String> variableMap = new Map<String, String>();
+        variableMap.put('mapObject', 'HUB');
+        variableMap.put('colourType', 'Gender');
+        mapController.variables = variableMap;
+        Test.startTest();
+        mapController.setCkwMarkers();
+        Test.stopTest();
+    }
+    
+    static testMethod void testIGNUSAFMapController() {
+
+        PageReference pageRef = Page.MetricMap;
+        Test.setCurrentPageReference(pageRef);
+        MetricMapController mapController = new MetricMapController();
+        Map<String, String> variableMap = new Map<String, String>();
+        variableMap.put('mapObject', 'IG');
+        variableMap.put('colourType', 'Gender');
+        mapController.variables = variableMap;
+        Test.startTest();
+        mapController.setCkwMarkers();
+        Test.stopTest();
+    }
+    
+    static testMethod void testHarvestsMapController() {
+
+        PageReference pageRef = Page.MetricMap;
+        Test.setCurrentPageReference(pageRef);
+        MetricMapController mapController = new MetricMapController();
+        Map<String, String> variableMap = new Map<String, String>();
+        variableMap.put('mapObject', 'HARVEST');
         variableMap.put('colourType', 'Gender');
         mapController.variables = variableMap;
         Test.startTest();

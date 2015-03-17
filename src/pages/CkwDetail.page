@@ -1,5 +1,9 @@
 <apex:page standardController="CKW__c" extensions="CkwDetailController"
+<<<<<<< HEAD
     action="{!IF($Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name='MANA Admin Profile'||$Profile.Name='MANA Self Serve Sub Profile',null,URLFOR($Action.CKW__c.View,CKW__c.Id,null,true))}">
+=======
+    action="{!IF($Profile.Name=='LAC Demo Profile'||$Profile.Name=='LAC Admin Profile'||$Profile.Name=='LAC Self Serve Profile'||$Profile.Name='MANA Admin Profile'||$Profile.Name='MANA Self Serve Sub Profile' ||$Profile.Name='Salgar Self Serve Profile',null,URLFOR($Action.CKW__c.View,CKW__c.Id,null,true))}">
+>>>>>>> origin/ci
     <apex:outputText value="{!CKW__c.Person__c}" rendered="false"/>
     <apex:sectionHeader title="CKW" subtitle="{!CKW__c.Name}"/>
     <apex:pageBlock title="CKW" mode="maindetail" tabStyle="CKW__c">

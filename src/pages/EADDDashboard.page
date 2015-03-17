@@ -8,7 +8,11 @@
     <apex:includeScript value="{!$Resource.CommonJS}"/>
     <script>
         function openEditWindow(recordId) {
+<<<<<<< HEAD
              popup = window.open("{!$Page.MetricEdit}?district={!district}&subcounty={!subcounty}&dateFrom={!dateFrom}&dateTo={!dateTo}&sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
+=======
+             popup = window.open("{!$Page.MetricEdit}?operation=eadd&sfdc.tabName={!tabName}&recordId=" + recordId,"lookup","width=600,height=200");
+>>>>>>> origin/ci
              popup.focus(); 
         };
         

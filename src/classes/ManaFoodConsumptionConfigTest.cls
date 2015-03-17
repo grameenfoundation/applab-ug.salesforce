@@ -1,5 +1,6 @@
 @IsTest
 public with sharing class ManaFoodConsumptionConfigTest {
+<<<<<<< HEAD
 	
 	@IsTest
     public static void testgetBindings() {
@@ -13,5 +14,11 @@ public with sharing class ManaFoodConsumptionConfigTest {
     	
     	String codeBinding = config.getCodeBinding(ManaFoodConsumptionConfig.sourcePrefixMap.get(purchaseSource), sampleFoodName);
     	System.assert(codeBinding == ManaFoodConsumptionConfig.sourcePrefixMap.get(purchaseSource) + 'b_' + sampleFoodName.toLowerCase());
+=======
+    
+    @IsTest
+    public static void testgetBindings() {
+        ManaFoodConsumptionConfig config = new ManaFoodConsumptionConfig();
+>>>>>>> origin/ci
     }
 }

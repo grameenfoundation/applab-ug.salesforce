@@ -261,7 +261,11 @@ public with sharing class MetricHelpers {
         System.debug(LoggingLevel.INFO, 'Metric Created Successfully');
         return metricData;
     }
+<<<<<<< HEAD
 	
+=======
+    
+>>>>>>> origin/ci
     public static M_E_Metric_Data__c createNewMetric(
             String metricName,
             Date startDate,
@@ -289,12 +293,21 @@ public with sharing class MetricHelpers {
         metricData.Date__c = startDate;
         metricData.Actual_Value__c = actualValue;
         metricData.Is_Cumulative__c = isCumulative;
+<<<<<<< HEAD
 		metricData.Denumerator__c = 0;
 		metricData.Numerator__c = 0;
         if (districtId != null) {
             metricData.District__c = districtId;
         }
 		metricData.Subcounty__c = subcountyId;
+=======
+        metricData.Denumerator__c = 0;
+        metricData.Numerator__c = 0;
+        if (districtId != null) {
+            metricData.District__c = districtId;
+        }
+        metricData.Subcounty__c = subcountyId;
+>>>>>>> origin/ci
         // If no target supplied get the target from the parent metric
         if (target == null) {
             if (metric != null) {
@@ -595,31 +608,34 @@ public with sharing class MetricHelpers {
 
         List<M_E_Metric_Data__c> dataArray = new List<M_E_Metric_Data__c>();
 
-        for(M_E_Metric__c metric : getMetrics(null, orgName)) {
-
-            // Check that the metric has not already been created for this quarter
-            List<AggregateResult> metricCount = 
-                [SELECT 
-                    COUNT(Id) num
-                FROM
-                    M_E_Metric_Data__c
-                WHERE 
-                    Date__c >= :startDate
-                    AND Date__c <= :endDate
-                    AND M_E_Metric__c = :metric.Id
-                ];
-
-            if(metricCount[0].get('num') == 0) {
+        M_E_Metric__c[] metrics = getMetrics(null, orgName); 
+        Map<String, M_E_Metric__c> metricsMap = new Map<String, M_E_Metric__c>();
+        for (M_E_Metric__c metric : metrics) {
+            metricsMap.put(metric.Id, metric);
+        }
+        List<M_E_Metric_Data__c> metricsData = [Select Id, M_E_Metric__c 
+                                                FROM M_E_Metric_Data__c WHERE
+                                                Date__c >= :startDate AND 
+                                                Date__c <= :endDate];
+                                                
+        List<M_E_Metric_Data__c> metricDatasToCreate = new List<M_E_Metric_Data__c>();
+        Map<String, M_E_Metric_Data__c> metricDataMap = new Map<String, M_E_Metric_Data__c>();
+        for (M_E_Metric_Data__c metricData : metricsData) {
+            metricDataMap.put(metricData.M_E_Metric__c, metricData);
+        }
+        for (String metricId : metricsMap.keyset()) {
+            M_E_Metric_Data__c metricData = metricDataMap.get(metricId);
+            if (null == metricData) {
                 M_E_Metric_Data__c data = new M_E_Metric_Data__c();
                 data.Date__c = startDate;
-                data.M_E_Metric__c = metric.Id;
-                data.Projected_Value__c = metric.Projected_Value__c;
-                dataArray.add(data);
+                data.M_E_Metric__c = metricId;
+                data.Projected_Value__c = metricsMap.get(metricId).Projected_Value__c;
+                metricDatasToCreate.add(data);
             }
         }
 
-        if(dataArray.size() > 0) {
-            Database.insert(dataArray);
+        if(metricDatasToCreate.size() > 0) {
+            Database.insert(metricDatasToCreate);
         }
         return true;
     }
@@ -1525,6 +1541,30 @@ public with sharing class MetricHelpers {
         return endDate;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * sends email to tech there there happens to be errors in the scheduled job or
+     * the job's status is not 'Completed'
+     * 
+     * @param jobResult object containing execution status details
+     * @param subject   subject for the email  
+     */
+    public static void sendMetricsCalculationEmailNotification(AsyncApexJob jobResult, String subject) {
+            Integer totalJobItems = jobResult.TotalJobItems;
+            Integer numberOfErrors = jobResult.NumberOfErrors;
+            if(!jobResult.Status.equals('Completed') || numberOfErrors > 0){
+                String[] toAddress = new String[]{};
+                toAddress.add(EmailHelpers.getTechEmailAddress());                
+                String message = 'Status = ' + jobResult.Status + ' \n';
+                message += 'NumberOfErrors = ' + numberOfErrors + ' \n\n';
+                message += 'Description = ' + jobResult.ExtendedStatus + ' \n';
+                Messaging.SingleEmailMessage[] mail = new Messaging.SingleEmailMessage[] { EmailHelpers.createEmail(toAddress, subject, message) };
+                EmailHelpers.sendEmails(mail);
+            }
+    }
+
+>>>>>>> origin/ci
     // END OF METHODS USED BY NEW COMPONENT DASHBOARD
 
     static testMethod void testGetSMS() {
@@ -1618,7 +1658,11 @@ public with sharing class MetricHelpers {
         MetricHelpers.calculateAverageMetric('TEST_THIS_CODE');
 
         // Check the date manipulations
+<<<<<<< HEAD
         Date testDate1 = date.newInstance(2013, 2, 1);
+=======
+        Date testDate1 = date.newInstance(Datetime.now().year(), 2, 1);
+>>>>>>> origin/ci
         Integer firstQuarter = getQuarter(testDate1);
         String firstQuarterStartMonth = getQuarterStartMonth(firstQuarter);
         String firstQuarterEndMonth = getQuarterEndMonth(firstQuarter);
@@ -1656,7 +1700,11 @@ public with sharing class MetricHelpers {
         Date quarterIntStringLast = getQuarterLastDay(quarterString);
         Date quarterDateStringFirst = getQuarterFirstDay(quarterDateString);
         Date quarterDateStringLast = getQuarterLastDay(quarterDateString);
+<<<<<<< HEAD
         System.AssertEquals(quarterString,'Jan - Mar 2013');
+=======
+        System.AssertEquals(quarterString,'Jan - Mar ' + Datetime.now().year());
+>>>>>>> origin/ci
         System.assertEquals(quarterString, quarterDateString);
         System.assertEquals(quarterIntStringFirst, quarterDateStringFirst);
         System.assertEquals(quarterIntStringLast, quarterDateStringLast);

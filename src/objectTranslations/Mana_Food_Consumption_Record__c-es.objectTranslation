@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Mana Registros de consumo</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Mana Registros de consumo</value>
+    </caseValues>
+    <fields>
+        <label>Categoría</label>
+        <name>Category__c</name>
+    </fields>
+    <fields>
+        <label>Código</label>
+        <name>Code__c</name>
+    </fields>
+    <fields>
+        <label>Fecha de recolección</label>
+        <name>Collection_Date__c</name>
+    </fields>
+    <fields>
+        <label>Alimento</label>
+        <name>Food__c</name>
+        <relationshipLabel><!-- Food Consumption Records --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Hogar</label>
+        <name>Household__c</name>
+        <relationshipLabel><!-- Food Consumption Records --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Cantidad consumida</label>
+        <name>Number_Consumed__c</name>
+    </fields>
+    <fields>
+        <label>Código</label>
+        <name>Quantity_Code__c</name>
+        <relationshipLabel><!-- Food Consumption Records --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Fuente</label>
+        <name>Source__c</name>
+        <picklistValues>
+            <masterLabel>Barter</masterLabel>
+            <translation>Trueque</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other (gift-donation)</masterLabel>
+            <translation>Donaciones</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Production</masterLabel>
+            <translation>Producción</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Purchase</masterLabel>
+            <translation>Compra</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Envío</label>
+        <name>Submission__c</name>
+        <relationshipLabel><!-- Food Consumption Records --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Cantidad total consumida</label>
+        <name>Total_Quantity_Consumed__c</name>
+    </fields>
+    <fields>
+        <label>Cantidad de unidad</label>
+        <name>Unit_Quantity__c</name>
+    </fields>
+    <fields>
+        <label>Unidades</label>
+        <name>Units__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Mana Food Consumption Record Layout</layout>
+        <sections>
+            <label><!-- Vínculos personalizados --></label>
+            <section>Vínculos personalizados</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- Id --></nameFieldLabel>
+    <validationRules>
+        <errorMessage><!-- The Quantity Code selected must belong to the same Food tied to this record. --></errorMessage>
+        <name>Food_Must_Match</name>
+    </validationRules>
+</CustomObjectTranslation>

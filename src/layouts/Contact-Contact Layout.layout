@@ -263,9 +263,55 @@
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
+<<<<<<< HEAD
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>gfsurveys__ContactGroupMember__c.gfsurveys__Contact__c</relatedList>
+=======
+    <quickActionList>
+        <quickActionListItems>
+            <quickActionName>FeedItem.TextPost</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
+            <quickActionName>FeedItem.ContentPost</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
+            <quickActionName>FeedItem.LinkPost</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
+            <quickActionName>FeedItem.PollPost</quickActionName>
+        </quickActionListItems>
+    </quickActionList>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Association__c.NAME</fields>
+        <relatedList>Association_Contact_Association__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>gfsurveys__SObjectContactAssociation__c.gfsurveys__Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Last_Name__c</fields>
+        <fields>Middle_Name__c</fields>
+        <fields>First_Name__c</fields>
+        <fields>Mobile_Number__c</fields>
+        <fields>Raw_Mobile_Number__c</fields>
+        <relatedList>Person__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>gfsurveys__Username__c</fields>
+        <relatedList>gfsurveys__Mobile_User__c.gfsurveys__Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>gfsurveys__Device_Id__c</fields>
+        <fields>gfsurveys__IMEI__c</fields>
+        <fields>gfsurveys__LastCheckInDate__c</fields>
+        <relatedList>gfsurveys__Device__c.gfsurveys__LastCheckInBy__c</relatedList>
+>>>>>>> origin/ci
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
@@ -277,7 +323,22 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+<<<<<<< HEAD
         <relatedList>gfsurveys__Submission__c.gfsurveys__Surveyor__c</relatedList>
+=======
+        <fields>gfsurveys__AnswersCount__c</fields>
+        <fields>gfsurveys__Interviewee__c</fields>
+        <fields>gfsurveys__Survey__c</fields>
+        <fields>gfsurveys__SurveyVersion__c</fields>
+        <fields>gfsurveys__Status__c</fields>
+        <fields>CREATED_DATE</fields>
+        <fields>gfsurveys__Device__c</fields>
+        <fields>gfsurveys__startDate__c</fields>
+        <fields>gfsurveys__endDate__c</fields>
+        <relatedList>gfsurveys__Submission__c.gfsurveys__Surveyor__c</relatedList>
+        <sortField>CREATED_DATE</sortField>
+        <sortOrder>Desc</sortOrder>
+>>>>>>> origin/ci
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
@@ -336,6 +397,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+<<<<<<< HEAD
         <fields>Last_Name__c</fields>
         <fields>Middle_Name__c</fields>
         <fields>First_Name__c</fields>
@@ -350,6 +412,33 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>LAC_Household__c.Household_Head__c</relatedList>
+=======
+        <relatedList>Farmer__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>LAC_Household__c.Household_Head__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Ewarehouse_Farmer__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Ewarehouse_Farmer__c.Registered_By__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Bank_Deposit__c.Registered_By__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>coocafisa__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>LAC_Farmer_Details__c.interviewer__c</relatedList>
+>>>>>>> origin/ci
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

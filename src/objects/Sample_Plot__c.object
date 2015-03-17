@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>CBL_Farm__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CBL_Farm</label>
+        <referenceTo>CBL_Farm__c</referenceTo>
+        <relationshipLabel>Sample Plots</relationshipLabel>
+        <relationshipName>Sample_Plots</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Crop_Age_Monts__c</fullName>
+        <externalId>false</externalId>
+        <label>Crop Age Monts</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Crop__c</fullName>
+        <externalId>false</externalId>
+        <label>Crop</label>
+        <length>10</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Farm_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Farm Code</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Farm_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Farm Name</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fertilizer_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Fertilizer Name</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Internodes_flower_tree_sprigs_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Internodes flower / tree sprigs 1</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internodes_flower_tree_sprigs_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Internodes flower / tree sprigs 2</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internodes_flower_tree_sprigs_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Internodes flower / tree sprigs 3</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internodes_flower_tree_sprigs_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Internodes flower / tree sprigs 4</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internodes_flower_tree_sprigs_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Internodes flower / tree sprigs 5</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_fruits_per_tree_branch_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of fruits per tree branch 1</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_fruits_per_tree_branch_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of fruits per tree branch 2</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_fruits_per_tree_branch_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of fruits per tree branch 3</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_fruits_per_tree_branch_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of fruits per tree branch 4</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_fruits_per_tree_branch_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of fruits per tree branch 5</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_internodes_with_fruit_tree_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of internodes with fruit tree 1</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_internodes_with_fruit_tree_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of internodes with fruit tree 2</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_internodes_with_fruit_tree_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of internodes with fruit tree 3</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_internodes_with_fruit_tree_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of internodes with fruit tree 4</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_internodes_with_fruit_tree_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of internodes with fruit tree 5</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_leaves_per_tree_branch_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of leaves per tree branch 1</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_leaves_per_tree_branch_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of leaves per tree branch 2</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_leaves_per_tree_branch_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of leaves per tree branch 3</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_leaves_per_tree_branch_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of leaves per tree branch 4</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_leaves_per_tree_branch_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of leaves per tree branch 5</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_young_leaves_of_the_tree_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of young leaves of the tree 1</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_young_leaves_of_the_tree_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of young leaves of the tree 2</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_young_leaves_of_the_tree_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of young leaves of the tree 3</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_young_leaves_of_the_tree_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of young leaves of the tree 4</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_young_leaves_of_the_tree_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of young leaves of the tree 5</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Plot_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Plot Area</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Plot_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Plot Code</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ccafisa1 Jhon Jairo Hernandez</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa2 Yessica Gutierrez</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa3 Juan Gregorio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa4 Diego Alberto Alvarez</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa5 Andres Cartagena</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa6 William Penagos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa7 Mabel Berrio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa8 Duban René Higuita Tamayo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa9 Hector Vargas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa10 Ever Hinestroza</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa11 Jose Ermes Serna</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa12 Maria Emilce Cano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa13 Lorena Sepulveda</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa14 Luz Marina Ruiz Correa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa15 Sandra Rincón</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa35gf Sebastian Rodriguez</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa36gf Monica Perez</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ccafisa37gf Veronica Cano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Plot_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Plot Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Piloto</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Testigo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Precisagro_fertilizer_application__c</fullName>
+        <externalId>false</externalId>
+        <label>Precisagro fertilizer application</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Si</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Size_tree_1__c</fullName>
+        <description>Enter the size of the tree in meters</description>
+        <externalId>false</externalId>
+        <label>Size tree 1</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree 2</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree 3</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree 4</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree 5</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_branches_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree branches 1</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_branches_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree branches 2</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_branches_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree branches 3</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_branches_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree branches 4</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Size_tree_branches_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Size tree branches 5</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission_IBT__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission (IBT)</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Sample Plots</relationshipLabel>
+        <relationshipName>Sample_Plots</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>dose_application__c</fullName>
+        <externalId>false</externalId>
+        <label>dose application</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fertilization_last_date__c</fullName>
+        <externalId>false</externalId>
+        <label>fertilization last date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>observations__c</fullName>
+        <externalId>false</externalId>
+        <label>observations</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>product_to_evaluate__c</fullName>
+        <externalId>false</externalId>
+        <label>product to evaluate</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fase Crecimiento (27-20-0-1S-6Ca)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ferticrop Café Levante (29-16-3-2Mg-3S-0,02B-0,031Zn)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Producción 17 (17-6-18-2Mg-1S)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>F17 (17-6-18-7Mg-8,5S)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arábigo (21-3-17-3Mg-4S)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Producción 24 (24-3-20-3Mg-4S)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Producción 25 (25-3-19-3Mg-4S)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>25 - 4 - 24</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ferticrop Café Producción (22-6-17-2Mg-3S-0,031Zn)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nitroxtend (46-0-0)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nitroxtend + S (40-0-0-6S)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nitroxtend + Mg (39-0-3-2Mg-3S)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>Sample Plot</label>
+    <nameField>
+        <displayFormat>{0000}</displayFormat>
+        <label>Sample Plot Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Sample Plots</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

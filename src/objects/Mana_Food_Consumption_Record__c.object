@@ -5,6 +5,13 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+<<<<<<< HEAD
+=======
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+>>>>>>> origin/ci
         <actionName>Clone</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -17,6 +24,13 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+<<<<<<< HEAD
+=======
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+>>>>>>> origin/ci
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -25,6 +39,13 @@
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
+<<<<<<< HEAD
+=======
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+>>>>>>> origin/ci
         <actionName>Tab</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -32,11 +53,23 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+<<<<<<< HEAD
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+=======
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+>>>>>>> origin/ci
     <fields>
         <fullName>Category__c</fullName>
         <externalId>false</externalId>
@@ -45,6 +78,10 @@
         <label>Category</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -56,6 +93,10 @@
         <label>Code</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Text</type>
         <unique>false</unique>
     </fields>
@@ -65,6 +106,10 @@
         <label>Collection Date</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>DateTime</type>
     </fields>
     <fields>
@@ -77,6 +122,10 @@
         <relationshipOrder>1</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -90,6 +139,10 @@
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
@@ -101,6 +154,10 @@
         <required>true</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -109,11 +166,28 @@
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Quantity Code</label>
+<<<<<<< HEAD
+=======
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Food__c</field>
+                <operation>equals</operation>
+                <valueField>Mana_Food_Quantity_Code__c.Food__c</valueField>
+            </filterItems>
+            <infoMessage>Select lookup codes for this record.</infoMessage>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+>>>>>>> origin/ci
         <referenceTo>Mana_Food_Quantity_Code__c</referenceTo>
         <relationshipLabel>Food Consumption Records</relationshipLabel>
         <relationshipName>Food_Consumption_Records</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -140,9 +214,30 @@
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
         <type>Picklist</type>
     </fields>
     <fields>
+=======
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <description>The Stage indicates if the survey (submission) belongs to Baseline or Ex-Post</description>
+        <externalId>false</externalId>
+        <formula>IF(CONTAINS(Submission__r.Submission__r.gfsurveys__Survey__r.Name, &apos;PRD_02&apos;),&apos;LB&apos;,
+IF(CONTAINS(Submission__r.Submission__r.gfsurveys__Survey__r.Name, &apos;PRD_03&apos;),&apos;XP&apos;,&apos;&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Stage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Submission__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -152,6 +247,10 @@
         <relationshipName>Food_Consumption_Records</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -164,6 +263,10 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -177,6 +280,10 @@
         <required>false</required>
         <scale>2</scale>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -188,10 +295,36 @@
         <label>Units</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
+<<<<<<< HEAD
+=======
+        <trackTrending>false</trackTrending>
+>>>>>>> origin/ci
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <label>Mana Food Consumption Record</label>
+<<<<<<< HEAD
+=======
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Food__c</columns>
+        <columns>Household__c</columns>
+        <columns>Number_Consumed__c</columns>
+        <columns>Source__c</columns>
+        <columns>Quantity_Code__c</columns>
+        <columns>Collection_Date__c</columns>
+        <columns>Submission__c</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>UPDATEDBY_USER.ALIAS</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+>>>>>>> origin/ci
     <nameField>
         <displayFormat>{0000000000}</displayFormat>
         <label>Id</label>

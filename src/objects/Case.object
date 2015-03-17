@@ -93,17 +93,73 @@
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>AccountId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>AssetId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>BusinessHoursId</fullName>
+<<<<<<< HEAD
         <type>Lookup</type>
     </fields>
     <fields>
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Case_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This field should be hidden from page layouts. It is used to count the number cases on reports.</inlineHelpText>
+        <label>Case Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Resolution_Time__c</fullName>
+        <externalId>false</externalId>
+        <formula>ABS(ROUND( 8 * (
+   ( 5 * FLOOR( ( DATEVALUE(ClosedDate) - DATE( 1900, 1, 8) ) / 7) +
+    MIN(5, 
+     MOD( DATEVALUE(ClosedDate) - DATE( 1900, 1, 8), 7) +
+     MIN( 1, 24 / 8 * ( MOD( ClosedDate - DATETIMEVALUE( &apos;1900-01-08 05:00:00&apos; ), 1 ) ) )
+    ) 
+   )
+ -
+   ( 5 * FLOOR( ( DATEVALUE( CreatedDate) - DATE( 1900, 1, 8) ) / 7) +
+     MIN( 5,
+      MOD( DATEVALUE( CreatedDate ) - DATE( 1996, 1, 1), 7 ) +
+      MIN( 1, 24 / 8 * ( MOD( CreatedDate  - DATETIMEVALUE( &apos;1900-01-08 05:00:00&apos; ), 1) ) )
+    )
+   ) 
+  ), 
+0 ))</formula>
+        <label>Case Resolution Time</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Category__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Please select a category for the support request based on the content of support</inlineHelpText>
@@ -209,6 +265,123 @@
                 <fullName>NAADS</fullName>
                 <default>false</default>
             </picklistValues>
+<<<<<<< HEAD
+=======
+
+	    <picklistValues>
+                <fullName>Banana GAP1: Soil Fertility</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP2: Desuckering, Pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP3: Soil and Water Conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP4: Support for Banana Plants</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP5: Record Keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP6: Group Production, Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP7: Weed Control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP8: Pests and Disease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP9: Value Addition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banana GAP10: Agro-inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP1: Soil Fertility</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP2: Desuckering, Pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP3: Soil and Water Conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP4: Value Addition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP5: Record Keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP6: Group Production/ Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP7: Weed Control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP8: Pests and Disease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP9: Processing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coffee GAP10: Agro-inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP1: Land Preparation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP2: Proper Planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP3: Seed Selection</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP4: Soil Fertility Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP5: Pest and Disease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP6: Harvesting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP7: Bulking Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maize GAP8: Record Keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+
+>>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
         <trackFeedHistory>false</trackFeedHistory>
@@ -218,6 +391,24 @@
     </fields>
     <fields>
         <fullName>ContactId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FbD_CM__Merge_To_Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Merge To Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -245,14 +436,23 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>OwnerId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>true</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>ParentId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -299,6 +499,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -340,6 +541,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -379,6 +581,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -416,9 +619,83 @@
                 <fullName>CKW Performance</fullName>
                 <default>false</default>
             </picklistValues>
+<<<<<<< HEAD
+=======
+            <picklistValues>
+                <fullName>Extension Tool</fullName>
+                <default>false</default>
+            </picklistValues>
+>>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Created_At__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Created At</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Initially_Assigned_At__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Initially Assigned At</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Resolution_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Resolution Time</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Solved_At__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Solved At</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Updated_At__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Updated At</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_Ticket_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk Ticket ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <listViews>
         <fullName>All_Cases</fullName>
@@ -429,8 +706,16 @@
         <columns>CASES.SUBJECT</columns>
         <columns>CASES.STATUS</columns>
         <columns>CASES.CREATED_DATE</columns>
+        <columns>CASES.ORIGIN</columns>
         <filterScope>Everything</filterScope>
         <label>All Cases</label>
+<<<<<<< HEAD
+=======
+        <language>en_US</language>
+        <sharedTo>
+            <group>CKWGroup</group>
+        </sharedTo>
+>>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>All_Closed_Cases</fullName>
@@ -441,6 +726,9 @@
         <columns>CASES.SUBJECT</columns>
         <columns>CASES.STATUS</columns>
         <columns>CASES.CREATED_DATE</columns>
+        <columns>CASES.CLOSED_DATE</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <columns>OWNER_NAME</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>CASES.STATUS</field>
@@ -448,23 +736,43 @@
             <value>Closed</value>
         </filters>
         <label>All Closed Cases</label>
+<<<<<<< HEAD
+=======
+        <language>en_US</language>
+        <sharedTo>
+            <group>CKWGroup</group>
+        </sharedTo>
+>>>>>>> origin/ci
     </listViews>
     <listViews>
-        <fullName>All_New_Cases</fullName>
+        <fullName>All_Closed_Pulse_Cases</fullName>
         <columns>CASES.CASE_NUMBER</columns>
         <columns>Person__c</columns>
-        <columns>Category__c</columns>
         <columns>CASES.TYPE</columns>
         <columns>CASES.SUBJECT</columns>
-        <columns>CASES.STATUS</columns>
         <columns>CASES.CREATED_DATE</columns>
+        <columns>CASES.CLOSED_DATE</columns>
+        <columns>Case_Resolution_Time__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>CASES.STATUS</field>
             <operation>equals</operation>
-            <value>New</value>
+            <value>Closed</value>
         </filters>
+<<<<<<< HEAD
         <label>All New Cases</label>
+=======
+        <filters>
+            <field>CASES.ORIGIN</field>
+            <operation>equals</operation>
+            <value>CKW Pulse</value>
+        </filters>
+        <label>All Closed Pulse Cases</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>CKWGroup</group>
+        </sharedTo>
+>>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>All_Open_Cases</fullName>
@@ -496,6 +804,27 @@
         <filterScope>Queue</filterScope>
         <label>CKW Cases Queue</label>
         <queue>CKWCasesQueue</queue>
+<<<<<<< HEAD
+=======
+    </listViews>
+    <listViews>
+        <fullName>Calls</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.CREATED_DATE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CASES.ORIGIN</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.ORIGIN</field>
+            <operation>equals</operation>
+            <value>Phone Call</value>
+        </filters>
+        <label>Calls</label>
+        <language>en_US</language>
+>>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>MyCases</fullName>
@@ -787,6 +1116,13 @@
                 <default>false</default>
             </values>
             <values>
+<<<<<<< HEAD
+=======
+                <fullName>Extension Tool</fullName>
+                <default>false</default>
+            </values>
+            <values>
+>>>>>>> origin/ci
                 <fullName>FVR-Suggestion</fullName>
                 <default>false</default>
             </values>
@@ -822,6 +1158,10 @@
         <customTabListAdditionalFields>CASES.CREATED_DATE</customTabListAdditionalFields>
         <customTabListAdditionalFields>CASES.PRIORITY</customTabListAdditionalFields>
         <customTabListAdditionalFields>CASES.TYPE</customTabListAdditionalFields>
+<<<<<<< HEAD
+=======
+        <listViewButtons>FbD_CM__Merge_Cases</listViewButtons>
+>>>>>>> origin/ci
         <lookupDialogsAdditionalFields>CASES.CASE_NUMBER</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CASES.SUBJECT</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
@@ -877,6 +1217,30 @@
         <showsLocation>false</showsLocation>
         <showsStatus>false</showsStatus>
         <url>https://applab.atlassian.net/plugins/servlet/customware/connector/issue/2/Case/create.action?id={!Case.Id}&amp;project=CKW+General&amp;issueType=Issue&amp;skipSearch=true&amp;os_username=pmo&amp;os_password=pmo123</url>
+<<<<<<< HEAD
+=======
+    </webLinks>
+    <webLinks>
+        <fullName>FbD_CM__Merge_Case</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Merge Case</masterLabel>
+        <openType>replace</openType>
+        <page>FbD_CM__MergeCaseManager</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>FbD_CM__Merge_Cases</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Merge Cases</masterLabel>
+        <openType>replace</openType>
+        <page>FbD_CM__MultiMergeCaseManager</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+>>>>>>> origin/ci
     </webLinks>
     <webLinks>
         <fullName>Mass_Edit</fullName>
@@ -921,5 +1285,19 @@
         <showsLocation>false</showsLocation>
         <showsStatus>false</showsStatus>
         <url>/apex/jiraSyncCase?caseId={!Case.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Zendesk__Zendesk_Ticket_View_Link</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Zendesk Ticket View Link</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)}
+
+var pageUrl = sforce.apex.execute(&quot;Zendesk.ZendeskPageURL&quot;, &quot;getPageUrl&quot;, {ticketid:&quot;{!Case.Zendesk__Zendesk_Ticket_ID__c}&quot;});
+window.location.href =  pageUrl;</url>
     </webLinks>
 </CustomObject>

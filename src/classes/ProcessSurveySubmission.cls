@@ -93,10 +93,14 @@ global class ProcessSurveySubmission {
                 messageSubject = survey.Survey_Name__c + ' submitted successfully';
                 surveySubmission.success = true;
             }
-
+            System.debug(results);
             // Send Pulse and SMS feedback to the submitter
             if (!results.get(2).equals('SUPRESSMSG')) {
+<<<<<<< HEAD
                 messageBody = results.get(2);
+=======
+                messageBody = results.get(1);
+>>>>>>> origin/ci
                 User sender = [
                     SELECT
                         Id,
@@ -108,7 +112,11 @@ global class ProcessSurveySubmission {
                 ];
                 SendSmsHelpers.sendThroughGateways(
                     SendSmsHelpers.generateMessage(
+<<<<<<< HEAD
                         new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0))
+=======
+                        new List<Id>{ interviewer.Id }, messageSubject, messageBody, sender.Id, sender.Name, true, false, DateTime.now(), datetime.newInstance(date.today().addDays(10), time.newInstance(23, 59, 59, 0)), ''
+>>>>>>> origin/ci
                     ), true
                 );
             }
@@ -386,6 +394,7 @@ global class ProcessSurveySubmission {
                     submissionAnswersWithParent.add(submissionAnswer);
                 }
             }
+
         }
 
         returnValues.add(submissionAnswersWithoutParent);
@@ -405,7 +414,7 @@ global class ProcessSurveySubmission {
      *           The answers are split like this so the links can be made between them to allow for drilldown.
      *           Need to know the SF ids of the parents before saving the child
      */
-    private static List<List<Submission_Answer__c>> parseJsonString(SurveySubmission surveySubmission, Id submissionMetaDataId) {
+    public static List<List<Submission_Answer__c>> parseJsonString(SurveySubmission surveySubmission, Id submissionMetaDataId) {
 
         System.debug(LoggingLevel.INFO, surveySubmission.json);
         JSONObject jsonObject = new JSONObject(surveySubmission.json);
@@ -455,7 +464,7 @@ global class ProcessSurveySubmission {
      *
      *  @return - The answer map
      */
-    private static Map<String, Submission_Answer__c> parseSubmissionToMap(SurveySubmission surveySubmission) {
+    public static Map<String, Submission_Answer__c> parseSubmissionToMap(SurveySubmission surveySubmission) {
 
         Map<String, Submission_Answer__c> answerMap = new Map<String, Submission_Answer__c>();
 
@@ -522,8 +531,68 @@ global class ProcessSurveySubmission {
             else if (survey.Post_Processing_Method__c.equals('Subcounty_Registration')) {
                 return CkwRegistration.processSubcounties(answers, interviewer);
             }
-            else if (survey.Post_Processing_Method__c.equals('TDR_AGENT_VISIT')) {
-                return TdrHelpers.processAgentVisitSurvey(surveySubmission, answers, interviewer);
+            else if (survey.Post_Processing_Method__c.equals('FHI_GROUP_REGISTRATION')) {
+                return FHISurveysHelpers.processGroupRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FHI_HOUSEHOLD_REGISTRATION')) {
+                return FHISurveysHelpers.processHouseholdRegistration(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FHI_MONITORING')) {
+                return FHISurveysHelpers.processCkwMonitoring(surveySubmission, answers, interviewer, survey.Survey_Name__c);
+            }
+            else if (survey.Post_Processing_Method__c.equals('FIELD_OFFICER_SUPPORT')) {
+                return FieldOfficeHelpers.processFoSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_SPOT_CHECK')) {
+               return DataValidatorHelpers.processSpotCheck(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('DATA_VALIDATOR_BACK_CHECK')) {
+                return DataValidatorHelpers.processBackCheck(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('EADD_FARMER_EXTRA_INFO')) {
+                return ProcessEADDSurveys.processEADDFarmerRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('EADD_HUB')) {
+                return ProcessEADDSurveys.processEADDHubRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('PA_HEALTH_PROGRAMME')) {
+                return BracSurveysHelpers.processHealthProgrammeSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('OPPORTUNITY_CLIENT_PROFILE')) {
+                return OpportunityProfileSurveyHelpers.processClientProfileSurvey(answers, intervieweeId);
+            }
+            else if (survey.Post_Processing_Method__c.equals('NAADS_ADVISORY')) {
+                return ProcessNaadsSurveys.processAdvisoryServiceSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('NAADS_BASELINE')) {
+                return ProcessNaadsSurveys.processNaadsBaselineSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('IG_CBT_VISITS')) {
+                return ProcessNUSAFSurveys.registerNusafActivityVisit(surveySubmission, answers, interviewer);
+            }
+            else if(survey.Post_Processing_Method__c.equals('GUMUTINDO_GCCE_FARM_ENTRANCE'))
+            {
+                return GumutindoHelpers.processGCCEFarmEntranceSurvey(surveySubmission, answers, interviewer);
+            }
+             else if(survey.Post_Processing_Method__c.equals('GUMUTINDO_GROUP_SURVEY'))
+            {
+                return GumutindoHelpers.processGumutindoGroupSurvey(surveySubmission, answers, interviewer);
+            }
+             else if(survey.Post_Processing_Method__c.equals('GCCE_FARMER_GROUP_ASSESSMENT'))
+            {
+                return GumutindoHelpers.processGroupFarmerMemberAssessmentSurvey(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('AGROWAYS_FARMER_REG')) {
+                return ProcessAgrowaysSurveys.processAgrowaysFarmerRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('AGROWAYS_GROUP_REG')) {
+                return ProcessAgrowaysSurveys.processFarmerGroupRegistration(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('BUCCODEG_CAFE_PROJECT_KENYA')) {
+                return BuccodecHelpers.surveysPostProcessing(surveySubmission, answers, interviewer);
+            }
+            else if (survey.Post_Processing_Method__c.equals('MBUGO')) {
+                return MbugoHelpers.surveysPostProcessing(surveySubmission, answers, interviewer);
             }
             else if (survey.Post_Processing_Method__c.equals('UDOM_RAIN_GUAGE')) {
                 return UDoMSurveyProcessing.processDailyRainGauge(surveySubmission, answers, interviewer);
@@ -703,7 +772,7 @@ global class ProcessSurveySubmission {
         System.assert(resultSurveySubmission.success);
     }
 
-    static testMethod void testAgentVisitSubmission() {
+    /**static testMethod void testAgentVisitSubmission() {
 
         // Create a country
         Country__c country = Utils.createTestCountry('NEW COUNTRY');
@@ -804,6 +873,6 @@ global class ProcessSurveySubmission {
             '</answers>';
         surveySubmission.json = 'none';
         SurveySubmission resultSurveySubmission = processSurveySubmission(surveySubmission);
-    }
+    }**/
 
 }

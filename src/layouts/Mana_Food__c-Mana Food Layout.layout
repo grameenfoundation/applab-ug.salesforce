@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+<<<<<<< HEAD
+=======
+    <excludeButtons>Submit</excludeButtons>
+>>>>>>> origin/ci
     <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
@@ -10,6 +14,17 @@
                 <behavior>Required</behavior>
                 <field>Name</field>
             </layoutItems>
+<<<<<<< HEAD
+=======
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Units__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Category__c</field>
+            </layoutItems>
+>>>>>>> origin/ci
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -39,14 +54,35 @@
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
+<<<<<<< HEAD
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>true</editHeading>
+=======
+        <customLabel>true</customLabel>
+        <detailHeading>false</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Custom Links</label>
+>>>>>>> origin/ci
         <layoutColumns/>
         <layoutColumns/>
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+<<<<<<< HEAD
+=======
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Mana_Food_Quantity_Code__c.Food__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Mana_Food_Consumption_Record__c.Food__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
+>>>>>>> origin/ci
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

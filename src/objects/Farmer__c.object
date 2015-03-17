@@ -172,6 +172,42 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>Sugarcane</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vegetables</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sweetpotatoes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cabbages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Avocado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mongoes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pigeon Peas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pumpkin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Soya</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Other</fullName>
                 <default>false</default>
             </picklistValues>
@@ -186,6 +222,19 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>GPS_Location__c</fullName>
+        <displayLocationInDecimal>true</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>GPS Location</label>
+        <required>false</required>
+        <scale>7</scale>
+        <trackHistory>false</trackHistory>
+        <type>Location</type>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Had_Credit_Access__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
@@ -278,6 +327,18 @@
                 <fullName>Rabbits</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Fish</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bees</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Guinea Fowl</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>true</trackHistory>
@@ -285,6 +346,19 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>Mobile_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Person__r.Mobile_Number__c</formula>
+        <label>Mobile Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>Performance_Date__c</fullName>
         <externalId>false</externalId>
         <formula>IF( AND(ISNULL(Registered_Date__c), Person__r.First_Name__c &lt;&gt; &quot;Not Registered&quot;) , DATEVALUE(CreatedDate ) , Registered_Date__c )</formula>

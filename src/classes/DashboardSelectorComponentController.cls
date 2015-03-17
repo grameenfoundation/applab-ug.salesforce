@@ -43,9 +43,15 @@ public with sharing class DashboardSelectorComponentController extends ParentCom
         return this.selector.Show_Data_Validator__c;
     }
 
+<<<<<<< HEAD
     public Boolean getShowMtnChan() {
         return this.selector.Show_MTN_Chan__c;
     }
+=======
+    //public Boolean getShowMtnChan() {
+    //    return this.selector.Show_MTN_Chan__c;
+    //}
+>>>>>>> origin/ci
 
     public Boolean getShowFieldOfficer() {
         return this.selector.Show_Field_Officer__c;

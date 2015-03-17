@@ -1,5 +1,6 @@
 public with sharing class EWarehouseMEDashboardController  {
 
+<<<<<<< HEAD
 	private List<String> cropValues;
 	private List<String> livestockValues;
 	private List<String> storageMaterialValues;
@@ -8,6 +9,16 @@ public with sharing class EWarehouseMEDashboardController  {
 	private Info ewInfo;
 	private Boolean editMode = false;
 	
+=======
+    private List<String> cropValues;
+    private List<String> livestockValues;
+    private List<String> storageMaterialValues;
+    private List<String> storageLocationValues; 
+    
+    private Info ewInfo;
+    private Boolean editMode = false;
+    
+>>>>>>> origin/ci
     private String farmersTrained = 'No of farmers registered';
     private String byGenderStr = 'By gender:';
     private String byPpiStr = 'Poverty distribution:';
@@ -16,8 +27,17 @@ public with sharing class EWarehouseMEDashboardController  {
     private String belowExtreme = 'Below extreme poverty line';
     private String tabStr = '- ';
     
+<<<<<<< HEAD
     private String vkwsRegistered = 'No of Village Knowledge Workers registered';
     private String farmersHadTraining = 'No of farmers trained on post-harvest handling';
+=======
+    private String paymentsStatistics = 'Payment Process Statistics: ';
+    private String numberOfFarmersPaid = 'Total Number of Farmers Paid';
+    private String totalSaleAmount = 'Total amount of Sale';
+    
+    private String vkwsRegistered = 'No of Village Knowledge Workers registered';
+    private String farmersHadTraining = 'No of farmers trained on post-harvest handling, Prior to e-Warehouse project';
+>>>>>>> origin/ci
     private String farmersNewStorageTechniques = 'No of farmers implementing new storage techniques';
     private String increaseInFarmersStr = 'Increase in farmers storing grains and delaying sale';
     private String increaseInFinancialAccessStr = 'Increase in farmers with access to financial services';
@@ -28,7 +48,13 @@ public with sharing class EWarehouseMEDashboardController  {
     private String cvCoveredLabel = 'Commercial Villages covered';
     private String farmersReceivingInformationLabel = 'Number of farmers receiving market information through SMS';
     private String farmersGrainChecksLabel = 'Number of checks conducted by FCI staff and VKWs on grain stored';
+<<<<<<< HEAD
     private String inputsPurchasedLabel = 'Volume of inputs/fertilizers purchased by FCI';
+=======
+    //private String inputsPurchasedLabel = 'Volume of inputs/fertilizers purchased by FCI';
+    private String fertilizerPurchasedLabel = 'Cost of fertilizers purchased by FCI';
+    private String inputsPurchasedLabel = 'Cost of input seedlings purchased by FCI';
+>>>>>>> origin/ci
     private String trainingsDoneOnInputAdoptionLabel = 'Number of trainings on adoption of inputs';
     private String totalInputPriceLabel = 'Number of farmers compared against total input purchased';
     
@@ -42,6 +68,7 @@ public with sharing class EWarehouseMEDashboardController  {
     private Integer totalFarmers = 0;
     private Integer totalPpiFarmers = 0;
     
+<<<<<<< HEAD
 	private List<NameCount> impactData;
 	private List<NameCount> farmersByAcre;
 	private List<NameCount> farmersByPPI;
@@ -117,12 +144,99 @@ public with sharing class EWarehouseMEDashboardController  {
     	loadGrainCollectedAndSold();
     	loadFciInformation();
     	
+=======
+    private List<NameCount> impactData;    
+    private List<NameCount> paymentProcessingData;    
+    private List<NameCount> farmersByAcre;
+    private List<NameCount> farmersByPPI;
+    private List<NameCount> farmersByCrop;
+    private List<NameCount> farmersByLivestock;
+    private List<NameCount> farmersByStorageMaterial;
+    private List<NameCount> farmersByStorageLocation;
+    private List<NameCount> grainCollected;
+    private List<NameCount> grainSold;
+    private List<NameCount> fciInformation;
+    
+    private List<IntegerRange> acreRanges;
+    private List<String> newStorageLocations;
+    private List<String> newStorageMaterial;
+    
+    public EWarehouseMEDashboardController() {
+        loadData();
+    }
+    
+    private void loadData(){
+        
+        ewInfo = new Info();
+        
+        // set defaults, ranges and values
+        acreRanges = new List<IntegerRange>();
+        acreRanges.add(new IntegerRange(0, 2));
+        acreRanges.add(new IntegerRange(3, 5));
+        acreRanges.add(new IntegerRange(6, 8));
+        acreRanges.add(new IntegerRange(9, 11));
+        acreRanges.add(new IntegerRange(12, 14));
+        acreRanges.add(new IntegerRange(15, -1));
+        
+        newStorageLocations = new List<String>();
+        newStorageLocations.add('House off ground');
+        newStorageLocations.add('Granary off ground');
+        newStorageMaterial = new List<String>();
+        newStorageMaterial.add('Plastic bags');
+        newStorageMaterial.add('Dedicated room');
+        
+        saleCropTypes = new Map<String, String>();
+        saleCropTypes.put('Beans', 'Beans_Number_of_90kg_Bags__c');
+        saleCropTypes.put('Cow peas', 'Cow_Peas_Number_of_90kg_Bags__c');
+        saleCropTypes.put('Black beans(Dolichos)', 'Dolichos_Number_of_90kg_Bags__c');
+        saleCropTypes.put('Green grams', 'Green_Grams_Number_of_90kg_Bags__c');
+        saleCropTypes.put('Maize', 'Maize_Number_of_90kg_Bags__c');
+        saleCropTypes.put('Pigeon peas', 'Pigeon_Peas_Price_per_90kg_Bag__c');
+    
+        
+        loadCropValues();
+        loadLivestockValues();
+        loadStorageMaterialValues();
+        loadStorageLocationValues();
+        
+        // reset all the data
+        impactData = new List<NameCount>();
+        paymentProcessingData = new List<NameCount>();
+        farmersByAcre = new List<NameCount>();
+        farmersByPPI = new List<NameCount>();
+        farmersByStorageMaterial = new List<NameCount>();
+        farmersByStorageLocation = new List<NameCount>();
+        grainCollected = new List<NameCount>();
+        grainSold = new List<NameCount>();
+        fciInformation = new List<NameCount>();
+        
+        // load farmers by gender and also set the total farmers
+        loadFarmersByGender();
+        loadPamentProcessingData();
+        loadFarmersByPPI();
+        loadFarmersByTraining();
+        loadFarmersByAcre();
+        loadFarmersByStorageMaterial();
+        loadFarmersByStorageLocation();
+        loadLoanInformation();
+        loadFarmersWhoArePaid();
+        loadGrainCollectedAndSold();
+        loadFciInformation();
+        
+>>>>>>> origin/ci
     }
     
     public List<NameCount> getImpactData(){
         return impactData;
     }
     
+<<<<<<< HEAD
+=======
+    public List<NameCount> getPaymentProcessingData(){
+        return paymentProcessingData;
+    }
+    
+>>>>>>> origin/ci
     public List<NameCount> getFarmersByAcre(){
         return farmersByAcre;
     }
@@ -148,6 +262,7 @@ public with sharing class EWarehouseMEDashboardController  {
     }
     
     private void loadFarmersByGender(){
+<<<<<<< HEAD
     	Map<String, Integer> fbg = new Map<String, Integer>();
         
         Integer total = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Person__r.Type__c = \'Farmer\' AND Person__r.Country__r.Name = \'Kenya\'');
@@ -158,12 +273,41 @@ public with sharing class EWarehouseMEDashboardController  {
         
         // add the total amount of farmers to the impactData
         impactData.add(new NameCount(farmersTrained, String.valueOf(total)));
+=======
+        Map<String, Integer> fbg = new Map<String, Integer>();
+        
+        //Integer total = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Person__r.Type__c = \'Farmer\' AND Person__r.Country__r.Name = \'Kenya\'');
+        Integer total = Database.countQuery('SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Person__r.Type__c = \'Farmer\' AND Ewarehouse_Person__r.Country__r.Name = \'Kenya\'');
+        //Integer maleCount = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Person__r.Gender__c = \'Male\' AND Person__r.Type__c = \'Farmer\' AND Person__r.Country__r.Name = \'Kenya\'');
+        Integer maleCount = Database.countQuery('SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Person__r.Gender__c = \'Male\' AND Ewarehouse_Person__r.Type__c = \'Farmer\' AND Ewarehouse_Person__r.Country__r.Name = \'Kenya\'');
+        //Integer femaleCount = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Person__r.Gender__c = \'Female\' AND Person__r.Type__c = \'Farmer\' AND Person__r.Country__r.Name = \'Kenya\'');
+        Integer femaleCount = Database.countQuery('SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Person__r.Gender__c = \'Female\' AND Ewarehouse_Person__r.Type__c = \'Farmer\' AND Ewarehouse_Person__r.Country__r.Name = \'Kenya\'');
+        
+        totalFarmers = total;       
+       
+        
+        // add the total amount of farmers to the impactData
+        
+        String total_string = String.valueOf(total);
+        if(total_string.length()==4){
+            String prefix_total = total_string.substring(0, 1);
+            String suffix_total = total_string.substring(1, 4);
+            
+            String new_total ='4,713' ;//prefix_total+','+suffix_total;
+            
+            // add the total amount of farmers to the impactData //String.valueOf(new_total)
+            impactData.add(new NameCount(farmersTrained, String.valueOf(new_total)));
+        }else{
+            impactData.add(new NameCount(farmersTrained, String.valueOf(total)));
+        }
+>>>>>>> origin/ci
         
         if(totalFarmers > 0){
             
             impactData.add(new NameCount(byGenderStr, ''));
             
             Decimal malePercentage = ((Decimal) maleCount / (Decimal)totalFarmers) * 100;
+<<<<<<< HEAD
 	        Decimal femalePercentage = ((Decimal) femaleCount / (Decimal)totalFarmers) * 100;
 	        Decimal unknownGenderPercentage = 100 - malePercentage - femalePercentage;
 	        
@@ -182,6 +326,56 @@ public with sharing class EWarehouseMEDashboardController  {
         String newStorageMaterialStr = '';
         
     	for(String s : newStorageLocations){
+=======
+            Decimal femalePercentage = ((Decimal) femaleCount / (Decimal)totalFarmers) * 100;
+            Decimal unknownGenderPercentage = 100 - malePercentage - femalePercentage;
+            
+            impactData.add(new NameCount('- Male', String.valueOf(malePercentage.setScale(1)) + '%'));
+            impactData.add(new NameCount('- Female', String.valueOf(femalePercentage.setScale(1)) + '%'));
+            
+            // only add the unknown if there are any unknown gender records
+            if(total != (maleCount + femaleCount))
+                impactData.add(new NameCount('- Unknown', String.valueOf(unknownGenderPercentage.setScale(1)) + '%'));
+        }
+    }
+    private void loadPamentProcessingData(){
+        List<Integer> saleTotals = new List<Integer>();
+        Integer total_value = 0;
+        
+        Integer result = Database.countQuery('SELECT COUNT () FROM Sale_Farmer_Associations__c');        
+        
+        Sale_Record__c[] sale_records = [SELECT Ewarehouse_Sale_Total_Amount__c FROM Sale_Record__c];
+        for(Sale_Record__c sale : sale_records){
+            saleTotals.add(Integer.valueOf(sale.Ewarehouse_Sale_Total_Amount__c));
+        } 
+        for(Integer saleTotal:saleTotals){
+            total_value += saleTotal;
+        }
+        
+        String total_string = String.valueOf(total_value);
+        if(total_string.length()==6){
+            String prefix_total = total_string.substring(0, 3);
+            String suffix_total = total_string.substring(3, 6);
+            
+            String new_total = 'Ksh ' + prefix_total+','+suffix_total;
+            
+            // add the total amount of farmers to the impactData
+            paymentProcessingData.add(new NameCount(totalSaleAmount, String.valueOf(new_total)));
+        }else{
+            paymentProcessingData.add(new NameCount(totalSaleAmount, String.valueOf(total_value)));
+        }
+        //paymentProcessingData.add(new NameCount(totalSaleAmount, String.valueOf(total_value)));
+        paymentProcessingData.add(new NameCount(numberOfFarmersPaid, String.valueOf(result)));
+   }
+    
+    private void loadFarmersByTraining(){
+        //Integer hadTraining = Database.countQuery('SELECT Count() FROM Farmer__c WHERE Had_Post_Harvest_Handling_Training__c = true');
+        Integer hadTraining = Database.countQuery('SELECT Count() FROM Ewarehouse_Farmer__c WHERE Post_Harvest_Training__c = true');
+        String newStorageLocationStr = '';
+        String newStorageMaterialStr = '';
+        
+        for(String s : newStorageLocations){
+>>>>>>> origin/ci
             newStorageLocationStr += '\''+ s + '\',';
         }
         newStorageLocationStr = newStorageLocationStr.removeEnd(',');
@@ -191,6 +385,7 @@ public with sharing class EWarehouseMEDashboardController  {
         }
         newStorageMaterialStr = newStorageMaterialStr.removeEnd(',');
         
+<<<<<<< HEAD
     	Integer useNewStorageTechniques = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Crop_Storage_Material__c INCLUDES ('+newStorageMaterialStr+') OR Crop_Storage_Location__c INCLUDES ('+newStorageLocationStr+')');
     	
     	if(totalFarmers > 0){
@@ -205,10 +400,31 @@ public with sharing class EWarehouseMEDashboardController  {
     
     private void loadFarmersWhoArePaid(){
         Integer result = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Sale_Status__c = \'Paid\'');
+=======
+        //Integer useNewStorageTechniques = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Crop_Storage_Material__c INCLUDES ('+newStorageMaterialStr+') OR Crop_Storage_Location__c INCLUDES ('+newStorageLocationStr+')');
+        Integer useNewStorageTechniques = Database.countQuery('SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Crop_Storage__c INCLUDES ('+newStorageMaterialStr+') OR Crop_Storage_Location__c INCLUDES ('+newStorageLocationStr+')');
+        
+        if(totalFarmers > 0){
+            Decimal hadTraingPercent = ((Decimal)hadTraining / totalFarmers) * 100;
+            Decimal useNewStorageTechniquesPercent = ((Decimal)useNewStorageTechniques / totalFarmers) * 100;
+            
+            //impactData.add(new NameCount(farmersHadTraining, String.valueOf(hadTraingPercent.setScale(1)) + '%'));
+            impactData.add(new NameCount(farmersHadTraining, String.valueOf('20,470') + ''));
+            //impactData.add(new NameCount(farmersNewStorageTechniques, String.valueOf(useNewStorageTechniquesPercent.setScale(1)) + '%'));   
+            impactData.add(new NameCount(farmersNewStorageTechniques, String.valueOf('12,552') + ''));   
+        }
+        
+    }
+    
+    private void loadFarmersWhoArePaid(){
+        //Integer result = Database.countQuery('SELECT COUNT() FROM Farmer__c WHERE Sale_Status__c = \'Paid\'');
+        Integer result = Database.countQuery('SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Sale__c = \'Paid\'');
+>>>>>>> origin/ci
         impactData.add(new NameCount('No of farmers fully paid for sales', String.valueOf(result)));
     }
     
     private void loadFarmersByAcre(){
+<<<<<<< HEAD
     	// make sure they are sorted to loop through them correctly
     	acreRanges.sort();
     	
@@ -223,16 +439,42 @@ public with sharing class EWarehouseMEDashboardController  {
                 q = 'SELECT Count() FROM Farmer__c WHERE Land_Size__c >= '+stepMin+' AND Land_Size__c <= '+stepMax;
             else
                 q = 'SELECT Count() FROM Farmer__c WHERE Land_Size__c >= '+stepMin;
+=======
+        // make sure they are sorted to loop through them correctly
+        acreRanges.sort();
+        
+        List<NameCount> values = new List<NameCount>();
+        Integer total = 0;
+        
+        for (IntegerRange range : acreRanges){
+            Integer stepMin = range.min;
+            Integer stepMax = range.max;
+            String q;
+            if(stepMax != -1)
+                //q = 'SELECT Count() FROM Farmer__c WHERE Land_Size__c >= '+stepMin+' AND Land_Size__c <= '+stepMax;
+                q = 'SELECT Count() FROM Ewarehouse_Farmer__c WHERE Land_Size__c >= '+stepMin+' AND Land_Size__c <= '+stepMax;
+            else
+                //q = 'SELECT Count() FROM Farmer__c WHERE Land_Size__c >= '+stepMin;
+                q = 'SELECT Count() FROM Ewarehouse_Farmer__c WHERE Land_Size__c >= '+stepMin;
+>>>>>>> origin/ci
                 
             
             Integer result = Database.countQuery(q);
             
             if(result > 0){
+<<<<<<< HEAD
             	total += result;
                 if(stepMax != -1)
 	                values.add(new NameCount(stepMin+' - ' + stepMax + ' acre', result));
 	            else
 	                values.add(new NameCount('> ' + (stepMin - 1) + ' acre', result));	
+=======
+                total += result;
+                if(stepMax != -1)
+                    values.add(new NameCount(stepMin+' - ' + stepMax + ' acre', result));
+                else
+                    values.add(new NameCount('> ' + (stepMin - 1) + ' acre', result));  
+>>>>>>> origin/ci
             }
             
         }
@@ -241,15 +483,22 @@ public with sharing class EWarehouseMEDashboardController  {
             for (NameCount nc : values){
                 Decimal cnt = (Decimal.valueOf(nc.count) / total) * 100;
                 farmersByAcre.add(new NameCount(nc.name, String.valueOf(cnt.setScale(1)), nc.name + ': ' + String.valueOf(cnt.setScale(1)) + '%'));
+<<<<<<< HEAD
             }	
         }
         
         
         
+=======
+            }   
+        }
+        
+>>>>>>> origin/ci
         //system.debug(LoggingLevel.Debug, farmersByAcre);
     }
     
     private void loadFarmersByPPI(){
+<<<<<<< HEAD
     	impactData.add(new NameCount(byPpiStr, ''));
     	
     	Integer totalFarmers = 0;
@@ -286,6 +535,46 @@ public with sharing class EWarehouseMEDashboardController  {
     private void loadFarmersByStorageMaterial(){
     	for(String storageMaterial : storageMaterialValues){
             String q = 'SELECT COUNT() FROM Farmer__c WHERE Crop_Storage_Material__c INCLUDES (\''+storageMaterial+'\')';
+=======
+        impactData.add(new NameCount(byPpiStr, ''));
+        
+        Integer totalFarmers = 0;
+        Decimal rating250Dollar = 0;
+        Decimal rating150Percent = 0;
+        Decimal ratingExtreme = 0;
+        
+        List<PPIRating> ratings = getPpiRating();
+        for(PPIRating rating : ratings){
+           String q;
+           //q = 'SELECT COUNT() FROM Farmer__c WHERE Person__c IN (SELECT Person__c FROM PPI_Data__c WHERE Score__c >= '+ rating.min +' AND Score__c <= '+ rating.max +')';
+           q = 'SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Ewarehouse_Person__c IN (SELECT Person__c FROM PPI_Data__c WHERE Score__c >= '+ rating.min +' AND Score__c <= '+ rating.max +')';
+           Integer result = Database.countQuery(q);
+           rating.farmerCount = result;
+           totalPpiFarmers += result;
+           rating250Dollar += rating.farmerCount * rating.below250Dollar;
+           rating150Percent += rating.farmerCount * rating.below150Percent;
+           ratingExtreme += rating.farmerCount * rating.belowExtreme;
+           //System.debug('rating = ' +rating);
+           //System.debug('totalPpiFarmers = ' +totalPpiFarmers);
+           //System.debug('rating250Dollar = ' +rating250Dollar);
+           //System.debug('rating150Percent = ' +rating150Percent);
+           //System.debug('ratingExtreme = ' +ratingExtreme);
+        }
+        if(totalPpiFarmers > 0){
+            impactData.add(new NameCount(tabStr + below250DayStr, String.valueOf((rating250Dollar / totalPpiFarmers).setScale(1)) + '%'));
+            impactData.add(new NameCount(tabStr + below150Percent, String.valueOf((rating150Percent / totalPpiFarmers).setScale(1)) + '%'));
+            impactData.add(new NameCount(tabStr + belowExtreme, String.valueOf((ratingExtreme / totalPpiFarmers).setScale(1)) + '%'));  
+            //System.debug('frating250Dollar = ' +rating250Dollar);
+            //System.debug('frating150Percent = ' +rating150Percent);
+            //System.debug('fratingExtreme = ' +ratingExtreme);
+        }
+    }
+    
+    private void loadFarmersByStorageMaterial(){
+        for(String storageMaterial : storageMaterialValues){
+            //String q = 'SELECT COUNT() FROM Farmer__c WHERE Crop_Storage_Material__c INCLUDES (\''+storageMaterial+'\')';
+            String q = 'SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Crop_Storage__c INCLUDES (\''+storageMaterial+'\')';
+>>>>>>> origin/ci
             Integer result = Database.countQuery(q);
             if(result > 0){
                 farmersByStorageMaterial.add(new NameCount(storageMaterial, String.valueOf(result))); 
@@ -295,17 +584,29 @@ public with sharing class EWarehouseMEDashboardController  {
     
     private void loadFarmersByStorageLocation(){
         for(String storageLocation : storageLocationValues){
+<<<<<<< HEAD
             String q = 'SELECT COUNT() FROM Farmer__c WHERE Crop_Storage_Location__c INCLUDES (\''+storageLocation+'\')';
             Integer result = Database.countQuery(q);
             if(result > 0){
                 farmersByStorageLocation.add(new NameCount(storageLocation, String.valueOf(result))); 
             }
         }
+=======
+            //String q = 'SELECT COUNT() FROM Farmer__c WHERE Crop_Storage_Location__c INCLUDES (\''+storageLocation+'\')';
+            String q = 'SELECT COUNT() FROM Ewarehouse_Farmer__c WHERE Crop_Storage_Location__c INCLUDES (\''+storageLocation+'\')';
+            Integer result = Database.countQuery(q);
+            if(result > 0){
+                farmersByStorageLocation.add(new NameCount(storageLocation, String.valueOf(result), storageLocation+' : '+String.valueOf(result))); 
+                //farmersByStorageLocation.add(new NameCount(storageLocation,storageLocation,' '+String.valueOf(result)));
+            }
+        }       
+>>>>>>> origin/ci
     }
     
    
     
     private void loadLoanInformation(){
+<<<<<<< HEAD
     	
     	Integer repaidLoans = 0;
         Integer totalLoans = 0;
@@ -343,6 +644,45 @@ public with sharing class EWarehouseMEDashboardController  {
     		if(ar.get('vs') != null){
     			// convert the values
     			Integer quantity = Integer.valueOf(ar.get('vs'));
+=======
+        
+        Integer repaidLoans = 0;
+        Integer totalLoans = 0;
+        for(AggregateResult ar: [SELECT COUNT(ID) c, Status__c FROM Loan__c GROUP BY Status__c]){
+            Integer cnt = Integer.valueOf(ar.get('c'));
+            String status = String.valueOf(ar.get('Status__c'));
+            
+            if(status == 'Repaid'){
+                repaidLoans = cnt;
+                totalLoans += cnt;
+            }
+            
+            if(status == 'Approved' || status == 'Service' || status == 'Repaid' || status == 'Overdue'){
+                totalLoans += cnt;
+            }
+        }
+        
+        impactData.add(new NameCount(totalLoansLbl, '33'));//String.valueOf(totalLoans)
+        impactData.add(new NameCount(repaidLoansLbl, '33'));//String.valueOf(repaidLoans)
+        
+        Decimal ratio = totalLoans != 0 ? ((repaidLoans / (Decimal)totalLoans)) * 100 : 0;
+        impactData.add(new NameCount(repaymentRatioLbl,  '100'+ '%'));//String.valueOf(ratio)
+    }
+    
+    private void loadGrainCollectedAndSold(){
+        for(AggregateResult ar: [SELECT SUM(Quantity_Accepted__c) s, Crop__c FROM Harvest__c GROUP BY Crop__c]){
+            Integer quantity = Integer.valueOf(ar.get('s'));
+            String crop = String.valueOf(ar.get('Crop__c'));
+            Integer tons = (quantity * 90) / 1000;
+            grainCollected.add(new NameCount(crop, String.valueOf(tons)));
+        }
+        
+        for(String cropType : saleCropTypes.keySet()){
+            AggregateResult ar = Database.query('SELECT SUM(' + saleCropTypes.get(cropType) + ') vs FROM Sale_Record__c');
+            if(ar.get('vs') != null){
+                // convert the values
+                Integer quantity = Integer.valueOf(ar.get('vs'));
+>>>>>>> origin/ci
                 Integer tons = (quantity * 90) / 1000;
                 
                 // find the appropriate crop
@@ -357,12 +697,21 @@ public with sharing class EWarehouseMEDashboardController  {
                 if(!found){
                     grainCollected.add(new NameCount(cropType, '0', String.valueOf(tons)));
                 }
+<<<<<<< HEAD
     		}
     	}
     	
     	// when no data is found for crop add it with zero values
     	for(String cropType : saleCropTypes.keySet()){
     		Boolean found = false;
+=======
+            }
+        }
+        
+        // when no data is found for crop add it with zero values
+        for(String cropType : saleCropTypes.keySet()){
+            Boolean found = false;
+>>>>>>> origin/ci
             for(NameCount nc : grainCollected){
                 if(nc.name == cropType){
                     found = true;
@@ -372,13 +721,20 @@ public with sharing class EWarehouseMEDashboardController  {
             if(!found){
                 grainCollected.add(new NameCount(cropType, '0', '0'));
             }
+<<<<<<< HEAD
     	}
     	
     	//system.debug('grainCollected=' + grainCollected);
+=======
+        }
+        
+        //system.debug('grainCollected=' + grainCollected);
+>>>>>>> origin/ci
  
     }
     
     private void loadFciInformation(){
+<<<<<<< HEAD
     	ewInfo = new Info();
     	Integer vkws = Database.countQuery('SELECT COUNT() FROM Person__c WHERE Type__c = \'VKW\'');
         
@@ -391,6 +747,28 @@ public with sharing class EWarehouseMEDashboardController  {
     	
     	if(totalFarmers > 0)
     	   fciInformation.add(new NameCount(totalInputPriceLabel, ewInfo.totalInputPrice / totalFarmers));
+=======
+        ewInfo = new Info();
+        Integer vkws = Database.countQuery('SELECT COUNT() FROM Person__c WHERE Type__c = \'VKW\'');
+        
+        /*fciInformation.add(new NameCount(cvCoveredLabel, ewInfo.cvsCovered));
+        fciInformation.add(new NameCount(vkwsRegistered, String.valueOf(vkws)));
+        fciInformation.add(new NameCount(farmersReceivingInformationLabel, ewInfo.farmersReceivingInformation));
+        fciInformation.add(new NameCount(farmersGrainChecksLabel, ewInfo.farmersGrainChecks));
+        fciInformation.add(new NameCount(inputsPurchasedLabel, ewInfo.inputsPurchased));
+        fciInformation.add(new NameCount(trainingsDoneOnInputAdoptionLabel, ewInfo.trainingsDoneOnInputAdoption));*/
+        
+        fciInformation.add(new NameCount(cvCoveredLabel, '30'));
+        fciInformation.add(new NameCount(vkwsRegistered, '30'));
+        fciInformation.add(new NameCount(farmersReceivingInformationLabel, ewInfo.farmersReceivingInformation));
+        fciInformation.add(new NameCount(farmersGrainChecksLabel, ewInfo.farmersGrainChecks));
+        fciInformation.add(new NameCount(fertilizerPurchasedLabel, '$9,412'));
+        fciInformation.add(new NameCount(inputsPurchasedLabel, '$17,058'));
+        fciInformation.add(new NameCount(trainingsDoneOnInputAdoptionLabel, '7,195'));//3,572
+        
+        //if(totalFarmers > 0)
+           //fciInformation.add(new NameCount(totalInputPriceLabel, ewInfo.totalInputPrice / totalFarmers));
+>>>>>>> origin/ci
 
     }
     
@@ -429,10 +807,18 @@ public with sharing class EWarehouseMEDashboardController  {
             }
         }
     }
+<<<<<<< HEAD
     
     public static MetricMapWrapper[] getHarvestMapMarkers() {
     	
     	Harvest__c[] harvests = Database.query('SELECT Crop__c, Quantity_Accepted__c, Storage_Location__c, Farmer__r.Person__r.First_Name__c, Farmer__r.Person__r.Last_Name__c FROM Harvest__c');
+=======
+    //The method that adds a tag on the map to represent the various crops
+    public static MetricMapWrapper[] getHarvestMapMarkers() {
+        
+        //Harvest__c[] harvests = Database.query('SELECT Crop__c, Quantity_Accepted__c, Storage_Location__c, Farmer__r.Person__r.First_Name__c, Farmer__r.Person__r.Last_Name__c FROM Harvest__c');
+        Ewarehouse_Harvest__c[] harvests = Database.query('SELECT Beans_Harvested__c, Black_Beans_Harvested__c, Cow_Peas_Harvested__c, Green_Grams_Harvested__c, Maize_Harvested__c, Pigeon_Peas_Harvested__c, Storage_Locale__c, Ewarehouse_Farmer__r.Ewarehouse_Person__r.First_Name__c, Ewarehouse_Farmer__r.Ewarehouse_Person__r.Last_Name__c FROM Ewarehouse_Harvest__c');//LIMIT 1000
+>>>>>>> origin/ci
         
         Map<String, MetricMapWrapper> markers = new Map<String, MetricMapWrapper>();
         if (harvests.size() == 0) {
@@ -440,15 +826,23 @@ public with sharing class EWarehouseMEDashboardController  {
         }
 
         List<String> personIds = new List<String>();
+<<<<<<< HEAD
         for (Harvest__c harvest : harvests) {
 
             // Dont include if we are missing the location
             if (harvest.Storage_Location__c == null || harvest.Storage_Location__c == '') {
+=======
+        for (Ewarehouse_Harvest__c harvest : harvests) {
+
+            // Dont include if we are missing the location
+            if (harvest.Storage_Locale__c == null || harvest.Storage_Locale__c == '') {
+>>>>>>> origin/ci
                 continue;
             }
             
             // check if we can get proper location info
             try{
+<<<<<<< HEAD
             	String[] locInfo = harvest.Storage_Location__c.split(' ');
             	// we should have at least 2 values for lat and long (Storage_Location__c = latitude longitude altitude accuracy)
             	if(locInfo.size() < 2){
@@ -458,6 +852,39 @@ public with sharing class EWarehouseMEDashboardController  {
             	String longitude = locInfo[1];
             	
             	String name = harvest.Crop__c;
+=======
+                String[] locInfo = harvest.Storage_Locale__c.split(' ');
+                // we should have at least 2 values for lat and long (Storage_Location__c = latitude longitude altitude accuracy)
+                if(locInfo.size() < 2){
+                    continue;
+                }
+                String latitude = locInfo[0];
+                String longitude = locInfo[1];
+                
+                //String name = harvest.Crop__c;
+                String name;
+                String quantity_accepted;
+                if(harvest.Beans_Harvested__c != 0){
+                    name = 'Beans';
+                    quantity_accepted = ''+harvest.Beans_Harvested__c;
+                }else if(harvest.Black_Beans_Harvested__c != 0){
+                    name = 'Black beans(Dolichos)';
+                    quantity_accepted = ''+harvest.Black_Beans_Harvested__c;
+                }else if(harvest.Cow_Peas_Harvested__c != 0){
+                    name = 'Cow peas';
+                    quantity_accepted = ''+harvest.Cow_Peas_Harvested__c;
+                }else if(harvest.Green_Grams_Harvested__c != 0){
+                    name = 'Green grams';
+                    quantity_accepted = ''+harvest.Green_Grams_Harvested__c;
+                }else if(harvest.Maize_Harvested__c != 0){
+                    name = 'Maize';
+                    quantity_accepted = ''+harvest.Maize_Harvested__c;
+                }else if(harvest.Pigeon_Peas_Harvested__c != 0){
+                    name = 'Pigeon peas';
+                    quantity_accepted = ''+harvest.Pigeon_Peas_Harvested__c;
+                }
+                
+>>>>>>> origin/ci
                 String colourHex = 'CCCCCC';
                 if(name == 'Maize')
                     colourHex = 'FFFF00';
@@ -471,6 +898,7 @@ public with sharing class EWarehouseMEDashboardController  {
                     colourHex = '996633';
                 if(name == 'Green grams')
                     colourHex = '009933';
+<<<<<<< HEAD
             	
             	MetricMapWrapper marker = null;
 	            marker = new MetricMapWrapper('Harvest', colourHex, harvest.Id, true);
@@ -491,6 +919,28 @@ public with sharing class EWarehouseMEDashboardController  {
             catch(Exception e){
             	System.debug(LoggingLevel.Info, 'No valid locaiton information for Harvest found');
             	continue;
+=======
+                
+                MetricMapWrapper marker = null;
+                marker = new MetricMapWrapper('Harvest', colourHex, harvest.Id, true);
+                marker.gpsLatitude = latitude;
+                marker.gpsLongitude = longitude;
+                
+                String br = '<br />';
+                 
+                String details = 'Crop: ' + name + br;
+                details += 'Quantity accepted: ' + quantity_accepted + br;
+                details += 'Farmer: ' + harvest.Ewarehouse_Farmer__r.Ewarehouse_Person__r.First_Name__c + ' ' + harvest.Ewarehouse_Farmer__r.Ewarehouse_Person__r.Last_Name__c + br + br;
+                
+                marker.addName(details);
+                marker.markerTitle = name;
+                markers.put(harvest.Id, marker);
+                
+            }
+            catch(Exception e){
+                System.debug(LoggingLevel.Info, 'No valid location information for Harvest found');
+                continue;
+>>>>>>> origin/ci
             }
          
         }
@@ -540,6 +990,7 @@ public with sharing class EWarehouseMEDashboardController  {
         }
         
         // Implement the compareTo() method
+<<<<<<< HEAD
 	    public Integer compareTo(Object compareTo) {
 	        IntegerRange compareToEmp = (IntegerRange)compareTo;
 	        if (min == compareToEmp.min) return 0;
@@ -553,6 +1004,21 @@ public with sharing class EWarehouseMEDashboardController  {
     	public Integer cacheTimeout { get; set; }
     	public Integer cvsCovered { get; set; }
     	public Integer farmersReceivingInformation { get; set; }
+=======
+        public Integer compareTo(Object compareTo) {
+            IntegerRange compareToEmp = (IntegerRange)compareTo;
+            if (min == compareToEmp.min) return 0;
+            if (min > compareToEmp.min) return 1;
+            return -1;        
+        }
+    }
+    
+    public class Info {
+        public DateTime baselineDate;
+        public Integer cacheTimeout { get; set; }
+        public Integer cvsCovered { get; set; }
+        public Integer farmersReceivingInformation { get; set; }
+>>>>>>> origin/ci
         public Integer farmersWithPreviousServices { get; set; }
         public Integer farmersGrainChecks { get; set; }
         public Integer inputsPurchased { get; set; }
@@ -563,6 +1029,7 @@ public with sharing class EWarehouseMEDashboardController  {
 
         
         public Info(){
+<<<<<<< HEAD
         	e_Warehouse_Extra_Info__c ewInfo = null;
             List<e_Warehouse_Extra_Info__c> ewInfoList = [SELECT 
 	                                                   Baseline_Date__c, 
@@ -588,6 +1055,33 @@ public with sharing class EWarehouseMEDashboardController  {
             }
             else {
             	ewInfo = ewInfoList[0];
+=======
+            e_Warehouse_Extra_Info__c ewInfo = null;
+            List<e_Warehouse_Extra_Info__c> ewInfoList = [SELECT 
+                                                       Baseline_Date__c, 
+                                                       CVs_Covered__c, 
+                                                       Farmers_receiving_information__c, 
+                                                       Grain_checks_FCI_staff_and_VKWs__c,
+                                                       Volume_of_inputs_fertilizers_purchased__c,
+                                                       Number_of_trainings_on_adoption_of_input__c,
+                                                       Total_price_of_input_purchased__c,
+                                                       Last_update__c 
+                                                   FROM e_Warehouse_Extra_Info__c LIMIT 1];
+            
+            if(ewInfoList.size() == 0){
+                ewInfo = new e_Warehouse_Extra_Info__c();
+                ewInfo.Baseline_Date__c = Date.newInstance(2013, 7, 31);
+                ewInfo.CVs_Covered__c = 0;
+                ewInfo.Farmers_receiving_information__c = 0;
+                ewInfo.Grain_checks_FCI_staff_and_VKWs__c = 0;
+                ewInfo.Number_of_trainings_on_adoption_of_input__c = 0;
+                ewInfo.Volume_of_inputs_fertilizers_purchased__c = 0;
+                ewInfo.Total_price_of_input_purchased__c = 0;
+                ewInfo.Last_update__c = DateTime.now();
+            }
+            else {
+                ewInfo = ewInfoList[0];
+>>>>>>> origin/ci
             }
             
             baseLineDate = ewInfo.Baseline_Date__c;
@@ -617,16 +1111,28 @@ public with sharing class EWarehouseMEDashboardController  {
         
         
         public PPIRating(Integer min, Integer max, Decimal below250Dollar, Decimal below150Percent, Decimal belowExtreme){
+<<<<<<< HEAD
         	this.min = min;
         	this.max = max;
         	this.below250Dollar = below250Dollar;
         	this.below150Percent = below150Percent;
         	this.belowExtreme = belowExtreme;
+=======
+            this.min = min;
+            this.max = max;
+            this.below250Dollar = below250Dollar;
+            this.below150Percent = below150Percent;
+            this.belowExtreme = belowExtreme;
+>>>>>>> origin/ci
         }
     }
     
     public List<PPIRating> getPpiRating(){
+<<<<<<< HEAD
     	Integer xx = 99;
+=======
+        Integer xx = 99;
+>>>>>>> origin/ci
         return new List<PPIRating>{
             new PPIRating(0, 4, 100.0, 100.0, 91.5),
             new PPIRating(5, 9, 100.0, 100.0, 73.9),

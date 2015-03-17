@@ -358,6 +358,20 @@ IF( NOT( ISBLANK( Handset__c)),
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Person_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This field should be hidden from all page layouts.  It is used to count the number of Persons on Reports</inlineHelpText>
+        <label>Person Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Person_Household__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>The house hold that this person belongs to</description>
@@ -496,6 +510,37 @@ IF( NOT( ISBLANK( Handset__c)),
                 <fullName>VKW</fullName>
                 <default>false</default>
             </picklistValues>
+<<<<<<< HEAD
+=======
+            <picklistValues>
+                <fullName>IG/NUSAF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IG/NUSAF Regional Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agroways Farmer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agroways VAC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUCCODEG Farmer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Focus Farmer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dairy Farmer</fullName>
+                <default>false</default>
+            </picklistValues>
+>>>>>>> origin/ci
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -527,12 +572,15 @@ IF( NOT( ISBLANK( Handset__c)),
         <columns>District_Name__c</columns>
         <columns>GPS_Location_E__c</columns>
         <columns>GPS_Location_N__c</columns>
+        <columns>OWNER.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>Lac_People</fullName>
         <columns>NAME</columns>
+<<<<<<< HEAD
         <columns>First_Name__c</columns>
         <columns>Last_Name__c</columns>
         <columns>Middle_Name__c</columns>
@@ -553,13 +601,66 @@ IF( NOT( ISBLANK( Handset__c)),
     </listViews>
     <listViews>
         <fullName>Overview</fullName>
+=======
+>>>>>>> origin/ci
         <columns>First_Name__c</columns>
-        <columns>Middle_Name__c</columns>
         <columns>Last_Name__c</columns>
+        <columns>Middle_Name__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Handset__c</columns>
+        <columns>Mobile_Number__c</columns>
+        <columns>Raw_Mobile_Number__c</columns>
+        <columns>Country__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Colombia</value>
+        </filters>
+        <label>LAC People</label>
+        <language>en_US</language>
+        <sharedTo>
+            <role>LAC_Admin_User</role>
+            <role>LAC_Demo_Role</role>
+            <role>LAC_Self_Serve_User</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Overview</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Middle_Name__c</columns>
         <columns>Mobile_Number__c</columns>
         <columns>Gender__c</columns>
         <filterScope>Everything</filterScope>
         <label>Overview</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>eWarehouse_People</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Gender__c</columns>
+        <columns>Mobile_Number__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Kenya</value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Farmer</value>
+        </filters>
+        <label>eWarehouse People</label>
+        <language>en_US</language>
+        <sharedTo>
+            <role>SalesforceAdministrator</role>
+        </sharedTo>
     </listViews>
     <listViews>
         <fullName>eWarehouse_People</fullName>

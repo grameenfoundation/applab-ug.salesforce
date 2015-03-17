@@ -1,5 +1,32 @@
 <apex:page standardController="Campaign_Message_Def__c" extensions="CampaignMessageDefController" tabStyle="Campaign_Message_Def__c">
+<<<<<<< HEAD
 
+=======
+	<apex:includeScript value="{!URLFOR($Resource.jquery, 'js/jquery-1.5.1.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.JQueryTimePicker, 'JQueryTimePicker/jquery.timePicker.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.JQueryDurationPicker, 'jquery.durationPicker.min.js')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.JQueryTimePicker, 'JQueryTimePicker/timePicker.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.JQueryDurationPicker, 'durationPicker.css')}" />
+    
+    <script type="text/javascript">
+    	var j$ = jQuery.noConflict();
+    	j$(document).ready(function(){
+    		j$(".campaignTimePicker").timePicker({
+			  startTime: "02.00", // Using string. Can take string or Date object.
+			  endTime: new Date(0, 0, 0, 23, 45, 0), // Using Date object here.
+			  show24Hours: true,
+			  separator: ':',
+			  step: 15});
+			  
+			j$(".durationPicker").durationPicker();	
+    	});
+    </script>
+    <style type="text/css">
+		div.time-picker {
+			width: 100px !important;
+		}
+	</style>
+>>>>>>> origin/ci
     <h1 style="font-size: 120%; margin: 10px 0px; display: block !important;">{!$ObjectType.Campaign_Message_Def__c.Label}</h1>
     
     <apex:form id="campaignMessageDef">
@@ -10,6 +37,12 @@
                     value="{!$Label.SAVE_AND_NEW}" />
                 <apex:commandButton action="{!cancel}" value="{!$Label.CANCEL}" />
             </apex:pageBlockButtons>
+<<<<<<< HEAD
+=======
+            <apex:pageBlockSection >
+            	<apex:inputField required="true" value="{!campaignMessage.Name}" />
+            </apex:pageBlockSection>
+>>>>>>> origin/ci
             <apex:actionRegion immediate="true">
                 <apex:pageBlockSection columns="1">
                     <apex:actionStatus id="ajaxStatus" startText="Loading...!" stopText="" />
@@ -18,6 +51,7 @@
                     </apex:inputField>
                 </apex:pageBlockSection>
             </apex:actionRegion>
+<<<<<<< HEAD
             <apex:pageBlockSection columns="1" id="fieldSection">
                 <apex:inputField required="true" value="{!campaignMessage.Name}" />
                 <apex:inputField required="true" value="{!campaignMessage.Format__c}" />
@@ -31,6 +65,21 @@
                 <apex:inputField value="{!campaignMessage.Repeat_On__c}" rendered="{!campaign.Campaign_Type__c == 'Day of Week'}"/>
                 <!--<apex:outputField value="{!campaign.Campaign_Type__c}" />-->
                 <apex:inputfield value="{!campaignMessage.Content__c}" style="min-width: 50%; min-height: 100px;"/>
+=======
+            <apex:pageBlockSection columns="1" id="fieldSection" title="{!$Label.PARAMETERS}">
+                <apex:inputField required="true" id="messageDate" value="{!campaignMessage.Date__c}" rendered="{!campaign.Campaign_Type__c == 'Absolute'}"/>
+                <apex:inputfield styleClass="campaignTimePicker" value="{!campaignMessage.Start_Time__c}" rendered="{!campaign.Campaign_Type__c != 'Cron'}"/>
+                <apex:inputField value="{!campaignMessage.Offset_Time__c}" rendered="{!campaign.Campaign_Type__c == 'Offset'}" />
+                <apex:inputField styleClass="durationPicker" value="{!campaignMessage.Repeat_Every__c}" rendered="{!campaign.Campaign_Type__c == 'Repeat Interval'}"/>
+                <apex:inputField value="{!campaignMessage.Cron__c}" rendered="{!campaign.Campaign_Type__c == 'Cron'}" />
+                <apex:inputField value="{!campaignMessage.Repeat_On__c}" rendered="{!campaign.Campaign_Type__c == 'Day of Week'}"/>
+                <apex:inputfield value="{!campaignMessage.Content__c}" style="min-width: 50%; min-height: 100px;"/>
+                 <!--<apex:inputField required="true" value="{!campaignMessage.Format__c}" />
+                <apex:inputfield required="true" value="{!campaignMessage.Language__c}" />
+                <apex:inputfield value="{!campaignMessage.Message_Key__c}" />
+                -->
+                <!--<apex:outputField value="{!campaign.Campaign_Type__c}" />-->
+>>>>>>> origin/ci
             </apex:pageBlockSection>
             
         </apex:pageBlock>

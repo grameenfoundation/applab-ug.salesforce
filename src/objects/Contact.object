@@ -68,9 +68,17 @@
         <actionName>ViewSelfService</actionName>
         <type>Default</type>
     </actionOverrides>
+<<<<<<< HEAD
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>AccountId</fullName>
+=======
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <fields>
+        <fullName>AccountId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -180,6 +188,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Lac_Farmer_Count__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Lac Farmer Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>LeadSource</fullName>
         <picklist>
             <picklistValues>
@@ -216,6 +236,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
@@ -264,6 +285,10 @@
     </fields>
     <fields>
         <fullName>OwnerId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>true</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -342,7 +367,11 @@
     <fields>
         <fullName>Picture__c</fullName>
         <externalId>false</externalId>
+<<<<<<< HEAD
         <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 153, 153))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 153, 143))</formula>
+=======
+        <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 300, 300))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 300, 300))</formula>
+>>>>>>> origin/ci
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Picture</label>
         <required>false</required>
@@ -351,6 +380,10 @@
     </fields>
     <fields>
         <fullName>ReportsToId</fullName>
+<<<<<<< HEAD
+=======
+        <trackFeedHistory>false</trackFeedHistory>
+>>>>>>> origin/ci
         <type>Lookup</type>
     </fields>
     <fields>
@@ -404,6 +437,77 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+<<<<<<< HEAD
+=======
+        <fullName>Zendesk__Result__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk Result</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Tags__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_OutofSync__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk_OutofSync</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__Zendesk_oldTags__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk_oldTags</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Zendesk__isCreatedUpdatedFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Used in trigger to prevent looping of after insert and update. This flag is used to stop the contact that came for creation to get updated again thereby preventing the loop</description>
+        <externalId>false</externalId>
+        <label>isCreatedUpdatedFlag</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__notes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Zendesk__zendesk_id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zendesk User Id</label>
+        <length>70</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+>>>>>>> origin/ci
         <fullName>gfsurveys__Age__c</fullName>
         <deprecated>false</deprecated>
         <description>The age of the contact</description>
@@ -678,6 +782,29 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
             <value>philanthropy</value>
         </filters>
         <label>Philanthropy</label>
+<<<<<<< HEAD
+=======
+    </listViews>
+    <listViews>
+        <fullName>Salgar_Contacts</fullName>
+        <columns>CONTACT.TITLE</columns>
+        <columns>CONTACT.FIRST_NAME</columns>
+        <columns>CONTACT.LAST_NAME</columns>
+        <columns>CONTACT.PHONE1</columns>
+        <columns>CONTACT.EMAIL</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ALIAS</field>
+            <operation>equals</operation>
+            <value>salgar</value>
+        </filters>
+        <label>Salgar Contacts</label>
+        <language>en_US</language>
+        <sharedTo>
+            <role>LAC_Admin_User</role>
+        </sharedTo>
+>>>>>>> origin/ci
     </listViews>
     <listViews>
         <fullName>Technology</fullName>

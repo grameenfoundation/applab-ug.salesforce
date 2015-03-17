@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>EMP Consultant</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>EMP Consultants</value>
+    </caseValues>
+    <fields>
+        <label><!-- Consultant Name --></label>
+        <name>Consultant_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>EMP_Consultant_contact__c</name>
+        <relationshipLabel><!-- EMP Consultants --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Submission --></label>
+        <name>Submission__c</name>
+        <relationshipLabel><!-- EMP Consultants --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>EMP Consultant Layout</layout>
+        <sections>
+            <label><!-- Vínculos personalizados --></label>
+            <section>Vínculos personalizados</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
