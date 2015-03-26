@@ -1,4 +1,9 @@
+/*
+  Class for computing all MIS Subcounty Market Prices
+  MisSubcountyMarketPricesTest contains all tests for this class 
+*/
 public with sharing class MisSubcountyMarketPrices {
+	
     public MisSubcountyMarketPrices() {
         
     }
@@ -16,8 +21,7 @@ public with sharing class MisSubcountyMarketPrices {
             System.debug('Gps within Range ');
             MisSubcountyMarketPrices.validationStatus=true;                  
             }else{
-                //do nothing
-                System.debug('Gps out of Range ');
+                System.debug(loggingLevel.Error, 'Gps out of Range ');
             }
         return MisSubcountyMarketPrices.validationStatus;
     }
@@ -34,8 +38,7 @@ public with sharing class MisSubcountyMarketPrices {
             System.debug('Gps within Range ');
             MisSubcountyMarketPrices.validationStatus=true;                  
             }else{
-                //do nothing
-                System.debug('Gps out of Range ');
+                System.debug(loggingLevel.Error, 'Gps out of Range ');
             }
         return MisSubcountyMarketPrices.validationStatus;
     }
@@ -52,17 +55,29 @@ public with sharing class MisSubcountyMarketPrices {
             System.debug('Gps within Range ');
             MisSubcountyMarketPrices.validationStatus=true;                  
             }else{
-                //do nothing
-                System.debug('Gps out of Range ');
+                System.debug(loggingLevel.Error, 'Gps out of Range ');
             }
         return MisSubcountyMarketPrices.validationStatus;
     }
     
     public static void computeAllPrices(){
-        List<Market_Masindi__c> submissions = [SELECT Name FROM Market_Masindi__c WHERE Date_of_capture__c = yesterday ];
+        List<Market_Masindi__c> submissions = [
+            SELECT 
+                Name 
+            FROM 
+                Market_Masindi__c 
+            WHERE 
+                Date_of_capture__c = YESTERDAY ];
     
         for (Market_Masindi__c submission : submissions){
-            String marketName = [SELECT X3_0_Market__r.Name FROM Market_Masindi__c WHERE Name = : submission.Name ].Name;
+            String marketName = [
+                SELECT 
+                    X3_0_Market__r.Name 
+                FROM 
+                    Market_Masindi__c
+                WHERE 
+                    Name = : submission.Name ].X3_0_Market__r.Name;
+                    
             computeMasindiMaizePriceAverages(marketName);
             computeMasindiSunflowerPriceAverages(marketName);
             computeMasindiCassavaPriceAverages(marketName);
@@ -74,10 +89,23 @@ public with sharing class MisSubcountyMarketPrices {
         
         }
         
-        List<Market_Kasese__c> kaseseSubmissions = [SELECT Name FROM Market_Kasese__c WHERE Date_of_capture__c = yesterday ];
+        List<Market_Kasese__c> kaseseSubmissions = [
+            SELECT 
+                Name 
+            FROM 
+                Market_Kasese__c 
+            WHERE 
+                Date_of_capture__c = YESTERDAY ];
     
         for (Market_Kasese__c kaseseSubmission : kaseseSubmissions){
-        	String marketName = [SELECT X3_0_Market__r.Name FROM Market_Kasese__c WHERE Name = : kaseseSubmission.Name ].Name;
+        	String marketName = [
+        	SELECT
+        	    X3_0_Market__r.Name 
+        	FROM 
+        	    Market_Kasese__c 
+        	WHERE 
+        	    Name = : kaseseSubmission.Name ].X3_0_Market__r.Name;
+        	    
         	computeKaseseMaizePriceAverages(marketName);
         	computeKaseseCoffeePriceAverages(marketName);
         	computeKaseseGnutsPriceAverages(marketName);
@@ -87,10 +115,23 @@ public with sharing class MisSubcountyMarketPrices {
     	
         }
         
-        List<Market_Bushenyi__c> bushenyiSubmissions = [SELECT Name FROM Market_Bushenyi__c WHERE Date_of_capture__c = yesterday ];
+        List<Market_Bushenyi__c> bushenyiSubmissions = [
+            SELECT 
+                Name 
+            FROM 
+                Market_Bushenyi__c 
+            WHERE 
+                Date_of_capture__c = YESTERDAY ];
     
         for (Market_Bushenyi__c bushenyiSubmission : bushenyiSubmissions){
-        	String marketName = [SELECT X3_0_Market__r.Name FROM Market_Bushenyi__c WHERE Name = : bushenyiSubmission.Name ].Name;
+        	String marketName = [
+        	    SELECT 
+        	        X3_0_Market__r.Name 
+        	    FROM 
+        	        Market_Bushenyi__c 
+        	    WHERE 
+        	        Name = : bushenyiSubmission.Name ].X3_0_Market__r.Name;
+        	    
         	computeBushenyiMaizePriceAverages(marketName);
         	computeBushenyiCoffeePriceAverages(marketName);
         	computeBushenyiCassavaPriceAverages(marketName);
@@ -113,9 +154,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Masindi_Maize__c 
             WHERE 
-                X3_0_Market_Masindi__r.Date_of_capture__c = yesterday ];   
+                X3_0_Market_Masindi__r.Date_of_capture__c = YESTERDAY ];   
                 
-        Menu_Item__c maizeMenuItem = [
+        List<Menu_Item__c> maizeMenuItems = [
             SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -125,20 +166,21 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Maize'];
-                
-        if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
-            Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
+        if(maizeMenuItems.size() > 0) {
+        	Menu_Item__c maizeMenuItem = maizeMenuItems[0];           
+            if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
+                Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
             
-            maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
-            update maizeMenuItem;
-            //return averageRetailPrice + ' '+ averageWholesalePrice;
-        } 
+                maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                update maizeMenuItem;
+            } 
+        }
     }
     
     public static void computeMasindiSunflowerPriceAverages(String marketName) {
-        //computes average retail and wholesale prices per Kg of Sunflower
+        //Average retail and wholesale prices per Kg of Sunflower
         AggregateResult[] sunflowerResult = [
             SELECT 
                 AVG(A_Kg_of_Sunflower_at_retail_price__c)retail, 
@@ -146,65 +188,62 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Masindi_Sunflower__c 
             WHERE 
-                X3_0_Market_Masindi__r.Date_of_capture__c = yesterday ]; 
-                
-            Menu_Item__c sunflowerMenuItem = [
-            SELECT 
-          //      Id, 
+                X3_0_Market_Masindi__r.Date_of_capture__c = YESTERDAY ]; 
+            //List of Sunflower Menu Items
+        List<Menu_Item__c> sunflowerMenuItems = [
+            SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
-             //   Name 
             FROM 
                 Menu_item__c 
             WHERE 
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Sunflower'];
-             
-        if (String.valueOf(sunflowerResult[0].get('retail')) != null && String.valueOf(sunflowerResult[0].get('wholesale')) != null){   
-            Integer averageRetailPrice = Integer.valueOf(sunflowerResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(sunflowerResult[0].get('wholesale'));
-        
-            sunflowerMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update sunflowerMenuItem;
-        }    
+        //Check whether the Menu Item exists
+        if(sunflowerMenuItems.size() > 0) {
+            Menu_Item__c sunflowerMenuItem = sunflowerMenuItems[0];        
+            //Check whether the aggregate result has both retail and wholesales prices
+        	if (String.valueOf(sunflowerResult[0].get('retail')) != null && String.valueOf(sunflowerResult[0].get('wholesale')) != null){   
+                Integer averageRetailPrice = Integer.valueOf(sunflowerResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(sunflowerResult[0].get('wholesale'));
+                sunflowerMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update sunflowerMenuItem;
+            }    
+        }
     }
     
     public static void computeMasindiCassavaPriceAverages(String marketName) {
         //computes average retail and wholesale prices per Kg of Cassava
         AggregateResult[] cassavaResult = [
-            SELECT 
+            SELECT
                 AVG(A_Kg_of_fresh_Cassava_at_retail_price__c)retail, 
                 AVG(A_Kg_of_fresh_Cassava_at_wholesale_pric__c)wholesale
             FROM 
                 X3_0_Masindi_Cassava__c 
             WHERE 
-                Market_Masindi__r.Date_of_capture__c = yesterday ];
+                Market_Masindi__r.Date_of_capture__c = YESTERDAY ];
                 
-        Menu_Item__c cassavaMenuItem = [
-            SELECT 
-           //     Id, 
+        List<Menu_Item__c> cassavaMenuItems = [
+            SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
-             //   Name 
             FROM 
                 Menu_item__c 
             WHERE 
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Cassava'];
-       
-       if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
-           Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
-           Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
-        
-           cassavaMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
-                
-        
-            update cassavaMenuItem;
+       if(cassavaMenuItems.size() > 0) {
+           Menu_Item__c cassavaMenuItem = cassavaMenuItems[0]; 
+           if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
+               Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
+               Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
+               cassavaMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                update cassavaMenuItem;
+           }
        }
     }
     
@@ -217,14 +256,12 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Masindi_K132_Beans__c 
             WHERE 
-                X3_0_Market_Masindi__r.Date_of_capture__c = yesterday ];
+                X3_0_Market_Masindi__r.Date_of_capture__c = YESTERDAY ];
                 
-        Menu_Item__c kBeansMenuItem = [
-            SELECT 
-            //    Id, 
+        List<Menu_Item__c> kBeansMenuItems = [
+            SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
-             //   Name 
             FROM 
                 Menu_item__c 
             WHERE 
@@ -232,13 +269,15 @@ public with sharing class MisSubcountyMarketPrices {
             AND 
                 Label__c='K132 Beans'];
                 
-        if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
-            Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
-    
-            kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
+        if(kBeansMenuItems.size() > 0){
+        	Menu_Item__c kBeansMenuItem = kBeansMenuItems[0];
+            if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
+                Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
+                kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
                 '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-            update kBeansMenuItem;
+                update kBeansMenuItem;
+            }
         }
     }
     
@@ -251,29 +290,28 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Masindi_Nambale_Beans__c 
             WHERE 
-                X3_0_Market_Masindi__r.Date_of_capture__c = yesterday ]; 
+                X3_0_Market_Masindi__r.Date_of_capture__c = YESTERDAY ]; 
                 
-        Menu_Item__c nambaleBeansMenuItem = [
+        List<Menu_Item__c> nambaleBeansMenuItems = [
             SELECT 
-             //   Id, 
                 Label__c, 
                 Parent_Item__r.Label__c 
-             //   Name 
             FROM 
                 Menu_item__c 
             WHERE 
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Dry Nambale Beans'];
-                
-        if (String.valueOf(nambaleBeansResult[0].get('retail')) != null){    
-            Integer averageRetailPrice = Integer.valueOf(nambaleBeansResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(nambaleBeansResult[0].get('wholesale'));
-        
-            nambaleBeansMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-                
+            
+        if(nambaleBeansMenuItems.size() > 0){
+            Menu_Item__c nambaleBeansMenuItem = nambaleBeansMenuItems[0];                
+            if (String.valueOf(nambaleBeansResult[0].get('retail')) != null){    
+                Integer averageRetailPrice = Integer.valueOf(nambaleBeansResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(nambaleBeansResult[0].get('wholesale'));
+                nambaleBeansMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
             update nambaleBeansMenuItem;
+            }
         }
     }
     
@@ -286,9 +324,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Masindi_Banana__c 
             WHERE 
-              X3_0_Market_Masindi__r.Date_of_capture__c = yesterday ];
+                X3_0_Market_Masindi__r.Date_of_capture__c = YESTERDAY ];
               
-        Menu_Item__c bananaMenuItem = [
+        List<Menu_Item__c> bananaMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -298,30 +336,30 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Banana'];
-    
-        if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
-            Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
-            
-            bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update bananaMenuItem;
+        if(bananaMenuItems.size() > 0){
+        	Menu_Item__c bananaMenuItem = bananaMenuItems[0];
+            if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
+                Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
+                bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update bananaMenuItem;
+            }
         }
     }
     
     public static void computeMasindiCoffeePriceAverage(String marketName) {
         //computes average retail and wholesale prices per Kg of Sweet Potatoes
         AggregateResult[] coffeeResult = [
-            SELECT 
+            SELECT
                 AVG(A_Kg_of_Robusta_Coffee_at_retail_price__c)retail, 
                 AVG(A_Kg_of_Robusta_coffee_at_wholesale_pric__c)wholesale
             FROM 
                 X3_0_Masindi_Robusta_Coffee__c 
             WHERE 
-              X3_0_Market_Masindi__r.Date_of_capture__c = yesterday ];
+                X3_0_Market_Masindi__r.Date_of_capture__c = YESTERDAY ];
               
-        Menu_Item__c coffeeMenuItem = [
+        List<Menu_Item__c> coffeeMenuItems = [
             SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c  
@@ -331,15 +369,15 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Coffee'];
-    
-        if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null) {
-            Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
-            
-            coffeeMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update coffeeMenuItem;
+        if(coffeeMenuItems.size() > 0){
+        	Menu_Item__c coffeeMenuItem = coffeeMenuItems[0];
+            if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null) {
+                Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
+                coffeeMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update coffeeMenuItem;
+            }
         }
     }
     
@@ -352,29 +390,27 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Masindi_Sweet_Potatoes__c 
             WHERE 
-              X3_0_Market_Masindi__r.Date_of_capture__c = yesterday ];
+                X3_0_Market_Masindi__r.Date_of_capture__c = YESTERDAY ];
               
-        Menu_Item__c sweetPotatoesMenuItem = [
+        List<Menu_Item__c> sweetPotatoesMenuItems = [
             SELECT 
-             //   Id, 
                 Label__c, 
                 Parent_Item__r.Label__c 
-              //  Name 
             FROM 
                 Menu_item__c 
             WHERE 
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Sweet Potatoes'];
-    
-        if (String.valueOf(sweetPotatoesResult[0].get('retail')) != null && String.valueOf(sweetPotatoesResult[0].get('wholesale')) != null) {
-            Integer averageRetailPrice = Integer.valueOf(sweetPotatoesResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(sweetPotatoesResult[0].get('wholesale'));
-            
-            sweetPotatoesMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update sweetPotatoesMenuItem;
+        if(sweetPotatoesMenuItems.size() > 0) {
+        	Menu_Item__c sweetPotatoesMenuItem = sweetPotatoesMenuItems[0];
+            if (String.valueOf(sweetPotatoesResult[0].get('retail')) != null && String.valueOf(sweetPotatoesResult[0].get('wholesale')) != null) {
+                Integer averageRetailPrice = Integer.valueOf(sweetPotatoesResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(sweetPotatoesResult[0].get('wholesale')); 
+                sweetPotatoesMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update sweetPotatoesMenuItem;
+            }
         }
     }
 
@@ -389,7 +425,7 @@ public with sharing class MisSubcountyMarketPrices {
             WHERE 
                 X3_0_Market_Kasese__r.Date_of_capture__c = YESTERDAY ];   
                 
-        Menu_Item__c maizeMenuItem = [
+        List<Menu_Item__c> maizeMenuItems = [
             SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -399,16 +435,16 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Maize'];
-                
-        if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
-        	Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
-        	Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
-        	
-            maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
-            update maizeMenuItem;
-            //return averageRetailPrice + ' '+ averageWholesalePrice;
-        } 
+        if(maizeMenuItems.size() > 0){
+        	Menu_Item__c maizeMenuItem = maizeMenuItems[0];
+            if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
+            	Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
+        	    Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
+                maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                update maizeMenuItem;
+            } 
+        }
     }
     
     public static void computeKaseseCoffeePriceAverages(String marketName) {
@@ -422,7 +458,7 @@ public with sharing class MisSubcountyMarketPrices {
             WHERE 
                 X3_0_Market_Kasese__r.Date_of_capture__c = YESTERDAY ]; 
                 
-            Menu_Item__c coffeeMenuItem = [
+            List<Menu_Item__c> coffeeMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -432,16 +468,16 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Coffee'];
-             
-        if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null){   
-            Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
-        
-            coffeeMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
+        if(coffeeMenuItems.size() > 0){
+        	Menu_Item__c coffeeMenuItem = coffeeMenuItems[0];
+            if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null){   
+                Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
+                coffeeMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
+                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg'; 
             update coffeeMenuItem;
-        }    
+            }   
+        }
     }
     //check
     public static void computeKaseseGnutsPriceAverages(String marketName) {
@@ -453,9 +489,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Kasese_Gnuts__c 
             WHERE 
-                X3_0_Market_Kasese__r.Date_of_capture__c = yesterday];
+                X3_0_Market_Kasese__r.Date_of_capture__c = YESTERDAY ];
                 
-        Menu_Item__c gnutsMenuItem = [
+        List<Menu_Item__c> gnutsMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -465,16 +501,15 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Gnuts'];
-       
-       if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
-           Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
-           Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
-        
-           gnutsMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
-                
-        
-            update gnutsMenuItem;
+       if(gnutsMenuItems.size() > 0){
+           Menu_Item__c gnutsMenuItem = gnutsMenuItems[0];
+           if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
+               Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
+               Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
+               gnutsMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+               update gnutsMenuItem;
+           }
        }
     }
     
@@ -487,9 +522,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Kasese_K132_Beans__c 
             WHERE 
-                X3_0_Market_Kasese__r.Date_of_capture__c = yesterday];
+                X3_0_Market_Kasese__r.Date_of_capture__c = YESTERDAY ];
                 
-        Menu_Item__c kBeansMenuItem = [
+        List<Menu_Item__c> kBeansMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -499,14 +534,15 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='K132 Beans'];
-                
-        if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
-            Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
-    
-            kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-            update kBeansMenuItem;
+        if(kBeansMenuItems.size() > 0) {
+        	Menu_Item__c kBeansMenuItem = kBeansMenuItems[0];
+            if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
+                Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
+                kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update kBeansMenuItem;
+            }
         }
     }
     
@@ -521,7 +557,7 @@ public with sharing class MisSubcountyMarketPrices {
             WHERE 
                 X3_0_Market_Kasese__r.Date_of_capture__c = YESTERDAY ]; 
                 
-        Menu_Item__c nambaleBeansMenuItem = [
+        List<Menu_Item__c> nambaleBeansMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -531,50 +567,48 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Dry Nambale Beans'];
-                
-        if (String.valueOf(nambaleBeansResult[0].get('retail')) != null){    
-            Integer averageRetailPrice = Integer.valueOf(nambaleBeansResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(nambaleBeansResult[0].get('wholesale'));
-        
-            nambaleBeansMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-                
-            update nambaleBeansMenuItem;
+        if(nambaleBeansMenuItems.size() > 0){
+        	Menu_Item__c nambaleBeansMenuItem = nambaleBeansMenuItems[0];
+            if (String.valueOf(nambaleBeansResult[0].get('retail')) != null){    
+                Integer averageRetailPrice = Integer.valueOf(nambaleBeansResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(nambaleBeansResult[0].get('wholesale'));
+                nambaleBeansMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update nambaleBeansMenuItem;
+            }
         }
     }
     
     public static void computeKaseseBananaPriceAverage(String marketName) {
     	//computes average retail and wholesale prices per Kg of Sweet Potatoes
     	AggregateResult[] bananaResult = [
-            SELECT 
+            SELECT
                 AVG(A_bunch_of_bananas_at_retail_price__c)retail, 
                 AVG(A_bunch_of_bananas_at_wholesale_price__c)wholesale
             FROM 
                 X3_0_Kasese_Banana__c 
             WHERE 
-              X3_0_Market_Kasese__r.Date_of_capture__c = yesterday];
+                X3_0_Market_Kasese__r.Date_of_capture__c = YESTERDAY ];
               
-        Menu_Item__c bananaMenuItem = [
-            SELECT 
-             //   Id, 
+        List<Menu_Item__c> bananaMenuItems = [
+            SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
-              //  Name 
             FROM 
                 Menu_item__c 
             WHERE 
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Banana'];
-    
-        if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
-        	Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
-        	Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
-        	
-            bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update bananaMenuItem;
+        if(bananaMenuItems.size() > 0) {
+        	Menu_Item__c bananaMenuItem = bananaMenuItems[0];
+            if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
+        	    Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
+        	    Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
+                bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update bananaMenuItem;
+            }
         }
     }
     
@@ -587,9 +621,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Bushenyi_Maize__c 
             WHERE 
-                X3_0_Market_Bushenyi__r.Date_of_capture__c = yesterday];   
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ];   
                 
-        Menu_Item__c maizeMenuItem = [
+        List<Menu_Item__c> maizeMenuItems = [
             SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -599,30 +633,30 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Maize'];
-                
-        if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
-        	Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
-        	Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
-        	
-            maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
-            update maizeMenuItem;
-            //return averageRetailPrice + ' '+ averageWholesalePrice;
-        } 
+        if(maizeMenuItems.size() > 0){
+            Menu_Item__c maizeMenuItem = maizeMenuItems[0];   
+            if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
+        	    Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
+        	    Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
+                maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                update maizeMenuItem;
+            } 
+        }
     }
     
     public static void computeBushenyiCoffeePriceAverages(String marketName) {
     	//computes average retail and wholesale prices per Kg of Sunflower
     	AggregateResult[] coffeeResult = [
-            SELECT 
+            SELECT
                 AVG(A_Kg_of_Robusta_Coffee_at_retail_price__c)retail, 
                 AVG(A_Kg_of_Robusta_coffee_at_wholesale_pric__c)wholesale
             FROM 
                 X3_0_Bushenyi_Robusta_Coffee__c 
             WHERE 
-                X3_0_Market_Bushenyi__r.Date_of_capture__c = yesterday]; 
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ]; 
                 
-            Menu_Item__c coffeeMenuItem = [
+            List<Menu_Item__c> coffeeMenuItems = [
             SELECT  
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -632,16 +666,16 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Coffee'];
-             
-        if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null){   
-            Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
-        
-            coffeeMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update coffeeMenuItem;
-        }    
+        if(coffeeMenuItems.size() > 0) {
+            Menu_Item__c coffeeMenuItem = coffeeMenuItems[0];
+            if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null){   
+                Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
+                coffeeMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update coffeeMenuItem;
+            }  
+        }  
     }
     
     public static void computeBushenyiCassavaPriceAverages(String marketName) {
@@ -653,30 +687,27 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Bushenyi_Cassava__c
             WHERE 
-                X3_0_Market_Bushenyi__r.Date_of_capture__c = yesterday];
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ];
                 
-        Menu_Item__c cassavaMenuItem = [
+        List<Menu_Item__c> cassavaMenuItems = [
             SELECT 
-           //     Id, 
                 Label__c, 
-                Parent_Item__r.Label__c 
-             //   Name 
+                Parent_Item__r.Label__c
             FROM 
                 Menu_item__c 
             WHERE 
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Cassava'];
-       
-       if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
-           Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
-           Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
-        
-           cassavaMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
-                
-        
-            update cassavaMenuItem;
+       if(cassavaMenuItems.size() > 0){
+           Menu_Item__c cassavaMenuItem = cassavaMenuItems[0];
+           if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
+               Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
+               Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
+               cassavaMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                update cassavaMenuItem;
+           }
        }
     }
     
@@ -689,48 +720,45 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Bushenyi_K132_Beans__c 
             WHERE 
-                X3_0_Market_Bushenyi__r.Date_of_capture__c = yesterday];
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ];
                 
-        Menu_Item__c kBeansMenuItem = [
+        List<Menu_Item__c> kBeansMenuItems = [
             SELECT 
-            //    Id, 
                 Label__c, 
-                Parent_Item__r.Label__c 
-             //   Name 
+                Parent_Item__r.Label__c
             FROM 
                 Menu_item__c 
             WHERE 
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='K132 Beans'];
-                
-        if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
-            Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
-    
-            kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-            update kBeansMenuItem;
+        if(kBeansMenuItems.size() > 0){ 
+        	Menu_Item__c kBeansMenuItem = kBeansMenuItems[0];
+            if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
+                Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
+                kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                 update kBeansMenuItem;
+            }
         }
     }
     
     public static void computeBushenyiSweetPotatoesPriceAverages(String marketName) {
     	//computes average retail and wholesale prices per Kg of Dry Nambale Beans
     	AggregateResult[] sweetPotatoesResult = [
-            SELECT 
+            SELECT
                 AVG(A_Kg_of_Sweet_Potatoes_at_retail_price__c)retail, 
                 AVG(A_Kg_of_Sweet_Potatoes_at_wholesale_pric__c)wholesale
             FROM 
                 X3_0_Bushenyi_Sweet_Potatoes__c 
             WHERE 
-                X3_0_Market_Bushenyi__r.Date_of_capture__c = yesterday]; 
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ]; 
                 
-        Menu_Item__c sweetPotatoesMenuItem = [
+        List<Menu_Item__c> sweetPotatoesMenuItems = [
             SELECT 
-             //   Id, 
                 Label__c, 
-                Parent_Item__r.Label__c 
-             //   Name 
+                Parent_Item__r.Label__c  
             FROM 
                 Menu_item__c 
             WHERE 
@@ -738,14 +766,15 @@ public with sharing class MisSubcountyMarketPrices {
             AND 
                 Label__c='Sweet Potatoes'];
                 
-        if (String.valueOf(sweetPotatoesResult[0].get('retail')) != null){    
-            Integer averageRetailPrice = Integer.valueOf(sweetPotatoesResult[0].get('retail'));
-            Integer averageWholesalePrice = Integer.valueOf(sweetPotatoesResult[0].get('wholesale'));
-        
-            sweetPotatoesMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-                
-            update sweetPotatoesMenuItem;
+        if(sweetPotatoesMenuItems.size() > 0) {
+            Menu_Item__c sweetPotatoesMenuItem = sweetPotatoesMenuItems[0];      
+            if (String.valueOf(sweetPotatoesResult[0].get('retail')) != null){    
+                Integer averageRetailPrice = Integer.valueOf(sweetPotatoesResult[0].get('retail'));
+                Integer averageWholesalePrice = Integer.valueOf(sweetPotatoesResult[0].get('wholesale'));
+                sweetPotatoesMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update sweetPotatoesMenuItem;
+            }
         }
     }
     
@@ -758,9 +787,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Bushenyi_Banana__c 
             WHERE 
-              X3_0_Market_Bushenyi__r.Date_of_capture__c = yesterday];
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ];
               
-        Menu_Item__c bananaMenuItem = [
+        List<Menu_Item__c> bananaMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -770,15 +799,15 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Banana'];
-    
-        if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
-        	Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
-        	Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
-        	
-            bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update bananaMenuItem;
+        if(bananaMenuItems.size() > 0){
+        	Menu_Item__c bananaMenuItem = bananaMenuItems[0];
+            if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
+        	    Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
+        	    Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
+                bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update bananaMenuItem;
+            }
         }
     }
     
@@ -791,9 +820,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Bushenyi_Nambale_Beans__c 
             WHERE 
-              X3_0_Market_Bushenyi__r.Date_of_capture__c = yesterday];
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ];
               
-        Menu_Item__c nambaleMenuItem = [
+        List<Menu_Item__c> nambaleMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -803,15 +832,15 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Dry Nambale Beans'];
-    
-        if (String.valueOf(nambaleResult[0].get('retail')) != null && String.valueOf(nambaleResult[0].get('wholesale')) != null) {
-        	Integer averageRetailPrice = Integer.valueOf(nambaleResult[0].get('retail'));
-        	Integer averageWholesalePrice = Integer.valueOf(nambaleResult[0].get('wholesale'));
-        	
-            nambaleMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
+        if(nambaleMenuItems.size() > 0){
+        	Menu_Item__c nambaleMenuItem = nambaleMenuItems[0];
+            if (String.valueOf(nambaleResult[0].get('retail')) != null && String.valueOf(nambaleResult[0].get('wholesale')) != null) {
+        	    Integer averageRetailPrice = Integer.valueOf(nambaleResult[0].get('retail'));
+        	    Integer averageWholesalePrice = Integer.valueOf(nambaleResult[0].get('wholesale'));
+                nambaleMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                 '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
             update nambaleMenuItem;
+            }
         }
     }
     
@@ -824,9 +853,9 @@ public with sharing class MisSubcountyMarketPrices {
             FROM 
                 X3_0_Bushenyi_Millet__c
             WHERE 
-              X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ];
+                X3_0_Market_Bushenyi__r.Date_of_capture__c = YESTERDAY ];
               
-        Menu_Item__c milletMenuItem = [
+        List<Menu_Item__c> milletMenuItems = [
             SELECT 
                 Label__c, 
                 Parent_Item__r.Label__c 
@@ -836,15 +865,16 @@ public with sharing class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Millet'];
-    
-        if (String.valueOf(milletResult[0].get('retail')) != null && String.valueOf(milletResult[0].get('wholesale')) != null) {
-        	Integer averageRetailPrice = Integer.valueOf(milletResult[0].get('retail'));
-        	Integer averageWholesalePrice = Integer.valueOf(milletResult[0].get('wholesale'));
-        	
-            milletMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
-                '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-        
-            update milletMenuItem;
+                
+        if(milletMenuItems.size() > 0) {
+        	Menu_Item__c milletMenuItem = milletMenuItems[0];
+            if (String.valueOf(milletResult[0].get('retail')) != null && String.valueOf(milletResult[0].get('wholesale')) != null) {
+        	    Integer averageRetailPrice = Integer.valueOf(milletResult[0].get('retail'));
+        	    Integer averageWholesalePrice = Integer.valueOf(milletResult[0].get('wholesale'));
+                milletMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
+                    '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                update milletMenuItem;
+            }
         }
     }
         
