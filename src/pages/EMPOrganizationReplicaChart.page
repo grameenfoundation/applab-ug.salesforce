@@ -1,0 +1,9 @@
+<apex:page standardController="EMP_Organization__c" extensions="EMPOrganizationProfile" showHeader="false" sidebar="false"> 
+	<apex:chart height="300" width="500" data="{!replicaData}">
+        <apex:repeat value="{!replicaData}" var="rd">
+            {!rd.name}: {!rd.data}<br/>
+        </apex:repeat>
+        <apex:pieSeries dataField="data" labelField="name"/>
+        <apex:legend position="right"/>
+    </apex:chart>
+</apex:page>

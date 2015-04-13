@@ -1,0 +1,16 @@
+<apex:page standardController="EMP_Organization__c" extensions="EMPOrganizationProfile" showHeader="false" sidebar="false">
+  <apex:pageblock title="Inscripción a Capacitación por Consultor" >
+    <apex:chart height="350" width="600" data="{!inscripcionTrainingData}"> 
+      <apex:axis type="Numeric" position="left" fields="data" title="Cantidad inscritos" grid="true"/> 
+      <apex:axis type="Category" position="bottom" fields="name" title="Consultor">
+        <apex:chartLabel rotate="270"/>
+      </apex:axis>     
+      <apex:barSeries orientation="vertical" axis="left" xField="name" yField="data"/> 
+    </apex:chart>
+     <apex:form >
+        <apex:repeat value="{!inscripcionTrainingData}" var="itd">
+            {!itd.name}: {!itd.data}<br/>
+        </apex:repeat>
+    </apex:form>
+  </apex:pageblock>
+</apex:page>

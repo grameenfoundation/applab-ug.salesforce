@@ -1,0 +1,13 @@
+<apex:page standardController="EMP_Organization__c" extensions="EMPOrganizationProfile" showHeader="false" sidebar="false">
+	<apex:pageblock title="Asistentes a Capacitación" >
+		<apex:chart height="350" width="450" data="{!trainingAsistanceData}"> 
+			<apex:legend position="right"/>
+			<apex:axis type="Numeric" position="left" fields="total_Asistentes,socios_Asistentes" title="Cantidad" grid="true"/> 
+			<apex:axis type="Category" position="bottom" fields="name" title="Nombre Capacitación">
+				<apex:chartLabel rotate="270"/>
+			</apex:axis>     
+			<apex:barSeries orientation="vertical" axis="left" xField="name" yField="total_Asistentes,socios_Asistentes"/> 
+		</apex:chart>
+	</apex:pageblock>
+	
+</apex:page>
