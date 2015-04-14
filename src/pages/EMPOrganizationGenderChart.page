@@ -1,0 +1,17 @@
+<apex:page standardController="EMP_Organization__c" extensions="EMPOrganizationProfile" showHeader="false" sidebar="false">
+	<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!sociosQuantityData}" var="sqd">
+           	<apex:column headerValue="Cantidad de Socios" value="{!sqd.data}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+	</apex:form>
+    
+	<apex:chart height="300" width="500" data="{!sociosData}">
+        <apex:repeat value="{!sociosData}" var="sd">
+            {!sd.name}: {!sd.data}<br/>
+        </apex:repeat>
+        <apex:pieSeries dataField="data" labelField="name"/>
+        <apex:legend position="right"/>
+    </apex:chart>
+</apex:page>

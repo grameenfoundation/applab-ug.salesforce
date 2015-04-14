@@ -1,0 +1,28 @@
+<apex:page standardController="EMP_Organization__c" extensions="EMPOrganizationProfile" showHeader="false" sidebar="false">
+
+  <apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockSection title="Información Área Parcela Aprendizaje">
+        <apex:pageBlockTable value="{!baseline}" var="oBl">
+          <apex:column headerValue="Id Replica">
+            <apex:outputLink target="_blank" value="/{!oBl.Id}">{!oBl.Id}</apex:outputLink>
+          </apex:column>
+          <apex:column headerValue="Área Total Referencia" value="{!oBl.Reference_Total_Area__c}"/>
+          <apex:column headerValue="Área de siembra" value="{!oBl.Sowing_Area__c}"/>
+          <apex:column headerValue="Área Total Cultivada" value="{!oBl.Total_Cultivated_Area__c}"/>
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+
+  <apex:pageblock title="BPAs Nivel de complimiento Parcela Aprendizaje" >
+    <apex:chart height="350" width="450" data="{!parcelaData}"> 
+      <apex:legend position="right"/>
+      <apex:axis type="Numeric" position="left" fields="total,cumplidas" title="Total por Nivel" grid="true"/> 
+      <apex:axis type="Category" position="bottom" fields="name" title="Nivel de cumplimiento">
+        <apex:chartLabel rotate="270"/>
+      </apex:axis>     
+      <apex:barSeries orientation="vertical" axis="left" xField="name" yField="total,cumplidas"/> 
+    </apex:chart>
+  </apex:pageblock>
+</apex:page>
