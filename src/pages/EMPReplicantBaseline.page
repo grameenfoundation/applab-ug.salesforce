@@ -1,0 +1,17 @@
+<apex:page standardController="EMP_Organization_Member__c" extensions="EMPReplicantProfile" sidebar="false" language="es">
+<apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockSection title="Información Replica">
+        <apex:pageBlockTable value="{!baseline}" var="fBl">
+        	<apex:column headerValue="Id Replica">
+        	<apex:outputLink target="_blank" value="/{!fBl.Id}">{!fBl.Id}</apex:outputLink>
+        	</apex:column>
+          	<apex:column headerValue="Área Total Referencia" value="{!fBl.Reference_Total_Area__c}"/>
+          	<apex:column headerValue="Área de siembra" value="{!fBl.Sowing_Area__c}"/>
+          	<apex:column headerValue="Área Total Cultivada" value="{!fBl.Total_Cultivated_Area__c}"/>
+          	<apex:column headerValue="Certificado en BPA" value="{!fBl.BPA_Certified__c}"/>
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>
