@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>A_Kg_of_Sunflower_at_retail_price__c</fullName>
+        <externalId>false</externalId>
+        <label>A Kg of Sunflower at retail price</label>
+        <precision>16</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>A_Kg_of_Sunflower_at_wholesale_price__c</fullName>
+        <externalId>false</externalId>
+        <label>A Kg of Sunflower at wholesale price</label>
+        <precision>16</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Name_of_trader_in_Sunflower__c</fullName>
+        <externalId>false</externalId>
+        <label>Name of trader in Sunflower</label>
+        <length>16</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X3_0_Market_Masindi__c</fullName>
+        <externalId>false</externalId>
+        <label>3.0 Market Masindi</label>
+        <referenceTo>Market_Masindi__c</referenceTo>
+        <relationshipLabel>3.0 Masindi Sunflower</relationshipLabel>
+        <relationshipName>X3_0_Masindi_Sunflower</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>3.0 Masindi Sunflower</label>
+    <nameField>
+        <displayFormat>MS-{00000}</displayFormat>
+        <label>3.0 Masindi Sunflower Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>3.0 Masindi Sunflower</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>
