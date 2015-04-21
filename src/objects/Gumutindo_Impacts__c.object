@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Agro_forestry_Practices_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Agro-forestry Practices Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Planting trees within the homestead</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boundary planting/fence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intercropping trees with crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mixed forests</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Woodlots</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Any_Farm_inputs_from_the_PS__c</fullName>
+        <externalId>false</externalId>
+        <label>Any Farm inputs from the PS</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>At_least_2_water_conservation_measures__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Methods_of_Soil_and_Water_Conservation_U__c, &apos;Strip cropping;Mulching,Strip cropping;Crop rotation,Strip cropping;Contour cultivation,Strip cropping;Planting of grasses for stability,Strip cropping;Planting of trees and a forestation,Strip cropping;Terracing,Strip cropping;Control of stream and river banks,Mulching;Crop rotation,Mulching;Contour cultivation,Mulching;Planting of grasses for stability,Mulching;Planting of trees and a forestation,Mulching;Terracing,Mulching;Control of stream and river banks,Crop rotation;Contour cultivation,Crop rotation;Planting of grasses for stability,Crop rotation;Planting of trees and a forestation,Crop rotation;Terracing,Crop rotation;Control of stream and river banks,Contour cultivation;Planting of grasses for stability,Contour cultivation;Planting of trees and a forestation,Contour cultivation;Terracing,Contour cultivation;Control of stream and river banks,Planting of grasses for stability;Planting of trees and a forestation,Planting of grasses for stability;Terracing,Planting of grasses for stability;Control of stream and river banks,Planting of trees and a forestation;Terracing,Planting of trees and a forestation;Control of stream and river banks,Terracing;Control of stream and river banks&apos;), &apos;true&apos;,&apos;false&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>At least 2 water conservation measures</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Ever_acquired_an_Agro_input_loan_through__c</fullName>
+        <externalId>false</externalId>
+        <label>Ever acquired an Agro input loan through</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ever_purchased_organic_seedlings_at_PS__c</fullName>
+        <externalId>false</externalId>
+        <label>Ever purchased organic seedlings at PS</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financial_service_for_the_business__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial service for the business</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Bank</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Money</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SACCO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VSLA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Else where</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Methods_of_Soil_and_Water_Conservation_U__c</fullName>
+        <externalId>false</externalId>
+        <label>Methods of Soil and Water Conservation U</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Strip cropping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crop rotation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contour cultivation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planting of grasses for stability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planting of trees and a forestation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terracing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Control of stream and river banks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Practices_that_Address_Climate_Change__c</fullName>
+        <externalId>false</externalId>
+        <label>Practices that Address Climate Change</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mulching</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cover crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tied ridges</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tree planting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other plant cover</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Irrigate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adapted/drought tolerant varieties</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Diversity crops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crop rotation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terracing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agro-forestry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Minimal tillage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Ps_Mark__c</fullName>
+        <externalId>false</externalId>
+        <label>Ps Mark</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Purchase_Inputs_thru_Elec_Transactions__c</fullName>
+        <externalId>false</externalId>
+        <label>Purchase Inputs thru Elec Transactions</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Purchased_Organic_fertilizer_through_GCC__c</fullName>
+        <externalId>false</externalId>
+        <label>Purchased Organic fertilizer through GCC</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reasons_for_Climate_Change__c</fullName>
+        <externalId>false</externalId>
+        <label>Reasons for Climate Change</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cutting down of trees</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Excessive use of fertilizer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Burning of trees, fuel, etc</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Don’t Know</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Received_Organic_Seedlings_at_PS__c</fullName>
+        <externalId>false</externalId>
+        <label>Received Organic Seedlings at PS</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Services_received_from_PS__c</fullName>
+        <externalId>false</externalId>
+        <label>Services received from PS</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Extension services on coffee farming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Provision of market information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Provision of weather information</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment for coffee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Provision of  coffee seedlings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Access to credit facilities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Extension services  on agroforestry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Provision of farm inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>9</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Sold_all_your_coffee_to_the_PS__c</fullName>
+        <externalId>false</externalId>
+        <label>Sold all your coffee to the PS</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Number_of_Coffee_Trees_on_Farm__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Number of Coffee Trees on Farm</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Using_Energy_Saving_Cooking_Stove__c</fullName>
+        <externalId>false</externalId>
+        <label>Using Energy Saving Cooking Stove</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Gumutindo Impacts</label>
+    <nameField>
+        <displayFormat>GI-{0000}</displayFormat>
+        <label>Gumutindo Impacts Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Gumutindo Impacts</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>
