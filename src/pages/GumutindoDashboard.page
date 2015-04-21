@@ -68,192 +68,294 @@
              popup.focus(); 
         };
     </script>
+
     <apex:form >
-        <apex:pageBlock title="Filter By">
-            <table>
-                <tr>
-                    <td>
-                        <strong>District: </strong>
-                        <apex:selectList value="{!district.Name}" multiselect="false" size="1">
-                            <apex:selectOptions value="{!districtList}"></apex:selectOptions>
-                        </apex:selectList>
-                    </td>
-                    <td>
-                        <strong>Subcounty: </strong>
-                        <apex:selectList value="{!subcounty.Display_Name__c}" multiselect="false" size="1">
-                            <apex:selectOptions value="{!subcountiesList}"></apex:selectOptions>
-                        </apex:selectList>
-                    </td>
-                    <td>
-                        <strong>Date From: </strong>
-                        <apex:inputField value="{!dummyObject.Start_Date__c}"></apex:inputField>
-                    </td>
-                    <td>
-                        <strong>Date To: </strong>
-                        <apex:inputField value="{!dummyObject.End_Date__c}"></apex:inputField>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div style="display:inline;padding-left:10px;visibility:{!IF(((isUpdateable == 'true') && (isEditMode == 'false') && ($Profile.Name != 'Ckw Public Dashboard Profile')),'visible','hidden')}">
-                            <a href='{!$Page.GumutindoDashboard}?district={!district}&subcounty={!subcounty}&dateFrom={!dateFrom}&dateTo={!dateTo}&sfdc.tabName={!tabName}&editMode=true'>Update Metrics</a>
-                        </div>
-                        <div style="display:inline;padding-left:10px;visibility:{!IF(isEditMode == 'true','visible','hidden')}">
-                            You are currently in Update Mode: 
-                            <a href='{!$Page.GumutindoDashboard}?district={!district}&subcounty={!subcounty}&dateFrom={!dateFrom}&dateTo={!dateTo}&sfdc.tabName={!tabName}&editMode=false'>Leave Update Mode</a>
-                        </div>
-                    </td>
-                    <td align="right">
-                        <apex:commandButton value="Refresh Section" action="{!changeFilters}"></apex:commandButton>
-                    </td>
-                </tr>
-            </table>
-        </apex:pageBlock>
-        
-        <apex:pageBlock id="map">
-            <apex:pageBlockSection title="Maps" columns="2">
-                <apex:pageBlockSectionItem >
-                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_CKWS&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'GUMUTINDO_CKWS', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
-                </apex:pageBlockSectionItem>
+        <apex:pageBlock title="Change Quarter">
+              <apex:selectList value="{!quarter}" multiselect="false" size="1">
+                  <apex:selectOptions value="{!quarters}"></apex:selectOptions>
+              </apex:selectList>
+              <apex:commandButton value="Go" action="{!changeQuarter}"></apex:commandButton>
+              <div style="display:inline;padding-left:10px;visibility:{!IF(((isUpdateable == 'true') && (isEditMode == 'false') && ($Profile.Name != 'Ckw Public Dashboard Profile')),'visible','hidden')}">
+                   <a href='{!$Page.GumutindoDashboardNew}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=true'>Update Metrics</a>
+              </div>
+              <div style="display:inline;padding-left:10px;visibility:{!IF(isEditMode == 'true','visible','hidden')}">
+                  You are currently in Update Mode: <a href='{!$Page.GumutindoDashboardNew}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=false'>Leave Update Mode</a>
+              </div>
+             <!-- <apex:outputText rendered="{!isCurrentQuarter}" ></apex:outputText> -->
+          </apex:pageBlock>
+
+              <apex:pageBlock id="map">
+            <apex:pageBlockSection title="Map" columns="1">
                 <apex:pageBlockSectionItem >
                     <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_PRIMARY_SOCIETIES&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'GUMUTINDO_PRIMARY_SOCIETIES', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
                 </apex:pageBlockSectionItem>
+                
             </apex:pageBlockSection>
-            <apex:pageBlockSection columns="2">
+
+            <apex:pageBlockSection columns="1">
                 <apex:pageBlockSectionItem >
-                    <strong>CKW and field officer distribution</strong>
-                    <br />Blue = CKWs, Green = Field Officers
-                    <br />
-                    <a href="javascript:openMap('GUMUTINDO_CKWS', 'Gender', null, null, null, null, null, null, null, null);">Enlarge Map</a>
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem >
-                    <strong>Locations of primary societies</strong>
-                    <br />Blue - Primary Societies
-                    <br />
+                    <strong>Locations of primary societies</strong><br />Blue - Primary Societies<br />
                     <a href="javascript:openMap('GUMUTINDO_PRIMARY_SOCIETIES', null, null, null, null, null, null, null, null, null);">Enlarge Map</a>
                 </apex:pageBlockSectionItem>
+                
             </apex:pageBlockSection>
         </apex:pageBlock>
         
-        <apex:pageBlock title="Farmers reached" id="farmers">
-            <br/>
-            <apex:pageBlockTable value="{!farmersReachedData}" var="item">
-                <apex:column headerValue="Indicator" width="400px">
-                    <apex:outputText escape="false">
-                        {!item.label}
-                    </apex:outputText>
-                </apex:column>
-                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+        <apex:pageBlock title="Scale" rendered="{!viewScale}">
+            <!-- Develop scalable solutions that increase the reach of effective CKW services to Farmers. -->
+            <br/><br/>
+            <apex:pageBlockTable value="{!scaleData}" var="item">
+                <apex:column value="{!item.label}" headerValue="Metric" width="400px"/>
                 <apex:column width="70px">
-                    <apex:facet name="header">Actual</apex:facet>
-                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                    <apex:facet name="header">Quarterly Target</apex:facet>
+                    <div style="width:100%;height:100%;">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
-                            &nbsp;
-                            <apex:param value="{!item.currentValue}"/>
+                            &nbsp;<apex:param value="{!item.quarter_target}"/>
                         </apex:outputText>
                     </div>
                 </apex:column>
-                <!-- <apex:column value="{!item.comment}" headerValue="Further Info"/> -->
-                <!-- <apex:column rendered="{!isEditMode}" width="50px"><apex:facet name="header">Update</apex:facet><a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.percent_quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Project Target</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.project_target}"/>
+                        </apex:outputText>
+                    </div>                
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Cumulative Reached</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.percent_cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Updated</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <!--<apex:column width="50px">
+                    <apex:facet name="header">Trend</apex:facet>
+                    <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
+                        <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>
+                    </a>
+                </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metric_data_id}');return false;">
                         Update
-                    </a></apex:column> -->
+                    </a>
+                </apex:column>-->
             </apex:pageBlockTable>
         </apex:pageBlock>
         
-        <apex:pageBlock title="Extension services offered to farmers" id="extensionServices">
-            <br/>
-            <apex:pageBlockTable value="{!AdvisoryServicesData}" var="item">
-                <apex:column headerValue="Indicator" width="600px">
-                    <apex:outputText escape="false">
-                        {!item.label}
-                    </apex:outputText>
-                </apex:column>
-                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+        <apex:pageBlock title="Impact" id="Impact" rendered="{!viewImpact}">
+            <!-- Prove that ICT-enabled Ag Extension can increase yields and revenues leading to higher incomes and food security. -->
+            <br/><br/>
+            <apex:pageBlockTable value="{!impactData}" var="item">
+                <apex:column value="{!item.label}" headerValue="Metric" width="400px"/>
                 <apex:column width="70px">
-                    <apex:facet name="header">Actual</apex:facet>
-                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                    <apex:facet name="header">Quarterly Target</apex:facet>
+                    <div style="width:100%;height:100%;">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
-                            &nbsp;
-                            <apex:param value="{!item.currentValue}"/>
+                            &nbsp;<apex:param value="{!item.quarter_target}"/>
                         </apex:outputText>
                     </div>
                 </apex:column>
-                <!-- <apex:column value="{!item.comment}" headerValue="Further Info"/> -->
-                <apex:column rendered="{!isEditMode}" width="50px">
-                    <apex:facet name="header">Update</apex:facet>
-                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
-                        Update
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.percent_quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Project Target</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.project_target}"/>
+                        </apex:outputText>
+                    </div>                
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Cumulative Reached</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.percent_cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Updated</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <!--<apex:column width="50px">
+                    <apex:facet name="header">Trend</apex:facet>
+                    <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
+                        <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>
                     </a>
                 </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metric_data_id}');return false;">
+                        Update
+                    </a>
+                </apex:column>-->
             </apex:pageBlockTable>
         </apex:pageBlock>
         
-        <apex:pageBlock title="Access to VSLA & Financial Services" id="financialServices">
-            <br/>
-            <apex:pageBlockTable value="{!vslaServicesData}" var="item">
-                <apex:column headerValue="Indicator" width="600px">
-                    <apex:outputText escape="false">
-                        {!item.label}
-                    </apex:outputText>
-                </apex:column>
-                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+        <apex:pageBlock title="Quality" rendered="{!viewQuality}">
+            <!-- Prove that the CKW model can deliver consistently high - quality information services to farmers and about farmer needs. -->
+            <br/><br/> 
+            <apex:pageBlockTable value="{!qualityData}" var="item">
+                <apex:column value="{!item.label}" headerValue="Metric" width="400px"/>
                 <apex:column width="70px">
-                    <apex:facet name="header">Actual</apex:facet>
-                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                    <apex:facet name="header">Quarterly Target</apex:facet>
+                    <div style="width:100%;height:100%;">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
-                            &nbsp;
-                            <apex:param value="{!item.currentValue}"/>
+                            &nbsp;<apex:param value="{!item.quarter_target}"/>
                         </apex:outputText>
                     </div>
                 </apex:column>
-                <!-- <apex:column value="{!item.comment}" headerValue="Further Info"/> -->
-                <apex:column rendered="{!isEditMode}" width="50px">
-                    <apex:facet name="header">Update</apex:facet>
-                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
-                        Update
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.percent_quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Project Target</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.project_target}"/>
+                        </apex:outputText>
+                    </div>                
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Cumulative Reached</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.percent_cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Updated</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <!--<apex:column width="50px">
+                    <apex:facet name="header">Trend</apex:facet>
+                    <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
+                        <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>
                     </a>
                 </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metric_data_id}');return false;">
+                        Update
+                    </a>
+                </apex:column>-->
             </apex:pageBlockTable>
-            
-            <apex:chart height="400" width="700" data="{!financialServicesChartData}"  colorSet="#156F9E,#FF9123,#6BAE4A,#424242,#A4A4A4">
-                <apex:axis type="Numeric" position="left" fields="data1" 
-            title="Number of farmers" grid="true"/>
-                <apex:axis type="Category" position="bottom" fields="name" 
-            title="Type of financial service"></apex:axis>
-                <apex:barSeries title="Financial services usage" orientation="vertical" axis="left"
-            xField="name" yField="data1"  colorsProgressWithinSeries="true">
-                    <apex:chartTips height="20" width="120"/>
-                </apex:barSeries>
-            </apex:chart>
         </apex:pageBlock>
         
-        <apex:pageBlock title="GCCE Indicators" id="gcceIndicators">
-            <br/>
-            <apex:pageBlockTable value="{!gcceMetricsData}" var="item">
-                <apex:column headerValue="Indicator" width="600px">
-                    <apex:outputText escape="false">
-                        {!item.label}
-                    </apex:outputText>
-                </apex:column>
-                <apex:column width="70px" value="{!item.target}" headerValue="Target"/>
+        <apex:pageBlock title="Sustainability" rendered="{!viewSustainability}">
+            <!-- Prove that ICTs and a network of rural intermediaries can reduce the cost of delivering high-quality Ag Extension Services and prove a sustainable model for doing so over time. -->
+            <br/><br/>
+            <apex:pageBlockTable value="{!sustainabilityData}" var="item">
+                <apex:column value="{!item.label}" headerValue="Metric" width="400px"/>
                 <apex:column width="70px">
-                    <apex:facet name="header">Actual</apex:facet>
-                    <div style="width:100%;height:100%;background-color:{!item.colour}">
+                    <apex:facet name="header">Quarterly Target</apex:facet>
+                    <div style="width:100%;height:100%;">
                         <apex:outputText value="{0, number, ###,###,###,##0.##}">
-                            &nbsp;
-                            <apex:param value="{!item.currentValue}"/>
+                            &nbsp;<apex:param value="{!item.quarter_target}"/>
                         </apex:outputText>
                     </div>
                 </apex:column>
-                <!-- <apex:column value="{!item.comment}" headerValue="Further Info"/> -->
-                <apex:column rendered="{!isEditMode}" width="50px">
-                    <apex:facet name="header">Update</apex:facet>
-                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metricId}');return false;">
-                        Update
+                <apex:column width="70px">
+                    <apex:facet name="header">Actual Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Reached</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.percent_quarter_actual_reached}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Project Target</apex:facet>
+                    <div style="width:100%;height:100%;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                            &nbsp;<apex:param value="{!item.project_target}"/>
+                        </apex:outputText>
+                    </div>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">% Cumulative Reached</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.percent_cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column width="70px">
+                    <apex:facet name="header">Updated</apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.##}">
+                        <apex:param value="{!item.cummulative_actual_reached}"/>
+                    </apex:outputText>
+                </apex:column>
+                <!--<apex:column width="50px">
+                    <apex:facet name="header">Trend</apex:facet>
+                    <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
+                        <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>
                     </a>
                 </apex:column>
+                <apex:column rendered="{!isEditMode}" width="50px">
+                    <apex:facet name="header">Update</apex:facet>
+                    <a href="javascript:void(0)" onclick="openEditWindow('{!item.metric_data_id}');return false;">
+                        Update
+                    </a>
+                </apex:column>-->
             </apex:pageBlockTable>
-            
         </apex:pageBlock>
-    </apex:form>
+        
+        </apex:form>
 </apex:page>
