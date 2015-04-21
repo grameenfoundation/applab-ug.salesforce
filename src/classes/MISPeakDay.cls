@@ -1,6 +1,6 @@
 /*
   Class for computing all MIS Peak Day validations
-  MISPeakDayTest contains all tests for this class 
+  MisSubcountyMarketTest contains all tests for this class 
 */
 public class MISPeakDay {
     
@@ -9,13 +9,13 @@ public class MISPeakDay {
     }
     private static boolean  status=false;
     
-    public static boolean applyPeakDayValidation(C3P0_Market__c c) {
+    public static boolean applyPeakDayValidation(C3P0_Market__c c3p0) {
         Date dateNow = System.today();
-		Datetime dt = (DateTime)dateNow;
-		String dayOfWeek = dt.format('EEEE'); //This returns - Monday, Tuesday, Wednesday, etc..
+        Datetime dt = (DateTime)dateNow;
+        String dayOfWeek = dt.format('EEEE'); //This returns - Monday, Tuesday, Wednesday, etc..
                      
         //Compare peak Days
-        if(c.Peak__c.equalsIgnoreCase(dayOfWeek)){
+        if(c3p0.Peak__c.equalsIgnoreCase(dayOfWeek)){
             System.debug('Peak Day Correct ');
             MISPeakDay.status=true;                  
             }else{
