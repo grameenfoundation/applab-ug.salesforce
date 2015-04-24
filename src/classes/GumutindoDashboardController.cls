@@ -41,8 +41,6 @@ public with sharing class GumutindoDashboardController {
 
     public District__c district { get; set; }
     public Subcounty__c subcounty { get; set; }
-    public String dateFrom { get; set; }
-    public String dateTo { get; set; }
     public String tabName { get; set; }
     public Date_Picker__c dummyObject { get; set; }
 
@@ -120,8 +118,6 @@ public with sharing class GumutindoDashboardController {
     }
     
     public PageReference changeQuarter() {
-
-        //MetricHelpers.generateMetrics(MetricHelpers.getQuarterFirstDay(this.quarter), MetricHelpers.getQuarterLastDay(this.quarter), getOrgName());
         PageReference resultPage = ApexPages.currentPage(); 
         resultPage.getParameters().put('quarter', this.quarter);
         resultPage.getParameters().put('sfdc.tabName', this.tabName);
@@ -132,8 +128,6 @@ public with sharing class GumutindoDashboardController {
     
     public PageReference changeFilters() {    
         PageReference resultPage = ApexPages.currentPage(); 
-        //resultPage.getParameters().put('subcounty', subcounty.Display_Name__c);
-        //resultPage.getParameters().put('district', district.Name);
         resultPage.getParameters().put('quarter', this.quarter);
         resultPage.getParameters().put('sfdc.tabName', this.tabName);
         resultPage.setRedirect(true);
@@ -172,8 +166,8 @@ public with sharing class GumutindoDashboardController {
     }
 
     //Loads primary societies
-        public List<Gumutindo_Primary_Society__c> loadGumutindoPrimarySocieties() {
-         List<Gumutindo_Primary_Society__c> primarySocieties = database.query('SELECT '               +
+    public List<Gumutindo_Primary_Society__c> loadGumutindoPrimarySocieties() {
+        List<Gumutindo_Primary_Society__c> primarySocieties = database.query('SELECT '               +
                 'Id, '              +
                 'Name, Subcounty__r.Id, Subcounty__r.District__r.Id '             +
             'FROM '                 +
@@ -243,15 +237,6 @@ public with sharing class GumutindoDashboardController {
     public void setIsUpdateable(String value) {
         this.isUpdateable = value;
     }
-    
-    public Map<String, M_E_Metric_Data__c> getAllMetricDatas() {
-        if(allMetricDatas == null)
-        {
-          //  allMetricDatas = GumutindoHelpers.getMetricDataMap();
-        }
-        return allMetricDatas;
-    }
-
 
     public String getIsEditMode() {
         if(this.isEditMode) {
@@ -276,13 +261,11 @@ public with sharing class GumutindoDashboardController {
         return getAreaData('Sustainability');
     }
 
-    //Test Method
     private GumutindoHelpers.DataWrapper[] getAreaData(String area) {
 
         List<GumutindoHelpers.DataWrapper> areaData = new List<GumutindoHelpers.DataWrapper>();
         if (this.metricWrappers == null) {
             GumutindoHelpers.Wrapper wrapper = GumutindoHelpers.getData(this.quarter);
-            //GumutindoHelpers.Wrapper wrapper = GumutindoHelpers.getData('April - July 2015');
             this.metricWrappers = wrapper.dataWrapper;
             this.metricWrapperOrder = wrapper.dataWrapperOrder;
         }

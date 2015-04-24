@@ -102,6 +102,19 @@
         <type>Location</type>
     </fields>
     <fields>
+        <fullName>Gumutindo_Primary_Society__c</fullName>
+        <externalId>false</externalId>
+        <label>Gumutindo Primary Society</label>
+        <referenceTo>Gumutindo_Primary_Society__c</referenceTo>
+        <relationshipLabel>Gumutindo Farmers</relationshipLabel>
+        <relationshipName>Gumutindo_Farmers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
         <fullName>Have_Contract_with_Gumutindo__c</fullName>
         <externalId>false</externalId>
         <label>Have Contract with Gumutindo</label>
@@ -233,5 +246,5 @@
     </nameField>
     <pluralLabel>Gumutindo Farmers</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>
