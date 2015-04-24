@@ -1,11 +1,9 @@
 @isTest
 public with sharing class GumutindoDashboardTests {
-	public GumutindoDashboardTests() {
-         createMetrics();
+    public GumutindoDashboardTests() {
 	}
 		
     static testMethod void testGumutindoDashboardController() {
-
         String quarter = MetricHelpers.getCurrentQuarterAsString(0);
         GumutindoDashboardController dashboard = new GumutindoDashboardController();
         dashboard.setCurrentQuarter(quarter);
@@ -13,20 +11,37 @@ public with sharing class GumutindoDashboardTests {
         System.assert(dashboard.getIsCurrentQuarter() == 'true');
         System.assertEquals(quarter, dashboard.getQuarter());
         //System.assertNotEquals(null, dashboard.getSections());
-        //createMetrics();
-    }    
-	
-    public static void createMetrics() {
-     //GumutindoHelpers helpers = new GumutindoHelpers();    
-      //helpers.getAllMetricDatas(); 
-      //GumutindoHelpers.getMetricData(GumutindoHelpers.TARGET_FARMERS_REACHED_IN_YEAR_1);  
-      //GumutindoHelpers.getMetricData(GumutindoHelpers.FARMER_GROUPS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK);
+        
+        dashboard.changeQuarter();
+        dashboard.setIsUpdateable('false');// default was true
+        System.assert(dashboard.getIsUpdateable() == 'false');
+        
+        System.assert(dashboard.getIsEditMode() == 'false');   // was not passed as get parameter hence stays false
+        System.assert(dashboard.getQuarters().size() > 1);
+        
+        dashboard = new GumutindoDashboardController();
+        dashboard.setQuarter('Jan - Mar ' + date.today().year());
+        GumutindoHelpers.DataWrapper[] data = dashboard.getScaleData();
+        //System.assert(data.size() == 1);
+       // System.assert(data[0].quarter_actual_reached == 5);
+        
+        System.assert(dashboard.getImpactData().size() == 0);
+        //System.assert(dashboard.getQualityData().size() == 1);
+        //System.assert(dashboard.getSustainabilityData().size() == 1);
+        
+        //System.assert(dashboard.getViewScale() == false);
+        //System.assert(dashboard.getViewQuality() == null);
+        //System.assert(dashboard.getViewImpact() == null);
+        //System.assert(dashboard.getViewSustainability() == null);
+        
+        dashboard.setQuarter(null);
+        dashboard.getQuarters();
+        System.assert(dashboard.getQuarter() != null);
+        
     }
-
-	static testMethod void testGumutindoFarmEntranceSurveySubmission()
+    //GCCE Internal Inspection Survey Post-processing
+	static testMethod void testGCCEInternalInspectionSurveySubmission()
 	{
-        createMetrics();
-
         CKW__c ckw = Utils.createTestCkw(null, 'TestCKW1', true, null, 'Female');
         database.saveResult saveResult = database.insert(ckw);
         String ckwId = saveResult.getId();
@@ -34,7 +49,7 @@ public with sharing class GumutindoDashboardTests {
         Account acc = Utils.createTestOrganisation('test');
         acc.Name = GumutindoHelpers.ORG_NAME;
         insert acc;
-
+        
         Survey__c survey = new Survey__c();
         survey.Account__c = acc.Id;
         survey.Post_Processing_Method__c = 'GUMUTINDO';
@@ -57,27 +72,26 @@ public with sharing class GumutindoDashboardTests {
         testPerson.Handset__c = testHandset.Id;
         insert testPerson;
         
-        //Survey__c survey2 = [Select Id, Name from Survey__c where Id = :survey.Id LIMIT 1];
-        //CKW__c ckw2 = [Select Id, Person__c, Person__r.Handset__c, Person__r.Handset__r.IMEI__c from CKW__c where Id = :ckw.Id LIMIT 1];
+        District__c district = new District__c();
+        district.Latitude__c = 2;
+        district.Longitude__c = 3;
+        district.Region__c = 'Western Uganda';
+        district.Location_Id__c = 'test location';
+        insert district;
         
-        Gumutindo_Farmer__c gumutindoFarmer = new Gumutindo_Farmer__c();
-        gumutindoFarmer.Comment_on_contract__c = 'test comment';
-        gumutindoFarmer.Cover_crops__c = 'Good';
-        gumutindoFarmer.Erosion_Control__c = 'Good';
-        gumutindoFarmer.GPS_Location__Latitude__s = 2;
-        gumutindoFarmer.GPS_Location__Longitude__s = 3;
-        gumutindoFarmer.Have_Contract_with_Gumutindo__c = 'Yes';
-        gumutindoFarmer.Manure_Applied__c = 'Yes';
-        gumutindoFarmer.Name_of_Respondent__c = 'test Name';
-        gumutindoFarmer.Number_of_Coffee_Plots__c = 6;
-        gumutindoFarmer.Number_of_Trees__c = 2;
-        gumutindoFarmer.Pruning__c = 'Good';
-        gumutindoFarmer.Date__c = system.now().date();
-        gumutindoFarmer.Shade_Trees__c = 'Good';
-        gumutindoFarmer.Village__c = 'test Village';
-        gumutindoFarmer.Weeding__c = 'Good';
-        gumutindoFarmer.Yield_Estimates__c = 6;
-        insert gumutindoFarmer;
+        Subcounty__c subcounty = new Subcounty__c();
+        subcounty.Display_Name__c = 'test Subcounty';
+        subcounty.Latitude__c = 2;
+        subcounty.Longitude__c = 3;
+        subcounty.Location_Id__c = 'test location';
+        subcounty.District__c = [SELECT Id FROM District__c Limit 1].Id;
+        insert subcounty;
+        
+        Gumutindo_Primary_Society__c primarySociety = new Gumutindo_Primary_Society__c();
+        primarySociety.Subcounty__c = [SELECT Id FROM Subcounty__c LIMIT 1].Id;
+        primarySociety.Name_of_PS__c = 'Buginyanya';
+        primarySociety.Date__c = Date.valueOf(date.today().year() + '-02-02');
+        insert primarySociety;
                 
         Gumutindo_Quarterly_Targets__c gumutindoQuarterlyTargets = new Gumutindo_Quarterly_Targets__c();
         gumutindoQuarterlyTargets.Label__c = 'test label 1';
@@ -108,8 +122,7 @@ public with sharing class GumutindoDashboardTests {
         List<String> returnValuesF = new List<String>();
         returnValuesF = GumutindoHelpers.processGCCEInternalInspectionSurvey(surveySubmissionF, answersF, testPerson);
         System.assert(returnValuesF.get(0).equals('0'));
-        System.assert(returnValuesF.get(1).contains('FAILED'));
-           
+        System.assert(returnValuesF.get(1).contains('FAILED'));  
            
         ProcessSurveySubmission.SurveySubmission surveySubmission = new ProcessSurveySubmission.SurveySubmission();
         surveySubmission.handsetSubmitTime = Datetime.now().getTime().format().replace(',', '');
@@ -120,6 +133,7 @@ public with sharing class GumutindoDashboardTests {
         
         Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>();
         
+        answers.put('q1_0', Utils.createTestSubmissionAnswer(null, 'q1', '1', null, null, null));
         answers.put('q2_0', Utils.createTestSubmissionAnswer(null, 'q2', 'test Farmer', null, null, null));
         answers.put('q3_0', Utils.createTestSubmissionAnswer(null, 'q3', 'test Village', null, null, null));
         answers.put('q5_0', Utils.createTestSubmissionAnswer(null, 'q5', '2', null, null, null));
@@ -135,6 +149,68 @@ public with sharing class GumutindoDashboardTests {
         answers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', '2', null, null, null));
         answers.put('q44_0', Utils.createTestSubmissionAnswer(null, 'q44', 'test Advice', null, null, null)); 
         
+        String psName;
+        if(answers.get('q1_0').Answer__c == '1') {
+	        psName = 'Buginyanya';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '2') {
+	        psName = 'Kikuyu';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '3') {
+	        psName = 'Bunabudde';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '4') {
+	        psName = 'Nasufwa';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '5') {
+	        psName = 'Masira';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '6') {
+	        psName = 'Demukata';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '7') {
+	        psName = 'Busamaga';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '8') {
+	        psName = 'Nagudi Bwira';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '9') {
+	        psName = 'Lwambogo';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '10') {
+	        psName = 'Konokoyi';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '11') {
+	        psName = 'Bumayoga';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '12') {
+	        psName = 'Buweswa';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '13') {
+	        psName = 'Bumatanda';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '14') {
+	        psName = 'Sipi';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '15') {
+	        psName = 'Bukalasi';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '16') {
+	        psName = 'Buteteya';
+	    }
+	    else if(answers.get('q1_0').Answer__c == '17') {
+	        psName = 'Buwambigwa';
+	    }
+
+        List<Gumutindo_Primary_Society__c> primarySocieties = [
+	        SELECT
+	            Id
+	        FROM 
+	            Gumutindo_Primary_Society__c
+	        WHERE
+	            Name_of_PS__c = :psName  
+	        ];
+	    
         String farmerName = answers.get('q2_0').Answer__c;
         System.assertEquals(farmerName, 'test Farmer');
 	    String village = answers.get('q3_0').Answer__c;
@@ -149,51 +225,56 @@ public with sharing class GumutindoDashboardTests {
         System.assertEquals(contract, 'Yes');    
         
         String weeding, pruning, shadeTrees, erosionControl, coverCrops;
-                if(answers.get('q22_0').Answer__c == '1'){
-                	weeding = 'Good';
-                }
-                else if (answers.get('q22_0').Answer__c == '2'){
-                	weeding = 'Fair';
-                }
-                else {
-                	weeding = 'Poor';
-                }                
-                if(answers.get('q24_0').Answer__c == '1') {
-                	pruning = 'Good';
-                }
-                else if(answers.get('q24_0').Answer__c == '2') {
-                	pruning = 'Fair';
-                }
-                else {
-                	pruning = 'Poor';
-                }                
-                if(answers.get('q25_0').Answer__c == '1'){
-                	shadeTrees = 'Good';
-                }
-                else if(answers.get('q25_0').Answer__c == '2') {
-                	shadeTrees = 'Fair';
-                }
-                else {
-                	shadeTrees = 'Poor';
-                }
-                if(answers.get('q26_0').Answer__c == '1') {
-                	erosionControl = 'Good';
-                }
-                else if(answers.get('q26_0').Answer__c == '2'){
-                	erosionControl = 'Fair';
-                }
-                else {
-                	erosionControl = 'Poor';
-                }
-                if(answers.get('q27_0').Answer__c == '1') {
-                	coverCrops = 'Good';
-                }
-                else if(answers.get('q27_0').Answer__c == '2') {
-                	coverCrops = 'Fair';
-                }
-                else {
-                	coverCrops = 'Poor';
-                }
+        //Weeding
+        if(answers.get('q22_0').Answer__c == '1'){
+            weeding = 'Good';
+        }
+        else if (answers.get('q22_0').Answer__c == '2'){
+            weeding = 'Fair';
+        }
+        else {
+            weeding = 'Poor';
+        }
+        //Pruning                
+        if(answers.get('q24_0').Answer__c == '1') {
+            pruning = 'Good';
+        }
+        else if(answers.get('q24_0').Answer__c == '2') {
+            pruning = 'Fair';
+        }
+        else {
+            pruning = 'Poor';
+        }  
+        //Shade Trees              
+        if(answers.get('q25_0').Answer__c == '1'){
+            shadeTrees = 'Good';
+        }
+        else if(answers.get('q25_0').Answer__c == '2') {
+            shadeTrees = 'Fair';
+        }
+        else {
+            shadeTrees = 'Poor';
+        }
+        //Erosion control        
+        if(answers.get('q26_0').Answer__c == '1') {
+            erosionControl = 'Good';
+        }
+        else if(answers.get('q26_0').Answer__c == '2'){
+            erosionControl = 'Fair';
+        }
+        else {
+            erosionControl = 'Poor';
+        }
+        //Cover crops
+        if(answers.get('q27_0').Answer__c == '1') {
+            coverCrops = 'Good';
+        }
+        else if(answers.get('q27_0').Answer__c == '2') {
+            coverCrops = 'Fair';
+        }
+        else {
+            coverCrops = 'Poor';
+        }
         System.assertEquals(weeding, 'Good');
         System.assertEquals(pruning, 'Fair');
         System.assertEquals(shadeTrees, 'Poor');
@@ -207,6 +288,7 @@ public with sharing class GumutindoDashboardTests {
         System.assertEquals(advice, 'test Advice');
         
         Gumutindo_Farmer__c gFarmer = new Gumutindo_Farmer__c();
+        gFarmer.Gumutindo_Primary_Society__c  = primarySocieties[0].Id;
         gFarmer.Name_of_Respondent__c = farmerName;
         gFarmer.Village__c = village;
         gFarmer.Number_of_Trees__c = numberOftrees;
@@ -223,13 +305,22 @@ public with sharing class GumutindoDashboardTests {
         gFarmer.New_advice_given__c = advice;
         gFarmer.Date__c = surveySubmission.handsetSubmitTime != null ? 
                         ProcessSurveySubmission.getTimestamp(surveySubmission.handsetSubmitTime).date() : Date.today();
-        //insert gFarmer;       
+        insert gFarmer;
+        
+        List<String> returnValues = new List<String>();
+        returnValues = GumutindoHelpers.processGCCEInternalInspectionSurvey(surveySubmission, answers, testPerson);
+        System.assert(returnValues.get(0).equals('1'));
+        System.assert(returnValues.get(1).contains('processed'));    
+        
+        List<String> returnValues1 = new List<String>();
+        returnValues1 = GumutindoHelpers.processActivitySurvey(surveySubmission, answers, testPerson);
+        System.assert(returnValues1.get(0).equals('0'));
+        System.assert(returnValues1.get(1).contains('irrelevant'));   
         
 	}
-
+    //GCCE PS Survey Post-processing
     static testMethod void testGumutindoGCCEPSSurveySubmission()
     {
-        
         Account acc = Utils.createTestOrganisation('test');
         acc.Name = GumutindoHelpers.ORG_NAME;
         insert acc;
@@ -358,9 +449,14 @@ public with sharing class GumutindoDashboardTests {
         returnValues = GumutindoHelpers.processGCCEPSSurvey(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('processed'));
+        
+        List<String> returnValues1 = new List<String>();
+        returnValues1 = GumutindoHelpers.processActivitySurvey(submission, answers, testPerson);
+        System.assert(returnValues1.get(0).equals('0'));
+        System.assert(returnValues1.get(1).contains('irrelevant'));
 
     }
-    
+    //Impacts 2015 Survey Post-processing
     static testMethod void testGumutindoImpacts2015SurveySubmission()
     {
         
@@ -399,26 +495,26 @@ public with sharing class GumutindoDashboardTests {
         
         Map<String, Submission_Answer__c> answers = new Map<String, Submission_Answer__c>(); 
           
-        answers.put('q28_0', Utils.createTestSubmissionAnswer(null, 'q28_0', '1', null, null, null));
-        answers.put('q27_0', Utils.createTestSubmissionAnswer(null, 'q27_0', '2', null, null, null));
-        answers.put('q12_0', Utils.createTestSubmissionAnswer(null, 'q12_0', '1', null, null, null));
-        answers.put('q26_0', Utils.createTestSubmissionAnswer(null, 'q26_0', '2', null, null, null));
-        answers.put('q30_0', Utils.createTestSubmissionAnswer(null, 'q30_0', '2', null, null, null));
-        answers.put('q8_0', Utils.createTestSubmissionAnswer(null, 'q8_0', '2', null, null, null));
-        answers.put('q16_0', Utils.createTestSubmissionAnswer(null, 'q16_0', '2', null, null, null));
-        answers.put('q15_0', Utils.createTestSubmissionAnswer(null, 'q15_0', '2', null, null, null));
-        answers.put('q22_0', Utils.createTestSubmissionAnswer(null, 'q22_0', '2', null, null, null));
-        answers.put('q21_0', Utils.createTestSubmissionAnswer(null, 'q21_0', '2', null, null, null));
-        answers.put('q23_0', Utils.createTestSubmissionAnswer(null, 'q23_0', '2', null, null, null));
-        answers.put('q24_0', Utils.createTestSubmissionAnswer(null, 'q24_0', '2', null, null, null));
-        answers.put('q26_0', Utils.createTestSubmissionAnswer(null, 'q26_0', '2', null, null, null));
-        answers.put('q27_0', Utils.createTestSubmissionAnswer(null, 'q27_0', '2', null, null, null));
-        answers.put('q25_0', Utils.createTestSubmissionAnswer(null, 'q25_0', '2', null, null, null));
-        answers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9_0', '3', null, null, null));
-        answers.put('q16_0', Utils.createTestSubmissionAnswer(null, 'q16_0', '1', null, null, null));
-        answers.put('q27_0', Utils.createTestSubmissionAnswer(null, 'q16_0', '2', null, null, null));
+        answers.put('q28_0', Utils.createTestSubmissionAnswer(null, 'q28', '1', null, null, null));
+        answers.put('q27_0', Utils.createTestSubmissionAnswer(null, 'q27', '2', null, null, null));
+        answers.put('q12_0', Utils.createTestSubmissionAnswer(null, 'q12', '1', null, null, null));
+        answers.put('q26_0', Utils.createTestSubmissionAnswer(null, 'q26', '2', null, null, null));
+        answers.put('q30_0', Utils.createTestSubmissionAnswer(null, 'q30', '1 2 3', null, null, null));
+        answers.put('q8_0', Utils.createTestSubmissionAnswer(null, 'q8', '3 2 1', null, null, null));
+        answers.put('q16_0', Utils.createTestSubmissionAnswer(null, 'q16', '2', null, null, null));
+        answers.put('q15_0', Utils.createTestSubmissionAnswer(null, 'q15', '2', null, null, null));
+        answers.put('q22_0', Utils.createTestSubmissionAnswer(null, 'q22', '2 1 3', null, null, null));
+        answers.put('q21_0', Utils.createTestSubmissionAnswer(null, 'q21', '3 1 2', null, null, null));
+        answers.put('q23_0', Utils.createTestSubmissionAnswer(null, 'q23', '2 1', null, null, null));
+        answers.put('q24_0', Utils.createTestSubmissionAnswer(null, 'q24', '1 2', null, null, null));
+        answers.put('q26_0', Utils.createTestSubmissionAnswer(null, 'q26', '2', null, null, null));
+        answers.put('q27_0', Utils.createTestSubmissionAnswer(null, 'q27', '2', null, null, null));
+        answers.put('q25_0', Utils.createTestSubmissionAnswer(null, 'q25', '2', null, null, null));
+        answers.put('q9_0', Utils.createTestSubmissionAnswer(null, 'q9', '3', null, null, null));
+        answers.put('q16_0', Utils.createTestSubmissionAnswer(null, 'q16', '1', null, null, null));
+        answers.put('q27_0', Utils.createTestSubmissionAnswer(null, 'q16', '2', null, null, null));
         
-        String purchaseThruGcce = answers.get('q28_0').Answer__c == '1' ? 'Yes' : 'no';
+        String purchaseThruGcce = answers.get('q28_0').Answer__c == '1' ? 'Yes' : 'No';
 	    String purchaseSeedlings = answers.get('q27_0').Answer__c == '1' ? 'Yes' : 'No';
 	    String hiQuality = answers.get('q12_0').Answer__c == '1' ? 'Yes' : 'No';
         String loanThruPs = answers.get('q26_0').Answer__c == '1' ? 'Yes' : 'No';
@@ -452,6 +548,15 @@ public with sharing class GumutindoDashboardTests {
             marks = 5;
         }
                 
+        System.assertEquals(GumutindoHelpers.translateFinancialServices(financialService), 'Bank;Mobile Money;SACCO;');
+        System.assertEquals(GumutindoHelpers.translateServicesReceived(satisfaction), 'Provision of weather information;' +
+        'Provision of market information;Extension services on coffee farming;');
+        System.assertEquals(GumutindoHelpers.translateChange(manageWhether), 'Cover crops;Mulching;Tied ridges;');
+        System.assertEquals(GumutindoHelpers.translateReasons(citeCause), 'Burning of trees, fuel, etc;' +
+            'Cutting down of trees;Excessive use of fertilizer;');
+        System.assertEquals(GumutindoHelpers.translateMethods(soilConservation), 'Mulching;Strip cropping;');
+        System.assertEquals(GumutindoHelpers.translatePractices(agroPractice), 'Planting trees within the homestead;Boundary planting/fence;');
+                
         Gumutindo_Impacts__c gImpact = new Gumutindo_Impacts__c();
         gImpact.Purchased_Organic_fertilizer_through_GCC__c = purchaseThruGcce;
         gImpact.Ever_purchased_organic_seedlings_at_PS__c = purchaseSeedlings;
@@ -482,12 +587,16 @@ public with sharing class GumutindoDashboardTests {
         returnValues = GumutindoHelpers.processImpacts2015Survey(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('processed'));
+        
+        List<String> returnValues1 = new List<String>();
+        returnValues1 = GumutindoHelpers.processActivitySurvey(submission, answers, testPerson);
+        System.assert(returnValues1.get(0).equals('0'));
+        System.assert(returnValues1.get(1).contains('irrelevant'));
 
     }
-    
+    //Activity Survey Post-processing
     static testMethod void testGumutindoActivitySurveySubmission()
-    {
-        
+    {    
         Account acc = Utils.createTestOrganisation('test');
         acc.Name = GumutindoHelpers.ORG_NAME;
         insert acc;
@@ -508,7 +617,7 @@ public with sharing class GumutindoDashboardTests {
         Survey__c survey = new Survey__c();
         survey.Account__c = acc.Id;
         survey.Post_Processing_Method__c = 'GUMUTINDO';
-        survey.Survey_Name__c = 'Impacts 2015';
+        survey.Survey_Name__c = 'Activity Survey';
         survey.Survey_Status__c = 'Published';
         survey.Start_Date__c = Date.valueOf(date.today().year() + '-01-01');
         survey.End_Date__c = Date.valueOf((date.today().year() + 4) + '-01-01');
@@ -536,28 +645,62 @@ public with sharing class GumutindoDashboardTests {
         returnValues = GumutindoHelpers.processActivitySurvey(submission, answers, testPerson);
         System.assert(returnValues.get(0).equals('1'));
         System.assert(returnValues.get(1).contains('processed'));
+        
+        List<String> returnValues1 = new List<String>();
+        returnValues1 = GumutindoHelpers.processGCCEInternalInspectionSurvey(submission, answers, testPerson);
+        System.assert(returnValues1.get(0).equals('0'));
+        System.assert(returnValues1.get(1).contains('irrelevant'));
+                        
 
     }
 
-
     static testMethod void testGumutindoHelpers()
     {
+        District__c district = new District__c();
+        district.Latitude__c = 2;
+        district.Longitude__c = 3;
+        district.Region__c = 'Western Uganda';
+        district.Location_Id__c = 'test location';
+        insert district;
+        
+        Subcounty__c subcounty = new Subcounty__c();
+        subcounty.Display_Name__c = 'test Subcounty';
+        subcounty.Latitude__c = 2;
+        subcounty.Longitude__c = 3;
+        subcounty.Location_Id__c = 'test location';
+        subcounty.District__c = [SELECT Id FROM District__c Limit 1].Id;
+        insert subcounty;
+        
+        Gumutindo_Primary_Society__c primarySociety = new Gumutindo_Primary_Society__c();
+        primarySociety.Subcounty__c = [SELECT Id FROM Subcounty__c LIMIT 1].Id;
+        primarySociety.Name_of_PS__c = 'Buginyanya';
+        primarySociety.Date__c = Date.valueOf(date.today().year() + '-02-02');
+        insert primarySociety;
+        
+        List<Gumutindo_Primary_Society__c> primarySocieties = [
+	        SELECT
+	            Id
+	        FROM 
+	            Gumutindo_Primary_Society__c
+	        LIMIT 1  
+	        ];
         
         Gumutindo_Farmer__c gFarmer = new Gumutindo_Farmer__c();
+        gFarmer.Gumutindo_Primary_Society__c  = primarySocieties[0].Id;
         gFarmer.Comment_on_contract__c = 'test coment';
         gFarmer.Cover_crops__c = 'test cover crop';
         gFarmer.Date__c = system.now().date();
-        gFarmer.Erosion_Control__c = 'yes';
+        gFarmer.Erosion_Control__c = 'Yes';
         gFarmer.GPS_Location__Longitude__s = 3;
         gFarmer.GPS_Location__Latitude__s = 2;
-        gFarmer.Have_Contract_with_Gumutindo__c = 'yes';
-        gFarmer.Manure_Applied__c = 'yes';
+        gFarmer.Have_Contract_with_Gumutindo__c = 'Yes';
+        gFarmer.Manure_Applied__c = 'Yes';
         gFarmer.Name_of_Respondent__c = 'Henry T';
         gFarmer.Number_of_Coffee_Plots__c = 20;
         gFarmer.Number_of_Trees__c = 20;
-        gFarmer.Pruning__c = 'yes';
-        gFarmer.Shade_Trees__c = 'yes';
-        gFarmer.Weeding__c = 'yes';
+        gFarmer.Pruning__c = 'Yes';
+        gFarmer.Shade_Trees__c = 'Yes';
+        gFarmer.Weeding__c = 'Yes';
         gFarmer.Yield_Estimates__c = 20;
         gFarmer.Village__c = 'test Village';
         insert gFarmer;
@@ -576,6 +719,20 @@ public with sharing class GumutindoDashboardTests {
         gQuarterT.Metric_Name__c = GumutindoHelpers.FARMERS_REGISTERED;
         insert gQuarterT;
         
+        Gumutindo_Targets__c gTarget1 = new Gumutindo_Targets__c();
+        gTarget1.Label__c = GumutindoHelpers.FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES;
+        gTarget1.Target__c = 50;
+        gTarget1.Metric_Name__c = GumutindoHelpers.FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES;
+        gTarget1.Section__c = 'Impact';
+        insert gTarget1;
+        
+        Gumutindo_Quarterly_Targets__c gQuarterT1 = new Gumutindo_Quarterly_Targets__c();
+        gQuarterT1.Label__c = GumutindoHelpers.FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES;
+        gQuarterT1.Quarter_First_Date__c = system.now().date();
+        gQuarterT1.Target__c = 20;
+        gQuarterT1.Metric_Name__c = GumutindoHelpers.FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES;
+        insert gQuarterT1;
+        
         District__c testDistrict = new District__c();
         testDistrict.Name = 'TestMasaka';
         testDistrict.Region__c = 'Central';
@@ -591,9 +748,9 @@ public with sharing class GumutindoDashboardTests {
         testSociety.Latitude__c = 0.4343443;
         testSociety.Longitude__c = 0.444444;
         testSociety.Subcounty__c = testSubcounty.Id;
-        testSociety.Adhere_to_Established_Policies__c = 'yes';
-        testSociety.Farmers_Procure_Farm_Inputs_Collectively__c = 'yes';
-        testSociety.Pay_for_Inputs_Upon_Delivery__c = 'yes';
+        testSociety.Adhere_to_Established_Policies__c = 'Yes';
+        testSociety.Farmers_Procure_Farm_Inputs_Collectively__c = 'Yes';
+        testSociety.Pay_for_Inputs_Upon_Delivery__c = 'Yes';
         //insert(testSociety);
 
         Person__c testPerson = new Person__c();
@@ -641,8 +798,6 @@ public with sharing class GumutindoDashboardTests {
         PageReference resultPage =  new PageReference('/a00/e');
         resultPage.getParameters().put('district', String.valueOf(testDistrict.Id));
         resultPage.getParameters().put('subcounty', String.valueOf(testSubcounty.Id));
-        resultPage.getParameters().put('dateFrom', '1987-12-18');
-        resultPage.getParameters().put('dateTo', '2013-12-18');
         resultPage.getParameters().put('cbt', String.valueOf(testPerson.Id));
         resultPage.getParameters().put('sfdc.tabName', 'a00');
 
@@ -661,9 +816,14 @@ public with sharing class GumutindoDashboardTests {
         controller.setUp(resultPage);
 
         Test.startTest();
-
+        
         GumutindoDashboardController cont = new GumutindoDashboardController();
         String quarter = MetricHelpers.getCurrentQuarterAsString(0);
+        
+        String metricName = GumutindoHelpers.FARMERS_REGISTERED;
+        //Check this method
+        List<Double> results = GumutindoHelpers.getDataInQuarter(quarter, metricName);
+        
         GumutindoHelpers.Wrapper wrapper = GumutindoHelpers.getData(quarter);
         Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
         Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
@@ -675,38 +835,36 @@ public with sharing class GumutindoDashboardTests {
         GumutindoHelpers.DataWrapper metricDataWrapper = new GumutindoHelpers.DataWrapper();
         metricDataWrapper.quarter_target = GumutindoHelpers.getQuarterlyTargets(GumutindoHelpers.FARMERS_REGISTERED) == null ? 0 :
             (Integer)GumutindoHelpers.getQuarterlyTargets(GumutindoHelpers.FARMERS_REGISTERED).Target__c;
-        system.assertEquals(metricDataWrapper.quarter_target, 20);
+        System.assertEquals(metricDataWrapper.quarter_target, 20);
         
         metricDataWrapper.name = GumutindoHelpers.FARMERS_REGISTERED;
-        metricDataWrapper.quarter_actual_reached = GumutindoHelpers.getFarmersReachedInQuarter(quarter, GumutindoHelpers.FARMERS_REGISTERED)[0];
-        system.assertEquals(metricDataWrapper.quarter_actual_reached, 1);
+        metricDataWrapper.quarter_actual_reached = GumutindoHelpers.getDataInQuarter(quarter, GumutindoHelpers.FARMERS_REGISTERED)[0];
+        System.assertEquals(metricDataWrapper.quarter_actual_reached, 1);
         
         metricDataWrapper.project_target = GumutindoHelpers.getTargets(GumutindoHelpers.FARMERS_REGISTERED) == null ? 0 : (Integer)GumutindoHelpers.getTargets(GumutindoHelpers.FARMERS_REGISTERED).Target__c;
-        system.assertEquals(metricDataWrapper.project_target, 50);
+        System.assertEquals(metricDataWrapper.project_target, 50);
         
-        metricDataWrapper.cummulative_actual_reached = GumutindoHelpers.getPreviousFarmerSum(quarterLastDay, GumutindoHelpers.FARMERS_REGISTERED)[0];
+        metricDataWrapper.cummulative_actual_reached = GumutindoHelpers.getPreviousDataSum(quarterLastDay, GumutindoHelpers.FARMERS_REGISTERED)[0];
         
         metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
             (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
-        system.assertEquals(metricDataWrapper.percent_cummulative_actual_reached, 2);
+        System.assertEquals(metricDataWrapper.percent_cummulative_actual_reached, 2);
         
         Decimal percentQuarter = (metricDataWrapper.quarter_actual_reached / metricDataWrapper.quarter_target) * 100;
             
         metricDataWrapper.percent_quarter_actual_reached = percentQuarter;
-        system.assertEquals(metricDataWrapper.percent_quarter_actual_reached, 5.0);
+        System.assertEquals(metricDataWrapper.percent_quarter_actual_reached, 5.0);
         
         System.assertNotEquals(metricDataWrapper, null);
         
         List<String> metricOrder = new List<String>{GumutindoHelpers.FARMERS_REGISTERED};
-        
-        String metricName = GumutindoHelpers.FARMERS_REGISTERED;
 
         String metricKey = metricName;
         
         String areaName = 'Scale';
         
         areaMap.put(metricKey, metricDataWrapper);
-        system.assertNotEquals(areaMap, null);
+        System.assertNotEquals(areaMap, null);
         
         metricWrappers.put(areaName, areaMap);
         
@@ -714,63 +872,62 @@ public with sharing class GumutindoDashboardTests {
         
         metricWrapperOrder.put(areaName, metricOrder);
 
-        system.assertNotEquals(GumutindoHelpers.getData(quarter), null);
+        System.assertNotEquals(GumutindoHelpers.getData(quarter), null);
 
-
-
-       // System.assert(GumutindoHelpers.getGumutindoPrimarySocietyMarkers().size() == 1);
-
+        System.assert(GumutindoHelpers.getGumutindoPrimarySocietyMarkers().size() == 1);
+ 
         System.assert(GumutindoHelpers.getCKWMapMarkers().size() == 2); //one for ckw and one for fo
         System.assert(controller.district != null);
         System.assert(controller.subcounty != null);
         System.assert(controller.dummyObject != null);
         System.assert(controller.getDistrictMapSection() != null);
 
- //       System.assert(controller.loadGumutindoPrimarySocieties().size() == 1);
-
- //       System.assert(controller.getSubcountiesList().size() == 2);
-
- //       System.assert(controller.changeFilters() != null);
+        System.assert(controller.loadGumutindoPrimarySocieties().size() == 1);
         
-  //      System.assert(controller.getMaps().size() ==1);
- //       System.assert('false'.equals(controller.getIsEditMode()));
- //       System.assert('true'.equals(controller.getIsUpdateable()));
-
- //       System.assert(GumutindoHelpers.loadCkw(testPerson) != null);
-
+        System.assert(controller.getSubcountiesList().size() == 2);
+        
+        //System.assert(controller.changeFilters() != null);
+        
+        System.assert(controller.getMaps().size() ==1);
+        System.assert('false'.equals(controller.getIsEditMode()));
+        System.assert('true'.equals(controller.getIsUpdateable()));
+        
+        System.assert(GumutindoHelpers.loadCkw(testPerson) != null);
+        
         GumutindoHelpers.GumutindoDistrictCoordinatesProvider districtProvider = new GumutindoHelpers.GumutindoDistrictCoordinatesProvider();
-  //      System.assert(districtProvider.loadMapMarkers(null).size() == 1);
-
+        System.assert(districtProvider.loadMapMarkers(null).size() == 1);
+        
         GumutindoHelpers.GumutindoPrimarySocietyCoordinatesProvider societyMarkerProvider = new GumutindoHelpers.GumutindoPrimarySocietyCoordinatesProvider();
-  //      System.assert(societyMarkerProvider.loadMapMarkers(null).size() == 1);
-
+        System.assert(societyMarkerProvider.loadMapMarkers(null).size() == 1);
+         
         GumutindoHelpers.GumutindoCkwCoordinatesProvider ckwMarkerProvider = new GumutindoHelpers.GumutindoCkwCoordinatesProvider();
-    //    System.assert(ckwMarkerProvider.loadMapMarkers(null).size() == 2);
+        System.assert(ckwMarkerProvider.loadMapMarkers(null).size() == 2);
+        
+        GumutindoHelpers.GumutindoDistrictMarker gDMarker = new GumutindoHelpers.GumutindoDistrictMarker(testDistrict);
+        gDMarker.setParentRegistered('pr');
+        System.assert('pr'.equals(gDMarker.getParentRegistered()));
+        System.assert(gDMarker.getMarkerInfoContentString() != null);
+        
+        GumutindoHelpers.GumutindoCkwMarker gCMarker = new GumutindoHelpers.GumutindoCkwMarker(testCkw);
+        gCMarker.setParentRegistered('pr');
+        gCMarker.generateMarkerName('Gender');
+        
+        /*gCMarker.ckw.Person__r.Parish__c = 'Test Parish';
+        gCMarker.ckw.Person__r.Village__c = 'Test Village';
+        gCMarker.ckw.Person__r.Subcounty__r.Display_Name__c = 'Test Sub Display';
+        System.assert('pr'.equals(gCMarker.getParentRegistered()));
+        System.assert(gCMarker.getMarkerInfoContentString() != null);
+        System.assert(gCMarker.getLocation() != null);
 
-         GumutindoHelpers.GumutindoDistrictMarker gDMarker = new GumutindoHelpers.GumutindoDistrictMarker(testDistrict);
-         gDMarker.setParentRegistered('pr');
-  //       System.assert('pr'.equals(gDMarker.getParentRegistered()));
-   //      System.assert(gDMarker.getMarkerInfoContentString() != null);
-
-         GumutindoHelpers.GumutindoCkwMarker gCMarker = new GumutindoHelpers.GumutindoCkwMarker(testCkw);
-         gCMarker.setParentRegistered('pr');
-         gCMarker.generateMarkerName('Gender');
-         //gCMarker.ckw.Person__r.Parish__c = 'Test Parish';
-         //gCMarker.ckw.Person__r.Village__c = 'Test Village';
-         //gCMarker.ckw.Person__r.Subcounty__r.Display_Name__c = 'Test Sub Display';
-  //       System.assert('pr'.equals(gCMarker.getParentRegistered()));
-   //      System.assert(gCMarker.getMarkerInfoContentString() != null);
-   //      System.assert(gCMarker.getLocation() != null);
-
-         GumutindoHelpers.GumutindoFieldOfficerMarker gFOMarker = new GumutindoHelpers.GumutindoFieldOfficerMarker(testFOPerson);
-         gFOMarker.setParentRegistered('pr');
-    //     System.assert('pr'.equals(gFOMarker.getParentRegistered()));
-    //     System.assert(gFOMarker.getMarkerInfoContentString() != null);
-
-         //GumutindoHelpers.GumutindoPrimarySocietyMarker gPSMarker = new GumutindoHelpers.GumutindoPrimarySocietyMarker(testSociety);
-         //gPSMarker.setParentRegistered('pr');
-         //System.assert('pr'.equals(gPSMarker.getParentRegistered()));
-         //System.assert(gPSMarker.getMarkerInfoContentString() != null);
+        GumutindoHelpers.GumutindoFieldOfficerMarker gFOMarker = new GumutindoHelpers.GumutindoFieldOfficerMarker(testFOPerson);
+        gFOMarker.setParentRegistered('pr');
+        System.assert('pr'.equals(gFOMarker.getParentRegistered()));
+        System.assert(gFOMarker.getMarkerInfoContentString() != null);
+        
+        GumutindoHelpers.GumutindoPrimarySocietyMarker gPSMarker = new GumutindoHelpers.GumutindoPrimarySocietyMarker(testSociety);
+        gPSMarker.setParentRegistered('pr');
+        System.assert('pr'.equals(gPSMarker.getParentRegistered()));
+        System.assert(gPSMarker.getMarkerInfoContentString() != null);*/
         //System.assert(GumutindoHelpers.gumu().size() == 1);
         Test.stopTest();
 

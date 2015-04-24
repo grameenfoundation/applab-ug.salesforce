@@ -1,9 +1,11 @@
+/*
+* Test class - GumutindoDashboardTests
+*/
 public class GumutindoHelpers {
 	public GumutindoHelpers() {
 		
 	}
-
-    //Metrics    
+  
     public static final String ORG_NAME = 'Gumutindo Project';
     public static final String FARMERS_REGISTERED = 'GUMUTINDO_farmers_registered';
     public static final String FARMERS_USING_ATLEAST_3_AGROC_PRACTICES = 'GUMUTINDO_target_farmers_using_at_least_three_of_recommended_agroc_practices';
@@ -164,7 +166,10 @@ public class GumutindoHelpers {
         return methods;
     }
                 
-	//Differentiated from the value of areaName in the List(Map)
+	/*
+	* Populates Wrapper with data, categorizes metric names into the various metric sections
+	*  @param quarter - The quarter for which data is collected 
+	*/
 	public static GumutindoHelpers.Wrapper getData(String quarter) {
         Map<String, Map<String, GumutindoHelpers.DataWrapper>> metricWrappers = new Map<String, Map<String, 
             GumutindoHelpers.DataWrapper>>();
@@ -178,6 +183,7 @@ public class GumutindoHelpers {
         String metricKey = '';
         String areaName = '';
         String query = 'SELECT ' +
+        'Id,' +
         'Metric_Name__c, ' +
         'Section__c, ' +
         'Label__c, ' +
@@ -186,7 +192,8 @@ public class GumutindoHelpers {
         'Gumutindo_Targets__c ';
         
         System.debug(LoggingLevel.INFO, query);
-        for (Gumutindo_Targets__c metric : database.query(query)) {
+        List<Gumutindo_Targets__c> targets = database.query(query);
+        for (Gumutindo_Targets__c metric : targets) {
             // See if we have a valid metric name and that it is not the same as the next metric in the list.
             // If it isn't then we need to save the metric from the last loop and move on to a new metric
             if (!metricName.equals(metric.Metric_Name__c)) {
@@ -223,21 +230,21 @@ public class GumutindoHelpers {
             metricDataWrapper.name = metricName;
             metricDataWrapper.label = metric.Label__c;
             //metricDataWrapper.order = metric.M_E_Metric__r.Order__c;
-            //metricDataWrapper.metric_id = Id;
-            //metricDataWrapper.metric_data_id = metric.Id;
+            metricDataWrapper.metric_id = metric.Id;
+            metricDataWrapper.metric_data_id = metric.Id;
             //Formular field. It displays Manual_Value__c
             metricDataWrapper.project_target = metric.Target__c == null ? 0 : (Integer)metric.Target__c;
             // calculating cummulative value. For manual indicators just display value
             //Decimal cummulativeResult = getPreviousFarmerSum(quarterLastDay, metricName)[0];
             
-            metricDataWrapper.cummulative_actual_reached = getPreviousFarmerSum(quarterLastDay, metricName)[0];
+            metricDataWrapper.cummulative_actual_reached = getPreviousDataSum(quarterLastDay, metricName)[0];
             
             metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
                         (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
             
-            metricDataWrapper.cummulative_actual_reached = getPreviousFarmerSum(quarterLastDay, metricName)[0];
+            //metricDataWrapper.cummulative_actual_reached = getPreviousDataSum(quarterLastDay, metricName)[0];
   
-            metricDataWrapper.quarter_actual_reached = getFarmersReachedInQuarter(quarter, metricName)[0];
+            metricDataWrapper.quarter_actual_reached = getDataInQuarter(quarter, metricName)[0];
             metricDataWrapper.quarter_target = getQuarterlyTargets(metricName) == null ? 0 : (Integer)getQuarterlyTargets(metricName).Target__c;
 
             // calculate the % actual for this quarter: skip if quarter projected value is not provided
@@ -246,7 +253,7 @@ public class GumutindoHelpers {
                     (metricDataWrapper.quarter_actual_reached /  metricDataWrapper.quarter_target) * 100 : null;
                     
             metricDataWrapper.percent_quarter_actual_reached = percentQuarter;
-            //metricDataWrapper.setSparkUrl(String.valueOf(metric.M_E_Metric__r.Id));
+            metricDataWrapper.setSparkUrl(String.valueOf(metric.Id));
         }
 
         // Add the last object
@@ -273,7 +280,7 @@ public class GumutindoHelpers {
 	
 
     /**
-     *  Processes the Gumutindo GCCE Farm entrance survey submission
+     *  Processes the Gumutindo GCCE Internal Inspection survey submission
      *
      *  @param submission - The submission object being processed
      *  @param answers    - A map containing the values for the registration
@@ -285,7 +292,6 @@ public class GumutindoHelpers {
      *              element 2 - Error message if required for the logs and tech team
      *              element 3 - Message body to the F/O if required.
      */
-    //GCCE Internal Inspection
     public static List<String> processGCCEInternalInspectionSurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
         List<String> returnValues = new List<String>();
         
@@ -313,8 +319,61 @@ public class GumutindoHelpers {
 	        List<String> metricNames = null;
 	        
 	        // get information from farmer registration
-	        if(type == SubmissionType.FARMER_REGISTRATION){
-	            	            
+            if(type == SubmissionType.FARMER_REGISTRATION){
+	        	
+	            String psName;
+                if(answers.get('q1_0').Answer__c == '1') {
+	                psName = 'Buginyanya';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '2') {
+	                psName = 'Kikuyu';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '3') {
+	                psName = 'Bunabudde';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '4') {
+	                psName = 'Nasufwa';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '5') {
+	                psName = 'Masira';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '6') {
+	                psName = 'Demukata';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '7') {
+	                psName = 'Busamaga';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '8') {
+	                psName = 'Nagudi Bwira';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '9') {
+	                psName = 'Lwambogo';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '10') {
+	                psName = 'Konokoyi';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '11') {
+	                psName = 'Bumayoga';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '12') {
+	                psName = 'Buweswa';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '13') {
+	                psName = 'Bumatanda';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '14') {
+	                psName = 'Sipi';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '15') {
+	                psName = 'Bukalasi';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '16') {
+	                psName = 'Buteteya';
+	            }
+	            else if(answers.get('q1_0').Answer__c == '17') {
+	                psName = 'Buwambigwa';
+	            }
+	                        
 	            String farmerName = answers.get('q2_0').Answer__c;
 	            String village = answers.get('q3_0').Answer__c;
 	            Integer numberOftrees = answers.get('q5_0').Answer__c !=null ? Integer.valueOf(answers.get('q5_0').Answer__c) : 0;
@@ -371,7 +430,17 @@ public class GumutindoHelpers {
                 String comment = answers.get('q9_0').Answer__c == '1' ? 'Under conversion' : 'Certified fair trade organic';
                 String advice = answers.get('q44_0').Answer__c;
                 
+                List<Gumutindo_Primary_Society__c> primarySocieties = [
+	               SELECT
+	                   Id
+	               FROM 
+	                   Gumutindo_Primary_Society__c
+	               WHERE
+	                   Name_of_PS__c = :psName  
+	            ];
+                
                 Gumutindo_Farmer__c gFarmer = new Gumutindo_Farmer__c();
+                gFarmer.Gumutindo_Primary_Society__c  = primarySocieties[0].Id;
                 gFarmer.Name_of_Respondent__c = farmerName;
                 gFarmer.Village__c = village;
                 gFarmer.Number_of_Trees__c = numberOftrees;
@@ -407,7 +476,7 @@ public class GumutindoHelpers {
     }
     
     /**
-     *  Processes the Gumutindo GCCE Farm entrance survey submission
+     *  Processes the Gumutindo Impacts 2015 survey submission
      *
      *  @param submission - The submission object being processed
      *  @param answers    - A map containing the values for the registration
@@ -419,8 +488,6 @@ public class GumutindoHelpers {
      *              element 2 - Error message if required for the logs and tech team
      *              element 3 - Message body to the F/O if required.
      */
-
-   //Impacts 2015
     public static List<String> processImpacts2015Survey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
         List<String> returnValues = new List<String>();
         
@@ -525,9 +592,20 @@ public class GumutindoHelpers {
 
         return new String[] { '1', 'GCCE Internal inspection Survey processed IMEI: ' + submission.imei, 'SUPRESSMSG' };
     }
-    
-    //Activity Survey
-   public static List<String> processActivitySurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
+    /**
+     *  Processes the Gumutindo Activity survey submission
+     *
+     *  @param submission - The submission object being processed
+     *  @param answers    - A map containing the values for the registration
+     *                       The keys are <binding>_<instance> for compatibility
+     *  @param person     - The Person__c object for the Person that Submitted the Survey
+     *
+     *  @return - A three element list of Strings with the following format
+     *              element 1 - Binary indicator of success (0 = fail, 1 = success)
+     *              element 2 - Error message if required for the logs and tech team
+     *              element 3 - Message body to the F/O if required.
+     */
+    public static List<String> processActivitySurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
         List<String> returnValues = new List<String>();
         
         
@@ -580,8 +658,19 @@ public class GumutindoHelpers {
 
         return new String[] { '1', 'Activity Survey processed IMEI: ' + submission.imei, 'SUPRESSMSG' };
     }
-    
-    //Society GPS. Special
+    /**
+     *  Processes the Gumutindo Society GPS survey submission
+     *
+     *  @param submission - The submission object being processed
+     *  @param answers    - A map containing the values for the registration
+     *                       The keys are <binding>_<instance> for compatibility
+     *  @param person     - The Person__c object for the Person that Submitted the Survey
+     *
+     *  @return - A three element list of Strings with the following format
+     *              element 1 - Binary indicator of success (0 = fail, 1 = success)
+     *              element 2 - Error message if required for the logs and tech team
+     *              element 3 - Message body to the F/O if required.
+     */
     public static List<String> processSocietyGPSSurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
         /*List<String> returnValues = new List<String>();
         
@@ -636,7 +725,7 @@ public class GumutindoHelpers {
     }
 
     /**
-     *  Processes the Gumutindo Group survey submission
+     *  Processes the Gumutindo GCCE PS survey submission
      *
      *  @param submission - The submission object being processed
      *  @param answers    - A map containing the values for the registration
@@ -648,7 +737,7 @@ public class GumutindoHelpers {
      *              element 2 - Error message if required for the logs and tech team
      *              element 3 - Message body to the F/O if required.
      */
-   //GCCE PS. Special
+   
     public static List<String> processGCCEPSSurvey(ProcessSurveySubmission.SurveySubmission submission, Map<String, Submission_Answer__c> answers, Person__c person) {
         List<String> returnValues = new List<String>();
         
@@ -770,41 +859,9 @@ public class GumutindoHelpers {
         return new String[] { '1', 'GCCE PS Survey processed IMEI: ' + submission.imei, 'SUPRESSMSG' };
     }
 
-    /**
-     *  Processes the Gumutindo Group Farmer Member Assessment survey submission
-     *
-     *  @param submission - The submission object being processed
-     *  @param answers    - A map containing the values for the registration
-     *                       The keys are <binding>_<instance> for compatibility
-     *  @param person     - The Person__c object for the Person that Submitted the Survey
-     *
-     *  @return - A three element list of Strings with the following format
-     *              element 1 - Binary indicator of success (0 = fail, 1 = success)
-     *              element 2 - Error message if required for the logs and tech team
-     *              element 3 - Message body to the F/O if required.
-     */
-   
-
-    /**
-     *  Returns the year of operation given the date
-     *
-     *  @param inputDate - The date for which the operation year is to be determined     
-     *  @return - A string showing the year of operation
-     */
-    public static String getMumutindoProjectYear(Date inputDate) {
-	    if(inputDate < Date.valueOf('2015-01-01')) {
-		    return '1';
-	    }
-	    else if(inputDate >= Date.valueOf('2015-01-01') && inputDate < Date.valueOf('2016-01-01')) {
-		    return '2';
-	    }
-	    else {
-		    return '3';
-	    }
-    }
     
-    public static List<Double> getFarmersReachedInQuarter(String quarter, String metricName){
-    	Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
+    public static List<Double> getDataInQuarter(String quarter, String metricName){
+        Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
         Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
         List<Double> totals = new List<Double>();
         if(metricName.equals(FARMERS_REGISTERED)){
@@ -1176,7 +1233,7 @@ public class GumutindoHelpers {
     	return totals;
     }
     
-    public static List<Decimal> getPreviousFarmerSum(Date quarterLastDay, String metricName) {
+    public static List<Decimal> getPreviousDataSum(Date quarterLastDay, String metricName) {
     	List<Decimal> totals = new List<Decimal>();
     	if(metricName.equals(FARMERS_REGISTERED)){
     	    AggregateResult farmersReached =  [
@@ -1456,62 +1513,6 @@ public class GumutindoHelpers {
        }
         return totals;
     }
-    
-    public static Gumutindo_Farmer__c getFarmersReachedMetricData(String quarter) {
-        //Gets the metric datas, for the current quarter
-        Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
-        Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
-        //System.debug('Dates are '+quarterFirstDay +' and '+quarterLastDay);
-        Gumutindo_Farmer__c[] metric = [
-            SELECT 
-                Name, //Total Farmers Reached
-                Comment_on_contract__c,
-                Cover_crops__c,
-                Date__c,
-                Erosion_Control__c,
-                GPS_Location__c,
-                Have_Contract_with_Gumutindo__c,
-                Manure_Applied__c,
-                Name_of_Respondent__c,
-                New_advice_given__c,
-                Number_of_Coffee_Plots__c,
-                Number_of_Trees__c,
-                Pruning__c,
-                Shade_Trees__c,
-                Weeding__c,
-                Yield_Estimates__c
-            FROM
-                Gumutindo_Farmer__c
-            WHERE
-                Date__c >=:quarterFirstDay    
-                and Date__c <=:quarterLastDay  
-        ];
-        if(metric.size() <= 0){
-            return null;
-        }
-        	return metric[0];
-    }
-
-
-    public static Map<String, M_E_Metric__c> getAllMetrics(){
-        String query = 'SELECT '                                        +
-                            'Id, '                                      +
-                            'Name, '                                    +
-                            'Label__c, '                                +
-                            'Projected_Value__c, '                      +
-                            'Further_Link_Text__c, '                    +
-                            'Further_Link_Url__c '                      +
-                        'FROM '                                         +
-                            'M_E_Metric__c '                            +
-                        'WHERE '                                        +
-                            'Name LIKE \'GUMUTINDO_%\' ';
-        Map<String, M_E_Metric__c> metricMap = new Map<String, M_E_Metric__c>();
-        for(M_E_Metric__c metric : database.query(query)){
-            metricMap.put(metric.Name.toLowerCase(), metric);
-        }
-        return metricMap;
-    }
-
 
     public static CKW__c loadCkw(Person__c person) {
         CKW__c[] ckw = [
@@ -1960,11 +1961,70 @@ public class GumutindoHelpers {
         public Decimal cummulative_actual_reached { get; set; }
         public Double percent_cummulative_actual_reached { get; set; }
         public Decimal order { get; set; }
-        //public Id metric_id { get; set; }
-        //public Id metric_data_id { get; set; }
-        //public String spark_url { get; set; }
+        public Id metric_id { get; set; }
+        public Id metric_data_id { get; set; }
+        public String spark_url { get; set; }
 
         public DataWrapper() {
+        }
+        
+        public void setSparkUrl(String metricId) {
+        	spark_url = 'http://chart.apis.google.com/chart?chs=55x20&cht=lxy:nda' +
+	                       '&chco=00FF00,0000FF&chf=bg,s,00000000&chls=2|2';
+	        /*String query = 
+	            'SELECT ' +
+                    'Id,' +
+                    'Metric_Name__c, ' +
+                    'Section__c, ' +
+                    'Label__c, ' +
+                    'Target__c ' +
+                'FROM '  +
+                    'Gumutindo_Targets__c '+
+                'WHERE '+
+                    'Id =: metricId';
+	        Gumutindo_Targets__c[] data = database.query(query);
+	
+	        String chdActual = ''; // Actual values
+	        String chdProjected = ''; // Projected values
+	
+	        // Because we show one less coordinate for the actual graph, we have to do xy graphs, 
+	        // so we need to track the xpoint
+	        Integer xCount = 0;
+	        Integer total = data.size();
+	        String xProjected = '';
+	        String xActual = ''; 
+	
+	        for(Gumutindo_Targets__c item : data) {
+	            
+	            chdProjected += item.Target__c  != null ? item.Target__c + ',' : '0,';
+	            xProjected += (xCount * 100 / Math.max(1, total - 1)) + ',';*/
+
+                /*if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
+                        item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count') {
+
+                    chdActual += item.Numerator__c != null ? item.Numerator__c + ',' : '0,';
+                }
+                else if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
+                    chdActual += (item.Numerator__c != null && item.Denumerator__c != null && item.Denumerator__c != 0) ?
+                            ((item.Numerator__c / item.Denumerator__c) * 100).setScale(2) + ',' : '0,';
+                }*/
+               // xActual += (xCount * 100 / Math.max(1,total - 1)) + ',';
+	          //  xCount++;
+	       // }
+	
+	        // Remove the last comma or pipe
+	        /*if(chdActual.length() > 1) {
+	            chdActual = chdActual.substring(0, chdActual.length() -1);
+	            xActual = xActual.substring(0, xActual.length() - 1);
+	        }
+	
+	        if(chdProjected.length() > 1) {
+	            chdProjected = chdProjected.substring(0, chdProjected.length() -1);
+	            xProjected = xProjected.substring(0, xProjected.length() -1 );
+	        }
+	 
+	        spark_url += '&chd=t:' + xProjected + '|' + chdProjected + '|' + xActual + '|' + chdActual;
+	        System.debug(spark_url);*/
         }
         
     }
