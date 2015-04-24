@@ -1,25 +1,5 @@
 @isTest
 public class MisSubcountyMarketPricesTest {
-
-    
-    static testMethod void testValidatePeakDayCorrect() {
-       
-        C3P0_Market__c c3po=new C3P0_Market__c();
-        Date dDate = System.today();
-        Datetime dt = (DateTime)dDate;
-        String dayOfWeek = dt.format('EEEE'); 
-        c3po.Peak__c=dayOfWeek;
-              
-        system.assertEquals(true,MISPeakDay.applyPeakDayValidation(c3po));        
-    }
-    
-    static testMethod void testValidatePeakDayWrong() {
-       
-        C3P0_Market__c c3po=new C3P0_Market__c();
-        c3po.Peak__c='Thursd';
-              
-        system.assertEquals(false,MISPeakDay.applyPeakDayValidation(c3po));        
-    }
     
     static testMethod void testValidateMasindiGPSWithinRange() {
         Market_Masindi__c mrktM=new Market_Masindi__c();
@@ -101,7 +81,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -114,7 +94,7 @@ public class MisSubcountyMarketPricesTest {
         system.assertEquals(data1, 'test Market');
         
         Market_Masindi__c marketXMasindi = new Market_Masindi__c();
-        marketXMasindi.Date_of_capture__c = system.now().addDays(-1).date();
+        marketXMasindi.Date_of_capture__c =system.now().addDays(-1).date();
         marketXMasindi.GPS_Location__Latitude__s = 0.337352;
         marketXMasindi.GPS_Location__Longitude__s = 32.600415;
         marketXMasindi.Contact__c = [SELECT Id FROM Contact WHERE FirstName = 'Dan' LIMIT 1].Id;
@@ -167,7 +147,8 @@ public class MisSubcountyMarketPricesTest {
         String content = [SELECT Content__c FROM Menu_Item__c WHERE Label__c = 'Maize' LIMIT 1].Content__c;
         
         system.assertEquals(content, 'Average Retail Price 1500 Per Kg'+
-                '\N Average Wholesale Price 1100 Per Kg');
+                '\N Average Wholesale Price 1100 Per Kg');  
+       MisSubcountyMarketPrices.computeMasindiSunflowerPriceAverages('test Market');     
                 
     }
     
@@ -185,7 +166,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate =system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -253,6 +234,8 @@ public class MisSubcountyMarketPricesTest {
         system.assertEquals(content, 'Average Retail Price 1500 Per Kg'+
                 '\N Average Wholesale Price 1100 Per Kg');
                 
+        MisSubcountyMarketPrices.computeAllPrices();
+                
     }
     
     static testMethod void masindiCassavaPricesTest() {
@@ -269,7 +252,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -353,7 +336,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -437,7 +420,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -521,7 +504,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate =system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -605,7 +588,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -689,7 +672,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -773,7 +756,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -857,7 +840,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -941,7 +924,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1025,7 +1008,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1109,7 +1092,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -1193,7 +1176,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1277,7 +1260,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1290,7 +1273,7 @@ public class MisSubcountyMarketPricesTest {
         system.assertEquals(data1, 'test Market');
         
         Market_Bushenyi__c marketXBushenyi = new Market_Bushenyi__c();
-        marketXBushenyi.Date_of_capture__c = system.now().addDays(-1).date();
+        marketXBushenyi.Date_of_capture__c =system.now().addDays(-1).date();
         marketXBushenyi.GPS_Location__Latitude__s = 0.337352;
         marketXBushenyi.GPS_Location__Longitude__s = 32.600415;
         marketXBushenyi.Contact__c = [SELECT Id FROM Contact WHERE FirstName = 'Dan' LIMIT 1].Id;
@@ -1361,7 +1344,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1445,7 +1428,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1529,7 +1512,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -1613,7 +1596,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek; 
@@ -1697,7 +1680,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1781,7 +1764,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
@@ -1865,7 +1848,7 @@ public class MisSubcountyMarketPricesTest {
         market.Parish__c = 'NA';
         market.Village__c = 'NA';
         market.Market_Size__c = 300;
-        Date dDate = System.today();
+        Date dDate = system.now().addDays(-1).date();
         Datetime dt = (DateTime)dDate;
         String dayOfWeek = dt.format('EEEE'); 
         market.Peak__c=dayOfWeek;
