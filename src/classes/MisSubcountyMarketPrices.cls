@@ -69,7 +69,7 @@ public class MisSubcountyMarketPrices {
                 Market_Masindi__c 
             WHERE 
                 Date_of_capture__c = YESTERDAY ];
-    
+                    
         for (Market_Masindi__c submission : submissions){
             String marketName = [
                 SELECT 
@@ -173,7 +173,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Maize'];
-        if(maizeMenuItems.size() > 0) {
+        if(maizeMenuItems.size() > 0 && maizeResult.size() > 0) {
         	Menu_Item__c maizeMenuItem = maizeMenuItems[0];           
             if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
                 Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
@@ -214,7 +214,7 @@ public class MisSubcountyMarketPrices {
             AND 
                 Label__c='Sunflower'];
         //Check whether the Menu Item exists
-        if(sunflowerMenuItems.size() > 0) {
+        if(sunflowerMenuItems.size() > 0 && sunflowerResult.size() > 0) {
             Menu_Item__c sunflowerMenuItem = sunflowerMenuItems[0];        
             //Check whether the aggregate result has both retail and wholesales prices
         	if (String.valueOf(sunflowerResult[0].get('retail')) != null && String.valueOf(sunflowerResult[0].get('wholesale')) != null){   
@@ -254,7 +254,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Cassava'];
-       if(cassavaMenuItems.size() > 0) {
+       if(cassavaMenuItems.size() > 0 && cassavaResult.size() > 0) {
            Menu_Item__c cassavaMenuItem = cassavaMenuItems[0]; 
            if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
                Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
@@ -294,7 +294,7 @@ public class MisSubcountyMarketPrices {
             AND 
                 Label__c='K132 Beans'];
                 
-        if(kBeansMenuItems.size() > 0){
+        if(kBeansMenuItems.size() > 0 && kBeansResult.size() > 0){
         	Menu_Item__c kBeansMenuItem = kBeansMenuItems[0];
             if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
                 Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
@@ -334,7 +334,7 @@ public class MisSubcountyMarketPrices {
             AND 
                 Label__c='Dry Nambale Beans'];
             
-        if(nambaleBeansMenuItems.size() > 0){
+        if(nambaleBeansMenuItems.size() > 0 && nambaleBeansResult.size() > 0){
             Menu_Item__c nambaleBeansMenuItem = nambaleBeansMenuItems[0];                
             if (String.valueOf(nambaleBeansResult[0].get('retail')) != null){    
                 Integer averageRetailPrice = Integer.valueOf(nambaleBeansResult[0].get('retail'));
@@ -373,7 +373,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Banana'];
-        if(bananaMenuItems.size() > 0){
+        if(bananaMenuItems.size() > 0 && bananaResult.size() > 0){
         	Menu_Item__c bananaMenuItem = bananaMenuItems[0];
             if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
                 Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
@@ -412,7 +412,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Coffee'];
-        if(coffeeMenuItems.size() > 0){
+        if(coffeeMenuItems.size() > 0 && coffeeResult.size() > 0){
         	Menu_Item__c coffeeMenuItem = coffeeMenuItems[0];
             if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null) {
                 Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
@@ -451,7 +451,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Sweet Potatoes'];
-        if(sweetPotatoesMenuItems.size() > 0) {
+        if(sweetPotatoesMenuItems.size() > 0 && sweetPotatoesResult.size() > 0) {
         	Menu_Item__c sweetPotatoesMenuItem = sweetPotatoesMenuItems[0];
             if (String.valueOf(sweetPotatoesResult[0].get('retail')) != null && String.valueOf(sweetPotatoesResult[0].get('wholesale')) != null) {
                 Integer averageRetailPrice = Integer.valueOf(sweetPotatoesResult[0].get('retail'));
@@ -490,7 +490,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Maize'];
-        if(maizeMenuItems.size() > 0){
+        if(maizeMenuItems.size() > 0 && maizeResult.size() > 0){
         	Menu_Item__c maizeMenuItem = maizeMenuItems[0];
             if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
             	Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
@@ -529,7 +529,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Coffee'];
-        if(coffeeMenuItems.size() > 0){
+        if(coffeeMenuItems.size() > 0 && coffeeResult.size() > 0){
         	Menu_Item__c coffeeMenuItem = coffeeMenuItems[0];
             if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null){   
                 Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
@@ -568,7 +568,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Gnuts'];
-       if(gnutsMenuItems.size() > 0){
+       if(gnutsMenuItems.size() > 0 && cassavaResult.size() >0){
            Menu_Item__c gnutsMenuItem = gnutsMenuItems[0];
            if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
                Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
@@ -607,7 +607,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='K132 Beans'];
-        if(kBeansMenuItems.size() > 0) {
+        if(kBeansMenuItems.size() > 0 && kBeansResult.size() > 0) {
         	Menu_Item__c kBeansMenuItem = kBeansMenuItems[0];
             if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
                 Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
@@ -646,7 +646,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Dry Nambale Beans'];
-        if(nambaleBeansMenuItems.size() > 0){
+        if(nambaleBeansMenuItems.size() > 0 && nambaleBeansResult.size() > 0){
         	Menu_Item__c nambaleBeansMenuItem = nambaleBeansMenuItems[0];
             if (String.valueOf(nambaleBeansResult[0].get('retail')) != null){    
                 Integer averageRetailPrice = Integer.valueOf(nambaleBeansResult[0].get('retail'));
@@ -685,7 +685,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Banana'];
-        if(bananaMenuItems.size() > 0) {
+        if(bananaMenuItems.size() > 0 && bananaResult.size() > 0) {
         	Menu_Item__c bananaMenuItem = bananaMenuItems[0];
             if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
         	    Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
@@ -724,7 +724,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Maize'];
-        if(maizeMenuItems.size() > 0){
+        if(maizeMenuItems.size() > 0 && maizeResult.size() > 0){
             Menu_Item__c maizeMenuItem = maizeMenuItems[0];   
             if(String.valueOf(maizeResult[0].get('retail')) != null && String.valueOf(maizeResult[0].get('wholesale')) != null){
         	    Integer averageRetailPrice = Integer.valueOf(maizeResult[0].get('retail'));
@@ -763,7 +763,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Coffee'];
-        if(coffeeMenuItems.size() > 0) {
+        if(coffeeMenuItems.size() > 0 && coffeeResult.size() > 0) {
             Menu_Item__c coffeeMenuItem = coffeeMenuItems[0];
             if (String.valueOf(coffeeResult[0].get('retail')) != null && String.valueOf(coffeeResult[0].get('wholesale')) != null){   
                 Integer averageRetailPrice = Integer.valueOf(coffeeResult[0].get('retail'));
@@ -802,7 +802,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Cassava'];
-       if(cassavaMenuItems.size() > 0){
+       if(cassavaMenuItems.size() > 0 && cassavaResult.size() > 0){
            Menu_Item__c cassavaMenuItem = cassavaMenuItems[0];
            if(String.valueOf(cassavaResult[0].get('retail')) !=null && String.valueOf(cassavaResult[0].get('wholesale')) !=null) {     
                Integer averageRetailPrice = Integer.valueOf(cassavaResult[0].get('retail'));
@@ -841,7 +841,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='K132 Beans'];
-        if(kBeansMenuItems.size() > 0){ 
+        if(kBeansMenuItems.size() > 0 && kBeansResult.size() > 0){ 
         	Menu_Item__c kBeansMenuItem = kBeansMenuItems[0];
             if(String.valueOf(kBeansResult[0].get('retail')) != null && String.valueOf(kBeansResult[0].get('wholesale')) != null){  
                 Integer averageRetailPrice = Integer.valueOf(kBeansResult[0].get('retail'));
@@ -881,7 +881,7 @@ public class MisSubcountyMarketPrices {
             AND 
                 Label__c='Sweet Potatoes'];
                 
-        if(sweetPotatoesMenuItems.size() > 0) {
+        if(sweetPotatoesMenuItems.size() > 0 && sweetPotatoesResult.size() > 0) {
             Menu_Item__c sweetPotatoesMenuItem = sweetPotatoesMenuItems[0];      
             if (String.valueOf(sweetPotatoesResult[0].get('retail')) != null){    
                 Integer averageRetailPrice = Integer.valueOf(sweetPotatoesResult[0].get('retail'));
@@ -920,7 +920,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Banana'];
-        if(bananaMenuItems.size() > 0){
+        if(bananaMenuItems.size() > 0 && bananaResult.size() > 0){
         	Menu_Item__c bananaMenuItem = bananaMenuItems[0];
             if (String.valueOf(bananaResult[0].get('retail')) != null && String.valueOf(bananaResult[0].get('wholesale')) != null) {
         	    Integer averageRetailPrice = Integer.valueOf(bananaResult[0].get('retail'));
@@ -959,7 +959,7 @@ public class MisSubcountyMarketPrices {
                 Parent_Item__r.Label__c = : marketName
             AND 
                 Label__c='Dry Nambale Beans'];
-        if(nambaleMenuItems.size() > 0){
+        if(nambaleMenuItems.size() > 0 && nambaleResult.size() > 0){
         	Menu_Item__c nambaleMenuItem = nambaleMenuItems[0];
             if (String.valueOf(nambaleResult[0].get('retail')) != null && String.valueOf(nambaleResult[0].get('wholesale')) != null) {
         	    Integer averageRetailPrice = Integer.valueOf(nambaleResult[0].get('retail'));
@@ -999,7 +999,7 @@ public class MisSubcountyMarketPrices {
             AND 
                 Label__c='Millet'];
                 
-        if(milletMenuItems.size() > 0) {
+        if(milletMenuItems.size() > 0 && milletResult.size() > 0) {
         	Menu_Item__c milletMenuItem = milletMenuItems[0];
             if (String.valueOf(milletResult[0].get('retail')) != null && String.valueOf(milletResult[0].get('wholesale')) != null) {
         	    Integer averageRetailPrice = Integer.valueOf(milletResult[0].get('retail'));
