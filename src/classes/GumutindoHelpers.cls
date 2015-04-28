@@ -171,17 +171,10 @@ public class GumutindoHelpers {
 	*  @param quarter - The quarter for which data is collected 
 	*/
 	public static GumutindoHelpers.Wrapper getData(String quarter) {
+		Map<String, Double> actualMap = getDataInQuarter(quarter);
         Map<String, Map<String, GumutindoHelpers.DataWrapper>> metricWrappers = new Map<String, Map<String, 
             GumutindoHelpers.DataWrapper>>();
         Map<String, List<String>> metricWrapperOrder = new Map<String, List<String>>();
-        Map<String, GumutindoHelpers.DataWrapper> areaMap = null;// = new Map<String, GumutindoHelpers.DataWrapper>();
-        GumutindoHelpers.DataWrapper metricDataWrapper = null;// = new GumutindoHelpers.DataWrapper();
-        List<String> metricOrder = null;//new List<String>();
-        Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
-        Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
-        String metricName = '';
-        String metricKey = '';
-        String areaName = '';
         String query = 'SELECT ' +
         'Id,' +
         'Metric_Name__c, ' +
@@ -191,6 +184,21 @@ public class GumutindoHelpers {
         'FROM '  +
         'Gumutindo_Targets__c ';
         
+        //ID batchInstanceId = Database.executeBatch(new GumutindoRecords());
+        
+        Map<String, GumutindoHelpers.DataWrapper> areaMap = null;// = new Map<String, GumutindoHelpers.DataWrapper>();
+        GumutindoHelpers.DataWrapper metricDataWrapper = null;// = new GumutindoHelpers.DataWrapper();
+        List<String> metricOrder = null;//new List<String>();
+        Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
+        Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
+        String metricName = '';
+        String metricKey = '';
+        String areaName = '';
+        
+        //Initialize a map of metric names 
+        
+        Map<String, Double> cummulativeMap = getPreviousDataSum(quarterLastDay);
+     
         System.debug(LoggingLevel.INFO, query);
         List<Gumutindo_Targets__c> targets = database.query(query);
         for (Gumutindo_Targets__c metric : targets) {
@@ -235,16 +243,16 @@ public class GumutindoHelpers {
             //Formular field. It displays Manual_Value__c
             metricDataWrapper.project_target = metric.Target__c == null ? 0 : (Integer)metric.Target__c;
             // calculating cummulative value. For manual indicators just display value
-            //Decimal cummulativeResult = getPreviousFarmerSum(quarterLastDay, metricName)[0];
+            //Decimal cummulativeResult = cummulativeMap.get(metricName);
             
-            metricDataWrapper.cummulative_actual_reached = getPreviousDataSum(quarterLastDay, metricName)[0];
+            metricDataWrapper.cummulative_actual_reached = cummulativeMap.get(metricName) == null ? 0.0 : (Decimal)cummulativeMap.get(metricName);
             
             metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
                         (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
             
             //metricDataWrapper.cummulative_actual_reached = getPreviousDataSum(quarterLastDay, metricName)[0];
   
-            metricDataWrapper.quarter_actual_reached = getDataInQuarter(quarter, metricName)[0];
+            metricDataWrapper.quarter_actual_reached = actualMap.get(metricName) == null ? 0.0 : actualMap.get(metricName);
             metricDataWrapper.quarter_target = getQuarterlyTargets(metricName) == null ? 0 : (Integer)getQuarterlyTargets(metricName).Target__c;
 
             // calculate the % actual for this quarter: skip if quarter projected value is not provided
@@ -273,7 +281,7 @@ public class GumutindoHelpers {
         areaMap.put(metricKey, metricDataWrapper);
         metricWrappers.put(areaName, areaMap);
         metricOrder.add(metricKey);
-        metricWrapperOrder.put(areaName, metricOrder);        
+        metricWrapperOrder.put(areaName, metricOrder);      
         
         return new GumutindoHelpers.Wrapper(metricWrappers, metricWrapperOrder);
     }
@@ -860,14 +868,14 @@ public class GumutindoHelpers {
     }
 
     
-    public static List<Double> getDataInQuarter(String quarter, String metricName){
+    public static Map<String, Double> getDataInQuarter(String quarter){
         Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
         Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
-        List<Double> totals = new List<Double>();
-        if(metricName.equals(FARMERS_REGISTERED)){
-    	    AggregateResult[] farmersReached = [
+        Map<String, Double> quarterData = new Map<String, Double>();
+        //FARMERS_REGISTERED
+    	    Decimal farmersReached = [
     	        SELECT 
-    	            COUNT(Name) numberOfFarmers
+    	            COUNT()
     	        FROM 
     	            Gumutindo_Farmer__c
     	        WHERE
@@ -875,646 +883,658 @@ public class GumutindoHelpers {
                 AND
                     Date__c <=:quarterLastDay 
     	];
-    	totals.add((Double)farmersReached[0].get('numberOfFarmers'));
-        }
-    	else if(metricName.equals(FARMERS_USING_ATLEAST_3_AGROC_PRACTICES) || metricName.equals(FARMERS_USING_ATLEAST_3_CLIMATE_SMART_AGRIC_PRACTICES)){
-    	    AggregateResult[] recommendedPractices = [
-    	        SELECT 
-    	            COUNT(Recommended_Practices__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Farmer__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                   Recommended_Practices__c = 'true' 
-    	    ];
-    	totals.add((Double)recommendedPractices[0].get('numberOfFarmers'));
-    	}
-    	else if(metricName.equals(PS_ARE_FAIR_TRADE_AND_ORGANIC_CERTIFIED)) {
-    	    AggregateResult[] contractComment = [
-    	        SELECT 
-    	            COUNT(Comment_on_contract__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Farmer__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                   Comment_on_contract__c = 'Certified fair trade organic' 
-    	    ];
-    	totals.add((Double)contractComment[0].get('numberOfFarmers'));
-    	}
-    	else if(metricName.equals(FARMERS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK)) {
-    	    AggregateResult[] adviceGiven = [
-    	        SELECT 
-    	            COUNT(New_advice_given__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Farmer__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    New_advice_given__c != null 
-    	    ];
-    	totals.add((Double)adviceGiven[0].get('numberOfFarmers'));
-    	} 	
-    	else if(metricName.equals(FARMERS_SATISFIED_WITH_QUALITY_OF_EXTENSION_SERVICES) || metricName.equals(FARMERS_PURCHASING_FERTILIZERS_THROUGH_GCCE)) {
-    		AggregateResult[] organicFertilizer = [
-    	        SELECT 
-    	            COUNT(Purchased_Organic_fertilizer_through_GCC__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Purchased_Organic_fertilizer_through_GCC__c = 'Yes' 
-    	    ];
-    	totals.add((Double)organicFertilizer[0].get('numberOfFarmers'));
-    	} 
+    	quarterData.put(FARMERS_REGISTERED, (Double)farmersReached);
+    	
+        //FARMERS_USING_ATLEAST_3_AGROC_PRACTICES || FARMERS_USING_ATLEAST_3_CLIMATE_SMART_AGRIC_PRACTICES
+    	Decimal recommendedPractices = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Farmer__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+               Recommended_Practices__c = 'true' 
+    	];
+    	quarterData.put(FARMERS_USING_ATLEAST_3_AGROC_PRACTICES, (Double)recommendedPractices);
+    	quarterData.put(FARMERS_USING_ATLEAST_3_CLIMATE_SMART_AGRIC_PRACTICES, (Double)recommendedPractices);
+    	    
+    	//PS_ARE_FAIR_TRADE_AND_ORGANIC_CERTIFIED
+    	Decimal contractComment = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Farmer__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+               Comment_on_contract__c = 'Certified fair trade organic' 
+    	];
+    	quarterData.put(PS_ARE_FAIR_TRADE_AND_ORGANIC_CERTIFIED, (Double)contractComment);
+    	
+    	//FARMERS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK
+    	Decimal adviceGiven = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Farmer__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                New_advice_given__c != null 
+    	];
+    	quarterData.put(FARMERS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK, (Double)adviceGiven);
+    	    
+    	//FARMERS_SATISFIED_WITH_QUALITY_OF_EXTENSION_SERVICES || FARMERS_PURCHASING_FERTILIZERS_THROUGH_GCCE
+    	Decimal organicFertilizer = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Purchased_Organic_fertilizer_through_GCC__c = 'Yes' 
+    	];
+    	quarterData.put(FARMERS_SATISFIED_WITH_QUALITY_OF_EXTENSION_SERVICES, (Double)organicFertilizer);
+    	quarterData.put(FARMERS_PURCHASING_FERTILIZERS_THROUGH_GCCE, (Double)organicFertilizer);
+    	    
     	//FARMERS_PURCHASING_SEEDLINGS_THROUGH_GCCE
-    	else if(metricName.equals(FARMERS_PURCHASING_SEEDLINGS_THROUGH_GCCE)) {
-    		AggregateResult[] organicFertilizer = [
-    	        SELECT 
-    	            COUNT(Ever_purchased_organic_seedlings_at_PS__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Ever_purchased_organic_seedlings_at_PS__c = 'Yes' 
-    	    ];
-    	totals.add((Double)organicFertilizer[0].get('numberOfFarmers'));
-    	}
+    	Decimal purchasedSeedlings = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Ever_purchased_organic_seedlings_at_PS__c = 'Yes' 
+        ];
+    	quarterData.put(FARMERS_PURCHASING_SEEDLINGS_THROUGH_GCCE, (Double)purchasedSeedlings);
+    	
     	//FARMERS_WHO_DELIVER_50_PERCENT_OF_HI_QUAL_COFFEE
-    	else if(metricName.equals(FARMERS_WHO_DELIVER_50_PERCENT_OF_HI_QUAL_COFFEE)) {
-    		AggregateResult[] hiQuality = [
-    	        SELECT 
-    	            COUNT(Sold_all_your_coffee_to_the_PS__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Sold_all_your_coffee_to_the_PS__c = 'Yes' 
-    	    ];
-    	totals.add((Double)hiQuality[0].get('numberOfFarmers'));
-    	}
+    	Decimal hiQuality = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Sold_all_your_coffee_to_the_PS__c = 'Yes' 
+    	];
+    	quarterData.put(FARMERS_WHO_DELIVER_50_PERCENT_OF_HI_QUAL_COFFEE, (Double)hiQuality);
+    	    
     	//FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS
-    	else if(metricName.equals(FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS)) {
-    		AggregateResult[] accessLoans = [
-    	        SELECT 
-    	            COUNT(Ever_acquired_an_Agro_input_loan_through__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Ever_acquired_an_Agro_input_loan_through__c = 'Yes' 
-    	    ];
-    	totals.add((Double)accessLoans[0].get('numberOfFarmers'));
-    	}
+    	Decimal accessLoans = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Ever_acquired_an_Agro_input_loan_through__c = 'Yes' 
+        ];
+    	quarterData.put(FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS, (Double)accessLoans);
+    	    
     	//FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES
-    	else if(metricName.equals(FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS)) {
-    		AggregateResult[] financialServices = [
-    	        SELECT 
-    	            COUNT(Name) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    (Financial_service_for_the_business__c = 'Bank' 
-                OR 
-                    Financial_service_for_the_business__c = 'Mobile Money') 
-    	    ];
-    	totals.add((Double)financialServices[0].get('numberOfFarmers'));
-    	}
+    	Decimal financialServices = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                (Financial_service_for_the_business__c = 'Bank' 
+            OR 
+                Financial_service_for_the_business__c = 'Mobile Money') 
+    	];
+    	quarterData.put(FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES, (Double)financialServices);
+    	
     	//FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES
-    	else if(metricName.equals(FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES)) {
-    		AggregateResult[] satisfactionWithServices = [
-    	        SELECT 
-    	            COUNT(Name) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Services_received_from_PS__c != 'None'
-    	    ];
-    	totals.add((Double)satisfactionWithServices[0].get('numberOfFarmers'));
-    	}
+    	Decimal satisfactionWithServices = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Services_received_from_PS__c != 'None'
+    	];
+    	quarterData.put(FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES, (Double)satisfactionWithServices);
+    	    
     	//FARMERS_WHO_REPORT_SATISFACTION_WITH_PS_SERVICES
-    	else if(metricName.equals(FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES)) {
-    		AggregateResult[] psMark = [
-    	        SELECT 
-    	            COUNT(Ps_Mark__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Ps_Mark__c > 3
-    	    ];
-    	totals.add((Double)psMark[0].get('numberOfFarmers'));
-    	}
+    	Decimal psMark = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Ps_Mark__c > 3
+    	];
+    	quarterData.put(FARMERS_WHO_REPORT_SATISFACTION_WITH_PS_SERVICES, (Double)psMark);
+    	   
     	//FARMERS_PURCHACE_INPUTS_THROUGH_ELECTRONIC_TRANSACTIONS
-    	else if(metricName.equals(FARMERS_PURCHACE_INPUTS_THROUGH_ELECTRONIC_TRANSACTIONS)) {
-    		AggregateResult[] purchasedInputs = [
-    	        SELECT 
-    	            COUNT(Purchase_Inputs_thru_Elec_Transactions__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Purchase_Inputs_thru_Elec_Transactions__c = 'Yes'
-    	    ];
-    	totals.add((Double)purchasedInputs[0].get('numberOfFarmers'));
-    	}
+    	Decimal purchasedInputs = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Purchase_Inputs_thru_Elec_Transactions__c = 'Yes'
+    	];
+    	quarterData.put(FARMERS_PURCHACE_INPUTS_THROUGH_ELECTRONIC_TRANSACTIONS, (Double)purchasedInputs);
+    	   
     	//FARMERS_RECEIVE_PAYMENT_THROUGH_ELECTRONIC_TRANSACTIONS
-    	else if(metricName.equals(FARMERS_PURCHACE_INPUTS_THROUGH_ELECTRONIC_TRANSACTIONS)) {
-    		AggregateResult[] electronicPayment = [
-    	        SELECT 
-    	            COUNT(Total_Number_of_Coffee_Trees_on_Farm__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Total_Number_of_Coffee_Trees_on_Farm__c != null
-    	    ];
-    	totals.add((Double)electronicPayment[0].get('numberOfFarmers'));
-    	}
+    	Decimal electronicPayment = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Total_Number_of_Coffee_Trees_on_Farm__c != null
+    	];
+    	quarterData.put(FARMERS_RECEIVE_PAYMENT_THROUGH_ELECTRONIC_TRANSACTIONS, (Double)electronicPayment);
+    	   
     	//FARMERS_PREPARED_TO_MANAGE_EFFECTS_OF_WEATHER_RELATED_SHOCKS
-    	else if(metricName.equals(FARMERS_PREPARED_TO_MANAGE_EFFECTS_OF_WEATHER_RELATED_SHOCKS)) {
-    		AggregateResult[] famersPrepaed = [
-    	        SELECT 
-    	            COUNT(Name) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Practices_that_Address_Climate_Change__c != null
-    	    ];
-    	totals.add((Double)famersPrepaed[0].get('numberOfFarmers'));
-    	}
+    	Decimal famersPrepaed = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Practices_that_Address_Climate_Change__c != null
+    	];
+    	quarterData.put(FARMERS_PREPARED_TO_MANAGE_EFFECTS_OF_WEATHER_RELATED_SHOCKS, (Double)famersPrepaed);
+
     	//FARMERS_WHO_CAN_CITE_ONE_CAUSE_OF_CLIMATE_CHANGE
-    	else if(metricName.equals(FARMERS_WHO_CAN_CITE_ONE_CAUSE_OF_CLIMATE_CHANGE)) {
-    		AggregateResult[] citeCause = [
-    	        SELECT 
-    	            COUNT(Name) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Reasons_for_Climate_Change__c != 'Don’t Know'
-    	    ];
-    	totals.add((Double)citeCause[0].get('numberOfFarmers'));
-    	}
+    	Decimal citeCause = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Reasons_for_Climate_Change__c != 'Don’t Know'
+    	];
+    	quarterData.put(FARMERS_WHO_CAN_CITE_ONE_CAUSE_OF_CLIMATE_CHANGE, (Double)citeCause);
+    	    
     	//FARMERS_WHO_USE_ATLEAST_2_OF_RECOMMENDED_WATER_CONSERVATION_MEASURES
-    	else if(metricName.equals(FARMERS_WHO_USE_ATLEAST_2_OF_RECOMMENDED_WATER_CONSERVATION_MEASURES)) {
-    		AggregateResult[] recommendedWater = [
-    	        SELECT 
-    	            COUNT(At_least_2_water_conservation_measures__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    At_least_2_water_conservation_measures__c = 'true'
-    	    ];
-    	totals.add((Double)recommendedWater[0].get('numberOfFarmers'));
-    	}
+    	Decimal recommendedWater = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                At_least_2_water_conservation_measures__c = 'true'
+    	];
+    	quarterData.put(FARMERS_WHO_USE_ATLEAST_2_OF_RECOMMENDED_WATER_CONSERVATION_MEASURES, (Double)recommendedWater);
+
     	//FARMERS_USING_ATLEAST_1_RECOMMEDED_AGROFORESTRY_PRACTICE
-    	else if(metricName.equals(FARMERS_USING_ATLEAST_1_RECOMMEDED_AGROFORESTRY_PRACTICE)) {
-    		AggregateResult[] agroforestryPractices = [
-    	        SELECT 
-    	            COUNT(Name) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Agro_forestry_Practices_Used__c != null
-    	    ];
-    	totals.add((Double)agroforestryPractices[0].get('numberOfFarmers'));
-    	}
+    	Decimal agroforestryPractices = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Agro_forestry_Practices_Used__c != null
+    	];
+    	quarterData.put(FARMERS_USING_ATLEAST_1_RECOMMEDED_AGROFORESTRY_PRACTICE, (Double)agroforestryPractices);
+    	
     	//FARMERS_GROW_ATLEAST_1_OF_THE_ADAPTED_AND_IMPROVED_CROP_VARIATIES
-    	else if(metricName.equals(FARMERS_GROW_ATLEAST_1_OF_THE_ADAPTED_AND_IMPROVED_CROP_VARIATIES)) {
-    		AggregateResult[] purchasedSeedlings = [
-    	        SELECT 
-    	            COUNT(Ever_purchased_organic_seedlings_at_PS__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
-    	    ];
-    	totals.add((Double)purchasedSeedlings[0].get('numberOfFarmers'));
-    	}
+    	Decimal purchasedSeedlingsFromPs = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
+    	];
+    	quarterData.put(FARMERS_GROW_ATLEAST_1_OF_THE_ADAPTED_AND_IMPROVED_CROP_VARIATIES, (Double)purchasedSeedlingsFromPs);
+    	
     	//FARMERS_WHO_USE_ENERGY_SAVING_COOKING_STOVES
-    	else if(metricName.equals(FARMERS_WHO_USE_ENERGY_SAVING_COOKING_STOVES)) {
-    		AggregateResult[] cookingStoves = [
-    	        SELECT 
-    	            COUNT(Using_Energy_Saving_Cooking_Stove__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Impacts__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Using_Energy_Saving_Cooking_Stove__c = 'Yes'
-    	    ];
-    	totals.add((Double)cookingStoves[0].get('numberOfFarmers'));
-    	}
+    	Decimal cookingStoves = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Using_Energy_Saving_Cooking_Stove__c = 'Yes'
+    	];
+    	quarterData.put(FARMERS_WHO_USE_ENERGY_SAVING_COOKING_STOVES, (Double)cookingStoves);
+    	    
     	//FARMERS_WHO_ACCESS_AVAILABLE_FINANCIAL_SERVICES_THROUGH_VSLAS
-    	else if(metricName.equals(FARMERS_WHO_ACCESS_AVAILABLE_FINANCIAL_SERVICES_THROUGH_VSLAS)) {
-    		AggregateResult[] financialServices = [
-    	        SELECT 
-    	            COUNT(Total_Number_of_VSLA_Members__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Vsla__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Total_Number_of_VSLA_Members__c != null
-    	    ];
-    	totals.add((Double)financialServices[0].get('numberOfFarmers'));
-    	}
-    	//PERCENTAGE_OF_PS_COMPLIANT_TO_ESTABLISHED_POLICIED_AND_PROCEDURES
-    	else if(metricName.equals(ADHERENCE_TO_GCCE_POLICIES) || metricName.equals(PERCENTAGE_OF_PS_WITH_ESTABLISHED_POLICIED_AND_PROCEDURES) || 
-    	     metricName.equals(PERCENTAGE_OF_PS_COMPLIANT_TO_ESTABLISHED_POLICIED_AND_PROCEDURES)) {
-    		AggregateResult[] establishedPolicies = [
-    	        SELECT 
-    	            COUNT(Adhere_to_Established_Policies__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Primary_Society__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Adhere_to_Established_Policies__c = 'Yes'
-    	    ];
-    	totals.add((Double)establishedPolicies[0].get('numberOfFarmers'));
-    	}
+    	Decimal finacialServicesThruVsla = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Vsla__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Total_Number_of_VSLA_Members__c != null
+    	];
+    	quarterData.put(FARMERS_WHO_ACCESS_AVAILABLE_FINANCIAL_SERVICES_THROUGH_VSLAS, (Double)finacialServicesThruVsla);
+    	    
+    	//ADHERENCE_TO_GCCE_POLICIES || PERCENTAGE_OF_PS_WITH_ESTABLISHED_POLICIED_AND_PROCEDURES ||PERCENTAGE_OF_PS_COMPLIANT_TO_ESTABLISHED_POLICIED_AND_PROCEDURES
+    	Decimal establishedPolicies = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Primary_Society__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Adhere_to_Established_Policies__c = 'Yes'
+    	];
+    	quarterData.put(ADHERENCE_TO_GCCE_POLICIES, (Double)establishedPolicies);
+    	quarterData.put(PERCENTAGE_OF_PS_WITH_ESTABLISHED_POLICIED_AND_PROCEDURES, (Double)establishedPolicies);
+    	quarterData.put(PERCENTAGE_OF_PS_COMPLIANT_TO_ESTABLISHED_POLICIED_AND_PROCEDURES, (Double)establishedPolicies);
+    	
     	//PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PROCURE_INPUTS
-    	else if(metricName.equals(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PROCURE_INPUTS)) {
-    		AggregateResult[] procureInputs = [
-    	        SELECT 
-    	            COUNT(Farmers_Procure_Farm_Inputs_Collectively__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Primary_Society__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Farmers_Procure_Farm_Inputs_Collectively__c = 'Yes'
-    	    ];
-    	totals.add((Double)procureInputs[0].get('numberOfFarmers'));
-    	}
-    	else if(metricName.equals(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PAY_FOR_INPUTS)) {
-    		AggregateResult[] payForInputs = [
-    	        SELECT 
-    	            COUNT(Pay_for_Inputs_Upon_Delivery__c) numberOfFarmers
-    	        FROM 
-    	            Gumutindo_Primary_Society__c
-    	        WHERE
-                    Date__c >=:quarterFirstDay    
-                AND
-                    Date__c <=:quarterLastDay 
-                AND 
-                    Pay_for_Inputs_Upon_Delivery__c = 'Yes'
-    	    ];
-    	totals.add((Double)payForInputs[0].get('numberOfFarmers'));
-    	}
-    	else {
-    		totals.add(0);
-    	}   
-    	return totals;
+    	Decimal procureInputs = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Primary_Society__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Farmers_Procure_Farm_Inputs_Collectively__c = 'Yes'
+    	];
+    	quarterData.put(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PROCURE_INPUTS, (Double)procureInputs);
+    	   
+    	//PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PAY_FOR_INPUTS
+    	Decimal payForInputs = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Primary_Society__c
+    	    WHERE
+                Date__c >=:quarterFirstDay    
+            AND
+                Date__c <=:quarterLastDay 
+            AND 
+                Pay_for_Inputs_Upon_Delivery__c = 'Yes'
+    	];
+    	quarterData.put(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PAY_FOR_INPUTS, (Double)payForInputs);
+    	   
+    	return quarterData;
     }
     
-    public static List<Decimal> getPreviousDataSum(Date quarterLastDay, String metricName) {
-    	List<Decimal> totals = new List<Decimal>();
-    	if(metricName.equals(FARMERS_REGISTERED)){
-    	    AggregateResult farmersReached =  [
-                SELECT 
-                    COUNT(Name) numerator 
-                FROM 
-                    Gumutindo_Farmer__c 
-                WHERE 
-                    Date__c <= :quarterLastDay ];  
-            totals.add((Decimal)farmersReached.get('numerator'));
-    	}
-        else if(metricName.equals(FARMERS_USING_ATLEAST_3_AGROC_PRACTICES) || metricName.equals(FARMERS_USING_ATLEAST_3_CLIMATE_SMART_AGRIC_PRACTICES)){     
-            AggregateResult recommendedPractices = [
-                SELECT 
-                    COUNT(Recommended_Practices__c) numerator 
-                FROM 
-                    Gumutindo_Farmer__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Recommended_Practices__c = 'true'
+    public static Map<String, Decimal> getPreviousDataSum(Date quarterLastDay) {
+    	Map<String, Decimal> dataSum = new Map<String, Decimal>();
+    	//FARMERS_REGISTERED
+    	Decimal farmersReached =  [
+            SELECT 
+                COUNT() 
+            FROM 
+                Gumutindo_Farmer__c 
+            WHERE 
+                Date__c <= :quarterLastDay ];  
+        dataSum.put(FARMERS_REGISTERED, farmersReached);
+    	
+        //FARMERS_USING_ATLEAST_3_AGROC_PRACTICES) || FARMERS_USING_ATLEAST_3_CLIMATE_SMART_AGRIC_PRACTICES    
+        Decimal recommendedPractices = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Farmer__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Recommended_Practices__c = 'true'
+        ];
+        dataSum.put(FARMERS_USING_ATLEAST_3_AGROC_PRACTICES, recommendedPractices);
+        dataSum.put(FARMERS_USING_ATLEAST_3_AGROC_PRACTICES, recommendedPractices);
+    	
+        //PS_ARE_FAIR_TRADE_AND_ORGANIC_CERTIFIED
+        Decimal contractComment = [
+            SELECT 
+                COUNT() 
+            FROM 
+                Gumutindo_Farmer__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Comment_on_contract__c = 'Certified fair trade organic'
+         ];
+         dataSum.put(PS_ARE_FAIR_TRADE_AND_ORGANIC_CERTIFIED, contractComment);
+          
+        //FARMERS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK
+        Decimal adviceGiven = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Farmer__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                New_advice_given__c != null
             ];
-            totals.add((Decimal)recommendedPractices.get('numerator'));
-    	}
-        else if(metricName.equals(PS_ARE_FAIR_TRADE_AND_ORGANIC_CERTIFIED)) {
-            AggregateResult contractComment = [
-                SELECT 
-                    COUNT(Comment_on_contract__c) numerator 
-                FROM 
-                    Gumutindo_Farmer__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Comment_on_contract__c = 'Certified fair trade organic'
+            dataSum.put(FARMERS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK, adviceGiven);
+       
+        //FARMERS_SATISFIED_WITH_QUALITY_OF_EXTENSION_SERVICES || FARMERS_PURCHASING_FERTILIZERS_THROUGH_GCCE
+        Decimal farmersSatisfied = [
+            SELECT 
+                COUNT() 
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
+           ];
+           dataSum.put(FARMERS_SATISFIED_WITH_QUALITY_OF_EXTENSION_SERVICES, farmersSatisfied);
+           dataSum.put(FARMERS_PURCHASING_FERTILIZERS_THROUGH_GCCE, farmersSatisfied);
+       
+        //FARMERS_PURCHASING_SEEDLINGS_THROUGH_GCCE
+        Decimal purchasedOrganicSeedlings = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
             ];
-           totals.add((Decimal)contractComment.get('numerator'));
-        }
-        else if(metricName.equals(FARMERS_WHO_RECEIVE_ADVISORY_SERVICES_FROM_CKW_NETWORK)) {
-            AggregateResult adviceGiven = [
-                SELECT 
-                    COUNT(New_advice_given__c) numerator 
-                FROM 
-                    Gumutindo_Farmer__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    New_advice_given__c != null
-                ];
-       totals.add((Decimal)adviceGiven.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_SATISFIED_WITH_QUALITY_OF_EXTENSION_SERVICES) || metricName.equals(FARMERS_PURCHASING_FERTILIZERS_THROUGH_GCCE)) {
-            AggregateResult farmersSatisfied = [
-                SELECT 
-                    COUNT(Purchased_Organic_fertilizer_through_GCC__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
-                ];
-       totals.add((Decimal)farmersSatisfied.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_PURCHASING_SEEDLINGS_THROUGH_GCCE)) {
-            AggregateResult purchasedOrganicSeedlings = [
-                SELECT 
-                    COUNT(Ever_purchased_organic_seedlings_at_PS__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
-                ];
-       totals.add((Decimal)purchasedOrganicSeedlings.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_WHO_DELIVER_50_PERCENT_OF_HI_QUAL_COFFEE)) {
-            AggregateResult hiQuality = [
-                SELECT 
-                    COUNT(Ever_purchased_organic_seedlings_at_PS__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
-                ];
-       totals.add((Decimal)hiQuality.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS)) {
-            AggregateResult accessLoans = [
-                SELECT 
-                    COUNT(Name) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    (Financial_service_for_the_business__c = 'Bank' 
-                OR 
-                    Financial_service_for_the_business__c = 'Mobile Money')
-                ];
-       totals.add((Decimal)accessLoans.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES)) {
-            AggregateResult satisfiedWithServices = [
-                SELECT 
-                    COUNT(Name) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Services_received_from_PS__c != 'None'
-                ];
-       totals.add((Decimal)satisfiedWithServices.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_WHO_REPORT_SATISFACTION_WITH_PS_SERVICES)) {
-            AggregateResult psMark = [
-                SELECT 
-                    COUNT(Ps_Mark__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Ps_Mark__c > 3
-                ];
-       totals.add((Decimal)psMark.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_PURCHACE_INPUTS_THROUGH_ELECTRONIC_TRANSACTIONS)) {
-            AggregateResult purchaseInputs = [
-                SELECT 
-                    COUNT(Purchase_Inputs_thru_Elec_Transactions__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Purchase_Inputs_thru_Elec_Transactions__c = 'Yes'
-                ];
-       totals.add((Decimal)purchaseInputs.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_PREPARED_TO_MANAGE_EFFECTS_OF_WEATHER_RELATED_SHOCKS)) {
-            AggregateResult farmersPrepared = [
-                SELECT 
-                    COUNT(Name) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Practices_that_Address_Climate_Change__c != null
-                ];
-       totals.add((Decimal)farmersPrepared.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_WHO_CAN_CITE_ONE_CAUSE_OF_CLIMATE_CHANGE)) {
-            AggregateResult citeCause = [
-                SELECT 
-                    COUNT(Name) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Practices_that_Address_Climate_Change__c != 'Don’t Know'
-                ];
-       totals.add((Decimal)citeCause.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_WHO_USE_ATLEAST_2_OF_RECOMMENDED_WATER_CONSERVATION_MEASURES)) {
-            AggregateResult recommendedMeasures = [
-                SELECT 
-                    COUNT(At_least_2_water_conservation_measures__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    At_least_2_water_conservation_measures__c = 'true'
-                ];
-       totals.add((Decimal)recommendedMeasures.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_USING_ATLEAST_1_RECOMMEDED_AGROFORESTRY_PRACTICE)) {
-            AggregateResult recommendedMeasures = [
-                SELECT 
-                    COUNT(At_least_2_water_conservation_measures__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Agro_forestry_Practices_Used__c != null
-                ];
-        totals.add((Decimal)recommendedMeasures.get('numerator'));
-        }
-        else if(metricName.equals(FARMERS_GROW_ATLEAST_1_OF_THE_ADAPTED_AND_IMPROVED_CROP_VARIATIES)) {
-            AggregateResult purchasedSeedlings = [
-                SELECT 
-                    COUNT(Ever_purchased_organic_seedlings_at_PS__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
-                ];
-        totals.add((Decimal)purchasedSeedlings.get('numerator'));
-        }
-        else if(metricName.equals(FARMERS_WHO_USE_ENERGY_SAVING_COOKING_STOVES)) {
-            AggregateResult cookingStoves = [
-                SELECT 
-                    COUNT(Using_Energy_Saving_Cooking_Stove__c) numerator 
-                FROM 
-                    Gumutindo_Impacts__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Using_Energy_Saving_Cooking_Stove__c = 'Yes'
-                ];
-       totals.add((Decimal)cookingStoves.get('numerator'));
-       }
-       else if(metricName.equals(FARMERS_WHO_ACCESS_AVAILABLE_FINANCIAL_SERVICES_THROUGH_VSLAS)) {
-            AggregateResult financialServices = [
-                SELECT 
-                    COUNT(Total_Number_of_VSLA_Members__c) numerator 
-                FROM 
-                    Gumutindo_Vsla__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Total_Number_of_VSLA_Members__c != null
-                ];
-       totals.add((Decimal)financialServices.get('numerator'));
-       }
-       else if(metricName.equals(ADHERENCE_TO_GCCE_POLICIES) || metricName.equals(PERCENTAGE_OF_PS_WITH_ESTABLISHED_POLICIED_AND_PROCEDURES) || 
-    	     metricName.equals(PERCENTAGE_OF_PS_COMPLIANT_TO_ESTABLISHED_POLICIED_AND_PROCEDURES)) {
-    	     AggregateResult establishedPolicies = [
-                SELECT 
-                    COUNT(Adhere_to_Established_Policies__c) numerator 
-                FROM 
-                    Gumutindo_Primary_Society__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Adhere_to_Established_Policies__c = 'Yes'
-                ];
-       totals.add((Decimal)establishedPolicies.get('numerator'));
-       }
-       else if(metricName.equals(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PROCURE_INPUTS)) {
-    	     AggregateResult procureInputs = [
-                SELECT 
-                    COUNT(Farmers_Procure_Farm_Inputs_Collectively__c) numerator 
-                FROM 
-                    Gumutindo_Primary_Society__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Farmers_Procure_Farm_Inputs_Collectively__c = 'Yes'
-                ];
-       totals.add((Decimal)procureInputs.get('numerator'));
-       }
-       else if(metricName.equals(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PAY_FOR_INPUTS)) {
-    	     AggregateResult payForInputs = [
-                SELECT 
-                    COUNT(Pay_for_Inputs_Upon_Delivery__c) numerator 
-                FROM 
-                    Gumutindo_Primary_Society__c 
-                WHERE 
-                    Date__c <= :quarterLastDay
-                AND
-                    Pay_for_Inputs_Upon_Delivery__c = 'Yes'
-                ];
-       totals.add((Decimal)payForInputs.get('numerator'));
-       }
-       else {
-           totals.add(0);
-       }
-        return totals;
+            dataSum.put(FARMERS_PURCHASING_SEEDLINGS_THROUGH_GCCE, purchasedOrganicSeedlings);
+       
+        //FARMERS_WHO_DELIVER_50_PERCENT_OF_HI_QUAL_COFFEE
+        Decimal hiQuality = [
+            SELECT 
+                COUNT() 
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
+            ];
+            dataSum.put(FARMERS_WHO_DELIVER_50_PERCENT_OF_HI_QUAL_COFFEE, hiQuality);
+       
+        //FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS
+        Decimal accessLoans = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                (Financial_service_for_the_business__c = 'Bank' 
+            OR 
+                Financial_service_for_the_business__c = 'Mobile Money')
+            ];
+            dataSum.put(FARMERS_WHO_ACCESS_AGRO_INPUT_LOANS_THROUGH_PS, accessLoans);
+               
+        //FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES
+    	Decimal oneKindFinancialServices = [
+    	    SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c <=:quarterLastDay 
+            AND 
+               (Financial_service_for_the_business__c = 'Bank' 
+            OR 
+                Financial_service_for_the_business__c = 'Mobile Money') 
+            ];
+    	    dataSum.put(FARMERS_WHO_USE_ATLEAST_ONE_KIND_OF_FINANCIAL_SERVICES, oneKindFinancialServices);
+       
+        //FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES
+        Decimal satisfiedWithServices = [
+            SELECT 
+                COUNT() 
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Services_received_from_PS__c != 'None'
+            ];
+            dataSum.put(FARMERS_WHO_REPORT_SATISFACTION_WITH_GCCE_SERVICES, satisfiedWithServices);
+       
+        //FARMERS_WHO_REPORT_SATISFACTION_WITH_PS_SERVICES
+        Decimal psMark = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Ps_Mark__c > 3
+            ];
+            dataSum.put(FARMERS_WHO_REPORT_SATISFACTION_WITH_PS_SERVICES, psMark);
+       
+        //FARMERS_PURCHACE_INPUTS_THROUGH_ELECTRONIC_TRANSACTIONS
+        Decimal purchaseInputs = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Purchase_Inputs_thru_Elec_Transactions__c = 'Yes'
+            ];
+            dataSum.put(FARMERS_PURCHACE_INPUTS_THROUGH_ELECTRONIC_TRANSACTIONS, purchaseInputs);
+              
+        //FARMERS_RECEIVE_PAYMENT_THROUGH_ELECTRONIC_TRANSACTIONS
+        Decimal electronicPayment = [
+            SELECT 
+    	        COUNT()
+    	    FROM 
+    	        Gumutindo_Impacts__c
+    	    WHERE
+                Date__c <=:quarterLastDay 
+            AND 
+                Total_Number_of_Coffee_Trees_on_Farm__c != null
+    	];
+    	dataSum.put(FARMERS_RECEIVE_PAYMENT_THROUGH_ELECTRONIC_TRANSACTIONS, electronicPayment);
+       
+
+        //FARMERS_PREPARED_TO_MANAGE_EFFECTS_OF_WEATHER_RELATED_SHOCKS
+        Decimal farmersPrepared = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Practices_that_Address_Climate_Change__c != null
+            ];
+            dataSum.put(FARMERS_PREPARED_TO_MANAGE_EFFECTS_OF_WEATHER_RELATED_SHOCKS, farmersPrepared);
+       
+        //FARMERS_WHO_CAN_CITE_ONE_CAUSE_OF_CLIMATE_CHANGE
+        Decimal citeCause = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Practices_that_Address_Climate_Change__c != 'Don’t Know'
+            ];
+            dataSum.put(FARMERS_WHO_CAN_CITE_ONE_CAUSE_OF_CLIMATE_CHANGE, citeCause);
+       
+        //FARMERS_WHO_USE_ATLEAST_2_OF_RECOMMENDED_WATER_CONSERVATION_MEASURES
+        Decimal recommendedMeasures = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                At_least_2_water_conservation_measures__c = 'true'
+            ];
+            dataSum.put(FARMERS_WHO_USE_ATLEAST_2_OF_RECOMMENDED_WATER_CONSERVATION_MEASURES, recommendedMeasures);
+       
+        //FARMERS_USING_ATLEAST_1_RECOMMEDED_AGROFORESTRY_PRACTICE
+        Decimal recommendedWaterConservMeasures = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Agro_forestry_Practices_Used__c != null
+            ];
+            dataSum.put(FARMERS_USING_ATLEAST_1_RECOMMEDED_AGROFORESTRY_PRACTICE, recommendedWaterConservMeasures);
+        
+        //FARMERS_GROW_ATLEAST_1_OF_THE_ADAPTED_AND_IMPROVED_CROP_VARIATIES
+        Decimal purchasedSeedlings = [
+            SELECT 
+                COUNT() 
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Ever_purchased_organic_seedlings_at_PS__c = 'Yes'
+            ];
+            dataSum.put(FARMERS_GROW_ATLEAST_1_OF_THE_ADAPTED_AND_IMPROVED_CROP_VARIATIES, purchasedSeedlings);
+        
+        //FARMERS_WHO_USE_ENERGY_SAVING_COOKING_STOVES
+        Decimal cookingStoves = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Impacts__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Using_Energy_Saving_Cooking_Stove__c = 'Yes'
+            ];
+            dataSum.put(FARMERS_WHO_USE_ENERGY_SAVING_COOKING_STOVES, cookingStoves);
+       
+        //FARMERS_WHO_ACCESS_AVAILABLE_FINANCIAL_SERVICES_THROUGH_VSLAS
+        Decimal financialServices = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Vsla__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Total_Number_of_VSLA_Members__c != null
+            ];
+            dataSum.put(FARMERS_WHO_ACCESS_AVAILABLE_FINANCIAL_SERVICES_THROUGH_VSLAS, financialServices);
+       
+        //ADHERENCE_TO_GCCE_POLICIES || PERCENTAGE_OF_PS_WITH_ESTABLISHED_POLICIED_AND_PROCEDURES || PERCENTAGE_OF_PS_COMPLIANT_TO_ESTABLISHED_POLICIED_AND_PROCEDURES
+    	Decimal establishedPolicies = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Primary_Society__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Adhere_to_Established_Policies__c = 'Yes'
+            ];
+            dataSum.put(ADHERENCE_TO_GCCE_POLICIES, establishedPolicies);
+            dataSum.put(PERCENTAGE_OF_PS_WITH_ESTABLISHED_POLICIED_AND_PROCEDURES, establishedPolicies);
+            dataSum.put(PERCENTAGE_OF_PS_COMPLIANT_TO_ESTABLISHED_POLICIED_AND_PROCEDURES, establishedPolicies);
+       
+        //PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PROCURE_INPUTS
+    	Decimal procureInputs = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Primary_Society__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Farmers_Procure_Farm_Inputs_Collectively__c = 'Yes'
+            ];
+            dataSum.put(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PROCURE_INPUTS, procureInputs);
+              
+        //PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PAY_FOR_INPUTS    
+        Decimal payForInputs = [
+            SELECT 
+                COUNT()
+            FROM 
+                Gumutindo_Primary_Society__c 
+            WHERE 
+                Date__c <= :quarterLastDay
+            AND
+                Pay_for_Inputs_Upon_Delivery__c = 'Yes'
+            ];
+            dataSum.put(PERCENTAGE_OF_PS_WHO_COLLECTIVELY_PAY_FOR_INPUTS, payForInputs);
+       
+        return dataSum;
     }
 
-    public static CKW__c loadCkw(Person__c person) {
+    /*public static CKW__c loadCkw(Person__c person) {
         CKW__c[] ckw = [
            SELECT
               Id,
@@ -1534,101 +1554,7 @@ public class GumutindoHelpers {
         System.debug('Gumutindo CKW was not found in the database');
 
         return null; // CKW was not found
-    }
-    
-	public static MetricMapWrapper[] getGumutindoPrimarySocietyMarkers()
-	{
-        Map<String, MetricMapWrapper> markers = new Map<String, MetricMapWrapper>();
-		Gumutindo_Primary_Society__c[] primarySocieties = [SELECT id, Name, Latitude__c, Longitude__c from Gumutindo_Primary_Society__c];
-        for(Gumutindo_Primary_Society__c society : primarySocieties)
-        {
-            MetricMapWrapper marker = null;
-                marker = new MetricMapWrapper('District', '0000FF', society.Id, true);
-                marker.gpsLatitude = ''+society.Latitude__c;
-                marker.gpsLongitude = ''+society.Longitude__c;
-                String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Society Name: '+society.Name+'<br/>';
-                    //Show CKWs in this society
-                    Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Primary_Society__r.Id =:society.Id];
-                    if(gumutindoCkws.size() == 0) {
-                        profile += 'There are no CKWs in '+society.Name;
-                    }
-                    else {
-                        profile += '<hr><b>CKWs in '+society.Name+'</b><br/>';
-                        for (Gumutindo_CKW__c gckw : gumutindoCkws) {
-                            profile += gckw.Person__r.First_Name__c + ' '+ gckw.Person__r.Last_Name__c +'<br/>';
-
-                        }
-                    }
-                    profile += '</div>';
-
-                marker.addName(profile);
-                marker.markerTitle = society.Name;
-                markers.put(society.Id, marker); 
-        }
-        return markers.values();
-	}
-	
-
-    public static MetricMapWrapper[] getCKWMapMarkers()
-    {
-      Map<String, MetricMapWrapper> markers = new Map<String, MetricMapWrapper>();
-      Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c,  Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'GCCE\' and Person__r.Type__c=\'CKW\'');
-        List<String> personIds = new List<String>();
-        for(Person_Group_Association__c assoc : associations) {
-            personIds.add(assoc.Person__r.Id);
-        }
-
-        
-        CKW__c[] ckws = [SELECT id, Name, Person__r.First_Name__c, Person__r.Last_Name__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c from CKW__c where Person__r.Id in :personIds];
-            for (CKW__c ckw : ckws) {
-                MetricMapWrapper marker = null;
-                marker = new MetricMapWrapper('CKW', '0000FF', ckw.Id, true);
-                marker.gpsLatitude = ckw.Person__r.GPS_Location_N__c;
-                marker.gpsLongitude = ckw.Person__r.GPS_Location_E__c;
-                
-                PageReference ref = new PageReference('/apex/CkwDetailMini?id='+ckw.Id);
-                String content = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
-
-                
-                marker.addName(content);
-                marker.markerTitle = ckw.Person__r.First_Name__c+' '+ckw.Person__r.Last_Name__c;
-                markers.put(ckw.Id, marker);
-
-            }
-
-
-            //Field officers
-            Gumutindo_Field_Officer__c[] fieldOfficers = [SELECT Person__r.Id, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c, Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_Field_Officer__c];
-            for (Gumutindo_Field_Officer__c fo : fieldOfficers) {
-
-                MetricMapWrapper marker = null;
-                marker = new MetricMapWrapper('CKW', '00FF88', fo.Person__r.Id, true);
-                marker.gpsLatitude = fo.Person__r.GPS_Location_N__c;
-                marker.gpsLongitude = fo.Person__r.GPS_Location_E__c;
-                
-                
-                String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Field Officer Name: '+fo.Person__r.First_Name__c+' '+fo.Person__r.Last_Name__c+'<br/>';
-                    //Show CKWs under this field officer
-                    Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Field_Officer__r.Person__r.Id =:fo.Person__r.Id];
-                    if(gumutindoCkws.size() == 0) {
-                        profile += 'Field officer has no CKWs attached';
-                    }
-                    else {
-                        profile += '<hr><b>Ckws attached to FO</b><br/>';
-                        for (Gumutindo_CKW__c gckw : gumutindoCkws) {
-                            profile += gckw.Person__r.First_Name__c + ' '+ gckw.Person__r.Last_Name__c +'<br/>';
-
-                        }
-                    }
-                    profile += '</div>';
-                
-                marker.addName(profile);
-                marker.markerTitle = fo.Person__r.First_Name__c+' '+fo.Person__r.Last_Name__c;
-                markers.put(fo.Person__r.Id, marker);
-            }
-            System.debug(markers.size()+' map markers found'); 
-            return markers.values();
-    }
+    }	*/
        
     public static Gumutindo_Targets__c getTargets(String metricName){
     	List<Gumutindo_Targets__c> targets = [
@@ -1665,266 +1591,361 @@ public class GumutindoHelpers {
     }
 
     //inner class to provide district map markers
-    public with sharing class GumutindoDistrictCoordinatesProvider implements MapComponentController.IMapMarkerSource
-    {
-            public List<MapMarkers> loadMapMarkers(Map <String, String> parameters) {
-        List<MapMarkers> mapMarkers = new List<MapMarkers>();
-
-
-        //For Live, select from group
-        Gumutindo_Primary_Society__c[] associations = Database.query('select Id, Name, Subcounty__r.District__r.ID, Subcounty__r.District__r.Name, Subcounty__r.District__r.Longitude__C, Subcounty__r.District__r.Latitude__c from Gumutindo_Primary_Society__C');
-           for (Gumutindo_Primary_Society__c assoc : associations) {
-                District__c tempDistrict = new District__c();
-                tempDistrict.Name = assoc.Subcounty__r.District__r.Name;
-                tempDistrict.Latitude__c = assoc.Subcounty__r.District__r.Latitude__c;
-                tempDistrict.Longitude__c = assoc.Subcounty__r.District__r.Longitude__c;
-                mapMarkers.add(new GumutindoDistrictMarker(tempDistrict));
-                //System.debug('got district marker for district '+tempDistrict);
-            }
-            //System.debug(mapMarkers.size()+' district map markers created');
-            return mapMarkers;  
-        
-        }
-    }
-
-    //inner class to provide primaty society map markers
-    public with sharing class GumutindoPrimarySocietyCoordinatesProvider implements MapComponentController.IMapMarkerSource
-    {
-            public List<MapMarkers> loadMapMarkers(Map <String, String> parameters) {
-        List<MapMarkers> mapMarkers = new List<MapMarkers>();
-
-
-        //For Live, select from group
-        Gumutindo_Primary_Society__c[] associations = Database.query('select Id, Name, Subcounty__r.District__r.ID, Subcounty__r.District__r.Name, Subcounty__r.District__r.Longitude__C, Subcounty__r.District__r.Latitude__c from Gumutindo_Primary_Society__C');
-           for (Gumutindo_Primary_Society__c assoc : associations) {
-                
-                mapMarkers.add(new GumutindoPrimarySocietyMarker(assoc));
-                //System.debug('got district marker for district '+tempDistrict);
-            }
-            //System.debug(mapMarkers.size()+' district map markers created');
-            return mapMarkers;  
-        
-        }
-    }
-
-	//inner class to provide ckw map markers
-	public with sharing class GumutindoCkwCoordinatesProvider implements MapComponentController.IMapMarkerSource
-	{
-		public List<MapMarkers> loadMapMarkers(Map <String, String> parameters) {
-		List<MapMarkers> mapMarkers = new List<MapMarkers>();
-
-
-		//For Live, select from group
-		Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'GCCE\' and Person__r.Type__c=\'CKW\'');
-        List<String> personIds = new List<String>();
-        for(Person_Group_Association__c assoc : associations) {
-            personIds.add(assoc.Person__r.Id);
-        }
-
+    public static MetricMapWrapper[] getGumutindoPrimarySocietyMarkers() {
 		
-        CKW__c[] ckws = [SELECT id, Name, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c from CKW__c where Person__r.Id in :personIds];
-			for (CKW__c ckw : ckws) {
-    			mapMarkers.add(new GumutindoCkwMarker(ckw));
+		Map < String, MetricMapWrapper > markers = new Map < String, MetricMapWrapper > ();
+		Gumutindo_Primary_Society__c[] primarySocieties = [SELECT id, Name, Latitude__c, Longitude__c from Gumutindo_Primary_Society__c];
+		for (Gumutindo_Primary_Society__c society: primarySocieties) {
+			MetricMapWrapper marker = null;
+			marker = new MetricMapWrapper('CKW', '0000FF', society.Id, false);
+			marker.gpsLatitude = '' + society.Latitude__c;
+			marker.gpsLongitude = '' + society.Longitude__c;
+			
+            String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Society Name: ' + society.Name + '<br/>';
+            //profile += '<a href ="'+ ref.getUrl()+'" ></a><br />';
+			//Show CKWs in this society
+			Decimal totalFarmers = [SELECT COUNT() FROM Gumutindo_Farmer__c WHERE Gumutindo_Primary_Society__r.Id =:society.id];
+		    profile += '<hr><b>Has ' + totalFarmers + ' farmers</b></hr><br/>';
+		    
+			Gumutindo_Field_Officer__c[] gumutindoFos = [
+			    SELECT 
+			        Id, Person__r.First_Name__c 
+			    FROM 
+			        Gumutindo_Field_Officer__c WHERE Id IN
+			        (SELECT 
+			            Gumutindo_Field_Officer__c 
+			        FROM 
+			            Gumutindo_CKW__c 
+			        WHERE 
+			            Gumutindo_Primary_Society__r.Id = :society.Id) ];
+			//List<Id> ckws = new List<Id>();
+			
+			for(Gumutindo_Field_Officer__c fo : gumutindoFos) {
+				//ckws.add(ckw.Gumutindo_Field_Officer__r.Id);
+				PageReference ref = new PageReference('/'+fo.Id);
+			    profile += '<div>';
+                //profile += '<hr><b> ' + fo.Person__r.First_Name__c + ' </b></hr><a href ="'+ ref.getUrl()+'">person</a><br/>';
+                profile += '<hr>Field Officer: <b><a href ="'+ ref.getUrl()+'"> ' + fo.Person__r.First_Name__c + ' </a></b></hr><br/>';
+                profile += '</div>';
+			    
+                //marker.addName(profile);
 			}
-			System.debug(mapMarkers.size()+' map markers found');
+			//if (gumutindoCkws.size() == 0) {
+				//profile += 'There are no CKWs in ' + society.Name;
+			//} else {
+				
+				//profile += '<b>CKWs in ' + society.Name + ' (' + gumutindoCkws.size() + ')</b><br/>';
+				/*for (Gumutindo_CKW__c gckw: gumutindoCkws) {
+					profile += gckw.Person__r.First_Name__c + ' ' + gckw.Person__r.Last_Name__c + '<br/>';
+				}*/
+			//}
+			profile += '</div>';
+			marker.addName(profile);
+			marker.markerTitle = society.Name;
+			markers.put(society.Id, marker);
+		}
+		return markers.values();
+	}
 
-
-            //Get Fo Markers
-            Gumutindo_Field_Officer__c[] fieldOfficers = [SELECT Person__r.Id, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c, Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_Field_Officer__c];
-            for (Gumutindo_Field_Officer__c fo : fieldOfficers) {
-                Person__c p = new Person__c();
-                p.Id = fo.Person__r.Id;
-                p.GPS_Location_E__c = fo.Person__r.GPS_Location_E__c;
-                p.GPS_Location_N__c = fo.Person__r.GPS_Location_N__c;
-                p.First_Name__c = fo.Person__r.First_Name__c;
-                p.Last_Name__c = fo.Person__r.Last_Name__c;
-                mapMarkers.add(new GumutindoFieldOfficerMarker(p));
-            }
-    		return mapMarkers;	
+	public static MetricMapWrapper[] getCKWMapMarkers() {
 		
+		Map < String, MetricMapWrapper > markers = new Map < String, MetricMapWrapper > ();
+		Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c,  Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'GCCE\' and Person__r.Type__c=\'CKW\'');
+		List < String > personIds = new List < String > ();
+		for (Person_Group_Association__c assoc: associations) {
+			personIds.add(assoc.Person__r.Id);
+		}
+
+		CKW__c[] ckws = [SELECT id, Name, Person__r.First_Name__c, Person__r.Last_Name__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c from CKW__c where Person__r.Id in : personIds];
+		/*for (CKW__c ckw: ckws) {
+			MetricMapWrapper marker = null;
+			marker = new MetricMapWrapper('CKW', '0000FF', ckw.Id, false);
+			marker.gpsLatitude = ckw.Person__r.GPS_Location_N__c;
+			marker.gpsLongitude = ckw.Person__r.GPS_Location_E__c;
+
+			PageReference ref = new PageReference('/apex/CkwDetailMiniStarts?id=' + ckw.Id);
+			String content = '<iframe src="' + ref.getUrl() + '" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
+
+			marker.addName(content);
+			marker.markerTitle = ckw.Person__r.First_Name__c + ' ' + ckw.Person__r.Last_Name__c;
+			markers.put(ckw.Id, marker);
+		}*/
+
+		//Field officers
+		/*Gumutindo_Field_Officer__c[] fieldOfficers = [SELECT Person__r.Id, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c, Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_Field_Officer__c];
+		for (Gumutindo_Field_Officer__c fo: fieldOfficers) {
+
+			MetricMapWrapper marker = null;
+			marker = new MetricMapWrapper('FO', '00FF88', fo.Person__r.Id, false);
+			marker.gpsLatitude = fo.Person__r.GPS_Location_N__c;
+			marker.gpsLongitude = fo.Person__r.GPS_Location_E__c;
+
+			String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Field Officer Name: ' + fo.Person__r.First_Name__c + ' ' + fo.Person__r.Last_Name__c + '<br/>';
+			//Show CKWs under this field officer
+			Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Field_Officer__r.Person__r.Id = : fo.Person__r.Id];
+			if (gumutindoCkws.size() == 0) {
+				profile += 'Field officer has no CKWs attached';
+			} else {
+				profile += '<hr><b>Ckws attached to FO</b><br/>';
+				for (Gumutindo_CKW__c gckw: gumutindoCkws) {
+					profile += gckw.Person__r.First_Name__c + ' ' + gckw.Person__r.Last_Name__c + '<br/>';
+				}
+			}
+			profile += '</div>';
+			marker.addName(profile);
+			marker.markerTitle = fo.Person__r.First_Name__c + ' ' + fo.Person__r.Last_Name__c;
+			markers.put(fo.Person__r.Id, marker);
+		}*/
+		System.debug(markers.size() + ' map markers found');
+		return markers.values();
+	}
+
+	//inner class to provide district map markers
+	public with sharing class GumutindoDistrictCoordinatesProvider implements MapComponentController.IMapMarkerSource {
+		
+		public List < MapMarkers > loadMapMarkers(Map < String, String > parameters) {
+			List < MapMarkers > mapMarkers = new List < MapMarkers > ();
+
+			//For Live, select from group
+			Gumutindo_Primary_Society__c[] associations = Database.query('select Id, Name, Subcounty__r.District__r.ID, Subcounty__r.District__r.Name, Subcounty__r.District__r.Longitude__C, Subcounty__r.District__r.Latitude__c from Gumutindo_Primary_Society__C');
+			for (Gumutindo_Primary_Society__c assoc: associations) {
+				District__c tempDistrict = new District__c();
+				tempDistrict.Name = assoc.Subcounty__r.District__r.Name;
+				tempDistrict.Latitude__c = assoc.Subcounty__r.District__r.Latitude__c;
+				tempDistrict.Longitude__c = assoc.Subcounty__r.District__r.Longitude__c;
+				mapMarkers.add(new GumutindoDistrictMarker(tempDistrict));
+				//System.debug('got district marker for district '+tempDistrict);
+			}
+			//System.debug(mapMarkers.size()+' district map markers created');
+			return mapMarkers;
 		}
 	}
 
-        public with sharing class GumutindoDistrictMarker extends MapMarkers {
-        private District__c district;
-         
-        private String parentRegistered;
-        public Integer numberOfCkws;
-        public String getParentRegistered() {
-            return this.parentRegistered;
-        }
-        
-        public void setParentRegistered(String value) {
-            this.parentRegistered = value;
-        }
-        
-        public GumutindoDistrictMarker(District__c district) {
-            this.district = district;
-            this.setLatitude(''+district.Latitude__c);
-            this.setLongitude(''+district.Longitude__c);
-            this.setMarkerColour('00FF00'); // Blue
-        }
-        
-        //Show district summary for Gumutindo
-        public override String getMarkerInfoContentString() {
-            // Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
-            //PageReference ref = new PageReference('/apex/CkwDetailMini?id=this.ckw.Id');
-            //String profile = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
-            String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">District Name: '+district.Name+'</div>';
-            return profile;
-           
-        }
-        
-       }
+	//inner class to provide primaty society map markers
+	public with sharing class GumutindoPrimarySocietyCoordinatesProvider implements MapComponentController.IMapMarkerSource {
+		
+		public List < MapMarkers > loadMapMarkers(Map < String, String > parameters) {
+			List < MapMarkers > mapMarkers = new List < MapMarkers > ();			
+			//For Live, select from group
+			Gumutindo_Primary_Society__c[] associations = Database.query('select Id, Name, Subcounty__r.District__r.ID, Subcounty__r.District__r.Name, Subcounty__r.District__r.Longitude__C, Subcounty__r.District__r.Latitude__c from Gumutindo_Primary_Society__C');
+			for (Gumutindo_Primary_Society__c assoc: associations) {
+				mapMarkers.add(new GumutindoPrimarySocietyMarker(assoc));
+				//System.debug('got district marker for district '+tempDistrict);
+			}
+			//System.debug(mapMarkers.size()+' district map markers created');
+			return mapMarkers;
+		}
+	}
+
+	//inner class to provide ckw map markers
+	public with sharing class GumutindoCkwCoordinatesProvider implements MapComponentController.IMapMarkerSource {
+		
+		public List < MapMarkers > loadMapMarkers(Map < String, String > parameters) {
+			List < MapMarkers > mapMarkers = new List < MapMarkers > ();
+
+			//For Live, select from group
+			Person_Group_Association__c[] associations = Database.query('select id, Person__c, Group__c, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c  from Person_Group_Association__c where Group__r.Name=\'GCCE\' and Person__r.Type__c=\'CKW\'');
+			List < String > personIds = new List < String > ();
+			for (Person_Group_Association__c assoc: associations) {
+				personIds.add(assoc.Person__r.Id);
+			}
+
+			Gumutindo_Field_Officer__c[] fos = [SELECT Id, Name, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c FROM Gumutindo_Field_Officer__c WHERE Person__r.Id in : personIds];
+			for (Gumutindo_Field_Officer__c fo: fos) {
+				mapMarkers.add(new GumutindoCkwMarker(fo));
+			}
+			System.debug(mapMarkers.size() + ' map markers found');
+
+			//Get Fo Markers
+			/*Gumutindo_Field_Officer__c[] fieldOfficers = [SELECT Person__r.Id, Person__r.GPS_Location_E__c, Person__r.GPS_Location_N__c, Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_Field_Officer__c];
+			for (Gumutindo_Field_Officer__c fo: fieldOfficers) {
+				Person__c p = new Person__c();
+				p.Id = fo.Person__r.Id;
+				p.GPS_Location_E__c = fo.Person__r.GPS_Location_E__c;
+				p.GPS_Location_N__c = fo.Person__r.GPS_Location_N__c;
+				p.First_Name__c = fo.Person__r.First_Name__c;
+				p.Last_Name__c = fo.Person__r.Last_Name__c;
+				mapMarkers.add(new GumutindoFieldOfficerMarker(p));
+			}*/
+			return mapMarkers;
+		}
+	}
+
+	public with sharing class GumutindoDistrictMarker extends MapMarkers {
+		
+		private District__c district;
+
+		private String parentRegistered;
+		public Integer numberOfCkws;
+		public String getParentRegistered() {
+			return this.parentRegistered;
+		}
+
+		public void setParentRegistered(String value) {
+			this.parentRegistered = value;
+		}
+
+		public GumutindoDistrictMarker(District__c district) {
+			this.district = district;
+			this.setLatitude('' + district.Latitude__c);
+			this.setLongitude('' + district.Longitude__c);
+			this.setMarkerColour('00FF00'); // Blue
+		}
+
+		//Show district summary for Gumutindo
+		public override String getMarkerInfoContentString() {
+			// Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
+			//PageReference ref = new PageReference('/apex/CkwDetailMini?id=this.ckw.Id');
+			//String profile = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
+			String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">District Name: ' + district.Name + '</div>';
+			return profile;
+		}
+	}
 
 	// Gumutindo Map Marker
 	public with sharing class GumutindoCkwMarker extends MapMarkers {
-		private CKW__c ckw;
-		 
+		
+		private Gumutindo_Field_Officer__c fo;
+
 		private String parentRegistered;
-	    public String getParentRegistered() {
-	        return this.parentRegistered;
-	    }
-	    
-	    public void setParentRegistered(String value) {
-	        this.parentRegistered = value;
-	    }
-	    
-		public GumutindoCkwMarker(CKW__c ckw) {
-	        this.ckw = ckw;
-	        this.setLatitude(ckw.Person__r.GPS_Location_N__c);
-	        this.setLongitude(ckw.Person__r.GPS_Location_E__c);
-	        this.setMarkerColour('0000FF'); // Blue
-	    }
-	    
-	    public override String getMarkerInfoContentString() {
-	    	// Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
-	    	PageReference ref = new PageReference('/apex/CkwDetailMini?id='+this.ckw.Id);
-	    	String profile = '<iframe src="'+ ref.getUrl()+'" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
-	    	return profile;
-           
-	    }
+		public String getParentRegistered() {
+			return this.parentRegistered;
+		}
 
-        // Create the location string
-    public override String getLocation() {
+		public void setParentRegistered(String value) {
+			this.parentRegistered = value;
+		}
 
-        String location = '';
-        if (this.ckw.Person__r.Parish__c != null) {
-            location = 'Parish: ' + this.ckw.Person__r.Parish__c + '<br />';
-        }
-        if (this.ckw.Person__r.Village__c != null) {
-            location = location + 'Village: ' + this.ckw.Person__r.Village__c + '<br />';
-        }
-        if (this.ckw.Person__r.Subcounty__r.Display_Name__c != null) {
-            location = location + 'Sub-county: ' + this.ckw.Person__r.Subcounty__r.Display_Name__c + '<br />';
-        }
-            location = location + 'District: ' + this.ckw.Person__r.District__r.Name + '<br />';
-        
-        return location;
-    }
-        public override void generateMarkerName(String splitter) {
+		public GumutindoCkwMarker(Gumutindo_Field_Officer__c fo) {
+			this.fo = fo;
+			this.setLatitude(fo.Person__r.GPS_Location_N__c);
+			this.setLongitude(fo.Person__r.GPS_Location_E__c);
+			this.setMarkerColour('0000FF'); // Blue
+		}
 
-            String fieldValue = '';
-        setColour(getDefaultColour());
+		public override String getMarkerInfoContentString() {
+			// Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
+			PageReference ref = new PageReference('/apex/FoDetailMini?id=' + this.fo.Id);
+			String profile = '<iframe src="' + ref.getUrl() + '" frameBorder="0" width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden"></iframe>';
+			return profile;
+		}
 
-        // Set the colours for a gender split
-        if (splitter.equals('Gender')) {
-            fieldValue = this.ckw.Person__r.Gender__c;
-            setColour('Pink');
-            if (fieldValue == null) {
-                setColour('Black');
-                fieldValue = 'Missing';
-            }
-            else if (fieldValue.equals('Male')) {
-                setColour('Blue');
-            }
-        }
-        setMarkerName(joinMarkerName('', '', fieldValue));
-        }
-}
+		// Create the location string
+		public override String getLocation() {
 
-    // Gumutindo FO Map Marker
-    public with sharing class GumutindoFieldOfficerMarker extends MapMarkers {
-        private Person__c person;
-         
-        private String parentRegistered;
-        public String getParentRegistered() {
-            return this.parentRegistered;
-        }
-        
-        public void setParentRegistered(String value) {
-            this.parentRegistered = value;
-        }
-        
-        public GumutindoFieldOfficerMarker(Person__c person) {
-            this.person = person;
-            this.setLatitude(person.GPS_Location_N__c);
-            this.setLongitude(person.GPS_Location_E__c);
-            this.setMarkerColour('00FF88'); 
-        }
-        
-        public override String getMarkerInfoContentString() {
-            // Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
-            
-            String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Field Officer Name: '+person.First_Name__c+' '+person.Last_Name__c+'<br/>';
-            //Show CKWs under this field officer
-            Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Field_Officer__r.Person__r.Id =:person.Id];
-            if(gumutindoCkws.size() == 0) {
-                profile += 'Field officer has no CKWs attached';
-            }
-            else {
-                profile += '<hr><b>Ckws attached to FO</b><br/>';
-                for (Gumutindo_CKW__c gckw : gumutindoCkws) {
-                    profile += gckw.Person__r.First_Name__c + ' '+ gckw.Person__r.Last_Name__c +'<br/>';
+			String location = '';
+			if (this.fo.Person__r.Parish__c != null) {
+				location = 'Parish: ' + this.fo.Person__r.Parish__c + '<br />';
+			}
+			if (this.fo.Person__r.Village__c != null) {
+				location = location + 'Village: ' + this.fo.Person__r.Village__c + '<br />';
+			}
+			if (this.fo.Person__r.Subcounty__r.Display_Name__c != null) {
+				location = location + 'Sub-county: ' + this.fo.Person__r.Subcounty__r.Display_Name__c + '<br />';
+			}
+			location = location + 'District: ' + this.fo.Person__r.District__r.Name + '<br />';
 
-                }
-            }
-            profile += '</div>';
-            return profile;
-           
-        }
-}
-    // Gumutindo Primary Societies Map Marker
-    public with sharing class GumutindoPrimarySocietyMarker extends MapMarkers {
-        private Gumutindo_Primary_Society__c society;
-         
-        private String parentRegistered;
-        public String getParentRegistered() {
-            return this.parentRegistered;
-        }
-        
-        public void setParentRegistered(String value) {
-            this.parentRegistered = value;
-        }
-        
-        public GumutindoPrimarySocietyMarker(Gumutindo_Primary_Society__c society) {
-            this.society = society;
-            this.setLatitude(''+society.Subcounty__r.District__r.Latitude__c);
-            this.setLongitude(''+society.Subcounty__r.District__r.Longitude__C);
-            this.setMarkerColour('FF8800'); 
-        }
-        
-        public override String getMarkerInfoContentString() {
-            // Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
-            
-            String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Primary Society Name: '+society.Name+'<br/>';
-            //Show CKWs under this field officer
-            Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Primary_Society__r.Id =:society.Id];
-            if(gumutindoCkws.size() == 0) {
-                profile += 'Primary Society has no CKWs';
-            }
-            else {
-                profile += '<hr><b>Ckws in Society</b><br/>';
-                for (Gumutindo_CKW__c gckw : gumutindoCkws) {
-                    profile += gckw.Person__r.First_Name__c + ' '+ gckw.Person__r.Last_Name__c +'<br/>';
+			return location;
+		}
 
-                }
-            }
-            profile += '</div>';
-            return profile;
-           
-        }
-    }
+		public override void generateMarkerName(String splitter) {
+
+			String fieldValue = '';
+			setColour(getDefaultColour());
+
+			// Set the colours for a gender split
+			if (splitter.equals('Gender')) {
+				fieldValue = this.fo.Person__r.Gender__c;
+				setColour('Pink');
+				if (fieldValue == null) {
+					setColour('Black');
+					fieldValue = 'Missing';
+				} else if (fieldValue.equals('Male')) {
+					setColour('Blue');
+				}
+			}
+			setMarkerName(joinMarkerName('', '', fieldValue));
+		}
+	}
+
+	/*public with sharing class GumutindoFieldOfficerMarker extends MapMarkers {
+		private Person__c person;
+
+		private String parentRegistered;
+		public String getParentRegistered() {
+			return this.parentRegistered; 
+		}
+
+		public void setParentRegistered(String value) {
+			this.parentRegistered = value;
+		}
+
+		public GumutindoFieldOfficerMarker(Person__c person) {
+			this.person = person;
+			this.setLatitude(person.GPS_Location_N__c);
+			this.setLongitude(person.GPS_Location_E__c);
+			this.setMarkerColour('00FF88');
+		}
+
+		public override String getMarkerInfoContentString() {
+			
+			// Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
+			String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Field Officer Name: ' + person.First_Name__c + ' ' + person.Last_Name__c + '<br/>';
+			//Show CKWs under this field officer
+			Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Field_Officer__r.Person__r.Id = : person.Id];
+			if (gumutindoCkws.size() == 0) {
+				profile += 'Field officer has no CKWs attached';
+			} else {
+				profile += '<hr><b>Ckws attached to FO</b><br/>';
+				for (Gumutindo_CKW__c gckw: gumutindoCkws) {
+					profile += gckw.Person__r.First_Name__c + ' ' + gckw.Person__r.Last_Name__c + '<br/>';
+
+				}
+			}
+			profile += '</div>';
+			return profile;
+		}
+	}*/
+
+	// Gumutindo Primary Societies Map Marker
+	public with sharing class GumutindoPrimarySocietyMarker extends MapMarkers {
+		
+		private Gumutindo_Primary_Society__c society;
+
+		private String parentRegistered;
+		public String getParentRegistered() {
+			return this.parentRegistered;
+		}
+
+		public void setParentRegistered(String value) {
+			this.parentRegistered = value;
+		}
+
+		public GumutindoPrimarySocietyMarker(Gumutindo_Primary_Society__c society) {
+			this.society = society;
+			this.setLatitude('' + society.Subcounty__r.District__r.Latitude__c);
+			this.setLongitude('' + society.Subcounty__r.District__r.Longitude__C);
+			this.setMarkerColour('FF8800');
+		}
+
+		public override String getMarkerInfoContentString() {
+			
+			// Returning an iframe causes it to load on demand, when the marker is clicked instead of loading all content for all markers at once
+			String profile = '<div width="304px" height="500px" scrolling="no" seamless="seamless" style="overflow:hidden">Primary Society Name: ' + society.Name + '<br/>';
+			//Show CKWs under this field officer
+			Gumutindo_CKW__c[] gumutindoCkws = [SELECT Person__r.First_Name__c, Person__r.Last_Name__c from Gumutindo_CKW__c where Gumutindo_Primary_Society__r.Id = : society.Id];
+			if (gumutindoCkws.size() == 0) {
+				profile += 'Primary Society has no CKWs';
+			} else {
+				profile += '<hr><b>Ckws in Society</b><br/>';
+				for (Gumutindo_CKW__c gckw: gumutindoCkws) {
+					profile += gckw.Person__r.First_Name__c + ' ' + gckw.Person__r.Last_Name__c + '<br/>';
+				}
+			}
+			profile += '</div>';
+			return profile;
+		}
+	}
 
     public static String getSubcounties(){
         String inclause =
@@ -1971,7 +1992,7 @@ public class GumutindoHelpers {
         public void setSparkUrl(String metricId) {
         	spark_url = 'http://chart.apis.google.com/chart?chs=55x20&cht=lxy:nda' +
 	                       '&chco=00FF00,0000FF&chf=bg,s,00000000&chls=2|2';
-	        /*String query = 
+	        String query = 
 	            'SELECT ' +
                     'Id,' +
                     'Metric_Name__c, ' +
@@ -1982,7 +2003,7 @@ public class GumutindoHelpers {
                     'Gumutindo_Targets__c '+
                 'WHERE '+
                     'Id =: metricId';
-	        Gumutindo_Targets__c[] data = database.query(query);
+	        Gumutindo_Targets__c[] data1 = database.query(query);
 	
 	        String chdActual = ''; // Actual values
 	        String chdProjected = ''; // Projected values
@@ -1990,30 +2011,32 @@ public class GumutindoHelpers {
 	        // Because we show one less coordinate for the actual graph, we have to do xy graphs, 
 	        // so we need to track the xpoint
 	        Integer xCount = 0;
-	        Integer total = data.size();
+	        Integer total = data1.size();
 	        String xProjected = '';
 	        String xActual = ''; 
 	
-	        for(Gumutindo_Targets__c item : data) {
+	        for(Gumutindo_Targets__c item : data1) {
 	            
 	            chdProjected += item.Target__c  != null ? item.Target__c + ',' : '0,';
-	            xProjected += (xCount * 100 / Math.max(1, total - 1)) + ',';*/
+	            xProjected += (xCount * 100 / Math.max(1, total - 1)) + ',';
+	            
+	           // chdActual = getDataInQuarter(quarter, metricName)[0];
+	            
 
                 /*if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Sum' || 
                         item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Count') {
-
                     chdActual += item.Numerator__c != null ? item.Numerator__c + ',' : '0,';
                 }
                 else if(item.M_E_Metric__r.On_The_Fly_Calculation_Type__c == 'Percentage'){
                     chdActual += (item.Numerator__c != null && item.Denumerator__c != null && item.Denumerator__c != 0) ?
                             ((item.Numerator__c / item.Denumerator__c) * 100).setScale(2) + ',' : '0,';
                 }*/
-               // xActual += (xCount * 100 / Math.max(1,total - 1)) + ',';
-	          //  xCount++;
-	       // }
+                xActual += (xCount * 100 / Math.max(1,total - 1)) + ',';
+	            xCount++;
+	        }
 	
 	        // Remove the last comma or pipe
-	        /*if(chdActual.length() > 1) {
+	        if(chdActual.length() > 1) {
 	            chdActual = chdActual.substring(0, chdActual.length() -1);
 	            xActual = xActual.substring(0, xActual.length() - 1);
 	        }
@@ -2024,7 +2047,7 @@ public class GumutindoHelpers {
 	        }
 	 
 	        spark_url += '&chd=t:' + xProjected + '|' + chdProjected + '|' + xActual + '|' + chdActual;
-	        System.debug(spark_url);*/
+	        System.debug(spark_url);
         }
         
     }

@@ -814,85 +814,28 @@ public with sharing class GumutindoDashboardTests {
         GumutindoDashboardController controller = new GumutindoDashboardController();
         controller.setOrgName(testOrg.Name);
         controller.setUp(resultPage);
-
-        Test.startTest();
         
         GumutindoDashboardController cont = new GumutindoDashboardController();
         String quarter = MetricHelpers.getCurrentQuarterAsString(0);
-        
-        String metricName = GumutindoHelpers.FARMERS_REGISTERED;
-        //Check this method
-        List<Double> results = GumutindoHelpers.getDataInQuarter(quarter, metricName);
-        
-        GumutindoHelpers.Wrapper wrapper = GumutindoHelpers.getData(quarter);
-        Date quarterFirstDay = MetricHelpers.getQuarterFirstDay(quarter);
         Date quarterLastDay = MetricHelpers.getQuarterLastDay(quarter);
-        Map<String, GumutindoHelpers.DataWrapper> areaMap = new Map<String, GumutindoHelpers.DataWrapper>();
-        Map<String, Map<String, GumutindoHelpers.DataWrapper>> metricWrappers = new Map<String, Map<String, 
-            GumutindoHelpers.DataWrapper>>();
-        Map<String, List<String>> metricWrapperOrder = new Map<String, List<String>>();
         
-        GumutindoHelpers.DataWrapper metricDataWrapper = new GumutindoHelpers.DataWrapper();
-        metricDataWrapper.quarter_target = GumutindoHelpers.getQuarterlyTargets(GumutindoHelpers.FARMERS_REGISTERED) == null ? 0 :
-            (Integer)GumutindoHelpers.getQuarterlyTargets(GumutindoHelpers.FARMERS_REGISTERED).Target__c;
-        System.assertEquals(metricDataWrapper.quarter_target, 20);
-        
-        metricDataWrapper.name = GumutindoHelpers.FARMERS_REGISTERED;
-        metricDataWrapper.quarter_actual_reached = GumutindoHelpers.getDataInQuarter(quarter, GumutindoHelpers.FARMERS_REGISTERED)[0];
-        System.assertEquals(metricDataWrapper.quarter_actual_reached, 1);
-        
-        metricDataWrapper.project_target = GumutindoHelpers.getTargets(GumutindoHelpers.FARMERS_REGISTERED) == null ? 0 : (Integer)GumutindoHelpers.getTargets(GumutindoHelpers.FARMERS_REGISTERED).Target__c;
-        System.assertEquals(metricDataWrapper.project_target, 50);
-        
-        metricDataWrapper.cummulative_actual_reached = GumutindoHelpers.getPreviousDataSum(quarterLastDay, GumutindoHelpers.FARMERS_REGISTERED)[0];
-        
-        metricDataWrapper.percent_cummulative_actual_reached = metricDataWrapper.project_target != 0 ?
-            (metricDataWrapper.cummulative_actual_reached / metricDataWrapper.project_target) * 100 : 0.0;
-        System.assertEquals(metricDataWrapper.percent_cummulative_actual_reached, 2);
-        
-        Decimal percentQuarter = (metricDataWrapper.quarter_actual_reached / metricDataWrapper.quarter_target) * 100;
-            
-        metricDataWrapper.percent_quarter_actual_reached = percentQuarter;
-        System.assertEquals(metricDataWrapper.percent_quarter_actual_reached, 5.0);
-        
-        System.assertNotEquals(metricDataWrapper, null);
-        
-        List<String> metricOrder = new List<String>{GumutindoHelpers.FARMERS_REGISTERED};
-
-        String metricKey = metricName;
-        
-        String areaName = 'Scale';
-        
-        areaMap.put(metricKey, metricDataWrapper);
-        System.assertNotEquals(areaMap, null);
-        
-        metricWrappers.put(areaName, areaMap);
-        
-        metricOrder.add(metricKey);
-        
-        metricWrapperOrder.put(areaName, metricOrder);
+        Test.startTest();
 
         System.assertNotEquals(GumutindoHelpers.getData(quarter), null);
-
+        
         System.assert(GumutindoHelpers.getGumutindoPrimarySocietyMarkers().size() == 1);
- 
-        System.assert(GumutindoHelpers.getCKWMapMarkers().size() == 2); //one for ckw and one for fo
-        System.assert(controller.district != null);
-        System.assert(controller.subcounty != null);
-        System.assert(controller.dummyObject != null);
-        System.assert(controller.getDistrictMapSection() != null);
 
         System.assert(controller.loadGumutindoPrimarySocieties().size() == 1);
         
         System.assert(controller.getSubcountiesList().size() == 2);
         
-        //System.assert(controller.changeFilters() != null);
+        System.assert(controller.changeFilters() != null);
         
         System.assert(controller.getMaps().size() ==1);
         System.assert('false'.equals(controller.getIsEditMode()));
         System.assert('true'.equals(controller.getIsUpdateable()));
         
-        System.assert(GumutindoHelpers.loadCkw(testPerson) != null);
+        //System.assert(GumutindoHelpers.loadCkw(testPerson) != null);
         
         GumutindoHelpers.GumutindoDistrictCoordinatesProvider districtProvider = new GumutindoHelpers.GumutindoDistrictCoordinatesProvider();
         System.assert(districtProvider.loadMapMarkers(null).size() == 1);
@@ -900,19 +843,19 @@ public with sharing class GumutindoDashboardTests {
         GumutindoHelpers.GumutindoPrimarySocietyCoordinatesProvider societyMarkerProvider = new GumutindoHelpers.GumutindoPrimarySocietyCoordinatesProvider();
         System.assert(societyMarkerProvider.loadMapMarkers(null).size() == 1);
          
-        GumutindoHelpers.GumutindoCkwCoordinatesProvider ckwMarkerProvider = new GumutindoHelpers.GumutindoCkwCoordinatesProvider();
-        System.assert(ckwMarkerProvider.loadMapMarkers(null).size() == 2);
+        //GumutindoHelpers.GumutindoCkwCoordinatesProvider ckwMarkerProvider = new GumutindoHelpers.GumutindoCkwCoordinatesProvider();
+        //System.assert(ckwMarkerProvider.loadMapMarkers(null).size() == 2);
         
         GumutindoHelpers.GumutindoDistrictMarker gDMarker = new GumutindoHelpers.GumutindoDistrictMarker(testDistrict);
         gDMarker.setParentRegistered('pr');
         System.assert('pr'.equals(gDMarker.getParentRegistered()));
         System.assert(gDMarker.getMarkerInfoContentString() != null);
         
-        GumutindoHelpers.GumutindoCkwMarker gCMarker = new GumutindoHelpers.GumutindoCkwMarker(testCkw);
+/*        GumutindoHelpers.GumutindoCkwMarker gCMarker = new GumutindoHelpers.GumutindoCkwMarker(testCkw);
         gCMarker.setParentRegistered('pr');
         gCMarker.generateMarkerName('Gender');
         
-        /*gCMarker.ckw.Person__r.Parish__c = 'Test Parish';
+        gCMarker.ckw.Person__r.Parish__c = 'Test Parish';
         gCMarker.ckw.Person__r.Village__c = 'Test Village';
         gCMarker.ckw.Person__r.Subcounty__r.Display_Name__c = 'Test Sub Display';
         System.assert('pr'.equals(gCMarker.getParentRegistered()));
