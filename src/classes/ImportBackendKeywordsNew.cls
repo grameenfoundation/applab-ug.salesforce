@@ -49,7 +49,7 @@ global class ImportBackendKeywordsNew {
             Menu__c
             WHERE
             Label__c = :label
-                       LIMIT 1];
+            LIMIT 1];
   }
 
   // check if sent menu item exists in salesforce, returns it if it exists
@@ -65,10 +65,10 @@ global class ImportBackendKeywordsNew {
                     Menu_Item__c
                     WHERE
                     Label__c = :menuItemAdapter.Label.trim()
-                               AND
-                               Menu__c = :menuId
-                                         AND
-                                         Parent_Item__c = : previousAdapter.MenuItem.Id
+                    AND
+                    Menu__c = :menuId
+                    AND
+                    Parent_Item__c = : previousAdapter.MenuItem.Id
                   ];
     } else {
       menuItems = [
@@ -78,10 +78,10 @@ global class ImportBackendKeywordsNew {
                     Menu_Item__c
                     WHERE
                     Label__c = :menuItemAdapter.Label.trim()
-                               AND
-                               Menu__c = :menuId
-                                         AND
-                                         Parent_Item__c = NULL
+                    AND
+                    Menu__c = :menuId
+                    AND
+                    Parent_Item__c = NULL
                   ];
     }
 
