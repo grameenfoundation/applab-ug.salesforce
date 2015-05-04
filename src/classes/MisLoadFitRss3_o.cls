@@ -11,7 +11,7 @@ global class MisLoadFitRss3_o implements Database.batchable<MisLoadFitRss3_o.Ite
     static final String BASEKEYWORD = 'Market_Prices';
     static final String CATEGORY = 'Market_Information';
     static final String MENU_NAME = 'CKW 3.0 Search';
-    static final String SECONDARY_MENU_NAME = 'CKW Test';
+    static final String SECONDARY_MENU_NAME = 'CKW Search';//CKW Test
     private Datetime changeDate = datetime.now();
     private String url = '';
     global String notificationContent = '';
@@ -56,13 +56,13 @@ global class MisLoadFitRss3_o implements Database.batchable<MisLoadFitRss3_o.Ite
                                + '. ItemAdapters = ' + menuItemAdapters.size()
                                + '. Returned=>' + result2;
         System.debug(Logginglevel.INFO, 'Noti... ' + notificationContent);
-
+    
         menuItemAdapters = generateItemAdapters(scope);
         boolean result = ImportBackendKeywordsNew.importBackendKeywords(menuItemAdapters, SECONDARY_MENU_NAME);
         notificationContent += '\n Batch processing = ' + scope.size()
                                + '. ItemAdapters = ' + menuItemAdapters.size()
                                + '. Returned=>' + result;
-        System.debug(Logginglevel.INFO, 'Noti... ' + notificationContent);
+        System.debug(Logginglevel.INFO, 'Noti... ' + notificationContent);       
 
     }
 
