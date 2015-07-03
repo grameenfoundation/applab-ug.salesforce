@@ -131,7 +131,7 @@ public with sharing class FieldOfficerBreakDownController extends ParentComponen
         return null;
     }
 
-    static testMethod void testGraphController() {
+ /**   static testMethod void testGraphController() {
 
         // Create the dashboard selector
         Account account = new Account();
@@ -175,5 +175,5 @@ public with sharing class FieldOfficerBreakDownController extends ParentComponen
         controller.getRowCount();
         controller.getObjectName();
         controller.getIsRefresh();
-    }
+    }**/
 }

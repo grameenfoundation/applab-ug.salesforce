@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>CKW__c</fullName>
+        <label>CKW</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>OBUL Producer Organisations</relationshipLabel>
+        <relationshipName>OBUL_Producer_Organisations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DC__c</fullName>
+        <description>Depot Committee</description>
+        <inlineHelpText>Depot Committee</inlineHelpText>
+        <label>DC</label>
+        <referenceTo>OBUL_Depot_Committee__c</referenceTo>
+        <relationshipLabel>OBUL Producer Organisations</relationshipLabel>
+        <relationshipName>OBUL_Producer_Organisations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Zone__c</fullName>
+        <label>Zone</label>
+        <length>100</length>
+        <type>Text</type>
+    </fields>
+    <label>OBUL Producer Organisation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>DC__c</columns>
+        <columns>CKW__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>PO Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>OBUL Producer Organisations</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>DC__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>DC__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CREATEDBY_USER</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CKW__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>DC__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CREATEDBY_USER</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>DC__c</searchFilterFields>
+        <searchFilterFields>CKW__c</searchFilterFields>
+        <searchResultsAdditionalFields>DC__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CKW__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Zone__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

@@ -1,0 +1,254 @@
+<apex:component controller="CQT_AnalysisComponent_v2Controller" allowDML="true">
+    <!--<apex:variable var="sObjAnalysis" value="{!Analysis}" />-->
+    <apex:attribute name="sObjAnalysisList" description="Analysis sObject list" type="CQT_Analysis__c[]" required="true"/>
+    <apex:attribute name="sObjAnalysis" description="Analysis sObject" type="CQT_Analysis__c" required="true" assignTo="{!Analysis}"/>
+    <apex:attribute name="AdditionalInfo" description="Aditional Info to show in header" type="String" required="false"/>
+    <apex:attribute name="CoffeeSample" description="CoffeeSample info" type="CQT_CoffeeSample__c" required="false"/>
+    <script type="text/javascript">
+        function itschanged(){
+            //var myPicklistElement  = document.getElementById('{!$Component.BlockPpal.AnalysisSection.FraganceAroma__c}');
+            //var myPicklistValue = myPicklistElement.options[myPicklistElement.selectedIndex].value;
+            
+            //var myPicklistElement  = document.getElementById('{!$Component.BlockPpal.TasterList}');
+            //var myPicklistValue = myPicklistElement.options[myPicklistElement.selectedIndex].value;
+            
+            //document.getElementById('{!$Component.BlockPpal.Score_8}').value = '99';
+            //alert(myPicklistElement.getSize);
+            alert('test');
+            return;
+        }
+    </script>
+    <apex:pageBlock id="BlockPpal" rendered="true" >
+        <apex:pageMessages id="MsgAnalysis" ></apex:pageMessages>
+        <!--<apex:outputText value="longitud de la lista {!sObjAnalysisList.size}" id="test1"/><br/>-->
+        <apex:panelGrid columns="2" id="GridPpal" width="50%">
+            <apex:panelGroup >
+                
+                <apex:outputText value="Catador: "></apex:outputText>
+                <apex:selectList value="{!TasterSelected}" multiselect="false" size="1" id="TasterList" label="Catador">
+                    <apex:selectOptions value="{!TasterOptions}"></apex:selectOptions>
+                    <apex:actionSupport event="onchange" action="{!AssignTasterToAnalysis}" reRender="BlockPpal"/>
+                </apex:selectList>
+            </apex:panelGroup>
+            <apex:outputText value="Cédula Productor: {!CoffeeSample.LAC_Farmer__r.National_ID__c}" ></apex:outputText>
+            <apex:panelGroup id="GroupGridPpal">                
+                <!--
+				<apex:outputText value="Muestra: (puede hacer la búsqueda mediante palabra clave) "></apex:outputText>
+				<apex:inputText id="SampleSearch" value="{!sObjAnalysis.CoffeeSample__c}"/>
+				<apex:commandButton id="goSearch" value="Buscar Muestra" action="{!searchSampleOptions}" reRender="SampleList" />
+                <apex:selectList value="{!SampleSelected}" multiselect="false" size="1" id="SampleList" label="Muestra" rendered="true">
+                    <apex:selectOptions value="{!SampleOptions}"></apex:selectOptions>
+                    <apex:actionSupport event="onchange" action="{!AssignSampleToAnalysis}" reRender="BlockPpal"/>
+                </apex:selectList>-->
+            </apex:panelGroup>
+        </apex:panelGrid>
+        <apex:pageBlockSection columns="1"  id="AnalysisSection" rendered="true">
+            <!-- 
+                <style>
+                .colstyle {width:100%}
+            </style>
+                -->
+            <!--<apex:panelGrid id="GridAnalysisDetail" columns="8" columnClasses="colstyle" width="13%">-->
+            <apex:panelGrid id="GridAnalysisDetail" columns="10" rules="cols" width="100%">
+             
+                <apex:panelGrid id="Group_0" columns="1">
+                    <apex:outputText value="[ Análisis # {!AdditionalInfo} ] " ></apex:outputText>
+                    <apex:outputText value="Humedad:{!CoffeeSample.Humidity__c}" ></apex:outputText>
+                    <apex:outputText value="%Broca:{!CoffeeSample.CoffeeBerryBorerPercent__c}" ></apex:outputText>
+                    <apex:outputText value="Grano PG:{!CoffeeSample.GrainFirstGroupPercent__c}" ></apex:outputText>
+                    <apex:outputText value="Var:{!CoffeeSample.Variety__c}" ></apex:outputText>                                        
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_1" columns="1">
+                                    
+                    <apex:outputLabel value="Nivel de la" for="RoastLevelOfSample__c"/>
+                    <apex:outputLabel value="Muestra"/>
+                    <apex:inputField value="{!sObjAnalysis.RoastLevelOfSample__c}" id="RoastLevelOfSample__c" >
+                        <apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                    </apex:inputField>
+                    <br></br>
+                    <apex:outputLabel value="Cualidades:" for="Qualities__c"/>
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_2" columns="1">
+                    <!--<apex:panelGrid id="GridScore_1" columns="1" width="100%" style="text-align:right">
+                        <apex:panelGroup id="GroupScore_1">
+                            <apex:outputLabel value="Total " for="Score_1" />          
+                            <apex:inputText id="Score_1" maxlength="4" style="width:30px"/>
+                        </apex:panelGroup>
+                    </apex:panelGrid>-->
+                    <apex:panelGrid id="Group_Fragancia" columns="4" width="100%">
+                        <apex:outputLabel value="Fragancia/Aroma" for="FraganceAroma__c"/>                        
+                        <apex:outputLabel value="Seco" for="Dry__c"/>                        
+                        <apex:outputLabel value="Espuma" for="Break__c"/>
+                        <apex:outputLabel value="Total " for="Score_1" style="font-weight:bold;"/>
+                            
+                        <apex:inputField value="{!sObjAnalysis.FraganceAroma__c}" id="FraganceAroma__c" >
+                        	<apex:actionSupport event="onchange" action="{!SumFraganceAroma}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                        <apex:inputField value="{!sObjAnalysis.Dry__c}" id="Dry__c" >
+                            <apex:actionSupport event="onchange" action="{!SumFraganceAroma}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                        <apex:inputField value="{!sObjAnalysis.Break__c}" id="Break__c" >
+                            <apex:actionSupport event="onchange" action="{!SumFraganceAroma}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                        <apex:inputText id="Score_1" maxlength="4" style="width:35px" value="{!SumFraganceAroma}" />                        
+                    </apex:panelGrid>                   
+                    <apex:inputField value="{!sObjAnalysis.Qualities__c}" id="Qualities__c"/>                    
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_3" columns="1" rules="rows">
+                    <apex:panelGrid columns="1">
+                        <!--<apex:panelGrid id="GridScore_2" columns="2">
+                            <apex:outputLabel value="Total" for="Score_2"/>                        
+                            <apex:inputText id="Score_2" maxlength="4" style="width:30px"/>
+                        </apex:panelGrid>-->
+                        <apex:outputLabel value="Sabor" for="Flavor__c"/>                                                
+                        <apex:inputField value="{!sObjAnalysis.Flavor__c}" id="Flavor__c" >
+                            <!-- onchange="itschanged(this.value);" -->
+                        	<apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid>
+                    <apex:panelGrid columns="1">
+                        <!--<apex:panelGrid id="GridScore_2_2" columns="2">
+                            <apex:outputLabel value="Total" for="Score_2_2"/>                        
+                            <apex:inputText id="Score_2_2" maxlength="4" style="width:30px"/>
+                        </apex:panelGrid>-->
+                        <apex:outputLabel value="S. Residual" for="AfterTaste__c"/>                                                   
+                        <apex:inputField value="{!sObjAnalysis.AfterTaste__c}" id="AfterTaste__c" >
+							<apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid>                    
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_4" columns="1" rules="rows">
+                    <!--<apex:panelGrid id="GridScore_3" columns="2">
+                        <apex:outputLabel value="Total" for="Score_2"/>                        
+                        <apex:inputText id="Score_3" maxlength="4" style="width:30px"/>
+                    </apex:panelGrid>-->
+                    <apex:panelGrid columns="1">
+                        <apex:outputLabel value="Acidez" for="Acidity__c"/>
+                        <apex:inputField value="{!sObjAnalysis.Acidity__c}" id="Acidity__c" >
+                            <apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid>
+                    
+                    <apex:panelGrid >
+                        <apex:outputLabel value="Intensidad" for="Intensity__c"/>
+                        <apex:inputField value="{!sObjAnalysis.Intensity__c}" id="Intensity__c" />
+                    </apex:panelGrid>                    
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_5" columns="1" rules="rows">
+                    <apex:panelGrid id="GridScore_4" columns="1">
+                        <apex:outputLabel value="Cuerpo" for="Body__c"/>
+                        <apex:inputField value="{!sObjAnalysis.Body__c}" id="Body__c" >                        
+                            <apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid>
+                    <apex:panelGrid >
+                        <apex:outputLabel value="Intensidad" for="Level__c"/>
+                        <apex:inputField value="{!sObjAnalysis.Level__c}" id="Level__c" />
+                    </apex:panelGrid>
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_6" columns="1" rules="rows">                    
+                    <apex:panelGrid columns="1">
+                        <apex:outputLabel value="Uniformidad" for="Uniformity__c"/>
+                        <apex:inputField value="{!sObjAnalysis.Uniformity__c}" id="Uniformity__c" >
+                            	<apex:actionSupport event="onchange" action="{!FillDefects}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid> 
+                    <apex:panelGrid columns="1">
+                        <apex:outputLabel value="Balance" for="Balance__c"/>
+                        <apex:inputField value="{!sObjAnalysis.Balance__c}" id="Balance__c" >
+                            <apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid>
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_7" columns="1" rules="rows">
+                   
+                    <apex:panelGrid columns="1">
+                        <apex:outputLabel value="Taza Limpia" for="CleanCup__c"/>
+                        <apex:inputField value="{!sObjAnalysis.CleanCup__c}" id="CleanCup__c" >
+                            <apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid>
+                    <apex:panelGrid columns="1">
+                        <apex:outputLabel value="Dulzor" for="Sweetness__c"/>
+                        <apex:inputField value="{!sObjAnalysis.Sweetness__c}" id="Sweetness__c" >
+                            <apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        </apex:inputField>
+                    </apex:panelGrid>
+                </apex:panelGrid>
+                
+                <apex:panelGrid id="Group_8" columns="1" rules="rows">
+                    
+                        <apex:panelGrid columns="2" width="110%">
+                            <apex:panelGrid columns="1">
+                                <apex:outputLabel value="Puntaje Catador" for="Overall__c"/>
+ 								<apex:inputField value="{!sObjAnalysis.Overall__c}" id="Overall__c" >
+                                    <apex:actionSupport event="onchange" action="{!TotalScore}" reRender="AnalysisSection"/>
+                        		</apex:inputField>
+                            </apex:panelGrid>
+                            <apex:panelGrid columns="1" style="text-align:right">
+                                <apex:outputLabel value="Puntaje Total" for="Score_8" style="font-weight:bold;"/>
+                                <apex:inputText id="Score_8" maxlength="4" style="width:35px" value="{!SubTotalScore}" />
+                            </apex:panelGrid>                            
+                        </apex:panelGrid>
+                        
+                    
+                    <apex:panelGrid >
+                        <apex:outputLabel value="Defectos (Sustraer)"/>
+                        <apex:outputLabel value="# Tazas X Intensidad" for="NumCleanCup"/>
+                        <apex:panelGrid columns="5">
+                            <apex:inputText id="NumCleanCup" maxlength="4" style="width:30px" value="{!NumDefectCups}" />
+                            <apex:outputLabel value="X" style="width:10px"/>
+                            <!--<apex:inputText id="Intensity" maxlength="4" style="width:30px"/>-->
+                            <apex:inputField value="{!sObjAnalysis.IntensityDefect__c}" id="IntensityDefect__c">
+                                <apex:actionSupport event="onchange" action="{!MultDefects}" reRender="AnalysisSection"/>
+                            </apex:inputField>
+                            <apex:outputLabel value="=" style="width:10px"/>
+                            <apex:inputText id="SubTotal" maxlength="4" style="width:35px" value="{!TotalDefects}" />
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:panelGrid>
+                
+            
+                <!--<apex:panelGrid id="GridScore_Total" columns="1">
+                    <apex:panelGrid columns="4">
+                        <apex:outputLabel value="Suma" for="Sum_total" style="font-weight:bold;"/>                        
+                        <apex:inputText id="Sum_total" maxlength="4" style="width:30px"/>
+                        <apex:outputLabel value="Puntaje Final" for="Score_total" style="font-weight:bold;"/>                      
+                        <apex:inputText id="Score_total" maxlength="4" style="width:30px"/>
+                    </apex:panelGrid>
+                    <apex:panelGrid columns="1">
+                        <apex:outputLabel value="Notas" for="Notes__c"/>
+                        <apex:inputTextarea value="{!sObjAnalysis.Notes__c}" id="Notes__c" rows="3"/>    
+                    </apex:panelGrid>   
+                    <apex:panelGrid columns="2">
+                        <apex:outputLabel value="Total Score" for="Score_total9"/>                        
+                        <apex:inputText id="Score_total9" maxlength="4" style="width:30px"/>
+                    </apex:panelGrid>                    
+                </apex:panelGrid>-->
+                
+            </apex:panelGrid>
+        	<apex:panelGrid columns="4">
+                <apex:outputLabel value="Notas" for="Notes__c"/>
+                <apex:inputTextarea value="{!sObjAnalysis.Notes__c}" id="Notes__c" rows="1" cols="142"/>
+                <apex:outputLabel value="Puntaje Final" for="Score_total"/>                        
+				<!--<apex:inputText id="Score_total" maxlength="4" style="width:35px" value="{!TotalScore}" />-->
+                <apex:inputText id="Score_total" maxlength="4" style="width:35px" value="{!sObjAnalysis.TotalScore__c}" />
+                
+        	</apex:panelGrid>
+        </apex:pageBlockSection>
+        <!--<apex:repeat value="{!sObjAnalysisList}" var="Analysis" id="theRepeat">
+            <apex:outputText value="{!Analysis.Session__c}" id="Session"/><br/>
+            <apex:outputText value="{!Analysis.PerformanceFactor__c}" id="PerformanceFactor"/><br/>
+        </apex:repeat>-->
+        <!--<apex:pageBlockButtons location="bottom">
+            <apex:commandButton action="{!save}" value="Guardar Análisis" reRender="BlockPpal" />
+        </apex:pageBlockButtons>-->
+    </apex:pageBlock>
+</apex:component>

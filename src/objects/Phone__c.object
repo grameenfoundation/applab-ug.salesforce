@@ -1,59 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Handsets to be used by CKWs, developers, etc.</description>
     <enableActivities>true</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Batch__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Batch</label>
         <referenceTo>Batch__c</referenceTo>
         <relationshipLabel>Handsets</relationshipLabel>
         <relationshipName>Handsets</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Battery_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Battery Type</label>
         <picklist>
             <picklistValues>
@@ -74,13 +36,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Brand__c</fullName>
         <description>Brand of phone</description>
-        <externalId>false</externalId>
         <inlineHelpText>Choose brand of phone such as HTC</inlineHelpText>
         <label>Brand</label>
         <picklist>
@@ -144,57 +104,55 @@
                 <fullName>Otro...</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Samsung Galaxy Star Plus GT-S7262</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Samsung Galaxy Ace 4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>blackberry 10</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Date_Received__c</fullName>
         <description>Date when the handsets were received</description>
-        <externalId>false</externalId>
         <inlineHelpText>Date when the handsets were received</inlineHelpText>
         <label>Date Received</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Disposal_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Disposal Date</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Disposal_Value_USD__c</fullName>
-        <externalId>false</externalId>
         <label>Disposal Value (USD)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>IMEI__c</fullName>
-        <caseSensitive>false</caseSensitive>
         <description>IMEI number of the phone</description>
         <externalId>true</externalId>
         <inlineHelpText>To obtain IMEI number enter *#06# from the phone or open the case and look inside the phone</inlineHelpText>
         <label>IMEI</label>
         <length>18</length>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>true</unique>
     </fields>
     <fields>
         <fullName>Initial_Condition__c</fullName>
         <description>Initial physical condition. Only valid from Jan 2010</description>
-        <externalId>false</externalId>
         <label>Initial Condition</label>
         <picklist>
             <picklistValues>
@@ -215,95 +173,72 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Notes__c</fullName>
         <description>Other information on the phone</description>
-        <externalId>false</externalId>
         <inlineHelpText>Other information on the phone</inlineHelpText>
         <label>Notes</label>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>OS_Firmware_Version__c</fullName>
         <description>OS Firmware Version</description>
-        <externalId>false</externalId>
         <label>OS Firmware Version</label>
         <length>10</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Pulse_Version__c</fullName>
         <description>Version of Pulse installed on this handset</description>
-        <externalId>false</externalId>
         <inlineHelpText>Version of Pulse installed on this handset</inlineHelpText>
         <label>Pulse Version</label>
         <length>80</length>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Purchase_Value_USD__c</fullName>
-        <externalId>false</externalId>
         <label>Purchase Value (USD)</label>
         <precision>18</precision>
         <required>true</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>SIM__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The SIM Card assigned to this phone</description>
-        <externalId>false</externalId>
         <inlineHelpText>The SIM Card assigned to this phone</inlineHelpText>
         <label>SIM Card</label>
         <referenceTo>SIM__c</referenceTo>
         <relationshipLabel>Handset</relationshipLabel>
         <relationshipName>Handset</relationshipName>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Search_Version__c</fullName>
         <description>Version of Search installed on this handset</description>
-        <externalId>false</externalId>
         <inlineHelpText>Version of Search installed on this handset</inlineHelpText>
         <label>Search Version</label>
         <length>80</length>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Serial_Number__c</fullName>
-        <caseSensitive>false</caseSensitive>
         <description>Handset Serial Number</description>
-        <externalId>false</externalId>
         <label>Serial Number</label>
         <length>25</length>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>true</unique>
     </fields>
     <fields>
         <fullName>State__c</fullName>
         <description>State of the phone (configured, locked, broken, etc)</description>
-        <externalId>false</externalId>
         <label>State</label>
         <picklist>
             <picklistValues>
@@ -374,14 +309,11 @@
     <fields>
         <fullName>Surveys_Version__c</fullName>
         <description>Version of Surveys application installed on this Handset</description>
-        <externalId>false</externalId>
         <inlineHelpText>Version of Surveys application installed on this Handset</inlineHelpText>
         <label>Surveys Version</label>
         <length>80</length>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>Handset</label>
     <listViews>
@@ -398,12 +330,10 @@
         <columns>OBJECT_ID</columns>
         <filterScope>Mine</filterScope>
         <label>All Handsets</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>PH-{000000}</displayFormat>
         <label>Handset ID</label>
-        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Handsets</pluralLabel>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>DC_Name__c</fullName>
+        <formula>Producer_Organisation__r.DC__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DC Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Focus_Farmer__c</fullName>
+        <label>Focus Farmer</label>
+        <referenceTo>Focus_Farmer__c</referenceTo>
+        <relationshipLabel>Opportunity Coffee Farmers</relationshipLabel>
+        <relationshipName>OBUL_Coffee_Farmers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>PO_Name__c</fullName>
+        <formula>Producer_Organisation__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PO Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Producer_Organisation__c</fullName>
+        <label>Producer Organisation</label>
+        <referenceTo>OBUL_Producer_Organisation__c</referenceTo>
+        <relationshipLabel>Opportunity Coffee Farmers</relationshipLabel>
+        <relationshipName>OBUL_Coffee_Farmers</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Registered_By__c</fullName>
+        <label>Registered By</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunity Coffee Farmers</relationshipLabel>
+        <relationshipName>OBUL_Coffee_Farmers</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Opportunity Coffee Farmers</relationshipLabel>
+        <relationshipName>OBUL_Coffee_Farmers</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <label>OBUL Coffee Farmer</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>DC_Name__c</columns>
+        <columns>PO_Name__c</columns>
+        <columns>Registered_By__c</columns>
+        <columns>Submission__c</columns>
+        <columns>Focus_Farmer__c</columns>
+        <columns>Producer_Organisation__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>OBUL-{00000}</displayFormat>
+        <label>OBUL Coffee Farmer Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>OBUL Coffee Farmers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

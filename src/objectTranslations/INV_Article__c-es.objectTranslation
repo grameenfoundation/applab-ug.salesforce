@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>Canastilla Inventario</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Canastillas Inventario</value>
+    </caseValues>
+    <fields>
+        <label>Descripción</label>
+        <name>Description__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>INV Article Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Canastilla</nameFieldLabel>
+    <validationRules>
+        <errorMessage><!-- Ya existe un artículo con este nombre --></errorMessage>
+        <name>unique</name>
+    </validationRules>
+</CustomObjectTranslation>

@@ -1,47 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Object that contains details about the household that people can belong to</description>
-    <enableActivities>false</enableActivities>
-    <enableEnhancedLookup>false</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>CATS_Savings_Account_Bank__c</fullName>
-        <externalId>false</externalId>
         <label>CATS Savings Account Bank</label>
         <picklist>
             <picklistValues>
@@ -90,12 +54,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Credit_Crops_Infrastructure__c</fullName>
-        <externalId>false</externalId>
         <label>Credit Crops Infrastructure</label>
         <picklist>
             <picklistValues>
@@ -144,13 +106,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Credit_Crops_Production__c</fullName>
-        <externalId>false</externalId>
         <label>Credit Crops Production</label>
         <picklist>
             <picklistValues>
@@ -199,13 +159,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Credit_Uses__c</fullName>
-        <externalId>false</externalId>
         <label>Credit Uses</label>
         <picklist>
             <picklistValues>
@@ -238,45 +196,32 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Daily_Wages_Outside_Farm_Percent__c</fullName>
-        <externalId>false</externalId>
         <label>Daily Wages Outside Farm Percent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>Daily_Wages_Outside_Farm__c</fullName>
-        <externalId>false</externalId>
         <label>Daily Wages Outside Farm</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Debt_Amount__c</fullName>
-        <externalId>false</externalId>
         <label>Debt Amount</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Debt_Funding_Sources_Currency__c</fullName>
-        <externalId>false</externalId>
         <label>Debt Funding Sources Currency</label>
         <picklist>
             <picklistValues>
@@ -305,12 +250,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Debt_Funding_Sources__c</fullName>
-        <externalId>false</externalId>
         <label>Debt Funding Sources</label>
         <picklist>
             <picklistValues>
@@ -339,24 +282,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Debt_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Debt Number</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Disasters__c</fullName>
-        <externalId>false</externalId>
         <label>Disasters</label>
         <picklist>
             <picklistValues>
@@ -393,24 +330,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Family_Size__c</fullName>
-        <externalId>false</externalId>
         <label>Family Size</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Has_Bank_Account__c</fullName>
-        <externalId>false</externalId>
         <label>Has Bank Account</label>
         <picklist>
             <picklistValues>
@@ -423,12 +354,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Has_CATS_Savings_Account__c</fullName>
-        <externalId>false</externalId>
         <label>Has CATS Savings Account</label>
         <picklist>
             <picklistValues>
@@ -441,12 +370,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Has_Made_Timely_Payments__c</fullName>
-        <externalId>false</externalId>
         <label>Has Made Timely Payments</label>
         <picklist>
             <picklistValues>
@@ -459,12 +386,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Has_No_Crops_Land__c</fullName>
-        <externalId>false</externalId>
         <label>Has No Crops Land</label>
         <picklist>
             <picklistValues>
@@ -477,12 +402,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Has_Separate_Kitchen__c</fullName>
-        <externalId>false</externalId>
         <label>Has Separate Kitchen</label>
         <picklist>
             <picklistValues>
@@ -495,12 +418,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Health_Care_System__c</fullName>
-        <externalId>false</externalId>
         <label>Health Care System</label>
         <picklist>
             <picklistValues>
@@ -525,12 +446,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Heater__c</fullName>
-        <externalId>false</externalId>
         <label>Heater</label>
         <picklist>
             <picklistValues>
@@ -551,47 +470,33 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Household_Head_Education_Level__c</fullName>
-        <externalId>false</externalId>
         <label>Household Head Education Level</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Household_Head__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The farmer (contact) who is the head of this household</description>
-        <externalId>false</externalId>
         <label>Household Head</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>LAC Households</relationshipLabel>
         <relationshipName>LAC_Households</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>LAC_Farmer_Id_Temp__c</fullName>
         <description>Deprecated: July 2013 - This field isn&apos;t needed since TaroWorks now supports related object mapping.</description>
-        <externalId>false</externalId>
         <label>LAC Farmer Id Temp (Deprecated)</label>
         <length>15</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Main_Economic_Activities__c</fullName>
-        <externalId>false</externalId>
         <label>Main Economic Activities</label>
         <picklist>
             <picklistValues>
@@ -640,13 +545,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Main_Farm_Land_Extension__c</fullName>
-        <externalId>false</externalId>
         <label>Main Farm Land Extension</label>
         <picklist>
             <picklistValues>
@@ -683,12 +586,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Main_Income_Sources__c</fullName>
-        <externalId>false</externalId>
         <label>Main Income Sources</label>
         <picklist>
             <picklistValues>
@@ -713,13 +614,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Marginalized_Types__c</fullName>
-        <externalId>false</externalId>
         <label>Marginalized Types</label>
         <picklist>
             <picklistValues>
@@ -744,13 +643,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>No_Crops_Land_Area_Unit__c</fullName>
-        <externalId>false</externalId>
         <label>No Crops Land Area Unit</label>
         <picklist>
             <picklistValues>
@@ -775,23 +672,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>No_Crops_Land_Area__c</fullName>
-        <externalId>false</externalId>
         <label>No Crops Land Area</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>No_Crops_Land_Uses__c</fullName>
-        <externalId>false</externalId>
         <label>No Crops Land Uses</label>
         <picklist>
             <picklistValues>
@@ -840,7 +731,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -849,30 +739,21 @@
         <description>Used to identify members of the same household and try to eliminate redundant households, and link people to the same household.
 
 Deprecated: July 2013 - new registration surveys only register the household head, but in future will register other members too. This field isn&apos;t used until further notice.</description>
-        <externalId>false</externalId>
         <label>Other Member Id (Deprecated)</label>
         <length>15</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Other_Member_Name__c</fullName>
         <description>Used to identify members of the same household and try to eliminate redundant households, and link people to the same household.
 
 Deprecated: July 2013 - new registration surveys only register the household head, but in future will register other members too. This field isn&apos;t used until further notice.</description>
-        <externalId>false</externalId>
         <label>Other Member Name (Deprecated)</label>
         <length>30</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Ownership__c</fullName>
-        <externalId>false</externalId>
         <label>Ownership</label>
         <picklist>
             <picklistValues>
@@ -901,35 +782,25 @@ Deprecated: July 2013 - new registration surveys only register the household hea
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Registration_PPI_Score__c</fullName>
         <description>Deprecated - adding a new object &quot;LAC Household PPI Score&quot; which tracks the score over time</description>
-        <externalId>false</externalId>
         <label>Registration PPI Score (Deprecated)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Rooms_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Rooms Number</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Savings_Options__c</fullName>
-        <externalId>false</externalId>
         <label>Savings Options</label>
         <picklist>
             <picklistValues>
@@ -962,13 +833,11 @@ Deprecated: July 2013 - new registration surveys only register the household hea
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Social_Stratum__c</fullName>
-        <externalId>false</externalId>
         <label>Social Stratum</label>
         <picklist>
             <picklistValues>
@@ -997,12 +866,10 @@ Deprecated: July 2013 - new registration surveys only register the household hea
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Total_Coffee_Income_Currency__c</fullName>
-        <externalId>false</externalId>
         <label>Total Coffee Income Currency</label>
         <picklist>
             <picklistValues>
@@ -1031,32 +898,24 @@ Deprecated: July 2013 - new registration surveys only register the household hea
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Total_Coffee_Income_Percent__c</fullName>
-        <externalId>false</externalId>
         <label>Total Coffee Income Percent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>Total_Coffee_Income__c</fullName>
-        <externalId>false</externalId>
         <label>Total Coffee Income</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>Utilities__c</fullName>
-        <externalId>false</externalId>
         <label>Utilities</label>
         <picklist>
             <picklistValues>
@@ -1085,7 +944,6 @@ Deprecated: July 2013 - new registration surveys only register the household hea
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
@@ -1096,12 +954,10 @@ Deprecated: July 2013 - new registration surveys only register the household hea
         <columns>OWNER.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>HH-{0000000}</displayFormat>
         <label>LAC Household Name</label>
-        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>LAC Households</pluralLabel>

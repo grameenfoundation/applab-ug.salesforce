@@ -1,57 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Temp warehouse object that stores data for the PPI surveys until the new platform is ready</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Contact__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>PPI Datas</relationshipLabel>
         <relationshipName>PPI_Datas</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Country__c</fullName>
-        <externalId>false</externalId>
         <label>Country</label>
         <picklist>
             <picklistValues>
@@ -73,26 +33,21 @@
     <fields>
         <fullName>Date__c</fullName>
         <defaultValue>Today()</defaultValue>
-        <externalId>false</externalId>
         <label>Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>PPI Datas</relationshipLabel>
         <relationshipName>PPI_Datas</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Question_10__c</fullName>
-        <externalId>false</externalId>
         <label>Question 10</label>
         <required>true</required>
         <type>TextArea</type>
@@ -100,7 +55,6 @@
     <fields>
         <fullName>Question_1__c</fullName>
         <description>The first question on the PPI scorecard</description>
-        <externalId>false</externalId>
         <label>Question 1</label>
         <required>true</required>
         <type>TextArea</type>
@@ -108,7 +62,6 @@
     <fields>
         <fullName>Question_2__c</fullName>
         <description>The second question on the PPI survey</description>
-        <externalId>false</externalId>
         <label>Question 2</label>
         <required>true</required>
         <type>TextArea</type>
@@ -116,7 +69,6 @@
     <fields>
         <fullName>Question_3__c</fullName>
         <description>The third question in the PPI survey</description>
-        <externalId>false</externalId>
         <label>Question 3</label>
         <required>true</required>
         <type>TextArea</type>
@@ -124,42 +76,36 @@
     <fields>
         <fullName>Question_4__c</fullName>
         <description>The 4th question in the PPI survey</description>
-        <externalId>false</externalId>
         <label>Question 4</label>
         <required>true</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Question_5__c</fullName>
-        <externalId>false</externalId>
         <label>Question 5</label>
         <required>true</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Question_6__c</fullName>
-        <externalId>false</externalId>
         <label>Question 6</label>
         <required>true</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Question_7__c</fullName>
-        <externalId>false</externalId>
         <label>Question 7</label>
         <required>true</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Question_8__c</fullName>
-        <externalId>false</externalId>
         <label>Question 8</label>
         <required>true</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Question_9__c</fullName>
-        <externalId>false</externalId>
         <label>Question 9</label>
         <required>true</required>
         <type>TextArea</type>
@@ -167,17 +113,13 @@
     <fields>
         <fullName>Score__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Score</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Version__c</fullName>
-        <externalId>false</externalId>
         <label>Version</label>
         <required>true</required>
         <type>TextArea</type>

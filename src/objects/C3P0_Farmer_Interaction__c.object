@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <label>CKW</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>3.0 Farmer Interaction</relationshipLabel>
+        <relationshipName>Farmer_Interaction</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Focus_Farmer__c</fullName>
+        <label>Focus Farmer</label>
+        <referenceTo>Focus_Farmer__c</referenceTo>
+        <relationshipLabel>3.0 Farmer Interaction</relationshipLabel>
+        <relationshipName>Farmer_Interaction</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Month__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <label>Month</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Calls_to_Call_Centre__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Number of Calls to Call Centre</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Group_Meetings_Attended__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Number of Group Meetings Attended</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_SMS__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Number of SMS Received</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Searches__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Number of Searches</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <label>3.0 Farmer Interaction</label>
+    <nameField>
+        <displayFormat>FIN-{YYYY}{MM}{0000}</displayFormat>
+        <label>3.0 Farmer Interaction Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>3.0 Farmer Interaction</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

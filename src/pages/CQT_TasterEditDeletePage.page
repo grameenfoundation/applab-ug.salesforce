@@ -1,0 +1,30 @@
+<apex:page controller="CQT_TasterEditDeleteController" >
+    <apex:form >
+ 		<apex:sectionHeader title="Administrar Catadores"/>
+ 		<div align='right'>
+ 			<apex:commandButton value="Crear Nuevo" action="{!insertNewTaster}" style="width:150px"/>
+  		</div>
+  		<br/>
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!listTasters}" var="taster">
+                <apex:column headerValue="Cédula"> 
+                    {!taster.Name}
+                    <apex:param name="tasterid" value="{!taster.Id}" />
+                </apex:column>
+                <apex:column value="{!taster.firstName__c}" />
+                <apex:column value="{!taster.lastName__c}" />
+                <apex:column value="{!taster.eMail__c}" />
+                <apex:column headerValue="Action" >
+                    <apex:commandLink value="Edit" action="{!editTaster}"> 
+                        <apex:param name="tasterid" value="{!taster.id}" assignTo="{!editTasterid}"/>
+                    </apex:commandlink>
+                    &nbsp;&nbsp;/&nbsp;&nbsp;
+                    <apex:commandLink value="Delete" action="{!deleteTaster}">
+                        <apex:param name="tasterid" value="{!taster.id}" assignTo="{!delTasterid}"/>
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:detail subject="{!$CurrentPage.parameters.tasterid}"/>
+        </apex:pageBlock>
+	</apex:form>
+</apex:page>

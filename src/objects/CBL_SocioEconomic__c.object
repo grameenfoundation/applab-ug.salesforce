@@ -1,160 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents the socio economic information for a Coffee Baseline</description>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Baseline__c</fullName>
-        <externalId>false</externalId>
         <label>Baseline</label>
         <referenceTo>CBL_CoffeeBaseline__c</referenceTo>
         <relationshipLabel>CBL_SocioEconomic</relationshipLabel>
         <relationshipName>CBL_SocioEconomic</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Financing_source_Banco__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Banco&quot;), 1, 0)</formula>
         <label>Financing source: Banco</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Financing_source_Family__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Crédito familiar&quot;), 1, 0)</formula>
         <label>Financing source: Family</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Financing_source_MFI__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Microfinanciera&quot;), 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Financing source: MFI</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Financing_source_Middlemen__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Intermediario (comprador)&quot;), 1, 0)</formula>
         <label>Financing source: Middle man</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Financing_source_coop__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Cooperativa de productores&quot;), 1, 0)</formula>
         <label>Financing source: coop</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Financing_source_informal__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(debtsFinancingSource__c, &quot;Prestamista&quot;), 1, 0)</formula>
         <label>Financing source: Informal</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>CBL_SocioEconomic_Submission</relationshipLabel>
         <relationshipName>CBL_SocioEconomic_Submission</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>WhyNotPlantTheseProducts__c</fullName>
+        <label>WhyNotPlantTheseProducts</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Costos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No tiene experiencia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rentabilidad</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mercado no asegurado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Falta de insumos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No le interesa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>advocadoAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>advocadoAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -179,23 +128,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>advocadoArea__c</fullName>
-        <externalId>false</externalId>
         <label>advocadoArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>bananaPlantainAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>bananaPlantainAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -220,23 +163,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>bananaPlantainArea__c</fullName>
-        <externalId>false</externalId>
         <label>bananaPlantainArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>bankAccount__c</fullName>
-        <externalId>false</externalId>
         <label>bankAccount</label>
         <picklist>
             <picklistValues>
@@ -249,12 +186,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>basicGrainsAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>basicGrainsAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -279,45 +214,31 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>basicGrainsArea__c</fullName>
-        <externalId>false</externalId>
         <label>basicGrainsArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>birdsRabbitsGuineaPigs__c</fullName>
-        <externalId>false</externalId>
         <label>birdsRabbitsGuineaPigs</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>bullsCowsCalfs__c</fullName>
-        <externalId>false</externalId>
         <label>bullsCowsCalfs</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>cardamomAreaUnit__c</fullName>
-        <externalId>false</externalId>
         <label>cardamomAreaUnit</label>
         <picklist>
             <picklistValues>
@@ -342,23 +263,33 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>cardamomArea__c</fullName>
-        <externalId>false</externalId>
         <label>cardamomArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ceasedToCultivate__c</fullName>
+        <label>ceased to cultivate</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>childrenStudying__c</fullName>
-        <externalId>false</externalId>
         <label>childrenStudying</label>
         <picklist>
             <picklistValues>
@@ -371,12 +302,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>citrusAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>citrusAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -401,23 +330,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>citrusArea__c</fullName>
-        <externalId>false</externalId>
         <label>citrusArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>cocoaAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>cocoaAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -442,23 +365,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>cocoaArea__c</fullName>
-        <externalId>false</externalId>
         <label>cocoaArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>creditDestination__c</fullName>
-        <externalId>false</externalId>
         <label>creditDestination</label>
         <picklist>
             <picklistValues>
@@ -499,35 +416,30 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>creditInterestRate__c</fullName>
-        <externalId>false</externalId>
         <label>creditInterestRate</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>dateCeasedToCultivate__c</fullName>
+        <label>date ceased to cultivate</label>
+        <type>Date</type>
     </fields>
     <fields>
         <fullName>daysOfWageAgriculture__c</fullName>
-        <externalId>false</externalId>
         <label>daysOfWageAgriculture</label>
         <precision>7</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>debtPaymentCapacitySituation__c</fullName>
-        <externalId>false</externalId>
         <label>debtPaymentCapacitySituation</label>
         <picklist>
             <picklistValues>
@@ -540,12 +452,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>debtPaymentSituation__c</fullName>
-        <externalId>false</externalId>
         <label>debtPaymentSituation</label>
         <picklist>
             <picklistValues>
@@ -558,12 +468,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>debtsFinancingSource__c</fullName>
-        <externalId>false</externalId>
         <label>debtsFinancingSource</label>
         <picklist>
             <controllingField>debtsFinancingSource_contr__c</controllingField>
@@ -629,13 +537,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>debtsFinancingSource_contr__c</fullName>
-        <externalId>false</externalId>
         <label>debtsFinancingSource_contr</label>
         <picklist>
             <picklistValues>
@@ -664,12 +570,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>debts__c</fullName>
-        <externalId>false</externalId>
         <label>debts</label>
         <picklist>
             <picklistValues>
@@ -682,12 +586,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>electricEnergy__c</fullName>
-        <externalId>false</externalId>
         <label>electricEnergy</label>
         <picklist>
             <picklistValues>
@@ -700,12 +602,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>forestAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>forestAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -730,23 +630,52 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>forestArea__c</fullName>
-        <externalId>false</externalId>
         <label>forestArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fruitsAreaUnits__c</fullName>
+        <label>Fruits Area Units</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hectáreas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas de 25x25</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas de 40x40</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manzanas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuadras</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>fruitsArea__c</fullName>
+        <label>Fruits Area</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>grassPodderAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>grassPodderAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -771,34 +700,24 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>grassPodderArea__c</fullName>
-        <externalId>false</externalId>
         <label>grassPodderArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>hives__c</fullName>
-        <externalId>false</externalId>
         <label>hives</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>homeOwnerShip__c</fullName>
-        <externalId>false</externalId>
         <label>homeOwnerShip</label>
         <picklist>
             <picklistValues>
@@ -839,23 +758,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>horsesMulesDonkeys__c</fullName>
-        <externalId>false</externalId>
         <label>horsesMulesDonkeys</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>householdIncomeSources__c</fullName>
-        <externalId>false</externalId>
         <label>householdIncomeSources</label>
         <picklist>
             <picklistValues>
@@ -892,13 +805,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>knowsHowToReadWrite__c</fullName>
-        <externalId>false</externalId>
         <label>knowsHowToReadWrite</label>
         <picklist>
             <picklistValues>
@@ -911,12 +822,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>landLine__c</fullName>
-        <externalId>false</externalId>
         <label>landLine</label>
         <picklist>
             <picklistValues>
@@ -929,12 +838,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>lastYearIncomeReduction__c</fullName>
-        <externalId>false</externalId>
         <label>lastYearIncomeReduction</label>
         <picklist>
             <picklistValues>
@@ -971,34 +878,43 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>mainProductProject__c</fullName>
+        <label>Main product for this project</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>manyPeopleBringFamilyIncome__c</fullName>
+        <label>People Bring Family Income</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
         <fullName>numberOfBedrooms__c</fullName>
-        <externalId>false</externalId>
         <label>numberOfBedrooms</label>
         <precision>9</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherActivities__c</fullName>
-        <externalId>false</externalId>
         <label>otherActivities</label>
-        <length>100</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherAgriculturalActivities__c</fullName>
-        <externalId>false</externalId>
         <label>otherAgriculturalActivities</label>
         <picklist>
             <picklistValues>
@@ -1075,13 +991,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>pepperAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>pepperAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -1106,76 +1020,94 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>pepperArea__c</fullName>
-        <externalId>false</externalId>
         <label>pepperArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>percentageOfIncomeAgriculture__c</fullName>
-        <externalId>false</externalId>
         <label>percentageOfIncomeAgriculture</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>percentageOfIncomeCoffee__c</fullName>
-        <externalId>false</externalId>
         <label>percentageOfIncomeCoffee</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
+        <fullName>percentageOfIncomeMainActivity__c</fullName>
+        <label>percentage of Income Main Activity</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>percentageOfIncomeProjectActivity__c</fullName>
+        <label>percentage of Income Project Activity</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
         <fullName>personsInHousehold__c</fullName>
-        <externalId>false</externalId>
         <label>personsInHousehold</label>
         <precision>15</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>pigsSheepsGoatsAlpacas__c</fullName>
-        <externalId>false</externalId>
         <label>pigsSheepsGoatsAlpacas</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>plantingDecision__c</fullName>
+        <label>Planting decision</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Costos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lo que siempre han sembrado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rentabilidad</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mercado asegurado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>pondSquareMeters__c</fullName>
-        <externalId>false</externalId>
         <label>pondSquareMeters</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>populationGroup__c</fullName>
-        <externalId>false</externalId>
         <label>populationGroup</label>
         <picklist>
             <picklistValues>
@@ -1216,13 +1148,113 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>productDestinationAutoconsumo__c</fullName>
+        <label>productDestinationAutoconsumo</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>productDestinationDonacion__c</fullName>
+        <label>productDestinationDonacion</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>productDestinationTrueque__c</fullName>
+        <label>productDestinationTrueque</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>productDestinationVenta__c</fullName>
+        <label>productDestinationVenta</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>productDestination__c</fullName>
+        <label>Product destination</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Autoconsumo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trueque</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Venta excedentes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Donación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>productionCreditNextWeekOther__c</fullName>
+        <label>Production Credit Next Week Other</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>productionCreditNextWeek__c</fullName>
+        <label>Production Credit Next Week</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Crédito familiar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prestamista</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intermediario (comprador)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cooperativa de productores</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Microfinanciera</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>reasonCeasedToCultivate__c</fullName>
+        <label>reasonCeasedToCultivate</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
         <fullName>savingsWay__c</fullName>
-        <externalId>false</externalId>
         <label>savingsWay</label>
         <picklist>
             <picklistValues>
@@ -1251,24 +1283,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>10</visibleLines>
     </fields>
     <fields>
         <fullName>schoolingYears__c</fullName>
-        <externalId>false</externalId>
         <label>schoolingYears</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>sewageDisposalSystem__c</fullName>
-        <externalId>false</externalId>
         <label>sewageDisposalSystem</label>
         <picklist>
             <picklistValues>
@@ -1289,12 +1315,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>socialSecutiryProgram__c</fullName>
-        <externalId>false</externalId>
         <label>socialSecutiryProgram</label>
         <picklist>
             <picklistValues>
@@ -1319,13 +1343,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>sourceOfEnergyCook__c</fullName>
-        <externalId>false</externalId>
         <label>sourceOfEnergyCook</label>
         <picklist>
             <picklistValues>
@@ -1350,12 +1372,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>sugarCainAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>sugarCainAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -1380,23 +1400,33 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>sugarCainArea__c</fullName>
-        <externalId>false</externalId>
         <label>sugarCainArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>totalFamilyIncome__c</fullName>
+        <label>Total Family Income</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Menos de un SMLV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Entre uno y dos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>typeOfStove__c</fullName>
-        <externalId>false</externalId>
         <label>typeOfStove</label>
         <picklist>
             <picklistValues>
@@ -1413,12 +1443,30 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>vegetablesAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>vegetablesAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -1443,23 +1491,17 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>vegetablesArea__c</fullName>
-        <externalId>false</externalId>
         <label>vegetablesArea</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>waterSupply__c</fullName>
-        <externalId>false</externalId>
         <label>waterSupply</label>
         <picklist>
             <picklistValues>
@@ -1480,12 +1522,23 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>whichProductsNotPlant__c</fullName>
+        <label>Which products not plant</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>whoDoesntStudy__c</fullName>
-        <externalId>false</externalId>
         <label>whoDoesntStudy</label>
         <picklist>
             <picklistValues>
@@ -1506,12 +1559,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>whoRecievesIncomeAndDecides__c</fullName>
-        <externalId>false</externalId>
         <label>whoRecievesIncomeAndDecides</label>
         <picklist>
             <picklistValues>
@@ -1532,12 +1583,26 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>whyNotBankAccount__c</fullName>
+        <label>Why not bank account</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>woodStoveLocation__c</fullName>
-        <externalId>false</externalId>
         <label>woodStoveLocation</label>
         <picklist>
             <picklistValues>
@@ -1550,7 +1615,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>CBL_SocioEconomic</label>

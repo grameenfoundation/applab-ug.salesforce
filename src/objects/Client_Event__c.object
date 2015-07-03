@@ -1,59 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>An event for a client that may or may not be happening at a client location</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Client_Location__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The location that the event is taking place at</description>
-        <externalId>false</externalId>
         <label>Client Location</label>
         <referenceTo>Client_Location__c</referenceTo>
         <relationshipLabel>Client Events</relationshipLabel>
         <relationshipName>Client_Events</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Description__c</fullName>
         <description>Description of the event</description>
-        <externalId>false</externalId>
         <label>Description</label>
         <length>32768</length>
         <type>LongTextArea</type>
@@ -62,17 +22,14 @@
     <fields>
         <fullName>Display_Name__c</fullName>
         <description>The display name for the event that will show on maps and dashboards to identify it</description>
-        <externalId>false</externalId>
         <label>Display Name</label>
         <length>255</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>End_Time__c</fullName>
         <description>The time that the event is to end</description>
-        <externalId>false</externalId>
         <label>End Time</label>
         <required>true</required>
         <type>DateTime</type>
@@ -80,27 +37,20 @@
     <fields>
         <fullName>Latitude__c</fullName>
         <description>The latitude of the event. If set will override the location in the parent location.</description>
-        <externalId>false</externalId>
         <label>Latitude</label>
         <length>25</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Longitude__c</fullName>
         <description>The longitude of the event. If this is set it overrides the location give by the parent client location</description>
-        <externalId>false</externalId>
         <label>Longitude</label>
         <length>25</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Start_Time__c</fullName>
         <description>The date time of the start of the event</description>
-        <externalId>false</externalId>
         <label>Start Time</label>
         <required>true</required>
         <type>DateTime</type>
@@ -108,7 +58,6 @@
     <fields>
         <fullName>Type__c</fullName>
         <description>The type of event</description>
-        <externalId>false</externalId>
         <label>Type</label>
         <picklist>
             <picklistValues>

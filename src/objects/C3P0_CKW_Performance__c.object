@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>CKW_Gender__c</fullName>
+        <label>CKW Gender</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Male</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Female</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Capped_Farmer_Visits__c</fullName>
+        <formula>IF(Unique_Farmer_Visits__c &gt; 25, 25, Unique_Farmer_Visits__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Capped Farmer Visits</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Compensation_in_UGX__c</fullName>
+        <formula>CASE(Performance_Category__c,
+    &quot;Tier 3&quot; , 100000,
+    &quot;Tier 2&quot; , 70000,
+    &quot;Tier 1&quot; , 40000, 0 )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gross Compensation in UGX</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>3.0 CKW Performances</relationshipLabel>
+        <relationshipName>CKW_Performances</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>District__c</fullName>
+        <label>District</label>
+        <length>50</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Gross__c</fullName>
+        <formula>Value_Of_Searches__c  +  Value_Of_Visits__c  +  No_FO_Visit_Penalty__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gross</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Net_Performance_Compensation__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Net Performance Compensation</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Net__c</fullName>
+        <formula>IF(Visits_to_F0__c = 0, (Value_Of_Searches__c + Value_Of_Visits__c),
+    Gross__c
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Net Compensation After Penalties</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>No_FO_Visit_Penalty__c</fullName>
+        <formula>Case(Performance_Category__c,
+	&quot;Tier 3&quot;, 25000,
+	&quot;Tier 2&quot;, 20000,
+	&quot;Tier 1&quot;, 10000,
+	0
+)</formula>
+        <label>Penalty If Missed FO Visit</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Farmers_Supported__c</fullName>
+        <formula>(Unique_One_to_One__c - Visits_to_F0__c)/  Contact__r.Total_Farmers_Registered__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of Farmers Supported</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Category__c</fullName>
+        <formula>IF (Total_Interactions_by_CKW__c &gt;= 45, &apos;Tier 3&apos;
+, IF (AND(Total_Interactions_by_CKW__c &lt;= 44,Total_Interactions_by_CKW__c &gt;= 37), &apos;Tier 2&apos;
+, IF (AND(Total_Interactions_by_CKW__c &lt;= 36,Total_Interactions_by_CKW__c &gt;= 29), &apos;Tier 1&apos;
+, IF (Total_Interactions_by_CKW__c&lt;=28, &apos;Tier 0&apos;, &apos;Ungraded&apos;
+))))</formula>
+        <label>Performance Category</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <description>This date represents the Month in which a CKW was active</description>
+        <label>Performance Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Total_Interactions_by_CKW__c</fullName>
+        <formula>Capped_Farmer_Visits__c +  Unique_Searches__c +  Visits_to_F0__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Interactions by CKW</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Unique_Farmer_Visits__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Unique Farmer Visits</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Unique_One_to_One__c</fullName>
+        <description>One-to-one interaction with unique farmers across cluster meetings and searches</description>
+        <label>Unique One to One</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Unique_Searches__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Unique Searches</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Value_Of_Searches__c</fullName>
+        <description>compensation as a result of the tier in which the Unique_Searches__c lies</description>
+        <formula>IF(Unique_Searches__c &gt;= 22, 50000,
+	IF(Unique_Searches__c &gt;= 18, 30000,
+		IF(Unique_Searches__c &gt;= 14, 20000, 0)
+	)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Value Of Searches</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Value_Of_Visits__c</fullName>
+        <formula>IF(Unique_Farmer_Visits__c &gt;= 22, 25000,
+	IF(Unique_Farmer_Visits__c &gt;= 18, 20000,
+		IF(Unique_Farmer_Visits__c &gt;= 14, 10000, 0)
+	)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Value Of Visits</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Visits_to_F0__c</fullName>
+        <defaultValue>0</defaultValue>
+        <label>Visits to FO</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <label>3.0 CKW Performance</label>
+    <nameField>
+        <displayFormat>CPN{YYYY}{MM}{0000}</displayFormat>
+        <label>3.0 CKW Performance Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>3.0 CKW Performances</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

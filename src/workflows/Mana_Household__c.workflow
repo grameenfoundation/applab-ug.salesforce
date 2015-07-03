@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldUpdates>
-        <fullName>Update_Household_Latitude</fullName>
+        <fullName>Update Household Latitude</fullName>
         <field>Latitude__c</field>
         <formula>Registration_Submission_Record__r.gfsurveys__gps_y__c</formula>
-        <name>Update Household Latitude</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Update_Household_Longitude</fullName>
+        <fullName>Update Household Longitude</fullName>
         <field>Longitude__c</field>
         <formula>Registration_Submission_Record__r.gfsurveys__gps_x__c</formula>
-        <name>Update Household Longitude</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
@@ -21,7 +19,7 @@
     <rules>
         <fullName>Update Household Latitude</fullName>
         <actions>
-            <name>Update_Household_Latitude</name>
+            <name>Update Household Latitude</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
@@ -31,7 +29,7 @@
     <rules>
         <fullName>Update Household Longitude</fullName>
         <actions>
-            <name>Update_Household_Longitude</name>
+            <name>Update Household Longitude</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>

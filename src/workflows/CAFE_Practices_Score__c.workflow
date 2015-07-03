@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldUpdates>
-        <fullName>Coffee_Growing_score_calculation</fullName>
+        <fullName>Coffee Growing score calculation</fullName>
         <field>Coffee_Growing__c</field>
         <formula>Coffee_Growing_Practices_Met__c / 31</formula>
-        <name>Coffee Growing score calculation</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
@@ -12,7 +11,7 @@
     <rules>
         <fullName>Coffee Growing score</fullName>
         <actions>
-            <name>Coffee_Growing_score_calculation</name>
+            <name>Coffee Growing score calculation</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
@@ -21,6 +20,6 @@
             <operation>greaterThan</operation>
             <value>0</value>
         </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <triggerType>onAllChanges</triggerType>
     </rules>
 </Workflow>

@@ -1,0 +1,1230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <description>mAgriculture</description>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>AfterHarvestWhatHappen__c</fullName>
+        <label>AfterHarvestWhatHappen</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Diretso na ang mga ito sa bumibili o pamilihan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Tinatapas (dehusk) muna ang niyog bago ito ibenta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Iniimbak muna ang niyog hanggang magkameron na ng mamimili</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>AgeOfFarm__c</fullName>
+        <label>Age Of Farm</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>AgeOldestWorker__c</fullName>
+        <label>AgeOldestWorker</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>AgeYoungestWorker__c</fullName>
+        <label>AgeYoungestWorker</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>AnimalsRoamFreely__c</fullName>
+        <label>AnimalsRoamFreely</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Iba pa (paki sulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ApplyIrrigationWaterCacao__c</fullName>
+        <label>ApplyIrrigationWaterCacao</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo, gumagamit ako ng patubig para sa mga puno ng cacao.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi, ang taniman ko ay umaasa lamang sa ulan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>AreaDevotedCrop1__c</fullName>
+        <label>AreaDevotedCrop1</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>BasedFertilization__c</fullName>
+        <label>Based Fertilization</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Soil analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tissue analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>EquipmentDestination__c</fullName>
+        <label>EquipmentDestination</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Kopra</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Desiccated coconut</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ExistAnimals__c</fullName>
+        <label>ExistAnimals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Mayruon</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Wala</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FacilitiesAvailable__c</fullName>
+        <label>FacilitiesAvailable</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2 Hugasan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Palikuran</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 First aid box</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Fire extinguisher</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>FarmArea__c</fullName>
+        <label>Farm Area</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>FarmSecuredPerimeterFence__c</fullName>
+        <label>FarmSecuredPerimeterFence</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FarmTopography__c</fullName>
+        <label>Farm Topography</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Kapatagan (patag na lupain)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Talampas (patag na lupain)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FermentBeans__c</fullName>
+        <label>FermentBeans</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HaveEquipment__c</fullName>
+        <label>HaveEquipment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HireEmployHelp__c</fullName>
+        <label>HireEmployHelp</label>
+        <picklist>
+            <picklistValues>
+                <fullName>yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>no</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HowDisposePesticide__c</fullName>
+        <label>HowDisposePesticide</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>HowDryBeans__c</fullName>
+        <label>HowDryBeans</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Pagbibilad sa araw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Paggamit ng solar dryer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Paggamit ng Lozada drier; multiple crop drier</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Paggamit ng drier na de-gasolina/de-kuryente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HowFarBank__c</fullName>
+        <label>HowFarBank</label>
+        <precision>4</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>HowFarCooperative__c</fullName>
+        <label>HowFarCooperative</label>
+        <precision>4</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>HowFarNearestRoad__c</fullName>
+        <label>HowFarNearestRoad</label>
+        <precision>4</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>HowFarTradingBusinessCenter__c</fullName>
+        <label>HowFarTradingBusinessCenter</label>
+        <precision>4</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>HowManyHire__c</fullName>
+        <label>HowManyHire</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>IntercroppingPractice__c</fullName>
+        <label>Intercropping Practice</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ItemsAnalyzedMetalContaminats__c</fullName>
+        <label>ItemsAnalyzedMetalContaminats</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Lupa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Organikong abono (organic fertilizer)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Patubig (irrigation water)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>KeepFarmRecords__c</fullName>
+        <label>KeepFarmRecords</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>KeptUnderStorage__c</fullName>
+        <label>KeptUnderStorage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Abono</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Pestisidyo (fungicide, insectide, herbicide, etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Gamit pambukid (pruning shear, itak, pala, knapsack sprayer, etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Personal protective equipment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LandOwnership__c</fullName>
+        <label>Land Ownership</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MainCrop__c</fullName>
+        <label>Main Crop</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Niyog</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Palay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mais</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MethodFermentBeans__c</fullName>
+        <label>MethodFermentBeans</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Heap fermentation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Basket fermentation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Box fermentation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MethodProduceSubproducts__c</fullName>
+        <label>MethodProduceSubproducts</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Pagbibilad sa araw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Paggamit ng solar dryer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Paggamit ng tapahan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>NeighborsActivities__c</fullName>
+        <label>Neighbors Activities</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Agrikultura</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kagubatan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Residensyal o Industrial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OtherBasedFertilization__c</fullName>
+        <label>Other Based Fertilization</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherCrop__c</fullName>
+        <label>Other Crop</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Palay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mais</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mangga</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Saging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kape</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OtherHowDryBeans__c</fullName>
+        <label>OtherHowDryBeans</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherItemsAnalyzedMetalContaminats__c</fullName>
+        <label>OtherItemsAnalyzedMetalContaminats</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherMainCrops__c</fullName>
+        <label>Other Main Crops</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherNeighborsActivities__c</fullName>
+        <label>Other Neighbors Activities</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherPPEAvailable__c</fullName>
+        <label>OtherPPEAvailable</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherPPEUsedFarmOperations__c</fullName>
+        <label>OtherPPEUsedFarmOperations</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherReasonsNotFermentingBeans__c</fullName>
+        <label>OtherReasonsNotFermentingBeans</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherTestedItemsAcceptContamLevels__c</fullName>
+        <label>OtherTestedItemsAcceptContamLevels</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OtherWhereGetWaterCacao__c</fullName>
+        <label>OtherWhereGetWaterCacao</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OthersAfterHarvestWhatHappen__c</fullName>
+        <label>OthersAfterHarvestWhatHappen</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OthersAnimalsRoamFreely__c</fullName>
+        <label>OthersAnimalsRoamFreely</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OthersEquipmentDestination__c</fullName>
+        <label>OthersEquipmentDestination</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OthersMethodProduceSubproducts__c</fullName>
+        <label>OthersMethodProduceSubproducts</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>OthersSourcePlantingMaterials__c</fullName>
+        <label>OthersSourcePlantingMaterials</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Ownership__c</fullName>
+        <label>Ownership</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Umuupa -short term rental</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Umuupa- pang-matagalan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May paghahating kasunduan ng may ari ng lupa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Farm caretaker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PPEAvailable__c</fullName>
+        <label>PPEAvailable</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Guwantes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Face mask</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Panakip sa bibig (mouth cover)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Long-sleeved na damit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Bota</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6 Hat/ head cover</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PPEUsedFarmOperations__c</fullName>
+        <label>PPEUsedFarmOperations</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Guwantes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Face mask</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Panakip sa bibig (mouth cover)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Long-sleeved na damit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Bota</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6 Hat/ head cover</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PracticeIPM__c</fullName>
+        <label>Practice IPM</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>QuantWorkersLess18Years__c</fullName>
+        <label>QuantWorkersLess18Years</label>
+        <precision>2</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>QuantWorkersMore60Years__c</fullName>
+        <label>QuantWorkersMore60Years</label>
+        <precision>2</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>ReasonsNotFermentingBeans__c</fullName>
+        <label>ReasonsNotFermentingBeans</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Hindi ko alam kung paano ito gawin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Kokonti lang ang naaani kong buto</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Walang pasilidad para sa pagpiperment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Matrabaho</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RequiresMoreManagement__c</fullName>
+        <label>RequiresMoreManagement</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Niyog</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Cacao</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Parehop lang</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Walang ideya/ walang basihan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RequiresMoreMaterialInputs__c</fullName>
+        <label>RequiresMoreMaterialInputs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Niyog</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Cacao</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Parehop lang</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Walang ideya/ walang basihan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SameFertilizer__c</fullName>
+        <label>SameFertilizer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SeparateRoomStorage__c</fullName>
+        <label>SeparateRoomStorage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SourcePlantingMaterials__c</fullName>
+        <label>SourcePlantingMaterials</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Department of Agriculture</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Local government unit (LGU); munisipyo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Private nursery</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Sariling pananim; sa mismong farm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SpecifyInventoryRecord__c</fullName>
+        <label>SpecifyInventoryRecord</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Pananim/ punla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Abono</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Pestisidyo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Gamit pambukid (farm equipment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SpecifyOtherCrops__c</fullName>
+        <label>Specify Other Crops</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>SpecifyPurchaseRecords__c</fullName>
+        <label>SpecifyPurchaseRecords</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Pananim/ punla</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Abono</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Pestisidyo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Gamit pambukid (farm equipment)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SpecifyRecordProduction__c</fullName>
+        <label>SpecifyRecordProduction</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Dami ng ani</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Dami ng reject</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Sales/ benta mula sa farm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>StorageRoomsCleanDry__c</fullName>
+        <label>StorageRoomsCleanDry</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>StorageRoomsVentilated__c</fullName>
+        <label>StorageRoomsVentilated</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Hindi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TestedItemsAcceptableContaminatsLevels__c</fullName>
+        <label>TestedItemsAcceptableContaminatsLevels</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Lupa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Organikong abono (organic fertilizer)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Patubig (irrigation water)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>WhatAnimalsExist__c</fullName>
+        <label>WhatAnimalsExist</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Aso, pusa, etc.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Manok</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Kabayo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Baka</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Kalabaw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6 Baboy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7 Kambing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Whatdoyoudowhenthereisdryspellorfrought__c</fullName>
+        <label>What do you do when there dry spell a1</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Whatwhenthereisdryspella2__c</fullName>
+        <label>What when is dry spell or drought a2</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>WhereGetWatercacao__c</fullName>
+        <label>WhereGetWatercacao</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Shallow-tube well</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Deep well</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Open irrigation canal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 Impounding pond</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Ilog/ batis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6 Tubig mula sa water district</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7 Iba pa (pakisulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>WhereKeepFertilizerNoSeparateRoom__c</fullName>
+        <label>WhereKeepFertilizerNoSeparateRoom</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>WhereKeepPPENoSeparateRoom__c</fullName>
+        <label>WhereKeepPPENoSeparateRoom</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>WhereKeepPesticideNoSeparateRoom__c</fullName>
+        <label>WhereKeepPesticideNoSeparateRoom</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>WhereKeepToolsNoSeparateRoom__c</fullName>
+        <label>WhereKeepToolsNoSeparateRoom</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Wheredoyougetirrigationwater__c</fullName>
+        <label>Where do you get irrigation water</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Tubig galing sa poso (deep well; shallow-tube well)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Katabing ilog o iba pang anyong-tubig</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Tubig mula sa water district</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>WhichRecordskeep__c</fullName>
+        <label>WhichRecordskeep</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Records sa pagbili ng: (paki sulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Imbentaryo ng hindi pa nagagamit na (paki sulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Record ng produksyon: (paki sulat)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>WorkersMainSource__c</fullName>
+        <label>WorkersMainSource</label>
+        <picklist>
+            <picklistValues>
+                <fullName>yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>no</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>applyingirrigationwatercoconuttrees__c</fullName>
+        <label>Applying irrigation water coconut trees</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Oo, gumagamit ako ng patubig pa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 Gumagamit ako ng patubig para l</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mAg__c</fullName>
+        <label>mAg HouseHold</label>
+        <referenceTo>mAg_Household__c</referenceTo>
+        <relationshipLabel>mAg_Farms</relationshipLabel>
+        <relationshipName>mAg_Farms</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>otherWheredoyougetirrigationwater__c</fullName>
+        <label>other Where do you get irrigation water</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <label>mAg_Farm</label>
+    <nameField>
+        <displayFormat>MAGFARM_{0000}</displayFormat>
+        <label>mAg_Farm Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>mAg_Farms</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,239 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Object that contains details about the cooperatives that farmers can belong to</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>agriculturalManager__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>agriculturalManager</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>LAC Cooperatives (agriculturalManager)</relationshipLabel>
         <relationshipName>LAC_Cooperatives_ag</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>averageLoan__c</fullName>
-        <externalId>false</externalId>
         <label>averageLoan</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>collectionPoints__c</fullName>
-        <externalId>false</externalId>
         <label>collectionPoints</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>dateOfFoundation__c</fullName>
-        <externalId>false</externalId>
         <label>dateOfFoundation</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm0_30d__c</fullName>
-        <externalId>false</externalId>
         <label>debtPortfolioTerm0_30d</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm0_30d_percent__c</fullName>
-        <externalId>false</externalId>
         <formula>(  debtPortfolioTerm0_30d__c  /  debtPortfolio__c  ) * 100</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>debtPortfolioTerm0_30d_percent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm31_90d__c</fullName>
-        <externalId>false</externalId>
         <label>debtPortfolioTerm31_90d</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm31_90d_percent__c</fullName>
-        <externalId>false</externalId>
         <formula>(  debtPortfolioTerm31_90d__c   /  debtPortfolio__c  ) * 100</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>debtPortfolioTerm31_90d_percent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm91_120d__c</fullName>
-        <externalId>false</externalId>
         <label>debtPortfolioTerm91_120d</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm91_120d_percent__c</fullName>
-        <externalId>false</externalId>
         <formula>(  debtPortfolioTerm91_120d__c  /  debtPortfolio__c ) * 100</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>debtPortfolioTerm91_120d_percent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm_more120d__c</fullName>
-        <externalId>false</externalId>
         <label>debtPortfolioTerm_more120d</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>debtPortfolioTerm_more120d_percent__c</fullName>
-        <externalId>false</externalId>
         <formula>( debtPortfolioTerm_more120d__c /  debtPortfolio__c ) * 100</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>debtPortfolioTerm_more120d_percent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>debtPortfolio__c</fullName>
-        <externalId>false</externalId>
         <label>debtPortfolio</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>departament__c</fullName>
-        <externalId>false</externalId>
         <label>departament</label>
         <length>30</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>dryMill__c</fullName>
-        <externalId>false</externalId>
         <label>dryMill</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>externalAuditors__c</fullName>
-        <externalId>false</externalId>
         <label>externalAuditors</label>
         <length>200</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>financialManager__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>financialManager</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>LAC Cooperatives (financialManager)</relationshipLabel>
         <relationshipName>LAC_Cooperatives_fm</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>generalManager__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>generalManager</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>LAC Cooperatives_gm</relationshipLabel>
         <relationshipName>LAC_Cooperatives_gm</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>logoURL__c</fullName>
-        <externalId>false</externalId>
         <label>logoURL</label>
-        <required>false</required>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>logo__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(ISBLANK(logoURL__c) || ISNULL(logoURL__c), &quot;&quot;, IMAGE(logoURL__c,&quot;Logo Picture&quot;, 263, 223))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>logo</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>mainBuyers__c</fullName>
-        <externalId>false</externalId>
         <label>mainBuyers</label>
         <picklist>
             <picklistValues>
@@ -255,7 +171,6 @@
     </fields>
     <fields>
         <fullName>mainCreditors__c</fullName>
-        <externalId>false</externalId>
         <label>mainCreditors</label>
         <picklist>
             <picklistValues>
@@ -273,75 +188,53 @@
     </fields>
     <fields>
         <fullName>municipalitiesInfluenced__c</fullName>
-        <externalId>false</externalId>
         <label>municipalitiesInfluenced</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>municipality__c</fullName>
-        <externalId>false</externalId>
         <label>municipality</label>
         <length>30</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>numberOfAssociates__c</fullName>
-        <externalId>false</externalId>
         <label>numberOfAssociates</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>numberOfCKW__c</fullName>
-        <externalId>false</externalId>
         <label>numberOfCKW</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>numberOfLoans__c</fullName>
-        <externalId>false</externalId>
         <label>numberOfLoans</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>numberOfTechnicians__c</fullName>
-        <externalId>false</externalId>
         <label>numberOfTechnicians</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>numberWomenAssociates__c</fullName>
-        <externalId>false</externalId>
         <label>numberWomenAssociates</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>obtainedCertifications__c</fullName>
-        <externalId>false</externalId>
         <label>obtainedCertifications</label>
         <picklist>
             <picklistValues>
@@ -367,102 +260,75 @@
     </fields>
     <fields>
         <fullName>officeAddress__c</fullName>
-        <externalId>false</externalId>
         <label>officeAddress</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>organization__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>organization</label>
         <referenceTo>Account</referenceTo>
         <relationshipLabel>LAC Cooperatives_Organization</relationshipLabel>
         <relationshipName>LAC_Cooperatives_Organization</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>phone__c</fullName>
-        <externalId>false</externalId>
         <label>phone</label>
         <length>15</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>ratioFarmersPerCKW__c</fullName>
-        <externalId>false</externalId>
         <formula>numberOfCKW__c / numberOfAssociates__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>ratioFarmersPerCKW</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>ratioFarmersPerTechnician__c</fullName>
-        <externalId>false</externalId>
         <formula>numberOfTechnicians__c / numberOfAssociates__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>ratioFarmersPerTechnician</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>supplyStores__c</fullName>
-        <externalId>false</externalId>
         <label>supplyStores</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>taxInspection__c</fullName>
-        <externalId>false</externalId>
         <label>taxInspection</label>
         <length>100</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>totalVolumeParchmentCoffeeProduceLYr__c</fullName>
-        <externalId>false</externalId>
         <label>totalVolumeParchmentCoffeeProduceLYr</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>volumenOfCoffeeSalesUSD__c</fullName>
-        <externalId>false</externalId>
         <label>volumenOfCoffeeSalesUSD</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>wetMill__c</fullName>
-        <externalId>false</externalId>
         <label>wetMill</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <label>LAC Cooperative</label>
     <nameField>

@@ -3,6 +3,9 @@ public String association {get; set;}
 public String nameQuery {get; set;}
 public List<CPA_Order_Allocation__c> orders {get; set;}
 public Association_CPA_Order_Delivery__c allocation { get; set; }
+public Date starDate = System.today();
+public Date endDate = System.today().addDays(-10);
+
 
 public PageReference executeSearch() {
   Set<ID> delivery = new Set<ID>();
@@ -24,7 +27,8 @@ public PageReference executeSearch() {
           from CPA_Order_Allocation__c
           where Client__c = :nameQuery
           and Association__r.Name =:association
-          and Id not in :delivery];       
+          and Id not in :delivery
+          limit 150];       
   return null;
 }
 
@@ -35,18 +39,18 @@ public AlsurOrderDelivery(){
 public List<SelectOption> getAssociationItems() {
   Set<ID> delivery1 = new Set<ID>();
   for (Association_CPA_Order_Delivery__c deliveries1 : [select CPA_Order_Allocation__c 
-                                                  from Association_CPA_Order_Delivery__c]){ 
+                                                  from Association_CPA_Order_Delivery__c limit 150]){ 
     delivery1.add(deliveries1.CPA_Order_Allocation__c);
   }
   Set<ID> association1= new Set<ID>();
   for (CPA_Order_Allocation__c associations1 : [select Association__c 
                                         from CPA_Order_Allocation__c 
-                                        where Id not in :delivery1]){ 
+                                        where Id not in :delivery1 limit 150]){ 
     association1.add(associations1.Association__c);
   }
   list<Association__c> associations = [Select Name 
                                         from Association__c 
-                                        where Id in :association1];
+                                        where Id in :association1 limit 150];
   List<SelectOption> options = new List<SelectOption>();
   for (Association__c association : associations) {
     options.add(new SelectOption(association.Name, association.Name));
@@ -63,7 +67,7 @@ public List<SelectOption> getclientItems() {
   Set<String> client = new Set<String>();
   for (CPA_Order_Allocation__c clients2 : [select Client__c
                                         from CPA_Order_Allocation__c 
-                                        where Id not in :delivery2]){ 
+                                        where Id not in :delivery2 and Association__r.Name =:association]){ 
     client.add(clients2.Client__c);
   }
   List<SelectOption> options = new List<SelectOption>();
@@ -72,7 +76,7 @@ public List<SelectOption> getclientItems() {
     options.add(new SelectOption('NoClientSelected', 'Seleccione una asociación primero'));
   }
   else {
-    clients =  [Select Name from Client__c where Name = :client];
+    clients =  [Select Name from Client__c where Name =:client];
   }
   for (Client__c nameQuery : clients) {
     options.add(new SelectOption(nameQuery.Name, nameQuery.Name));

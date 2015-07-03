@@ -1,162 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Baseline__c</fullName>
-        <externalId>false</externalId>
         <label>Baseline</label>
         <referenceTo>CBL_CoffeeBaseline__c</referenceTo>
         <relationshipLabel>CBL_WetMills</relationshipLabel>
         <relationshipName>CBL_WetMills</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Desp_Granos_enteros_y_limpios__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Granos enteros y limpios&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
         <label>Desp - Granos enteros y limpios</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Desp_Mal_estado_tira_grano_en_la_pulpa__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Mal estado tira grano en la pulpa&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
         <label>Desp - Mal estado tira grano en la pulpa</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Desp_Mal_estado_tira_pulpa_con_el_gran__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Mal estado tira pulpa con el grano&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
         <label>Desp - Mal estado tira pulpa con el gran</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Desp_granos_quebrados_o_mordidos__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(pulpingMachinesStatus__c , &quot;Mal estado, granos quebrados o mordidos&quot;), &quot;Sí&quot;, &quot;No&quot;)</formula>
         <label>Desp - granos quebrados o mordidos</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Farm__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Farm</label>
+        <label>CBL_Farm</label>
         <referenceTo>CBL_Farm__c</referenceTo>
         <relationshipLabel>CBL_WetMill_CBL_Farm</relationshipLabel>
         <relationshipName>CBL_WetMill_CBL_Farm</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Latitude_wetmill__c</fullName>
-        <externalId>false</externalId>
         <formula>Submission__r.gfsurveys__gps_y__c</formula>
         <label>Latitude_wetmill</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>6</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Longitude_wetmill__c</fullName>
-        <externalId>false</externalId>
         <formula>Submission__r.gfsurveys__gps_x__c</formula>
         <label>Longitude_wetmill</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>6</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>CBL_WetMills</relationshipLabel>
         <relationshipName>CBL_WetMills</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Wetmill_code_guat__c</fullName>
-        <externalId>false</externalId>
         <label>Wetmill code guat</label>
         <picklist>
             <picklistValues>
@@ -201,12 +113,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>baseUsedForStorage__c</fullName>
-        <externalId>false</externalId>
         <label>baseUsedForStorage</label>
         <picklist>
             <picklistValues>
@@ -219,12 +129,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>canSeparateByLot__c</fullName>
-        <externalId>false</externalId>
         <label>canSeparateByLot</label>
         <picklist>
             <picklistValues>
@@ -237,12 +145,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>checksTransport__c</fullName>
-        <externalId>false</externalId>
         <label>checksTransport</label>
         <picklist>
             <picklistValues>
@@ -255,12 +161,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>classifiesInputCoffeeQuality__c</fullName>
-        <externalId>false</externalId>
         <label>classifiesInputCoffeeQuality</label>
         <picklist>
             <picklistValues>
@@ -273,23 +177,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>cleanWaterRestingTime__c</fullName>
-        <externalId>false</externalId>
         <label>cleanWaterRestingTime</label>
         <precision>12</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>cleanWaterResting__c</fullName>
-        <externalId>false</externalId>
         <label>cleanWaterResting</label>
         <picklist>
             <picklistValues>
@@ -302,12 +200,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>cleanWaterUsed__c</fullName>
-        <externalId>false</externalId>
         <label>cleanWaterUsed</label>
         <picklist>
             <picklistValues>
@@ -320,12 +216,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>coffeWashMeans__c</fullName>
-        <externalId>false</externalId>
         <label>coffeWashMeans</label>
         <picklist>
             <picklistValues>
@@ -346,13 +240,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>coffeeHarvestedMore6Hours__c</fullName>
-        <externalId>false</externalId>
         <label>coffeeHarvestedMore6Hours</label>
         <picklist>
             <picklistValues>
@@ -373,12 +265,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>contaminationRisk__c</fullName>
-        <externalId>false</externalId>
         <label>contaminationRisk</label>
         <picklist>
             <picklistValues>
@@ -391,12 +281,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>documentationAndLabeling__c</fullName>
-        <externalId>false</externalId>
         <label>documentationAndLabeling</label>
         <picklist>
             <picklistValues>
@@ -409,12 +297,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>drainageInfraStatus__c</fullName>
-        <externalId>false</externalId>
         <label>drainageInfraStatus</label>
         <picklist>
             <picklistValues>
@@ -427,12 +313,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>drainageStatus__c</fullName>
-        <externalId>false</externalId>
         <label>drainageStatus</label>
         <picklist>
             <picklistValues>
@@ -445,12 +329,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>dryIsolatedContamination__c</fullName>
-        <externalId>false</externalId>
         <label>dryIsolatedContamination</label>
         <picklist>
             <picklistValues>
@@ -475,13 +357,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>dryMeans__c</fullName>
-        <externalId>false</externalId>
         <label>dryMeans</label>
         <picklist>
             <picklistValues>
@@ -514,13 +394,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>dryOver50Grades__c</fullName>
-        <externalId>false</externalId>
         <label>dryOver50Grades</label>
         <picklist>
             <picklistValues>
@@ -533,12 +411,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>dryingStatus__c</fullName>
-        <externalId>false</externalId>
         <label>dryingStatus</label>
         <picklist>
             <picklistValues>
@@ -551,12 +427,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>enoughWater__c</fullName>
-        <externalId>false</externalId>
         <label>enoughWater</label>
         <picklist>
             <picklistValues>
@@ -569,12 +443,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fermTanksStatusBeforeProcess__c</fullName>
-        <externalId>false</externalId>
         <label>fermTanksStatusBeforeProcess</label>
         <picklist>
             <picklistValues>
@@ -587,12 +459,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fermentationProcess__c</fullName>
-        <externalId>false</externalId>
         <label>fermentationProcess</label>
         <picklist>
             <picklistValues>
@@ -621,12 +491,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fermentationTanksStatus__c</fullName>
-        <externalId>false</externalId>
         <label>fermentationTanksStatus</label>
         <picklist>
             <picklistValues>
@@ -639,12 +507,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fermentationTime__c</fullName>
-        <externalId>false</externalId>
         <label>fermentationTime</label>
         <picklist>
             <picklistValues>
@@ -661,12 +527,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fruitRecepBinStatusBeforeProc__c</fullName>
-        <externalId>false</externalId>
         <label>fruitRecepBinStatusBeforeProc</label>
         <picklist>
             <picklistValues>
@@ -679,12 +543,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fruitReceptionBinStatus__c</fullName>
-        <externalId>false</externalId>
         <label>fruitReceptionBinStatus</label>
         <picklist>
             <picklistValues>
@@ -697,12 +559,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>hasPestControl__c</fullName>
-        <externalId>false</externalId>
         <label>hasPestControl</label>
         <picklist>
             <picklistValues>
@@ -715,12 +575,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>hasWarehouseOnlyForCoffee__c</fullName>
-        <externalId>false</externalId>
         <label>hasWarehouseOnlyForCoffee</label>
         <picklist>
             <picklistValues>
@@ -733,12 +591,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>howClassifies__c</fullName>
-        <externalId>false</externalId>
         <label>howClassifies</label>
         <picklist>
             <picklistValues>
@@ -755,13 +611,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>humidityRisk__c</fullName>
-        <externalId>false</externalId>
         <label>humidityRisk</label>
         <picklist>
             <picklistValues>
@@ -774,12 +628,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>immediateDry__c</fullName>
-        <externalId>false</externalId>
         <label>immediateDry</label>
         <picklist>
             <picklistValues>
@@ -792,12 +644,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>isTheWetMillReadyOrCertified__c</fullName>
-        <externalId>false</externalId>
         <label>isTheWetMillReadyOrCertified</label>
         <picklist>
             <picklistValues>
@@ -810,12 +660,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>lastWashWaterRecycled__c</fullName>
-        <externalId>false</externalId>
         <label>lastWashWaterRecycled</label>
         <picklist>
             <picklistValues>
@@ -828,12 +676,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>majorNonCompliance__c</fullName>
-        <externalId>false</externalId>
         <label>majorNonCompliance</label>
         <picklist>
             <picklistValues>
@@ -854,13 +700,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>ownsWetMill__c</fullName>
-        <externalId>false</externalId>
         <label>ownsWetMill</label>
         <picklist>
             <picklistValues>
@@ -873,12 +717,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>patioAndMecanicDryerStatus__c</fullName>
-        <externalId>false</externalId>
         <label>patioAndMecanicDryerStatus</label>
         <picklist>
             <picklistValues>
@@ -891,12 +733,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>processedCoffeeCertifications__c</fullName>
-        <externalId>false</externalId>
         <label>processedCoffeeCertifications</label>
         <picklist>
             <picklistValues>
@@ -957,13 +797,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>processedCoffeeOrigin__c</fullName>
-        <externalId>false</externalId>
         <label>processedCoffeeOrigin</label>
         <picklist>
             <picklistValues>
@@ -980,13 +818,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>processesWithDocumentation__c</fullName>
-        <externalId>false</externalId>
         <label>processesWithDocumentation</label>
         <picklist>
             <picklistValues>
@@ -1019,13 +855,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>protectsTransport__c</fullName>
-        <externalId>false</externalId>
         <label>protectsTransport</label>
         <picklist>
             <picklistValues>
@@ -1038,12 +872,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>pulpManagement__c</fullName>
-        <externalId>false</externalId>
         <label>pulpManagement</label>
         <picklist>
             <picklistValues>
@@ -1080,13 +912,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>pulpingMachineWashedBeforeUse__c</fullName>
-        <externalId>false</externalId>
         <label>pulpingMachineWashedBeforeUse</label>
         <picklist>
             <picklistValues>
@@ -1099,12 +929,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>pulpingMachinesStatus__c</fullName>
-        <externalId>false</externalId>
         <label>pulpingMachinesStatus</label>
         <picklist>
             <picklistValues>
@@ -1125,13 +953,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>residualWaterDisposal__c</fullName>
-        <externalId>false</externalId>
         <label>residualWaterDisposal</label>
         <picklist>
             <picklistValues>
@@ -1152,13 +978,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>residualWaterDistOver40__c</fullName>
-        <externalId>false</externalId>
         <label>residualWaterDistOver40</label>
         <picklist>
             <picklistValues>
@@ -1171,12 +995,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>riskOfContamWResidualWater__c</fullName>
-        <externalId>false</externalId>
         <label>riskOfContamWResidualWater</label>
         <picklist>
             <picklistValues>
@@ -1189,12 +1011,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>salesPurchasesDocumentation__c</fullName>
-        <externalId>false</externalId>
         <label>salesPurchasesDocumentation</label>
         <picklist>
             <picklistValues>
@@ -1219,13 +1039,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>separatedGrainsProcessedAppart__c</fullName>
-        <externalId>false</externalId>
         <label>separatedGrainsProcessedAppart</label>
         <picklist>
             <picklistValues>
@@ -1238,12 +1056,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>separationNetUsedToClasify__c</fullName>
-        <externalId>false</externalId>
         <label>separationNetUsedToClasify</label>
         <picklist>
             <picklistValues>
@@ -1256,12 +1072,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>storageCleanlinessStatus__c</fullName>
-        <externalId>false</externalId>
         <label>storageCleanlinessStatus</label>
         <picklist>
             <picklistValues>
@@ -1274,12 +1088,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>traceabilitySystem__c</fullName>
-        <externalId>false</externalId>
         <label>traceabilitySystem</label>
         <picklist>
             <picklistValues>
@@ -1308,13 +1120,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>transportWithChemicals__c</fullName>
-        <externalId>false</externalId>
         <label>transportWithChemicals</label>
         <picklist>
             <picklistValues>
@@ -1327,12 +1137,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>warehouseOtherUses__c</fullName>
-        <externalId>false</externalId>
         <label>warehouseOtherUses</label>
         <picklist>
             <picklistValues>
@@ -1361,13 +1169,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>washInfraStatusBeforeProc__c</fullName>
-        <externalId>false</externalId>
         <label>washInfraStatusBeforeProc</label>
         <picklist>
             <picklistValues>
@@ -1380,12 +1186,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>washInfrastructureStatus__c</fullName>
-        <externalId>false</externalId>
         <label>washInfrastructureStatus</label>
         <picklist>
             <picklistValues>
@@ -1398,12 +1202,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>washWaterSource__c</fullName>
-        <externalId>false</externalId>
         <label>washWaterSource</label>
         <picklist>
             <picklistValues>
@@ -1428,13 +1230,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>waterSeparation__c</fullName>
-        <externalId>false</externalId>
         <label>waterSeparation</label>
         <picklist>
             <picklistValues>
@@ -1447,12 +1247,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>wetMillAlreadyRegistered__c</fullName>
-        <externalId>false</externalId>
         <label>wetMillAlreadyRegistered</label>
         <picklist>
             <picklistValues>
@@ -1465,53 +1263,35 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>wetMillCode__c</fullName>
-        <externalId>false</externalId>
         <label>wetMillCode</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wetMillCountry__c</fullName>
-        <externalId>false</externalId>
         <label>wetMillCountry</label>
         <length>20</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wetMillDepartment__c</fullName>
-        <externalId>false</externalId>
         <label>wetMillDepartment</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wetMillDistrict__c</fullName>
-        <externalId>false</externalId>
         <label>wetMillDistrict</label>
         <length>25</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wetMillLocation__c</fullName>
-        <externalId>false</externalId>
         <label>wetMillLocation</label>
         <picklist>
             <picklistValues>
@@ -1520,18 +1300,13 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>wetMillMunicipality__c</fullName>
-        <externalId>false</externalId>
         <label>wetMillMunicipality</label>
         <length>20</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>CBL_WetMill</label>
     <nameField>

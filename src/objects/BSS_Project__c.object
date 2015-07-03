@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <label>End Date</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Grameen_Project_Manager__c</fullName>
+        <label>Grameen Project Manager</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>BSS Projects</relationshipLabel>
+        <relationshipName>BSS_Projects</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Name__c</fullName>
+        <label>Name</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Project_Manager__c</fullName>
+        <label>Project Manager</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>BSS Projects (Project Manager)</relationshipLabel>
+        <relationshipName>BSS_Projects1</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <label>Start Date</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <formula>IF( End_Date__c &gt; TODAY(), &apos;Activo&apos;, &apos;Inactivo&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <type>Text</type>
+    </fields>
+    <label>BSS Project</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Name__c</columns>
+        <columns>Grameen_Project_Manager__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>BSS_{000000}</displayFormat>
+        <label>BSS Project Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>BSS Projects</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

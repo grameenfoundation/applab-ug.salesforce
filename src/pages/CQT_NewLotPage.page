@@ -1,0 +1,17 @@
+<apex:page controller="CQT_NewLotController">
+    <apex:form >
+        <apex:pageBlock title="Finca: {!FarmName}" mode="edit" id="Block">
+            <apex:pageMessages id="MsgSample" ></apex:pageMessages>
+            <apex:pageBlockSection title="Datos Básicos Nuevo Lote" collapsible="false" columns="1" id="LotSection" >
+				<apex:inputField value="{!objCBLLot.lotName__c}" required="true"/>
+                <apex:inputField value="{!objCBLLot.lotAreaUnits__c}"/>
+                <apex:inputField value="{!objCBLLot.lotArea__c}"/>
+                <apex:inputField value="{!objCBLLot.lotCoffeeVariety__c}"/>            
+        	</apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+            	<apex:commandButton action="{!save}" value="Guardar" reRender="MsgSample"/>
+                <apex:commandButton action="{!cancel}" value="Cancelar" immediate="true" />
+        	</apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

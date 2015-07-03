@@ -1,75 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the organization services information for a Coffee Baseline</description>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Baseline__c</fullName>
-        <externalId>false</externalId>
         <label>Baseline</label>
         <referenceTo>CBL_CoffeeBaseline__c</referenceTo>
         <relationshipLabel>CBL_Services</relationshipLabel>
         <relationshipName>CBL_Services</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>ReaseonVisitNotUseful__c</fullName>
-        <externalId>false</externalId>
         <label>ReaseonVisitNotUseful</label>
         <picklist>
             <picklistValues>
@@ -86,35 +30,25 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
-        <relationshipLabel>CBL_Service_Submission</relationshipLabel>
-        <relationshipName>CBL_Service_Submission</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
+        <relationshipLabel>Submission</relationshipLabel>
+        <relationshipName>Submission</relationshipName>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>anualTecnicoVisits__c</fullName>
-        <externalId>false</externalId>
         <label>anualTecnicoVisits</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>certificationTrainings__c</fullName>
-        <externalId>false</externalId>
         <label>certificationTrainings</label>
         <picklist>
             <picklistValues>
@@ -175,13 +109,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>contractsToSell_BuyCoffee__c</fullName>
-        <externalId>false</externalId>
         <label>contractsToSell&amp;BuyCoffee</label>
         <picklist>
             <picklistValues>
@@ -194,12 +126,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>creditServiceImprovements__c</fullName>
-        <externalId>false</externalId>
         <label>creditServiceImprovements</label>
         <picklist>
             <picklistValues>
@@ -224,13 +154,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>creditServiceScoring__c</fullName>
-        <externalId>false</externalId>
         <label>creditServiceScoring</label>
         <picklist>
             <picklistValues>
@@ -255,12 +183,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>gatheringServiceImprovements__c</fullName>
-        <externalId>false</externalId>
         <label>gatheringServiceImprovements</label>
         <picklist>
             <picklistValues>
@@ -285,13 +211,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>gatheringServiceScore__c</fullName>
-        <externalId>false</externalId>
         <label>gatheringServiceScore</label>
         <picklist>
             <picklistValues>
@@ -316,12 +240,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>mechanismsComplaints__c</fullName>
-        <externalId>false</externalId>
         <label>mechanismsComplaints</label>
         <picklist>
             <picklistValues>
@@ -334,12 +256,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>meetingsParticipation__c</fullName>
-        <externalId>false</externalId>
         <label>meetingsParticipation</label>
         <picklist>
             <picklistValues>
@@ -360,13 +280,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>organizationSatisfaction__c</fullName>
-        <externalId>false</externalId>
         <label>organizationSatisfaction</label>
         <picklist>
             <picklistValues>
@@ -395,12 +313,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>organizationServices__c</fullName>
-        <externalId>false</externalId>
         <label>organizationServices</label>
         <picklist>
             <picklistValues>
@@ -457,13 +373,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>supplyingServiceImprovements__c</fullName>
-        <externalId>false</externalId>
         <label>supplyingServiceImprovements</label>
         <picklist>
             <picklistValues>
@@ -484,13 +398,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>supplyingServiceScore__c</fullName>
-        <externalId>false</externalId>
         <label>supplyingServiceScore</label>
         <picklist>
             <picklistValues>
@@ -515,12 +427,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>trainingTopics__c</fullName>
-        <externalId>false</externalId>
         <label>trainingTopics</label>
         <picklist>
             <picklistValues>
@@ -617,13 +527,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>trainingUsefulness__c</fullName>
-        <externalId>false</externalId>
         <label>trainingUsefulness</label>
         <picklist>
             <picklistValues>
@@ -648,13 +556,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>trainingsImproveCrop__c</fullName>
-        <externalId>false</externalId>
         <label>trainingsImproveCrop</label>
         <picklist>
             <picklistValues>
@@ -675,12 +581,30 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>visitUsefulness__c</fullName>
-        <externalId>false</externalId>
         <label>visitUsefulness</label>
         <picklist>
             <picklistValues>
@@ -705,7 +629,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>CBL_Service</label>

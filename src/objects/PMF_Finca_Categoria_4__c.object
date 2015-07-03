@@ -1,140 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Fecha__c</fullName>
-        <externalId>false</externalId>
         <label>Fecha</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Nivel_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Puntaje_categoria__c &lt; 1, &apos;c. Bajo&apos;, IF (Puntaje_categoria__c &lt; 2, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nivel categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>&apos;Manejo de sombra&apos;</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_tipo_fecha__c</fullName>
-        <externalId>false</externalId>
         <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre tipo fecha</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Plan_de_Manejo_de_Finca__c</fullName>
-        <externalId>false</externalId>
         <label>Plan de Manejo de Finca</label>
         <referenceTo>Farm_Management_Plan__c</referenceTo>
         <relationshipLabel>PMF Finca Categoria 4 - Manejo de sombra</relationshipLabel>
         <relationshipName>PMF_Finca_Categorias_4</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Puntaje_Regulacion_de_sombra__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Regulacion_de_sombra__c   &gt;  0.2, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Regulación de sombra</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Uso_especies_nativas_sombrio__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Uso_de_especies_nativas_como_sombrio__c &gt; 0.5, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Uso especies nativas sombrío</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>Puntaje_Uso_especies_nativas_sombrio__c + 
 Puntaje_Regulacion_de_sombra__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje categoría</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Regulacion_de_sombra__c</fullName>
-        <externalId>false</externalId>
         <label>Regulación de sombra</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>Tipo__c</fullName>
-        <externalId>false</externalId>
         <label>Tipo</label>
         <picklist>
             <picklistValues>
@@ -155,10 +94,8 @@ Puntaje_Regulacion_de_sombra__c</formula>
     </fields>
     <fields>
         <fullName>Uso_de_especies_nativas_como_sombrio__c</fullName>
-        <externalId>false</externalId>
         <label>Uso de especies nativas como sombrío</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>3</scale>
         <type>Percent</type>
     </fields>

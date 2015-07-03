@@ -89,7 +89,7 @@
                     <td style="font-weight:bold;width:370px;">
                         <div style="width:70px;float:left;">{!$Label.From}</div>
                         <div style="float:left">
-                            <apex:selectList id="from" value="{!senderId}" multiselect="false" size="1">
+                            <apex:selectList id="from" value="{!senderId}" multiselect="false" size="1" readonly="true" disabled="true">
                                 <apex:selectOptions value="{!useritems}"/>
                             </apex:selectList>
                         </div>
@@ -205,18 +205,17 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <div style="width:70px;float:left;font-weight:bold">
                             {!$Label.Send} {!$Label.VIA}:
                         </div>
                         <div style="float:left">
                             <apex:inputCheckbox id="Pulse" value="{!sendViaPulse}" selected="true"/>
                             &nbsp;Pulse&nbsp;&nbsp;&nbsp;
-                            <apex:inputCheckbox id="SMS" value="{!sendViaSms}"/>
-                            &nbsp;SMS
+                            <apex:inputCheckbox id="SMS" value="{!sendViaSms}"/>&nbsp;SMS &nbsp; (SMS Password:<apex:inputSecret value="{!smsPassword}" 
+                            	rendered="{! (NOT(ISNULL(user.Country)) &&  user.Country == 'Uganda') }" />)
+                            
                         </div>
-                    </td>
-                    <td>
                     </td>
                 </tr>
                 <tr>

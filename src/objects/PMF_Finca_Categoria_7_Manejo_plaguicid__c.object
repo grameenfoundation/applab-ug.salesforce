@@ -1,45 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Capacita_personal_manejo_de_agroquimicos__c</fullName>
-        <externalId>false</externalId>
         <label>Capacita personal manejo de agroquímicos</label>
         <picklist>
             <picklistValues>
@@ -60,55 +24,40 @@
     </fields>
     <fields>
         <fullName>Fecha__c</fullName>
-        <externalId>false</externalId>
         <label>Fecha</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Nivel_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Puntaje_categoria__c &lt; 2, &apos;c. Bajo&apos;, IF (Puntaje_categoria__c &lt; 4, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
         <label>Nivel categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>&apos;Manejo plaguicidas&apos;</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_tipo_fecha__c</fullName>
-        <externalId>false</externalId>
         <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre tipo fecha</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Plan_de_Manejo_de_Finca__c</fullName>
-        <externalId>false</externalId>
         <label>Plan de Manejo de Finca</label>
         <referenceTo>Farm_Management_Plan__c</referenceTo>
         <relationshipLabel>PMF Finca Categoria 7 - Manejo plaguici</relationshipLabel>
         <relationshipName>PMF_Finca_Categorias_7_Manejo_plaguici</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Posee_equipos_de_proteccion__c</fullName>
-        <externalId>false</externalId>
         <label>Posee equipos de protección</label>
         <picklist>
             <picklistValues>
@@ -137,7 +86,6 @@
     </fields>
     <fields>
         <fullName>Puntaje_Capacita_personal_manejo_agroqui__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( 
  OR(
   ISPICKVAL( Capacita_personal_manejo_de_agroquimicos__c , &apos;Sí&apos;),
@@ -147,14 +95,11 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Capacita personal manejo agroqui</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Posee_equipos_de_proteccion__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( 
  OR(
 ISPICKVAL( Posee_equipos_de_proteccion__c , &apos;Sí, siempre&apos;),
@@ -166,14 +111,11 @@ ISPICKVAL( Posee_equipos_de_proteccion__c , &apos;Sí tiene equipos de protecci�
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Posee equipos de protección</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Registra_aplicaciones_agroquim__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( 
  AND(
   INCLUDES(  Registra_las_aplicaciones_agroquimicos__c , &apos;Fecha de aplicación&apos;), 
@@ -184,26 +126,20 @@ ISPICKVAL( Posee_equipos_de_proteccion__c , &apos;Sí tiene equipos de protecci�
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Registra aplicaciones (agroquim)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Usa_equipos_de_proteccion__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(ISPICKVAL( Usa_equipos_de_proteccion__c , &apos;Sí, siempre&apos;), 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Usa equipos de protección</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>Puntaje_Posee_equipos_de_proteccion__c + 
 Puntaje_Usa_equipos_de_proteccion__c + 
 Puntaje_Registra_aplicaciones_agroquim__c + 
@@ -211,14 +147,11 @@ Puntaje_Capacita_personal_manejo_agroqui__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje categoría</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Registra_las_aplicaciones_agroquimicos__c</fullName>
-        <externalId>false</externalId>
         <label>Registra las aplicaciones (agroquímicos)</label>
         <picklist>
             <picklistValues>
@@ -244,7 +177,6 @@ Puntaje_Capacita_personal_manejo_agroqui__c</formula>
     </fields>
     <fields>
         <fullName>Tipo__c</fullName>
-        <externalId>false</externalId>
         <label>Tipo</label>
         <picklist>
             <picklistValues>
@@ -265,7 +197,6 @@ Puntaje_Capacita_personal_manejo_agroqui__c</formula>
     </fields>
     <fields>
         <fullName>Usa_equipos_de_proteccion__c</fullName>
-        <externalId>false</externalId>
         <label>Usa equipos de protección</label>
         <picklist>
             <picklistValues>

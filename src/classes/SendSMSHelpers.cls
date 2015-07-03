@@ -185,6 +185,39 @@ public class SendSMSHelpers {
         return messages;
     }
 
+	public static Map<String, Map<String, Message>> generateGroupMessages(List<Message> messages) {
+		
+        Map<String, Map<String, Message>> messageMap = new Map<String, Map<String, Message>>();
+        for(Message mesge : messages) {
+        	String countryCode;
+        	// the idea here is to get the country code. 
+        	// the assumption is that the group has people from the same country
+        	// select a sample of people in the group and search for the first country code you come by
+        	for(List<Person_Group_Association__c> people : [
+        		SELECT 
+        			Id,
+        			Person__r.Country__r.ISO_Standard_Code__c
+        		FROM
+        			Person_Group_Association__c
+        		WHERE
+        			Group__c =: mesge.groupId
+        		LIMIT 50
+        	]) {
+        		for(Person_Group_Association__c pga : people) {
+        			if(pga.Person__r.Country__r.ISO_Standard_Code__c != null && pga.Person__r.Country__r.ISO_Standard_Code__c != ''){
+        				messageMap.put(pga.Person__r.Country__r.ISO_Standard_Code__c, new Map<String, Message>());
+        				for(integer i = 0; i < messages.size(); i++) {
+        					messageMap.get(pga.Person__r.Country__r.ISO_Standard_Code__c).put(messages.get(0).getMessageHash() + String.valueOf(i), mesge);
+        				}
+        				//we return all messages against one country code. no need to continue executing
+        				return messageMap;
+        			}
+        		}
+        	}
+        }
+        return messageMap;
+	}
+
     /**
      * Send a group of messages to a gateway based on the country code for the recipients of the messages
      *

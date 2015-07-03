@@ -1,0 +1,56 @@
+<apex:page title="Registro Muestras" docType="html-5.0" controller="CQT_SamplePageController" >
+    <apex:form >
+        <apex:sectionHeader title="Registro de Muestras" />
+        <apex:pageBlock mode="edit" id="Block">
+        <apex:pageMessages id="MsgSample" ></apex:pageMessages>
+        <apex:pageBlockSection title="Seleccione el productor" collapsible="false" columns="1" id="ProductionSection" >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Cédula del productor" for="ProductorId"/>
+                <apex:inputText value="{!ProductorId}" id="ProductorId"/> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Nombre(s) del productor" for="ProductorName"/>
+                <apex:inputText value="{!ProductorName}" id="ProductorName"/> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Apellido(s) del productor" for="ProductorLastName"/>
+                <apex:inputText value="{!ProductorLastName}" id="ProductorLastName"/> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="" for="BuscarProductor"/>
+                <apex:commandButton id="BuscarProductor" value="Buscar Productor" action="{!SearchProducers}" reRender="ProductionSection, FarmSection, MsgSample" status="status" /> 
+            </apex:pageBlockSectionItem>
+            <apex:selectRadio layout="pageDirection" value="{!ProductorIdSelected}">
+                <apex:selectOptions value="{!ProducersOptions}"></apex:selectOptions>
+                <apex:actionSupport event="onchange" action="{!SearchFarmer_and_Farms}" reRender="ProductionSection, FarmSection, LotSection, MsgSample"/>
+            </apex:selectRadio>
+            <apex:outputLink value="CQT_NewProducer" style="text-align:right">Crear Nuevo Productor</apex:outputLink>   
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Seleccione la finca perteneciente al productor: {!ProductorName} {!ProductorLastName}" id="FarmSection" columns="1" >
+            <apex:actionStatus startText="Searching..." id="status"/>
+            <apex:selectList value="{!FarmSelected}" multiselect="false" size="1" id="FarmList">
+                <apex:actionSupport event="onchange" reRender="list, LotSection" action="{!SearchLots}"/>
+                <apex:selectOptions value="{!FarmsOptions}" ></apex:selectOptions>
+            </apex:selectList>
+            <apex:outputLink value="CQT_NewFarmPage?ProductorId={!ProductorIdSelected}&ProductorName={!ProductorName} {!ProductorLastName}" >Crear Nueva Finca</apex:outputLink>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Seleccione el lote perteneciente a la Finca: {!FarmSelected_Name}" id="LotSection" columns="1" >
+            <apex:selectList value="{!LotSelected}" multiselect="false" size="1" >
+                <apex:selectOptions value="{!LotsOptions}"></apex:selectOptions>
+            </apex:selectList>
+            <apex:outputLink value="CQT_NewLotPage?FarmId={!FarmSelected}&ProductorId={!ProductorIdSelected}&FarmName={!FarmSelected_Name}" >Crear Nuevo Lote</apex:outputLink>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Ingrese los datos de la muestra" id="SampleSection" columns="1" >
+            <apex:inputField value="{!objCoffeeSample.Humidity__c}"/>
+            <apex:inputField value="{!objCoffeeSample.CoffeeBerryBorerPercent__c}"/>
+            <apex:inputField value="{!objCoffeeSample.GrainFirstGroupPercent__c}" style="width:70px"/>
+            <apex:inputField value="{!objCoffeeSample.Variety__c}"/>
+            <!-- <apex:inputTextarea value="{!objCoffeeSample.Notes__c}" cols="60" rows="5"/> -->
+        </apex:pageBlockSection>        
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton action="{!save}" value="Grabar y Siguiente" reRender="MsgSample"/>
+            <apex:commandButton action="{!AddAnalysis}" value="Ingresar Análisis" reRender="MsgSample"/>
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>   
+    </apex:form>
+</apex:page>

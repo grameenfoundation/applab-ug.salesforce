@@ -1,132 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Consultant_Signature__c</fullName>
-        <externalId>false</externalId>
         <label>Consultant Signature</label>
-        <required>false</required>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Date__c</fullName>
-        <externalId>false</externalId>
         <label>Date</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>EMP_Technical_Assistance_Consultant__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>EMP Technical Assistance Consultant</label>
         <referenceTo>EMP_Consultant__c</referenceTo>
         <relationshipLabel>EMP Technical Assistances</relationshipLabel>
         <relationshipName>EMP_Technical_Assistances</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>EMP_Technical_Assistance__c</fullName>
-        <externalId>false</externalId>
         <label>EMP Technical Assistance</label>
         <referenceTo>EMP_Farm__c</referenceTo>
         <relationshipLabel>EMP Technical Assistances</relationshipLabel>
         <relationshipName>EMP_Technical_Assistances</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Identification_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Identification Number</label>
         <length>12</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Location__c</fullName>
-        <externalId>false</externalId>
         <label>Location</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>NIT__c</fullName>
-        <externalId>false</externalId>
         <label>NIT</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Organization_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Organization Name</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Photo__c</fullName>
-        <externalId>false</externalId>
         <label>Photo</label>
-        <required>false</required>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Producer_Signature__c</fullName>
-        <externalId>false</externalId>
         <label>Producer Signature</label>
-        <required>false</required>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Productive_Sector__c</fullName>
-        <externalId>false</externalId>
         <label>Productive Sector</label>
         <picklist>
             <picklistValues>
@@ -163,7 +101,6 @@
     </fields>
     <fields>
         <fullName>Recommendations_Classification__c</fullName>
-        <externalId>false</externalId>
         <label>Recommendations Classification</label>
         <picklist>
             <picklistValues>
@@ -180,7 +117,6 @@
     </fields>
     <fields>
         <fullName>Recommendations_Next_Visit__c</fullName>
-        <externalId>false</externalId>
         <label>Recommendations Next Visit</label>
         <picklist>
             <picklistValues>
@@ -197,7 +133,6 @@
     </fields>
     <fields>
         <fullName>Situation_Property__c</fullName>
-        <externalId>false</externalId>
         <label>Situation Property</label>
         <picklist>
             <picklistValues>
@@ -222,38 +157,28 @@
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>EMP Technical Assistances</relationshipLabel>
         <relationshipName>EMP_Technical_Assistances</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Village__c</fullName>
         <description>Vereda</description>
-        <externalId>false</externalId>
         <label>Village</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Visit_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Visit Number</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Visit_To__c</fullName>
-        <externalId>false</externalId>
         <label>Visit To</label>
         <picklist>
             <picklistValues>
@@ -270,7 +195,6 @@
     </fields>
     <fields>
         <fullName>Which__c</fullName>
-        <externalId>false</externalId>
         <label>Which</label>
         <length>32768</length>
         <type>LongTextArea</type>

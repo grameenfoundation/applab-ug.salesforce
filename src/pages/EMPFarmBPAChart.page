@@ -1,0 +1,12 @@
+<apex:page standardController="EMP_Organization_Member__c" extensions="EMPReplicantProfile" showHeader="false" sidebar="false">
+<apex:pageblock title="BPAs Nivel de complimiento" >
+        <apex:chart height="350" width="450" data="{!pieData}"> 
+        	<apex:legend position="right"/>
+            <apex:axis type="Numeric" position="left" fields="total,cumplidas" title="Total por Nivel" grid="true"/> 
+            <apex:axis type="Category" position="bottom" fields="name" title="Nivel de cumplimiento">
+            	<apex:chartLabel rotate="270"/>
+            </apex:axis>     
+            <apex:barSeries orientation="vertical" axis="left" xField="name" yField="total,cumplidas"/> 
+        </apex:chart>
+    </apex:pageblock>
+</apex:page>

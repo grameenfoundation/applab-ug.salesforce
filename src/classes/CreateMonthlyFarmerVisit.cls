@@ -22,20 +22,24 @@ public class CreateMonthlyFarmerVisit {
                 personIds.add(thisMonthVisit.Person__c);
             }
         }
-            
+        Map<String, Search_Log__c> personLogs = new Map<String, Search_Log__c>();
         for (Search_Log__c searchLog : [Select Interviewer_Contact__c, Interviewee__c, CreatedDate from Search_Log__c
-            where Interviewer_Contact__c != null and CreatedDate >=: previousDay and CreatedDate <: thisDay and Interviewee__c not in:personIds]) {
+            where Interviewer_Contact__c != null and CreatedDate >=: previousDay and CreatedDate <: thisDay and Interviewee__c != null and Interviewee__c not in:personIds]) {
             
             if (null != searchLog) {
-                C3P0_Farmer_Visit__c visit = new C3P0_Farmer_Visit__c();
-                visit.Contact__c = searchLog.Interviewer_Contact__c;
-                visit.Search_Log__c = searchLog.Id;
-                visit.Person__c = searchLog.Interviewee__c;
-                visit.Visit_Date__c = date.newinstance(searchLog.CreatedDate.year(), searchLog.CreatedDate.month(), searchLog.CreatedDate.day());
-                visits.add(visit);
+                personLogs.put(searchLog.Interviewee__c, searchLog);
             }
         }
-        insert visits; 
+        for (String personId : personLogs.keyset()) {
+            Search_Log__c searchLog = personLogs.get(personId);
+            C3P0_Farmer_Visit__c visit = new C3P0_Farmer_Visit__c();
+            visit.Contact__c = searchLog.Interviewer_Contact__c;
+            visit.Search_Log__c = searchLog.Id;
+            visit.Person__c = personId;
+            visit.Visit_Date__c = date.newinstance(searchLog.CreatedDate.year(), searchLog.CreatedDate.month(), searchLog.CreatedDate.day());
+            visits.add(visit);
+        }
+        insert visits;
     }
 
 }

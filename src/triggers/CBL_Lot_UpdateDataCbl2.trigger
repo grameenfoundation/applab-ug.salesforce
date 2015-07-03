@@ -19,7 +19,7 @@ trigger CBL_Lot_UpdateDataCbl2 on CBL_Lot__c (after insert) {
         }
         
         //get the lots2 to uptade the lot data
-        for(List<CBL2_Lot__c> lots2ToUpdate : [SELECT Id, Farm__c, Farm__r.Farmer__c, lotArea__c, lotAreaUnits__c, lotCode__c, Lot_Code_Guat__c, lotCoffeeVariety__c, lotName__c, lotNumberOfPlants__c, lotPlantingDate__c, Submission__c
+        for(List<CBL2_Lot__c> lots2ToUpdate : [SELECT Id, Farm__c, Farm__r.farmName__c, Farm__r.Farmer__c, lotArea__c, lotAreaUnits__c, lotCode__c, Lot_Code_Guat__c, lotCoffeeVariety__c, lotName__c, lotNumberOfPlants__c, lotPlantingDate__c, Submission__c
                                             FROM CBL2_Lot__c WHERE Farm__r.Farmer__c IN :LAC_FD_Ids]){
             //if the lot exits for the same LAC_FD the lot2 will be updated, if the lot doesn't exists the lot2 will be created
             for(CBL_Lot__c lotInserted : cbls_lots){

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is meant to be populated via a Scheduled job that runs daily against the Banana GAPs Adoption object, breakinng the latter down into individual instances of this object, an instance per GAP adopted as indicated in the parent object</description>
+    <enableActivities>true</enableActivities>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Adoption_Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <label>Adoption Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Banana_Farmer__c</fullName>
+        <label>Banana Farmer</label>
+        <referenceTo>Banana_Farmer__c</referenceTo>
+        <relationshipLabel>Banana GAP Adoptions</relationshipLabel>
+        <relationshipName>Banana_GAP_Adoptions</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Banana_GAPs_Adoption__c</fullName>
+        <label>Banana GAPs Adoption</label>
+        <referenceTo>Banana_GAPs_Adoption__c</referenceTo>
+        <relationshipLabel>Banana GAP Adoptions</relationshipLabel>
+        <relationshipName>Banana_GAP_Adoptions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <label>CKW Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Banana GAP Adoptions</relationshipLabel>
+        <relationshipName>Banana_GAP_Adoptions</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GAP_Adopted__c</fullName>
+        <label>GAP Adopted</label>
+        <picklist>
+            <picklistValues>
+                <fullName>GAP 1 Soil Fertility Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 2 Pruning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 2 Desuckering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 3 Soil and Water Conservation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 4 Providing Support for Banana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 5 Proper Record Keeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 6 Group Production and Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 7 Proper Weed Control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 8 Pest &amp; Disease Control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 9 Value Addition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GAP 10 Easy Access Agro Inputs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>3.0 Banana GAP Adoption</label>
+    <nameField>
+        <displayFormat>BGA{YYYY}{MM}{0000}</displayFormat>
+        <label>Banana GAP Adoption Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Banana GAP Adoptions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

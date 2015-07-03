@@ -1,80 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Date__c</fullName>
         <defaultValue>TODAY()</defaultValue>
-        <externalId>false</externalId>
         <label>Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>District__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>District</label>
         <referenceTo>District__c</referenceTo>
         <relationshipLabel>Agroways Farmer Groups</relationshipLabel>
         <relationshipName>Agroways_Farmer_Groups</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Farmer_Group_Registered__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Farmer Group Registered?</label>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Group_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Group Name</label>
         <length>100</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Group_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Group Type</label>
         <picklist>
             <picklistValues>
@@ -123,16 +81,12 @@
     </fields>
     <fields>
         <fullName>Interviewee_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Interviewee Name</label>
         <length>50</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Interviewee_Position_in_Farmer_Group__c</fullName>
-        <externalId>false</externalId>
         <label>Interviewee Position in Farmer Group</label>
         <picklist>
             <picklistValues>
@@ -161,7 +115,6 @@
     </fields>
     <fields>
         <fullName>Major_Activity__c</fullName>
-        <externalId>false</externalId>
         <label>Major Activity</label>
         <picklist>
             <picklistValues>
@@ -211,17 +164,14 @@
     <fields>
         <fullName>Number_of_Members__c</fullName>
         <defaultValue>1</defaultValue>
-        <externalId>false</externalId>
         <label>Number of Members</label>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Registration_Level__c</fullName>
-        <externalId>false</externalId>
         <label>Registration Level</label>
         <picklist>
             <picklistValues>
@@ -258,7 +208,6 @@
     </fields>
     <fields>
         <fullName>Services_Provided_to_Farmers__c</fullName>
-        <externalId>false</externalId>
         <label>Services Provided to Farmers</label>
         <picklist>
             <picklistValues>
@@ -296,9 +245,7 @@
     </fields>
     <fields>
         <fullName>VAC__c</fullName>
-        <deleteConstraint>Restrict</deleteConstraint>
         <description>The VAC who interviewed a respondent to create this farmer group</description>
-        <externalId>false</externalId>
         <inlineHelpText>The VAC who interviewed a respondent to create this farmer group</inlineHelpText>
         <label>VAC</label>
         <referenceTo>Person__c</referenceTo>
@@ -310,28 +257,21 @@
     <fields>
         <fullName>Works_with_other_groups__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Works with other groups?</label>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Year_Formed__c</fullName>
-        <externalId>false</externalId>
         <label>Year Formed</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Year__c</fullName>
-        <externalId>false</externalId>
         <formula>TEXT(Year_Formed__c)</formula>
         <label>Year</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>Agroways Farmer Group</label>
     <listViews>
@@ -345,7 +285,6 @@
         <columns>Registration_Level__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>AFG{YYYY}{MM}-{0}</displayFormat>

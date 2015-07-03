@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>ArticleName__c</fullName>
+        <formula>Article__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ArticleName</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Article__c</fullName>
+        <label>Article</label>
+        <referenceTo>INV_Article__c</referenceTo>
+        <relationshipLabel>INV_TW_Sources_Destinations_Articles_Art</relationshipLabel>
+        <relationshipName>INV_TW_Sources_Destinations_Articles_Art</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <formula>Source_Destination__r.Source_Name__c + &apos; - &apos; +  Source_Destination__r.Destination_Name__c + &apos; - &apos; +  Article__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Description</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Destination_Name__c</fullName>
+        <formula>Source_Destination__r.Destination_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Destination Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Source_Destination__c</fullName>
+        <label>Source Destination</label>
+        <referenceTo>INV_TW_Source_Destination__c</referenceTo>
+        <relationshipLabel>INV_TW_Sources_Destinations_Source_Desti</relationshipLabel>
+        <relationshipName>INV_TW_Sources_Destinations_Source_Desti</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Source_Name__c</fullName>
+        <formula>Source_Destination__r.Source_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Source Name</label>
+        <type>Text</type>
+    </fields>
+    <label>INV TW Source Destination Article</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Details</fullName>
+        <columns>Source_Name__c</columns>
+        <columns>Destination_Name__c</columns>
+        <columns>Article__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Details</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CombArt-{00000}</displayFormat>
+        <label>INV TW Source Destination Articule Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>INV TW Sources Destinations Articles</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

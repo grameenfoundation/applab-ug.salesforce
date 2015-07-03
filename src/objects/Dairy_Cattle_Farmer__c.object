@@ -1,46 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Dairy Cattle Farmers RCT</description>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>AI_Challenges__c</fullName>
-        <externalId>false</externalId>
         <label>Challenges of AI if any</label>
         <picklist>
             <picklistValues>
@@ -89,13 +55,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Abendazole_Quantity_Given__c</fullName>
-        <externalId>false</externalId>
         <label>Abendazole Quantity Given</label>
         <picklist>
             <picklistValues>
@@ -156,13 +120,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Acaricides_used_to_kill_ticks__c</fullName>
-        <externalId>false</externalId>
         <label>Acaricides used to kill ticks</label>
         <picklist>
             <picklistValues>
@@ -207,24 +169,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Age__c</fullName>
-        <externalId>false</externalId>
         <label>Age</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Age_of_Majority_of_Dairy_Cattle_on_Farm__c</fullName>
-        <externalId>false</externalId>
         <label>Age of Majority of Dairy Cattle on Farm</label>
         <picklist>
             <picklistValues>
@@ -257,12 +213,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Alternative_feeds_during_feed_scarcity__c</fullName>
-        <externalId>false</externalId>
         <label>Alternative feeds during feed scarcity</label>
         <picklist>
             <picklistValues>
@@ -347,14 +301,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>8</visibleLines>
     </fields>
     <fields>
         <fullName>Applies_manure_or_fertilizers_in_garden__c</fullName>
         <description>Do you apply any manure or artificial fertilizers on any of your garden</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you apply any manure or artificial fertilizers on any of your garden</inlineHelpText>
         <label>Applies manure or fertilizers in garden</label>
         <picklist>
@@ -368,13 +320,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Artificial_Insemination_Use_last_2_years__c</fullName>
         <description>How much did you use artificial insemination for dairy cows during the last two years?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How much did you use artificial insemination for dairy cows during the last two years?</inlineHelpText>
         <label>Artificial Insemination Use last 2 years</label>
         <picklist>
@@ -392,12 +342,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Attended_a_farmer_group_meet_last_12_mth__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>In the last 12 months, have you or anyone in your household attended a meeting of a farming group/organization?</inlineHelpText>
         <label>Attended a farmer group meet last 12 mth</label>
         <picklist>
@@ -411,13 +359,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Available_Water_Sources__c</fullName>
         <description>Which water source available?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Which water source available?</inlineHelpText>
         <label>Available Water Sources</label>
         <picklist>
@@ -459,48 +405,34 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Average_Daily_Milk_Quantity_per_Animal__c</fullName>
         <description>On average, how much milk do you get from each animal per day?</description>
-        <externalId>false</externalId>
         <inlineHelpText>On average, how much milk do you get from each animal per day?</inlineHelpText>
         <label>Average Daily Milk Quantity per Animal</label>
         <precision>10</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Average_No_Milk_Producing_Dairy_Animals__c</fullName>
-        <externalId>false</externalId>
         <label>Average No Milk Producing Dairy Animals</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Average_Weekly_Milk_Quantity_per_Animal__c</fullName>
-        <externalId>false</externalId>
         <label>Average Weekly Milk Quantity per Animal</label>
         <precision>10</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Aware_of_good_dairy_farming_mgt_practice__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Are you aware of the good dairy farming management practices and technologies?</inlineHelpText>
         <label>Aware of good dairy farming mgt practice</label>
         <picklist>
@@ -514,12 +446,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Benefits_received_from_Farmer_Group__c</fullName>
-        <externalId>false</externalId>
         <label>Benefits received from Farmer Group</label>
         <picklist>
             <picklistValues>
@@ -556,13 +486,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Bought_new_Dairy_Cattle_last_12_Months__c</fullName>
-        <externalId>false</externalId>
         <label>Bought new Dairy Cattle last 12 Months?</label>
         <picklist>
             <picklistValues>
@@ -575,12 +503,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Calf_White_Scours__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Calf White Scours</label>
         <picklist>
             <picklistValues>
@@ -613,13 +539,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Can_tell_if_cow_pregnant_after_mating_AI__c</fullName>
-        <externalId>false</externalId>
         <label>Can tell if cow pregnant after mating/AI</label>
         <picklist>
             <picklistValues>
@@ -632,13 +556,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Can_tell_normal_calving_from_problematic__c</fullName>
         <description>Are you able to tell an animal having normal calving from that having problems?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Are you able to tell an animal having normal calving from that having problems?</inlineHelpText>
         <label>Can tell normal calving from problematic</label>
         <picklist>
@@ -652,13 +574,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Can_tell_that_animal_about_to_give_birth__c</fullName>
         <description>From your experience, can you tell that your animal is about to give birth?</description>
-        <externalId>false</externalId>
         <inlineHelpText>From your experience, can you tell that your animal is about to give birth?</inlineHelpText>
         <label>Can tell that animal about to give birth</label>
         <picklist>
@@ -672,12 +592,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Can_tell_whether_animal_is_on_heat__c</fullName>
-        <externalId>false</externalId>
         <label>Can tell whether animal is on heat</label>
         <picklist>
             <picklistValues>
@@ -690,12 +608,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Can_tell_worm_infection_in_dairy_animal__c</fullName>
-        <externalId>false</externalId>
         <label>Can tell worm infection in dairy animal</label>
         <picklist>
             <picklistValues>
@@ -708,12 +624,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Common_Diseases_in_Community__c</fullName>
-        <externalId>false</externalId>
         <label>Common Diseases in Community</label>
         <picklist>
             <picklistValues>
@@ -770,14 +684,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Concentrated_Feed_given_to_dairy_cows__c</fullName>
         <description>Which forms of concentrated feed did you give your dairy cows during the last 12 months?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Which forms of concentrated feed did you give your dairy cows during the last 12 months?</inlineHelpText>
         <label>Concentrated Feed given to dairy cows</label>
         <picklist>
@@ -803,13 +715,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Consent_for_food_health_questions__c</fullName>
-        <externalId>false</externalId>
         <label>Consent for food &amp; health questions</label>
         <picklist>
             <picklistValues>
@@ -822,13 +732,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Constraints_to_Pasture_Production__c</fullName>
         <description>What are the constraints to pasture production?</description>
-        <externalId>false</externalId>
         <inlineHelpText>What are the constraints to pasture production?</inlineHelpText>
         <label>Constraints to Pasture Production</label>
         <picklist>
@@ -862,13 +770,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Crops_Grown__c</fullName>
-        <externalId>false</externalId>
         <label>Crops Grown</label>
         <picklist>
             <picklistValues>
@@ -897,13 +803,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Current_Main_Source_Dairy_Farming_Info__c</fullName>
-        <externalId>false</externalId>
         <label>Current Main Source Dairy Farming Info</label>
         <picklist>
             <picklistValues>
@@ -948,13 +852,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Dairy_Animal_Feeds__c</fullName>
-        <externalId>false</externalId>
         <label>What dairy animals currently fed on</label>
         <picklist>
             <picklistValues>
@@ -1047,13 +949,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>7</visibleLines>
     </fields>
     <fields>
         <fullName>Dairy_Farming_Method_Used__c</fullName>
-        <externalId>false</externalId>
         <label>Dairy Farming Method Used</label>
         <picklist>
             <picklistValues>
@@ -1074,12 +974,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Dairy_Farming_Record_Types_Kept__c</fullName>
-        <externalId>false</externalId>
         <label>Dairy Farming Record Types Kept</label>
         <picklist>
             <picklistValues>
@@ -1184,13 +1082,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Dairy_Products_Marketing_Constraints__c</fullName>
-        <externalId>false</externalId>
         <label>Dairy Products Marketing Constraints</label>
         <picklist>
             <picklistValues>
@@ -1227,23 +1123,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>District__c</fullName>
-        <externalId>false</externalId>
         <label>District</label>
         <length>30</length>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Does_any_Value_Addition_on_Milk__c</fullName>
-        <externalId>false</externalId>
         <label>Does any Value Addition on Milk?</label>
         <picklist>
             <picklistValues>
@@ -1256,12 +1147,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Effective_Efficient_Bucket_Feeding_Steps__c</fullName>
-        <externalId>false</externalId>
         <label>Effective Efficient Bucket Feeding Steps</label>
         <picklist>
             <picklistValues>
@@ -1294,13 +1183,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Endospec_Quantity_Given__c</fullName>
-        <externalId>false</externalId>
         <label>Endospec Quantity Given</label>
         <picklist>
             <picklistValues>
@@ -1361,13 +1248,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Engage_in_Other_Animal_Enterprise__c</fullName>
-        <externalId>false</externalId>
         <label>Engage in Other Animal Enterprise?</label>
         <picklist>
             <picklistValues>
@@ -1380,12 +1265,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Engaged_in_Dairy_Farming_How_Long__c</fullName>
-        <externalId>false</externalId>
         <label>Engaged in Dairy Farming How Long?</label>
         <picklist>
             <picklistValues>
@@ -1406,12 +1289,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Ensuring_Production_of_High_Quality_Milk__c</fullName>
-        <externalId>false</externalId>
         <label>Ensuring Production of High Quality Milk</label>
         <picklist>
             <picklistValues>
@@ -1476,14 +1357,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>External_Parasites_that_attack_farm__c</fullName>
         <description>Which external parasites commonly attack your animals on the farm?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Which external parasites commonly attack your animals on the farm?</inlineHelpText>
         <label>External Parasites that attack farm</label>
         <picklist>
@@ -1513,13 +1392,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Factors_driving_milk_production_trends__c</fullName>
-        <externalId>false</externalId>
         <label>Factors driving milk production trends</label>
         <picklist>
             <picklistValues>
@@ -1584,13 +1461,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Factors_in_Deciding_to_do_Dairy_Farming__c</fullName>
-        <externalId>false</externalId>
         <label>Factors in Deciding to do Dairy Farming</label>
         <picklist>
             <picklistValues>
@@ -1667,13 +1542,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Feeding_of_Calves_upto_Weaning__c</fullName>
-        <externalId>false</externalId>
         <label>Feeding of Calves upto Weaning (3 month)</label>
         <picklist>
             <picklistValues>
@@ -1690,14 +1563,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Fertilizers_applied_on_dairy_farm__c</fullName>
         <description>Which fertilizers do you apply on your dairy farm?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Which fertilizers do you apply on your dairy farm?</inlineHelpText>
         <label>Fertilizers applied on dairy farm</label>
         <picklist>
@@ -1715,35 +1586,25 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>First_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.First_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>First Name</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>For_how_long_is_the_milk_stored__c</fullName>
-        <externalId>false</externalId>
         <label>For how long is the milk stored?</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Form_in_which_Milk_is_Sold__c</fullName>
-        <externalId>false</externalId>
         <label>Form in which Milk is Sold</label>
         <picklist>
             <picklistValues>
@@ -1776,13 +1637,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Frequency_of_Watering_Dairy_Animals__c</fullName>
-        <externalId>false</externalId>
         <label>Frequency of Watering Dairy Animals</label>
         <picklist>
             <picklistValues>
@@ -1807,23 +1666,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Full_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>First_Name__c + &apos; &apos; +  Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Full Name</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>General_symptoms_of_worm_infection__c</fullName>
-        <externalId>false</externalId>
         <label>General symptoms of worm infection</label>
         <picklist>
             <picklistValues>
@@ -1864,13 +1717,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Grow_Any_Crop__c</fullName>
-        <externalId>false</externalId>
         <label>Grow Any Crop?</label>
         <picklist>
             <picklistValues>
@@ -1883,12 +1734,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Had_Pregnant_Dairy_Cow_last_2_years__c</fullName>
-        <externalId>false</externalId>
         <label>Had Pregnant Dairy Cow last 2 years</label>
         <picklist>
             <picklistValues>
@@ -1901,12 +1750,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Had_any_milking_cow_last_2_years__c</fullName>
-        <externalId>false</externalId>
         <label>Had any milking cow last 2 years</label>
         <picklist>
             <picklistValues>
@@ -1919,12 +1766,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Had_milking_dairy_cows__c</fullName>
-        <externalId>false</externalId>
         <label>Had any milking dairy cows last 12 month</label>
         <picklist>
             <picklistValues>
@@ -1937,12 +1782,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Had_newly_born_calf_last_2_years__c</fullName>
-        <externalId>false</externalId>
         <label>Had newly born calf last 2 years</label>
         <picklist>
             <picklistValues>
@@ -1955,12 +1798,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Have_a_Personal_Phone_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Have a Personal Phone Number?</label>
         <picklist>
             <picklistValues>
@@ -1973,12 +1814,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Have_any_common_calf_diseases_in_area__c</fullName>
-        <externalId>false</externalId>
         <label>Have any common calf diseases in area?</label>
         <picklist>
             <picklistValues>
@@ -1991,13 +1830,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Have_contract_to_sell_milk_to_same_buyer__c</fullName>
         <description>Do you have a contract to sell milk regularly to the same buyer?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you have a contract to sell milk regularly to the same buyer?</inlineHelpText>
         <label>Have contract to sell milk to same buyer</label>
         <picklist>
@@ -2015,12 +1852,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Have_other_contact_number__c</fullName>
-        <externalId>false</externalId>
         <label>Have other contact number?</label>
         <picklist>
             <picklistValues>
@@ -2041,12 +1876,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>How_Artificial_Insemination_was_paid_for__c</fullName>
-        <externalId>false</externalId>
         <label>How Artificial Insemination was paid for</label>
         <picklist>
             <picklistValues>
@@ -2087,13 +1920,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_Cow_Handled_just_After_Calving__c</fullName>
-        <externalId>false</externalId>
         <label>How Cow Handled just After Calving</label>
         <picklist>
             <picklistValues>
@@ -2134,13 +1965,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_Dairy_Cattle_Were_Obtained__c</fullName>
-        <externalId>false</externalId>
         <label>How Dairy Cattle Were Obtained</label>
         <picklist>
             <picklistValues>
@@ -2181,13 +2010,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_Treat_Cattle_Against_Disease_on_Farm__c</fullName>
-        <externalId>false</externalId>
         <label>How Treat Cattle Against Disease on Farm</label>
         <picklist>
             <picklistValues>
@@ -2244,13 +2071,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_calf_handled_immediately_after_birth__c</fullName>
-        <externalId>false</externalId>
         <label>How calf handled immediately after birth</label>
         <picklist>
             <picklistValues>
@@ -2291,14 +2116,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_dairy_cattle_fed_from_3_months__c</fullName>
         <description>In the past 1 year, how do you feed the dairy cattle from 3months (peak) up to the end of the milking season?</description>
-        <externalId>false</externalId>
         <inlineHelpText>In the past 1 year, how do you feed the dairy cattle from 3months (peak) up to the end of the milking season?</inlineHelpText>
         <label>How dairy cattle fed from 3 months</label>
         <picklist>
@@ -2332,14 +2155,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_dairy_cattle_fed_from_birth__c</fullName>
         <description>In the past 1 year, How do you feed the dairy cattle from first day of birth upto the middle of the milking season (3 months)?</description>
-        <externalId>false</externalId>
         <inlineHelpText>In the past 1 year, How do you feed the dairy cattle from first day of birth upto the middle of the milking season (3 months)?</inlineHelpText>
         <label>How dairy cattle fed from birth</label>
         <picklist>
@@ -2373,14 +2194,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_do_you_plant_your_pastures__c</fullName>
         <description>How do you plant your pastures?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How do you plant your pastures?</inlineHelpText>
         <label>How do you plant your pastures?</label>
         <picklist>
@@ -2398,13 +2217,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>How_feed_manage_pregnant_dairy_cow__c</fullName>
         <description>How do you feed and manage YOUR pregnant dairy cow?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How do you feed and manage YOUR pregnant dairy cow?</inlineHelpText>
         <label>How feed &amp; manage pregnant dairy cow</label>
         <picklist>
@@ -2438,14 +2255,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_heifer_is_fed_from_6_18_months__c</fullName>
         <description>How do you feed your heifer from 6-18 months?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How do you feed your heifer from 6-18 months?</inlineHelpText>
         <label>How heifer is fed from 6-18 months</label>
         <picklist>
@@ -2479,14 +2294,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_identify_dairy_calving_problems__c</fullName>
         <description>How do you tell that your dairy animal has problems during calving?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How do you tell that your dairy animal has problems during calving?</inlineHelpText>
         <label>How identify dairy calving problems</label>
         <picklist>
@@ -2528,14 +2341,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_know_that_dairy_cow_about_to_calve__c</fullName>
         <description>How do you know that your dairy cow is about to calve?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How do you know that your dairy cow is about to calve?</inlineHelpText>
         <label>How know that dairy cow about to calve</label>
         <picklist>
@@ -2581,14 +2392,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_manage_your_milking_dairy_cow__c</fullName>
         <description>How do you feed and manage YOUR milking dairy cow?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How do you feed and manage YOUR milking dairy cow?</inlineHelpText>
         <label>How manage your milking dairy cow</label>
         <picklist>
@@ -2622,13 +2431,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>How_often_HH_member_gone_to_hospital__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>In the past 12 months (2 growing seasons), how many times has anyone in the household gone to a hospital or health clinic, or to see a doctor, nurse, or VHT (village health team)?</inlineHelpText>
         <label>How often HH member gone to hospital</label>
         <picklist>
@@ -2654,13 +2461,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>How_often_spray_to_control_ticks__c</fullName>
         <description>How often do you spray to control ticks and other parasites?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How often do you spray to control ticks and other parasites?</inlineHelpText>
         <label>How often spray to control ticks</label>
         <picklist>
@@ -2686,12 +2491,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>How_the_Milk_is_Marketed_or_Sold__c</fullName>
-        <externalId>false</externalId>
         <label>How the Milk is Marketed or Sold</label>
         <picklist>
             <picklistValues>
@@ -2712,12 +2515,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>How_to_Identify_Arthritis__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Arthritis</label>
         <picklist>
             <picklistValues>
@@ -2754,13 +2555,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_to_Identify_Brucellosis__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Brucellosis</label>
         <picklist>
             <picklistValues>
@@ -2797,13 +2596,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_to_Identify_Navel_Infections__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Navel Infections</label>
         <picklist>
             <picklistValues>
@@ -2832,13 +2629,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_to_Identify_Pneumonia__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Pneumonia</label>
         <picklist>
             <picklistValues>
@@ -2875,13 +2670,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_to_Identify_Salmoneliosis__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Salmoneliosis</label>
         <picklist>
             <picklistValues>
@@ -2926,14 +2719,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_to_tell_cow_is_pregnant_after_mating__c</fullName>
         <description>How do you tell whether your cow is pregnant after insemination or mating with a bull?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How do you tell whether your cow is pregnant after insemination or mating with a bull?</inlineHelpText>
         <label>How to tell cow is pregnant after mating</label>
         <picklist>
@@ -2971,13 +2762,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_to_tell_that_animal_is_on_heat__c</fullName>
-        <externalId>false</externalId>
         <label>How to tell that animal is on heat</label>
         <picklist>
             <picklistValues>
@@ -3030,14 +2819,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>How_training_changed_dairy_enterprise__c</fullName>
         <description>How has the training changed your dairy farming enterprise?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How has the training changed your dairy farming enterprise?</inlineHelpText>
         <label>How training changed dairy enterprise</label>
         <picklist>
@@ -3075,13 +2862,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Identify_Anthrax__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Anthrax</label>
         <picklist>
             <picklistValues>
@@ -3110,13 +2895,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Identify_Coccidiosis__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Coccidiosis</label>
         <picklist>
             <picklistValues>
@@ -3157,13 +2940,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Identify_East_Coast_Fever__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify East Coast Fever</label>
         <picklist>
             <picklistValues>
@@ -3208,13 +2989,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Identify_Foot_and_Mouth_Disease__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Foot and Mouth Disease</label>
         <picklist>
             <picklistValues>
@@ -3239,13 +3018,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Identify_Lumpy_Skin__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Lumpy Skin</label>
         <picklist>
             <picklistValues>
@@ -3282,13 +3059,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Identify_Mastitis__c</fullName>
-        <externalId>false</externalId>
         <label>How to Identify Mastitis</label>
         <picklist>
             <picklistValues>
@@ -3329,14 +3104,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Important_to_know_how_to_detect_heat__c</fullName>
         <description>Do you think it is important to know how to detect heat in your diary animals?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you think it is important to know how to detect heat in your diary animals?</inlineHelpText>
         <label>Important to know how to detect heat?</label>
         <picklist>
@@ -3350,12 +3123,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Internal_Parasites_treated_in_last_2_yrs__c</fullName>
-        <externalId>false</externalId>
         <label>Internal Parasites treated in last 2 yrs</label>
         <picklist>
             <picklistValues>
@@ -3384,13 +3155,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Is_Member_of_a_Community_Farmer_Group__c</fullName>
-        <externalId>false</externalId>
         <label>Is Member of a Community Farmer Group?</label>
         <picklist>
             <picklistValues>
@@ -3403,12 +3172,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Ivermectin_Quantity_Given__c</fullName>
-        <externalId>false</externalId>
         <label>Ivermectin Quantity Given</label>
         <picklist>
             <picklistValues>
@@ -3465,13 +3232,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Keeps_records_about_dairy_farming__c</fullName>
-        <externalId>false</externalId>
         <label>Keeps records about dairy farming</label>
         <picklist>
             <picklistValues>
@@ -3484,13 +3249,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Keeps_records_on_milk_production_on_farm__c</fullName>
         <description>Do you keep any records specifically on milk production on your farm?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you keep any records specifically on milk production on your farm?</inlineHelpText>
         <label>Keeps records on milk production on farm</label>
         <picklist>
@@ -3504,13 +3267,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Know_how_to_manage_cow_that_has_calved__c</fullName>
         <description>Do you know how to handle or manage a cow that has just calved or given birth?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you know how to handle or manage a cow that has just calved or given birth?</inlineHelpText>
         <label>Know how to manage cow that has calved</label>
         <picklist>
@@ -3524,12 +3285,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Know_how_to_managed_newly_born_calf__c</fullName>
-        <externalId>false</externalId>
         <label>Know how to managed newly born calf</label>
         <picklist>
             <picklistValues>
@@ -3542,13 +3301,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_any_general_symptoms_of_sick_cow__c</fullName>
         <description>Do you know any of the general symptoms of a sick cow/bull or worm infection?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you know any of the general symptoms of a sick cow/bull or worm infection?</inlineHelpText>
         <label>Knows any general symptoms of sick cow</label>
         <picklist>
@@ -3562,12 +3319,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_reason_why_cow_may_not_conceive__c</fullName>
-        <externalId>false</externalId>
         <label>Knows reason why cow may not conceive</label>
         <picklist>
             <picklistValues>
@@ -3580,12 +3335,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_dewormers_to_use__c</fullName>
-        <externalId>false</externalId>
         <label>Knows recommended dewormers to use</label>
         <picklist>
             <picklistValues>
@@ -3598,12 +3351,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_deworming_interval__c</fullName>
-        <externalId>false</externalId>
         <label>Knows recommended deworming interval</label>
         <picklist>
             <picklistValues>
@@ -3616,13 +3367,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_deworming_tool__c</fullName>
         <description>Do you know the right/recommended equipment/tool to use for deworming your cattle?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you know the right/recommended equipment/tool to use for deworming your cattle?</inlineHelpText>
         <label>Knows recommended deworming tool</label>
         <picklist>
@@ -3636,13 +3385,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_mgt_milking_dairy_cow__c</fullName>
         <description>Do you know the recommended ways of feeding and managing a milking dairy cow?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you know the recommended ways of feeding and managing a milking dairy cow?</inlineHelpText>
         <label>Knows recommended mgt milking dairy cow</label>
         <picklist>
@@ -3656,12 +3403,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_spray_pump_for_cattle__c</fullName>
-        <externalId>false</externalId>
         <label>Knows recommended spray pump for cattle</label>
         <picklist>
             <picklistValues>
@@ -3674,12 +3419,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_spraying_time_interval__c</fullName>
-        <externalId>false</externalId>
         <label>Knows recommended spraying time interval</label>
         <picklist>
             <picklistValues>
@@ -3692,12 +3435,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_way_mixing_acaricides__c</fullName>
-        <externalId>false</externalId>
         <label>Knows recommended way mixing acaricides</label>
         <picklist>
             <picklistValues>
@@ -3710,12 +3451,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_recommended_ways_mgt_pregnant_cow__c</fullName>
-        <externalId>false</externalId>
         <label>Knows recommended ways mgt pregnant cow</label>
         <picklist>
             <picklistValues>
@@ -3728,12 +3467,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_right_method_for_deworming_cattle__c</fullName>
-        <externalId>false</externalId>
         <label>Knows right method for deworming cattle</label>
         <picklist>
             <picklistValues>
@@ -3746,12 +3483,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_the_Weight_of_Farm_Dairy_Animals__c</fullName>
-        <externalId>false</externalId>
         <label>Knows the Weight of Farm Dairy Animals</label>
         <picklist>
             <picklistValues>
@@ -3764,13 +3499,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Knows_the_acaricides_to_use_for_ticks__c</fullName>
         <description>Do you know the recommended chemicals (acaricides) to use to control ticks on your farm?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Do you know the recommended chemicals (acaricides) to use to control ticks on your farm?</inlineHelpText>
         <label>Knows the acaricides to use for ticks</label>
         <picklist>
@@ -3784,34 +3517,24 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Land_Size_Owned_in_Acres__c</fullName>
-        <externalId>false</externalId>
         <label>Land Size Owned in Acres</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Last_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Last Name</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Levafas_Diamond_Quantity_Given__c</fullName>
-        <externalId>false</externalId>
         <label>Levafas Diamond Quantity Given</label>
         <picklist>
             <picklistValues>
@@ -3868,13 +3591,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Level_of_Education__c</fullName>
-        <externalId>false</externalId>
         <label>Level of Education</label>
         <picklist>
             <picklistValues>
@@ -3911,12 +3632,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Like_to_receive_info_on_Dairy_Farming__c</fullName>
-        <externalId>false</externalId>
         <label>Like to receive info on Dairy Farming</label>
         <picklist>
             <picklistValues>
@@ -3929,12 +3648,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Main_Occupation__c</fullName>
-        <externalId>false</externalId>
         <label>Main Occupation</label>
         <picklist>
             <picklistValues>
@@ -3959,12 +3676,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Makes_Dairy_Cattle_Feeds__c</fullName>
-        <externalId>false</externalId>
         <label>Makes Dairy Cattle Feeds on Farm?</label>
         <picklist>
             <picklistValues>
@@ -3981,12 +3696,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Marital_Status__c</fullName>
-        <externalId>false</externalId>
         <label>Marital Status</label>
         <picklist>
             <picklistValues>
@@ -4007,12 +3720,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Mating_System_Used_last_2_Years__c</fullName>
-        <externalId>false</externalId>
         <label>Mating System Used last 2 Years</label>
         <picklist>
             <picklistValues>
@@ -4025,12 +3736,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Measures_to_ensure_wellmixed_acaricide__c</fullName>
-        <externalId>false</externalId>
         <label>Measures to ensure wellmixed acaricide</label>
         <picklist>
             <picklistValues>
@@ -4067,13 +3776,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Method_used_to_Spray_Cattle__c</fullName>
-        <externalId>false</externalId>
         <label>Method used to Spray Cattle</label>
         <picklist>
             <picklistValues>
@@ -4106,13 +3813,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Milk_Handling_during_Storage_Transport__c</fullName>
-        <externalId>false</externalId>
         <label>Milk Handling during Storage &amp; Transport</label>
         <picklist>
             <picklistValues>
@@ -4169,13 +3874,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Milk_Production_Trend_past_1_2_years__c</fullName>
-        <externalId>false</externalId>
         <label>Milk Production Trend past 1-2 years</label>
         <picklist>
             <picklistValues>
@@ -4192,12 +3895,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Milk_Storage_Structures__c</fullName>
-        <externalId>false</externalId>
         <label>Milk Storage Structures</label>
         <picklist>
             <picklistValues>
@@ -4214,12 +3915,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Mix_Alfacal__c</fullName>
-        <externalId>false</externalId>
         <label>How to mix Alfacal</label>
         <picklist>
             <picklistValues>
@@ -4248,12 +3947,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Mix_Amitex__c</fullName>
-        <externalId>false</externalId>
         <label>How to mix Amitex</label>
         <picklist>
             <picklistValues>
@@ -4298,12 +3995,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Mix_Cyperlanser__c</fullName>
-        <externalId>false</externalId>
         <label>How to mix Cyperlanser</label>
         <picklist>
             <picklistValues>
@@ -4332,12 +4027,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Mix_Spona__c</fullName>
-        <externalId>false</externalId>
         <label>How to mix Spona</label>
         <picklist>
             <picklistValues>
@@ -4374,12 +4067,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Mix_Tsetse_Tick__c</fullName>
-        <externalId>false</externalId>
         <label>How to mix Tsetse Tick</label>
         <picklist>
             <picklistValues>
@@ -4408,22 +4099,16 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Name_of_Farmer_Group__c</fullName>
-        <externalId>false</externalId>
         <label>Name of Farmer Group</label>
         <length>255</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nearest_Hub__c</fullName>
-        <externalId>false</externalId>
         <label>Nearest Hub</label>
         <picklist>
             <picklistValues>
@@ -4456,91 +4141,61 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Number_of_Cattle_Owned__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Cattle Owned</label>
         <precision>7</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Dairy_Animals_Owned__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Dairy Animals Owned</label>
         <precision>7</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Dairy_Cattle_6_to18_Months__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Dairy Cattle 6 to18 Months</label>
         <precision>7</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Dairy_Cattle_Below_6_Months__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Dairy Cattle Below 6 Months</label>
         <precision>7</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Female_Dairy_Animals__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Female Dairy Animals</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_New_Cattle_Bought__c</fullName>
-        <externalId>false</externalId>
         <label>Number of New Cattle Bought</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Years_in_Dairy_Farming__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Number of Years in Dairy Farming</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_times_dairy_cow_milked_per_day__c</fullName>
         <description>How many times do you milk your dairy animal per day?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How many times do you milk your dairy animal per day?</inlineHelpText>
         <label>Number of times dairy cow milked per day</label>
         <picklist>
@@ -4566,12 +4221,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Other_Animal_Enterprises_engaged_in__c</fullName>
-        <externalId>false</externalId>
         <label>Other Animal Enterprises engaged in</label>
         <picklist>
             <picklistValues>
@@ -4600,46 +4253,34 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Other_Contact_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Other Contact Number</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>PPI_Score__c</fullName>
-        <externalId>false</externalId>
         <label>PPI Score</label>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Parish__c</fullName>
-        <externalId>false</externalId>
         <label>Parish</label>
         <length>30</length>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Pasture_varieties_species_planted__c</fullName>
         <description>Which pasture varieties/species do you plant?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Which pasture varieties/species do you plant?</inlineHelpText>
         <label>Pasture varieties/species planted</label>
         <picklist>
@@ -4697,37 +4338,27 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>Dairy Cattle Farmers</relationshipLabel>
         <relationshipName>Dairy_Cattle_Farmers</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Personal_Phone_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Personal Phone Number</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Plants_pasture_for_cattle__c</fullName>
-        <externalId>false</externalId>
         <label>Plants pasture for cattle?</label>
         <picklist>
             <picklistValues>
@@ -4740,12 +4371,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Position_in_Household__c</fullName>
-        <externalId>false</externalId>
         <label>Position in Household</label>
         <picklist>
             <picklistValues>
@@ -4770,12 +4399,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Practised_dehorning_in_last_2_3_years__c</fullName>
-        <externalId>false</externalId>
         <label>Practised dehorning in last 2-3 years</label>
         <picklist>
             <picklistValues>
@@ -4788,12 +4415,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Preferred_Info_Formats__c</fullName>
-        <externalId>false</externalId>
         <label>Preferred Info Formats</label>
         <picklist>
             <picklistValues>
@@ -4826,13 +4451,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Prefers_Own_Children_Not_to_be_Farmers__c</fullName>
-        <externalId>false</externalId>
         <label>Prefers Own Children Not to be Farmers?</label>
         <picklist>
             <picklistValues>
@@ -4857,23 +4480,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Price_Gotten_Per_Litre_last_2_seasons__c</fullName>
-        <externalId>false</externalId>
         <label>Price Gotten Per Litre last 2 seasons</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Protaid__c</fullName>
-        <externalId>false</externalId>
         <label>How to mix Protaid</label>
         <picklist>
             <picklistValues>
@@ -4902,12 +4519,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Reasons_for_Involvement_in_Dairy_Farming__c</fullName>
-        <externalId>false</externalId>
         <label>Reasons for Involvement in Dairy Farming</label>
         <picklist>
             <picklistValues>
@@ -4948,13 +4563,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Reasons_for_Preferred_Mating_System__c</fullName>
-        <externalId>false</externalId>
         <label>Reasons for Preferred Mating System</label>
         <picklist>
             <picklistValues>
@@ -4979,13 +4592,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Receive_extension_services_info_from_CKW__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Do you receive any extension services or information from a CKW?</inlineHelpText>
         <label>Receive extension services/info from CKW</label>
         <picklist>
@@ -4999,12 +4610,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Recommended_Dewormers_used__c</fullName>
-        <externalId>false</externalId>
         <label>Recommended Dewormers used</label>
         <picklist>
             <picklistValues>
@@ -5049,13 +4658,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Record_Keeping_Constraints_on_Farm__c</fullName>
-        <externalId>false</externalId>
         <label>Record Keeping Constraints on Farm</label>
         <picklist>
             <picklistValues>
@@ -5088,27 +4695,21 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Registered_By__c</fullName>
         <description>The Contact who has registered this farmer</description>
-        <externalId>false</externalId>
         <label>Registered By</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Dairy Cattle Farmers</relationshipLabel>
         <relationshipName>Dairy_Cattle_Farmers</relationshipName>
         <relationshipOrder>1</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Rent_Extra_Land_for_Dairy_Farming__c</fullName>
-        <externalId>false</externalId>
         <label>Rent Extra Land for Dairy Farming?</label>
         <picklist>
             <picklistValues>
@@ -5121,12 +4722,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Sell_Any_Milk__c</fullName>
-        <externalId>false</externalId>
         <label>Sell Any Milk?</label>
         <picklist>
             <picklistValues>
@@ -5139,12 +4738,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Sells_Fodder__c</fullName>
-        <externalId>false</externalId>
         <label>Sells any Fodder?</label>
         <picklist>
             <picklistValues>
@@ -5157,23 +4754,17 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Size_of_Land_Rented_for_Dairy_Farming__c</fullName>
-        <externalId>false</externalId>
         <label>Size of Land Rented for Dairy Farming</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Source_of_dairy_farming_info_last_2_year__c</fullName>
-        <externalId>false</externalId>
         <label>Source of dairy farming info last 2 year</label>
         <picklist>
             <picklistValues>
@@ -5218,14 +4809,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Sources_of_parasite_chemicals_and_drugs__c</fullName>
         <description>What are your sources of chemical used to kill animal parasites (acaricides) and drugs including dewormers?</description>
-        <externalId>false</externalId>
         <inlineHelpText>What are your sources of chemical used to kill animal parasites (acaricides) and drugs including dewormers?</inlineHelpText>
         <label>Sources of parasite chemicals and drugs</label>
         <picklist>
@@ -5255,13 +4844,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Store_any_Milk_after_Milking__c</fullName>
-        <externalId>false</externalId>
         <label>Store any Milk after Milking?</label>
         <picklist>
             <picklistValues>
@@ -5274,23 +4861,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Subcounty__c</fullName>
-        <externalId>false</externalId>
         <label>Subcounty</label>
         <length>30</length>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Takes_time_to_select_a_place_for_calving__c</fullName>
         <description>Before your cow calves/give birth, do you take time to select a place where to calve from?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Before your cow calves/give birth, do you take time to select a place where to calve from?</inlineHelpText>
         <label>Takes time to select a place for calving</label>
         <picklist>
@@ -5304,12 +4886,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Thiabendazole_Quantity_Given__c</fullName>
-        <externalId>false</externalId>
         <label>Thiabendazole Quantity Given</label>
         <picklist>
             <picklistValues>
@@ -5370,14 +4950,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Time_when_dairy_animal_is_milked__c</fullName>
         <description>At what time do you milk your dairy animal?</description>
-        <externalId>false</externalId>
         <inlineHelpText>At what time do you milk your dairy animal?</inlineHelpText>
         <label>Time when dairy animal is milked</label>
         <picklist>
@@ -5399,13 +4977,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Tool_used_for_Deworming__c</fullName>
-        <externalId>false</externalId>
         <label>Tool used for Deworming</label>
         <picklist>
             <picklistValues>
@@ -5426,13 +5002,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Top_Preferred_Priority_Areas_for_Support__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>If one is to support you in terms of dairy cattle management, what are top 5 priority areas you would like to be supported in?</inlineHelpText>
         <label>5 Preferred Priority Areas for Support</label>
         <picklist>
@@ -5474,13 +5048,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Trained_on_dairy_farming_technologies__c</fullName>
-        <externalId>false</externalId>
         <label>Trained on dairy farming technologies</label>
         <picklist>
             <picklistValues>
@@ -5493,12 +5065,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Treated_animals_against_worms_last_2_yrs__c</fullName>
-        <externalId>false</externalId>
         <label>Treated animals against worms last 2 yrs</label>
         <picklist>
             <picklistValues>
@@ -5511,12 +5081,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Treatment_of_cattle_disease_last_2_years__c</fullName>
-        <externalId>false</externalId>
         <label>Treatment of cattle disease last 2 years</label>
         <picklist>
             <picklistValues>
@@ -5573,13 +5141,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Type_of_Dairy_Cattle_Kept__c</fullName>
-        <externalId>false</externalId>
         <label>Type of Dairy Cattle Kept</label>
         <picklist>
             <picklistValues>
@@ -5596,12 +5162,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Types_of_Pasture_Planted_in_General__c</fullName>
-        <externalId>false</externalId>
         <label>Types of Pasture Planted in General</label>
         <picklist>
             <picklistValues>
@@ -5618,13 +5182,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Used_anyconcentrated_feed_last_12_months__c</fullName>
         <description>Did you use any form of concentrated feed for your dairy cows in the last 12 months?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Did you use any form of concentrated feed for your dairy cows in the last 12 months?</inlineHelpText>
         <label>Used anyconcentrated feed last 12 months</label>
         <picklist>
@@ -5642,13 +5204,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Used_identification_material_on_cattle__c</fullName>
         <description>In the past 1 year, have you used any identification material to identify any of your animals (cattle)?</description>
-        <externalId>false</externalId>
         <inlineHelpText>In the past 1 year, have you used any identification material to identify any of your animals (cattle)?</inlineHelpText>
         <label>Used identification material on cattle</label>
         <picklist>
@@ -5662,12 +5222,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Vaccinated_any_cattle_against_infection__c</fullName>
-        <externalId>false</externalId>
         <label>Vaccinated any cattle against infection</label>
         <picklist>
             <picklistValues>
@@ -5680,12 +5238,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Value_Addition_Products_Dealt_In__c</fullName>
-        <externalId>false</externalId>
         <label>Value Addition Products Dealt In</label>
         <picklist>
             <picklistValues>
@@ -5734,23 +5290,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Village__c</fullName>
-        <externalId>false</externalId>
         <label>Village</label>
         <length>30</length>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Waters_Cattle__c</fullName>
-        <externalId>false</externalId>
         <label>Waters Cattle?</label>
         <picklist>
             <picklistValues>
@@ -5763,13 +5314,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>What_considered_in_selecting_birth_place__c</fullName>
         <description>What do you consider when selecting the place for animal to give birth from?</description>
-        <externalId>false</externalId>
         <inlineHelpText>What do you consider when selecting the place for animal to give birth from?</inlineHelpText>
         <label>What considered in selecting birth place</label>
         <picklist>
@@ -5799,14 +5348,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>What_is_used_to_measure_milk_during_sale__c</fullName>
         <description>What do you use to measure your milk when selling?</description>
-        <externalId>false</externalId>
         <inlineHelpText>What do you use to measure your milk when selling?</inlineHelpText>
         <label>What is used to measure milk during sale</label>
         <picklist>
@@ -5824,12 +5371,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>What_is_used_to_store_the_milk__c</fullName>
-        <externalId>false</externalId>
         <label>What is used to store the milk?</label>
         <picklist>
             <picklistValues>
@@ -5854,12 +5399,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>What_were_the_training_areas__c</fullName>
-        <externalId>false</externalId>
         <label>What were the training areas?</label>
         <picklist>
             <picklistValues>
@@ -5916,13 +5459,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>When_Dairy_Animals_Dewormed__c</fullName>
-        <externalId>false</externalId>
         <label>When Dairy Animals Dewormed</label>
         <picklist>
             <picklistValues>
@@ -5963,14 +5504,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>When_check_dairy_animals_for_heat__c</fullName>
         <description>When do you check your dairy animals for heat?</description>
-        <externalId>false</externalId>
         <inlineHelpText>When do you check your dairy animals for heat?</inlineHelpText>
         <label>When check dairy animals for heat</label>
         <picklist>
@@ -6000,12 +5539,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>When_do_you_wean_your_calves__c</fullName>
-        <externalId>false</externalId>
         <label>When do you wean your calves?</label>
         <picklist>
             <picklistValues>
@@ -6022,12 +5559,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>When_last_trained_on_dairy_practices__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>When were you last trained on diary farming practices, value addition and marketing</inlineHelpText>
         <label>When last trained on dairy practices</label>
         <picklist>
@@ -6053,13 +5588,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>When_take_animal_for_mating_insemination__c</fullName>
         <description>When do you take your dairy animal (on heat) for mating (by a bull) or insemination?</description>
-        <externalId>false</externalId>
         <inlineHelpText>When do you take your dairy animal (on heat) for mating (by a bull) or insemination?</inlineHelpText>
         <label>When take animal for mating\insemination</label>
         <picklist>
@@ -6089,12 +5622,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Where_Dairy_Farming_Records_Kept__c</fullName>
-        <externalId>false</externalId>
         <label>Where Dairy Farming Records Kept</label>
         <picklist>
             <picklistValues>
@@ -6115,14 +5646,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Which_calf_diseases_familiar_with__c</fullName>
         <description>Which of the following calf diseases or infections are you familiar with on your farm or in your area?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Which of the following calf diseases or infections are you familiar with on your farm or in your area?</inlineHelpText>
         <label>Which calf diseases familiar with</label>
         <picklist>
@@ -6168,13 +5697,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Which_organization_did_the_training__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Which organization conducted the training</inlineHelpText>
         <label>Which organization did the training</label>
         <picklist>
@@ -6208,13 +5735,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Who_Buys_the_Milk__c</fullName>
-        <externalId>false</externalId>
         <label>Who Buys the Milk?</label>
         <picklist>
             <picklistValues>
@@ -6263,13 +5788,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Why_Dairy_Animal_May_Not_Conceive__c</fullName>
-        <externalId>false</externalId>
         <label>Why Dairy Animal May Not Conceive</label>
         <picklist>
             <picklistValues>
@@ -6334,13 +5857,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Why_no_fertilizer_manure_applied__c</fullName>
-        <externalId>false</externalId>
         <label>Why no fertilizer/manure applied</label>
         <picklist>
             <picklistValues>
@@ -6365,13 +5886,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Why_non_attendance_of_farmer_group_meet__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>If you have not participated in any farmer group/organization meeting,why?</inlineHelpText>
         <label>Why non-attendance of farmer group meet</label>
         <picklist>
@@ -6397,13 +5916,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Why_not_do_other_animal_enterprise__c</fullName>
-        <externalId>false</externalId>
         <label>Why not do other animal enterprise</label>
         <picklist>
             <picklistValues>
@@ -6424,13 +5941,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Wormicid_Quantity_Given__c</fullName>
-        <externalId>false</externalId>
         <label>Wormicid Quantity Given</label>
         <picklist>
             <picklistValues>
@@ -6491,7 +6006,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>4</visibleLines>
     </fields>
@@ -6507,12 +6021,10 @@
         <columns>Level_of_Education__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>DCFN{YYYY}{MM}{DD}{0}</displayFormat>
         <label>Dairy Cattle Farmer Number</label>
-        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Dairy Cattle Farmers</pluralLabel>

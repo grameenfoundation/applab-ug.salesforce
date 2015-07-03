@@ -4,7 +4,6 @@
         <fullName>FMP_Diagnostic_Score</fullName>
         <field>fmp_Total_Score__c</field>
         <formula>fmp_Agrochemicals_Score__c  +  fmp_Environment_Score__c  +  fmp_Harvest_Score__c  +  fmp_Lot_Score__c  +  fmp_MIPE_Score__c  +  fmp_Record_score__c  +  fmp_Seedbed_Score__c  +  fmp_Shadow_Score__c  +  fmp_Soil_Score__c  +  fmp_Weeds_Score__c  +  fmp_Wetmill_Score__c</formula>
-        <name>FMP_Diagnostic_Score</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>

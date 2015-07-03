@@ -1,111 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the farm information for a Coffee Baseline</description>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Baseline__c</fullName>
-        <externalId>false</externalId>
         <label>Baseline</label>
         <referenceTo>CBL_CoffeeBaseline__c</referenceTo>
         <relationshipLabel>CBL_Farms</relationshipLabel>
         <relationshipName>CBL_Farms</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>CP_Calculation_Date__c</fullName>
-        <externalId>false</externalId>
         <label>CP Calculation Date</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>Coffee_planted_area_Cuerdas_25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>coffeePlantedArea__c * 0.044</formula>
+        <formula>IF(text( coffeePlantedAreaUnits__c) = &quot;Hectáeras&quot;, coffeePlantedArea__c * 22.89, 
+IF(text( coffeePlantedAreaUnits__c) = &quot;Cuadras&quot;, coffeePlantedArea__c * 14.6496, 
+IF(text( coffeePlantedAreaUnits__c) = &quot;Manzanas&quot;, coffeePlantedArea__c * 16.0 , 
+IF(text( coffeePlantedAreaUnits__c) =&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c * 2.55999, coffeePlantedArea__c )))) 
+
+/* 
+valor anterior 
+coffeePlantedArea__c * 0.044
+*/</formula>
         <label>Coffee planted area (Cuerdas 25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Coffee_planted_area_Ha__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( coffeePlantedAreaUnits__c ) = &quot;Cuadras&quot;, coffeePlantedArea__c *1.5625, 
 IF(text( coffeePlantedAreaUnits__c ) = &quot;Manzanas&quot;, coffeePlantedArea__c *0.6988, 
 IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, coffeePlantedArea__c *0.044, 
 IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedArea__c *0.112,  coffeePlantedArea__c ))))</formula>
         <label>Coffee planted area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Farm_Code_Guat__c</fullName>
         <description>Farm code for Asobagri farms</description>
-        <externalId>false</externalId>
         <label>Farm Code Guat</label>
         <picklist>
             <picklistValues>
@@ -150,303 +91,275 @@ IF(text( coffeePlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, coffeePlantedA
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Farm_area_Cuerdas_25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>farm_Area_Ha__c * 0.04</formula>
+        <formula>IF(text( totalFarmAreaUnits__c ) = &quot;Hectáeras&quot;, totalFarmArea__c * 22.89, 
+IF(text( totalFarmAreaUnits__c ) = &quot;Cuadras&quot;, totalFarmArea__c * 14.6496, 
+IF(text( totalFarmAreaUnits__c ) = &quot;Manzanas&quot;, totalFarmArea__c * 16.0 ,  
+IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c * 2.55999, totalFarmArea__c ))))
+
+/*
+valor anterior 
+farm_Area_Ha__c * 0.04
+*/</formula>
         <label>Farm area (Cuerdas 25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>FarmerId__c</fullName>
-        <externalId>false</externalId>
         <formula>Baseline__r.Farmer__r.Id</formula>
         <label>FarmerId</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Farmer__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Farmer</label>
         <referenceTo>LAC_Farmer_Details__c</referenceTo>
         <relationshipLabel>CBL_Farms</relationshipLabel>
         <relationshipName>CBL_Farms</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Forest_Area_Cuerdas_25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>Forest_Area_Ha__c * 0.044</formula>
+        <formula>IF(text( unitForestArea__c ) = &quot;Hectáeras&quot;, forestArea__c * 22.89, 
+IF(text( unitForestArea__c ) = &quot;Cuadras&quot;, forestArea__c * 14.6496, 
+IF(text( unitForestArea__c ) = &quot;Manzanas&quot;, forestArea__c * 16.0 , 
+IF(text( unitForestArea__c ) =&quot;Cuerdas (40x40)&quot;, forestArea__c * 2.55999, forestArea__c )))) 
+
+/* 
+valor anterior 
+Forest_Area_Ha__c * 0.044
+*/</formula>
         <label>Forest Area (Cuerdas 25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Forest_Area_Ha__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( unitForestArea__c  ) = &quot;Cuadras&quot;, forestArea__c  *1.5625, 
 IF(text( unitForestArea__c  ) = &quot;Manzanas&quot;, forestArea__c  *0.6988, 
 IF(text( unitForestArea__c  )=&quot;Cuerdas (25x25)&quot;, forestArea__c *0.044, 
 IF(text( unitForestArea__c )=&quot;Cuerdas (40x40)&quot;, forestArea__c *0.112, forestArea__c  ))))</formula>
         <label>Forest Area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Last_FMP_Year__c</fullName>
-        <externalId>false</externalId>
         <label>Last FMP Year</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Latitude_farm__c</fullName>
-        <externalId>false</externalId>
         <formula>Submission__r.gfsurveys__gps_y__c</formula>
         <label>Latitude_farm</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>6</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Longitude_farm__c</fullName>
-        <externalId>false</externalId>
         <formula>Submission__r.gfsurveys__gps_x__c</formula>
         <label>Longitude_farm</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>6</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>New_planted_area_Cuerdas_25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>newPlantedArea__c * 0.044</formula>
+        <formula>IF(text( newPlantedAreaUnits__c ) = &quot;Hectáeras&quot;, newPlantedArea__c * 22.89, 
+IF(text( newPlantedAreaUnits__c ) = &quot;Cuadras&quot;, newPlantedArea__c * 14.6496, 
+IF(text( newPlantedAreaUnits__c ) = &quot;Manzanas&quot;, newPlantedArea__c * 16.0 , 
+IF(text( newPlantedAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, newPlantedArea__c * 2.55999, newPlantedArea__c )))) 
+
+/* 
+valor anterior 
+newPlantedArea__c * 0.044
+*/</formula>
         <label>New planted area (Cuerdas 25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>New_planted_area_ha__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( newPlantedAreaUnits__c ) = &quot;Cuadras&quot;,  newPlantedArea__c  *1.5625, 
 IF(text( newPlantedAreaUnits__c ) = &quot;Manzanas&quot;, newPlantedArea__c *0.6988, 
 IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, newPlantedArea__c *0.044, 
 IF(text( newPlantedAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, newPlantedArea__c *0.112, newPlantedArea__c ))))</formula>
         <label>New planted area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Organic_fertilized_area_Cuerdas_25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>organic_fertilized_area_ha__c * 0.044</formula>
+        <formula>IF(text( organicFertAreaThisYrUnits__c ) = &quot;Hectáeras&quot;, organicFertAreaThisYr__c * 22.89, 
+IF(text( organicFertAreaThisYrUnits__c ) = &quot;Cuadras&quot;, organicFertAreaThisYr__c * 14.6496, 
+IF(text( organicFertAreaThisYrUnits__c ) = &quot;Manzanas&quot;, organicFertAreaThisYr__c * 16.0 , 
+IF(text( organicFertAreaThisYrUnits__c ) =&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c * 2.55999, organicFertAreaThisYr__c )))) 
+
+/* 
+valor anterior 
+organic_fertilized_area_ha__c * 0.044 
+*/</formula>
         <label>Organic fertilized area (Cuerdas 25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Other_agricultural_activities_area_Cuer__c</fullName>
-        <externalId>false</externalId>
         <formula>Other_agricultural_activities_area_Ha__c * 0.044</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Other agricultural activities area (Cuer</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Other_agricultural_activities_area_Ha__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( otherActivitiesAreaUnits__c ) = &quot;Cuadras&quot;, otherActivitiesArea__c *1.5625, 
 IF(text( otherActivitiesAreaUnits__c ) = &quot;Manzanas&quot;, otherActivitiesArea__c *0.6988, 
 IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (25x25)&quot;, otherActivitiesArea__c *0.044, 
 IF(text( otherActivitiesAreaUnits__c )=&quot;Cuerdas (40x40)&quot;, otherActivitiesArea__c *0.112, otherActivitiesArea__c ))))</formula>
         <label>Other agricultural activities area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Production_last_year_Kg__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( prodLastHarvestUnits__c ) = &quot;Quintales&quot;, productionLastHarvest__c *45.3592,
 IF(text( prodLastHarvestUnits__c ) = &quot;Arrobas&quot;, productionLastHarvest__c *11.5,  
 IF(text( prodLastHarvestUnits__c )=&quot;Libras&quot;, productionLastHarvest__c *0.453597024, productionLastHarvest__c )))</formula>
         <label>Production last year (Kg)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Production_last_year_Quintales__c</fullName>
-        <externalId>false</externalId>
-        <formula>Production_last_year_Kg__c * 0.022</formula>
+        <formula>Production_last_year_Kg__c * 0.022046244</formula>
         <label>Production last year (Quintales)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Production_last_year_green_coffee_Kg__c</fullName>
-        <externalId>false</externalId>
         <formula>Production_last_year_Kg__c *0.754</formula>
         <label>Production last year green coffee (Kg)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Productivity_Kg_Ha__c</fullName>
-        <externalId>false</externalId>
-        <formula>Production_last_year_Kg__c/Coffee_planted_area_Ha__c</formula>
+        <formula>IF(Coffee_planted_area_Ha__c = 0, 0, Production_last_year_Kg__c/Coffee_planted_area_Ha__c)</formula>
         <label>Productivity (Kg/Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Productivity_Quintal_Cuerda25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>Production_last_year_Quintales__c / Coffee_planted_area_Cuerdas_25X25__c</formula>
+        <formula>IF(Coffee_planted_area_Cuerdas_25X25__c = 0, 0, Production_last_year_Quintales__c / Coffee_planted_area_Cuerdas_25X25__c)</formula>
         <label>Productivity (Quintal/Cuerda25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Productivity_arroba_Ha__c</fullName>
+        <formula>Productivity_Kg_Ha__c / 12.5</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Productivity (@/Ha)</label>
+        <precision>18</precision>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Productivity_green_coffee_Kg_Ha__c</fullName>
+        <formula>Production_last_year_green_coffee_Kg__c / Coffee_planted_area_Ha__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Productivity green coffee (Kg/Ha)</label>
+        <precision>18</precision>
+        <scale>1</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>Pruned_area_Cuerdas_25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>Pruned_area_Ha__c * 0.044</formula>
+        <formula>IF(text( pruneAreaLastYearUnits__c ) = &quot;Hectáeras&quot;, pruneAreaLastyear__c * 22.89, 
+IF(text( pruneAreaLastYearUnits__c ) = &quot;Cuadras&quot;, pruneAreaLastyear__c * 14.6496, 
+IF(text( pruneAreaLastYearUnits__c ) = &quot;Manzanas&quot;, pruneAreaLastyear__c * 16.0 , 
+IF(text( pruneAreaLastYearUnits__c ) =&quot;Cuerdas (40x40)&quot;, pruneAreaLastyear__c * 2.55999, pruneAreaLastyear__c )))) 
+
+/* 
+valor anterior 
+Pruned_area_Ha__c * 0.044 
+*/</formula>
         <label>Pruned area (Cuerdas 25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Pruned_area_Ha__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( pruneAreaLastYearUnits__c ) = &quot;Cuadras&quot;, pruneAreaLastyear__c *1.5625, 
 IF(text( pruneAreaLastYearUnits__c ) = &quot;Manzanas&quot;, pruneAreaLastyear__c *0.6988, 
 IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (25x25)&quot;, pruneAreaLastyear__c *0.044, 
 IF(text( pruneAreaLastYearUnits__c )=&quot;Cuerdas (40x40)&quot;, pruneAreaLastyear__c *0.112, pruneAreaLastyear__c ))))</formula>
         <label>Pruned area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Renewed_area_Cuerdas_25X25__c</fullName>
-        <externalId>false</externalId>
-        <formula>Renewed_area_ha__c * 0.044</formula>
+        <formula>IF(text( areaRenewedCoffeeUnits__c ) = &quot;Hectáeras&quot;, areaRenewedCoffee__c * 22.89, 
+IF(text( areaRenewedCoffeeUnits__c ) = &quot;Cuadras&quot;, areaRenewedCoffee__c * 14.6496, 
+IF(text( areaRenewedCoffeeUnits__c ) = &quot;Manzanas&quot;, areaRenewedCoffee__c * 16.0 , 
+IF(text( areaRenewedCoffeeUnits__c ) =&quot;Cuerdas (40x40)&quot;, areaRenewedCoffee__c * 2.55999, areaRenewedCoffee__c )))) 
+
+/* 
+valor anterior 
+Renewed_area_ha__c * 0.044
+*/</formula>
         <label>Renewed area (Cuerdas 25X25)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Renewed_area_ha__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( areaRenewedCoffeeUnits__c ) = &quot;Cuadras&quot;, areaRenewedCoffee__c *1.5625, 
 IF(text( areaRenewedCoffeeUnits__c ) = &quot;Manzanas&quot;, areaRenewedCoffee__c *0.6988, 
 IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (25x25)&quot;, areaRenewedCoffee__c *0.044, 
 IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCoffee__c *0.112, areaRenewedCoffee__c ))))</formula>
         <label>Renewed area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>CBL_Farms</relationshipLabel>
         <relationshipName>CBL_Farms</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>agrochemElimin100MtsAwayWater__c</fullName>
-        <externalId>false</externalId>
         <label>agrochemElimin100MtsAwayWater</label>
         <picklist>
             <picklistValues>
@@ -463,12 +376,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>agrochemOriginalContainerProperUse__c</fullName>
-        <externalId>false</externalId>
         <label>agrochemOriginalContainerProperUse</label>
         <picklist>
             <picklistValues>
@@ -489,24 +400,58 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>altitudInMOSL__c</fullName>
-        <externalId>false</externalId>
         <label>altitudInMOSL</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>applicationRecords__c</fullName>
+        <label>Application records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>areaFoodConsumptionAndRest__c</fullName>
+        <label>Area food consumption and rest</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>areaRenewedCoffeeUnits__c</fullName>
-        <externalId>false</externalId>
         <label>areaRenewedCoffeeUnits</label>
         <picklist>
             <picklistValues>
@@ -531,23 +476,37 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>areaRenewedCoffee__c</fullName>
-        <externalId>false</externalId>
         <label>areaRenewedCoffee</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>areaToStoreFarmInputs__c</fullName>
+        <label>Area to store farm inputs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>biologicalDiversityContrib__c</fullName>
-        <externalId>false</externalId>
         <label>biologicalDiversityContrib</label>
         <picklist>
             <picklistValues>
@@ -560,12 +519,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>chemicalFertilizersUseLastYr__c</fullName>
-        <externalId>false</externalId>
         <label>chemicalFertilizersUseLastYr</label>
         <picklist>
             <picklistValues>
@@ -630,13 +587,11 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>cleanTransportContainers__c</fullName>
-        <externalId>false</externalId>
         <label>cleanTransportContainers</label>
         <picklist>
             <picklistValues>
@@ -657,13 +612,11 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>coffeCuttingPolicy__c</fullName>
-        <externalId>false</externalId>
         <label>coffeCuttingPolicy</label>
         <picklist>
             <picklistValues>
@@ -680,13 +633,11 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>coffeProcessingPlace__c</fullName>
-        <externalId>false</externalId>
         <label>coffeProcessingPlace</label>
         <picklist>
             <picklistValues>
@@ -715,13 +666,11 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>coffeeInvoicesRegistered__c</fullName>
-        <externalId>false</externalId>
         <label>coffeeInvoicesRegistered</label>
         <picklist>
             <picklistValues>
@@ -742,12 +691,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>coffeePlantedAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>coffeePlantedAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -772,23 +719,17 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>coffeePlantedArea__c</fullName>
-        <externalId>false</externalId>
         <label>coffeePlantedArea</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>coffeeProcessingPlanDistance__c</fullName>
-        <externalId>false</externalId>
         <label>coffeeProcessingPlanDistance</label>
         <picklist>
             <picklistValues>
@@ -813,12 +754,50 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>completeRecords__c</fullName>
+        <label>Complete records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No aplica</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>compostingRecords__c</fullName>
+        <label>Composting records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>containersNotReused__c</fullName>
-        <externalId>false</externalId>
         <label>containersNotReused</label>
         <picklist>
             <picklistValues>
@@ -839,12 +818,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>contaminationProtectionMeasures__c</fullName>
-        <externalId>false</externalId>
         <label>contaminationProtectionMeasures</label>
         <picklist>
             <picklistValues>
@@ -877,13 +854,11 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>contaminationRiskZones__c</fullName>
-        <externalId>false</externalId>
         <label>contaminationRiskZones</label>
         <picklist>
             <picklistValues>
@@ -916,13 +891,11 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>contaminationSources__c</fullName>
-        <externalId>false</externalId>
         <label>contaminationSources</label>
         <picklist>
             <picklistValues>
@@ -967,13 +940,27 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>cropResidues__c</fullName>
+        <label>Crop residues</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>dangSubstancesManipulatorsTrained__c</fullName>
-        <externalId>false</externalId>
         <label>dangSubstancesManipulatorsTrained</label>
         <picklist>
             <picklistValues>
@@ -990,12 +977,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>discrimination__c</fullName>
-        <externalId>false</externalId>
         <label>discrimination</label>
         <picklist>
             <picklistValues>
@@ -1012,12 +997,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>diseaseControlAgrochemicals__c</fullName>
-        <externalId>false</externalId>
         <label>diseaseControlAgrochemicals</label>
         <picklist>
             <picklistValues>
@@ -1070,24 +1053,18 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>diseaseControlApplicationNumber__c</fullName>
-        <externalId>false</externalId>
         <label>diseaseControlApplicationNumber</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>diseaseControlOrganicProducts__c</fullName>
-        <externalId>false</externalId>
         <label>diseaseControlOrganicProducts</label>
         <picklist>
             <picklistValues>
@@ -1140,13 +1117,55 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>distanceToWaterSource__c</fullName>
+        <label>distanceToWaterSource</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Entre 1 - 3 metros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Entre 4 - 7 metros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Entre 8 - 10 metros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>doesCropRotation__c</fullName>
+        <label>Does crop rotation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>doesPlagues_DiseaseSampling__c</fullName>
-        <externalId>false</externalId>
         <label>doesPlagues&amp;DiseaseSampling</label>
         <picklist>
             <picklistValues>
@@ -1159,12 +1178,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>doesSoilSampling__c</fullName>
-        <externalId>false</externalId>
         <label>doesSoilSampling</label>
         <picklist>
             <picklistValues>
@@ -1177,12 +1194,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>doesSoilTreatmentCorrectPH__c</fullName>
-        <externalId>false</externalId>
         <label>doesSoilTreatmentCorrectPH</label>
         <picklist>
             <picklistValues>
@@ -1203,12 +1218,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>entranceProhibited48Hours__c</fullName>
-        <externalId>false</externalId>
         <label>entranceProhibited48Hours</label>
         <picklist>
             <picklistValues>
@@ -1229,12 +1242,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>erosionRiskLevel__c</fullName>
-        <externalId>false</externalId>
         <label>erosionRiskLevel</label>
         <picklist>
             <picklistValues>
@@ -1255,22 +1266,24 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>erosionRiskPercentage__c</fullName>
-        <externalId>false</externalId>
         <label>erosionRiskPercentage</label>
-        <precision>5</precision>
-        <required>false</required>
+        <precision>4</precision>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>erosionRiskPercentage_porcentajeRiesgoEr__c</fullName>
+        <label>erosionRiskPercentage	porcentajeRiesgoEr</label>
+        <precision>5</precision>
+        <scale>2</scale>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>erosionZonesIdentified__c</fullName>
-        <externalId>false</externalId>
         <label>erosionZonesIdentified</label>
         <picklist>
             <picklistValues>
@@ -1283,12 +1296,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>farmCertifications__c</fullName>
-        <externalId>false</externalId>
         <label>farmCertifications</label>
         <picklist>
             <picklistValues>
@@ -1349,53 +1360,78 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>farmCode__c</fullName>
-        <externalId>false</externalId>
         <label>farmCode</label>
         <length>20</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>farmCommunity__c</fullName>
+        <label>farmCommunity</label>
+        <length>255</length>
+        <type>Text</type>
     </fields>
     <fields>
         <fullName>farmCountry__c</fullName>
-        <externalId>false</externalId>
         <label>farmCountry</label>
-        <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>farmDepartment__c</fullName>
-        <externalId>false</externalId>
         <label>farmDepartment</label>
-        <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>farmDistrict__c</fullName>
-        <externalId>false</externalId>
         <label>farmDistrict</label>
-        <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>farmInfrastructureAndTools__c</fullName>
+        <label>Farm infrastructure and tools</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sistema de riego</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Motoguadaña</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Motoazada</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Picadora</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tanques de lavado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bomba estacionaria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bomba con motor o a mano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>farmLocation__c</fullName>
-        <externalId>false</externalId>
         <label>farmLocation</label>
         <picklist>
             <picklistValues>
@@ -1404,12 +1440,10 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>farmManagmtDocuments__c</fullName>
-        <externalId>false</externalId>
         <label>farmManagmtDocuments</label>
         <picklist>
             <picklistValues>
@@ -1478,13 +1512,11 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>farmMgmtDocsComplete__c</fullName>
-        <externalId>false</externalId>
         <label>farmMgmtDocsComplete</label>
         <picklist>
             <picklistValues>
@@ -1501,32 +1533,22 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>farmMunicipality__c</fullName>
-        <externalId>false</externalId>
         <label>farmMunicipality</label>
-        <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>farmName__c</fullName>
-        <externalId>false</externalId>
         <label>farmName</label>
         <length>40</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>farmOwnership__c</fullName>
-        <externalId>false</externalId>
         <label>farmOwnership</label>
         <picklist>
             <picklistValues>
@@ -1559,50 +1581,84 @@ IF(text( areaRenewedCoffeeUnits__c )=&quot;Cuerdas (40x40)&quot;, areaRenewedCof
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>farmPermanentStaffPaid__c</fullName>
+        <label>farm permanent staff paid</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
         <fullName>farmPermanentStaff__c</fullName>
-        <externalId>false</externalId>
         <label>farmPermanentStaff</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>farmVillage__c</fullName>
+        <label>farmVillage</label>
+        <length>255</length>
+        <type>Text</type>
     </fields>
     <fields>
         <fullName>farmWaterBodies__c</fullName>
-        <externalId>false</externalId>
         <label>farmWaterBodies</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>farm_Area_Ha__c</fullName>
         <description>Converts all the farm sizes to Hectares, by using farm area and the chosen unit</description>
-        <externalId>false</externalId>
         <formula>IF(text( totalFarmAreaUnits__c ) = &quot;Cuadras&quot;, totalFarmArea__c *1.5625, 
 IF(text( totalFarmAreaUnits__c ) = &quot;Manzanas&quot;, totalFarmArea__c  *0.6988, 
 IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (25x25)&quot;, totalFarmArea__c  *0.044, 
 IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c   *0.112, totalFarmArea__c  ))))</formula>
         <label>Farm area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>farmingActivitiesAreaUnits__c</fullName>
+        <label>Farming Activities Area Units</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hectáreas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manzanas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas (25x25)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas (40x40)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuadras</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>farmingActivitiesArea__c</fullName>
+        <label>farmingActivitiesArea</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>fertAcordingSoilAnalysis__c</fullName>
-        <externalId>false</externalId>
         <label>fertAcordingSoilAnalysis</label>
         <picklist>
             <picklistValues>
@@ -1619,23 +1675,37 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>fertilizationRecords__c</fullName>
+        <label>Fertilization records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>fertilizerApplicationsLastYr__c</fullName>
-        <externalId>false</externalId>
         <label>fertilizerApplicationsLastYr</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>fertilizerManufactureCriteria__c</fullName>
-        <externalId>false</externalId>
         <label>fertilizerManufactureCriteria</label>
         <picklist>
             <picklistValues>
@@ -1656,13 +1726,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>foliarFertilizerUseLastYr__c</fullName>
-        <externalId>false</externalId>
         <label>foliarFertilizerUseLastYr</label>
         <picklist>
             <picklistValues>
@@ -1747,13 +1815,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>forcedLabor__c</fullName>
-        <externalId>false</externalId>
         <label>forcedLabor</label>
         <picklist>
             <picklistValues>
@@ -1798,35 +1864,259 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>forestArea__c</fullName>
-        <externalId>false</externalId>
         <label>forestArea</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>gps__c</fullName>
+        <label>gps</label>
+        <scale>3</scale>
+        <type>Location</type>
+    </fields>
+    <fields>
+        <fullName>hasBathroomForEmployees__c</fullName>
+        <label>Has bathroom for employees</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasChangedFarmingProducts__c</fullName>
+        <label>Has changed farming products</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasFloraAndFauna__c</fullName>
+        <label>Has flora and fauna</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Alta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Baja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasMulch__c</fullName>
+        <label>Has mulch</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Alta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Baja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasOrganicMatter__c</fullName>
+        <label>Has organic matter</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasPackagingZone__c</fullName>
+        <label>Has packaging zone</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasPackingArea__c</fullName>
+        <label>Has packing area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasPostharvestArea__c</fullName>
+        <label>Has postharvest area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasPresenceOfLarvaeAndWorms__c</fullName>
+        <label>Has presence of larvae and worms</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Alta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Baja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasSeedbed__c</fullName>
+        <label>hasSeedbed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hasWornSoil__c</fullName>
+        <label>Has worn soil</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>haveAccessToWaterSource__c</fullName>
+        <label>haveAccessToWaterSource</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>haveDrainSystem__c</fullName>
+        <label>Have drain system</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>heightMainShadeColumn__c</fullName>
-        <externalId>false</externalId>
         <label>heightMainShadeColumn</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>highIncidenceDiseases__c</fullName>
-        <externalId>false</externalId>
         <label>highIncidenceDiseases</label>
         <picklist>
             <picklistValues>
@@ -1883,13 +2173,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>highIncidencePlagues__c</fullName>
-        <externalId>false</externalId>
         <label>highIncidencePlagues</label>
         <picklist>
             <picklistValues>
@@ -1930,13 +2218,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>hiresUnderAge__c</fullName>
-        <externalId>false</externalId>
         <label>hiresUnderAge</label>
         <picklist>
             <picklistValues>
@@ -1957,13 +2243,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>hires_RegistersTempStaff__c</fullName>
-        <externalId>false</externalId>
         <label>hires&amp;RegistersTempStaff</label>
         <picklist>
             <picklistValues>
@@ -1980,12 +2264,37 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>hoursDedicatedToCultivation__c</fullName>
+        <label>Hours dedicated to cultivation</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>howDeepIsTopsoil__c</fullName>
+        <label>How deep is topsoil</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Alta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Baja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>howDoesDiseaseControl__c</fullName>
-        <externalId>false</externalId>
         <label>howDoesDiseaseControl</label>
         <picklist>
             <picklistValues>
@@ -2022,13 +2331,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>howDoesPlagueControl__c</fullName>
-        <externalId>false</externalId>
         <label>howDoesPlagueControl</label>
         <picklist>
             <picklistValues>
@@ -2057,13 +2364,36 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>howTransportsProducts__c</fullName>
+        <label>How transports products</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Tiene camino</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>En animales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Llega el camión</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>identifiesHarvestedCoffee__c</fullName>
-        <externalId>false</externalId>
         <label>identifiesHarvestedCoffee</label>
         <picklist>
             <picklistValues>
@@ -2084,13 +2414,35 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>invoicesRegistered__c</fullName>
+        <label>Invoices registered</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí, con toda la información requerida</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí, pero NO con toda la información</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cuenta con registro facturas/recibos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No aplica</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>lastSoilSampling__c</fullName>
-        <externalId>false</externalId>
         <label>lastSoilSampling</label>
         <picklist>
             <picklistValues>
@@ -2111,34 +2463,59 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>lastYearTemporaryWages__c</fullName>
-        <externalId>false</externalId>
         <label>lastYearTemporaryWages</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>lotsWithCoffeePlanted__c</fullName>
-        <externalId>false</externalId>
         <label>lotsWithCoffeePlanted</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>mainProductAreaUnits__c</fullName>
+        <label>Main product area units</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hectáreas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manzanas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas (25x25)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuerdas (40x40)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuadras</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mainProductArea__c</fullName>
+        <label>mainProductArea</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>majorNonConformances__c</fullName>
-        <externalId>false</externalId>
         <label>majorNonConformances</label>
         <picklist>
             <picklistValues>
@@ -2187,24 +2564,81 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>maxHeightShade__c</fullName>
-        <externalId>false</externalId>
         <label>maxHeightShade</label>
         <precision>4</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>minimumAreaPlantedAnyCrop__c</fullName>
+        <label>Minimum area planted any crop</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>minimumAreaWhichCrops__c</fullName>
+        <label>Minimum area which crops</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>mixturesPreparationArea__c</fullName>
+        <label>Mixtures preparation area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>monthlyProductionCost__c</fullName>
+        <label>Monthly production cost</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>monthlyTransportationCost__c</fullName>
+        <label>Monthly transportation cost</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>newPlantedAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>newPlantedAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -2229,63 +2663,62 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>newPlantedArea__c</fullName>
-        <externalId>false</externalId>
         <label>newPlantedArea</label>
         <precision>12</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>nonConformancePicURL__c</fullName>
-        <externalId>false</externalId>
         <label>nonConformancePicURL</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>nonConformancePic__c</fullName>
-        <externalId>false</externalId>
         <formula>IMAGE( nonConformancePicURL__c , &quot;&quot;)</formula>
         <label>nonConformancePic</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>numberOfShadeSpecies__c</fullName>
-        <externalId>false</externalId>
         <label>numberOfShadeSpecies</label>
         <precision>10</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>nutritionProgramTechnicalAssistant__c</fullName>
+        <label>Nutrition program technical assistant</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>organicFertApplicationsLastYr__c</fullName>
-        <externalId>false</externalId>
         <label>organicFertApplicationsLastYr</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>organicFertAreaThisYrUnits__c</fullName>
-        <externalId>false</externalId>
         <label>organicFertAreaThisYrUnits</label>
         <picklist>
             <picklistValues>
@@ -2310,23 +2743,17 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>organicFertAreaThisYr__c</fullName>
-        <externalId>false</externalId>
         <label>organicFertAreaThisYr</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>organicFertilizerIngredients__c</fullName>
-        <externalId>false</externalId>
         <label>organicFertilizerIngredients</label>
         <picklist>
             <picklistValues>
@@ -2371,13 +2798,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>organicFertilizersLastYr__c</fullName>
-        <externalId>false</externalId>
         <label>organicFertilizersLastYr</label>
         <picklist>
             <picklistValues>
@@ -2426,13 +2851,11 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>organicStatus__c</fullName>
-        <externalId>false</externalId>
         <label>organicStatus</label>
         <picklist>
             <picklistValues>
@@ -2453,27 +2876,21 @@ IF(text( totalFarmAreaUnits__c ) =&quot;Cuerdas (40x40)&quot;, totalFarmArea__c 
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>organic_fertilized_area_ha__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(text( organicFertAreaThisYrUnits__c ) = &quot;Cuadras&quot;,  organicFertAreaThisYr__c *1.5625, 
 IF(text( organicFertAreaThisYrUnits__c ) = &quot;Manzanas&quot;, organicFertAreaThisYr__c *0.6988, 
 IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (25x25)&quot;, organicFertAreaThisYr__c *0.044, 
 IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFertAreaThisYr__c *0.112, organicFertAreaThisYr__c ))))</formula>
         <label>Organic fertilized area (Ha)</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherActivitiesAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>otherActivitiesAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -2498,224 +2915,171 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>otherActivitiesArea__c</fullName>
-        <externalId>false</externalId>
         <label>otherActivitiesArea</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherChemicalFertilizers__c</fullName>
-        <externalId>false</externalId>
         <label>otherChemicalFertilizers</label>
         <length>220</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherDiseaseControlAgrochem__c</fullName>
-        <externalId>false</externalId>
         <label>otherDiseaseControlAgrochem</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherDiseaseControlOrganicProd__c</fullName>
-        <externalId>false</externalId>
         <label>otherDiseaseControlOrganicProd</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherDiseaseControl__c</fullName>
-        <externalId>false</externalId>
         <label>otherDiseaseControl</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherFoliarFertilizerLastYr__c</fullName>
-        <externalId>false</externalId>
         <label>otherFoliarFertilizerLastYr</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherHighDisease__c</fullName>
-        <externalId>false</externalId>
         <label>otherHighDisease</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherHighIncidencePlagues__c</fullName>
-        <externalId>false</externalId>
         <label>otherHighIncidencePlagues</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherOrganicFertIngredients__c</fullName>
-        <externalId>false</externalId>
         <label>otherOrganicFertIngredients</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherOrganizFertilizers__c</fullName>
-        <externalId>false</externalId>
         <label>otherOrganizFertilizers</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherPlagueCtrlAgrochemicals__c</fullName>
-        <externalId>false</externalId>
         <label>otherPlagueCtrlAgrochemicals</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>otherProdSoilTreatment__c</fullName>
-        <externalId>false</externalId>
         <label>otherProdSoilTreatment</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>otherSeedsProvider__c</fullName>
+        <label>Other seeds provider</label>
+        <length>255</length>
+        <type>Text</type>
     </fields>
     <fields>
         <fullName>otherWeedsCtrlHerbicides__c</fullName>
-        <externalId>false</externalId>
         <label>otherWeedsCtrlHerbicides</label>
         <length>30</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>percErosionZoneRiskPrevention__c</fullName>
-        <externalId>false</externalId>
         <label>percErosionZoneRiskPrevention</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>percShadeDominantSpecie__c</fullName>
-        <externalId>false</externalId>
         <label>percShadeDominantSpecie</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>percShadeFruitTrees__c</fullName>
-        <externalId>false</externalId>
         <label>percShadeFruitTrees</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>percShadeLeguminous__c</fullName>
-        <externalId>false</externalId>
         <label>percShadeLeguminous</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>percShadeNativeSpecies__c</fullName>
-        <externalId>false</externalId>
         <label>percShadeNativeSpecies</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>percWithoutShade__c</fullName>
-        <externalId>false</externalId>
         <label>percWithoutShade</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>percentageShade__c</fullName>
-        <externalId>false</externalId>
         <label>percentageShade</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>permWorkersMinimumMonthWage__c</fullName>
-        <externalId>false</externalId>
         <label>permWorkersMinimumMonthWage</label>
         <precision>8</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>pesticidesAreSeparated__c</fullName>
+        <label>Pesticides are separated</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>physicalOralSexualAbuse__c</fullName>
-        <externalId>false</externalId>
         <label>physicalOralSexualAbuse</label>
         <picklist>
             <picklistValues>
@@ -2732,12 +3096,30 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>phytosanitaryAndNutritionalAssistance__c</fullName>
+        <label>Phytosanitary and nutritional assistance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>plagueControlAgroChemicals__c</fullName>
-        <externalId>false</externalId>
         <label>plagueControlAgroChemicals</label>
         <picklist>
             <picklistValues>
@@ -2786,13 +3168,11 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>plague_DiseaseControlEquipmt__c</fullName>
-        <externalId>false</externalId>
         <label>plague&amp;DiseaseControlEquipmt</label>
         <picklist>
             <picklistValues>
@@ -2817,13 +3197,27 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>planCertified__c</fullName>
+        <label>planCertified</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>plantedNewAreas__c</fullName>
-        <externalId>false</externalId>
         <label>plantedNewAreas</label>
         <picklist>
             <picklistValues>
@@ -2836,12 +3230,30 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>pondingAreas__c</fullName>
+        <label>Ponding areas</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>prodLastHarvestUnits__c</fullName>
-        <externalId>false</externalId>
         <label>prodLastHarvestUnits</label>
         <picklist>
             <picklistValues>
@@ -2858,12 +3270,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>productionContaminationRisk__c</fullName>
-        <externalId>false</externalId>
         <label>productionContaminationRisk</label>
         <picklist>
             <picklistValues>
@@ -2876,23 +3286,55 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>productionCostsRecords__c</fullName>
+        <label>Production costs records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>productionLastHarvest__c</fullName>
-        <externalId>false</externalId>
         <label>productionLastHarvest</label>
         <precision>8</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>productionPlanOnDemand__c</fullName>
+        <label>Production plan on demand</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>productsDifficultyFinding__c</fullName>
+        <label>Products difficulty finding</label>
+        <length>255</length>
+        <type>Text</type>
     </fields>
     <fields>
         <fullName>productsSoilTreatment__c</fullName>
-        <externalId>false</externalId>
         <label>productsSoilTreatment</label>
         <picklist>
             <picklistValues>
@@ -2917,13 +3359,11 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>promotesFloraAndFaunaPreservation__c</fullName>
-        <externalId>false</externalId>
         <label>promotesFloraAndFaunaPreservation</label>
         <picklist>
             <picklistValues>
@@ -2940,12 +3380,30 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>propertyHasWorkers__c</fullName>
+        <label>Property has workers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>pruneAreaLastYearUnits__c</fullName>
-        <externalId>false</externalId>
         <label>pruneAreaLastYearUnits</label>
         <picklist>
             <picklistValues>
@@ -2970,23 +3428,17 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>pruneAreaLastyear__c</fullName>
-        <externalId>false</externalId>
         <label>pruneAreaLastyear</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>pruneLastYear__c</fullName>
-        <externalId>false</externalId>
         <label>pruneLastYear</label>
         <picklist>
             <picklistValues>
@@ -2999,12 +3451,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>pruneType__c</fullName>
-        <externalId>false</externalId>
         <label>pruneType</label>
         <picklist>
             <picklistValues>
@@ -3021,13 +3471,36 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>reasonToChangeCrop__c</fullName>
+        <label>Reason to change crop</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Otras</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Por falta de insumos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Por la demanda del cultivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Por una mayor rentabilidad</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>registersPlague_DiseaseCtrlSupplies__c</fullName>
-        <externalId>false</externalId>
         <label>registersPlague&amp;DiseaseCtrlSupplies</label>
         <picklist>
             <picklistValues>
@@ -3048,13 +3521,11 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>renewedCoffeeLastYear__c</fullName>
-        <externalId>false</externalId>
         <label>renewedCoffeeLastYear</label>
         <picklist>
             <picklistValues>
@@ -3067,12 +3538,26 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>residuesToCompost__c</fullName>
+        <label>Residues to compost</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>safeStorageForSupplies__c</fullName>
-        <externalId>false</externalId>
         <label>safeStorageForSupplies</label>
         <picklist>
             <picklistValues>
@@ -3093,41 +3578,70 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>seedsProvider__c</fullName>
+        <label>Seeds provider</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Semillas &amp; Semillas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impulsemillas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>seedsType__c</fullName>
+        <label>Seeds type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Certificadas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ancestrales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No sabe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>shadowLevelsNumber__c</fullName>
-        <externalId>false</externalId>
         <label>shadowLevelsNumber</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>signatureURL__c</fullName>
-        <externalId>false</externalId>
         <label>signatureURL</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>signature__c</fullName>
-        <externalId>false</externalId>
         <formula>IMAGE( signatureURL__c , &quot;&quot;, 200, 400)</formula>
         <label>Signature</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>soilConservAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>soilConservAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -3152,23 +3666,17 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>soilConservationArea__c</fullName>
-        <externalId>false</externalId>
         <label>soilConservationArea</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>soilConservationPractices__c</fullName>
-        <externalId>false</externalId>
         <label>soilConservationPractices</label>
         <picklist>
             <picklistValues>
@@ -3209,24 +3717,273 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>soilConservationPrograms__c</fullName>
+        <label>Soil conservation programs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>soilFertilizingFrequency__c</fullName>
+        <label>Soil fertilizing frequency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Semanal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quincenal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mensual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trimestral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semestral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Anual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>soilTexture__c</fullName>
+        <label>Soil texture</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Arcillosa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arenosa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mixta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>sowingMonths__c</fullName>
+        <label>Sowing months</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Enero</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Febrero</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marzo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Abril</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mayo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Junio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Julio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agosto</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Septiembre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Octubre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Noviembre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Diciembre</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>sowingRecords__c</fullName>
+        <label>Sowing records</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>sowingStyles__c</fullName>
+        <label>Sowing styles</label>
+        <picklist>
+            <picklistValues>
+                <fullName>En cama</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terraza</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Curvas a nivel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Material reciclable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agricultura vertical</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>sowingSystem__c</fullName>
+        <label>Sowing system</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Semilla certificada</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Selecciona semilla a mano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plántulas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Siembra directa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transplante</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Acolchado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prepara suelo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Desinfecta suelo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Injertos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Estolón</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>technicalAssistanceReceived__c</fullName>
+        <label>Technical assistance received</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>technicalAssistanceStartDate__c</fullName>
+        <label>Technical assistance start date</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>technicalAssistanceThemes__c</fullName>
+        <label>Technical assistance themes</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
         <fullName>tempWorkersMinimumDailyWage__c</fullName>
-        <externalId>false</externalId>
         <label>tempWorkersMinimumDailyWage</label>
         <precision>8</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>totalFarmAreaUnits__c</fullName>
-        <externalId>false</externalId>
         <label>totalFarmAreaUnits</label>
         <picklist>
             <picklistValues>
@@ -3251,23 +4008,17 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>totalFarmArea__c</fullName>
-        <externalId>false</externalId>
         <label>totalFarmArea</label>
         <precision>6</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>turnedForestInCropArea__c</fullName>
-        <externalId>false</externalId>
         <label>turnedForestInCropArea</label>
         <picklist>
             <picklistValues>
@@ -3280,12 +4031,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>typeOfCoffeeLastHarvest__c</fullName>
-        <externalId>false</externalId>
         <label>typeOfCoffeeLastHarvest</label>
         <picklist>
             <picklistValues>
@@ -3302,12 +4051,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>underAgeWorkConditions__c</fullName>
-        <externalId>false</externalId>
         <label>underAgeWorkConditions</label>
         <picklist>
             <picklistValues>
@@ -3336,13 +4083,11 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>underagePregnantProtected__c</fullName>
-        <externalId>false</externalId>
         <label>underagePregnantProtected</label>
         <picklist>
             <picklistValues>
@@ -3359,12 +4104,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>unitForestArea__c</fullName>
-        <externalId>false</externalId>
         <label>unitForestArea</label>
         <picklist>
             <picklistValues>
@@ -3389,12 +4132,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>useOfProtApplicationDangSubstances__c</fullName>
-        <externalId>false</externalId>
         <label>useOfProtApplicationDangSubstances</label>
         <picklist>
             <picklistValues>
@@ -3419,12 +4160,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>usesLeguminousNitrAbsort__c</fullName>
-        <externalId>false</externalId>
         <label>usesLeguminousNitrAbsort</label>
         <picklist>
             <picklistValues>
@@ -3437,12 +4176,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>wasteDisposedSafeWay__c</fullName>
-        <externalId>false</externalId>
         <label>wasteDisposedSafeWay</label>
         <picklist>
             <picklistValues>
@@ -3459,12 +4196,10 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>waterBodiesBufferZones__c</fullName>
-        <externalId>false</externalId>
         <label>waterBodiesBufferZones</label>
         <picklist>
             <picklistValues>
@@ -3489,13 +4224,11 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>weedsControlHerbicides__c</fullName>
-        <externalId>false</externalId>
         <label>weedsControlHerbicides</label>
         <picklist>
             <picklistValues>
@@ -3544,13 +4277,11 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>weedsControlMethods__c</fullName>
-        <externalId>false</externalId>
         <label>weedsControlMethods</label>
         <picklist>
             <picklistValues>
@@ -3583,13 +4314,87 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>whereWaterComes__c</fullName>
+        <label>whereWaterComes</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Acueducto veredal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fuente hídrica natural</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aguas lluvia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>whoAssumesCostOfTransportation__c</fullName>
+        <label>Who assumes cost of transportation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>El productor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intermediario</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mayorista</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tendero urbano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Comprador final</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>whyNotPlanCertified__c</fullName>
+        <label>Why not plan certified</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>willingAcceptTechnicalAssistance__c</fullName>
+        <label>Willing accept technical assistance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>workersPaidRegularly__c</fullName>
-        <externalId>false</externalId>
         <label>workersPaidRegularly</label>
         <picklist>
             <picklistValues>
@@ -3610,7 +4415,6 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>CBL_Farm</label>
@@ -3627,7 +4431,6 @@ IF(text( organicFertAreaThisYrUnits__c )=&quot;Cuerdas (40x40)&quot;, organicFer
         <columns>signatureURL__c</columns>
         <filterScope>Everything</filterScope>
         <label>CBL Farms</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>FM-{0000000}</displayFormat>

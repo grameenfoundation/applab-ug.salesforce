@@ -1,67 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Age__c</fullName>
-        <externalId>false</externalId>
         <label>Age</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>C3P0_FO__c</fullName>
+        <label>3.0 FO</label>
+        <referenceTo>FO__c</referenceTo>
+        <relationshipLabel>3.0 CKWs</relationshipLabel>
+        <relationshipName>C3P0_CKWs</relationshipName>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Contact__c</fullName>
-        <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>3.0 CKWs</relationshipLabel>
         <relationshipName>C3P0_CKWs</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Gender__c</fullName>
-        <externalId>false</externalId>
         <label>Gender</label>
         <picklist>
             <picklistValues>
@@ -78,7 +45,6 @@
     </fields>
     <fields>
         <fullName>Highest_Level_of_Education__c</fullName>
-        <externalId>false</externalId>
         <label>Highest Level of Education</label>
         <picklist>
             <picklistValues>
@@ -119,25 +85,36 @@
     </fields>
     <fields>
         <fullName>Person__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>3.0 CKWs</relationshipLabel>
         <relationshipName>C3P0_CKWs</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Photo_URL__c</fullName>
-        <externalId>false</externalId>
         <label>Photo URL</label>
-        <required>false</required>
         <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Photo__c</fullName>
+        <formula>IMAGE(Photo_URL__c, &quot;Profile Picture&quot;, 300, 300)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Photo</label>
+        <type>Text</type>
     </fields>
     <label>3.0 CKW</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>Gender__c</columns>
+        <columns>Age__c</columns>
+        <columns>Highest_Level_of_Education__c</columns>
+        <columns>Photo_URL__c</columns>
+        <columns>Person__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATEDBY_USER</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

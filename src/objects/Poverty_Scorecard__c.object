@@ -1,59 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Poverty scorecard data for a person in our system</description>
     <enableActivities>true</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Children_Under_Eleven__c</fullName>
-        <externalId>false</externalId>
         <label>Children Under Eleven</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Cooking_Fuel__c</fullName>
         <description>What type of fuel does your household primarily use for cooking?</description>
-        <externalId>false</externalId>
         <label>Cooking Fuel</label>
         <picklist>
             <picklistValues>
@@ -66,23 +28,19 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Date__c</fullName>
         <defaultValue>NOW()</defaultValue>
         <description>The date/time that the poverty data was created.</description>
-        <externalId>false</externalId>
         <label>Date</label>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>Education_Level__c</fullName>
         <description>What is the education level of the head of your household?</description>
-        <externalId>false</externalId>
         <label>Education Level</label>
         <picklist>
             <picklistValues>
@@ -111,72 +69,56 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Household_Members_Have_Clothes__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Does every member of your household including children have at least two sets of clothes?</description>
-        <externalId>false</externalId>
         <label>Household Members Have 2 Sets of Clothes</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Household_Members_Have_Shoes__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Does every member of your household including children have at least one pair of shoes?</description>
-        <externalId>false</externalId>
         <label>Household Members Have Shoes</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Owns_Jewelry_Watch__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Does anyone in your household own any jewelry/watch?</description>
-        <externalId>false</externalId>
         <label>Owns Jewelry/Watch</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Owns_Mosquito_Net__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Do you have a mosquito net in your household?</description>
-        <externalId>false</externalId>
         <label>Owns Mosquito Net</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Owns_TV_Radio_Cassette__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Does your household own a TV/Radio/Cassette?</description>
-        <externalId>false</externalId>
         <label>Owns TV/Radio/Cassette</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
         <description>Person with whom this poverty data is associated</description>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>Poverty Scorecards</relationshipLabel>
         <relationshipName>Poverty_Scorecards</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Poverty_Percentage__c</fullName>
         <description>Calculate the poverty percentage based on the score</description>
-        <externalId>false</externalId>
         <formula>CASE( Score__c ,
     0, 97.20,
     1, 97.20,
@@ -277,15 +219,11 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Poverty Percentage</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Roof_Material__c</fullName>
-        <externalId>false</externalId>
         <label>Roof Material</label>
         <picklist>
             <picklistValues>
@@ -302,12 +240,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Score__c</fullName>
-        <externalId>false</externalId>
         <formula>CASE(Roof_Material__c, &apos;Thatch/Straw&apos;, 0, &apos;Iron sheet/tin&apos;, 7, &apos;Cement/other&apos;, 14, 0) +
 CASE(Wall_Material__c, &apos;Unburnt bricks&apos;, 0, &apos;Burnt bricks with mud/mud poles&apos;, 7, &apos;Burnt bricks with cement&apos;, 15, 0) +
 CASE(Children_Under_Eleven__c, 0, 16, 1, 9, 2, 8, 3, 4, 0) +
@@ -321,16 +257,12 @@ IF(Owns_Jewelry_Watch__c, 7, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Score</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Updated_Poverty_Percentage__c</fullName>
         <description>Probability of being poor (living on less than $ 2.50 per day)</description>
-        <externalId>false</externalId>
         <formula>CASE( Score__c , 
 0, 100.00, 
 1, 100.00, 
@@ -431,15 +363,11 @@ IF(Owns_Jewelry_Watch__c, 7, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Updated Poverty Percentage</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Wall_Material__c</fullName>
-        <externalId>false</externalId>
         <label>Wall Material</label>
         <picklist>
             <picklistValues>
@@ -456,7 +384,6 @@ IF(Owns_Jewelry_Watch__c, 7, 0)</formula>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <label>Poverty Scorecard</label>
@@ -476,22 +403,8 @@ IF(Owns_Jewelry_Watch__c, 7, 0)</formula>
     <nameField>
         <displayFormat>PS-{00000000}</displayFormat>
         <label>Poverty Scorecard ID</label>
-        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
-    <namedFilters>
-        <fullName>nf_01I70000000Q67iEAC_00N70000002rlRYEAY</fullName>
-        <active>true</active>
-        <field>Person__c.Current_Poverty_Scorecard__c</field>
-        <filterItems>
-            <field>Poverty_Scorecard__c.Person__c</field>
-            <operation>equals</operation>
-            <valueField>$Source.Id</valueField>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Person_Current Poverty Scorecard</name>
-        <sourceObject>Person__c</sourceObject>
-    </namedFilters>
     <pluralLabel>Poverty Scorecards</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Description__c</fullName>
+        <label>Description</label>
+        <length>200</length>
+        <required>true</required>
+        <type>Text</type>
+    </fields>
+    <label>INV Article</label>
+    <listViews>
+        <fullName>All_Details</fullName>
+        <columns>NAME</columns>
+        <columns>Description__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Details</label>
+    </listViews>
+    <nameField>
+        <label>INV Article Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>INV Articles</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Description__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Description__c</lookupPhoneDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>unique</fullName>
+        <active>true</active>
+        <errorConditionFormula>VLOOKUP( $ObjectType.INV_Article__c.Fields.Name , $ObjectType.INV_Article__c.Fields.Name, Name) = Name</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Ya existe un artículo con este nombre</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,47 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Log table for errors encountered in our Apex code.</description>
-    <enableActivities>false</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Long_Message__c</fullName>
-        <externalId>false</externalId>
         <label>Long Message</label>
         <length>32000</length>
         <type>LongTextArea</type>
@@ -50,32 +14,23 @@
     <fields>
         <fullName>Message__c</fullName>
         <description>Actionable error message for the tech team</description>
-        <externalId>false</externalId>
         <label>Message</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Method_Name__c</fullName>
         <description>The method that generated the error.</description>
-        <externalId>false</externalId>
         <label>Method Name</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Script_Name__c</fullName>
         <description>The name of the Apex script that generated the error</description>
-        <externalId>false</externalId>
         <label>Script Name</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Severity__c</fullName>
@@ -83,19 +38,15 @@
 1 = high priority, email should be sent to the tech team
 2 = medium priority, these issues should be reviewed periodically
 3 = low priority, informational only</description>
-        <externalId>false</externalId>
         <label>Severity</label>
         <precision>1</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Time__c</fullName>
         <defaultValue>NOW()</defaultValue>
         <description>The date/time that the error occurred.</description>
-        <externalId>false</externalId>
         <label>Time</label>
         <required>true</required>
         <type>DateTime</type>

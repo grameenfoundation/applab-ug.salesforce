@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>BSS_CKW_Project__c</fullName>
+        <label>BSS_CKW_Project</label>
+        <referenceTo>BSS_CKW_Project__c</referenceTo>
+        <relationshipLabel>BSS_Monthly_Bill_Headers_Projects</relationshipLabel>
+        <relationshipName>BSS_Monthly_Bill_Headers_Projects</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Bill_Subtotal__c</fullName>
+        <formula>IF( Survey_Subtotal__c &gt; BSS_CKW_Project__r.Monthly_top_payment__c , BSS_CKW_Project__r.Monthly_top_payment__c , Survey_Subtotal__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bill Subtotal</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Bill_approval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Bill approval</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Bill_paid__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Bill paid</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CKW_signature__c</fullName>
+        <label>CKW signature</label>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>LastDayBill__c</fullName>
+        <formula>DATE((YEAR(Month__c)),MOD((MONTH(Month__c)+1)-1,12)+1,DAY(Month__c))-1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LastDayBill</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Month__c</fullName>
+        <label>Month</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Goal__c</fullName>
+        <label>Monthly Goal</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <label>Notes</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Performance__c</fullName>
+        <label>Performance</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Settlement_date__c</fullName>
+        <label>Settlement date</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Survey_Subtotal__c</fullName>
+        <label>Survey Subtotal</label>
+        <summarizedField>BSS_Monthly_Bill_Detail__c.Value__c</summarizedField>
+        <summaryForeignKey>BSS_Monthly_Bill_Detail__c.BSS_Monthly_Bill_Header__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_discounts__c</fullName>
+        <label>Total discounts</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Total_survey__c</fullName>
+        <label>Total survey</label>
+        <summarizedField>BSS_Monthly_Bill_Detail__c.Quantity__c</summarizedField>
+        <summaryForeignKey>BSS_Monthly_Bill_Detail__c.BSS_Monthly_Bill_Header__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_value__c</fullName>
+        <formula>Bill_Subtotal__c - Total_discounts__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total value</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <label>BSS Monthly Bill Header</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Month__c</columns>
+        <columns>LastDayBill__c</columns>
+        <columns>Bill_approval__c</columns>
+        <columns>Bill_paid__c</columns>
+        <columns>BSS_CKW_Project__c</columns>
+        <columns>Total_survey__c</columns>
+        <columns>Total_discounts__c</columns>
+        <columns>Total_value__c</columns>
+        <columns>Notes__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>BSMBH-{000000}</displayFormat>
+        <label>BSS Monthly Bill Header Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>BSS Monthly Bill Headers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

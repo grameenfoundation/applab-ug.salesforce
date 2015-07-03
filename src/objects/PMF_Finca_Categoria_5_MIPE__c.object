@@ -1,45 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Control_de_acuerdo_al_resultado_del_moni__c</fullName>
-        <externalId>false</externalId>
         <label>Control de acuerdo resultado monitoreo</label>
         <picklist>
             <picklistValues>
@@ -56,7 +20,6 @@
     </fields>
     <fields>
         <fullName>Evaluacion_post_control__c</fullName>
-        <externalId>false</externalId>
         <label>Evaluación post-control</label>
         <picklist>
             <picklistValues>
@@ -73,116 +36,86 @@
     </fields>
     <fields>
         <fullName>Fecha__c</fullName>
-        <externalId>false</externalId>
         <label>Fecha</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Nivel_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Puntaje_categoria__c &lt; 1, &apos;c. Bajo&apos;, IF (Puntaje_categoria__c &lt; 2, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nivel categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>&apos;MIPE&apos;</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_tipo_fecha__c</fullName>
-        <externalId>false</externalId>
         <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre tipo fecha</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Plan_de_Manejo_de_Finca__c</fullName>
-        <externalId>false</externalId>
         <label>Plan de Manejo de Finca</label>
         <referenceTo>Farm_Management_Plan__c</referenceTo>
         <relationshipLabel>PMF Finca Categoria 5 - MIPE</relationshipLabel>
         <relationshipName>PMF_Finca_Categorias_5_MIPE</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Puntaje_Control_de_acuerdo_resultado_mon__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL(  Control_de_acuerdo_al_resultado_del_moni__c , &apos;Sí controla según resultado monitoreo&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Control de acuerdo resultado mon</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Evaluacion_post_control__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Evaluacion_post_control__c , &apos;Lleva a cabo evaluación post-control&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Evaluación post-control</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Realizaci_n_de_monitoreo_de_PyE__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL(  Realizacion_monitoreo_Plagas_y_enfermeda__c , &apos;Sí hace muestreos&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Realización de monitoreo de PyE</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Registro_monitoreo_de_PyE__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Registro_monitoreo_Plagas_y_Enfermedades__c , &apos;Sí registra&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Registro monitoreo de PyE</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Uso_metodos_de_control_para_PyE__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL(  Uso_de_metodos_de_control_para_PyE__c , &apos;Controla plagas y enfermedades&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Uso metodos de control para PyE</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>Puntaje_Registro_monitoreo_de_PyE__c +  
 Puntaje_Realizaci_n_de_monitoreo_de_PyE__c + 
 Puntaje_Control_de_acuerdo_resultado_mon__c + 
@@ -191,14 +124,11 @@ Puntaje_Uso_metodos_de_control_para_PyE__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje categoría</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Realizacion_monitoreo_Plagas_y_enfermeda__c</fullName>
-        <externalId>false</externalId>
         <label>Realización monitoreo Plagas y enfermeda</label>
         <picklist>
             <picklistValues>
@@ -215,7 +145,6 @@ Puntaje_Uso_metodos_de_control_para_PyE__c</formula>
     </fields>
     <fields>
         <fullName>Registro_monitoreo_Plagas_y_Enfermedades__c</fullName>
-        <externalId>false</externalId>
         <label>Registro monitoreo Plagas y Enfermermeda</label>
         <picklist>
             <picklistValues>
@@ -232,7 +161,6 @@ Puntaje_Uso_metodos_de_control_para_PyE__c</formula>
     </fields>
     <fields>
         <fullName>Tipo__c</fullName>
-        <externalId>false</externalId>
         <label>Tipo</label>
         <picklist>
             <picklistValues>
@@ -253,7 +181,6 @@ Puntaje_Uso_metodos_de_control_para_PyE__c</formula>
     </fields>
     <fields>
         <fullName>Uso_de_metodos_de_control_para_PyE__c</fullName>
-        <externalId>false</externalId>
         <label>Uso de métodos de control para PyE</label>
         <picklist>
             <picklistValues>

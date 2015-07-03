@@ -1,94 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents 1 visit to a distinct farmer in a month</description>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Contact__c</fullName>
         <description>The CKW who makes the visit to a farmer and uses CKW Search</description>
-        <externalId>false</externalId>
         <inlineHelpText>The CKW who makes the visit to a farmer and uses CKW Search</inlineHelpText>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>3.0 Monthly Farmer Visits</relationshipLabel>
         <relationshipName>C3P0_Monthly_Farmer_Visits</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>3.0 Monthly Farmer Visits</relationshipLabel>
         <relationshipName>C3P0_Monthly_Farmer_Visits</relationshipName>
         <relationshipOrder>1</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
-    </fields>
-    <fields>
-        <fullName>Search_Category__c</fullName>
-        <externalId>false</externalId>
-        <label>Search Category</label>
-        <picklist>
-            <picklistValues>
-                <fullName>Banana Gaps</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Coffee Gaps</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Maize GAPs</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Search_Log__c</fullName>
-        <deleteConstraint>Restrict</deleteConstraint>
-        <externalId>false</externalId>
         <label>Search Log</label>
         <referenceTo>Search_Log__c</referenceTo>
         <relationshipLabel>3.0 Monthly Farmer Visits</relationshipLabel>
@@ -99,25 +36,13 @@
     <fields>
         <fullName>Visit_Date__c</fullName>
         <defaultValue>Today()</defaultValue>
-        <externalId>false</externalId>
         <label>Visit Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <label>3.0 Monthly Farmer Visit</label>
-    <listViews>
-        <fullName>All</fullName>
-        <columns>NAME</columns>
-        <columns>Contact__c</columns>
-        <columns>Person__c</columns>
-        <columns>Visit_Date__c</columns>
-        <columns>Search_Log__c</columns>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-        <language>en_US</language>
-    </listViews>
     <nameField>
-        <displayFormat>{YYYY}{MM}-{0}</displayFormat>
+        <displayFormat>{YYYY}{MM}{0000}</displayFormat>
         <label>3.0 Farmer Visit Name</label>
         <type>AutoNumber</type>
     </nameField>

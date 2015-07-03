@@ -1,46 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableEnhancedLookup>false</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Amount_Applied__c</fullName>
-        <externalId>false</externalId>
         <formula>( Beans_Number_of_90kg_Bags_Sold__c *  Sale__r.Beans_Price_Per_90kg_Bag__c ) +
 ( Cow_Peas_Number_of_90kg_Bags_Sold__c *  Sale__r.Cow_Peas_Price_Per_90kg_Bag__c ) +
 ( Dolichos_Number_of_90kg_Bags_Sold__c *  Sale__r.Dolichos_Price_Per_90kg_Bag__c ) +
@@ -50,137 +14,93 @@
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Amount Applied</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Beans_Number_of_90kg_Bags_Sold__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Beans Number of 90kg Bags Sold</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Cow_Peas_Number_of_90kg_Bags_Sold__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Cow Peas Number of 90kg Bags Sold</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Dolichos_Number_of_90kg_Bags_Sold__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Dolichos Number of 90kg Bags Sold</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Farmer__c</fullName>
-        <externalId>false</externalId>
         <label>Farmer</label>
         <referenceTo>Farmer__c</referenceTo>
         <relationshipLabel>Sale Farmer Associations</relationshipLabel>
         <relationshipName>Sale_Farmer_Associations</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Fee_Due__c</fullName>
-        <externalId>false</externalId>
         <label>Fee Due</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Fee_Paid__c</fullName>
-        <externalId>false</externalId>
         <label>Fee Paid</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Green_Grams_Number_of_90kg_Bags_Sold__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Green Grams Number of 90kg Bags Sold</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Maize_Number_of_90kg_Bags_Sold__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Maize Number of 90kg Bags Sold</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Pigeon_Peas_Number_of_90kg_Bags_Sold__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Pigeon Peas Number of 90kg Bags Sold</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Sale__c</fullName>
-        <externalId>false</externalId>
         <label>Sale</label>
         <referenceTo>Sale__c</referenceTo>
         <relationshipLabel>Sale Farmer Associations</relationshipLabel>
         <relationshipName>Sale_Farmer_Associations</relationshipName>
         <relationshipOrder>1</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <label>Sale Farmer Association</label>
     <nameField>
         <displayFormat>SFN-{000000}</displayFormat>
         <label>Sale Farmer Association Number</label>
-        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Sale Farmer Associations</pluralLabel>

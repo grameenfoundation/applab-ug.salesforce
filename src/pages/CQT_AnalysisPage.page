@@ -1,0 +1,25 @@
+<apex:page title="Análisis de Muestras" controller="CQT_AnalysisPageController" docType="html-5.0">
+    <apex:form >
+        <apex:sectionHeader title="Análisis Organoléptico" />
+        <apex:pageBlock id="BlockPpal" rendered="true">
+            <apex:pageMessages id="MsgMainAnalysis" ></apex:pageMessages>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Grabar todos los Análisis" action="{!SaveAllAnalysis}" reRender="Text, MsgMainAnalysis"/>
+            </apex:pageBlockButtons>
+            <apex:outputText id="Text" value="{!Text}"/>
+            <!--<apex:outputText >Cantidad de Análisis: </apex:outputText>
+             -->
+            
+            <apex:dynamicComponent componentValue="{!dynCustomCom}" />
+            
+            <apex:pageBlockSection columns="1">            
+                <!--<apex:input type="number" id="amount2"/>-->
+                <!-- <c:CQT_Analysis_v2Component id="comp1" sObjAnalysisList="{!AnalysisList}" sObjAnalysis="{!Analysis}" rendered="true"></c:CQT_Analysis_v2Component>
+                <c:CQT_Analysis_v2Component id="comp2" sObjAnalysisList="{!AnalysisList}" sObjAnalysis="{!Analysis2}" rendered="true"></c:CQT_Analysis_v2Component>
+                <c:CQT_Analysis_v2Component id="comp3" sObjAnalysisList="{!AnalysisList}" sObjAnalysis="{!Analysis3}" rendered="true"></c:CQT_Analysis_v2Component>
+                <c:CQT_Analysis_v2Component id="comp4" sObjAnalysisList="{!AnalysisList}" sObjAnalysis="{!Analysis4}" rendered="true"></c:CQT_Analysis_v2Component> -->
+                <!--<apex:outputText id="output1" value="valorTest: {!valorTest}"></apex:outputText>-->
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

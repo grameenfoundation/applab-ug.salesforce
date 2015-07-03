@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>Logística Despacho/Recepción y Canastilla</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Logística Despacho/Recepción y Canastilla</value>
+    </caseValues>
+    <fields>
+        <label>Nombre del Artículo</label>
+        <name>ArticleName__c</name>
+    </fields>
+    <fields>
+        <label>Artículo</label>
+        <name>Article__c</name>
+        <relationshipLabel><!-- INV_TW_Sources_Destinations_Articles_Art --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Nombre Punto Recepción</label>
+        <name>Destination_Name__c</name>
+    </fields>
+    <fields>
+        <label>Combinación Despacho - Recepción</label>
+        <name>Source_Destination__c</name>
+        <relationshipLabel><!-- INV_TW_Sources_Destinations_Source_Desti --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Nombre Punto Despacho</label>
+        <name>Source_Name__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>INV TW Source Destination Article Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Combinación Despacho/Recepción/Canastilla</nameFieldLabel>
+</CustomObjectTranslation>

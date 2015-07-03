@@ -1,328 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Contact__c</fullName>
-        <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipName>coocafisa_monitoring_activities</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Coocafisa_monitoring_activities_name__c</fullName>
-        <externalId>false</externalId>
         <label>Coocafisa monitoring activities name</label>
-        <length>80</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Country__c</fullName>
-        <externalId>false</externalId>
         <label>Country</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Municipality__c</fullName>
-        <externalId>false</externalId>
         <label>Municipality</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>activity__c</fullName>
-        <externalId>false</externalId>
         <label>activity</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>affirmation_describes__c</fullName>
-        <externalId>false</externalId>
         <label>affirmation describes</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>cafeteros_conectados__c</fullName>
-        <externalId>false</externalId>
         <label>cafeteros conectados</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>center_other_producers__c</fullName>
-        <externalId>false</externalId>
         <label>center other producers</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>center_producers__c</fullName>
-        <externalId>false</externalId>
         <label>center producers</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>department__c</fullName>
-        <externalId>false</externalId>
         <label>department</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>district__c</fullName>
-        <externalId>false</externalId>
         <label>district</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>end_date__c</fullName>
-        <externalId>false</externalId>
         <label>end date</label>
-        <required>false</required>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>guide_affirmation__c</fullName>
-        <externalId>false</externalId>
         <label>guide affirmation</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>guide_name__c</fullName>
-        <externalId>false</externalId>
         <label>guide name</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>guide_producers_score__c</fullName>
-        <externalId>false</externalId>
         <label>guide producers score</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>leader_score__c</fullName>
-        <externalId>false</externalId>
         <label>leader score</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>location__c</fullName>
-        <externalId>false</externalId>
         <label>location</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>number_assistants__c</fullName>
-        <externalId>false</externalId>
         <label>number assistants</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>other_producers_cc__c</fullName>
-        <externalId>false</externalId>
         <label>other producers cc</label>
-        <length>12</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>other_producers_name__c</fullName>
-        <externalId>false</externalId>
         <label>other producers name</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>other_topic__c</fullName>
-        <externalId>false</externalId>
         <label>other topic</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>other_training__c</fullName>
-        <externalId>false</externalId>
         <label>other training</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>producer_cafeteros_conectados__c</fullName>
-        <externalId>false</externalId>
         <label>producer cafeteros conectados</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>producer_id__c</fullName>
         <description>cédula</description>
-        <externalId>false</externalId>
         <label>producer id</label>
         <length>12</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>producer_score__c</fullName>
-        <externalId>false</externalId>
         <label>producer score</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>reason_leader_score__c</fullName>
-        <externalId>false</externalId>
         <label>reason leader score</label>
         <length>200</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>start_date__c</fullName>
-        <externalId>false</externalId>
         <label>start date</label>
-        <required>false</required>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
-        <relationshipLabel>coocafisa monitoring activities</relationshipLabel>
         <relationshipName>coocafisa_monitoring_activities</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>training_name_2__c</fullName>
+        <label>training name 2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>training_name__c</fullName>
-        <externalId>false</externalId>
         <label>training name</label>
-        <length>40</length>
-        <required>false</required>
+        <length>255</length>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>training_photo__c</fullName>
-        <externalId>false</externalId>
         <label>training photo</label>
-        <required>false</required>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>which_other__c</fullName>
-        <externalId>false</externalId>
         <label>which other</label>
         <length>200</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
-    <label>coocafisa monitoring activities</label>
+    <label>FMP monitoring activities</label>
     <nameField>
         <label>coocafisa  Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>coocafisa monitoring activities</pluralLabel>
+    <pluralLabel>FMP monitoring activities</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

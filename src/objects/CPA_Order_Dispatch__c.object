@@ -1,113 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>CPA_Order__c</fullName>
-        <externalId>false</externalId>
         <label>CPA Order</label>
         <referenceTo>CPA_Order__c</referenceTo>
         <relationshipLabel>CPA Order Dispatches</relationshipLabel>
         <relationshipName>CPA_Order_Dispatches</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Dispatch_Date__c</fullName>
         <defaultValue>TODAY()</defaultValue>
-        <externalId>false</externalId>
         <label>Dispatch Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Number_of_Baskets__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Baskets</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Kilos__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Kilos</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Presentation_Units__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Presentation Units</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Priority__c</fullName>
-        <externalId>false</externalId>
         <label>Priority</label>
         <length>10</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Product_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>CPA_Order__r.Client_Product_Association__r.Product_Name__c</formula>
         <label>Product Name</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Unit_of_Presentation__c</fullName>
-        <externalId>false</externalId>
         <label>Unit of Presentation</label>
         <picklist>
             <picklistValues>
@@ -205,7 +152,6 @@
         <columns>CPA_Order__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>CODN-{00000}</displayFormat>

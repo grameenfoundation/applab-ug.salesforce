@@ -1,84 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Address__c</fullName>
-        <externalId>false</externalId>
         <label>Address</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Contact__c</fullName>
-        <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Mana Technicians</relationshipLabel>
         <relationshipName>Mana_Technicians</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Coordinator_Id__c</fullName>
-        <externalId>false</externalId>
         <label>Coordinator Id</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Coordinator_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Coordinator Name</label>
         <length>50</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Education_level__c</fullName>
-        <externalId>false</externalId>
         <label>Education level</label>
         <picklist>
             <picklistValues>
@@ -123,17 +75,13 @@
     </fields>
     <fields>
         <fullName>Foto__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(ISBLANK( Photo__c) || ISNULL(Photo__c), &quot;&quot;, IMAGE(Photo__c ,&quot;Profile Picture&quot;, 263, 223))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Foto</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Gender__c</fullName>
-        <externalId>false</externalId>
         <label>Gender</label>
         <picklist>
             <picklistValues>
@@ -150,63 +98,44 @@
     </fields>
     <fields>
         <fullName>Landline__c</fullName>
-        <externalId>false</externalId>
         <label>Landline</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Middle_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Middle Name</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Mobile_User__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Mobile User</label>
         <referenceTo>gfsurveys__Mobile_User__c</referenceTo>
         <relationshipLabel>Mana Technicians_MU</relationshipLabel>
         <relationshipName>Mana_Technicians_MU</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Municipality_1__c</fullName>
-        <externalId>false</externalId>
         <label>Municipality 1</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Municipality_2__c</fullName>
-        <externalId>false</externalId>
         <label>Municipality 2</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Municipality_3__c</fullName>
-        <externalId>false</externalId>
         <label>Municipality 3</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Organization__c</fullName>
-        <externalId>false</externalId>
         <label>Organization</label>
         <picklist>
             <picklistValues>
@@ -231,41 +160,29 @@
     </fields>
     <fields>
         <fullName>Other_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Other Name</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Personal_Phone_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Personal Phone Number</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Photo__c</fullName>
-        <externalId>false</externalId>
         <label>Photo</label>
-        <required>false</required>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Project_Phone_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Project Phone Number</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Project__c</fullName>
-        <externalId>false</externalId>
         <label>Project</label>
         <picklist>
             <picklistValues>
@@ -282,9 +199,7 @@
     </fields>
     <fields>
         <fullName>Start_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Start Date</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <label>Mana Technician</label>

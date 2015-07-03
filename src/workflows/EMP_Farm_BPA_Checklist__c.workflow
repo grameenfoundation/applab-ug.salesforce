@@ -1,3 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Workflow xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Fundamentales cumplidas</fullName>
+        <field>Fundamentales_cumplidas__c</field>
+        <formula>IF(TEXT(Action_Implementation__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Avoid_Product_Contamination__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Calibrated_Equipment__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Chamber_Commerce_Certificate__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Compost_Inputs_Record__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Compost_Process_Record__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Compost_Quality_Contract__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Compost_Technical_Director__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Comprehensible_Instructions__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Conditioning_of_substrate_area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Conditioning_Seeds_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Consider_Regulations__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Contract_Deed__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Customer_Service__c)=&quot;SI&quot;,1,0)
++IF(TEXT(CV_Technical__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Disinfected_Tools__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Disinfection_well__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Dispensing_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Emergency_Plan__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Employee_First_aid__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Employees_Washroom__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Endpoint_Compost__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Equip_Protection_Training__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Equipment_Required__c)=&quot;SI&quot;,1,0)
++IF(TEXT(First_Aid_Kit__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Formulation_Supplies__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Germination__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Germination_trays__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Hardware_Maintenance_Training__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Hygiene_Practices__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Leachate_Management__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Lot_Division_Product__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Management_Storage_Supplies__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Microorganisms_Records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Mixing_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Multipurpose_Extinguisher__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Operation_Manual__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Operator_Knowledge__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Operators_comprehensive__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Permanent_Training__c)=&quot;SI&quot;,1,0)
++IF(TEXT(PQR_Fuction_Manual__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Processes_Manual__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Product_Process__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Product_Storage_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Product_Transport__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Protection_Elements__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Protection_Elements_Use__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Quality_Daily_Record__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Quality_Records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Quality_Seed_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Record_Supplies__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Rest_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Review_Processes__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Security_Records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seed_Storage_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seedlings_package_area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seedlings_reproduction_normativity__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Storage_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Substrate_quality__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Substrate_supervision__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Training_Program__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Washroom_Cleaning__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Water_Origins__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Water_Quality__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Water_Rational_Management__c)=&quot;SI&quot;,1,0)</formula>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mayores cumplidas</fullName>
+        <field>Mayores_cumplidas__c</field>
+        <formula>IF(TEXT(Batch_Corrective_Actions__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Batch_Inspection__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Batch_Inspection_Record__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Batch_Isolation__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Batch_Status__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Batch_Without_Weed__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Certified_Supplies__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Comprehensible_Instructions__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Contaminated_Water_Management__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Corrective_actions__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Crop_Nutrition_Program__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Dispensing_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Documentation_Backdrop__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Documentation_Sowing_Materials__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Fertilizer_Application__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Fertilizer_Records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Germination_inspections__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Germination_records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Germination_trays_accordance__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Hardware_Maintenance_Training__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Hygiene_Practices__c)=&quot;SI&quot;,1,0)
++IF(TEXT(ICA_Agricultural_Supplies__c)=&quot;SI&quot;,1,0)
++IF(TEXT(ICA_Seedlings__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Irrigation_records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Lock_Storage_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Management_Hardware__c)=&quot;SI&quot;,1,0)
++IF(TEXT(MIP_Plan__c)=&quot;SI&quot;,1,0)
++IF(TEXT(MIP_Plan_Supervision__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Mixing_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Organic_Fertilizers_Records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Pesticides_Records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Phytosanitary_Protection__c)=&quot;SI&quot;,1,0)
++IF(TEXT(POT_Certify__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Propagation_Materials_Quality__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Protection_Elements_Use__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Quality_control_records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Quality_Seed_Record__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Record_Activities__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Rest_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seed_Conditioning_Record__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seeding_records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seedling_reproduction_records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seedlings_quality_area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seedlings_Reproduction__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Seedlings_separation__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Soil_Water_Analysis__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Spillage_Kit__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Storage_Area__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Storage_Separation__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Storage_Training__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Supplies_Training__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Technical_Assistance_Nutrition_Program__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Tools_Conditions__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Triple_Washed__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Water_Permit__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Zone_Characteristics__c)=&quot;SI&quot;,1,0)</formula>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Menores cumplidas</fullName>
+        <field>Menores_cumplidas__c</field>
+        <formula>IF(TEXT(Documentation_Sowing_Materials__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Drain_System__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Emergency_Plan__c)=&quot;SI&quot;,1,0)
++IF(TEXT(ICA_Organic_Fertilizers__c)=&quot;SI&quot;,1,0)
++IF(TEXT(ICA_Regulation__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Procedures_Instructions__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Propagation_Materials__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Rotating_Crops__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Soil_Programs__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Tools_Conditions__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Training_Records__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Vegetal_Material_Management__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Waste_Management_Plan__c)=&quot;SI&quot;,1,0)
++IF(TEXT(Water_Rational_Management__c)=&quot;SI&quot;,1,0)</formula>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <rules>
+        <fullName>EMP Farm BPA Checklist</fullName>
+        <actions>
+            <name>Fundamentales cumplidas</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Mayores cumplidas</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Menores cumplidas</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>EMP_Farm_BPA_Checklist__c.mayores__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

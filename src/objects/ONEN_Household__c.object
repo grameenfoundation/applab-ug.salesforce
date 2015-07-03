@@ -1,134 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Physical mailing address for grouping contacts</description>
     <enableActivities>true</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Anonymous__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Donor wants to be anonymous</description>
-        <externalId>false</externalId>
         <label>Anonymous</label>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Household_Maintenance__c</fullName>
-        <externalId>false</externalId>
         <formula>HYPERLINK(&quot;/servlet/servlet.Integration?lid=01N700000000oxV&amp;eid=&quot; &amp; Id  &amp; &quot;&amp;direction=toContact&quot;, IMAGE( &quot;servlet/servlet.FileDownload?file=01570000000LVBk&quot;, &quot;image from Documents tab&quot;))</formula>
         <label>Household Maintenance</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>MailingCity__c</fullName>
-        <externalId>false</externalId>
         <label>Mailing City</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>MailingCountry__c</fullName>
-        <externalId>false</externalId>
         <label>Mailing Country</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>MailingPostalCode__c</fullName>
-        <externalId>false</externalId>
         <label>Mailing Zip/Postal Code</label>
         <length>10</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>MailingState__c</fullName>
-        <externalId>false</externalId>
         <label>Mailing State/Province</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>MailingStreet__c</fullName>
-        <externalId>false</externalId>
         <label>Mailing Street</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Recognition_Name_Short__c</fullName>
         <description>Short version of prefered</description>
-        <externalId>false</externalId>
         <label>Recognition Name - Short</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Recognition_Name__c</fullName>
         <description>Preferred name when recognizing gifts</description>
-        <externalId>false</externalId>
         <label>Recognition Name</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>household_id__c</fullName>
         <description>for migration</description>
-        <externalId>false</externalId>
         <label>household id</label>
         <precision>7</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <label>Household</label>
     <listViews>

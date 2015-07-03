@@ -7,7 +7,10 @@ trigger ValidateMarketMasindiPeakDay on Market_Masindi__c (before insert) {
         if(MISPeakDay.applyPeakDayValidationMasindi(cMarkt,mrktMas)){
             
         }else{
-            mrktMas.addError('Market Peak Day is Wrong! Correct Peak Day is '+cMarkt.Peak__c);
+            Date capture= mrktMas.Date_of_capture__c;
+            Datetime dt = (DateTime)capture;
+            String dayOfWeek = dt.format('EEEE'); //This returns - Monday, Tuesday, Wednesday, etc..
+            mrktMas.addError('Market Peak Day is Wrong! Correct Peak Day is '+cMarkt.Peak__c+' but got '+ dayOfWeek);
         }
     }
 }

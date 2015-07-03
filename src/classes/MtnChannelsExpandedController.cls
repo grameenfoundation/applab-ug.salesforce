@@ -170,14 +170,11 @@ public with sharing class MtnChannelsExpandedController extends ParentComponentB
                 Show_District__c,
                 Show_Subcounty__c,
                 Show_Person__c,
-                Show_Data_Validator__c,
                 Show_CKW__c,
                 Show_Farmer__c,
-                Show_Field_Officer__c,
                 Show_MTN_Chan__c,
                 Date_Period__c,
                 Show_Submit_Button__c,
-                Show_Opportunity_Farmer__c,
                 Start_Date__c
             FROM
                 Dashboard_Selector__c

@@ -1,215 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>AddInfluence</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <businessProcesses>
-        <fullName>Donations</fullName>
-        <description>used to track standard donations</description>
-        <isActive>true</isActive>
-        <values>
-            <fullName>Not Posted</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Posted</fullName>
-            <default>false</default>
-        </values>
-    </businessProcesses>
-    <businessProcesses>
-        <fullName>Grant</fullName>
-        <description>used to track grant application process</description>
-        <isActive>true</isActive>
-        <values>
-            <fullName>Grant Awarded</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Grant Denied</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Grant Prep</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Grant Submitted</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prospecting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Qualification</fullName>
-            <default>false</default>
-        </values>
-    </businessProcesses>
-    <businessProcesses>
-        <fullName>Major Gift</fullName>
-        <description>used to track major gift initiative</description>
-        <isActive>true</isActive>
-        <values>
-            <fullName>Ask - Accepted</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ask - Denied</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ask - Under Review</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Engaged with Organization</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Preparation of Ask</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prospecting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Qualified Interest</fullName>
-            <default>false</default>
-        </values>
-    </businessProcesses>
-    <businessProcesses>
-        <fullName>Master</fullName>
-        <isActive>true</isActive>
-        <values>
-            <fullName>Closed Lost</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Closed Won</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Id%2E Decision Makers</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Needs Analysis</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Negotiation%2FReview</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not Posted</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Perception Analysis</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Posted</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prospecting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Qualification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Value Proposition</fullName>
-            <default>false</default>
-        </values>
-    </businessProcesses>
-    <enableFeeds>true</enableFeeds>
-    <fields>
-        <fullName>AccountId</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Lookup</type>
-    </fields>
     <fields>
         <fullName>Anonymous__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Anonymous?</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Application_Deadline__c</fullName>
-        <externalId>false</externalId>
         <label>Application Deadline</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Date</type>
     </fields>
     <fields>
-        <fullName>CampaignId</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Lookup</type>
-    </fields>
-    <fields>
         <fullName>Check_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Check Date</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Check_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Check Number</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>ContractId</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Dedication_Acknowledgement_Type__c</fullName>
         <description>Used for NFG integration.</description>
-        <externalId>false</externalId>
         <label>Dedication Acknowledgement Type</label>
         <picklist>
             <picklistValues>
@@ -230,70 +46,47 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Dedication_Honoree_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Dedication Honoree Name</label>
         <length>80</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Dedication_Personal_Note__c</fullName>
-        <externalId>false</externalId>
         <label>Dedication Personal Note</label>
         <length>32000</length>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>LongTextArea</type>
         <visibleLines>6</visibleLines>
     </fields>
     <fields>
         <fullName>Dedication_Recipient_Address__c</fullName>
-        <externalId>false</externalId>
         <label>Dedication Recipient Address</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Dedication_Recipient_Email_Address__c</fullName>
         <description>email address for sending dedication acknowledgments to donors&apos; loved ones</description>
-        <externalId>false</externalId>
         <label>Dedication Recipient Email Address</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Email</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Dedication_Recipient_First_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Dedication Recipient First Name</label>
         <length>80</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Dedication_Recipient_Last_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Dedication Recipient Last Name</label>
         <length>80</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Dedication_Type__c</fullName>
         <description>Used for NFG integration.</description>
-        <externalId>false</externalId>
         <label>Dedication Type</label>
         <picklist>
             <picklistValues>
@@ -310,12 +103,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Fund__c</fullName>
-        <externalId>false</externalId>
         <label>Fund</label>
         <picklist>
             <picklistValues>
@@ -332,102 +123,48 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Gift_Aid__c</fullName>
         <defaultValue>false</defaultValue>
         <description>For use in the UK - If the donor is a tax payer they can choose to have the donation Gift Aided so the government releases the amount of income tax that was already paid and gives it to the charity.</description>
-        <externalId>false</externalId>
         <label>Gift Aid</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Gift_Aided_Amount__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Gift_Aid__c ,  Amount  * 1.28205, Amount )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Gift Aided Amount</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>Grant_Amount__c</fullName>
         <description>Used for NFG integration.  Amount that was actually granted versus the donated amount which may less due to online processing fees.</description>
-        <externalId>false</externalId>
         <label>Grant Amount</label>
         <precision>10</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Currency</type>
     </fields>
     <fields>
-        <fullName>LeadSource</fullName>
-        <picklist>
-            <picklistValues>
-                <fullName>Employee Referral</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>External Referral</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Partner</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Public Relations</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Trade Show</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Web</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Word of mouth</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Other</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>Matching_Amount__c</fullName>
-        <externalId>false</externalId>
         <formula>Amount  *  Matching__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Matching Amount</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>Matching_Close_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Matching Close Date</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Matching_Status__c</fullName>
-        <externalId>false</externalId>
         <label>Matching Status</label>
         <picklist>
             <picklistValues>
@@ -440,58 +177,35 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Matching__c</fullName>
-        <externalId>false</externalId>
         <label>Matching %</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>Membership_End_Date__c</fullName>
-        <externalId>false</externalId>
         <formula>(Membership_Length__c*30.416) + Membership_Start_Date__c</formula>
         <label>Membership End Date</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Membership_Length__c</fullName>
-        <externalId>false</externalId>
         <label>Membership Length (months)</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Membership_Start_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Membership Start Date</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Date</type>
     </fields>
     <fields>
-        <fullName>OwnerId</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>PartnerAccountId</fullName>
-        <type>Lookup</type>
-    </fields>
-    <fields>
         <fullName>Payment_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Payment Type</label>
         <picklist>
             <picklistValues>
@@ -508,25 +222,19 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Pledge__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>Look up relationship for pledge payments</description>
-        <externalId>false</externalId>
         <label>Pledge</label>
         <referenceTo>Pledges__c</referenceTo>
         <relationshipLabel>Pledge Payments</relationshipLabel>
         <relationshipName>R00N70000001ay08EAA</relationshipName>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Program_Designation__c</fullName>
-        <externalId>false</externalId>
         <label>Program Designation</label>
         <picklist>
             <picklistValues>
@@ -539,395 +247,40 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Recurring_Donation__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Recurring Donation</label>
         <referenceTo>Recurring_Donation__c</referenceTo>
         <relationshipLabel>Donation</relationshipLabel>
         <relationshipName>R00N70000001ay0EEAQ</relationshipName>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Reporting_Deadline__c</fullName>
-        <externalId>false</externalId>
         <label>Reporting Deadline</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Reporting_Requirements__c</fullName>
-        <externalId>false</externalId>
         <label>Reporting Requirements</label>
         <length>32000</length>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>LongTextArea</type>
         <visibleLines>6</visibleLines>
     </fields>
     <fields>
-        <fullName>StageName</fullName>
-        <picklist>
-            <picklistValues>
-                <fullName>Not Posted</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>0</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Posted</fullName>
-                <closed>true</closed>
-                <default>false</default>
-                <forecastCategory>Closed</forecastCategory>
-                <probability>100</probability>
-                <won>true</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Prospecting</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>10</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Qualification</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>10</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Needs Analysis</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>20</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Value Proposition</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>50</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Id. Decision Makers</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>60</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Perception Analysis</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>70</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Negotiation/Review</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>90</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Closed Won</fullName>
-                <closed>true</closed>
-                <default>false</default>
-                <forecastCategory>Closed</forecastCategory>
-                <probability>100</probability>
-                <won>true</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Closed Lost</fullName>
-                <closed>true</closed>
-                <default>false</default>
-                <forecastCategory>Omitted</forecastCategory>
-                <probability>0</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Grant Prep</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>20</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Grant Submitted</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>30</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Grant Under Review</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>50</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Grant Awarded</fullName>
-                <closed>true</closed>
-                <default>false</default>
-                <forecastCategory>Closed</forecastCategory>
-                <probability>100</probability>
-                <won>true</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Grant Denied</fullName>
-                <closed>true</closed>
-                <default>false</default>
-                <forecastCategory>Omitted</forecastCategory>
-                <probability>0</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Qualified Interest</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>20</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Engaged with Organization</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>40</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Preparation of Ask</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>50</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Ask - Under Review</fullName>
-                <closed>false</closed>
-                <default>false</default>
-                <forecastCategory>Pipeline</forecastCategory>
-                <probability>60</probability>
-                <won>false</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Ask - Accepted</fullName>
-                <closed>true</closed>
-                <default>false</default>
-                <forecastCategory>Closed</forecastCategory>
-                <probability>100</probability>
-                <won>true</won>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Ask - Denied</fullName>
-                <closed>true</closed>
-                <default>false</default>
-                <forecastCategory>Omitted</forecastCategory>
-                <probability>0</probability>
-                <won>false</won>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackFeedHistory>true</trackFeedHistory>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>Total_Amount__c</fullName>
-        <externalId>false</externalId>
         <formula>Amount  +  Matching_Amount__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Total Amount</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Currency</type>
     </fields>
-    <fields>
-        <fullName>Type</fullName>
-        <picklist>
-            <picklistValues>
-                <fullName>Single</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Recurring</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Pledge</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Major Gift</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Grant</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Membership - Individual</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Membership - Business</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Membership - Family</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Membership - Lifetime</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Matching</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Picklist</type>
-    </fields>
-    <listViews>
-        <fullName>AllDonations</fullName>
-        <columns>OPPORTUNITY.NAME</columns>
-        <columns>OPPORTUNITY.TYPE</columns>
-        <columns>OPPORTUNITY.AMOUNT</columns>
-        <columns>OPPORTUNITY.STAGE_NAME</columns>
-        <columns>OPPORTUNITY.CLOSE_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <label>All Donations</label>
-    </listViews>
-    <listViews>
-        <fullName>ClosingThisMonth</fullName>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>OPPORTUNITY.CLOSE_DATE</field>
-            <operation>equals</operation>
-            <value>THIS_MONTH</value>
-        </filters>
-        <filters>
-            <field>OPPORTUNITY.CLOSED</field>
-            <operation>equals</operation>
-            <value>0</value>
-        </filters>
-        <label>Closing This Month</label>
-    </listViews>
-    <listViews>
-        <fullName>DonationHistory</fullName>
-        <columns>OPPORTUNITY.NAME</columns>
-        <columns>OPPORTUNITY.TYPE</columns>
-        <columns>OPPORTUNITY.AMOUNT</columns>
-        <columns>OPPORTUNITY.STAGE_NAME</columns>
-        <columns>OPPORTUNITY.CLOSE_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>OPPORTUNITY.WON</field>
-            <operation>equals</operation>
-            <value>1</value>
-        </filters>
-        <filters>
-            <field>OPPORTUNITY.CLOSED</field>
-            <operation>equals</operation>
-            <value>1</value>
-        </filters>
-        <label>Donation History</label>
-    </listViews>
-    <listViews>
-        <fullName>MatchingDonations</fullName>
-        <columns>OPPORTUNITY.NAME</columns>
-        <columns>OPPORTUNITY.TYPE</columns>
-        <columns>OPPORTUNITY.AMOUNT</columns>
-        <columns>OPPORTUNITY.STAGE_NAME</columns>
-        <columns>OPPORTUNITY.CLOSE_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>OPPORTUNITY.RECORDTYPE</field>
-            <operation>equals</operation>
-            <value>Opportunity.MatchingDonation</value>
-        </filters>
-        <label>Matching Donations</label>
-    </listViews>
-    <listViews>
-        <fullName>Memberships</fullName>
-        <columns>OPPORTUNITY.NAME</columns>
-        <columns>OPPORTUNITY.TYPE</columns>
-        <columns>OPPORTUNITY.AMOUNT</columns>
-        <columns>OPPORTUNITY.STAGE_NAME</columns>
-        <columns>OPPORTUNITY.CLOSE_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>OPPORTUNITY.RECORDTYPE</field>
-            <operation>equals</operation>
-            <value>Opportunity.Membership</value>
-        </filters>
-        <label>Memberships</label>
-    </listViews>
-    <listViews>
-        <fullName>NewThisWeek</fullName>
-        <columns>OPPORTUNITY.NAME</columns>
-        <columns>OPPORTUNITY.TYPE</columns>
-        <columns>OPPORTUNITY.AMOUNT</columns>
-        <columns>OPPORTUNITY.STAGE_NAME</columns>
-        <columns>OPPORTUNITY.CLOSE_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>OPPORTUNITY.CREATED_DATE</field>
-            <operation>equals</operation>
-            <value>THIS_WEEK</value>
-        </filters>
-        <label>New This Week</label>
-    </listViews>
-    <listViews>
-        <fullName>PendingDonations</fullName>
-        <columns>OPPORTUNITY.NAME</columns>
-        <columns>OPPORTUNITY.TYPE</columns>
-        <columns>OPPORTUNITY.AMOUNT</columns>
-        <columns>OPPORTUNITY.STAGE_NAME</columns>
-        <columns>OPPORTUNITY.CLOSE_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>OPPORTUNITY.CLOSE_DATE</field>
-            <operation>equals</operation>
-        </filters>
-        <filters>
-            <field>OPPORTUNITY.CLOSED</field>
-            <operation>equals</operation>
-            <value>0</value>
-        </filters>
-        <label>Pending Donations</label>
-    </listViews>
-    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <recordTypes>
         <fullName>Donation</fullName>
         <active>true</active>
-        <businessProcess>Donations</businessProcess>
         <description>Use this record type for standard donations</description>
         <label>Donation</label>
         <picklistValues>
@@ -1054,7 +407,6 @@
     <recordTypes>
         <fullName>Grant</fullName>
         <active>true</active>
-        <businessProcess>Grant</businessProcess>
         <description>Use this record type for grant applications</description>
         <label>Grant</label>
         <picklistValues>
@@ -1189,7 +541,6 @@
     <recordTypes>
         <fullName>MajorGift</fullName>
         <active>true</active>
-        <businessProcess>Major Gift</businessProcess>
         <description>Use this record type for major gift initiatives</description>
         <label>MajorGift</label>
         <picklistValues>
@@ -1324,7 +675,6 @@
     <recordTypes>
         <fullName>MatchingDonation</fullName>
         <active>true</active>
-        <businessProcess>Donations</businessProcess>
         <description>Use this record type for matching donations</description>
         <label>MatchingDonation</label>
         <picklistValues>
@@ -1447,7 +797,6 @@
     <recordTypes>
         <fullName>Membership</fullName>
         <active>true</active>
-        <businessProcess>Donations</businessProcess>
         <description>Use this record type for memberships</description>
         <label>Membership</label>
         <picklistValues>
@@ -1582,7 +931,6 @@
     <recordTypes>
         <fullName>PledgePayment</fullName>
         <active>true</active>
-        <businessProcess>Donations</businessProcess>
         <description>Use this record type for pledge payments on a pledge</description>
         <label>PledgePayment</label>
         <picklistValues>
@@ -1702,23 +1050,6 @@
             </values>
         </picklistValues>
     </recordTypes>
-    <searchLayouts>
-        <customTabListAdditionalFields>OPPORTUNITY.NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>OPPORTUNITY.CLOSE_DATE</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>OPPORTUNITY.NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>OPPORTUNITY.NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>OPPORTUNITY.NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>OPPORTUNITY.STAGE_NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>OPPORTUNITY.CLOSE_DATE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
-    </searchLayouts>
     <webLinks>
         <fullName>Contact_Donation</fullName>
         <availability>online</availability>
@@ -1737,7 +1068,6 @@
         <availability>online</availability>
         <description>used to run report on contact donation history</description>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>Contact Donation History</masterLabel>
@@ -1854,7 +1184,6 @@
         <availability>online</availability>
         <description>runs report of donation history for this organization</description>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>Organization Donation History</masterLabel>

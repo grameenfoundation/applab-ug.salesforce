@@ -5,7 +5,7 @@ public class CallCenterController {
     String district;
     String sex;
     String response;
-    Boolean isNewFarmer;
+    Boolean isNewFarmer = false;
     Farmer__c[] farmers;
     Farmer__c farmer;
     Case[] cases;
@@ -13,6 +13,7 @@ public class CallCenterController {
     Person__c[] ckws;
     Person__c ckw;
     Boolean callBackRequired = false;
+    String chosenId;
     
     public String type { get; set; }
     public String fname { get; set; }
@@ -64,7 +65,11 @@ public class CallCenterController {
     
     public Boolean getIsNewFarmer() {
         return this.isNewFarmer;
-    }                                                          
+    }  
+    
+    public void setIsNewFarmer(Boolean isnew) {
+        this.isNewFarmer = isnew;
+    }                                                           
     
     public Farmer__c[] getFarmers() {
         return farmers;
@@ -84,6 +89,14 @@ public class CallCenterController {
         
     public void setCkw(Person__c ckw) {
         this.ckw = ckw;
+    }
+    
+    public String getChosenId() {
+        return chosenId;
+    }
+        
+    public void setChosenId(String cid) {
+        this.chosenId = cid;
     }
         
     public Case[] getCases() {
@@ -116,28 +129,34 @@ public class CallCenterController {
                         
     public PageReference searchByPhoneNumber() {  
         // Clear all farmer details in preparation for new search
-        isNewFarmer = false;
+        //isNewFarmer = false;
         clearCaseFields();
         clearAllFarmers(); 
-        // Check if string is in format +2567xxxxxxxx and change to 7xxxxxxxx
-        // where x in [0-9]
-        if (phoneNumber.startsWith('+256')) {
-            phoneNumber = phoneNumber.substring(4);  
-        }   
-        else if (phoneNumber.length() == 10) {
-            phoneNumber = phoneNumber.substring(1);
+        // Check if string is in format +2567xxxxxxxx and change to 7xxxxxxxx // where x in [0-9]
+        if(isNewFarmer) {
+        	setCkw(new Person__c());
         }
-        if (isWellFormedPhoneNumber(phoneNumber)) {     
-            if(callerType.equals('Farmer')) {              
-                farmers = getByPhoneNumber(phoneNumber);
-                // Check if there is any farmer with a matching phone number  
-                farmer = (farmers != null && !farmers.isEmpty()) ? farmers[0] : null;   
-            }
-            else {
-                ckws = getCkwByPhoneNumber(phoneNumber);       
-                ckw = (ckws != null && !ckws.isEmpty()) ? ckws[0] : null;       
-            }
-        }      
+        else {
+	        if (phoneNumber.startsWith('+256')) {
+	            phoneNumber = phoneNumber.substring(4);  
+	        }   
+	        else if (phoneNumber.length() == 10) {
+	            phoneNumber = phoneNumber.substring(1);
+	        }
+	        if (isWellFormedPhoneNumber(phoneNumber)) {     
+	            if(callerType.equals('Farmer')) {              
+	                farmers = getByPhoneNumber(phoneNumber);
+	                // Check if there is any farmer with a matching phone number  
+	                farmer = (farmers != null && !farmers.isEmpty()) ? farmers[0] : null; 
+	                //isNewFarmer = (farmers != null && !farmers.isEmpty()) ? false : true;  // since different callers can use same number, we leave this out    
+	            }
+	            else {
+	                ckws = getCkwByPhoneNumber(phoneNumber);       
+	                ckw = (ckws != null && !ckws.isEmpty()) ? ckws[0] : null;  
+	                //isNewFarmer = (ckws != null && !ckws.isEmpty()) ? false : true;  // since different callers can use same number, we leave this out     
+	            }
+	        }  
+        }    
         return null;        
     }
         
@@ -157,10 +176,22 @@ public class CallCenterController {
     }
        
     public PageReference savePersonChanges() {
-        database.update(ckw);
-        farmers = getByPhoneNumber(ckw.Mobile_Number__c);
-        ckw = ckws[0];
-        isNewFarmer = false;
+    	if(!isNewFarmer) {
+	        database.update(ckw);
+	        //farmers = getByPhoneNumber(ckw.Mobile_Number__c);
+	        //ckw = ckws[0];
+	        //isNewFarmer = false;
+    	}
+    	else {
+    		//ckw = new Person__c();
+    		ckw.Type__c = 'Call Center Caller';
+    		List<Country__c> country = [Select Id from Country__c WHERE ISO_Standard_Code__c = 'UG'];
+    		ckw.Country__c = country.isEmpty() ? NULL : country.get(0).Id;
+    		ckw.Raw_Mobile_Number__c = phoneNumber;
+    		upsert ckw;
+            ApexPages.Message message = new ApexPages.Message(ApexPages.Severity.INFO, 'Person Details saved');
+    		Apexpages.addMessage(message);
+    	}
         return null;
     }
     
@@ -171,7 +202,7 @@ public class CallCenterController {
     }
          
     public PageReference linkArticles() {
-        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
+        if (farmer != null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
             PageReference pageRef = new PageReference('/knowledge/knowledgeHome.apexp?id=' + currentCase.Id + '&isdtp=mn');
             return pageRef.setRedirect(true);
         }            
@@ -179,7 +210,11 @@ public class CallCenterController {
     }
     
     public PageReference saveCaseAndClear() {
-        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
+    	if((ckw == null || ckw.Id == null) && farmer == null ) {
+            ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'You have to save the new Person\'s Details first');
+    		Apexpages.addMessage(errorMessage);
+    	}
+        else if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {
             if (currentCase.Status == 'Closed') {
                 // For all closed cases update total_complete_interactions_call_center
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
@@ -206,7 +241,11 @@ public class CallCenterController {
     }
     
     public PageReference saveCase() {
-        if (farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {  
+    	if((ckw == null || ckw.Id == null) && farmer == null) {
+            ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'You have to save the new Person\'s Details first');
+    		Apexpages.addMessage(errorMessage);
+    	}
+        else if(farmer !=null ? saveCurrentCase(farmer) : saveCurrentCase(ckw)) {  
             if (currentCase.Status == 'Closed') {
                 // For all closed cases update total_complete_interactions_call_center
                 MetricHelpers.updateMetric('total_complete_interactions_call_center', 1.0, null, null, MetricHelpers.getQuarterFirstDay(MetricHelpers.getCurrentQuarterAsString(0)), MetricHelpers.getQuarterLastDay(MetricHelpers.getCurrentQuarterAsString(0)), false);
@@ -217,12 +256,77 @@ public class CallCenterController {
         return null;
     }
     
+    public PageReference finish() {
+    	clearCaseFields(); 
+        clearAllFarmers(); 
+        return null;
+    }
+    
+    public PageReference changeFarmer() {
+    	    	
+		setChosenId((ApexPages.currentPage().getParameters().get('fid') != null && 
+    			ApexPages.currentPage().getParameters().get('fid') != '' && ApexPages.currentPage().getParameters().get('fid') != 'null') ? 
+    			ApexPages.currentPage().getParameters().get('fid') : getChosenId()); 
+    	farmer = (ApexPages.currentPage().getParameters().get('fid') != null && 
+    			ApexPages.currentPage().getParameters().get('fid') != '' && ApexPages.currentPage().getParameters().get('fid') != 'null') ?
+			 [
+				SELECT 
+					Id, 
+					Name,
+					Crops__c,
+					Livestock__c,
+					Topics_of_Interest__c,
+					Person__r.Id,
+					Person__r.First_Name__c,
+					Person__r.Middle_Name__c,
+					Person__r.Last_Name__c,
+					Person__r.District_Name__c,
+					Person__r.District__c,
+					Person__r.Gender__c,
+					Person__r.Mobile_Number__c,
+					Person__r.Raw_Mobile_Number__c 
+				FROM 
+					Farmer__c 
+				WHERE 
+					Id =:getChosenId()
+			] :
+			farmer;
+		
+		setChosenId((ApexPages.currentPage().getParameters().get('fpid') != null && 
+    			ApexPages.currentPage().getParameters().get('fpid') != '' && ApexPages.currentPage().getParameters().get('fpid') != 'null') ? 
+    			ApexPages.currentPage().getParameters().get('fpid') : getChosenId());
+    	ckw = (ApexPages.currentPage().getParameters().get('fpid') != null && 
+    			ApexPages.currentPage().getParameters().get('fpid') != '' && ApexPages.currentPage().getParameters().get('fpid') != 'null') ?
+			[
+				SELECT 
+					Id, 
+					Name,
+					First_Name__c,
+					Middle_Name__c,
+					Last_Name__c,
+					District_Name__c,
+					District__c,
+					Gender__c,
+					Mobile_Number__c,
+					Raw_Mobile_Number__c 
+				FROM 
+					Person__c 
+				WHERE 
+					Id =:getChosenId()
+			] :
+			ckw;
+        return null;
+    }
+    
     public boolean saveCurrentCase(Farmer__c farmer) {     
         if (currentCase.Subject == null || currentCase.Category__c == null || currentCase.Status == null) {
             ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'The case must have Subject, Category and Status values');
             ApexPages.addMessage(errorMessage);
             return false;
         }      
+        if(getChosenId() != null) {
+        	farmer = [SELECT Id, Person__r.Id FROM Farmer__c WHERE Id =:getChosenId() ALL ROWS];
+        }
         currentCase.Type = 'Question';            
         currentCase.Person__c = farmer.Person__r.Id;            
         currentCase.Reason = 'reason';
@@ -241,11 +345,14 @@ public class CallCenterController {
      }
      
     public boolean saveCurrentCase(Person__c person) {     
-        if (currentCase.Subject == null || currentCase.Category__c == null || currentCase.Status == null) {
+        if (person == null || currentCase.Subject == null || currentCase.Category__c == null || currentCase.Status == null) {
             ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.ERROR,'The case must have Subject, Category and Status values');
             ApexPages.addMessage(errorMessage);
             return false;
-        }      
+        }
+        if(getChosenId() != null) {
+        	person = [SELECT Id FROM Person__c WHERE Id =:getChosenId() ALL ROWS];
+        }
         currentCase.Type = 'Question';            
         currentCase.Person__c = person.Id;            
         currentCase.Reason = 'reason';
@@ -311,6 +418,7 @@ public class CallCenterController {
                 'Person__r.Last_Name__c,'                               +
                 'Person__r.District_Name__c,'                           +
                 'Person__r.District__c,'                                +
+                'Person__r.Gender__c,'                           		+
                 'Person__r.Mobile_Number__c,'                           +
                 'Person__r.Raw_Mobile_Number__c '                       +
             'FROM '                                                     +
@@ -342,6 +450,7 @@ public class CallCenterController {
                 'District_Name__c,'                                     +
                 'District__c,'                                          +
                 'Mobile_Number__c,'                                     +
+                'Gender__c,'                                     		+
                 'Raw_Mobile_Number__c '                                 +
             'FROM '                                                     +
                 'Person__c '                                            +
@@ -406,6 +515,7 @@ public class CallCenterController {
         
     public void clearCaseFields() {
         currentCase = null;
+        cases = null;
         setResponse('');
     }
     

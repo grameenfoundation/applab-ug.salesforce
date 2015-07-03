@@ -75,19 +75,15 @@
                   <apex:selectOptions value="{!quarters}"></apex:selectOptions>
               </apex:selectList>
               <apex:commandButton value="Go" action="{!changeQuarter}"></apex:commandButton>
-              <div style="display:inline;padding-left:10px;visibility:{!IF(((isUpdateable == 'true') && (isEditMode == 'false') && ($Profile.Name != 'Ckw Public Dashboard Profile')),'visible','hidden')}">
-                   <a href='{!$Page.GumutindoDashboard}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=true'>Update Metrics</a>
-              </div>
-              <div style="display:inline;padding-left:10px;visibility:{!IF(isEditMode == 'true','visible','hidden')}">
-                  You are currently in Update Mode: <a href='{!$Page.GumutindoDashboard}?quarter={!quarter}&sfdc.tabName={!tabName}&editMode=false'>Leave Update Mode</a>
-              </div>
              <!-- <apex:outputText rendered="{!isCurrentQuarter}" ></apex:outputText> -->
           </apex:pageBlock>
 
               <apex:pageBlock id="map">
             <apex:pageBlockSection title="Map" columns="1">
                 <apex:pageBlockSectionItem >
-                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_PRIMARY_SOCIETIES&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'GUMUTINDO_PRIMARY_SOCIETIES', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                    <!-- <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_PRIMARY_SOCIETIES&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'GUMUTINDO_PRIMARY_SOCIETIES', 'Gender');" scrolling="no" style="border:1px solid #A8B8CF;"/>
+                    -->
+                    <iframe title="Enlarge Map" src="{!$Page.MetricMap}?mapObject=GUMUTINDO_PRIMARY_SOCIETIES&colourType=Gender&zoom=5&startLat=1.75&disableInfoWindows=true&disableControls=true&disableKey=true&extendHeight=false&suppressFeedback=true" width="180px" height="150px" onload="injectOnclickJs(this, 'GUMUTINDO_PRIMARY_SOCIETIES', 'Gender');" style="border:1px solid #A8B8CF;"/>
                 </apex:pageBlockSectionItem>
                 
             </apex:pageBlockSection>
@@ -144,13 +140,13 @@
                         <apex:param value="{!item.percent_cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <apex:column width="70px">
+                <!--<apex:column width="70px">
                     <apex:facet name="header">Updated</apex:facet>
                     <apex:outputText value="{0, number, ###,###,###,##0.##}">
                         <apex:param value="{!item.cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <!-- <apex:column width="50px">
+                 <apex:column width="50px">
                     <apex:facet name="header">Trend</apex:facet>
                     <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
                         <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>
@@ -208,13 +204,13 @@
                         <apex:param value="{!item.percent_cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <apex:column width="70px">
+                <!--<apex:column width="70px">
                     <apex:facet name="header">Updated</apex:facet>
                     <apex:outputText value="{0, number, ###,###,###,##0.##}">
                         <apex:param value="{!item.cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <!-- <apex:column width="50px">
+                 <apex:column width="50px">
                     <apex:facet name="header">Trend</apex:facet>
                     <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
                         <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>
@@ -272,13 +268,13 @@
                         <apex:param value="{!item.percent_cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <apex:column width="70px">
+                <!--<apex:column width="70px">
                     <apex:facet name="header">Updated</apex:facet>
                     <apex:outputText value="{0, number, ###,###,###,##0.##}">
                         <apex:param value="{!item.cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <!--<apex:column width="50px">
+                <apex:column width="50px">
                     <apex:facet name="header">Trend</apex:facet>
                     <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
                         <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>
@@ -336,13 +332,13 @@
                         <apex:param value="{!item.percent_cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <apex:column width="70px">
+                <!--<apex:column width="70px">
                     <apex:facet name="header">Updated</apex:facet>
                     <apex:outputText value="{0, number, ###,###,###,##0.##}">
                         <apex:param value="{!item.cummulative_actual_reached}"/>
                     </apex:outputText>
                 </apex:column>
-                <!--<apex:column width="50px">
+                <apex:column width="50px">
                     <apex:facet name="header">Trend</apex:facet>
                     <a href="javascript:void(0)" onclick="openGraph('{!item.metric_id}');return false;">
                         <apex:image title="Key:Green=Target,Blue=Actual.Click to enlarge." url="{!item.spark_url}"></apex:image>

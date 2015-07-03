@@ -30,6 +30,9 @@ private class TestAlsurOrderDelivery {
 
         List<SelectOption> options = deliverys.getAssociationItems();
         System.assert(options != null);
+        
+        List<SelectOption> clients = deliverys.getclientItems();
+        System.assert(clients != null);
 
         test.startTest();
         String nameQuery = 'Alsurtest';
@@ -49,6 +52,8 @@ private class TestAlsurOrderDelivery {
         System.assert(deliverys.save() != null);
 
         test.stopTest();
+        
+        
 
         }
 }

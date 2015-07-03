@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>INV Stock</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>INV Stocks</value>
+    </caseValues>
+    <fields>
+        <label><!-- Article Name --></label>
+        <name>Article_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article --></label>
+        <name>Article__c</name>
+        <relationshipLabel><!-- INV_Stock_Article --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Client Name --></label>
+        <name>Client_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Client --></label>
+        <name>Client__c</name>
+        <relationshipLabel><!-- INV_Stock_Client --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Stock --></label>
+        <name>Stock__c</name>
+    </fields>
+    <layouts>
+        <layout>INV Stock Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

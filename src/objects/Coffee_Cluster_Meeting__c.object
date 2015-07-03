@@ -1,57 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
-        <fullName>Account__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <description>Account</description>
-        <externalId>false</externalId>
-        <label>Account</label>
-        <referenceTo>Account</referenceTo>
-        <relationshipName>Coffee_cluster_Meetings</relationshipName>
-        <required>false</required>
-        <type>Lookup</type>
-    </fields>
-    <fields>
         <fullName>Coffee_Farmer__c</fullName>
-        <deleteConstraint>Restrict</deleteConstraint>
-        <externalId>false</externalId>
         <label>Coffee Farmer</label>
         <referenceTo>Coffee_Farmer__c</referenceTo>
         <relationshipName>Coffee_cluster_Meetings</relationshipName>
@@ -59,26 +12,53 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Contact__c</fullName>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Coffee Cluster Meetings</relationshipLabel>
+        <relationshipName>Coffee_Cluster_Meetings</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>District__c</fullName>
+        <label>Coffee Farmer</label>
+        <referenceTo>Coffee_Farmer__c</referenceTo>
+        <relationshipLabel>Coffee Cluster Meetings (Coffee Farmer)</relationshipLabel>
+        <relationshipName>Coffee_Cluster_Meetings1</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FullName__c</fullName>
+        <label>Coffee Farmer</label>
+        <referenceTo>Coffee_Farmer__c</referenceTo>
+        <relationshipLabel>Coffee Cluster Meetings (Coffee Farmer)</relationshipLabel>
+        <relationshipName>Coffee_Cluster_Meetings2</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>GPS__c</fullName>
-        <displayLocationInDecimal>true</displayLocationInDecimal>
-        <externalId>false</externalId>
         <label>GPS</label>
-        <required>false</required>
         <scale>7</scale>
         <type>Location</type>
     </fields>
     <fields>
         <fullName>Please_add_the_date_of_the_meeting__c</fullName>
         <description>Date</description>
-        <externalId>false</externalId>
         <label>Please add the date of the meeting</label>
-        <required>false</required>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>Coffee Cluster Meetings</relationshipLabel>
+        <relationshipName>Coffee_Cluster_Meetings</relationshipName>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Was_market_information_provided_today__c</fullName>
         <description>Market information</description>
-        <externalId>false</externalId>
         <label>Was market information provided today?</label>
         <picklist>
             <picklistValues>
@@ -96,7 +76,6 @@
     <fields>
         <fullName>Was_weather_information_provided_today__c</fullName>
         <description>Weather information</description>
-        <externalId>false</externalId>
         <label>Was weather information provided today?</label>
         <picklist>
             <picklistValues>
@@ -114,7 +93,6 @@
     <fields>
         <fullName>What_GAPs_were_discussed_at_the_meeting__c</fullName>
         <description>What Good Agricultural Practices were discussed today</description>
-        <externalId>false</externalId>
         <label>What GAPs were discussed at the meeting</label>
         <picklist>
             <picklistValues>
@@ -163,6 +141,34 @@
         <visibleLines>10</visibleLines>
     </fields>
     <label>Coffee Cluster Meeting</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Contact__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Coffee_Cluster_Meetings</fullName>
+        <columns>NAME</columns>
+        <columns>Coffee_Farmer__c</columns>
+        <columns>District__c</columns>
+        <columns>FullName__c</columns>
+        <columns>Contact__c</columns>
+        <columns>GPS__Latitude__s</columns>
+        <columns>GPS__Longitude__s</columns>
+        <columns>Please_add_the_date_of_the_meeting__c</columns>
+        <columns>Submission__c</columns>
+        <columns>Was_market_information_provided_today__c</columns>
+        <columns>Was_weather_information_provided_today__c</columns>
+        <columns>What_GAPs_were_discussed_at_the_meeting__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>OBJECT_ID</columns>
+        <filterScope>Everything</filterScope>
+        <label>Coffee Cluster Meetings</label>
+    </listViews>
     <nameField>
         <displayFormat>CCM{000000}</displayFormat>
         <label>Coffee Cluster Meeting Name</label>

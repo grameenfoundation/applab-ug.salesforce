@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldUpdates>
-        <fullName>Update_Backyard_Garden_Stage</fullName>
+        <fullName>Update Backyard Garden Stage</fullName>
         <description>Update the household object with the backyard garden stage value from the production record.</description>
         <field>Fase_de_la_huerta__c</field>
         <formula>TEXT(Backyard_Garden_Stage__c)</formula>
-        <name>Update Backyard Garden Stage</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
@@ -14,7 +13,7 @@
     <rules>
         <fullName>Update Household Backyard Garden Stage</fullName>
         <actions>
-            <name>Update_Backyard_Garden_Stage</name>
+            <name>Update Backyard Garden Stage</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>

@@ -65,17 +65,17 @@
                     <c:PersonSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showPerson}" sectionKey="{!sectionKey}"/>
                 </div>
             </apex:outputPanel>
-            <apex:outputPanel id="dataValidatorSelector" rendered="{!showDataValidator}">
+     <!--   <apex:outputPanel id="dataValidatorSelector" rendered="{!showDataValidator}">
                 <div class="tableColumnDropDown">
                     <c:DataValidatorSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showDataValidator}" sectionKey="{!sectionKey}"/>
                 </div>
-            </apex:outputPanel>
+            </apex:outputPanel> -->
      <!--   <apex:outputPanel id="mtnChanSelector" rendered="{!showMtnChan}">
                 <div class="tableColumnDropDown">
                     <c:MtnChannelStaff key="Person__c{!sectionKey}" pageController="{!this}" show="{!showMtnChan}" sectionKey="{!sectionKey}"/>
                 </div>
             </apex:outputPanel>  -->
-            <apex:outputPanel id="fieldOfficer" rendered="{!showFieldOfficer}">
+   <!--     <apex:outputPanel id="fieldOfficer" rendered="{!showFieldOfficer}">
                 <div class="tableColumnDropDown">
                     <c:FieldOfficerSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showFieldOfficer}" sectionKey="{!sectionKey}"/>
                 </div>
@@ -84,7 +84,7 @@
                 <div class="tableColumnDropDown">
                     <c:OpportunityFarmerSelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showOpportunityFarmer}" sectionKey="{!sectionKey}" />
                 </div>
-            </apex:outputPanel>
+            </apex:outputPanel> -->
             <apex:outputPanel id="bracPa" rendered="{!showBracPa}">
                 <div class="tableColumnDropDown">
                     <c:BracPASelector key="Person__c{!sectionKey}" pageController="{!this}" show="{!showBracPa}" sectionKey="{!sectionKey}"/>

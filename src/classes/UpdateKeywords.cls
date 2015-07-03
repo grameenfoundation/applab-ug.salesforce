@@ -276,11 +276,11 @@ global class UpdateKeywords {
                  idToItemMap.put(menuItem.Id, mItem);
             }
         }
-        //buildSearchContentInMenuItems(idToItemMap, itemToArticleMap);
+        buildSearchContentInMenuItems(idToItemMap, itemToArticleMap);
     }
 
     // loads content into menu items
-    /*private static void buildSearchContentInMenuItems(Map<String, LocalMenuItem> idToItemMap, Map<String, List<String>> itemToArticleMap) {
+    private static void buildSearchContentInMenuItems(Map<String, LocalMenuItem> idToItemMap, Map<String, List<String>> itemToArticleMap) {
 
         for (KnowledgeArticleVersion article : [
             SELECT
@@ -312,7 +312,7 @@ global class UpdateKeywords {
             }
         }
 
-    }*/
+    }
 
     private static void getNewUpdatedAndDeletedImages(List<LocalMenuItem> menuItems, List<ObjectId> deletedMenuIds,
                                                    List<ObjectId> updatedImages, List<ObjectId> deletedImages,
@@ -448,66 +448,6 @@ global class UpdateKeywords {
 
         ObjectId(String objectId) {
             this.id = objectId;
-        }
-    }
-
-    static testMethod void testArticleLink() {
-        // TODO
-
-        // Create a menu and item
-        Menu__c menu = new Menu__c();
-        menu.Label__c = 'Test Menu89';
-        database.insert(menu);
-
-        Menu_Item__c menuItem = new Menu_Item__c();
-        menuItem.Label__c = 'Test Menu Item90';
-        menuItem.Menu__c = menu.Id;
-
-        KnowledgeArticleVersion[] articleVersion = [SELECT ArticleNumber, Summary
-                  FROM KnowledgeArticleVersion
-                  WHERE PublishStatus='Online'
-                  AND Language = 'en_US' LIMIT 1];
-        if(articleVersion.size() > 0) {
-            menuItem.Article_Id__c = articleVersion[0].ArticleNumber;
-            database.insert(menuItem);
-
-            // Set the allowedMenus variable
-            List<LocalMenu> allowedMenus = new List<LocalMenu>();
-            allowedMenus.add(new LocalMenu(menu.Id, menu.Label__c));
-
-            // Check that the insertion went well
-            List<String> newMenuIds = new List<String>();
-            for (LocalMenu menuToAdd : allowedMenus) {
-                newMenuIds.add(menuToAdd.id);
-            }
-
-            Menu_Item__c[] newMenuItems = [SELECT
-                       Id,
-                       Label__c,
-                       Parent_Item__c,
-                       Menu__c,
-                       Article_Id__c,
-                       Content__c,
-                       Position__c
-                   FROM
-                       Menu_Item__c
-                   WHERE
-                       Menu__c IN :newMenuIds];
-            System.assert(newMenuItems.size() > 0);
-
-            List<LocalMenuItem> items = new List<LocalMenuItem>();
-            List<ObjectId> deletedMenuItems = new List<ObjectId>();
-            String[] menuIds = new List<String>();
-            String lastUpdatedDate = '' + DateTime.Now();
-
-            getNewUpdatedAndDeletedMenuItems(allowedMenus, items, deletedMenuItems, menuIds, lastUpdatedDate);
-
-            // check that items contains at least one item
-            System.assert(deletedMenuItems.size() == 0);
-            System.assert(items.size() > 0);
-            System.assert(items[0].label.equals('Test Menu Item90'));
-            System.assert(null != items[0].content); // Content has been set from the article
-            System.assert(items[0].content.contains(articleVersion[0].summary));
         }
     }
 }

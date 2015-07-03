@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>List</customSettingsType>
-    <customSettingsVisibility>Protected</customSettingsVisibility>
     <description>To block or enable functionality in the client package . Indicates whether a function is enable or if there is a limit to use it.</description>
-    <enableFeeds>false</enableFeeds>
     <fields>
         <fullName>Can_Distribute__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Can_Distribute</label>
         <type>Checkbox</type>
     </fields>
@@ -15,14 +12,12 @@
         <fullName>DownloadPPI__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Indicates if the user can download PPI surveys from a parent org</description>
-        <externalId>false</externalId>
         <label>Download PPI</label>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>PPI_Editable__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>PPI_Editable</label>
         <type>Checkbox</type>
     </fields>

@@ -1,45 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Backyard_Garden_Generates_Surplus__c</fullName>
-        <externalId>false</externalId>
         <label>Backyard Garden Generates Surplus</label>
         <picklist>
             <picklistValues>
@@ -52,12 +17,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Backyard_Garden_Main_Fertilizer_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Backyard Garden Main Fertilizer Type</label>
         <picklist>
             <picklistValues>
@@ -82,23 +45,17 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Backyard_Garden_Monthly_Sales__c</fullName>
-        <externalId>false</externalId>
         <label>Backyard Garden Monthly Sales</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Backyard_Garden_Pest_Control_Method__c</fullName>
-        <externalId>false</externalId>
         <label>Backyard Garden Pest Control Method</label>
         <picklist>
             <picklistValues>
@@ -115,33 +72,23 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Corrigimiento__c</fullName>
-        <externalId>false</externalId>
         <label>Corrigimiento</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Count_Children_With_Duplicate_Ids__c</fullName>
-        <externalId>false</externalId>
         <label>Count Children With Duplicate Ids Temp</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Cycle__c</fullName>
-        <externalId>false</externalId>
         <label>Cycle</label>
         <picklist>
             <picklistValues>
@@ -162,65 +109,61 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>District_Correct__c</fullName>
-        <externalId>false</externalId>
         <formula>substitute( Corrigimiento__c , &quot;_&quot;, &quot; &quot;)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>District (Correct)</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Duplicate_Processed__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Duplicate Processed</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Fase_de_la_Huerta_Cosecha__c</fullName>
-        <externalId>false</externalId>
         <formula>if( (Fase_de_la_huerta__c)= &quot;Cosecha&quot;,1,0)</formula>
         <label>Fase de la Huerta Cosecha</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Fase_de_la_huerta__c</fullName>
         <description>This field get it&apos;s value from the backyard garden stage field on the household production record, whenever a new household production record is created.</description>
-        <externalId>false</externalId>
         <label>Fase de la huerta</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Foto__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(ISBLANK( Photo__c) || ISNULL(Photo__c), &quot;&quot;, IMAGE(Photo__c ,&quot;Profile Picture&quot;, 263, 223))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Foto</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HasLB__c</fullName>
+        <label>HasLB</label>
+        <summarizedField>Mana_Food_Consumption_Record__c.LB__c</summarizedField>
+        <summaryForeignKey>Mana_Food_Consumption_Record__c.Household__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>HasXP__c</fullName>
+        <label>HasXP</label>
+        <summarizedField>Mana_Food_Consumption_Record__c.XP__c</summarizedField>
+        <summaryForeignKey>Mana_Food_Consumption_Record__c.Household__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <type>Summary</type>
     </fields>
     <fields>
         <fullName>Has_Backyard_Garden__c</fullName>
-        <externalId>false</externalId>
         <label>Has_Backyard_Garden</label>
         <picklist>
             <picklistValues>
@@ -233,111 +176,105 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Interviewer__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Interviewer</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Registered Households</relationshipLabel>
         <relationshipName>Mana_Households</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Last_Harvest__c</fullName>
+        <label>Last Harvest</label>
+        <summarizedField>Mana_Household_Production_Record__c.Harvest_stage_date__c</summarizedField>
+        <summaryForeignKey>Mana_Household_Production_Record__c.Household__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
         <fullName>Last_date__c</fullName>
-        <externalId>false</externalId>
         <label>Last date</label>
         <summarizedField>Mana_Household_Repeatable_Data__c.CreatedDate</summarizedField>
         <summaryForeignKey>Mana_Household_Repeatable_Data__c.Household__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
-        <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <fields>
         <fullName>Last_production_date__c</fullName>
-        <externalId>false</externalId>
         <label>Last production date</label>
         <summarizedField>Mana_Household_Production_Record__c.CreatedDate</summarizedField>
         <summaryForeignKey>Mana_Household_Production_Record__c.Household__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
-        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Last_visit__c</fullName>
+        <description>Roll-up</description>
+        <label>Last visit</label>
+        <summarizedField>Mana_Household_Production_Record__c.CreatedDate</summarizedField>
+        <summaryForeignKey>Mana_Household_Production_Record__c.Household__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
         <type>Summary</type>
     </fields>
     <fields>
         <fullName>Latitude__c</fullName>
         <description>This lets one set the gps_y coordinate manually. It&apos;s used in the gps_y formula if the linked submission doesn&apos;t have coordinates</description>
-        <externalId>false</externalId>
         <inlineHelpText>This lets one set the gps_y coordinate manually. It&apos;s used in the gps_y formula if the linked submission doesn&apos;t have coordinates</inlineHelpText>
         <label>Latitude</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>5</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Longitude__c</fullName>
         <description>This lets one set the gps_x coordinate manually. It&apos;s used in the gps_x fomula if the linked submission doesn&apos;t have coordinates</description>
-        <externalId>false</externalId>
         <inlineHelpText>This lets one set the gps_x coordinate manually. It&apos;s used in the gps_x fomula if the linked submission doesn&apos;t have coordinates</inlineHelpText>
         <label>Longitude</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>5</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Max_CD__c</fullName>
+        <description>MAx Created Date</description>
+        <label>Max_CD</label>
+        <summarizedField>Mana_Household_Repeatable_Data__c.CreatedDate</summarizedField>
+        <summaryForeignKey>Mana_Household_Repeatable_Data__c.Household__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <type>Summary</type>
     </fields>
     <fields>
         <fullName>Miembros_del_hogar_Correcto__c</fullName>
-        <externalId>false</externalId>
         <label>Miembros del hogar (Correcto)</label>
         <summaryForeignKey>Mana_Beneficiary__c.Household__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
-        <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <fields>
         <fullName>Miembros_del_hogar__c</fullName>
-        <externalId>false</externalId>
         <label>Miembros del hogar</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Municipality_Correct__c</fullName>
-        <externalId>false</externalId>
         <formula>substitute( Municipio__c  , &quot;_&quot;, &quot; &quot;)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Municipality (Correct)</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Municipio__c</fullName>
-        <externalId>false</externalId>
         <label>Municipio</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Permitir_SMS__c</fullName>
-        <externalId>false</externalId>
         <label>Permitir SMS</label>
         <picklist>
             <picklistValues>
@@ -350,65 +287,72 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Photo__c</fullName>
-        <externalId>false</externalId>
         <label>Photo</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Region_Correct__c</fullName>
-        <externalId>false</externalId>
         <formula>substitute(  Region__c , &quot;_&quot;, &quot; &quot;)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Region (Correct)</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Region__c</fullName>
-        <externalId>false</externalId>
         <label>Region</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Registration_Submission_Record__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The submission record that was used to create this household (used to set the GPS location information, since it&apos;s got from the submission record)</description>
-        <externalId>false</externalId>
         <label>Registration Submission Record</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>Mana Households</relationshipLabel>
         <relationshipName>Mana_Households</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Sisben_Score__c</fullName>
-        <externalId>false</externalId>
         <label>Sisben Score</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage_LBXP__c</fullName>
+        <description>This field has three possible values:
+1. The household has Baseline
+2. The household has Baseline and Ex post
+3. The household has Ex post</description>
+        <formula>IF(AND(HasLB__c=1,HasXP__c=0),1,(IF(AND(HasLB__c=1,HasXP__c=1),2,(IF(AND(HasLB__c=0,HasXP__c=1),3,0)))))</formula>
+        <label>Stage_LBXP</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Activa</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retirada</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Survey_Place__c</fullName>
-        <externalId>false</externalId>
         <label>Survey Place</label>
         <picklist>
             <picklistValues>
@@ -421,65 +365,50 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Telefono__c</fullName>
-        <externalId>false</externalId>
         <label>Teléfono</label>
         <length>20</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Usa_quimicos__c</fullName>
-        <externalId>false</externalId>
         <formula>if(text( Backyard_Garden_Pest_Control_Method__c )=&quot;Químico&quot;,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Usa químicos</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Vereda__c</fullName>
-        <externalId>false</externalId>
         <label>Vereda</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_by_cycle__c</fullName>
+        <formula>if(OwnerId  = &apos;00570000002fKhe&apos;,(if( text(Cycle__c)=&apos;1&apos;,&apos;2013&apos;,(if(text(Cycle__c)=&apos;2&apos;, &apos;2014&apos;, &apos;0&apos;)))),(if(OwnerId  = &apos;00570000002gHoG&apos;, &apos;2013&apos;,(if(OwnerId  = &apos;00570000003MOSQ&apos; || OwnerId  = &apos;00570000003Ll79&apos;, &apos;2014&apos;, (if(OwnerId  = &apos;00570000002gm0z&apos;,(if(text(Cycle__c)=&apos;1&apos;, &apos;2013&apos;, (if(text(Cycle__c)=&apos;2&apos; || text(Cycle__c)=&apos;3&apos;, &apos;2014&apos;,(if(text(Cycle__c)=&apos;0&apos;, &apos;2012&apos;, &apos;0&apos;)))))),(if(OwnerId  = &apos;00570000002fKho&apos;,(if(text(Cycle__c)=&apos;1&apos; || text(Cycle__c)=&apos;2&apos;, &apos;2013&apos;, (if(text(Cycle__c)=&apos;3&apos;  || text(Cycle__c)=&apos;4&apos;, &apos;2014&apos;, (if(text(Cycle__c)=&apos;0&apos;, &apos;2012&apos;, &apos;0&apos;)))))),(if(OwnerId = &apos;00570000002fKhF&apos;,(if( Municipio__c = &apos;05890-YOLOMBO&apos; || Municipio__c = &apos;05284-FRONTINO&apos;,&apos;2013&apos;,(if( Municipio__c = &apos;05172-CHIGORODO&apos;  || (Interviewer__c = &apos;0037000001U3SzF&apos; &amp;&amp; text(Cycle__c) =&apos;4&apos;),&apos;2014&apos;,&apos;2012&apos;)))),&apos;0&apos;)))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Year (by cycle)</label>
+        <type>Text</type>
     </fields>
     <fields>
         <fullName>Zona__c</fullName>
-        <externalId>false</externalId>
         <label>Zona</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>address__c</fullName>
-        <externalId>false</externalId>
         <label>address</label>
         <length>20</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>children_less_than_5__c</fullName>
-        <externalId>false</externalId>
         <label>children less than 5</label>
         <picklist>
             <picklistValues>
@@ -492,26 +421,20 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>gps_approximation__c</fullName>
         <description>The GPS approximation value from the submission that created this record</description>
-        <externalId>false</externalId>
         <formula>IF(ISBLANK(Registration_Submission_Record__c),0, Registration_Submission_Record__r.gfsurveys__gps_approximation__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gps approximation</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>has_SISBEN__c</fullName>
-        <externalId>false</externalId>
         <label>has SISBEN</label>
         <picklist>
             <picklistValues>
@@ -524,53 +447,38 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>neighborhood__c</fullName>
-        <externalId>false</externalId>
         <label>neighborhood</label>
         <length>20</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>signature__c</fullName>
-        <externalId>false</externalId>
         <label>signature</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>sisben_nivel_1_y_2__c</fullName>
         <description>Sisbén nivel 1 y 2. Urabano menor a 50 y Rural menor a 45</description>
-        <externalId>false</externalId>
         <formula>if((Sisben_Score__c)&lt;=45,if((Zona__c)=&quot;Rural&quot;,1,if((Sisben_Score__c)&lt;=50,if((Zona__c)=&quot;Urbano&quot;,1,0),0)),if((Sisben_Score__c)&lt;=50,if((Zona__c)=&quot;Urbano&quot;,1,0),0))</formula>
         <label>Sisbén nivel 1 y 2</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>ultima_toma_de_producci_n__c</fullName>
-        <externalId>false</externalId>
         <label>Última toma de producción</label>
         <summarizedField>Mana_Household_Production_Record__c.CreatedDate</summarizedField>
         <summaryForeignKey>Mana_Household_Production_Record__c.Household__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
-        <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <fields>
         <fullName>underage_members__c</fullName>
-        <externalId>false</externalId>
         <label>underage members</label>
         <picklist>
             <picklistValues>
@@ -583,8 +491,14 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>with_TA__c</fullName>
+        <label>with TA</label>
+        <summaryForeignKey>Mana_Household_Production_Record__c.Household__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
     </fields>
     <label>Mana Household</label>
     <listViews>
@@ -601,7 +515,6 @@
         <columns>CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
         <label>Mana Households</label>
-        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>Mana_Households_Same_Ids</fullName>
@@ -619,11 +532,9 @@
             <value>1</value>
         </filters>
         <label>Mana Households_Same_Ids</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Id</label>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Mana Households</pluralLabel>

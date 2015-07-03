@@ -1,45 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Bulking_Marketing__c</fullName>
-        <externalId>false</externalId>
         <label>Bulking Marketing</label>
         <picklist>
             <picklistValues>
@@ -52,7 +17,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Bulk_Marketing__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Bulk Marketing</label>
         <picklist>
             <picklistValues>
@@ -74,7 +38,6 @@
     <fields>
         <fullName>Discussed_Harvesting_and_PHH__c</fullName>
         <description>NA means Not Applicable</description>
-        <externalId>false</externalId>
         <label>Discussed Harvesting and PHH</label>
         <picklist>
             <picklistValues>
@@ -95,7 +58,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Land_Preparation__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>NA means Not Applicable</inlineHelpText>
         <label>Discussed Land Preparation</label>
         <picklist>
@@ -117,7 +79,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Pests_and_Diseases__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Pests and Diseases</label>
         <picklist>
             <picklistValues>
@@ -138,7 +99,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Proper_Planting__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Proper Planting</label>
         <picklist>
             <picklistValues>
@@ -159,7 +119,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Record_Keeping__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Record Keeping</label>
         <picklist>
             <picklistValues>
@@ -180,7 +139,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Seed_Selection__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Seed Selection</label>
         <picklist>
             <picklistValues>
@@ -201,7 +159,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Soil_Fertility_Management__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Soil Fertility Management</label>
         <picklist>
             <picklistValues>
@@ -222,7 +179,6 @@
     </fields>
     <fields>
         <fullName>Harvesting_and_PHH__c</fullName>
-        <externalId>false</externalId>
         <label>Proper Harvesting and PHH</label>
         <picklist>
             <picklistValues>
@@ -257,26 +213,21 @@
     <fields>
         <fullName>Knowledge_Discussion_Datetime__c</fullName>
         <defaultValue>Today()</defaultValue>
-        <externalId>false</externalId>
         <label>Knowledge Discussion Datetime</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Maize_Farmer_GAPs_Selection__c</fullName>
-        <externalId>false</externalId>
         <label>Maize Farmer GAPs Selection</label>
         <referenceTo>Maize_Farmer_GAPs_Selection__c</referenceTo>
         <relationshipLabel>Maize GAPs Knowledge</relationshipLabel>
         <relationshipName>Maize_GAPs_Knowledge</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Pest_and_disease_identification__c</fullName>
-        <externalId>false</externalId>
         <label>Proper pest and disease identification</label>
         <picklist>
             <picklistValues>
@@ -298,7 +249,6 @@
     </fields>
     <fields>
         <fullName>Proper_Record_Keeping_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper Record Keeping Topics</label>
         <picklist>
             <picklistValues>
@@ -320,7 +270,6 @@
     </fields>
     <fields>
         <fullName>Proper_and_timely_land_preparation_Topic__c</fullName>
-        <externalId>false</externalId>
         <label>Proper and timely land preparation Topic</label>
         <picklist>
             <picklistValues>
@@ -338,7 +287,6 @@
     </fields>
     <fields>
         <fullName>Proper_planting_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper planting Topics</label>
         <picklist>
             <picklistValues>
@@ -384,7 +332,6 @@
     </fields>
     <fields>
         <fullName>Proper_seed_selection_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper seed selection Topics</label>
         <picklist>
             <picklistValues>
@@ -406,7 +353,6 @@
     </fields>
     <fields>
         <fullName>Proper_soil_fertility_management_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper soil fertility management Topics</label>
         <picklist>
             <picklistValues>
@@ -440,7 +386,6 @@
     </fields>
     <fields>
         <fullName>Source__c</fullName>
-        <externalId>false</externalId>
         <label>Source</label>
         <picklist>
             <picklistValues>

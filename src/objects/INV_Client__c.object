@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Client_Name__c</fullName>
+        <formula>Contact__r.Contact_Full_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>INV Clients</relationshipLabel>
+        <relationshipName>INV_Clients</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <label>Description</label>
+        <length>200</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>INV Client</label>
+    <listViews>
+        <fullName>All_Details</fullName>
+        <columns>Description__c</columns>
+        <columns>Client_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Details</label>
+    </listViews>
+    <nameField>
+        <displayFormat>Client-{00000}</displayFormat>
+        <label>INV Client Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>INV Clients</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Client_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Description__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Client_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Description__c</lookupPhoneDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

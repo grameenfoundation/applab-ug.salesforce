@@ -1,45 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Evaluaci_n_de_recoleccion__c</fullName>
-        <externalId>false</externalId>
         <label>Evaluación de recolección</label>
         <picklist>
             <picklistValues>
@@ -56,7 +20,6 @@
     </fields>
     <fields>
         <fullName>Evaluacion_del_despulpado__c</fullName>
-        <externalId>false</externalId>
         <label>Evaluación del despulpado</label>
         <picklist>
             <picklistValues>
@@ -73,14 +36,11 @@
     </fields>
     <fields>
         <fullName>Fecha__c</fullName>
-        <externalId>false</externalId>
         <label>Fecha</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Inocuidad_bodegas__c</fullName>
-        <externalId>false</externalId>
         <label>Inocuidad bodegas</label>
         <picklist>
             <picklistValues>
@@ -97,7 +57,6 @@
     </fields>
     <fields>
         <fullName>Inocuidad_del_beneficio__c</fullName>
-        <externalId>false</externalId>
         <label>Inocuidad del beneficio</label>
         <picklist>
             <picklistValues>
@@ -123,108 +82,80 @@
     </fields>
     <fields>
         <fullName>Nivel_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Puntaje_categoria__c &lt; 2, &apos;c. Bajo&apos;, IF (Puntaje_categoria__c &lt; 4, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
         <label>Nivel categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>&apos;Cosecha-PostCosecha&apos;</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_tipo_fecha__c</fullName>
-        <externalId>false</externalId>
         <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre tipo fecha</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Plan_de_Manejo_de_Finca__c</fullName>
-        <externalId>false</externalId>
         <label>Plan de Manejo de Finca</label>
         <referenceTo>Farm_Management_Plan__c</referenceTo>
         <relationshipLabel>PMF Finca Categ. 9 - Cosecha-PostCosech</relationshipLabel>
         <relationshipName>PMF_Finca_Categs_9_Cosecha_PostCosech</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Puntaje_Evaluacion_de_recoleccion__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL(  Evaluaci_n_de_recoleccion__c , &apos;Evalúa la recolección&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Evaluación de recolección</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Evaluacion_del_despulpado__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL(  Evaluacion_del_despulpado__c , &apos;Despulpadora limpia y en buen estado&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Evaluación del despulpado</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Inocuidad_bodegas__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL(  Inocuidad_bodegas__c , &apos;Buenas condiciones de limpieza&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Inocuidad bodegas</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Inocuidad_del_beneficio__c</fullName>
-        <externalId>false</externalId>
         <formula>IF (OR(INCLUDES(Inocuidad_del_beneficio__c ,&apos;Ningún riesgo&apos;), ISBLANK( Inocuidad_del_beneficio__c )), 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Inocuidad del beneficio</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Registro_de_recoleccion__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( INCLUDES(  Registro_de_recoleccion__c , &apos;Con documentación/registros de soporte&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Registro de recolección</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>Puntaje_Registro_de_recoleccion__c + 
 Puntaje_Evaluacion_de_recoleccion__c + 
 Puntaje_Inocuidad_del_beneficio__c + 
@@ -233,14 +164,11 @@ Puntaje_Evaluacion_del_despulpado__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje categoría</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Registro_de_recoleccion__c</fullName>
-        <externalId>false</externalId>
         <label>Registro de recolección</label>
         <picklist>
             <picklistValues>
@@ -266,7 +194,6 @@ Puntaje_Evaluacion_del_despulpado__c</formula>
     </fields>
     <fields>
         <fullName>Tipo__c</fullName>
-        <externalId>false</externalId>
         <label>Tipo</label>
         <picklist>
             <picklistValues>

@@ -1,47 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents a single point of data on a graph</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Date__c</fullName>
         <description>The date that this graph point is created for</description>
-        <externalId>false</externalId>
         <inlineHelpText>Select the date/time that this data point was created</inlineHelpText>
         <label>Date</label>
         <required>true</required>
@@ -49,68 +12,52 @@
     </fields>
     <fields>
         <fullName>Graph_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Graph Type</label>
         <referenceTo>Graph_Type__c</referenceTo>
         <relationshipLabel>Single Graph Points</relationshipLabel>
         <relationshipName>Single_Graph_Points</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Group_By_Date__c</fullName>
-        <externalId>false</externalId>
         <formula>DATEVALUE(Date__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Group By Date</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Latitude__c</fullName>
         <description>The latitude that the submission that created this point came from</description>
-        <externalId>false</externalId>
         <label>Latitude</label>
         <length>25</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Longitude__c</fullName>
         <description>The longitude that this piece of data was collected form</description>
-        <externalId>false</externalId>
         <label>Longitude</label>
         <length>25</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The person that submitted the survey that created this graph point</description>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>Single Graph Points</relationshipLabel>
         <relationshipName>Single_Graph_Points</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Value__c</fullName>
         <defaultValue>0</defaultValue>
         <description>The value for this single point</description>
-        <externalId>false</externalId>
         <label>Value</label>
         <precision>18</precision>
         <required>true</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <label>Single Graph Point</label>
     <listViews>

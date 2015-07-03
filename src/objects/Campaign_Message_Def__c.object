@@ -1,82 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <content>CampaignMessageDefAddEdit</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <content>CampaignMessageDefAddEdit</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <content>CampaignMessageDef</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>The message campaign message definition. This is the message that is set to enrollments.</description>
-    <enableActivities>false</enableActivities>
-    <enableEnhancedLookup>false</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Content__c</fullName>
         <description>The message content that is sent to the users that are enrolled to a campaign in which this message belongs to.</description>
-        <externalId>false</externalId>
         <inlineHelpText>Text Message to send to the subscribers.</inlineHelpText>
         <label>Text</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Cron__c</fullName>
         <description>A valid cron expression that specifies the scheduling of the messages.</description>
-        <externalId>false</externalId>
         <inlineHelpText>A valid cron expression that specifies the scheduling of the messages.</inlineHelpText>
         <label>Cron</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Date__c</fullName>
         <description>The date on which the absolute message will be sent.</description>
-        <externalId>false</externalId>
         <inlineHelpText>The date on which the absolute message will be sent.</inlineHelpText>
         <label>Date</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Format__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>The format of the campaign message e.g. SMS, IVR etc</inlineHelpText>
         <label>Format</label>
         <picklist>
@@ -92,7 +41,6 @@
     <fields>
         <fullName>Language__c</fullName>
         <description>The language(s) for the message, in this case, en (English).</description>
-        <externalId>false</externalId>
         <inlineHelpText>The language(s) for the message, in this case, en (English).</inlineHelpText>
         <label>Language</label>
         <picklist>
@@ -108,53 +56,40 @@
     <fields>
         <fullName>Message_Campaign__c</fullName>
         <description>The message campaign related to this message.</description>
-        <externalId>false</externalId>
         <inlineHelpText>The message campaign related to this message.</inlineHelpText>
         <label>Message Campaign</label>
         <referenceTo>MessageCampaign__c</referenceTo>
         <relationshipName>Campaign_Messages</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Message_Key__c</fullName>
         <description>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</description>
-        <externalId>false</externalId>
         <inlineHelpText>a unique key that can be used to reference text content in an outside system that will be sent to the message campaign subscribers.</inlineHelpText>
         <label>Message Key</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Offset_Time__c</fullName>
         <description>The amount of time from the reference date or current date that will elapse before the message is sent.</description>
-        <externalId>false</externalId>
         <inlineHelpText>The amount of time from the reference date or current date that will elapse before the message is sent.</inlineHelpText>
         <label>Offset Time</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Repeat_Every__c</fullName>
         <description>An interval that determines how often the message is sent until the maxDuration period has elapsed.</description>
-        <externalId>false</externalId>
         <inlineHelpText>An interval that determines how often the message is sent until the maxDuration period has elapsed.</inlineHelpText>
         <label>Repeat Every</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Repeat_On__c</fullName>
         <description>The day of the week on which the message will be sent until the maxDuration period has elapsed.</description>
-        <externalId>false</externalId>
         <inlineHelpText>The day of the week on which the message will be sent until the maxDuration period has elapsed.</inlineHelpText>
         <label>Repeat On</label>
         <picklist>
@@ -194,13 +129,10 @@
     <fields>
         <fullName>Start_Time__c</fullName>
         <description>The time at which the message will be sent.</description>
-        <externalId>false</externalId>
         <inlineHelpText>The time at which the message will be sent.</inlineHelpText>
         <label>Start Time</label>
         <length>10</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>Message</label>
     <nameField>
@@ -215,7 +147,6 @@
         <availability>online</availability>
         <description>Button to create a new message</description>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <linkType>url</linkType>
         <masterLabel>New Message</masterLabel>
         <openType>replace</openType>

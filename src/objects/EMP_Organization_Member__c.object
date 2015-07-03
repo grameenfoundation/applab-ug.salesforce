@@ -1,45 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Address_Location__c</fullName>
+        <label>Address Location</label>
+        <length>50</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Age__c</fullName>
+        <label>Age</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
         <fullName>Cycle__c</fullName>
-        <externalId>false</externalId>
         <label>Cycle</label>
         <picklist>
             <picklistValues>
@@ -76,30 +53,29 @@
     </fields>
     <fields>
         <fullName>EMP_Organization_Member_Consultant__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>EMP Organization Member Consultant</label>
         <referenceTo>EMP_Consultant__c</referenceTo>
         <relationshipLabel>EMP Organization Members</relationshipLabel>
         <relationshipName>EMP_Organization_Members</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>EMP_Organization_Name__c</fullName>
+        <formula>EMP_Organization__r.Organization_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EMP_Organization_Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
         <fullName>EMP_Organization__c</fullName>
-        <externalId>false</externalId>
         <label>EMP Organization</label>
         <referenceTo>EMP_Organization__c</referenceTo>
         <relationshipLabel>EMP Organization Members</relationshipLabel>
         <relationshipName>EMP_Organization_Members</relationshipName>
-        <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Farmer_type__c</fullName>
-        <externalId>false</externalId>
         <label>Farmer type</label>
         <picklist>
             <picklistValues>
@@ -116,37 +92,80 @@
     </fields>
     <fields>
         <fullName>Organization_Member_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Organization Member Name</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Organization_member_national_ID__c</fullName>
-        <caseSensitive>false</caseSensitive>
-        <externalId>false</externalId>
         <label>Organization member national ID</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
         <unique>true</unique>
     </fields>
     <fields>
+        <fullName>SISBEN_Score__c</fullName>
+        <label>SISBEN Score</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>SignatureURL__c</fullName>
+        <label>SignatureURL</label>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Signature__c</fullName>
+        <formula>IMAGE( SignatureURL__c , &quot;&quot;, 200, 400)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Signature</label>
+        <type>Text</type>
+    </fields>
+    <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>EMP Organization Members</relationshipLabel>
         <relationshipName>EMP_Organization_Members</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Surveyor_Code__c</fullName>
+        <label>Surveyor Code</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Surveyor_Name__c</fullName>
+        <label>Surveyor Name</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Village__c</fullName>
+        <label>Village</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Zone__c</fullName>
+        <label>Zone</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Urbana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rural</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>deseaRegistrarReplicaParcela__c</fullName>
-        <externalId>false</externalId>
         <label>deseaRegistrarReplicaParcela</label>
         <picklist>
             <picklistValues>
@@ -161,7 +180,192 @@
         </picklist>
         <type>Picklist</type>
     </fields>
+    <fields>
+        <fullName>district__c</fullName>
+        <label>District</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>familyAverageIncome__c</fullName>
+        <label>Family Average Income</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Menos de 1 SMLV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 SMLV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Más de 1 SMLV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>familyMembers__c</fullName>
+        <label>Family Members</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>hasSISBEN__c</fullName>
+        <label>Has SISBEN</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>municipality__c</fullName>
+        <label>Municipality</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>photoURL__c</fullName>
+        <label>Photo URL</label>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>photo__c</fullName>
+        <formula>IMAGE( photoURL__c , &quot;&quot;, 200, 400)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Photo</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>productionGroundOther__c</fullName>
+        <label>Production Ground Other</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>productionGround__c</fullName>
+        <label>Production Ground</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Un terreno propio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Un terreno en arriendo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Un terreno en comodato</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Un terreno prestado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>productiveLine__c</fullName>
+        <label>Productive Line</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Tomate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fríjol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arroz</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hortalizas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compost</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semillas/Plántulas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>reasonToRetire__c</fullName>
+        <label>reasonToRetire</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Activo</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retiro por desplazamiento del productor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retiro por que el cultivo culmino su ciclo productivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retiro por fallecimiento del Productor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retiro por muerte del cultivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retiro por falta de interes en el programa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retiro por otros motivos diferentes a los anteriores</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>region__c</fullName>
+        <label>Region</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>retiredDate__c</fullName>
+        <label>retiredDate</label>
+        <type>Date</type>
+    </fields>
     <label>EMP Organization Member</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>{0000}</displayFormat>
         <label>EMP Organization Member Name</label>
@@ -169,5 +373,5 @@
     </nameField>
     <pluralLabel>EMP Organization Members</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
+    <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

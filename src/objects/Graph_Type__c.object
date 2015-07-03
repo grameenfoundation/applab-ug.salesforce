@@ -1,46 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A type of graph. This is used to link together all Graph Single Points or the custom sObjects that go on to a graph.</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Calculation__c</fullName>
-        <externalId>false</externalId>
         <label>Calculation</label>
         <picklist>
             <picklistValues>
@@ -53,29 +16,23 @@
     </fields>
     <fields>
         <fullName>Graph_Parameter__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The graph definition that this type belongs to</description>
-        <externalId>false</externalId>
         <inlineHelpText>Choose the graph parameter that this type belongs to</inlineHelpText>
         <label>Graph Parameter</label>
         <referenceTo>Graph_Parameter__c</referenceTo>
         <relationshipLabel>Graph Types</relationshipLabel>
         <relationshipName>Graph_Types</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Group_Field__c</fullName>
-        <externalId>false</externalId>
         <label>Group Field</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Is_Multiple__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Indicates that this is a type that fetches many fields from the same record</description>
-        <externalId>false</externalId>
         <inlineHelpText>Check if this type is to gather data from many fields on the same record</inlineHelpText>
         <label>Is Multiple</label>
         <type>Checkbox</type>
@@ -84,33 +41,26 @@
         <fullName>Keyword__c</fullName>
         <defaultValue>&quot;NONE&quot;</defaultValue>
         <description>The keyword that is being searched for. Only use this field if the graph is for the search logs</description>
-        <externalId>false</externalId>
         <inlineHelpText>If this graph is for search logs enter the keyword that this type captures</inlineHelpText>
         <label>Keyword</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Label__c</fullName>
         <description>The label for the line or pie segment or whatever is suitable</description>
-        <externalId>false</externalId>
         <inlineHelpText>Enter the label for this type</inlineHelpText>
         <label>Label</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Person_Prefix__c</fullName>
         <description>The prefix to put on front of the Person where clauses</description>
-        <externalId>false</externalId>
         <label>Person Prefix</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Type_Of_sObject__c</fullName>
         <description>Where the data for this type comes from</description>
-        <externalId>false</externalId>
         <inlineHelpText>Select where the data for this graph type is to come from</inlineHelpText>
         <label>Type Of sObject</label>
         <picklist>
@@ -173,10 +123,8 @@
     <fields>
         <fullName>Unique_Identifier__c</fullName>
         <description>An identifier that is box agnostic that can be used to id a graph type. This is required if data needs to be added to the Single Point Graph objects that are below an instance of this record</description>
-        <externalId>false</externalId>
         <inlineHelpText>You should not be filling this in by hand unless you know what you are doing</inlineHelpText>
         <label>Unique Identifier</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <label>Graph Type</label>

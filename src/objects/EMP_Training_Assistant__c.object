@@ -1,84 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Date__c</fullName>
-        <externalId>false</externalId>
         <label>Date</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>EMP_Organization_Member_Beneficiary__c</fullName>
+        <label>EMP Organization Member Beneficiary</label>
+        <referenceTo>EMP_Organization_Member_Beneficiary__c</referenceTo>
+        <relationshipLabel>EMP_Training_Assistant_EMP_OMB</relationshipLabel>
+        <relationshipName>EMP_Training_Assistant_EMP_OMB</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>EMP_Training_Assistant_Member__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>EMP Training Assistant Member</label>
         <referenceTo>EMP_Organization_Member__c</referenceTo>
         <relationshipLabel>EMP Training Assistants</relationshipLabel>
         <relationshipName>EMP_Training_Assistants</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>EMP_Training_Assistant__c</fullName>
-        <externalId>false</externalId>
         <label>EMP Training Assistant</label>
         <referenceTo>EMP_Training__c</referenceTo>
         <relationshipLabel>EMP Training Assistants</relationshipLabel>
         <relationshipName>EMP_Training_Assistants</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Identification_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Identification Number</label>
         <length>12</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Identity_Document_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Identity Document Type</label>
         <picklist>
             <picklistValues>
@@ -95,25 +56,19 @@
     </fields>
     <fields>
         <fullName>Location__c</fullName>
-        <externalId>false</externalId>
         <label>Location</label>
         <length>40</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Organization_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Organization Name</label>
         <length>80</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Productive_Sector__c</fullName>
-        <externalId>false</externalId>
         <label>Productive Sector</label>
         <picklist>
             <picklistValues>
@@ -150,52 +105,37 @@
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>EMP Training Assistants</relationshipLabel>
         <relationshipName>EMP_Training_Assistants</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Village__c</fullName>
-        <externalId>false</externalId>
         <label>Village</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>mujeresAsistentes__c</fullName>
-        <externalId>false</externalId>
         <label>mujeresAsistentes</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>numeroAsistentes__c</fullName>
-        <externalId>false</externalId>
         <label>numeroAsistentes</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>rubroProductivo__c</fullName>
-        <externalId>false</externalId>
         <label>rubroProductivo</label>
         <length>80</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>EMP Training Assistant</label>
     <nameField>

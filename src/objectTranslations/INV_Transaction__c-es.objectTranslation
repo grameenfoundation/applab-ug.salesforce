@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>Movimiento de Inventario</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Movimiento de Inventario</value>
+    </caseValues>
+    <fields>
+        <label>Artículo</label>
+        <name>Article__c</name>
+        <relationshipLabel><!-- INV Transaction_Article --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- DestinationName --></label>
+        <name>DestinationName__c</name>
+    </fields>
+    <fields>
+        <label>Cliente Destino</label>
+        <name>Destination__c</name>
+        <relationshipLabel><!-- INV_Transaction_Destination --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Cantidad</label>
+        <name>Quantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- SourceName --></label>
+        <name>SourceName__c</name>
+    </fields>
+    <fields>
+        <label>Cliente Origen</label>
+        <name>Source__c</name>
+        <relationshipLabel><!-- INV_Transaction_Source --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Submission --></label>
+        <name>Submission__c</name>
+        <relationshipLabel><!-- INV Transactions --></relationshipLabel>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>INV Transaction Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Movimiento de Inventario</nameFieldLabel>
+</CustomObjectTranslation>

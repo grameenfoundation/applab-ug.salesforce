@@ -23,10 +23,13 @@ public class TestCallCenterController {
         //system.assert(pageRef2 == null);
     }
     
-    static testmethod void testCreateCases() {
+    static testmethod void testCreateCases() {        
         CallCenterController controller = new CallCenterController();
         Farmer__c testFarmer = controller.createDefaultFarmer(); 
-        Case farmerCase = controller.getCurrentCase();        
+        Case farmerCase = controller.getCurrentCase();  
+        
+        System.assert(controller.saveCurrentCase(new Person__c()) == false);   
+           
         boolean saved = controller.saveCurrentCase(testFarmer);
         system.assertEquals(saved , false);
         farmerCase.Subject = 'test';
@@ -35,6 +38,13 @@ public class TestCallCenterController {
         saved = controller.saveCurrentCase(testFarmer);
         system.assertEquals(saved , true);
         
+        Person__c person = new Person__c();
+        person.First_Name__c = 'testName';
+        insert person;
+        controller.setChosenId(String.valueOf(person.Id));
+        controller.setCkw(person);
+        boolean psaved = controller.saveCurrentCase(person);
+        system.assertEquals(psaved , true);        
     }
     
    static testmethod void testGetFarmerCases() {
@@ -57,6 +67,16 @@ public class TestCallCenterController {
         currentCase.Status = 'Closed';
         controller.saveCase();
         controller.saveCaseAndClose();
+        
+        Person__c person = new Person__c();
+        person.First_Name__c = 'testName';
+        insert person;
+        controller.setCkw(person);
+        controller.savePersonChanges();//for existing person
+        controller.setIsNewFarmer(true);
+        controller.savePersonChanges();//for new person
+        controller.finish();
+        controller.changeFarmer();
         system.assert(currentCase != null);
     }
 
@@ -74,5 +94,9 @@ public class TestCallCenterController {
         system.assert(controller.getResponse() != 'response');
         controller.callerType = 'CKW';
         system.assert(controller.getPhoneNumber() == phoneNumber);  
+        system.assert(controller.getCallBackRequired() == false);  
+        system.assert(controller.getChosenId() == null); 
+        system.assert(controller.getCkw() == null); 
+        controller.setChosenId('');
     }
 }

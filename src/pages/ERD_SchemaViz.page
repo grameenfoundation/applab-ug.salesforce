@@ -1,0 +1,79 @@
+<apex:page controller="ERD_SchemaVizController">    
+    <apex:includeScript value="{!$Resource.ERD_shadedborder}"></apex:includeScript>
+    <apex:includeScript value="{!$Resource.ERD_smoothscroll}"></apex:includeScript>
+    <apex:include pageName="ERD_Common_CSS"/>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <a name="to_top"></a>
+    <apex:sectionHeader id="erd_schemaVizSectionHeader" title="Custom Objects" subtitle="{!organizationName} Organization" help="ERD_Help"/>
+    <apex:outputPanel layout="block" id="content">
+        <div id="links">
+            <ul class="ib-fix">
+                <li>
+                    <apex:form >
+                        <apex:commandLink action="{!previousPage}" styleClass="sbi" >
+                            <span>Previous</span>
+                        </apex:commandLink>
+                    </apex:form>
+                </li>
+                <apex:repeat value="{!OrgCharts}" var="oc">
+                    <li><a href="#{!oc.title}" class="sbi"><span>{!oc.title}</span></a></li>
+                </apex:repeat>
+                <li>
+                    <apex:form >
+                        <apex:commandLink action="{!nextPage}" styleClass="sbi" >
+                            <span>Next</span>
+                        </apex:commandLink>
+                    </apex:form>    
+                </li>
+            </ul>
+        </div>
+        
+        <div id="my-border">
+            <div id="my-border-content">
+                <apex:repeat value="{!OrgCharts}" var="oc">
+                    <a name="{!oc.title}"></a>
+                    <div id="{!oc.title}"></div>
+                    <div style="to_top">
+                        <a href="#to_top">
+                            <apex:image value="{!URLFOR($Resource.ERD_silkicons, 'icons/arrow_undo.png')}"/>Back to top
+                        </a>
+                    </div>
+                </apex:repeat>
+            </div>
+        </div>
+        
+        <script language="javascript" type="text/javascript">
+            google.load("visualization", "1", {packages:["orgchart"]});
+            google.setOnLoadCallback(drawChart);
+            
+            function drawChart() {
+                <apex:repeat value="{!OrgCharts}" var="oc">
+                    var allowCollapse = true; 
+                    var {!oc.title} = new google.visualization.DataTable();
+                    {!oc.title}.addColumn('string', 'Name');
+                    {!oc.title}.addColumn('string', 'Manager');
+                    {!oc.title}.addRows({!oc.entryCount});
+                    <apex:repeat value="{!oc.entries}" var="entry">         
+                        {!oc.title}.setCell({!entry.row}, {!entry.column}, '{!entry.label}');
+                    </apex:repeat>         
+                    
+                    var {!oc.title}table = new google.visualization.OrgChart(document.getElementById('{!oc.title}'));
+                    {!oc.title}table.draw({!oc.title}, {allowCollapse:true, size:'medium', allowHtml:true});   
+                </apex:repeat>
+                            
+                var myBorder    = RUZEE.ShadedBorder.create({ corner:8, shadow:16, border:2 });
+                var linksBorder = RUZEE.ShadedBorder.create({ corner:10, shadow:16, border:2 });
+                var linkBorder  = RUZEE.ShadedBorder.create({ shadow:4 });
+                
+                linksBorder.render('links');
+                linkBorder.render($('links').getElementsByTagName('a'));  
+                myBorder.render('my-border');
+                myBorder.render('my-border-content');
+            }  
+      
+        </script>
+        
+        <apex:includeScript value="{!$Resource.ERD_prototype}"></apex:includeScript>
+        <apex:includeScript value="{!$Resource.ERD_ellipsis}"></apex:includeScript>
+    </apex:outputPanel>
+</apex:page>

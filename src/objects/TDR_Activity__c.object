@@ -1,46 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Activity_Conducted__c</fullName>
         <description>The activity conducted by the TDR</description>
-        <externalId>false</externalId>
         <label>Activity Conducted</label>
         <length>32768</length>
         <type>LongTextArea</type>
@@ -50,28 +13,23 @@
         <fullName>Activity_Latitude__c</fullName>
         <defaultValue>&quot;NONE&quot;</defaultValue>
         <description>The latitude that the activity was carried out. The GPS captured on the form</description>
-        <externalId>false</externalId>
         <label>Activity Latitude</label>
         <length>25</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Activity_Longitude__c</fullName>
         <defaultValue>&quot;NONE&quot;</defaultValue>
         <description>The longitude that the activity was carried out. The GPS location captured on the form</description>
-        <externalId>false</externalId>
         <label>Activity Longitude</label>
         <length>25</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Activity_Type__c</fullName>
         <description>The type of activity that the TDR has carried out</description>
-        <externalId>false</externalId>
         <label>Activity Type</label>
         <picklist>
             <picklistValues>
@@ -109,7 +67,6 @@
     <fields>
         <fullName>Additional_Comments__c</fullName>
         <description>Any additional comments made by a TDR for the daily activity</description>
-        <externalId>false</externalId>
         <label>Additional Comments</label>
         <length>32768</length>
         <type>LongTextArea</type>
@@ -118,7 +75,6 @@
     <fields>
         <fullName>Comment__c</fullName>
         <description>Any comment made by the TDR on this activity</description>
-        <externalId>false</externalId>
         <label>Comment</label>
         <length>32768</length>
         <type>LongTextArea</type>
@@ -128,29 +84,22 @@
         <fullName>Company_Name__c</fullName>
         <defaultValue>&quot;&quot;</defaultValue>
         <description>The name of the company that this activity was with</description>
-        <externalId>false</externalId>
         <label>Company Name</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Contact_Name__c</fullName>
         <defaultValue>&quot;&quot;</defaultValue>
         <description>The name of the contact that this activity was carried out with</description>
-        <externalId>false</externalId>
         <label>Contact Name</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Duplicate_Submission__c</fullName>
         <caseSensitive>true</caseSensitive>
         <description>Check field to see if this activity has been submitted before</description>
-        <externalId>false</externalId>
         <label>Duplicate Submission</label>
         <length>255</length>
         <required>true</required>
@@ -160,7 +109,6 @@
     <fields>
         <fullName>End_Time__c</fullName>
         <description>The time that the TDR finished the activity</description>
-        <externalId>false</externalId>
         <label>End Time</label>
         <required>true</required>
         <type>DateTime</type>
@@ -168,7 +116,6 @@
     <fields>
         <fullName>Start_Time__c</fullName>
         <description>The start time of this activity</description>
-        <externalId>false</externalId>
         <label>Start Time</label>
         <required>true</required>
         <type>DateTime</type>
@@ -176,27 +123,21 @@
     <fields>
         <fullName>TDR_Performance_Record__c</fullName>
         <description>The daily performance record that this activity is attached to.</description>
-        <externalId>false</externalId>
         <inlineHelpText>This should only ever be a DAILY TDR Performance Record</inlineHelpText>
         <label>TDR Performance Record</label>
         <referenceTo>TDR_Performance__c</referenceTo>
         <relationshipLabel>TDR Activites</relationshipLabel>
         <relationshipName>TDR_Activites</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>eFloat__c</fullName>
         <description>The eFloat value found in the MM Short Report. Only valid for the Short Report type</description>
-        <externalId>false</externalId>
         <label>eFloat</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <label>TDR Activity</label>
     <nameField>

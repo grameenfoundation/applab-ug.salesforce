@@ -1,0 +1,36 @@
+<apex:page controller="BSS_SurveyPageController" showHeader="true" sidebar="false" language="es" docType="html-5.0">
+	<apex:form >
+		<apex:pageBlock title="Seleccione el Proyecto y/o el Líder" >
+			<apex:pageMessages />
+			<apex:pageBlockSection columns="8">
+				<apex:selectList id="project" size="1" value="{!project}" label="Seleccione un Proyecto">
+					<apex:selectOptions value="{!bSSProjects}"/>
+					<apex:actionSupport event="onchange" reRender="ckw"/>
+				</apex:selectList>
+				<apex:selectList id="ckw" size="1" value="{!ckw}" label="Seleccione un líder" >
+					<apex:selectOptions value="{!projectsCKW}"/>
+					<apex:actionSupport event="onchange" action="{!executeSearch}"/>
+				</apex:selectList>
+				<apex:commandButton action="{!executeSearch}" value="Buscar"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Cuentas de cobro del proyecto {!projectLabel.Name__c} del mes de  {!CASE(MONTH(DATEVALUE(NOW())-1), 1, 'Enero', 2, 'Febrero', 3, 'Marzo', 4, 'Abril', 5, 'Mayo', 6, 'Junio', 7, 'Julio', 8, 'Agosto', 9, 'Septiembre', 10, 'Octubre', 11, 'Noviembre', 12, 'Diciembre', '-')} "> 
+			<apex:pageBlockButtons >
+				<apex:commandbutton value="Guardar y aprobar" action="{!save}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlock title="Lider: {!ckwLabel.CKW_Name__c }" mode="inlineEdit">
+				<apex:pageBlockTable id="table" value="{!details}" var="dtls">
+					<apex:column headerValue="Líder" value="{!dtls.BSS_Monthly_Bill_Header__r.BSS_CKW_Project__r.CKW_Name__c}"/>
+					<apex:column headerValue="Encuesta" value="{!dtls.Survey_Name__c}"/>
+					<apex:column headerValue="Cantidad de envios">
+						<apex:inputField value="{!dtls.Quantity__c}"/>
+					</apex:column>
+					<apex:column headerValue="Ver envios">
+						<apex:outputLink value="https://gfsurveys.cs30.visual.force.com/apex/SurveyResult?id={!dtls.Survey__r.Survey__c}" target="_blank" styleClass="btn" style="text-decoration:none;">VER</apex:outputLink>
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

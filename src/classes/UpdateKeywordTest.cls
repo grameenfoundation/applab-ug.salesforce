@@ -22,7 +22,36 @@
 @isTest
 private class UpdateKeywordTest {
 
-    static testMethod void myUnitTest() {
-        // TO DO: implement unit test
+    static testMethod void TestGetKeywords() {
+        
+        // Create a person with a phone, assign him to a group, assign content to that group
+        Phone__c phone = Utils.createTestHandset('12345');
+        insert phone;
+        District__c district = Utils.createTestDistrict('12345');
+        insert district;
+        Person__c person = Utils.createTestPerson(phone.Id, '12345', false, district.Id, 'Male');
+        insert person;
+        Group__c grp = new Group__c(Name='Test Group');
+        insert grp;
+        Person_Group_Association__c pga = new Person_Group_Association__c(Group__c = grp.Id, Person__c = person.Id);
+        insert pga;
+        // create content
+        Menu__c menu = new Menu__c(Label__c = 'Test Menu');
+        insert menu;
+        Menu_Item__c topLevelItem = new Menu_Item__c(Menu__c = menu.Id, Label__c = 'Top Level');
+        insert topLevelItem;
+        Menu_Item__c content = new Menu_Item__c(Menu__c = menu.Id, Label__c = 'Content item', Parent_Item__c=topLevelItem.Id, Content__c='test content');
+        insert content;
+        Menu_Group_Association__c mga = new Menu_Group_Association__c(Menu__c = menu.Id, Group__c = grp.Id);
+        insert mga;
+        
+        UpdateKeywords.JsonRequest jsonRequest = new UpdateKeywords.JsonRequest();
+        jsonRequest.Imei = '12345';
+        jsonRequest.KeywordsLastUpdatedDate = '2014-01-01 00:00:00';
+        jsonRequest.ImagesLastUpdatedDate = '2014-01-01 00:00:00';
+        Test.startTest();
+        System.assert(UpdateKeywords.getKeywords(jsonRequest).size() > 0);
+        UpdateKeywords.saveMenuItemsToStaticResource('Test Menu', 'fileMe');
+        Test.stopTest();
     }
 }

@@ -21,7 +21,7 @@ trigger CBL_Farm_UpdateDataCbl2 on CBL_Farm__c (after insert) {
     }
     
     //get the farms2 to uptade the farm data
-    for(List<CBL2_Farm__c> farms2ToUpdate : [SELECT Id, Farmer__c, agrochemElimin100MtsAwayWater__c,agrochemOriginalContainerProperUse__c,altitudInMOSL__c,areaRenewedCoffee__c,areaRenewedCoffeeUnits__c,biologicalDiversityContrib__c,chemicalFertilizersUseLastYr__c,cleanTransportContainers__c,coffeCuttingPolicy__c,coffeeInvoicesRegistered__c,coffeePlantedArea__c,coffeePlantedAreaUnits__c,coffeeProcessingPlanDistance__c,coffeProcessingPlace__c,containersNotReused__c,contaminationProtectionMeasures__c,contaminationRiskZones__c,contaminationSources__c,CP_Calculation_Date__c,dangSubstancesManipulatorsTrained__c,discrimination__c,diseaseControlAgrochemicals__c,diseaseControlApplicationNumber__c,diseaseControlOrganicProducts__c,doesPlagues_DiseaseSampling__c,doesSoilSampling__c,doesSoilTreatmentCorrectPH__c,entranceProhibited48Hours__c,erosionRiskLevel__c,erosionRiskPercentage__c,erosionZonesIdentified__c,farmCertifications__c,farmCode__c,Farm_Code_Guat__c,farmCountry__c,farmDepartment__c,farmDistrict__c,farmLocation__c,farmManagmtDocuments__c,farmMgmtDocsComplete__c,farmMunicipality__c,farmName__c,farmOwnership__c,farmPermanentStaff__c,farmWaterBodies__c,fertAcordingSoilAnalysis__c,fertilizerApplicationsLastYr__c,fertilizerManufactureCriteria__c,foliarFertilizerUseLastYr__c,forcedLabor__c,forestArea__c,heightMainShadeColumn__c,highIncidenceDiseases__c,highIncidencePlagues__c,hires_RegistersTempStaff__c,hiresUnderAge__c,howDoesDiseaseControl__c,howDoesPlagueControl__c,identifiesHarvestedCoffee__c,Last_FMP_Year__c,lastSoilSampling__c,lastYearTemporaryWages__c,lotsWithCoffeePlanted__c,majorNonConformances__c,maxHeightShade__c,newPlantedArea__c,newPlantedAreaUnits__c,nonConformancePicURL__c,numberOfShadeSpecies__c,organicFertApplicationsLastYr__c,organicFertAreaThisYr__c,organicFertAreaThisYrUnits__c,organicFertilizerIngredients__c,organicFertilizersLastYr__c,organicStatus__c,otherActivitiesArea__c,otherActivitiesAreaUnits__c,otherChemicalFertilizers__c,otherDiseaseControl__c,otherDiseaseControlAgrochem__c,otherDiseaseControlOrganicProd__c,otherFoliarFertilizerLastYr__c,otherHighDisease__c,otherHighIncidencePlagues__c,otherOrganicFertIngredients__c,otherOrganizFertilizers__c,otherPlagueCtrlAgrochemicals__c,otherProdSoilTreatment__c,otherWeedsCtrlHerbicides__c,percentageShade__c,percErosionZoneRiskPrevention__c,percShadeDominantSpecie__c,percShadeFruitTrees__c,percShadeLeguminous__c,percShadeNativeSpecies__c,percWithoutShade__c,permWorkersMinimumMonthWage__c,physicalOralSexualAbuse__c,plague_DiseaseControlEquipmt__c,plagueControlAgroChemicals__c,plantedNewAreas__c,prodLastHarvestUnits__c,productionContaminationRisk__c,productionLastHarvest__c,productsSoilTreatment__c,promotesFloraAndFaunaPreservation__c,pruneAreaLastyear__c,pruneAreaLastYearUnits__c,pruneLastYear__c,pruneType__c,registersPlague_DiseaseCtrlSupplies__c,renewedCoffeeLastYear__c,safeStorageForSupplies__c,shadowLevelsNumber__c,signatureURL__c,soilConservAreaUnits__c,soilConservationArea__c,soilConservationPractices__c,Submission_Farm__c,tempWorkersMinimumDailyWage__c,totalFarmArea__c,totalFarmAreaUnits__c,turnedForestInCropArea__c,typeOfCoffeeLastHarvest__c,underagePregnantProtected__c,underAgeWorkConditions__c,unitForestArea__c,useOfProtApplicationDangSubstances__c,usesLeguminousNitrAbsort__c,wasteDisposedSafeWay__c,waterBodiesBufferZones__c,weedsControlHerbicides__c,weedsControlMethods__c 
+    for(List<CBL2_Farm__c> farms2ToUpdate : [SELECT Id, Farmer__c, agrochemElimin100MtsAwayWater__c,agrochemOriginalContainerProperUse__c,altitudInMOSL__c,areaRenewedCoffee__c,areaRenewedCoffeeUnits__c,biologicalDiversityContrib__c,chemicalFertilizersUseLastYr__c,cleanTransportContainers__c,coffeCuttingPolicy__c,coffeeInvoicesRegistered__c,coffeePlantedArea__c,coffeePlantedAreaUnits__c,coffeeProcessingPlanDistance__c,coffeProcessingPlace__c,containersNotReused__c,contaminationProtectionMeasures__c,contaminationRiskZones__c,contaminationSources__c,CP_Calculation_Date__c,dangSubstancesManipulatorsTrained__c,discrimination__c,diseaseControlAgrochemicals__c,diseaseControlApplicationNumber__c,diseaseControlOrganicProducts__c,doesPlagues_DiseaseSampling__c,doesSoilSampling__c,doesSoilTreatmentCorrectPH__c,entranceProhibited48Hours__c,erosionRiskLevel__c,erosionRiskPercentage__c,erosionZonesIdentified__c,farmCertifications__c,farmCode__c,Farm_Code_Guat__c,farmCountry__c,farmDepartment__c,farmDistrict__c,farmLocation__c,farmManagmtDocuments__c,farmMgmtDocsComplete__c,farmMunicipality__c,farmName__c,farmOwnership__c,farmPermanentStaff__c,farmWaterBodies__c,fertAcordingSoilAnalysis__c,fertilizerApplicationsLastYr__c,fertilizerManufactureCriteria__c,foliarFertilizerUseLastYr__c,forcedLabor__c,forestArea__c,heightMainShadeColumn__c,highIncidenceDiseases__c,highIncidencePlagues__c,hires_RegistersTempStaff__c,hiresUnderAge__c,howDoesDiseaseControl__c,howDoesPlagueControl__c,identifiesHarvestedCoffee__c,Last_FMP_Year__c,lastSoilSampling__c,lastYearTemporaryWages__c,lotsWithCoffeePlanted__c,majorNonConformances__c,maxHeightShade__c,newPlantedArea__c,newPlantedAreaUnits__c,nonConformancePicURL__c,numberOfShadeSpecies__c,organicFertApplicationsLastYr__c,organicFertAreaThisYr__c,organicFertAreaThisYrUnits__c,organicFertilizerIngredients__c,organicFertilizersLastYr__c,organicStatus__c,otherActivitiesArea__c,otherActivitiesAreaUnits__c,otherChemicalFertilizers__c,otherDiseaseControl__c,otherDiseaseControlAgrochem__c,otherDiseaseControlOrganicProd__c,otherFoliarFertilizerLastYr__c,otherHighDisease__c,otherHighIncidencePlagues__c,otherOrganicFertIngredients__c,otherOrganizFertilizers__c,otherPlagueCtrlAgrochemicals__c,otherProdSoilTreatment__c,otherWeedsCtrlHerbicides__c,percentageShade__c,percErosionZoneRiskPrevention__c,percShadeDominantSpecie__c,percShadeFruitTrees__c,percShadeLeguminous__c,percShadeNativeSpecies__c,percWithoutShade__c,permWorkersMinimumMonthWage__c,physicalOralSexualAbuse__c,plague_DiseaseControlEquipmt__c,plagueControlAgroChemicals__c,plantedNewAreas__c,prodLastHarvestUnits__c,productionContaminationRisk__c,productionLastHarvest__c,productsSoilTreatment__c,promotesFloraAndFaunaPreservation__c,pruneAreaLastyear__c,pruneAreaLastYearUnits__c,pruneLastYear__c,pruneType__c,registersPlague_DiseaseCtrlSupplies__c,renewedCoffeeLastYear__c,safeStorageForSupplies__c,shadowLevelsNumber__c,signatureURL__c,soilConservAreaUnits__c,soilConservationArea__c,soilConservationPractices__c,Submission_Farm__c,tempWorkersMinimumDailyWage__c,totalFarmArea__c,totalFarmAreaUnits__c,turnedForestInCropArea__c,typeOfCoffeeLastHarvest__c,underagePregnantProtected__c,underAgeWorkConditions__c,unitForestArea__c,useOfProtApplicationDangSubstances__c,usesLeguminousNitrAbsort__c,wasteDisposedSafeWay__c,waterBodiesBufferZones__c,weedsControlHerbicides__c,weedsControlMethods__c, gps__c, mainProductArea__c, mainProductAreaUnits__c, farmingActivitiesArea__c, farmingActivitiesAreaUnits__c, planCertified__c, whyNotPlanCertified__c, invoicesRegistered__c, completeRecords__c, farmPermanentStaffPaid__c, haveAccessToWaterSource__c, distanceToWaterSource__c, whereWaterComes__c, sowingStyles__c, seedsType__c, hasSeedbed__c, sowingSystem__c, sowingMonths__c, seedsProvider__c, otherSeedsProvider__c, productsDifficultyFinding__c, farmInfrastructureAndTools__c, minimumAreaPlantedAnyCrop__c, minimumAreaWhichCrops__c, hasPackingArea__c, hasPackagingZone__c, cropResidues__c, residuesToCompost__c, soilFertilizingFrequency__c, hasWornSoil__c, hasMulch__c, hasFloraAndFauna__c, howDeepIsTopsoil__c, hasPresenceOfLarvaeAndWorms__c, hasOrganicMatter__c, soilTexture__c, productionCostsRecords__c, monthlyProductionCost__c, hoursDedicatedToCultivation__c, sowingRecords__c, monthlyTransportationCost__c, howTransportsProducts__c, whoAssumesCostOfTransportation__c, productionPlanOnDemand__c, hasChangedFarmingProducts__c, reasonToChangeCrop__c, technicalAssistanceReceived__c, technicalAssistanceStartDate__c, technicalAssistanceThemes__c, willingAcceptTechnicalAssistance__c, hasBathroomForEmployees__c, areaToStoreFarmInputs__c, pesticidesAreSeparated__c, mixturesPreparationArea__c, hasPostharvestArea__c, propertyHasWorkers__c, areaFoodConsumptionAndRest__c, doesCropRotation__c, pondingAreas__c, haveDrainSystem__c, soilConservationPrograms__c, nutritionProgramTechnicalAssistant__c, phytosanitaryAndNutritionalAssistance__c, applicationRecords__c, fertilizationRecords__c, compostingRecords__c
                                     FROM CBL2_Farm__c WHERE Farmer__c IN :LAC_FD_Ids]){
         for(CBL_Farm__c farmInserted : cbls_farms){
             farmExists = false;
@@ -162,6 +162,72 @@ trigger CBL_Farm_UpdateDataCbl2 on CBL_Farm__c (after insert) {
                     farm2.waterBodiesBufferZones__c = farmInserted.waterBodiesBufferZones__c;
                     farm2.weedsControlHerbicides__c = farmInserted.weedsControlHerbicides__c;
                     farm2.weedsControlMethods__c = farmInserted.weedsControlMethods__c;
+                    farm2.mainProductArea__c = farmInserted.mainProductArea__c;
+                    farm2.mainProductAreaUnits__c = farmInserted.mainProductAreaUnits__c;
+                    farm2.farmingActivitiesArea__c = farmInserted.farmingActivitiesArea__c;
+                    farm2.farmingActivitiesAreaUnits__c = farmInserted.farmingActivitiesAreaUnits__c;
+                    farm2.planCertified__c = farmInserted.planCertified__c;
+                    farm2.whyNotPlanCertified__c = farmInserted.whyNotPlanCertified__c;
+                    farm2.invoicesRegistered__c = farmInserted.invoicesRegistered__c;
+                    farm2.completeRecords__c = farmInserted.completeRecords__c;
+                    farm2.farmPermanentStaffPaid__c = farmInserted.farmPermanentStaffPaid__c;
+                    farm2.haveAccessToWaterSource__c = farmInserted.haveAccessToWaterSource__c;
+                    farm2.distanceToWaterSource__c = farmInserted.distanceToWaterSource__c;
+                    farm2.whereWaterComes__c = farmInserted.whereWaterComes__c;
+                    farm2.sowingStyles__c = farmInserted.sowingStyles__c;
+                    farm2.seedsType__c = farmInserted.seedsType__c;
+                    farm2.hasSeedbed__c = farmInserted.hasSeedbed__c;
+                    farm2.sowingSystem__c = farmInserted.sowingSystem__c;
+                    farm2.sowingMonths__c = farmInserted.sowingMonths__c;
+                    farm2.seedsProvider__c= farmInserted.seedsProvider__c;
+                    farm2.otherSeedsProvider__c = farmInserted.otherSeedsProvider__c;
+                    farm2.productsDifficultyFinding__c = farmInserted.productsDifficultyFinding__c;
+                    farm2.farmInfrastructureAndTools__c = farmInserted.farmInfrastructureAndTools__c;
+                    farm2.minimumAreaPlantedAnyCrop__c = farmInserted.minimumAreaPlantedAnyCrop__c;
+                    farm2.minimumAreaWhichCrops__c = farmInserted.minimumAreaWhichCrops__c;
+                    farm2.hasPostharvestArea__c = farmInserted.hasPostharvestArea__c;
+                    farm2.hasPackingArea__c = farmInserted.hasPackingArea__c;
+                    farm2.hasPackagingZone__c = farmInserted.hasPackagingZone__c;
+                    farm2.cropResidues__c = farmInserted.cropResidues__c;
+                    farm2.residuesToCompost__c = farmInserted.residuesToCompost__c;
+                    farm2.soilFertilizingFrequency__c = farmInserted.soilFertilizingFrequency__c;
+                    farm2.hasWornSoil__c = farmInserted.hasWornSoil__c;
+                    farm2.hasMulch__c = farmInserted.hasMulch__c;
+                    farm2.hasFloraAndFauna__c = farmInserted.hasFloraAndFauna__c;
+                    farm2.howDeepIsTopsoil__c = farmInserted.howDeepIsTopsoil__c;
+                    farm2.hasPresenceOfLarvaeAndWorms__c = farmInserted.hasPresenceOfLarvaeAndWorms__c;
+                    farm2.hasOrganicMatter__c = farmInserted.hasOrganicMatter__c;
+                    farm2.soilTexture__c = farmInserted.soilTexture__c;
+                    farm2.productionCostsRecords__c = farmInserted.productionCostsRecords__c;
+                    farm2.monthlyProductionCost__c = farmInserted.monthlyProductionCost__c;
+                    farm2.hoursDedicatedToCultivation__c = farmInserted.hoursDedicatedToCultivation__c;
+                    farm2.sowingRecords__c = farmInserted.sowingRecords__c;
+                    farm2.monthlyTransportationCost__c = farmInserted.monthlyTransportationCost__c;
+                    farm2.howTransportsProducts__c = farmInserted.howTransportsProducts__c;
+                    farm2.whoAssumesCostOfTransportation__c = farmInserted.whoAssumesCostOfTransportation__c;
+                    farm2.productionPlanOnDemand__c = farmInserted.productionPlanOnDemand__c;
+                    farm2.hasChangedFarmingProducts__c = farmInserted.hasChangedFarmingProducts__c;
+                    farm2.reasonToChangeCrop__c = farmInserted.reasonToChangeCrop__c;
+                    farm2.technicalAssistanceReceived__c = farmInserted.technicalAssistanceReceived__c;
+                    farm2.technicalAssistanceStartDate__c = farmInserted.technicalAssistanceStartDate__c;
+                    farm2.technicalAssistanceThemes__c = farmInserted.technicalAssistanceThemes__c;
+                    farm2.willingAcceptTechnicalAssistance__c = farmInserted.willingAcceptTechnicalAssistance__c;
+                    farm2.hasBathroomForEmployees__c = farmInserted.hasBathroomForEmployees__c;
+                    farm2.areaToStoreFarmInputs__c = farmInserted.areaToStoreFarmInputs__c;
+                    farm2.pesticidesAreSeparated__c = farmInserted.pesticidesAreSeparated__c;
+                    farm2.mixturesPreparationArea__c = farmInserted.mixturesPreparationArea__c;
+                    farm2.hasPostharvestArea__c = farmInserted.hasPostharvestArea__c;
+                    farm2.propertyHasWorkers__c = farmInserted.propertyHasWorkers__c;
+                    farm2.areaFoodConsumptionAndRest__c = farmInserted.areaFoodConsumptionAndRest__c;
+                    farm2.doesCropRotation__c = farmInserted.doesCropRotation__c;
+                    farm2.pondingAreas__c = farmInserted.pondingAreas__c;
+                    farm2.haveDrainSystem__c = farmInserted.haveDrainSystem__c;
+                    farm2.soilConservationPrograms__c = farmInserted.soilConservationPrograms__c;
+                    farm2.nutritionProgramTechnicalAssistant__c = farmInserted.nutritionProgramTechnicalAssistant__c;
+                    farm2.phytosanitaryAndNutritionalAssistance__c = farmInserted.phytosanitaryAndNutritionalAssistance__c;
+                    farm2.applicationRecords__c = farmInserted.applicationRecords__c;
+                    farm2.fertilizationRecords__c = farmInserted.fertilizationRecords__c;
+                    farm2.compostingRecords__c = farmInserted.compostingRecords__c;
                 }
             }
             //if farmExists is false then create a new farm2 to insert
@@ -302,7 +368,74 @@ trigger CBL_Farm_UpdateDataCbl2 on CBL_Farm__c (after insert) {
                 newFarm.wasteDisposedSafeWay__c = farmInserted.wasteDisposedSafeWay__c;
                 newFarm.waterBodiesBufferZones__c = farmInserted.waterBodiesBufferZones__c;
                 newFarm.weedsControlHerbicides__c = farmInserted.weedsControlHerbicides__c;
-                newFarm.weedsControlMethods__c = farmInserted.weedsControlMethods__c;            
+                newFarm.weedsControlMethods__c = farmInserted.weedsControlMethods__c;
+
+                newFarm.mainProductArea__c = farmInserted.mainProductArea__c;
+                newFarm.mainProductAreaUnits__c = farmInserted.mainProductAreaUnits__c;
+                newFarm.farmingActivitiesArea__c = farmInserted.farmingActivitiesArea__c;
+                newFarm.farmingActivitiesAreaUnits__c = farmInserted.farmingActivitiesAreaUnits__c;
+                newFarm.planCertified__c = farmInserted.planCertified__c;
+                newFarm.whyNotPlanCertified__c = farmInserted.whyNotPlanCertified__c;
+                newFarm.invoicesRegistered__c = farmInserted.invoicesRegistered__c;
+                newFarm.completeRecords__c = farmInserted.completeRecords__c;
+                newFarm.farmPermanentStaffPaid__c = farmInserted.farmPermanentStaffPaid__c;
+                newFarm.haveAccessToWaterSource__c = farmInserted.haveAccessToWaterSource__c;
+                newFarm.distanceToWaterSource__c = farmInserted.distanceToWaterSource__c;
+                newFarm.whereWaterComes__c = farmInserted.whereWaterComes__c;
+                newFarm.sowingStyles__c = farmInserted.sowingStyles__c;
+                newFarm.seedsType__c = farmInserted.seedsType__c;
+                newFarm.hasSeedbed__c = farmInserted.hasSeedbed__c;
+                newFarm.sowingSystem__c = farmInserted.sowingSystem__c;
+                newFarm.sowingMonths__c = farmInserted.sowingMonths__c;
+                newFarm.seedsProvider__c = farmInserted.seedsProvider__c;
+                newFarm.otherSeedsProvider__c = farmInserted.otherSeedsProvider__c;
+                newFarm.productsDifficultyFinding__c = farmInserted.productsDifficultyFinding__c;
+                newFarm.farmInfrastructureAndTools__c = farmInserted.farmInfrastructureAndTools__c;
+                newFarm.minimumAreaPlantedAnyCrop__c = farmInserted.minimumAreaPlantedAnyCrop__c;
+                newFarm.minimumAreaWhichCrops__c = farmInserted.minimumAreaWhichCrops__c;
+                newFarm.hasPostharvestArea__c = farmInserted.hasPostharvestArea__c;
+                newFarm.hasPackingArea__c = farmInserted.hasPackingArea__c;
+                newFarm.hasPackagingZone__c = farmInserted.hasPackagingZone__c;
+                newFarm.cropResidues__c = farmInserted.cropResidues__c;
+                newFarm.residuesToCompost__c = farmInserted.residuesToCompost__c;
+                newFarm.soilFertilizingFrequency__c = farmInserted.soilFertilizingFrequency__c;
+                newFarm.hasWornSoil__c = farmInserted.hasWornSoil__c;
+                newFarm.hasMulch__c = farmInserted.hasMulch__c;
+                newFarm.hasFloraAndFauna__c = farmInserted.hasFloraAndFauna__c;
+                newFarm.howDeepIsTopsoil__c= farmInserted.howDeepIsTopsoil__c;
+                newFarm.hasPresenceOfLarvaeAndWorms__c = farmInserted.hasPresenceOfLarvaeAndWorms__c;
+                newFarm.hasOrganicMatter__c = farmInserted.hasOrganicMatter__c;
+                newFarm.soilTexture__c= farmInserted.soilTexture__c;
+                newFarm.productionCostsRecords__c = farmInserted.productionCostsRecords__c;
+                newFarm.monthlyProductionCost__c = farmInserted.monthlyProductionCost__c;
+                newFarm.hoursDedicatedToCultivation__c = farmInserted.hoursDedicatedToCultivation__c;
+                newFarm.sowingRecords__c = farmInserted.sowingRecords__c;
+                newFarm.monthlyTransportationCost__c = farmInserted.monthlyTransportationCost__c;
+                newFarm.howTransportsProducts__c = farmInserted.howTransportsProducts__c;
+                newFarm.whoAssumesCostOfTransportation__c = farmInserted.whoAssumesCostOfTransportation__c;
+                newFarm.productionPlanOnDemand__c = farmInserted.productionPlanOnDemand__c;
+                newFarm.hasChangedFarmingProducts__c = farmInserted.hasChangedFarmingProducts__c;
+                newFarm.reasonToChangeCrop__c = farmInserted.reasonToChangeCrop__c;
+                newFarm.technicalAssistanceReceived__c = farmInserted.technicalAssistanceReceived__c;
+                newFarm.technicalAssistanceStartDate__c = farmInserted.technicalAssistanceStartDate__c;
+                newFarm.technicalAssistanceThemes__c = farmInserted.technicalAssistanceThemes__c;
+                newFarm.willingAcceptTechnicalAssistance__c = farmInserted.willingAcceptTechnicalAssistance__c;
+                newFarm.hasBathroomForEmployees__c = farmInserted.hasBathroomForEmployees__c;
+                newFarm.areaToStoreFarmInputs__c = farmInserted.areaToStoreFarmInputs__c;
+                newFarm.pesticidesAreSeparated__c = farmInserted.pesticidesAreSeparated__c;
+                newFarm.mixturesPreparationArea__c = farmInserted.mixturesPreparationArea__c;
+                newFarm.hasPostharvestArea__c = farmInserted.hasPostharvestArea__c;
+                newFarm.propertyHasWorkers__c = farmInserted.propertyHasWorkers__c;
+                newFarm.areaFoodConsumptionAndRest__c = farmInserted.areaFoodConsumptionAndRest__c;
+                newFarm.doesCropRotation__c = farmInserted.doesCropRotation__c;
+                newFarm.pondingAreas__c = farmInserted.pondingAreas__c;
+                newFarm.haveDrainSystem__c = farmInserted.haveDrainSystem__c;
+                newFarm.soilConservationPrograms__c = farmInserted.soilConservationPrograms__c;
+                newFarm.nutritionProgramTechnicalAssistant__c = farmInserted.nutritionProgramTechnicalAssistant__c;
+                newFarm.phytosanitaryAndNutritionalAssistance__c = farmInserted.phytosanitaryAndNutritionalAssistance__c;
+                newFarm.applicationRecords__c = farmInserted.applicationRecords__c;
+                newFarm.fertilizationRecords__c = farmInserted.fertilizationRecords__c;
+                newFarm.compostingRecords__c = farmInserted.compostingRecords__c;
                 farms2ToInsert.add(newFarm);
             }
         }

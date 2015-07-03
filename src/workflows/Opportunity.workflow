@@ -3,7 +3,7 @@
     <rules>
         <fullName>Send Acknowledgement Letter</fullName>
         <actions>
-            <name>SendAcknowledgement</name>
+            <name>Send Acknowledgement</name>
             <type>Task</type>
         </actions>
         <active>true</active>
@@ -16,7 +16,7 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <tasks>
-        <fullName>SendAcknowledgement</fullName>
+        <fullName>Send Acknowledgement</fullName>
         <assignedToType>owner</assignedToType>
         <description>Please send an acknowledgement for this donation</description>
         <dueDateOffset>7</dueDateOffset>
@@ -24,6 +24,5 @@
         <priority>Normal</priority>
         <protected>false</protected>
         <status>Not Started</status>
-        <subject>Send Acknowledgement</subject>
     </tasks>
 </Workflow>

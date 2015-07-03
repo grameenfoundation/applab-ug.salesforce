@@ -1,147 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>CPA_Order__c</fullName>
-        <externalId>false</externalId>
         <label>CPA Order</label>
         <referenceTo>CPA_Order__c</referenceTo>
         <relationshipLabel>CPA Order Deliveries</relationshipLabel>
         <relationshipName>CPA_Order_Deliveries</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Delivery_Date__c</fullName>
         <defaultValue>TODAY()</defaultValue>
-        <externalId>false</externalId>
         <label>Delivery Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Delivery_Receipt_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Delivery Receipt Number</label>
         <length>20</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Farmer_Code__c</fullName>
         <description>If this delivery has been rejected due to quality issues and if one of the farmers who contributed to this delivery has been previously flagged for quality issues</description>
-        <externalId>false</externalId>
         <label>Farmer Code</label>
         <length>255</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Baskets__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Baskets</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Kilos__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Kilos</label>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Rejected_Baskets__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Number of Rejected Baskets</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Rejected_Kilos__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Number of Rejected Kilos</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Rejected_Units_of_Presentation__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Number of Rejected Units of Presentation</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Units_of_Presentation__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Units of Presentation</label>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Presentacion__c</fullName>
-        <externalId>false</externalId>
         <label>Presentación</label>
         <picklist>
             <picklistValues>
@@ -186,7 +126,6 @@
     </fields>
     <fields>
         <fullName>Reason_for_Rejection__c</fullName>
-        <externalId>false</externalId>
         <label>Reason for Rejection</label>
         <picklist>
             <picklistValues>
@@ -217,7 +156,6 @@
     <fields>
         <fullName>Rejected__c</fullName>
         <description>Whether this delivery has been accepted</description>
-        <externalId>false</externalId>
         <inlineHelpText>Whether this delivery has been accepted</inlineHelpText>
         <label>Rejected?</label>
         <picklist>
@@ -235,7 +173,6 @@
     </fields>
     <fields>
         <fullName>Unit_of_Presentation__c</fullName>
-        <externalId>false</externalId>
         <label>Unit of Presentation</label>
         <picklist>
             <picklistValues>
@@ -267,7 +204,6 @@
         <columns>Number_of_Units_of_Presentation__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>CODN-{00000}</displayFormat>

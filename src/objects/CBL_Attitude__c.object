@@ -1,87 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Represents the farmer attitude information for a Coffee Baseline</description>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Baseline__c</fullName>
-        <externalId>false</externalId>
         <label>Baseline</label>
         <referenceTo>CBL_CoffeeBaseline__c</referenceTo>
         <relationshipLabel>CBL_Attitudes</relationshipLabel>
         <relationshipName>CBL_Attitudes</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
-        <relationshipLabel>CBL_Attitude_Submission</relationshipLabel>
-        <relationshipName>CBL_Attitude_Submission</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
+        <relationshipLabel>CBL_Attitud_Submission</relationshipLabel>
+        <relationshipName>CBL_Attitud_Submission</relationshipName>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>chooseToBeFarmer__c</fullName>
-        <externalId>false</externalId>
         <label>chooseToBeFarmer</label>
         <picklist>
             <picklistValues>
@@ -106,12 +46,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>destinedToBeFarmer__c</fullName>
-        <externalId>false</externalId>
         <label>destinedToBeFarmer</label>
         <picklist>
             <picklistValues>
@@ -136,12 +74,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>discussMethodsWOthers__c</fullName>
-        <externalId>false</externalId>
         <label>discussMethodsWOthers</label>
         <picklist>
             <picklistValues>
@@ -166,12 +102,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>effortInAgriculturePays__c</fullName>
-        <externalId>false</externalId>
         <label>effortInAgriculturePays</label>
         <picklist>
             <picklistValues>
@@ -196,12 +130,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>farmersLifeWillBeBetter__c</fullName>
-        <externalId>false</externalId>
         <label>farmersLifeWillBeBetter</label>
         <picklist>
             <picklistValues>
@@ -226,12 +158,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>futureCoffeePlans__c</fullName>
-        <externalId>false</externalId>
         <label>futureCoffeePlans</label>
         <picklist>
             <picklistValues>
@@ -264,13 +194,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>7</visibleLines>
     </fields>
     <fields>
         <fullName>happyToBeFarmer__c</fullName>
-        <externalId>false</externalId>
         <label>happyToBeFarmer</label>
         <picklist>
             <picklistValues>
@@ -295,12 +223,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>limitationsCauses__c</fullName>
-        <externalId>false</externalId>
         <label>limitationsCauses</label>
         <picklist>
             <picklistValues>
@@ -321,13 +247,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>neighborsProductivityLvl__c</fullName>
-        <externalId>false</externalId>
         <label>neighborsProductivityLvl</label>
         <picklist>
             <picklistValues>
@@ -344,12 +268,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>payForAgriAdvise__c</fullName>
-        <externalId>false</externalId>
         <label>payForAgriAdvise</label>
         <picklist>
             <picklistValues>
@@ -374,12 +296,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>productivityImprovmntLimitations__c</fullName>
-        <externalId>false</externalId>
         <label>productivityImprovmntLimitations</label>
         <picklist>
             <picklistValues>
@@ -412,13 +332,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>productivityTrend5Years__c</fullName>
-        <externalId>false</externalId>
         <label>productivityTrend5Years</label>
         <picklist>
             <picklistValues>
@@ -435,12 +353,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>takeAdvise__c</fullName>
-        <externalId>false</externalId>
         <label>takeAdvise</label>
         <picklist>
             <picklistValues>
@@ -465,12 +381,30 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>wishChildrenBecomeFarmers__c</fullName>
-        <externalId>false</externalId>
         <label>wishChildrenBecomeFarmers</label>
         <picklist>
             <picklistValues>
@@ -495,12 +429,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>worthInvestingMoneyTimeAgr__c</fullName>
-        <externalId>false</externalId>
         <label>worthInvestingMoneyTimeAgr</label>
         <picklist>
             <picklistValues>
@@ -525,7 +457,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>CBL_Attitude</label>

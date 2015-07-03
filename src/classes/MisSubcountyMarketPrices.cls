@@ -181,9 +181,11 @@ public class MisSubcountyMarketPrices {
             
                 maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                maizeMenuItem.Last_Modified_Date__c = datetime.now();
                 update maizeMenuItem;
             } 
         }
+
     }
     
     public static void computeMasindiSunflowerPriceAverages(String marketName) {
@@ -222,6 +224,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(sunflowerResult[0].get('wholesale'));
                 sunflowerMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                sunflowerMenuItem.Last_Modified_Date__c = datetime.now();
                 update sunflowerMenuItem;
             }    
         }
@@ -261,6 +264,7 @@ public class MisSubcountyMarketPrices {
                Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
                cassavaMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                cassavaMenuItem.Last_Modified_Date__c = datetime.now();
                 update cassavaMenuItem;
            }
        }
@@ -301,6 +305,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
                 kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
                 '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                kBeansMenuItem.Last_Modified_Date__c = datetime.now();
                 update kBeansMenuItem;
             }
         }
@@ -341,6 +346,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(nambaleBeansResult[0].get('wholesale'));
                 nambaleBeansMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+            nambaleBeansMenuItem.Last_Modified_Date__c = datetime.now();
             update nambaleBeansMenuItem;
             }
         }
@@ -380,6 +386,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
                 bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                bananaMenuItem.Last_Modified_Date__c = datetime.now();
                 update bananaMenuItem;
             }
         }
@@ -419,6 +426,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
                 coffeeMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                coffeeMenuItem.Last_Modified_Date__c = datetime.now();
                 update coffeeMenuItem;
             }
         }
@@ -458,6 +466,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(sweetPotatoesResult[0].get('wholesale')); 
                 sweetPotatoesMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                sweetPotatoesMenuItem.Last_Modified_Date__c = datetime.now();
                 update sweetPotatoesMenuItem;
             }
         }
@@ -497,6 +506,7 @@ public class MisSubcountyMarketPrices {
         	    Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
                 maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                maizeMenuItem.Last_Modified_Date__c = datetime.now();
                 update maizeMenuItem;
             } 
         }
@@ -536,6 +546,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
                 coffeeMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
                 '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg'; 
+            coffeeMenuItem.Last_Modified_Date__c = datetime.now();
             update coffeeMenuItem;
             }   
         }
@@ -575,7 +586,8 @@ public class MisSubcountyMarketPrices {
                Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
                gnutsMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
-               update gnutsMenuItem;
+                gnutsMenuItem.Last_Modified_Date__c = datetime.now();
+                update gnutsMenuItem;
            }
        }
     }
@@ -614,6 +626,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
                 kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                kBeansMenuItem.Last_Modified_Date__c = datetime.now();
                 update kBeansMenuItem;
             }
         }
@@ -653,6 +666,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(nambaleBeansResult[0].get('wholesale'));
                 nambaleBeansMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                nambaleBeansMenuItem.Last_Modified_Date__c = datetime.now();
                 update nambaleBeansMenuItem;
             }
         }
@@ -692,6 +706,7 @@ public class MisSubcountyMarketPrices {
         	    Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
                 bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                bananaMenuItem.Last_Modified_Date__c = datetime.now();
                 update bananaMenuItem;
             }
         }
@@ -731,6 +746,7 @@ public class MisSubcountyMarketPrices {
         	    Integer averageWholesalePrice = Integer.valueOf(maizeResult[0].get('wholesale'));
                 maizeMenuItem.Content__c = 'Average Retail Price '+averageRetailPrice+' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                maizeMenuItem.Last_Modified_Date__c = datetime.now();
                 update maizeMenuItem;
             } 
         }
@@ -770,6 +786,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(coffeeResult[0].get('wholesale'));
                 coffeeMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                coffeeMenuItem.Last_Modified_Date__c = datetime.now();
                 update coffeeMenuItem;
             }  
         }  
@@ -809,6 +826,7 @@ public class MisSubcountyMarketPrices {
                Integer averageWholesalePrice = Integer.valueOf(cassavaResult[0].get('wholesale'));
                cassavaMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice+' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice+' Per Kg';
+                cassavaMenuItem.Last_Modified_Date__c = datetime.now();
                 update cassavaMenuItem;
            }
        }
@@ -848,7 +866,8 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(kBeansResult[0].get('wholesale'));
                 kBeansMenuItem.Content__c = 'Average Retail Price ' +averageRetailPrice+ ' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
-                 update kBeansMenuItem;
+                kBeansMenuItem.Last_Modified_Date__c = datetime.now();
+                update kBeansMenuItem;
             }
         }
     }
@@ -888,6 +907,7 @@ public class MisSubcountyMarketPrices {
                 Integer averageWholesalePrice = Integer.valueOf(sweetPotatoesResult[0].get('wholesale'));
                 sweetPotatoesMenuItem.Content__c = 'Average Retail Price '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                sweetPotatoesMenuItem.Last_Modified_Date__c = datetime.now();
                 update sweetPotatoesMenuItem;
             }
         }
@@ -927,6 +947,7 @@ public class MisSubcountyMarketPrices {
         	    Integer averageWholesalePrice = Integer.valueOf(bananaResult[0].get('wholesale'));
                 bananaMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                bananaMenuItem.Last_Modified_Date__c = datetime.now();
                 update bananaMenuItem;
             }
         }
@@ -966,6 +987,7 @@ public class MisSubcountyMarketPrices {
         	    Integer averageWholesalePrice = Integer.valueOf(nambaleResult[0].get('wholesale'));
                 nambaleMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                 '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+            nambaleMenuItem.Last_Modified_Date__c = datetime.now();
             update nambaleMenuItem;
             }
         }
@@ -1006,6 +1028,7 @@ public class MisSubcountyMarketPrices {
         	    Integer averageWholesalePrice = Integer.valueOf(milletResult[0].get('wholesale'));
                 milletMenuItem.Content__c = 'Average Retail Price is '+ averageRetailPrice +' Per Kg'+
                     '\N Average Wholesale Price '+ averageWholesalePrice +' Per Kg';
+                milletMenuItem.Last_Modified_Date__c = datetime.now();
                 update milletMenuItem;
             }
         }

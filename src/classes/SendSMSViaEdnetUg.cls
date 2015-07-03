@@ -5,19 +5,20 @@
  *  EdnetUg SMS Gateway implementation
  *  Its test methods are in the SendSmsTest class 
  **/
-public class SendSMSViaEdnetUg implements SendViaSMSGateway {
+global class SendSMSViaEdnetUg implements SendViaSMSGateway {
     
-    private SMS_Gateway_Settings__c setting;
-    private String senderName = 'Grameen';    	
-	private Map<Integer, String> RESPONSE_MAP;
-	private String MESSAGE_XML_RECIPIENT_FORMAT = '<gsm messageId="{0}">{1}</gsm>';
-	private String MESSAGE_XML_REQUEST_FORMAT = 
+    global SMS_Gateway_Settings__c setting;
+    global String senderName = 'Grameen';    	
+	global Map<Integer, String> RESPONSE_MAP;
+	global String MESSAGE_XML_RECIPIENT_FORMAT = '<gsm messageId="{0}">{1}</gsm>';
+	global String MESSAGE_XML_REQUEST_FORMAT = 
 		'<SMS>'									+
 			'<authentification>'				+
 				'<username>{0}</username>'		+
 				'<password>{1}</password>'		+
 			'</authentification>'				+
 			'<message>'							+
+				'<type>LongSMS</type>'			+
 				'<sender>{2}</sender>'			+
 				'<text>{3}</text>'				+
 				'<pushurl>{4}</pushurl>'		+
@@ -28,7 +29,7 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
 			'</recipients>'						+
 		'</SMS>';	
 	
-	public SendSMSViaEdnetUg() {		
+	global SendSMSViaEdnetUg() {		
         setting = SMS_Gateway_Settings__c.getInstance('EdnetUg');
 		RESPONSE_MAP  = new Map<Integer, String>();
 		RESPONSE_MAP.put(-1, 'Invalid username and/or password');
@@ -39,7 +40,6 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
 	}
 	
 	public List<Message> messagesSent{ get; set; }
-	public List<Message__c> messageLogs{ get; set; }
 
     // Send the messages via the gateway
     public String execute(List<Message> inputMessages) {
@@ -49,25 +49,31 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
         messagesSent = inputMessages;
         // Loop through the messages
         for (Message message : inputMessages) {
-       		//HttpRequest request = buildRequest(createBody(new List<Message>{ message }, true), true);
-        	//insertMessages();
-            // If this is not a test then send the call out
-            if (Test.isRunningTest()) {
-                responseBody = 
-                	'<?xml version="1.0" encoding="UTF-8"?>' 		+
-                    '<RESPONSE>' 									+
-                        '<status>-2</status>' 						+
-                        '<credits>92052</credits>' 					+
-                    '</RESPONSE>';
-            	Dom.Document doc = new Dom.Document();
-            	doc.load(responseBody);
-				result = processResponse(doc);
-            }
-            else {
-            	sendRequest(createBody(new List<Message>{ message }, true), setting.Bulk_End_Point__c, JSON.serialize(message));
-                //HttpResponse response = sendRequest(request);
-                //result = response.getStatusCode() == 200 ? processResponse(response.getBodyDocument()) : '';
-            }       		
+        	if(message.groupId != null && message.groupId != '') {
+        		//message sending for groups is batched
+        		Database.executeBatch(new SendSMSBatches(message, '256'), 980); 
+        	}
+        	else {
+	       		//HttpRequest request = buildRequest(createBody(new List<Message>{ message }, true), true);
+	        	//insertMessages();
+	            // If this is not a test then send the call out
+	            /*if (Test.isRunningTest()) {
+	                responseBody = 
+	                	'<?xml version="1.0" encoding="UTF-8"?>' 		+
+	                    '<RESPONSE>' 									+
+	                        '<status>-2</status>' 						+
+	                        '<credits>92052</credits>' 					+
+	                    '</RESPONSE>';
+	            	Dom.Document doc = new Dom.Document();
+	            	doc.load(responseBody);
+					result = processResponse(doc);
+	            }
+	            else {*/
+	            	sendRequest(createBody(new List<Message>{ message }, true), setting.Bulk_End_Point__c, JSON.serialize(message));
+	                //HttpResponse response = sendRequest(request);
+	                //result = response.getStatusCode() == 200 ? processResponse(response.getBodyDocument()) : '';
+	            /*}*/   
+        	}    		
         }
         System.debug(LoggingLevel.INFO, result);
         return result;
@@ -126,18 +132,6 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
     public Map<String, Boolean> callback(String results, Map<String, Boolean> resultMap) {
     	// If the response code "> 0" then messages have been sent and. Here we can only know
     	// the count of messages sent and not the status of each one-by-one. 
- /*   	System.debug(results);
-    	Integer status = Integer.valueOf(results.split(',')[0].split('=')[1]); 
-    	if(!String.isEmpty(results) && messagesSent != null && messagesSent.size() > 0) {
-    		for (SendSMSHelpers.Recipient recipient : messagesSent[0].recipients.values()) {
-    			resultMap.put(
-    				recipient.personId + 
-    				'_splitter_' + 
-    				EncodingUtil.base64Encode(Crypto.generateDigest('MD5', Blob.valueOf(messagesSent[0].body))), 
-    				status > 0 ? true : false
-    			);
-    		}
-    	}**/
     	return resultMap;
     }
 
@@ -159,11 +153,13 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
         return 'status=' + status + ',credits=' + credits;
 	}
 	
-	private static void notify(String message) {			
+	public static void notify(String message) {			
         // Send mail to info services. This implies that the reponse is below 0 hence messages were not sent
         String[] toAddress = new String[]{};
-        toAddress.add('InformationServices@grameenfoundation.org');
-        toAddress.add('uganda_tech@grameenfoundation.org');
+        //toAddress.add('InformationServices@grameenfoundation.org');
+        //toAddress.add('uganda_tech@grameenfoundation.org');
+        toAddress.add('jlhughabwe@grameenfoundation.org');
+        toAddress.add('dmugume@grameenfoundation.org');
         String subject = 'Could not send SMS ';
         Messaging.SingleEmailMessage[] mail = new Messaging.SingleEmailMessage[] { EmailHelpers.createEmail(toAddress, subject, message) };
         EmailHelpers.sendEmails(mail);
@@ -179,7 +175,7 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
 	 * 
 	 */	
 	@Future(callout=true)
-	private static void sendRequest(String body, String endpoint, String datum) {
+	public static void sendRequest(String body, String endpoint, String datum) {
 		
         HttpRequest request = new HttpRequest();
         request.setMethod('POST');
@@ -190,7 +186,7 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
         System.debug(LoggingLevel.INFO, body);
         
         HttpResponse resp = new Http().send(request);
-        
+
 		Map<Integer, String> RESPONSE_MAP  = new Map<Integer, String>();
 		RESPONSE_MAP.put(-1, 'Invalid username and/or password');
 		RESPONSE_MAP.put(-2, 'Incorrect XML format');
@@ -198,7 +194,7 @@ public class SendSMSViaEdnetUg implements SendViaSMSGateway {
 		RESPONSE_MAP.put(-4, 'No good recipients');
 		RESPONSE_MAP.put(-5, 'Error in processing your request');
 		String status = '';
-		if(resp.getStatusCode() == 200) {
+		if(resp != null && resp.getStatusCode() == 200) {
 			
 			String response = '';
 	        Dom.XMLNode res = resp.getBodyDocument().getRootElement();//RESPONSE

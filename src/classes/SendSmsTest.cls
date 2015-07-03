@@ -1,5 +1,5 @@
 @isTest
-public class SendSmsTest {
+public class SendSmsTest implements HttpCalloutMock {
 
     /**
      * Test methods for the sending of messages.
@@ -93,11 +93,12 @@ public class SendSmsTest {
         // Create the gateway settings
         addGatewaySettings('Kannel', 'bulk', 'single', 'username', 'password', 123);
         addGatewaySettings('PULSE', 'bulk', 'single', 'username', 'password', 123);
+        addGatewaySettings('EdnetUg', 'bulk', 'single', 'username', 'password', 123);
 
         // Create the country settings (send through kannel as can do full process with test data)
         addCountrySetting('JJ', 'SendSMSViaKannel', 256, 'JJ');
         addCountrySetting('PULSE', 'SendMessageViaPulse', 000, 'XXX');
-
+        
         // Create the country
         Country__c c1 = new Country__c( Name = 'TestCountry', ISO_Standard_Code__c = 'JJ', Language__c = 'English');
         insert(c1);
@@ -434,6 +435,7 @@ public class SendSmsTest {
         controller.sendViaPulse = true;
         controller.senderId = UserInfo.getUserId();
         controller.dummyMessage.Expiration_Time__c = DateTime.now();
+        controller.smsPassword = 'password';
         controller.submit();
         System.assertEquals(1, ApexPages.getMessages().size());
         System.assertEquals(ApexPages.getMessages()[0].getSeverity(), ApexPages.Severity.INFO);
@@ -454,6 +456,7 @@ public class SendSmsTest {
         controller.sendViaSms = true;
         controller.sendViaPulse = true;
         controller.senderId = UserInfo.getUserId();
+        controller.smsPassword = 'password';
         DateTime sendTime = DateTime.now().addDays(30);
         controller.dummyMessage.Expiration_Time__c = sendTime;
         controller.submit();
@@ -474,6 +477,7 @@ public class SendSmsTest {
         ref.getParameters().put('peopleParam', '');
         Test.setCurrentPage(ref);
         BulkMessageController controller = new BulkMessageController();
+        controller.smsPassword = 'password';
 
         controller.submit();
         System.assertEquals(1, ApexPages.getMessages().size());
@@ -617,17 +621,24 @@ public class SendSmsTest {
     // TESTS FOR SendSMSViaEdnetUg
     static testMethod void testEdnet() {
     	
+    	Person__c person = new Person__c(First_Name__c = 'Veyron');
+    	insert person;
+    	Person__c person1 = new Person__c(First_Name__c = 'Buggartti');
+    	insert person1;
+    	
+    	Test.startTest();
+    	Test.setMock(HttpCalloutMock.class, new SendSmsTest());
         addGatewaySettings('EdnetUg', 'bulk', 'single', 'username', 'password', 123);
         addCountrySetting('JJ', 'SendSMSViaEdnetUg', 256, 'JJ');
 
         List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient> {
-            SendSMSHelpers.generateRecipient('id', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null)       
+            SendSMSHelpers.generateRecipient(person.Id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null)       
         };
 		// add message with  no country code. will be skipped
         SMS_Gateway_Country_Settings__c setting = [SELECT Id, Country_Code__c FROM SMS_Gateway_Country_Settings__c WHERE Name = 'JJ'][0];
         setting.Country_Code__c = null;
         update setting;
-        SendSMSHelpers.Recipient nullCoded = SendSMSHelpers.generateRecipient('id1', 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null);
+        SendSMSHelpers.Recipient nullCoded = SendSMSHelpers.generateRecipient(person1.Id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null);
         recipients.add(nullCoded);
         
         messages = new List<Message>{
@@ -644,8 +655,76 @@ public class SendSmsTest {
             System.assert(e.getMessage().equals('Can only send one message through EdnetUg at once'), 'Error message is wrong');
             fail = true;
         }
-        System.assert(fail, 'Should have failed to build the body as there were too many messages');        
-        System.assert(gateway.execute(messages).equals('status=-2,credits=92052'));
-        System.assert(gateway.callback('status=-2,credits=92052', new Map<String, Boolean> { }).size() == 0);
+        System.assert(fail, 'Should have failed to build the body as there were too many messages');    
+        String response = gateway.execute(messages);
+        Test.stopTest();
+        //System.assert(response.equals('status=3,credits=20000'));
+        System.assert(gateway.callback('status=3,credits=20000', new Map<String, Boolean> { }).size() == 0);
+        messages.remove(1);
+        String body = gateway.createBody(messages, true);
+        System.assert(body.contains('256123456789'));
+        
+        System.assert(gateway.buildRequest(body, true) != null);
+    }
+    
+    static testMethod void testEdnetBatch() {
+		//create group and add over 1000 people
+		Group__c smsgroup = new Group__c(Name = 'sms group');
+		insert smsgroup;
+		
+		integer num = 0;
+		List<Person__c> peoples = new List<Person__c>();
+		List<Person__c> mo_peoples = new List<Person__c>();
+		for(; num < 100; num++) {
+			Person__c p = new Person__c(First_Name__c = 'name'+num, Raw_Mobile_Number__c = '772' + 100000  + num);
+			peoples.add(p);
+		}
+		insert peoples;
+		insert new Person__c(First_Name__c = 'name');//has no number
+		insert new Person__c(First_Name__c = 'name', Raw_Mobile_Number__c = '0772123456');//starts with 0
+		
+		for(List<Person__c> ps : [SELECT Id FROM Person__c]) {
+			List<Person_Group_Association__c> pga = new List<Person_Group_Association__c>(); 
+			for(Person__c p : ps) {
+				pga.add(new Person_Group_Association__c(Group__c = smsgroup.Id, Person__c = p.Id));
+			}
+			insert pga;
+		}
+    	
+    	Person__c person = new Person__c(First_Name__c = 'Veyron');
+    	insert person;
+    	Person__c person1 = new Person__c(First_Name__c = 'Buggartti');
+    	insert person1;
+    	
+    	Test.startTest();
+    	Test.setMock(HttpCalloutMock.class, new SendSmsTest());
+        addGatewaySettings('EdnetUg', 'bulk', 'single', 'username', 'password', 123);
+        addCountrySetting('JJ', 'SendSMSViaEdnetUg', 256, 'JJ');
+
+        List<SendSMSHelpers.Recipient> recipients = new List<SendSMSHelpers.Recipient> {
+            SendSMSHelpers.generateRecipient(person.Id, 'firstName', 'middleName', 'lastName', '0123456789', 'JJ', null)       
+        };
+        
+        Message msge = createMessage('Subject', 'body', UserInfo.getUserId(), UserInfo.getUserName(), DateTime.now(), DateTime.now(), 'SMS', new List<SendSMSHelpers.Recipient>());
+        msge.groupId = smsgroup.Id;
+
+        SendSMSViaEdnetUg gateway = new SendSMSViaEdnetUg();
+
+        String response = gateway.execute(new List<Message>{ msge });
+        Test.stopTest();  
+        
+        Integer messagesSent = database.countQuery('SELECT Count() FROM Message__c WHERE Type__c = \'SMS\'');
+        System.assert(messagesSent == 101);
+    }  
+    
+    public HTTPResponse respond(HTTPRequest req) {
+        System.assertEquals('POST', req.getMethod());
+        
+        // Create a fake response
+        HttpResponse res = new HttpResponse();
+        res.setHeader('Content-Type', 'application/xml');
+        res.setBody('<RESPONSE><status>3</status><credits>20000</credits></RESPONSE>');
+        res.setStatusCode(200);
+        return res;
     }
 }

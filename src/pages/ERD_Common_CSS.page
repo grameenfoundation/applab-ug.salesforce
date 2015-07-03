@@ -1,0 +1,97 @@
+<apex:page >
+	<style type="text/css">
+/* <![CDATA[ */
+
+/* One simple border definition */
+/* The following is just for making the page look "cool" - simply ignore it */
+html { font-family:sans-serif; background:#444; color:#ddd; }
+html, body { margin:0; padding:0; }
+p { margin:5px 0; }
+.headfoot { text-align:right; padding:10px; margin:0; }
+.headfoot h1 { font-size:1.3em; padding:0; margin:0; }
+.headfoot a { color:#fff; }
+#content { background:url(back.jpg); padding:10px 0; }
+li { text-align: left !important; }
+#my-border-content { margin: 1em;}
+#my-border-content div{ padding: 1em;}
+#my-border-content ul {
+	list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/information.png')});
+	margin-left: 0;
+	padding-left: 1em;
+	text-indent: -1em;	
+	}
+	ul.DATE { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/date.png')}) !important;
+	}
+	ul.PERCENT { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/computer.png')}) !important;
+	}
+	ul.CURRENCY { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/money.png')}) !important;
+	}
+	ul.DATETIME { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/calendar.png')}) !important;
+	}
+	ul.TEXTAREA { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/page_white_text_width.png')}) !important;
+	}
+	ul.STRING { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/page_white_text.png')}) !important;
+	}
+	ul.BOOLEAN { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/arrow_switch.png')}) !important;
+	}
+	ul.ID { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/key.png')}) !important;
+	}
+	ul.REFERENCE { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/database_link.png')}) !important;
+	}
+	ul.URL { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/world_link.png')}) !important;
+	}
+	ul.DOUBLE { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/calculator.png')}) !important;
+	}
+	ul.PICKLIST { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/brick.png')}) !important;
+	}
+	ul.MULTIPICKLIST { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/bricks.png')}) !important;
+	}
+	ul.EMAIL { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/email.png')}) !important;
+	}
+	ul.PHONE { 
+		list-style: inside url({!URLFOR($Resource.ERD_silkicons, 'icons/phone.png')}) !important;
+	}
+.google-visualization-orgchart-node-medium { width: 150px !important; }
+  .ib-fix li { display:-moz-inline-box; -moz-box-orient:vertical;
+               display:inline-block; vertical-align:top; word-wrap:break-word; }
+  * html .ib-fix li { display:inline; }
+  * + html .ib-fix li { display:inline; }
+  .ib-fix li > * { display:table; table-layout:fixed; overflow:hidden; }
+
+
+.google-visualization-orgchart-linebottom {
+/*border-bottom:1px solid white;*/
+}
+/* The links */
+#links .sb-border,#my-border .sb-border  { background:#fff; }
+#links a { color:#38d; text-decoration:none !important;}
+#links a .sb-shadow { background:transparent; }
+#links a:hover .sb-shadow { background:#eff7ff; }
+#links a.hover .sb-shadow { background:#eff7ff; } /* for ie6 */
+
+#my-borde2, #my-border, #links { padding:0.7em; width:98%; margin:0px auto; color:#fff; }
+#my-border, #my-border .sb-inner, #links, #links .sb-inner { background:#444 url({!URLFOR($Resource.ERD_gradients, 'grad.png')}) repeat-x; }
+#my-border-content2, #my-border-content2 .sb-inner, #my-border-content, #my-border-content .sb-inner  { background:#ddd url({!URLFOR($Resource.ERD_gradients, 'grad3.png')}) repeat-x; }
+#links { margin-bottom:2em; text-align:center !important;}
+#my-border2 { height:30px; }
+.to_top { padding:1em; }
+
+#my-border h3 { padding:4px; text-align:center; margin:0; color:#fff; }
+#my-border h3, #my-border h3 .sb-inner { background:#222 url({!URLFOR($Resource.ERD_gradients, 'grad2.png')}) repeat-x; }
+/* ]]> */		
+	</style>
+</apex:page>

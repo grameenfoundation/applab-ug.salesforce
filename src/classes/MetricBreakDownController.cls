@@ -146,7 +146,6 @@ public with sharing class MetricBreakDownController extends ParentComponentBase 
                 Show_Data_Validator__c,
                 Show_CKW__c,
                 Show_Farmer__c,
-                Show_Field_Officer__c,
                 Show_MTN_Chan__c,
                 Date_Period__c,
                 Start_Date__c

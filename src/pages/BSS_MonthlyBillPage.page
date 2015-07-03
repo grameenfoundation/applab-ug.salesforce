@@ -1,0 +1,120 @@
+<apex:page standardController="BSS_Monthly_Bill_Header__c" extensions="BSS_MonthlyBillPageController" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" title="Cuentas de Cobro" language="es">
+	<apex:pageBlock >
+		<html>
+			<head>
+				<style>
+					body {
+						width: 612px;
+						height: 792px;
+					}
+					p{
+						text-align: justify;
+						text-justify: inter-word;
+					}
+				</style>
+				<script type = "text/javascript">
+						var o=new Array("DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISÉIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE", "VEINTE", "VEINTIUNO", "VEINITIDÓS", "VEINTITRÉS", "VEINTICUATRO", "VEINTICINCO", "VEINTISEÍS", "VEINTICIETE", "VENTIOCHO", "VEINTINUEVE");
+						var u=new Array("CERO", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE");
+						var d=new Array("", "", "", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA");
+						var c=new Array("", "CIENTO", "DOSCIENTOS", "TRESCIENTOS", "CUATROCIENTOS", "QUINIENTOS", "SEISCIENTOS", "SETECIENTOS", "OCHOCIENTOS", "NOVECIENTOS");
+
+						function nn(n)
+						{
+						  var n=parseFloat(n).toFixed(2); /*se limita a dos decimales, no sabía que existía toFixed() :)*/
+						  var p=n.toString().substring(n.toString().indexOf(".")+1); /*decimales*/
+						  var m=n.toString().substring(0,n.toString().indexOf(".")); /*número sin decimales*/
+						  var m=parseFloat(m).toString().split("").reverse(); /*tampoco que reverse() existía :D*/
+						  var t="";
+
+						  /*OJO: no hay tercer parámetro*/
+						  for (var i=0; i<m.length;)
+						  {
+							var x=t;
+							/*formamos un número de 2 dígitos*/
+							var b=m[i+1]!=undefined?parseFloat(m[i+1].toString()+m[i].toString()):parseFloat(m[i].toString());
+							/*analizamos y escribimos el 3 dígito primero q son las centenas*/
+							t=m[i+2]!=undefined?(c[m[i+2]]+" "):"";
+							/*escribimos los 2 primeros dígitos: decenas y unidades*/
+							t+=b<10?u[b]:(b<30?o[b-10]:(d[m[i+1]]+(m[i]=='0'?"":(" y "+u[m[i]]))));
+							/*analizamos si son 3 dígitos o menos, miles o millones*/
+							t=i<3?t:(i<6?((t=="UNO"?"MIL ":(t+" MIL "))+x):((t=="UNO"?"UN MILLÓN ":(t+" MILLONES "))+x));
+							i=i+3; /*tiene que ser más 3, se analizan cada 3 dígitos*/
+						  }
+
+						  /*y agregamos los decimales*/
+						  t+=" PESOS";
+						  /*correcciones: siempre son necesarias*/
+						  t=t.replace("  "," ");
+						  t=t.replace(" cero","");
+						  t=t.replace("ciento y","cien y");
+						  //alert("Numero: "+n+"\nNº Dígitos: "+m.length+"\nDígitos: "+m+"\nDecimales: "+p+"\nt: "+t);
+						  document.getElementById("esc").value=t;
+						}
+					 </script>
+			</head>
+			<body onload="nn(document.getElementById('num').value);">
+				<apex:form >
+					<apex:commandButton value="Imprimir" onclick="window.print();"/>
+				</apex:form>
+			 
+				<div id="header">
+					<p>Medellín, <apex:outputText value="{0,date,dd 'de' MMMM 'de' yyyy}">
+						<apex:param value="{!monthlyBill.LastDayBill__c}" />
+					</apex:outputText></p>
+					<h5 style="text-align:center">CUENTA DE COBRO METAS MENSUALES</h5>
+					<h5 style="text-align:center">“EMPRENDIMIENTOS PRODUCTIVOS”</h5>
+				</div>
+				<div id="intro">
+
+				<p><apex:outputText value="Por medio de la presente se indica el estado de cumplimiento de metas para el mes de "/>
+					<apex:outputText value="{0,date,MMMM}">
+						<apex:param value="{!monthlyBill.Month__c}" />
+					</apex:outputText>
+					<apex:outputText value=" y se asocia al pago equivalente determinado por la tabla de metas anexa en el contrato de prestación de servicios." /></p>
+				</div>
+
+				<div id="who">
+					<h5 style="text-align:center">GRAMEEN FOUNDATION SUCURSAL COLOMBIANA</h5>
+					<h5 style="text-align:center">NIT 900.387.772-3</h5>
+					<h5 style="text-align:center">DEBE A:</h5>
+				</div>
+
+				<div id="detail">
+					<p><apex:outputText value="Para el mes de "/>
+					<apex:outputText value="{0,date,MMMM}">
+						<apex:param value="{!monthlyBill.Month__c}" />
+					</apex:outputText>
+					<apex:outputText value=" {!monthlyBillDetails.CKW_Name__c} , con la CC {!monthlyBillDetails.National_ID__c} de {!monthlyBillDetails.ID_expedition_place__c}, en representación de la organización {!monthlyBillDetails.Organization__c}, envió correctamente las encuestas detalladas a continuación:"/></p>
+					<br></br>
+					<apex:pageBlockSection >
+						<apex:pageBlockTable id="table" value="{!monthlySurveysDetails}" var="msd" cellpadding="2" border="1">
+							<apex:column id="Survey" headerValue="Encuesta" value="{!msd.Survey_Name__c}"/>
+							<apex:column id="Quantity" headerValue="Cantidad" value="{!msd.Quantity__c}"/>
+						</apex:pageBlockTable>
+					</apex:pageBlockSection>
+					<br></br>
+					<p><apex:outputText value="El pago correspondiente es de: ${!monthlyBill.Bill_Subtotal__c}; luego del descuento acordado de ${!monthlyBill.Total_discounts__c} correspondientes a una de las 12 cuotas mensuales por el concepto de tableta, se pagaría para el mes de  un total de ${!monthlyBill.Total_value__c} (" /><output id="esc"></output><apex:outputText value=")."/></p>
+					<input value="{!monthlyBill.Total_value__c}" id="num" type="hidden"/>
+					
+				</div>
+
+				<div id="paidDetail">
+					<p>El pago se realizará a la siguiente cuenta:</p>
+					<ul style="list-style-type:none">
+						<li><b>Banco:</b><apex:outputText value=" {!monthlyBillDetails.Bank__c}" /></li>
+						<li><b>Nombre del titular de la cuenta:</b><apex:outputText value=" {!monthlyBillDetails.Bank_Account_Holder__c}"/></li>
+						<li><b>Número de cuenta:</b><apex:outputText value=" {!monthlyBillDetails.Bank_Account_Number__c}"/></li>
+						<li><b>Cédula del titular de la cuenta:</b><apex:outputText value=" {!monthlyBillDetails.Bank_Account_Holder_Id__c}"/></li>
+						<li><b>Tipo de Cuenta:</b><apex:outputText value=" {!monthlyBillDetails.Bank_Account_Type__c}"/></li>
+						<li><b>Lugar dónde se abrió la cuenta:</b><apex:outputText value=" {!monthlyBillDetails.Account_Place__c}"/></li>
+					</ul>
+				</div>
+
+				<div id="signature">
+					<apex:image id="firma" value="{!monthlyBill.CKW_signature__c}" width="200" height="100"/>
+					<p><apex:outputText value="{!monthlyBillDetails.CKW_Name__c} CC {!monthlyBillDetails.National_ID__c}"/></p>
+				</div>
+			</body>
+		</html>
+	</apex:pageBlock>
+</apex:page>

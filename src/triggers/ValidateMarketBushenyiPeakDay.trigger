@@ -7,7 +7,10 @@ trigger ValidateMarketBushenyiPeakDay on Market_Bushenyi__c (before insert) {
             if(MISPeakDay.applyPeakDayValidationBushenyi(cMarkt,mrktBus)){
                 
             }else{
-                mrktBus.addError('Market Peak Day is Wrong! Correct Peak Day is '+cMarkt.Peak__c);
+                Date capture= mrktBus.Date_of_capture__c;
+                Datetime dt = (DateTime)capture;
+                String dayOfWeek = dt.format('EEEE'); //This returns - Monday, Tuesday, Wednesday, etc..            
+                mrktBus.addError(mrktBus.Date_of_capture__c+' Market Peak Day is Wrong! Correct Peak Day is '+cMarkt.Peak__c + ' but got '+ dayOfWeek );
             }
         }
     }

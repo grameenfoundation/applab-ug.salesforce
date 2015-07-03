@@ -1,45 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Almacenamiento_de_caf_adecuado__c</fullName>
-        <externalId>false</externalId>
         <label>Almacenamiento de café adecuado</label>
         <picklist>
             <picklistValues>
@@ -56,7 +20,6 @@
     </fields>
     <fields>
         <fullName>Canales_de_correteo_en_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <label>Canales de correteo en buen estado</label>
         <picklist>
             <picklistValues>
@@ -73,7 +36,6 @@
     </fields>
     <fields>
         <fullName>Empaques_caf_limpio_seco_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <label>Empaques café limpio, seco, buen estado</label>
         <picklist>
             <picklistValues>
@@ -99,14 +61,11 @@
     </fields>
     <fields>
         <fullName>Fecha__c</fullName>
-        <externalId>false</externalId>
         <label>Fecha</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Fosa_de_compostaje_de_pulpa__c</fullName>
-        <externalId>false</externalId>
         <label>Fosa de compostaje de pulpa</label>
         <picklist>
             <picklistValues>
@@ -148,7 +107,6 @@
     </fields>
     <fields>
         <fullName>Lista_de_chequeo__c</fullName>
-        <externalId>false</externalId>
         <label>Lista de chequeo</label>
         <picklist>
             <picklistValues>
@@ -165,7 +123,6 @@
     </fields>
     <fields>
         <fullName>Maquina_despulpadora_en_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <label>Maquina despulpadora en buen estado</label>
         <picklist>
             <picklistValues>
@@ -195,168 +152,125 @@
     </fields>
     <fields>
         <fullName>Nivel_categor_a__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Puntaje_categoria__c &lt; 5, &apos;c. Bajo&apos;, IF (Puntaje_categoria__c &lt; 11, &apos;b. Medio&apos;, &apos;a. Alto&apos;))</formula>
         <label>Nivel categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>&apos;Beneficio&apos;</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre categoría</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Nombre_tipo_fecha__c</fullName>
-        <externalId>false</externalId>
         <formula>Nombre_categoria__c + &apos; &apos; +  TEXT(Tipo__c) + &apos; &apos; + TEXT(Fecha__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Nombre tipo fecha</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Plan_de_Manejo_de_Finca__c</fullName>
-        <externalId>false</externalId>
         <label>Plan de Manejo de Finca</label>
         <referenceTo>Farm_Management_Plan__c</referenceTo>
         <relationshipLabel>PMF Finca Categoria 2 - Beneficio</relationshipLabel>
         <relationshipName>PMF_Finca_Categorias_2</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Puntaje_Almacenamiento_de_caf_adecuado__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Almacenamiento_de_caf_adecuado__c , &apos;Cumple&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Almacenamiento de café adecuado</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Canales_de_correteo_en_buen_esta__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL(  Canales_de_correteo_en_buen_estado__c , &apos;Sin ranuras o grietas&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Canales de correteo en buen esta</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Empaques_de_caf__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( INCLUDES(  Empaques_caf_limpio_seco_buen_estado__c , &apos;Están limpios y aptos para la cosecha&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Empaques de café</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Fosa_de_compostaje_de_pulpa__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( INCLUDES(  Fosa_de_compostaje_de_pulpa__c , &apos;Procesa en compost en cuanto es posible&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Fosa de compostaje de pulpa</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Lista_de_chequeo__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Lista_de_chequeo__c , &apos;Usa lista de chequeo&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Lista de chequeo</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Maquina_despulpadora_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( INCLUDES(  Maquina_despulpadora_en_buen_estado__c , &apos;Granos enteros y limpios&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Maquina despulpadora buen estado</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Separacion_de_cafe_por_calidad__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Separacin_de_cafe_por_calidad__c , &apos;Sí&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Separación de café por calidad</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Separacion_de_cafe_por_lote__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Separacion_de_cafe_por_lote__c , &apos;Puede separar lotes/calidades/certif.&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Separación de café por lote</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Sistema_secado_de_caf_buen_esta__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Sistema_de_secado_de_caf_en_buen_estado__c , &apos;Sin granos de secados anteriores&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Sistema secado de café buen esta</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Tanq_desmucilaginadora_buen_esta__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Tanques_de_desmucilaginadora_buen_estado__c , &apos;Sin ranuras o grietas&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Tanq desmucilaginadora buen esta</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Tanque_de_tratamiento_de_agua_mi__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(  OR(
 INCLUDES( Tanque_de_tratamiento_de_agua_miel__c , &apos;Las vierte en pozos de infiltración&apos;) , 
 INCLUDES( Tanque_de_tratamiento_de_agua_miel__c , &apos;Planta de tratamiento de aguas mieles&apos;)) 
@@ -364,50 +278,38 @@ INCLUDES( Tanque_de_tratamiento_de_agua_miel__c , &apos;Planta de tratamiento de
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Tanque de tratamiento de agua mi</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Tanques_fermenaci_n_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Tanques_de_fermenaci_n_en_buen_estado__c , &apos;Sin ranuras o grietas&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Tanques fermenación buen estado</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Transporte_adecuado__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Transporte_adecuado__c , &apos;Cumple&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Transporte adecuado</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_Zaranda_en_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISPICKVAL( Zaranda_en_buen_estado__c , &apos;Sí&apos;) , 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje Zaranda en buen estado</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Puntaje_categoria__c</fullName>
-        <externalId>false</externalId>
         <formula>Puntaje_Lista_de_chequeo__c +  
 Puntaje_Separacion_de_cafe_por_lote__c +  
 Puntaje_Separacion_de_cafe_por_calidad__c + 
@@ -425,14 +327,11 @@ Puntaje_Transporte_adecuado__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Puntaje categoría</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Separacin_de_cafe_por_calidad__c</fullName>
-        <externalId>false</externalId>
         <label>Separación de café por calidad</label>
         <picklist>
             <picklistValues>
@@ -449,7 +348,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Separacion_de_cafe_por_lote__c</fullName>
-        <externalId>false</externalId>
         <label>Separación de café por lote</label>
         <picklist>
             <picklistValues>
@@ -466,7 +364,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Sistema_de_secado_de_caf_en_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <label>Sistema de secado de café en buen estado</label>
         <picklist>
             <picklistValues>
@@ -483,7 +380,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Tanque_de_tratamiento_de_agua_miel__c</fullName>
-        <externalId>false</externalId>
         <label>Tanque de tratamiento de agua miel</label>
         <picklist>
             <picklistValues>
@@ -517,7 +413,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Tanques_de_desmucilaginadora_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <label>Tanques de desmucilaginadora buen estado</label>
         <picklist>
             <picklistValues>
@@ -534,7 +429,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Tanques_de_fermenaci_n_en_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <label>Tanques de fermenación en buen estado</label>
         <picklist>
             <picklistValues>
@@ -555,7 +449,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Tipo__c</fullName>
-        <externalId>false</externalId>
         <label>Tipo</label>
         <picklist>
             <picklistValues>
@@ -576,7 +469,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Transporte_adecuado__c</fullName>
-        <externalId>false</externalId>
         <label>Transporte adecuado</label>
         <picklist>
             <picklistValues>
@@ -593,7 +485,6 @@ Puntaje_Transporte_adecuado__c</formula>
     </fields>
     <fields>
         <fullName>Zaranda_en_buen_estado__c</fullName>
-        <externalId>false</externalId>
         <label>Zaranda en buen estado</label>
         <picklist>
             <picklistValues>

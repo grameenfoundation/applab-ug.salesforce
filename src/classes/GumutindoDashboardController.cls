@@ -2,7 +2,14 @@
  *  Controller to load the settings for the Gumutindo Dashboard
  */
 
-public with sharing class GumutindoDashboardController {
+public class GumutindoDashboardController {
+
+    public String getDateTo() {
+        return null;
+    }
+
+
+    public String dateFrom { get; set; }
 
     private Boolean isEditMode = false;
     private String currentQuarter = null;
@@ -194,7 +201,7 @@ public with sharing class GumutindoDashboardController {
 
 
 
-     public void setDistrictList(List<SelectOption> option) {
+     /*public void setDistrictList(List<SelectOption> option) {
         this.districtList = option;
     }
     public List<SelectOption> getDistrictList() {
@@ -208,7 +215,7 @@ public with sharing class GumutindoDashboardController {
                options.add(new SelectOption(district.Name, district.Name));
         } 
         return options;
-    }
+    }*/
 
 
 

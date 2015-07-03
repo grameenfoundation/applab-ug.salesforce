@@ -1,87 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Holds the commercialization information for a Coffee Baseline</description>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Baseline__c</fullName>
-        <externalId>false</externalId>
         <label>Baseline</label>
         <referenceTo>CBL_CoffeeBaseline__c</referenceTo>
         <relationshipLabel>CBL_Commercialization</relationshipLabel>
         <relationshipName>CBL_Commercializations</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Submission__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Submission</label>
         <referenceTo>gfsurveys__Submission__c</referenceTo>
         <relationshipLabel>CBL_Commercialization_Submission</relationshipLabel>
         <relationshipName>CBL_Commercialization_Submission</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>ThisYearSoldMainProductOverPrice__c</fullName>
+        <label>ThisYearSoldMainProductOverPrice</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>bargainingPower__c</fullName>
-        <externalId>false</externalId>
         <label>bargainingPower</label>
         <picklist>
             <picklistValues>
@@ -98,12 +54,26 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>buyMainProduct__c</fullName>
+        <label>Buy Main Product Other Farmers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>buysCoffee__c</fullName>
-        <externalId>false</externalId>
         <label>buysCoffee</label>
         <picklist>
             <picklistValues>
@@ -116,12 +86,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>coffeePlantedAreaNonRegisteredFarmsUnits__c</fullName>
-        <externalId>false</externalId>
         <label>coffeePlantedAreaNonRegisteredFarmsUnits</label>
         <picklist>
             <picklistValues>
@@ -146,23 +114,72 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>coffeePlantedAreaNonRegisteredFarms__c</fullName>
-        <externalId>false</externalId>
         <label>coffeePlantedAreaNonRegisteredFarms</label>
         <precision>5</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>comparePricesOfferedCustomers__c</fullName>
+        <label>Compare prices offered customers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>contractOtherBuyers__c</fullName>
+        <label>contractOtherBuyers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>debtToProduce__c</fullName>
+        <label>Debt to Produce</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>distancePointOfSale__c</fullName>
+        <label>Distance point of sale</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>enoughInformation__c</fullName>
-        <externalId>false</externalId>
         <label>enoughInformation</label>
         <picklist>
             <picklistValues>
@@ -183,34 +200,186 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>farmsNotRegisteredInCoop__c</fullName>
-        <externalId>false</externalId>
         <label>farmsNotRegisteredInCoop</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>howLongIntendedMarketed__c</fullName>
+        <label>How long intended marketed</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>howLongTakesOrderWithAssociation__c</fullName>
+        <label>How long takes order with association</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>howManyCustomersVisitSellProduction__c</fullName>
+        <label>How many customers visit sell production</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>lackMoneyContinueWorking__c</fullName>
+        <label>Lack Money Continue Working</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>lastHarvestPercCoffeeSoldToCoop__c</fullName>
-        <externalId>false</externalId>
         <label>lastHarvestPercCoffeeSoldToCoop</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
         <type>Percent</type>
     </fields>
     <fields>
+        <fullName>lastHarvestPercMainProductSoldToAsso__c</fullName>
+        <label>lastHarvestPercMainProductSoldToAsso</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>negotiatesPricesWithCustomers__c</fullName>
+        <label>Negotiates prices with customers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sí</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>paymentFrequencyOther__c</fullName>
+        <label>Payment Frequency Other</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>paymentFrequency__c</fullName>
+        <label>Payment Frequency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>De contado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cada 8 días</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cada 15 días</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cada 30 días</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cada 60 días</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>paymentMethodOther__c</fullName>
+        <label>Payment Method Other</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>paymentMethod__c</fullName>
+        <label>Payment Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Efectivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferencia bancaria a cuenta propia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferencia bancaria a otros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Giros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ahorro a la mano</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>planInvestInvestedOverpriced__c</fullName>
+        <label>Plan Invest Invested Overpriced</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Precios de frutas y hortalizas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Formación precio de frutas y hortalizas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tendencia mercado de frutas y hortalizas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fuentes de información sobre el mercado</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>producedCoffeeDestiny__c</fullName>
-        <externalId>false</externalId>
         <label>producedCoffeeDestiny</label>
         <picklist>
             <picklistValues>
@@ -239,13 +408,49 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>producedMainProducDestinyOther__c</fullName>
+        <label>Produced Main Produc Destiny Other</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>producedMainProducDestiny__c</fullName>
+        <label>Produced Main Produc Destiny</label>
+        <picklist>
+            <picklistValues>
+                <fullName>En la Asociación donde es socio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otra cooperativa o asociación</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A un Intermediario/prestamista</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A un intermediario</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Directamente a un exportador</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>reasonNotAllCoffeeSoldToCoop__c</fullName>
-        <externalId>false</externalId>
         <label>reasonNotAllCoffeeSoldToCoop</label>
         <picklist>
             <picklistValues>
@@ -274,13 +479,48 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>reasonNotAllMainProductSoldToAsso__c</fullName>
+        <label>reasonNotAllMainProductSoldToAsso</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No cumple con requerimientos de calidad</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No cumple requerimientos certificaciones</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros compradores tienen mejor precio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otros compradores pagan más rápido</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Por pago de deudas o anticipos</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Areas sembradas no registradas en Asoc.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Otro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>reasonsNonRegisteredCoopFarms__c</fullName>
-        <externalId>false</externalId>
         <label>reasonsNonRegisteredCoopFarms</label>
         <picklist>
             <picklistValues>
@@ -309,13 +549,31 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
+        <fullName>relationWithBuyer__c</fullName>
+        <label>Relation with buyer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Buena</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regular</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mala</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>statusSoldCoffee__c</fullName>
-        <externalId>false</externalId>
         <label>statusSoldCoffee</label>
         <picklist>
             <picklistValues>
@@ -336,7 +594,33 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>tripDurationPointOfSale__c</fullName>
+        <label>Trip duration point of sale</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <label>type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Línea Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seguimiento</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ex post</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
         <type>Picklist</type>
     </fields>
     <label>CBL_Commercialization</label>

@@ -359,7 +359,7 @@ public with sharing class FieldListBreakdownController extends ChildComponentBas
         return null;
     }
 
-    static testMethod void testController() {
+  /**  static testMethod void testController() {
 
         Person__c person = Utils.createTestPerson(null, 'Island', false, null, 'Female');
         person.Type__c = 'Field Officer';
@@ -399,5 +399,5 @@ public with sharing class FieldListBreakdownController extends ChildComponentBas
         controller.getDisableLastButton();
         controller.setDisableLastButton(false);
         controller.changePageNumber();
-    }
+    }**/
 }

@@ -1,97 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Community__c</fullName>
-        <externalId>false</externalId>
         <label>Community</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Coordinator__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Coordinator</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>CKW Follow Up Info</relationshipLabel>
         <relationshipName>Coordinators</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Country__c</fullName>
-        <externalId>false</externalId>
         <label>Country</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Department__c</fullName>
-        <externalId>false</externalId>
         <label>Department</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Difficulties__c</fullName>
-        <externalId>false</externalId>
         <label>Difficulties</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Follow_Up_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Follow Up Date</label>
-        <required>false</required>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>Follow_Up_Goal__c</fullName>
-        <externalId>false</externalId>
         <label>Follow Up Goal</label>
         <picklist>
             <picklistValues>
@@ -129,7 +77,6 @@
     </fields>
     <fields>
         <fullName>Follow_Up_Requested_By__c</fullName>
-        <externalId>false</externalId>
         <label>Follow Up Requested By</label>
         <picklist>
             <picklistValues>
@@ -145,20 +92,29 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>GF_tools__c</fullName>
+        <label>GF tools</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>Interviewed_CKW__c</fullName>
-        <externalId>false</externalId>
         <label>Interviewed CKW</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>CKW Follow Up Info</relationshipLabel>
         <relationshipName>Contacts</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Meeting_Result__c</fullName>
-        <externalId>false</externalId>
         <label>Meeting Result</label>
         <picklist>
             <picklistValues>
@@ -192,48 +148,47 @@
     </fields>
     <fields>
         <fullName>Municipality__c</fullName>
-        <externalId>false</externalId>
         <label>Municipality</label>
         <length>20</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Notes__c</fullName>
-        <externalId>false</externalId>
         <label>Notes</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Other_Follow_Up_Result__c</fullName>
-        <externalId>false</externalId>
         <label>Other Follow Up Result</label>
-        <required>false</required>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Other_Goal__c</fullName>
-        <externalId>false</externalId>
         <label>Other Goal</label>
         <length>60</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Other_Type_Of_Contact__c</fullName>
-        <externalId>false</externalId>
         <label>Other Type Of Contact</label>
         <length>60</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Technical_assistance__c</fullName>
+        <label>Technical assistance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
     </fields>
     <fields>
         <fullName>Type_Of_Contact__c</fullName>
-        <externalId>false</externalId>
         <label>Type Of Contact</label>
         <picklist>
             <picklistValues>

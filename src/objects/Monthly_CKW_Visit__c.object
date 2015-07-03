@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object represents a unique interaction between an FO and a CKW per month. Each CKW is meant to meet their FO once every month.</description>
+    <enableActivities>true</enableActivities>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>CKW__c</fullName>
+        <label>CKW Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>3.0 Monthly CKW Visits (CKW Contact)</relationshipLabel>
+        <relationshipName>CKW_Monthly_CKW_Visits</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FO__c</fullName>
+        <label>FO Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>3.0 Monthly CKW Visits</relationshipLabel>
+        <relationshipName>Monthly_CKW_Visits</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Visit_Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <description>Visit Date</description>
+        <inlineHelpText>Visit Date</inlineHelpText>
+        <label>Visit Date</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <label>3.0 Monthly CKW Visit</label>
+    <nameField>
+        <displayFormat>{YYYY}{MM}{0000}</displayFormat>
+        <label>3.0 Monthly CKW Visit Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>3.0 Monthly CKW Visits</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

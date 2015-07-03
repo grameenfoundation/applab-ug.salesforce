@@ -1,47 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Contact__c</fullName>
-        <deleteConstraint>Restrict</deleteConstraint>
         <description>The CKW who conducted this cluster meeting</description>
-        <externalId>false</externalId>
         <inlineHelpText>The CKW who conducted this cluster meeting</inlineHelpText>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
@@ -53,39 +17,45 @@
     <fields>
         <fullName>Farmer_Full_Name__c</fullName>
         <description>first and last name of the non program farmer who attended this group meeting</description>
-        <externalId>false</externalId>
         <inlineHelpText>first and last name of the non program farmer who attended this group meeting</inlineHelpText>
         <label>Farmer Full Name</label>
         <length>254</length>
         <required>true</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>GeoLocation__c</fullName>
-        <displayLocationInDecimal>true</displayLocationInDecimal>
-        <externalId>false</externalId>
         <label>Cluster Meeting GeoLocation</label>
-        <required>false</required>
         <scale>7</scale>
         <type>Location</type>
     </fields>
     <fields>
         <fullName>Meeting_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Meeting Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
+    <fields>
+        <fullName>Submission__c</fullName>
+        <label>Submission</label>
+        <referenceTo>gfsurveys__Submission__c</referenceTo>
+        <relationshipLabel>3.0 Non Program Farmer Cluster Meetings</relationshipLabel>
+        <relationshipName>C3P0_Non_Program_Farmer_Cluster_Meetings</relationshipName>
+        <type>Lookup</type>
+    </fields>
     <label>3.0 Non Program Farmer Cluster Meeting</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Meeting_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Contact__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
     <nameField>
         <displayFormat>Q{00000}</displayFormat>
-        <label>3.0 Non Program Farmer Cluster Meeting Name</label>
+        <label>3.0 Non Program Farmer Cluster Meeting N</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>3.0 Non Program Farmer Cluster Meetings</pluralLabel>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Alsur_INV_Stock_Alert</fullName>
+        <ccEmails>jota112013@gmail.com</ccEmails>
+        <protected>false</protected>
+        <recipients>
+            <recipient>cardila@gf.org</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>jgomez@gf.org</recipient>
+            <type>user</type>
+        </recipients>
+        <template>unfiled$public/Alsur_INV_Stock_Alert</template>
+    </alerts>
+    <rules>
+        <fullName>Alsur_INV_Stock_Alert</fullName>
+        <actions>
+            <name>Alsur_INV_Stock_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>INV_Stock__c.Stock__c</field>
+            <operation>lessOrEqual</operation>
+            <value>20</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

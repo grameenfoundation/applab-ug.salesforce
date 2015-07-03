@@ -1,97 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <content>CkwUniversalAddEdit</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <content>CkwUniversalAddEdit</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <content>CkwDetail</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Profile of CKWs</description>
     <enableActivities>true</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Active_Date__c</fullName>
         <description>The date that the ckw passed their training</description>
-        <externalId>false</externalId>
         <label>Active Date</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Alternative_Contact_Number__c</fullName>
         <description>A phone number that is not the CKW phone</description>
-        <externalId>false</externalId>
         <inlineHelpText>Please add a number that we can use to contact the CKW if they lose their CKW provided phone</inlineHelpText>
         <label>Alternative Contact Number</label>
         <length>20</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Assigned_Farmer_Count__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.Contact__r.Lac_Farmer_Count__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Assigned Farmer Count</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Assigned_On__c</fullName>
         <description>The date charger was assigned to the CKW</description>
-        <externalId>false</externalId>
         <label>Assigned On</label>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Attitude__c</fullName>
         <description>CKW attitude during training</description>
-        <externalId>false</externalId>
         <inlineHelpText>CKW attitude during training</inlineHelpText>
         <label>Attitude</label>
         <picklist>
@@ -109,22 +56,16 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>CKW_Picture__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.Contact__r.Picture__c</formula>
         <label>CKW Picture</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>CKW_Rank__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Set skill level of CKW</inlineHelpText>
         <label>CKW Rank</label>
         <picklist>
@@ -144,7 +85,6 @@
     <fields>
         <fullName>CKW_Type__c</fullName>
         <description>Does this CKW object represent an active CKW (which will show up in reports), or a &apos;fake&apos; account, of whick there are a few types (CKW-in-training, demo accounts, data collection personnel, and GF Staff)</description>
-        <externalId>false</externalId>
         <label>CKW Type</label>
         <picklist>
             <picklistValues>
@@ -173,13 +113,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Charging_Solution__c</fullName>
         <description>Components availed to the CKW to charge phones</description>
-        <externalId>false</externalId>
         <inlineHelpText>Components availed to the CKW to charge phones</inlineHelpText>
         <label>Charging Solution Components</label>
         <picklist>
@@ -201,14 +139,12 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Comprehension__c</fullName>
         <description>Comprehension of Training Material</description>
-        <externalId>false</externalId>
         <inlineHelpText>Comprehension of Training Material</inlineHelpText>
         <label>Comprehension</label>
         <picklist>
@@ -234,13 +170,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Content_Absorption__c</fullName>
         <description>Training content absorption</description>
-        <externalId>false</externalId>
         <inlineHelpText>Training content absorption</inlineHelpText>
         <label>Content Absorption</label>
         <picklist>
@@ -266,12 +200,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Contract_Signed__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Select Yes if contract has been signed, or select No if contract has not been signed</inlineHelpText>
         <label>Contract Signed?</label>
         <picklist>
@@ -285,47 +217,34 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Current_Performance_Review__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The CKW&apos;s current performance review. Used to generate the message that appears in Pulse&apos;s performance tab.</description>
-        <externalId>false</externalId>
         <label>Current Performance</label>
         <referenceTo>CKW_Performance_Review__c</referenceTo>
         <relationshipLabel>CKWs</relationshipLabel>
         <relationshipName>CKWs</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>First_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.First_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>First Name</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>General_Notes__c</fullName>
         <description>Any other relevant info regarding the CKW during training</description>
-        <externalId>false</externalId>
         <inlineHelpText>Any other relevant info regarding the CKW during training</inlineHelpText>
         <label>General Notes</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Group_Dynamics__c</fullName>
         <description>CKW behaviour during training</description>
-        <externalId>false</externalId>
         <inlineHelpText>CKW behaviour during training</inlineHelpText>
         <label>Group Dynamics</label>
         <picklist>
@@ -343,13 +262,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Has_CKW_paid_the_commitment_fee__c</fullName>
         <description>Has CKW paid the commitment fee?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Select Yes if CKW has paid the commitment fee, and No if the CKW has not paid</inlineHelpText>
         <label>Commitment fee paid?</label>
         <picklist>
@@ -363,46 +280,32 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Last_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Last Name</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Middle_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.Middle_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Middle Name</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Mobile_Number__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.Mobile_Number__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Mobile Number</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>My_Profile__c</fullName>
         <description>Text shown in the &quot;Profile&quot; tab of Pulse</description>
-        <externalId>false</externalId>
         <formula>IF(ISPICKVAL(Person__r.Country__r.Language__c , &quot;Spanish&quot;) ,
 &quot;Identificación: &quot; &amp;  Name  &amp;  BR() &amp;
 
@@ -432,51 +335,36 @@ BR()&amp;
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Pulse Profile</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Notes_Charging_Solution__c</fullName>
         <description>Notes-Charging Solution</description>
-        <externalId>false</externalId>
         <inlineHelpText>Notes-Charging Solution</inlineHelpText>
         <label>Notes-Charging Solution</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Opportunity__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Opportunity</label>
         <referenceTo>Opportunity</referenceTo>
         <relationshipLabel>CKWs</relationshipLabel>
         <relationshipName>CKWs</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
         <description>Parent object with core person details</description>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>CKW Details</relationshipLabel>
         <relationshipName>CKW_Details</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Poverty_Status__c</fullName>
         <description>CKW Poverty Status</description>
-        <externalId>false</externalId>
         <label>Poverty Status</label>
         <picklist>
             <picklistValues>
@@ -498,68 +386,49 @@ BR()&amp;
     </fields>
     <fields>
         <fullName>Previous_Performance_Review__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>A link to last month&apos;s performance review. This is used to generate the payment message that appears in Pulse for the first few days of the month.</description>
-        <externalId>false</externalId>
         <label>Previous Month&apos;s Performance</label>
         <referenceTo>CKW_Performance_Review__c</referenceTo>
         <relationshipLabel>CKW (Previous Month&apos;s Performance)</relationshipLabel>
         <relationshipName>CKW_Previous_Month</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Recruiter__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>Partner or organization who has assigned the CKW</description>
-        <externalId>false</externalId>
         <inlineHelpText>Select a partner account who has assigned the CKW</inlineHelpText>
         <label>Recruiter</label>
         <referenceTo>Account</referenceTo>
         <relationshipLabel>CKWs</relationshipLabel>
         <relationshipName>CKWs</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Secondary_Recruiter__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>(optional) Secondary recruiting partner for the CKW, e.g. KACOFA</description>
-        <externalId>false</externalId>
         <label>Secondary Recruiter</label>
         <referenceTo>Account</referenceTo>
         <relationshipLabel>CKWs (Secondary Recruiter)</relationshipLabel>
         <relationshipName>CKW_Recruits_as_secondary</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Serial_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Serial Number</label>
         <length>15</length>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Special_Needs__c</fullName>
         <description>Does the CKW have any special needs?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Does the CKW have any special needs?</inlineHelpText>
         <label>Special Needs</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Status__c</fullName>
         <description>Status of CKW</description>
-        <externalId>false</externalId>
         <label>CKW Status</label>
         <picklist>
             <picklistValues>
@@ -627,7 +496,6 @@ BR()&amp;
     <nameField>
         <displayFormat>CKW-{YY}-{000000}</displayFormat>
         <label>CKW ID</label>
-        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>CKWs</pluralLabel>

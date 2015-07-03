@@ -1,177 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>ALSUR: Allocation of Orders to Associations</description>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Association__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Association</label>
         <referenceTo>Association__c</referenceTo>
         <relationshipLabel>CPA Order Allocations</relationshipLabel>
         <relationshipName>CPA_Order_Allocations</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>CPA_Order__c</fullName>
-        <externalId>false</externalId>
         <label>CPA Order</label>
         <referenceTo>CPA_Order__c</referenceTo>
         <relationshipLabel>CPA Order Allocations</relationshipLabel>
         <relationshipName>CPA_Order_Allocations</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Client__c</fullName>
-        <externalId>false</externalId>
         <formula>CPA_Order__r.Client_Product_Association__r.Client_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Client</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Expected_Delivery_Date__c</fullName>
-        <externalId>false</externalId>
         <formula>CPA_Order__r.Expected_Delivery_Date__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Expected Delivery Date</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Is_Active__c</fullName>
         <defaultValue>true</defaultValue>
-        <externalId>false</externalId>
         <label>Is Active</label>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Number_of_Baskets__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Baskets</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Kilos__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Kilos</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Number_of_Units_of_Presentation__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Units of Presentation</label>
         <precision>18</precision>
         <required>true</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Order_Code__c</fullName>
-        <externalId>false</externalId>
         <formula>Association__r.Name + &apos;-&apos;+CPA_Order__r.Order_Code__c</formula>
         <label>Order Code</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Presentacion__c</fullName>
-        <externalId>false</externalId>
         <formula>TEXT(CPA_Order__r.Presentacion__c)</formula>
         <label>Presentación</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Price_per_Kilo__c</fullName>
-        <externalId>false</externalId>
         <formula>CPA_Order__r.Price_per_Kilo__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Price per Kilo</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Price_per_Order__c</fullName>
         <description>Muestra el valor económico de cada orden</description>
-        <externalId>false</externalId>
         <formula>Price_per_Kilo__c * Number_of_Kilos__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Price per Order</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Product_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>CPA_Order__r.Client_Product_Association__r.Product_Name__c</formula>
         <label>Product Name</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Total_Allocated_Units_of_Presentation__c</fullName>
-        <externalId>false</externalId>
         <label>Total Allocated Units of Presentation</label>
         <summarizedField>Farmer_Order_Allocation__c.Number_of_Units_of_Presentation__c</summarizedField>
         <summaryForeignKey>Farmer_Order_Allocation__c.CPA_Order_Allocation__c</summaryForeignKey>
@@ -180,7 +110,6 @@
     </fields>
     <fields>
         <fullName>Total_Number_of_Allocated_Baskets__c</fullName>
-        <externalId>false</externalId>
         <label>Total Number of Allocated Baskets</label>
         <summarizedField>Farmer_Order_Allocation__c.Number_of_baskets__c</summarizedField>
         <summaryForeignKey>Farmer_Order_Allocation__c.CPA_Order_Allocation__c</summaryForeignKey>
@@ -189,7 +118,6 @@
     </fields>
     <fields>
         <fullName>Total_Number_of_Allocated_Kilos__c</fullName>
-        <externalId>false</externalId>
         <label>Total Number of Allocated Kilos</label>
         <summarizedField>Farmer_Order_Allocation__c.Number_of_Kilos__c</summarizedField>
         <summaryForeignKey>Farmer_Order_Allocation__c.CPA_Order_Allocation__c</summaryForeignKey>
@@ -198,60 +126,45 @@
     </fields>
     <fields>
         <fullName>Unallocated_Baskets__c</fullName>
-        <externalId>false</externalId>
         <formula>Number_of_Baskets__c -  Total_Number_of_Allocated_Baskets__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Unallocated Baskets</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Unallocated_Kilos__c</fullName>
-        <externalId>false</externalId>
         <formula>Number_of_Kilos__c -  Total_Number_of_Allocated_Kilos__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Unallocated Kilos</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Unallocated_Units_of_Presentation__c</fullName>
-        <externalId>false</externalId>
         <formula>Number_of_Units_of_Presentation__c -  Total_Allocated_Units_of_Presentation__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Unallocated Units of Presentation</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Unit_of_Presentation__c</fullName>
-        <externalId>false</externalId>
         <formula>TEXT(CPA_Order__r.Unit_of_Presentation__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Unit of Presentation</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>client_group__c</fullName>
         <description>Agrupa las sucursales en un solo cliente</description>
-        <externalId>false</externalId>
         <formula>IF (  CONTAINS(Client__c, &apos;Éxito&apos;) , &apos;EXITO&apos;, (IF (  CONTAINS(Client__c, &apos;Alkosto&apos;) , &apos;ALKOSTO&apos;, (IF (  CONTAINS(Client__c, &apos;Agrofresco&apos;) , &apos;AGROFRESCO&apos;, (IF (  CONTAINS(Client__c, &apos;Cañaveral&apos;) , &apos;CAÑAVERAL&apos;, (IF (  CONTAINS(Client__c, &apos;Cencosud&apos;) , &apos;CENCOSUD&apos;, (IF (  CONTAINS(Client__c, &apos;Olimpica&apos;) , &apos;OLIMPICA&apos;,Client__c)))))))))))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Client group</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>CPA Order Allocation</label>
     <listViews>
@@ -271,7 +184,6 @@
         <columns>CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>CPAON-{000}</displayFormat>

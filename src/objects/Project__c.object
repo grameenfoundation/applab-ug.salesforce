@@ -1,47 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A scheme run by one of our partners(organisations) that uses our CKWs or another part of our network</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Description__c</fullName>
         <description>The blurb written by the partnerships team that describes what this project is doing</description>
-        <externalId>false</externalId>
         <label>Description</label>
         <length>32000</length>
         <type>LongTextArea</type>
@@ -49,14 +12,11 @@
     </fields>
     <fields>
         <fullName>Organisation__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The organisation that is running this project</description>
-        <externalId>false</externalId>
         <label>Organisation</label>
         <referenceTo>Account</referenceTo>
         <relationshipLabel>Projects</relationshipLabel>
         <relationshipName>Projects</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <label>Project</label>

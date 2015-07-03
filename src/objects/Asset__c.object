@@ -1,58 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Applab related assets</description>
-    <enableActivities>false</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Accumulated_Depreciation__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Accumulated Depreciation</inlineHelpText>
         <label>Accumulated Depreciation</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>Asset_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Asset Type</label>
         <picklist>
             <picklistValues>
@@ -121,13 +83,11 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Assigned_To_Department__c</fullName>
         <description>Assigned To Department</description>
-        <externalId>false</externalId>
         <label>Assigned To Department</label>
         <picklist>
             <picklistValues>
@@ -177,142 +137,97 @@
     </fields>
     <fields>
         <fullName>Assignee__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>Assigned to person</description>
-        <externalId>false</externalId>
         <label>Assignee</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>Assets</relationshipLabel>
         <relationshipName>Assets</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Batch__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Batch</label>
         <referenceTo>Batch__c</referenceTo>
         <relationshipLabel>Assets</relationshipLabel>
         <relationshipName>Assets</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Date_of_purchase__c</fullName>
         <description>Date of purchase</description>
-        <externalId>false</externalId>
         <label>Date of purchase</label>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Depreciation_Rate__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Depreciation Rate</inlineHelpText>
         <label>Depreciation Rate</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Percent</type>
     </fields>
     <fields>
         <fullName>Description__c</fullName>
-        <externalId>false</externalId>
         <label>Description</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Disposal_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Disposal Date</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Disposal_Value__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Disposal Value</inlineHelpText>
         <label>Disposal Value</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>Id_Number__c</fullName>
-        <externalId>false</externalId>
         <label>Id Number</label>
         <length>100</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Location__c</fullName>
         <description>Location</description>
-        <externalId>false</externalId>
         <label>Location</label>
         <length>100</length>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Make__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Make of the Asset</inlineHelpText>
         <label>Make</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Manufacturer__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Manufacturer</inlineHelpText>
         <label>Manufacturer</label>
         <length>100</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Model__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>Model</inlineHelpText>
         <label>Model</label>
         <length>50</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Notes__c</fullName>
         <description>Notes</description>
-        <externalId>false</externalId>
         <label>Notes</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Program__c</fullName>
-        <externalId>false</externalId>
         <label>Program</label>
         <picklist>
             <picklistValues>
@@ -347,49 +262,36 @@
     <fields>
         <fullName>Purchase_value__c</fullName>
         <description>Purchase value</description>
-        <externalId>false</externalId>
         <label>Purchase value</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
         <type>Currency</type>
     </fields>
     <fields>
         <fullName>Reference_document_number__c</fullName>
-        <caseSensitive>false</caseSensitive>
         <description>Reference document number</description>
-        <externalId>false</externalId>
         <label>Reference document number</label>
         <length>100</length>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>true</unique>
     </fields>
     <fields>
         <fullName>Returned_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Returned Date</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Serial_Number__c</fullName>
-        <caseSensitive>false</caseSensitive>
         <description>Serial Number</description>
-        <externalId>false</externalId>
         <label>Serial Number</label>
         <length>100</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>true</unique>
     </fields>
     <fields>
         <fullName>Supplier__c</fullName>
-        <externalId>false</externalId>
         <label>Supplier</label>
         <picklist>
             <picklistValues>
@@ -438,7 +340,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <label>Asset</label>
@@ -464,7 +365,6 @@
     <nameField>
         <displayFormat>Asset-{YY}-{0000}</displayFormat>
         <label>Asset ID</label>
-        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Assets</pluralLabel>

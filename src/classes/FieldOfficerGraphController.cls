@@ -784,7 +784,7 @@ public with sharing class FieldOfficerGraphController extends ChildComponentBase
     }
 
     // Test methods for the controller
-    static testMethod void testController() {
+ /**   static testMethod void testController() {
 
         PageReference pageRef = Page.FieldOfficerBreakDown;
         pageRef.getParameters().put('type', 'graph');
@@ -855,7 +855,7 @@ public with sharing class FieldOfficerGraphController extends ChildComponentBase
         controller.setGraphIdentifier('FarmerAdopted');
         controller.init();
         controller.loadJson();
-    }
+    }**/
 
     /**
      * Wrapper class for a row in the data table
@@ -982,7 +982,7 @@ public with sharing class FieldOfficerGraphController extends ChildComponentBase
         }
     }
 
-    static testMethod void testSubmissionWrapper() {
+/**    static testMethod void testSubmissionWrapper() {
 
         FieldOfficerGraphController.SubmissionWrapper wrapper = new FieldOfficerGraphController.SubmissionWrapper('You\'ll');
         System.assertEquals(wrapper.getHeader(), 'You\'ll');
@@ -1002,7 +1002,7 @@ public with sharing class FieldOfficerGraphController extends ChildComponentBase
         System.assertEquals(wrapper.getFarmerGroup(), 'town');
         wrapper.setFarmerGroupTarget('along');
         System.assertEquals(wrapper.getFarmerGroupTarget(), 'along');
-    }
+    } **/
 
     /**
      * Private class for the ckw level of engagement

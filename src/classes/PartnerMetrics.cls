@@ -97,7 +97,8 @@ global class PartnerMetrics implements Database.Batchable<sObject>, Database.Sta
                 if (MetricHelpers.checkForOranistationDistrictLink(partner, metricData.District__c, true)) {
 
                     // Load the District
-                    District__c district = database.query(SoqlHelpers.getDistrict(metricData.District__r.Name));
+                    List<District__c> districtList = database.query(SoqlHelpers.getDistrict(metricData.District__r.Name));
+                    District__c district = districtList.get(0);
                     districts.put((String)district.Name, district);
                     generalMetrics.put(district.Name, new MetricDataCalculationGeneralTracker());
 

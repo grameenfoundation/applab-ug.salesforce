@@ -1,55 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Surveys run by CKWs. There is one entry here for each type of survey. Survey questions (and responses) are NOT stored here.</description>
     <enableActivities>true</enableActivities>
     <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Account__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The account that ordered to run the survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>Select the customer who ordered to run the survey</inlineHelpText>
         <label>Account</label>
         <referenceTo>Account</referenceTo>
         <relationshipLabel>Surveys</relationshipLabel>
         <relationshipName>Surveys</relationshipName>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Lookup</type>
     </fields>
@@ -57,49 +21,39 @@
         <fullName>Allow_No_Interviewee__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Allow the submission to not have a valid farmer id attached to it. Used for surveys that are not about interviewing farmers</description>
-        <externalId>false</externalId>
         <label>Allow No Interviewee</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Block_Submission_Saving__c</fullName>
         <defaultValue>false</defaultValue>
         <description>This allows a submission to be sent to salesforce and then used for another purpose other than just saving the submission in the standard format</description>
-        <externalId>false</externalId>
         <inlineHelpText>Check this to stop the a submission from being saved to Salesforce once they have been sent to SF. Leave unchecked if you do not know what this does</inlineHelpText>
         <label>Block Submission Saving</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Defer_Post_Processing__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Used in cases where a survey has post processing but you do not want it to run immediately for each submission. Current use case is for post processing to run when a submission has been approved</description>
-        <externalId>false</externalId>
         <inlineHelpText>Post processing should not be run immediately until a submission has been approved</inlineHelpText>
         <label>Defer Post Processing</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>End_Date__c</fullName>
         <description>End date of survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>End date of survey</inlineHelpText>
         <label>End Date</label>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Error_Margin__c</fullName>
         <description>Error margin assigned to the survey after evaluation</description>
-        <externalId>false</externalId>
         <inlineHelpText>Error margin assigned to the survey after evaluation</inlineHelpText>
         <label>Error Margin</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
         <type>Percent</type>
@@ -107,11 +61,9 @@
     <fields>
         <fullName>Error_Margine__c</fullName>
         <description>Error margin assigned to the survey after evaluation</description>
-        <externalId>false</externalId>
         <inlineHelpText>Error margin assigned to the survey after evaluation</inlineHelpText>
         <label>Error Margine</label>
         <precision>2</precision>
-        <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
         <type>Percent</type>
@@ -119,7 +71,6 @@
     <fields>
         <fullName>Export_Type__c</fullName>
         <description>What format should the submissions get bounced to another survey as</description>
-        <externalId>false</externalId>
         <label>Export Type</label>
         <picklist>
             <picklistValues>
@@ -132,23 +83,19 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Export_URL__c</fullName>
         <defaultValue>&quot;NONE&quot;</defaultValue>
         <description>The URL to export a survey to</description>
-        <externalId>false</externalId>
         <label>Export URL</label>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Form_Data__c</fullName>
         <description>Raw x-form (XML form) data that comprises the survey form (questions and their types + metadata)</description>
-        <externalId>false</externalId>
         <label>Form Data</label>
         <length>32000</length>
         <trackHistory>true</trackHistory>
@@ -158,7 +105,6 @@
     <fields>
         <fullName>Frequency__c</fullName>
         <description>Frequency of running the survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>Frequency of running the survey</inlineHelpText>
         <label>Frequency</label>
         <picklist>
@@ -195,23 +141,18 @@
         <fullName>Include_Poverty_Scorecard__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Include a link to the poverty scorecard at time of submission for the interviewee</description>
-        <externalId>false</externalId>
         <label>Include Poverty Scorecard</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Number_of_Questions__c</fullName>
         <description>Number of questions</description>
-        <externalId>false</externalId>
         <inlineHelpText>Number of questions in this survey</inlineHelpText>
         <label>Number of Questions</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Point_Value__c</fullName>
@@ -219,19 +160,16 @@
         <description>An integer value indicating how many &quot;points&quot; a survey is worth. By default, the value is 1, but if a survey creator wants to give this survey additional weight (because it is long, complex, or very important, he/she may choose a point value greater than 1.
 
 Monthly survey targets indicate the number of survey points that a CKW must earn in the given month to qualify for the various payment levels.</description>
-        <externalId>false</externalId>
         <label>Point Value</label>
         <precision>4</precision>
         <required>true</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Post_Processing_Method__c</fullName>
         <description>The name of the process that a submission for this survey should follow for post processing</description>
-        <externalId>false</externalId>
         <inlineHelpText>If you don&apos;t know what this means and are not in the tech team please leave this field set to None</inlineHelpText>
         <label>Post Processing Method</label>
         <picklist>
@@ -391,62 +329,65 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
                 <fullName>MBUGO</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>GUMUTINDO_IMPACTS_2015_SURVEY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GUMUTINDO_GCCE_INTERNAL_INSPECTION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GUMUTINDO_GCCE_PS_SURVEY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GUMUTINDO_ACTIVITY_SURVEY</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Product__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Product</label>
         <referenceTo>Product2</referenceTo>
         <relationshipLabel>CKW Surveys</relationshipLabel>
         <relationshipName>CKW_Surveys</relationshipName>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Respondants__c</fullName>
         <description>Target number of respondents for this survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>Target number of respondents for this survey</inlineHelpText>
         <label>Target Number of Respondents</label>
         <precision>8</precision>
-        <required>false</required>
         <scale>0</scale>
         <trackHistory>true</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Save_To_Backend__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Should the survey be saved to the backend. This only needs to be ticked if the Save_To_Salesforce option is selected and the survey needs to be processed by Salesforce and saved in the backend datastore. If Save_To_Salesforce is not checked then just ignore this as the survey will always go to the backend in this case</description>
-        <externalId>false</externalId>
         <inlineHelpText>If you don&apos;t know what this is for please leave it unchecked</inlineHelpText>
         <label>Save To Backend</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Save_To_Salesforce__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Save the submissions from this survey to salesforce</description>
-        <externalId>false</externalId>
         <label>Save To Salesforce</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Start_Date__c</fullName>
         <description>Start Date of Survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>Start Date of Survey</inlineHelpText>
         <label>Start Date</label>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Date</type>
     </fields>
@@ -454,20 +395,15 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
         <fullName>Stop_Save_To_Backend__c</fullName>
         <defaultValue>false</defaultValue>
         <description>Check if the survey should not be saved to the backend DB</description>
-        <externalId>false</externalId>
         <label>Stop Save To Backend</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Survey_Name__c</fullName>
-        <caseSensitive>false</caseSensitive>
         <description>A unique name for the survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>Please select a friendly name for the survey</inlineHelpText>
         <label>Survey Name</label>
         <length>25</length>
-        <required>false</required>
         <trackHistory>true</trackHistory>
         <type>Text</type>
         <unique>true</unique>
@@ -475,7 +411,6 @@ Monthly survey targets indicate the number of survey points that a CKW must earn
     <fields>
         <fullName>Survey_Purpose__c</fullName>
         <description>Purpose of running this survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>Test: to test a survey with CKWs before commercial launch
 Pilot: Running a survey in small scale
 Production: Running the survey in full scale
@@ -511,7 +446,6 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
     <fields>
         <fullName>Survey_Status__c</fullName>
         <description>Current status of survey</description>
-        <externalId>false</externalId>
         <inlineHelpText>Select Active to create a form and questions for the survey. Select Published to make it available to the phones. Select completed to hide it from the phones.</inlineHelpText>
         <label>Survey Status</label>
         <picklist>
@@ -538,7 +472,22 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
     </fields>
     <label>Survey</label>
     <listViews>
-        <fullName>BUCCODEG</fullName>
+        <fullName>Gumutindo</fullName>
+        <columns>NAME</columns>
+        <columns>Survey_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Post_Processing_Method__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OWNER.FIRST_NAME</field>
+            <operation>equals</operation>
+            <value>Gumutindo</value>
+        </filters>
+        <label>Gumutindo</label>
+    </listViews>
+    <listViews>
+        <fullName>IG</fullName>
         <columns>Survey_Name__c</columns>
         <columns>OBJECT_ID</columns>
         <columns>NAME</columns>
@@ -548,12 +497,11 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
         <columns>LAST_UPDATE</columns>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>OWNER.LAST_NAME</field>
-            <operation>equals</operation>
-            <value>BUCCODEG</value>
+            <field>OWNER.FIRST_NAME</field>
+            <operation>contains</operation>
+            <value>Region</value>
         </filters>
-        <label>BUCCODEG</label>
-        <language>en_US</language>
+        <label>IG</label>
     </listViews>
     <listViews>
         <fullName>List_of_All_Surveys</fullName>
@@ -567,23 +515,33 @@ Market Prices: Surveys to capture market prices</inlineHelpText>
         <columns>LAST_ACTIVITY</columns>
         <filterScope>Everything</filterScope>
         <label>List of All Surveys</label>
-        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Mbugo</fullName>
+        <columns>NAME</columns>
+        <columns>Survey_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATEDBY_USER</field>
+            <operation>equals</operation>
+            <value>Mbugo</value>
+        </filters>
+        <label>Mbugo</label>
     </listViews>
     <listViews>
         <fullName>lac_surveys</fullName>
         <columns>NAME</columns>
-        <columns>OBJECT_ID</columns>
         <columns>Account__c</columns>
-        <columns>Survey_Name__c</columns>
         <columns>OWNER.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>OWNER.FIRST_NAME</field>
+            <field>OWNER.ALIAS</field>
             <operation>contains</operation>
-            <value>MANA</value>
+            <value>socya</value>
         </filters>
         <label>lac surveys</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>{YYYY}{MM}{0000}</displayFormat>

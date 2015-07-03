@@ -1,0 +1,23 @@
+<apex:page standardController="EMP_Organization_Member__c" extensions="EMPReplicantProfile" sidebar="false" language="es">
+<apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockSection title="Seguimientos">
+        <apex:pageBlockTable value="{!followUp}" var="fFU">
+            <apex:column headerValue="Seguimiento">
+                <apex:outputLink target="_blank" value="/{!fFU.Id}">Ir</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Fecha Visita">            
+                <apex:outputText value="{0, date, yyyy-MM-dd}">
+                    <apex:param value="{!fFU.Visit_Date__c}" />
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Número Visita" value="{!fFU.Visit_Number__c}"/>
+            <apex:column headerValue="Cumple almacenamiento de insumos" value="{!fFU.Criteria_accomplishment_Facilities__c}"/>
+            <apex:column headerValue="Cumple Manejo de agroquimicos" value="{!fFU.Criteria_accomplishment_Register__c}"/>
+            <apex:column headerValue="Cumple Registros" value="{!fFU.Criteria_accomplishment_Soil_and_Water__c}"/>
+            <apex:column headerValue="Cumple Análisis suelo y agua" value="{!fFU.Criteria_accomplisment_Agrochemical__c}"/>
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

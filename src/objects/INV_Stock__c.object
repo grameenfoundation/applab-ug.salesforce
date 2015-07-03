@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Article_Name__c</fullName>
+        <formula>Article__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Article Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Article__c</fullName>
+        <label>Article</label>
+        <referenceTo>INV_Article__c</referenceTo>
+        <relationshipLabel>INV_Stock_Article</relationshipLabel>
+        <relationshipName>INV_Stock_Article</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Client_Name__c</fullName>
+        <formula>Client__r.Description__c  
+/*
+Client__r.Contact__r.FirstName  +&quot; &quot;+   Client__r.Contact__r.LastName
+*/</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Client__c</fullName>
+        <label>Client</label>
+        <referenceTo>INV_Client__c</referenceTo>
+        <relationshipLabel>INV_Stock_Client</relationshipLabel>
+        <relationshipName>INV_Stock_Client</relationshipName>
+        <required>true</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Stock__c</fullName>
+        <label>Stock</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <label>INV Stock</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Client_Name__c</columns>
+        <columns>Article__c</columns>
+        <columns>Stock__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>STK-{00000}</displayFormat>
+        <label>INV Stock Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>INV Stocks</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

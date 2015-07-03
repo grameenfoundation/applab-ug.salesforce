@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>Logística Despacho y Recepción</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Logística Despacho y Recepción</value>
+    </caseValues>
+    <fields>
+        <label>Nombre Punto Recepción</label>
+        <name>Destination_Name__c</name>
+    </fields>
+    <fields>
+        <label>Punto Recepción</label>
+        <name>Destination__c</name>
+        <relationshipLabel><!-- INV_TW_Sources_Destination_Destination --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Nombre Punto Despacho</label>
+        <name>Source_Name__c</name>
+    </fields>
+    <fields>
+        <label>Punto Despacho</label>
+        <name>Source__c</name>
+        <relationshipLabel><!-- INV_TW_Sources_Destination_Source --></relationshipLabel>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>INV TW Source Destination Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Combinación Despacho Recepción</nameFieldLabel>
+</CustomObjectTranslation>

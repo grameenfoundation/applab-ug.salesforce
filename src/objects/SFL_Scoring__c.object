@@ -1,69 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
+        <fullName>Environment_score__c</fullName>
+        <formula>enviroment_organicFertilizersLastYr__c + environment_ErosionConservationStructur__c + environment_FarmAreaErosionRiskPercent__c + environment_PercShadeLeguminous__c + environment_promotesFloraAndFaunaPreserv__c + environment_turnedForestInCropArea__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Environment score</label>
+        <precision>18</precision>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Gender_Score__c</fullName>
+        <formula>gender_DoingPrimaryWorkTargetCrop__c + gender_EducationParticipation__c + gender_GenerallyMakeDecisions__c + gender_HeadHousehold__c + gender_HouseholdMemberRepresented__c + gender_ReceivingMoneyForSale__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gender Score</label>
+        <precision>18</precision>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
         <fullName>LAC_SFL_Scores_Farm__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>LAC_SFL_Scores_Farm</label>
         <referenceTo>CBL2_Farm__c</referenceTo>
         <relationshipLabel>LAC_SFL_Scores_Farm</relationshipLabel>
         <relationshipName>LAC_SFL_Scores_Farm</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>LAC_SFL_Scores_Farmer__c</fullName>
-        <externalId>false</externalId>
         <label>LAC_SFL_Scores_Farmer</label>
         <referenceTo>CBL2_Farmer__c</referenceTo>
         <relationshipLabel>LAC_SFL_Scores_Farmer</relationshipLabel>
         <relationshipName>LAC_SFL_Scores_Farmer</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Productivity_score__c</fullName>
+        <formula>productivity_AdoptionBestPractices_FMP__c + productivity_EstimatedLastYear__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Productivity score</label>
+        <precision>18</precision>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>SFL_Score__c</fullName>
+        <label>SFL Score</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Services_score__c</fullName>
+        <formula>services_PerceivedAccessTrainingCredit__c + services_UseInputsCreditTraining__c + services_UseInputsCreditTrainingArea__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Services score</label>
+        <precision>18</precision>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Trade_score__c</fullName>
+        <formula>trade_BelongToOrganization__c + trade_CommerEnoughInformation__c +  trade_ContractsConcernsBargainingPower__c + trade_SupplyingServiceScore__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Trade score</label>
+        <precision>18</precision>
+        <scale>1</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>Wellbeing_Assets__c</fullName>
         <description>Source of water, access to electricity, type of cooking fuel, ownership of mode of transportation and cell phone, size of land holding</description>
-        <externalId>false</externalId>
         <formula>(IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_waterSupply__c) = &apos;Agua domiciliar potable (tratada)&apos; , 2, 
 IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_waterSupply__c) = &apos;Agua domiciliar no potable-no tratada&apos; , 1, 0 ))
 +
@@ -86,38 +96,36 @@ IF(LAC_SFL_Scores_Farmer__r.totalFarmArea__c &lt;= 21, 4, 3
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Wellbeing_Assets</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Wellbeing_EstimatedRevenuePercent__c</fullName>
         <description>Estimated % of household revenue from target crop</description>
-        <externalId>false</externalId>
-        <formula>(IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c &lt; 10.0, 2, 
-IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c &lt; 20.0, 6,
-IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c &lt; 40.0, 8,
-IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c &lt; 60.0, 10,
-IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c &lt; 80.0, 8,
-IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c &lt; 100.0, 4, 2))))))
+        <formula>(IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c * 100 &lt; 10.0, 2, 
+IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c * 100 &lt; 20.0, 6,
+IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c * 100 &lt; 40.0, 8,
+IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c * 100 &lt; 60.0, 10,
+IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c * 100 &lt; 80.0, 8,
+IF(LAC_SFL_Scores_Farmer__r.socioe_percentageOfIncomeCoffee__c * 100 &lt; 100.0, 4, 2))))))
 ) * 0.17</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Wellbeing_EstimatedRevenuePercent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Wellbeing_score__c</fullName>
+        <label>Wellbeing score</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>enviroment_organicFertilizersLastYr__c</fullName>
         <description>Use of organic fertilizers or compost</description>
-        <externalId>false</externalId>
         <formula>(IF(INCLUDES(LAC_SFL_Scores_Farm__r.organicFertilizersLastYr__c, &quot;No aplica fertilizantes orgánicos&quot;), 0, 
-
-
-
 IF(INCLUDES(LAC_SFL_Scores_Farm__r.organicFertilizersLastYr__c, &quot;Compost (de deshechos animal o vegetal)&quot;), 10,
 IF(INCLUDES(LAC_SFL_Scores_Farm__r.organicFertilizersLastYr__c, &quot;Lombricompost&quot;), 10,
 IF(INCLUDES(LAC_SFL_Scores_Farm__r.organicFertilizersLastYr__c, &quot;Bocashi&quot;), 10,
@@ -129,75 +137,63 @@ IF(INCLUDES(LAC_SFL_Scores_Farm__r.organicFertilizersLastYr__c, &quot;Otros&quot
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>enviroment_organicFertilizersLastYr</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>environment_ErosionConservationStructur__c</fullName>
         <description>% of the farm area with erosion risk with soil conservation structures</description>
-        <externalId>false</externalId>
-        <formula>(IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c &lt; 10, 0, 
-IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c &lt; 20, 1, 
-IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c &lt; 40, 2, 
-IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c &lt; 60, 4, 
-IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c &lt; 80, 6, 
-IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c &lt; 100, 8, 10 
+        <formula>(IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c * 100 &lt; 10, 0, 
+IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c * 100 &lt; 20, 1, 
+IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c * 100 &lt; 40, 2, 
+IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c * 100 &lt; 60, 4, 
+IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c * 100 &lt; 80, 6, 
+IF(LAC_SFL_Scores_Farm__r.percErosionZoneRiskPrevention__c * 100 &lt; 100, 8, 10 
 )))))) 
 ) * 0.14</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>environment_ErosionConservationStructur</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>environment_FarmAreaErosionRiskPercent__c</fullName>
         <description>% of the farm area with erosion risk</description>
-        <externalId>false</externalId>
-        <formula>(IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c &lt; 10, 10, 
-IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c &lt; 20, 8,
-IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c &lt; 40, 6,
-IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c &lt; 60, 4,
-IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c &lt; 80, 2,
-IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c &lt; 100, 1, 0
+        <formula>(IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c * 100 &lt; 10, 10, 
+IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c * 100 &lt; 20, 8,
+IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c * 100 &lt; 40, 6,
+IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c * 100 &lt; 60, 4,
+IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c * 100 &lt; 80, 2,
+IF(LAC_SFL_Scores_Farm__r.erosionRiskPercentage__c * 100 &lt; 100, 1, 0
 ))))))
 ) * 0.14</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>environment_FarmAreaErosionRiskPercent</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>environment_PercShadeLeguminous__c</fullName>
         <description>% of coverage plants that have nitrogen fixing qualities</description>
-        <externalId>false</externalId>
-        <formula>(IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c &lt; 10, 0, 
-IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c &lt; 20, 1, 
-IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c &lt; 40, 2, 
-IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c &lt; 60, 4, 
-IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c &lt; 80, 6, 
-IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c &lt; 100, 8, 10 
+        <formula>(IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c * 100 &lt; 10, 0, 
+IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c * 100 &lt; 20, 1, 
+IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c * 100 &lt; 40, 2, 
+IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c * 100 &lt; 60, 4, 
+IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c * 100 &lt; 80, 6, 
+IF(LAC_SFL_Scores_Farm__r.percShadeLeguminous__c * 100 &lt; 100, 8, 10 
 )))))) 
 ) * 0.14</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>environment_PercShadeLeguminous</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>environment_promotesFloraAndFaunaPreserv__c</fullName>
         <description>Protection of the flora, wildlife and the conservation of forest</description>
-        <externalId>false</externalId>
         <formula>(IF(TEXT(LAC_SFL_Scores_Farm__r.promotesFloraAndFaunaPreservation__c) = &apos;Si se cumple&apos;, 10,
 IF(TEXT(LAC_SFL_Scores_Farm__r.promotesFloraAndFaunaPreservation__c) = &apos;Se cumple parcialmente&apos;, 5, 0 
 ))
@@ -205,41 +201,32 @@ IF(TEXT(LAC_SFL_Scores_Farm__r.promotesFloraAndFaunaPreservation__c) = &apos;Se 
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>environment_promotesFloraAndFaunaPreserv</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>environment_turnedForestInCropArea__c</fullName>
         <description>Conversion of natural forest area into agricultural area</description>
-        <externalId>false</externalId>
         <formula>IF(TEXT(LAC_SFL_Scores_Farm__r.turnedForestInCropArea__c) = &apos;No&apos;, 10, 0) * 0.14</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>environment_turnedForestInCropArea</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gender_DoingPrimaryWorkTargetCrop__c</fullName>
         <description>Gender of household member doing primary work in target crop</description>
-        <externalId>false</externalId>
         <formula>IF(TEXT(LAC_SFL_Scores_Farmer__r.LAC_Farmer_Details__r.Gender__c) = &apos;Mujer&apos;, 10, 0) * 0.17</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender_DoingPrimaryWorkTargetCrop</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gender_EducationParticipation__c</fullName>
         <description>Participation in education by gender</description>
-        <externalId>false</externalId>
         <formula>(IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_childrenStudying__c) = &apos;Si, TODOS están asistiendo&apos;, 10, 
 IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoDoesntStudy__c) = &apos;Los varones y las mujeres no asisten&apos;, 2, 
 IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoDoesntStudy__c) = &apos;Solo los varones no asisten&apos;, 5,
@@ -250,15 +237,12 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoDoesntStudy__c) = &apos;Quienes deber
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender_EducationParticipation</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gender_GenerallyMakeDecisions__c</fullName>
         <description>Gender of the person who, during the last growing season, generally made the decisions about which crops to plant?</description>
-        <externalId>false</externalId>
         <formula>(IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;Mujer: ingresos y hombre: decisiones&apos;, 10, 
 IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;Mujer recibe ingresos y toma decisiones&apos;, 10, 0 
 )) 
@@ -266,41 +250,32 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender_GenerallyMakeDecisions</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gender_HeadHousehold__c</fullName>
         <description>Gender of head of household</description>
-        <externalId>false</externalId>
         <formula>IF(INCLUDES(LAC_SFL_Scores_Farmer__r.socioe_populationGroup__c, &quot;Mujer cabeza de hogar&quot;), 10, 0) * 0.17</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender_HeadHousehold</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gender_HouseholdMemberRepresented__c</fullName>
         <description>Gender of the household member represented in the farmer group, if applicable</description>
-        <externalId>false</externalId>
         <formula>IF(TEXT(LAC_SFL_Scores_Farmer__r.LAC_Farmer_Details__r.Gender__c) = &apos;Mujer&apos;, 10, 0) * 0.17</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender_HouseholdMemberRepresented</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gender_ReceivingMoneyForSale__c</fullName>
         <description>Gender of household member receiving the money from the sale of this crop</description>
-        <externalId>false</externalId>
         <formula>(IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;Mujer: ingresos y hombre: decisiones&apos;, 10, 
 IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;Mujer recibe ingresos y toma decisiones&apos;, 10, 0
 ))
@@ -308,28 +283,22 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_whoRecievesIncomeAndDecides__c) = &apos;
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender_ReceivingMoneyForSale</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>productivity_AdoptionBestPractices_FMP__c</fullName>
         <description>BAP Final score for FMP</description>
-        <externalId>false</externalId>
         <formula>LAC_SFL_Scores_Farm__r.fmp_Total_Score__c * 0.5</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>productivity_AdoptionBestPractices_FMP</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>productivity_EstimatedLastYear__c</fullName>
         <description>Estimated Production / estimated land area cultivated</description>
-        <externalId>false</externalId>
         <formula>(IF(LAC_SFL_Scores_Farmer__r.productivity__c &lt; 1500, 4, 
 IF(LAC_SFL_Scores_Farmer__r.productivity__c &lt; 3500, 6, 
 IF(LAC_SFL_Scores_Farmer__r.productivity__c &lt; 5500, 8, 10 
@@ -338,15 +307,12 @@ IF(LAC_SFL_Scores_Farmer__r.productivity__c &lt; 5500, 8, 10
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>productivity_EstimatedLastYear</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>services_PerceivedAccessTrainingCredit__c</fullName>
         <description>Access to services like training, credit and inputs is critical for farmer success.</description>
-        <externalId>false</externalId>
         <formula>((IF(TEXT(LAC_SFL_Scores_Farmer__r.service_trainingsImproveCrop__c) = &apos;Muy útiles&apos;, 5, 
 IF(TEXT(LAC_SFL_Scores_Farmer__r.service_trainingsImproveCrop__c) = &apos;Útiles&apos;, 4,
 IF(TEXT(LAC_SFL_Scores_Farmer__r.service_trainingsImproveCrop__c) = &apos;Poco útiles&apos;, 2, 0
@@ -370,43 +336,19 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_creditServiceScoring__c) = &apos;Malo&a
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>services_PerceivedAccessTrainingCredit</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>services_UseInputsCreditTrainingArea__c</fullName>
-        <externalId>false</externalId>
         <label>services_UseInputsCreditTrainingArea</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>services_UseInputsCreditTraining_Area__c</fullName>
-        <externalId>false</externalId>
-        <formula>(IF(((LAC_SFL_Scores_Farm__r.Organic_fertilized_area_Ha__c / LAC_SFL_Scores_Farm__r.Coffee_planted_area_Ha__c) * 100) &lt; 10, 0,
-IF(((LAC_SFL_Scores_Farm__r.Organic_fertilized_area_Ha__c / LAC_SFL_Scores_Farm__r.Coffee_planted_area_Ha__c) * 100) &lt; 40, 1, 
-IF(((LAC_SFL_Scores_Farm__r.Organic_fertilized_area_Ha__c / LAC_SFL_Scores_Farm__r.Coffee_planted_area_Ha__c) * 100) &lt; 60, 2,
-IF(((LAC_SFL_Scores_Farm__r.Organic_fertilized_area_Ha__c / LAC_SFL_Scores_Farm__r.Coffee_planted_area_Ha__c) * 100) &lt; 80, 3,  
-IF(((LAC_SFL_Scores_Farm__r.Organic_fertilized_area_Ha__c / LAC_SFL_Scores_Farm__r.Coffee_planted_area_Ha__c) * 100) &lt; 100, 4, 5
-)))))
-) * 0.5</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>services_UseInputsCreditTraining_Area</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>services_UseInputsCreditTraining__c</fullName>
         <description>Use of services measures the functional attractiveness of the services. Only if farmer use the services can they improve farm outcomes.</description>
-        <externalId>false</externalId>
         <formula>((IF(TEXT(LAC_SFL_Scores_Farmer__r.socioe_bankAccount__c) = &apos;Si&apos;, 5, 0)
 + 
 IF(OR(INCLUDES(LAC_SFL_Scores_Farmer__r.socioe_debtsFinancingSource__c, &quot;Crédito familiar&quot;)
@@ -434,28 +376,22 @@ IF(INCLUDES(LAC_SFL_Scores_Farmer__r.service_meetingsParticipation__c, &quot;Par
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>services_UseInputsCreditTraining</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>trade_BelongToOrganization__c</fullName>
         <description>Membership or access to a farmer organization</description>
-        <externalId>false</externalId>
         <formula>IF(ISBLANK(LAC_SFL_Scores_Farmer__r.LAC_Farmer_Details__r.cooperativeProfile__c), 0, 10) * 0.2</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>trade_BelongToOrganization</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>trade_CommerEnoughInformation__c</fullName>
         <description>Knowledge of price, knowledge of price formation, knowledge of market trends, number of market information sources</description>
-        <externalId>false</externalId>
         <formula>(IF(INCLUDES(LAC_SFL_Scores_Farmer__r.commer_enoughInformation__c, &quot;Precios del café&quot;), 2, 0) +
 IF(INCLUDES(LAC_SFL_Scores_Farmer__r.commer_enoughInformation__c, &quot;Formación del precio del café&quot;), 2, 0) + 
 IF(INCLUDES(LAC_SFL_Scores_Farmer__r.commer_enoughInformation__c, &quot;Tendencia del mercado de café&quot;), 3, 0) + 
@@ -463,15 +399,12 @@ IF(INCLUDES(LAC_SFL_Scores_Farmer__r.commer_enoughInformation__c, &quot;Fuentes 
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>trade_CommerEnoughInformation</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>trade_ContractsConcernsBargainingPower__c</fullName>
         <description>Existence of contracts, existence of mechanism to register concerns, perception in change of bargaining power</description>
-        <externalId>false</externalId>
         <formula>(IF(TEXT(LAC_SFL_Scores_Farmer__r.commer_bargainingPower__c) = &apos;Alto&apos;, 6, 
 IF(TEXT(LAC_SFL_Scores_Farmer__r.commer_bargainingPower__c) = &apos;Medio&apos;, 3, 0
 ))
@@ -483,15 +416,12 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_mechanismsComplaints__c) = &apos;No&apo
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>trade_ContractsConcernsBargainingPower</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>trade_SupplyingServiceScore__c</fullName>
         <description>Perception of price fairness, perception of quality of relationships, price ratio (farm gate vs. regional average farm gate) for commodity crops</description>
-        <externalId>false</externalId>
         <formula>CASE(TEXT(LAC_SFL_Scores_Farmer__r.service_supplyingServiceScore__c), 
 &quot;Excelente&quot;, 10, 
 &quot;Bueno&quot;, 8, 
@@ -500,26 +430,20 @@ IF(TEXT(LAC_SFL_Scores_Farmer__r.service_mechanismsComplaints__c) = &apos;No&apo
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>trade_SupplyingServiceScore</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wellbeing_CropRevenueNetCropIncomeScore__c</fullName>
         <description>Crop Revenue or Net crop income (the crop the study is focused on)</description>
-        <externalId>false</externalId>
         <label>wellbeing_CropRevenueNetCropIncomeScore</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wellbeing_CropRevenueNetCropIncome__c</fullName>
         <description>Crop Revenue or Net crop income (the crop the study is focused on)</description>
-        <externalId>false</externalId>
         <formula>(IF(wellbeing_CropRevenueNetCropIncomeScore__c &gt;=  LAC_SFL_Scores_Farmer__r.ppi_Extrema_USAID_Score__c, 2, 0) 
 + 
 IF(wellbeing_CropRevenueNetCropIncomeScore__c &gt;=  LAC_SFL_Scores_Farmer__r.ppi_Nacional_Score__c, 2, 0)
@@ -532,55 +456,37 @@ IF(wellbeing_CropRevenueNetCropIncomeScore__c &gt;=  LAC_SFL_Scores_Farmer__r.pp
 
 /*
 NOTES:
-The values on this formula are calculated with workflow rules
-1. wellbeing_CropRevenueScore
-2. ppi_Scores_CalculateAll
-
-Related to wellbeing_CropRevenueScore:
-there are two fields that must contain the members belong to household
-LAC_Farmer_Details__c.Family_Members__c &amp;  
-CBL2_Farmer__c.socioe_personsInHousehold__c (There are more values in this field)
-
-Coffee value is getting from www.federaciondecafeteros.org (125 kgs/COP)
+The value wellbeing_CropRevenueNetCropIncomeScore is calculated with a workflow rule &quot;wellbeing_CropRevenueScore&quot;
 */</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>wellbeing_CropRevenueNetCropIncome</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wellbeing_FSAssessmentSurvey__c</fullName>
         <description>Freedom from Hunger Food Security Assessment Survey</description>
-        <externalId>false</externalId>
-        <formula>(10 - ((LAC_SFL_Scores_Farmer__r.food_FS_Chronic_score__c +  LAC_SFL_Scores_Farmer__r.food_FS_Prevalence_score__c) / 2)) * 0.17</formula>
+        <formula>(10.0 - ((LAC_SFL_Scores_Farmer__r.food_FS_Chronic_score__c +  LAC_SFL_Scores_Farmer__r.food_FS_Prevalence_score__c) / 2.0)) * 0.17</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>wellbeing_FSAssessmentSurvey</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wellbeing_PPI_FinalScore__c</fullName>
         <description>Progress Out of Poverty Score (PPI)</description>
-        <externalId>false</externalId>
         <formula>LAC_SFL_Scores_Farmer__r.ppi_Score__c * 0.1 * 0.17</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>wellbeing_PPI_FinalScore</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>wellbeing_Perception__c</fullName>
         <description>Perception that target crop could provide a viable livelihood for future generations</description>
-        <externalId>false</externalId>
         <formula>CASE(LAC_SFL_Scores_Farmer__r.sbuxSegment__c, 
 &quot;Tradicionalistas&quot;, 5, 
 &quot;Atrapados&quot;, 2, 
@@ -591,12 +497,22 @@ Coffee value is getting from www.federaciondecafeteros.org (125 kgs/COP)
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>wellbeing_Perception</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <label>LAC SFL Scoring</label>
+    <listViews>
+        <fullName>SFL_More_data</fullName>
+        <columns>NAME</columns>
+        <columns>LAC_SFL_Scores_Farmer__c</columns>
+        <columns>LAC_SFL_Scores_Farm__c</columns>
+        <columns>services_UseInputsCreditTrainingArea__c</columns>
+        <columns>wellbeing_CropRevenueNetCropIncomeScore__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>wellbeing_PPI_FinalScore__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>SFL_More_data</label>
+    </listViews>
     <nameField>
         <displayFormat>SFL-{00000}</displayFormat>
         <label>SFL Scoring Name</label>

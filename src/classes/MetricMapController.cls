@@ -173,18 +173,6 @@ public class MetricMapController {
             markers.addAll(metricMapMarkers);
             metricMapMarkers.clear();
         }
-        if(mapObject.equals('HARVEST')){
-            List<MetricMapWrapper> harvestMapMarkers = EWarehouseMEDashboardController.getHarvestMapMarkers();
-            setStats('There are ' + harvestMapMarkers.size() + ' metrics who match your search<br/>');
-            markers.addAll(harvestMapMarkers);
-            harvestMapMarkers.clear();
-        }
-        if(mapObject.equals('HUB')){
-            List<MetricMapWrapper> diaryHubsMapMarkers = EADDDashboardController.getDairyHubMapMarkers();
-            setStats('There are ' + diaryHubsMapMarkers.size() + ' metrics who match your search<br/>');
-            markers.addAll(diaryHubsMapMarkers);
-            diaryHubsMapMarkers.clear();
-        }
         if(mapObject.equals('IG')){
             List<MetricMapWrapper> fieldVisits = IGDashboardHelpers.getFieldVisitsMapMarkers(getNamedVariable('ig_region'), getNamedVariable('ig_district'), getNamedVariable('ig_subcounty'), getNamedVariable('ig_startdate'), getNamedVariable('ig_enddate'), getNamedVariable('ig_cbt'));
             setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
@@ -209,12 +197,12 @@ public class MetricMapController {
             markers.addAll(fieldVisits);
             fieldVisits.clear();
         }
-        if(mapObject.equals('GUMUTINDO_FIELD_OFFICERS')){
-            List<MetricMapWrapper> fieldVisits = MbugoHelpers.getFOMapMarkers();
+        /*if(mapObject.equals('GUMUTINDO_FIELD_OFFICERS')){
+            List<MetricMapWrapper> fieldVisits = GumutindoHelpers.getFOMapMarkers();
             setStats('There are ' + fieldVisits.size() + ' metrics which match your search<br/>');
             markers.addAll(fieldVisits);
             fieldVisits.clear();
-        }
+        }*/
         System.debug('Should show ' + markers.size() + ' map markers');
         if (markers.size() == 0) {
             setFeedbackMessage('No map markers match your selection. Please refine your search to see a map');

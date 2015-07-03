@@ -663,7 +663,7 @@ public class BuccodecHelpers {
         M_E_Metric_Data__c datum = datas[0];
         datum.Numerator__c = approved;
         datum.Denumerator__c = totalReviewed;
-        update datum;      
+        upsert datum;      
     }
 
     /*

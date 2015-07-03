@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>A_Kg_of_Sweet_Potatoes_at_retail_price__c</fullName>
+        <label>A Kg of Sweet Potatoes at retail price</label>
+        <precision>16</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>A_Kg_of_Sweet_Potatoes_at_wholesale_pric__c</fullName>
+        <label>A Kg of Sweet Potatoes at wholesale pric</label>
+        <precision>16</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Name_of_the_trader_in_Sweet_Potatoes__c</fullName>
+        <label>Name of the trader in Sweet Potatoes</label>
+        <length>50</length>
+        <required>true</required>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>X3_0_Market_Bushenyi__c</fullName>
+        <label>3.0 Market Bushenyi</label>
+        <referenceTo>Market_Bushenyi__c</referenceTo>
+        <relationshipLabel>3.0 Bushenyi Sweet Potatoes</relationshipLabel>
+        <relationshipName>X3_0_Bushenyi_Sweet_Potatoes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <label>3.0 Bushenyi Sweet Potatoes</label>
+    <nameField>
+        <displayFormat>BS-{0000}</displayFormat>
+        <label>3.0 Bushenyi Sweet Potatoes Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>3.0 Bushenyi Sweet Potatoes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

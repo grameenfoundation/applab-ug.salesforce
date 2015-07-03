@@ -1,100 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Indonesia Field Officers</description>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Active__c</fullName>
         <defaultValue>true</defaultValue>
         <description>Field officer status</description>
-        <externalId>false</externalId>
         <label>Active</label>
-        <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Contract_Expiry_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Contract Expiry Date</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>FO_alias__c</fullName>
-        <externalId>false</externalId>
         <label>FO Alias</label>
         <length>20</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>FO_profile__c</fullName>
-        <externalId>false</externalId>
         <label>FO Profile</label>
         <length>32768</length>
-        <trackHistory>false</trackHistory>
         <type>Html</type>
         <visibleLines>25</visibleLines>
     </fields>
     <fields>
         <fullName>Join_Date__c</fullName>
-        <externalId>false</externalId>
         <label>Join Date</label>
         <required>true</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
         <description>Person details</description>
-        <externalId>false</externalId>
         <label>Person ID</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>Field Officers</relationshipLabel>
         <relationshipName>Field_Officers</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <label>Field Officer</label>
     <listViews>
@@ -115,7 +65,6 @@
     </listViews>
     <nameField>
         <label>FO_ID</label>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Field Officers</pluralLabel>

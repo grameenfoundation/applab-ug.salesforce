@@ -11,6 +11,9 @@ public with sharing class BulkMessageController {
     public Boolean sendViaPulse { get; set; }
     public String senderId { get; set; }
     public String category { get; set; }
+    public String smsPassword { get; set; }
+    public User user;
+	public Integer MAX_RECIPIENTS = 995;
 
     // We need this message field so that we can create a DatePicker on the VF
     // page using the apex:inputField control (it will only create a DatePicker
@@ -27,6 +30,11 @@ public with sharing class BulkMessageController {
         this.groups = new List<String>();
         this.people = new List<String>();
         this.sendees = new List<String>();
+        user = [Select Id, Country from User where Id =:UserInfo.getUserId()];
+    }
+    
+    public User getUser() {
+    	return user;
     }
 
     public PageReference getSelectedGroups() {
@@ -78,6 +86,8 @@ public with sharing class BulkMessageController {
             List<Id> recipients = new List<Id>();
             List<Id> groupsToSendTo = new List<Id>();
             List<Id> groupRecipients = new List<Id>();
+            List<Message> groupMessages = new List<Message>();
+            Boolean containsGroup = false;
 
             // Message is being sent to people. Overrides group send
             if (sendees.size() > 0) {
@@ -85,6 +95,7 @@ public with sharing class BulkMessageController {
 
                     // Sending the message to all members of a group
                     if (personId.startsWith('g_')) {
+                    	containsGroup = true;
                         groupsToSendTo.add(personId.replace('g_',''));
                     }
                     else {
@@ -99,25 +110,55 @@ public with sharing class BulkMessageController {
                     }
                 }
             }
-
-            // Add the group recipients
-            groupRecipients.addAll(SendSMSHelpers.getGroupMemberIds(groupsToSendTo));
-
+			
+			//this impl is for uganda office. its meant to resolve limit due to huge groups
+			Map<String, Map<String, Message>> messageMap = new Map<String, Map<String, Message>>();
+			if(containsGroup && user.Country == 'Uganda') {
+				// Expanding the group aint possible
+				// In this scenario, the message should state that its broadcasting to a group
+            	if(this.sendViaPulse) {
+            		for(String grp : groupsToSendTo) {
+	            		Message pulseMsge = new Message(this.subject, this.messageText, sender.Id, sender.Name, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c, 'PULSE');
+	            		pulseMsge.groupId = grp;
+	            		pulseMsge.catgory = category;
+						groupMessages.add(pulseMsge);
+            		}
+            	}
+            	if(this.sendViaSms) {
+            		for(String grp : groupsToSendTo) {
+	            		Message smsMsge = new Message(this.subject, this.messageText, sender.Id, sender.Name, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c, 'SMS');
+	            		smsMsge.groupId = grp;
+	            		smsMsge.catgory = category;
+						groupMessages.add(smsMsge);    
+            		}        		
+            	}
+            	messageMap = SendSMSHelpers.generateGroupMessages(groupMessages);
+            	
+			}
+			else {
+            	// Add the group recipients
+            	groupRecipients.addAll(SendSMSHelpers.getGroupMemberIds(groupsToSendTo));
+			}
             Boolean sendNow = this.dummyMessage.Expiration_Time__c <= datetime.now();
             Boolean rescheduled = false;
             System.debug(LoggingLevel.INFO, 'SEND NOW = ' + sendNow);
             if (sendNow) {
-
-                // Send the messages immediately through the relevant gateways
-                recipients.addAll(groupRecipients);
-                rescheduled = SendSmsHelpers.sendThroughGateways(
-                    SendSmsHelpers.generateMessage(
-                        recipients, this.subject, this.messageText, sender.Id, sender.Name, this.sendViaPulse, this.sendViaSms, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c, category 
-                    ), true
-                );
+				
+				if(messageMap.size() > 0) {
+					// send group message without expanding
+					rescheduled = SendSmsHelpers.sendThroughGateways(messageMap, true);
+				}
+				else {
+	                // Send the messages immediately through the relevant gateways
+	                recipients.addAll(groupRecipients);
+	                rescheduled = SendSmsHelpers.sendThroughGateways(
+	                    SendSmsHelpers.generateMessage(
+	                        recipients, this.subject, this.messageText, sender.Id, sender.Name, this.sendViaPulse, this.sendViaSms, this.dummyMessage.Expiration_Time__c, this.dummyMessage2.Expiration_Time__c, category 
+	                    ), true
+	                );
+				}
             }
             else {
-
                 // Add the messages to the queue
                 System.debug(LoggingLevel.INFO, 'SETTING THE SAVEPOINT');
                 Savepoint sp = Database.setSavepoint();
@@ -204,6 +245,14 @@ public with sharing class BulkMessageController {
             System.debug(LoggingLevel.INFO, 'No message entered');
             return false;
         }
+        if(user.Country != null && user.Country.equalsIgnoreCase('Uganda') && this.sendViaSms) {
+        	SMS_Gateway_Settings__c setting = SMS_Gateway_Settings__c.getInstance('EdnetUg');
+        	if(smsPassword == null || !smsPassword.equals(setting.Password__c)) {
+	            ApexPages.addMessage(new ApexPages.Message(ApexPages.severity.ERROR, 'Incorrect Password'));
+	            System.debug(LoggingLevel.INFO, 'Password incorrect'); 
+	            return false;       		
+        	}
+        }
         return true;
     }
 
@@ -252,7 +301,7 @@ public with sharing class BulkMessageController {
                  'Group__c IN (' + MetricHelpers.generateCommaSeperatedString(groups,true) + ') '  +
             'ORDER BY ' +
                 'Person__r.First_Name__c ' +
-            'LIMIT 1000';
+            'LIMIT ' + MAX_RECIPIENTS;
             for (Person_Group_Association__c[] people : database.query(SelectClause)) {
                 for (Person_Group_Association__c person : people) {
                     String fullName = person.Person__r.First_Name__c;
@@ -265,9 +314,12 @@ public with sharing class BulkMessageController {
                     options.add(new SelectOption(String.valueOf(person.Person__r.Id), fullName));
                 }
             }
+            if(options.size() >= MAX_RECIPIENTS) {
+            	ApexPages.addMessage(new ApexPages.Message(ApexPages.severity.WARNING, 'The number of recipients in the selected groups are too many. Not all have been listed'));
+            }
         }
         else {
-            // degailt loading of people makes pageload time out
+            // detailed loading of people makes pageload time out
             /*for (Person__c[] people : [
                     SELECT
                         Id,

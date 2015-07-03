@@ -1,83 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A target for the MTN Channels FFPS</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
     <fields>
         <fullName>Outlet_Visits__c</fullName>
         <defaultValue>0</defaultValue>
         <description>The target for the number of outlets that should be visited per day by the staff member</description>
-        <externalId>false</externalId>
         <label>Outlet Visits</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <description>The staff member that this target is for</description>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>MTN Channels Targets</relationshipLabel>
         <relationshipName>MTN_Channels_Targets</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Region__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Region</label>
         <referenceTo>Region__c</referenceTo>
         <relationshipLabel>MTN Channels Targets</relationshipLabel>
         <relationshipName>MTN_Channels_Targets</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Start_Date__c</fullName>
         <defaultValue>Today()</defaultValue>
         <description>The start date of the target</description>
-        <externalId>false</externalId>
         <label>Start Date</label>
         <required>true</required>
         <type>Date</type>

@@ -1,57 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Age__c</fullName>
-        <externalId>false</externalId>
         <formula>IF(ISNULL(Date_of_Birth__c),0,FLOOR((TODAY()-Date_of_Birth__c)/365.2425))</formula>
         <label>Age</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Attends_School__c</fullName>
-        <externalId>false</externalId>
         <label>Attends School</label>
         <picklist>
             <picklistValues>
@@ -64,12 +25,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Centro_de_Recuperacion_Nutricional__c</fullName>
-        <externalId>false</externalId>
         <label>Centro de Recuperación Nutricional</label>
         <picklist>
             <picklistValues>
@@ -82,25 +41,19 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Contact__c</fullName>
-        <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Mana Beneficiaries</relationshipLabel>
         <relationshipName>Mana_Beneficiary_Records</relationshipName>
         <relationshipOrder>1</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Control_prenatal__c</fullName>
-        <externalId>false</externalId>
         <label>Control prenatal</label>
         <picklist>
             <picklistValues>
@@ -113,12 +66,10 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Crecimiento_y_desarrollo__c</fullName>
-        <externalId>false</externalId>
         <label>Crecimiento y desarrollo</label>
         <picklist>
             <picklistValues>
@@ -131,22 +82,17 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Date_of_Birth__c</fullName>
-        <externalId>false</externalId>
         <formula>Contact__r.Birthdate</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Date of Birth</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Desmovilizados__c</fullName>
-        <externalId>false</externalId>
         <label>Desmovilizados</label>
         <picklist>
             <picklistValues>
@@ -159,12 +105,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Discapacitados__c</fullName>
-        <externalId>false</externalId>
         <label>Discapacitados</label>
         <picklist>
             <picklistValues>
@@ -177,12 +121,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Education_Level__c</fullName>
-        <externalId>false</externalId>
         <label>Education Level</label>
         <picklist>
             <picklistValues>
@@ -203,12 +145,10 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Gender__c</fullName>
-        <externalId>false</externalId>
         <label>Gender</label>
         <picklist>
             <picklistValues>
@@ -221,38 +161,28 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Household__c</fullName>
-        <externalId>false</externalId>
         <label>Household</label>
         <referenceTo>Mana_Household__c</referenceTo>
         <relationshipLabel>Mana Beneficiaries</relationshipLabel>
         <relationshipName>Mana_Beneficiaries</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackHistory>false</trackHistory>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Id_Like_HH__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( Household__r.Name == Name, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Id Like HH Temp</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>LGTBI__c</fullName>
-        <externalId>false</externalId>
         <label>LGTBI</label>
         <picklist>
             <picklistValues>
@@ -265,12 +195,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Labor_activity__c</fullName>
-        <externalId>false</externalId>
         <label>Labor activity</label>
         <picklist>
             <picklistValues>
@@ -295,12 +223,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Mana_infantil__c</fullName>
-        <externalId>false</externalId>
         <label>Maná infantil</label>
         <picklist>
             <picklistValues>
@@ -313,12 +239,10 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Otros_programas__c</fullName>
-        <externalId>false</externalId>
         <label>Otros programas</label>
         <picklist>
             <picklistValues>
@@ -331,12 +255,10 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>PAE__c</fullName>
-        <externalId>false</externalId>
         <label>PAE</label>
         <picklist>
             <picklistValues>
@@ -349,23 +271,17 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Permitir_SMS_Household__c</fullName>
-        <externalId>false</externalId>
         <formula>Text(Household__r.Permitir_SMS__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Permitir_SMS_Household</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Poblacion_diferencial__c</fullName>
-        <externalId>false</externalId>
         <label>Población diferencial</label>
         <picklist>
             <picklistValues>
@@ -386,12 +302,10 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Red_unidos__c</fullName>
-        <externalId>false</externalId>
         <label>Red unidos</label>
         <picklist>
             <picklistValues>
@@ -404,33 +318,24 @@
             </picklistValues>
             <sorted>true</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Registration_Date__c</fullName>
-        <externalId>false</externalId>
         <formula>Household__r.CreatedDate</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Registration Date</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>Reported_Age__c</fullName>
-        <externalId>false</externalId>
         <label>Reported Age</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackHistory>false</trackHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Victimas_del_conflicto__c</fullName>
-        <externalId>false</externalId>
         <label>Victimas del conflicto</label>
         <picklist>
             <picklistValues>
@@ -443,12 +348,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>id_type__c</fullName>
-        <externalId>false</externalId>
         <label>id type</label>
         <picklist>
             <picklistValues>
@@ -465,12 +368,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>marital_status__c</fullName>
-        <externalId>false</externalId>
         <label>marital status</label>
         <picklist>
             <picklistValues>
@@ -499,12 +400,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>ocuppation__c</fullName>
-        <externalId>false</externalId>
         <label>ocuppation</label>
         <picklist>
             <picklistValues>
@@ -521,12 +420,10 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>relationship_with_head_of_hh__c</fullName>
-        <externalId>false</externalId>
         <label>relationship with head of hh</label>
         <picklist>
             <picklistValues>
@@ -599,32 +496,22 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>second_last_name__c</fullName>
-        <externalId>false</externalId>
         <label>second last name</label>
         <length>30</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>second_name__c</fullName>
-        <externalId>false</externalId>
         <label>second name</label>
         <length>20</length>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>social_security_type__c</fullName>
-        <externalId>false</externalId>
         <label>social security type</label>
         <picklist>
             <picklistValues>
@@ -649,7 +536,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <label>Mana Beneficiary</label>
@@ -677,7 +563,6 @@
             <value>1</value>
         </filters>
         <label>All Id Like HH</label>
-        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>test</fullName>
@@ -698,11 +583,9 @@
             <value>114</value>
         </filters>
         <label>test</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <label>Id</label>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Mana Beneficiaries</pluralLabel>

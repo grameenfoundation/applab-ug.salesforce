@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>Inventario</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Inventarios</value>
+    </caseValues>
+    <fields>
+        <label>Nombre del artículo (Canastilla)</label>
+        <name>Article_Name__c</name>
+    </fields>
+    <fields>
+        <label>Artículo (Canastilla)</label>
+        <name>Article__c</name>
+        <relationshipLabel><!-- INV_Stock_Article --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Nombre Punto de Despacho/Recepción</label>
+        <name>Client_Name__c</name>
+    </fields>
+    <fields>
+        <label>Punto Despacho/Recepción</label>
+        <name>Client__c</name>
+        <relationshipLabel><!-- INV_Stock_Client --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Cantidad Actual</label>
+        <name>Stock__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>INV Stock Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Inventario</nameFieldLabel>
+</CustomObjectTranslation>

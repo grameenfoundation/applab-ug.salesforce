@@ -1,45 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Category__c</fullName>
-        <externalId>false</externalId>
         <label>Category</label>
         <picklist>
             <picklistValues>
@@ -68,30 +33,24 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Number_of_Consumption_Records__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Consumption Records</label>
         <summaryForeignKey>Mana_Food_Consumption_Record__c.Food__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
-        <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <fields>
         <fullName>Number_of_Quantity_Codes__c</fullName>
-        <externalId>false</externalId>
         <label>Number of Quantity Codes</label>
         <summaryForeignKey>Mana_Food_Quantity_Code__c.Food__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
-        <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <fields>
         <fullName>Units__c</fullName>
-        <externalId>false</externalId>
         <label>Units</label>
         <picklist>
             <picklistValues>
@@ -120,7 +79,6 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackHistory>false</trackHistory>
         <type>Picklist</type>
     </fields>
     <label>Mana Food</label>
@@ -139,7 +97,6 @@
         <columns>LAST_UPDATE</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <listViews>
         <fullName>All1</fullName>
@@ -148,7 +105,6 @@
     </listViews>
     <nameField>
         <label>Name</label>
-        <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Mana Foods</pluralLabel>

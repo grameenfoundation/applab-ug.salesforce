@@ -1,57 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Banana_Farmer_GAPs_Selection__c</fullName>
-        <externalId>false</externalId>
         <label>Banana Farmer GAPs Selection</label>
         <referenceTo>Banana_Farmer_GAPs_Selection__c</referenceTo>
         <relationshipLabel>Banana GAPs Knowledge</relationshipLabel>
         <relationshipName>Banana_GAPs_Knowledge</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Banana_pests_and_disease_control_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Banana pests and disease control Topics</label>
         <picklist>
             <picklistValues>
@@ -69,7 +31,6 @@
     </fields>
     <fields>
         <fullName>Banana_value_addition_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Banana value addition Topics</label>
         <picklist>
             <picklistValues>
@@ -82,7 +43,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Banana_Value_Addition__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Banana Value Addition</label>
         <picklist>
             <picklistValues>
@@ -103,7 +63,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Easy_Access_to_Agro_Inputs__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Easy Access to Agro Inputs</label>
         <picklist>
             <picklistValues>
@@ -124,7 +83,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Group_Production_and_Marketing__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Group Production and Marketing</label>
         <picklist>
             <picklistValues>
@@ -145,7 +103,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Pests_and_Diseases_Control__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Pests and Diseases Control</label>
         <picklist>
             <picklistValues>
@@ -166,7 +123,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Proper_Record_Keeping__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Proper Record Keeping</label>
         <picklist>
             <picklistValues>
@@ -187,7 +143,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Proper_and_Timely_Weed_Control__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Proper and Timely Weed Control</label>
         <picklist>
             <picklistValues>
@@ -208,7 +163,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Providing_Support_for_Plants__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Providing Support for Plants</label>
         <picklist>
             <picklistValues>
@@ -229,7 +183,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Pruning_Desuckering__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>NA means Not Applicable</inlineHelpText>
         <label>Discussed Pruning Desuckering</label>
         <picklist>
@@ -251,7 +204,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Soil_Fertility_Management__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Soil Fertility Management</label>
         <picklist>
             <picklistValues>
@@ -272,7 +224,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Soil_and_Water_Conservation__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Soil and Water Conservation</label>
         <picklist>
             <picklistValues>
@@ -293,7 +244,6 @@
     </fields>
     <fields>
         <fullName>Easily_access_agro_inputs_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Easily access agro-inputs Topics</label>
         <picklist>
             <picklistValues>
@@ -306,7 +256,6 @@
     </fields>
     <fields>
         <fullName>Group_production_and_marketing_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Group production and marketing Topics</label>
         <picklist>
             <picklistValues>
@@ -320,7 +269,6 @@
     <fields>
         <fullName>Knowledge_Discussion_Date__c</fullName>
         <defaultValue>Today()</defaultValue>
-        <externalId>false</externalId>
         <label>Knowledge Discussion Date</label>
         <required>true</required>
         <type>Date</type>
@@ -328,14 +276,12 @@
     <fields>
         <fullName>Knowledge_Discussion_Datetime__c</fullName>
         <defaultValue>Now()</defaultValue>
-        <externalId>false</externalId>
         <label>Knowledge Discussion Datetime</label>
         <required>true</required>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>Proper_and_timely_weed_control_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper and timely weed control Topics</label>
         <picklist>
             <picklistValues>
@@ -369,7 +315,6 @@
     </fields>
     <fields>
         <fullName>Proper_record_keeping_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper record keeping Topics</label>
         <picklist>
             <picklistValues>
@@ -391,7 +336,6 @@
     </fields>
     <fields>
         <fullName>Providing_support_for_banana_plants__c</fullName>
-        <externalId>false</externalId>
         <label>Providing support for banana plants</label>
         <picklist>
             <picklistValues>
@@ -404,7 +348,6 @@
     </fields>
     <fields>
         <fullName>Pruning_desuckering_deleafing_topics__c</fullName>
-        <externalId>false</externalId>
         <label>Pruning, desuckering, deleafing topics</label>
         <picklist>
             <picklistValues>
@@ -430,7 +373,6 @@
     </fields>
     <fields>
         <fullName>Soil_Fertility_Management_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Soil Fertility Management Topics</label>
         <picklist>
             <picklistValues>
@@ -472,7 +414,6 @@
     </fields>
     <fields>
         <fullName>Soil_and_Water_Conservation_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Soil and Water Conservation Topics</label>
         <picklist>
             <picklistValues>
@@ -485,7 +426,6 @@
     </fields>
     <fields>
         <fullName>Source__c</fullName>
-        <externalId>false</externalId>
         <label>Source</label>
         <picklist>
             <picklistValues>

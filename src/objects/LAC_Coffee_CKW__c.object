@@ -1,294 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>CKW__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>CKW</label>
         <referenceTo>CKW__c</referenceTo>
         <relationshipLabel>LAC_Coffee_CKWs_CKW</relationshipLabel>
         <relationshipName>LAC_Coffee_CKWs_CKW</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>LAC_Farmer_Details__c</fullName>
-        <externalId>false</externalId>
         <label>LAC Farmer Details</label>
         <referenceTo>LAC_Farmer_Details__c</referenceTo>
         <relationshipLabel>LAC_Coffee_CKWs_LFD</relationshipLabel>
         <relationshipName>LAC_Coffee_CKWs_LFD</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Status__c</fullName>
-        <externalId>false</externalId>
         <formula>TEXT(CKW__r.Status__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Status</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>assignedFarmers__c</fullName>
-        <externalId>false</externalId>
         <formula>CKW__r.Assigned_Farmer_Count__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>assignedFarmers</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>birthDate__c</fullName>
-        <externalId>false</externalId>
         <formula>contact__r.Birthdate</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>birthDate</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>cKWPerformance__c</fullName>
-        <externalId>false</externalId>
         <formula>CKW__r.Current_Performance_Review__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>cKWPerformance</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>cellPhoneNumber__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Cell_Phone_Number__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>cellPhoneNumber</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>communitiesServed__c</fullName>
-        <externalId>false</externalId>
         <label>communitiesServed</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>community__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.District__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>community</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>contact__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>contact</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>LAC_Coffee_CKWs_Contact</relationshipLabel>
         <relationshipName>LAC_Coffee_CKWs_Contact</relationshipName>
-        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>cooperative__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Cooperative__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>cooperative</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>country__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Country__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>country</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>dateEnrollmentAsCKW__c</fullName>
-        <externalId>false</externalId>
         <formula>CKW__r.CreatedDate</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>dateEnrollmentAsCKW</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>dateOfEnrollment__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Entrance_Into_Programme__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>dateOfEnrollment</label>
-        <required>false</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>department__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Department__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>department</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>farmerCode__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Farmer_Code__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>farmerCode</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>firstName__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.First_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>firstName</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gender__c</fullName>
-        <externalId>false</externalId>
         <formula>TEXT(LAC_Farmer_Details__r.Gender__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>gender</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>hasCellPhone__c</fullName>
-        <externalId>false</externalId>
         <formula>TEXT(LAC_Farmer_Details__r.Has_Cellphone__c )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>hasCellPhone</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>hasDataPlan__c</fullName>
-        <externalId>false</externalId>
         <formula>TEXT(LAC_Farmer_Details__r.Has_Data_Plan__c )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>hasDataPlan</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>lastName__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>lastName</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>municipalitiesServed__c</fullName>
-        <externalId>false</externalId>
         <label>municipalitiesServed</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>municipality__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Municipality__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>municipality</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>nationalId__c</fullName>
-        <externalId>false</externalId>
         <formula>contact__r.gfsurveys__mobilesurveys_Id__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>nationalId</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>photo__c</fullName>
-        <externalId>false</externalId>
         <formula>LAC_Farmer_Details__r.Image__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>photo</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>LAC_Coffee_CKW</label>
     <nameField>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>Account_Place__c</fullName>
+        <label>Account Place</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Bank_Account_Holder_Id__c</fullName>
+        <label>Bank Account Holder Id</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Bank_Account_Holder__c</fullName>
+        <label>Bank Account Holder</label>
+        <length>80</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Bank_Account_Number__c</fullName>
+        <label>Bank Account Number</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Bank_Account_Type__c</fullName>
+        <label>Bank Account Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cuenta de Ahorros</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cuenta Corriente</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Bank__c</fullName>
+        <label>Bank</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Bancolombia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banco Agrario</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banco de Bogotá</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Davivienda</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CKW_Name__c</fullName>
+        <formula>CKW__r.gfsurveys__Contact__r.FirstName  +  CKW__r.gfsurveys__Contact__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CKW Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>CKW__c</fullName>
+        <label>CKW</label>
+        <referenceTo>gfsurveys__Mobile_User__c</referenceTo>
+        <relationshipLabel>BSS CKW Projects</relationshipLabel>
+        <relationshipName>BSS_CKW_Projects</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Discount_obs__c</fullName>
+        <label>Discount obs</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <label>End Date</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ID_expedition_place__c</fullName>
+        <label>ID expedition place</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Discount__c</fullName>
+        <label>Monthly Discount</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_top_payment__c</fullName>
+        <label>Monthly top payment</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>National_ID__c</fullName>
+        <label>National ID</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Organization__c</fullName>
+        <label>Organization</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <label>Project</label>
+        <referenceTo>BSS_Project__c</referenceTo>
+        <relationshipLabel>BSS CKW Projects</relationshipLabel>
+        <relationshipName>BSS_CKW_Projects</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <label>Start Date</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Activo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactivo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>type_of_payment__c</fullName>
+        <label>type of payment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Desempeño</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Encuestas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <label>BSS CKW Project</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>CKW_Name__c</columns>
+        <columns>Organization__c</columns>
+        <columns>Project__c</columns>
+        <columns>Bank__c</columns>
+        <columns>Monthly_Discount__c</columns>
+        <columns>Discount_obs__c</columns>
+        <columns>Monthly_top_payment__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>BSS_CKW{000000}</displayFormat>
+        <label>BSS CKW Proyect Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>BSS CKW Projects</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

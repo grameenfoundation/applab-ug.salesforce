@@ -1,47 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Food Security Details for the CKW 3.0 Focus Farmers</description>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Average_No_of_Meals_Consumed_Daily_by_HH__c</fullName>
         <description>On average how many meals does your household consume daily</description>
-        <externalId>false</externalId>
         <inlineHelpText>On average how many meals does your household consume daily</inlineHelpText>
         <label>Average No of Meals Consumed Daily by HH</label>
         <picklist>
@@ -67,21 +32,17 @@
     </fields>
     <fields>
         <fullName>Focus_Farmer__c</fullName>
-        <externalId>false</externalId>
         <label>Focus Farmer</label>
         <referenceTo>Focus_Farmer__c</referenceTo>
         <relationshipLabel>Food Security Details</relationshipLabel>
         <relationshipName>Food_Security_Details</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>HH_Member_Slept_Hungry_Not_Enough_Food__c</fullName>
         <description>In the past [4 weeks/30 days] did you or any household member go to sleep at night hungry because there was
 not enough food?</description>
-        <externalId>false</externalId>
         <inlineHelpText>In the past [4 weeks/30 days] did you or any household member go to sleep at night hungry because there was
 not enough food?</inlineHelpText>
         <label>HH Member Slept Hungry Not Enough Food</label>
@@ -101,7 +62,6 @@ not enough food?</inlineHelpText>
     <fields>
         <fullName>HH__c</fullName>
         <description>Does your household sometimes has surplus Banana/Coffee/Maize for market</description>
-        <externalId>false</externalId>
         <inlineHelpText>Does your household sometimes has surplus Banana/Coffee/Maize for market</inlineHelpText>
         <label>HH sometimes has surplus food for market</label>
         <picklist>
@@ -128,7 +88,6 @@ not enough food?</inlineHelpText>
     <fields>
         <fullName>HH_has_food_reserves_of_stored_food__c</fullName>
         <description>Does your household have food reserves in from of stored food?</description>
-        <externalId>false</externalId>
         <inlineHelpText>Does your household have food reserves in from of stored food?</inlineHelpText>
         <label>HH has food reserves of stored food</label>
         <picklist>
@@ -148,7 +107,6 @@ not enough food?</inlineHelpText>
         <fullName>HH_member_last_4_weeks_starved_whole_day__c</fullName>
         <description>In the past [4 weeks/30 days] did you or any household member go a whole day and night without eating
 anything at all because there was not enough food?</description>
-        <externalId>false</externalId>
         <inlineHelpText>In the past [4 weeks/30 days] did you or any household member go a whole day and night without eating
 anything at all because there was not enough food?</inlineHelpText>
         <label>HH member last 4 weeks starved whole day</label>
@@ -167,7 +125,6 @@ anything at all because there was not enough food?</inlineHelpText>
     </fields>
     <fields>
         <fullName>Household_has_enough_food_to_eat__c</fullName>
-        <externalId>false</externalId>
         <label>Household has enough food to eat?</label>
         <picklist>
             <picklistValues>
@@ -184,7 +141,6 @@ anything at all because there was not enough food?</inlineHelpText>
     </fields>
     <fields>
         <fullName>How_often_HH_member_slept_hungry_4_weeks__c</fullName>
-        <externalId>false</externalId>
         <label>How often HH member slept hungry 4 weeks</label>
         <picklist>
             <picklistValues>
@@ -205,7 +161,6 @@ anything at all because there was not enough food?</inlineHelpText>
     </fields>
     <fields>
         <fullName>How_often_HH_member_starved_last_4_weeks__c</fullName>
-        <externalId>false</externalId>
         <label>How often HH member starved last 4 weeks</label>
         <picklist>
             <picklistValues>
@@ -227,7 +182,6 @@ anything at all because there was not enough food?</inlineHelpText>
     <fields>
         <fullName>How_often_no_food_in_last_4_weeks__c</fullName>
         <description>How often did this happen in the last 4 weeks/30 days)?</description>
-        <externalId>false</externalId>
         <inlineHelpText>How often did this happen in the last 4 weeks/30 days)?</inlineHelpText>
         <label>How often no food in last 4 weeks</label>
         <picklist>
@@ -249,7 +203,6 @@ anything at all because there was not enough food?</inlineHelpText>
     </fields>
     <fields>
         <fullName>Main_Food_Source_for_Household__c</fullName>
-        <externalId>false</externalId>
         <label>Main Food Source for Household</label>
         <picklist>
             <picklistValues>
@@ -276,7 +229,6 @@ anything at all because there was not enough food?</inlineHelpText>
         <fullName>No_Food_in_house_in_the_past_4_weeks__c</fullName>
         <description>In the past [4 weeks/30 days] was there a time when there was no food to eat of any kind in your house
 because of lack of resources to get food?</description>
-        <externalId>false</externalId>
         <inlineHelpText>In the past [4 weeks/30 days] was there a time when there was no food to eat of any kind in your house
 because of lack of resources to get food?</inlineHelpText>
         <label>No Food in house in the past 4 weeks</label>
@@ -295,7 +247,6 @@ because of lack of resources to get food?</inlineHelpText>
     </fields>
     <fields>
         <fullName>Types_of_Food_Reserves_in_Household__c</fullName>
-        <externalId>false</externalId>
         <label>Types of Food Reserves in Household</label>
         <picklist>
             <picklistValues>

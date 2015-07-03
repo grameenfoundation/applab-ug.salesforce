@@ -1,46 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A farm detail object that has data specific to coffee farms</description>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Applies_Management_Plan__c</fullName>
-        <externalId>false</externalId>
         <label>Applies Management Plan</label>
         <picklist>
             <picklistValues>
@@ -57,17 +22,13 @@
     </fields>
     <fields>
         <fullName>Average_Plantation_Height_Meters__c</fullName>
-        <externalId>false</externalId>
         <label>Average Plantation Height Meters</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Bought_Seedling__c</fullName>
-        <externalId>false</externalId>
         <label>Bought Seedling</label>
         <picklist>
             <picklistValues>
@@ -84,7 +45,6 @@
     </fields>
     <fields>
         <fullName>Certifications__c</fullName>
-        <externalId>false</externalId>
         <label>Certifications</label>
         <picklist>
             <picklistValues>
@@ -134,7 +94,6 @@
     </fields>
     <fields>
         <fullName>Has_Farm_Management__c</fullName>
-        <externalId>false</externalId>
         <label>Has Farm Management</label>
         <picklist>
             <picklistValues>
@@ -151,7 +110,6 @@
     </fields>
     <fields>
         <fullName>Has_Production_Management_Plan__c</fullName>
-        <externalId>false</externalId>
         <label>Has Production Management Plan</label>
         <picklist>
             <picklistValues>
@@ -168,7 +126,6 @@
     </fields>
     <fields>
         <fullName>Knows_Bylaws__c</fullName>
-        <externalId>false</externalId>
         <label>Knows Bylaws</label>
         <picklist>
             <picklistValues>
@@ -185,19 +142,15 @@
     </fields>
     <fields>
         <fullName>LAC_Farm__c</fullName>
-        <externalId>false</externalId>
         <label>LAC Farm</label>
         <referenceTo>LAC_Farm__c</referenceTo>
         <relationshipLabel>LAC Coffee Farms</relationshipLabel>
         <relationshipName>LAC_Coffee_Farms</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Made_Seedling__c</fullName>
-        <externalId>false</externalId>
         <label>Made Seedling</label>
         <picklist>
             <picklistValues>
@@ -214,7 +167,6 @@
     </fields>
     <fields>
         <fullName>Pests_And_Disease__c</fullName>
-        <externalId>false</externalId>
         <label>Pests And Disease</label>
         <picklist>
             <picklistValues>
@@ -256,27 +208,20 @@
     </fields>
     <fields>
         <fullName>Plant_Average_Density__c</fullName>
-        <externalId>false</externalId>
         <label>Plant Average Density</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Plantation_Age__c</fullName>
-        <externalId>false</externalId>
         <label>Plantation Age</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Production_Unit__c</fullName>
-        <externalId>false</externalId>
         <label>Production Unit</label>
         <picklist>
             <picklistValues>
@@ -297,17 +242,13 @@
     </fields>
     <fields>
         <fullName>Production__c</fullName>
-        <externalId>false</externalId>
         <label>Production</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>2</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Seedling_Quality__c</fullName>
-        <externalId>false</externalId>
         <label>Seedling Quality</label>
         <picklist>
             <picklistValues>
@@ -328,7 +269,6 @@
     </fields>
     <fields>
         <fullName>Seedling_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Seedling Type</label>
         <picklist>
             <picklistValues>
@@ -353,7 +293,6 @@
     </fields>
     <fields>
         <fullName>Varieties__c</fullName>
-        <externalId>false</externalId>
         <label>Varieties</label>
         <picklist>
             <picklistValues>
@@ -499,17 +438,13 @@
     </fields>
     <fields>
         <fullName>Year_Plant_Projection__c</fullName>
-        <externalId>false</externalId>
         <label>Year Plant Projection</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Year_Varieties__c</fullName>
-        <externalId>false</externalId>
         <label>Year Varieties</label>
         <picklist>
             <picklistValues>

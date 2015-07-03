@@ -1,57 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Coffee_Farmer_GAPs_Selection__c</fullName>
-        <externalId>false</externalId>
         <label>Coffee Farmer GAPs Selection</label>
         <referenceTo>Coffee_Farmer_GAPs_Selection__c</referenceTo>
         <relationshipLabel>Coffee GAPs Knowledge</relationshipLabel>
         <relationshipName>Coffee_GAPs_Knowledge</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Coffee_Pests_and_Disease_Control_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Coffee Pests and Disease Control Topics</label>
         <picklist>
             <picklistValues>
@@ -73,7 +35,6 @@
     </fields>
     <fields>
         <fullName>Coffee_desuckering_pruning_and_stumping__c</fullName>
-        <externalId>false</externalId>
         <label>Coffee desuckering, pruning and stumping</label>
         <picklist>
             <picklistValues>
@@ -111,7 +72,6 @@
     </fields>
     <fields>
         <fullName>Coffee_processing_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Coffee processing Topics</label>
         <picklist>
             <picklistValues>
@@ -124,7 +84,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Coffee_Processing__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Coffee Processing</label>
         <picklist>
             <picklistValues>
@@ -145,7 +104,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Desuckering__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Desuckering</label>
         <picklist>
             <picklistValues>
@@ -166,7 +124,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Easy_Access_to_Agro_Inputs__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Easy Access to Agro Inputs</label>
         <picklist>
             <picklistValues>
@@ -187,7 +144,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Group_Production_and_Marketing__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Group Production and Marketing</label>
         <picklist>
             <picklistValues>
@@ -208,7 +164,6 @@
     </fields>
     <fields>
         <fullName>Discussed_On_farm_Value_Addition__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed On farm Value Addition</label>
         <picklist>
             <picklistValues>
@@ -229,7 +184,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Pests_and_Diseases_Control__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Pests and Diseases Control</label>
         <picklist>
             <picklistValues>
@@ -250,7 +204,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Proper_Farm_Record_Keeping__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Proper Farm Record Keeping</label>
         <picklist>
             <picklistValues>
@@ -271,7 +224,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Proper_and_Timely_Weed_Control__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Proper and Timely Weed Control</label>
         <picklist>
             <picklistValues>
@@ -292,7 +244,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Soil_Fertility_Management__c</fullName>
-        <externalId>false</externalId>
         <inlineHelpText>NA means Not Applicable</inlineHelpText>
         <label>Discussed Soil Fertility Management</label>
         <picklist>
@@ -314,7 +265,6 @@
     </fields>
     <fields>
         <fullName>Discussed_Soil_and_Water_Conservation__c</fullName>
-        <externalId>false</externalId>
         <label>Discussed Soil and Water Conservation</label>
         <picklist>
             <picklistValues>
@@ -335,7 +285,6 @@
     </fields>
     <fields>
         <fullName>Easily_access_agro_inputs_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Easily access agro-inputs Topics</label>
         <picklist>
             <picklistValues>
@@ -348,7 +297,6 @@
     </fields>
     <fields>
         <fullName>Group_production_marketing_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Group production/ marketing Topics</label>
         <picklist>
             <picklistValues>
@@ -362,14 +310,12 @@
     <fields>
         <fullName>Knowledge_Discussion_Date__c</fullName>
         <defaultValue>Today()</defaultValue>
-        <externalId>false</externalId>
         <label>Knowledge Discussion Date</label>
         <required>true</required>
         <type>Date</type>
     </fields>
     <fields>
         <fullName>On_farm_coffee_value_addition_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>On farm coffee value addition Topics</label>
         <picklist>
             <picklistValues>
@@ -403,7 +349,6 @@
     </fields>
     <fields>
         <fullName>Proper_Coffee_farm_record_keeping_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper Coffee farm record keeping Topics</label>
         <picklist>
             <picklistValues>
@@ -425,7 +370,6 @@
     </fields>
     <fields>
         <fullName>Proper_and_timely_weed_control_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Proper and timely weed control Topics</label>
         <picklist>
             <picklistValues>
@@ -463,7 +407,6 @@
     </fields>
     <fields>
         <fullName>Soil_and_Water_Conservation_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Soil and Water Conservation Topics</label>
         <picklist>
             <picklistValues>
@@ -476,7 +419,6 @@
     </fields>
     <fields>
         <fullName>Soil_fertility_management_Topics__c</fullName>
-        <externalId>false</externalId>
         <label>Soil fertility management Topics</label>
         <picklist>
             <picklistValues>
@@ -518,7 +460,6 @@
     </fields>
     <fields>
         <fullName>Source__c</fullName>
-        <externalId>false</externalId>
         <label>Source</label>
         <picklist>
             <picklistValues>

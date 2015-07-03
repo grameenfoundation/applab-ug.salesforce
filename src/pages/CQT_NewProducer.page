@@ -1,0 +1,33 @@
+<apex:page controller="CQT_NewProducerController">
+    <apex:form >
+        <apex:pageBlock title="Creación nuevo productor" mode="edit" id="Block">
+            <apex:pageMessages id="MsgSample" ></apex:pageMessages>
+            <apex:pageBlockSection title="Datos Básicos" collapsible="false" columns="1" id="ProductorSection" >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Cédula del productor" for="NationalID"/>
+                    <apex:inputText value="{!NationalID}" id="NationalID" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nombre(s) del productor" for="ProductorName"/>
+                    <apex:inputText value="{!ProductorName}" id="ProductorName" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Apellido(s) del productor" for="ProductorLastName"/>
+                    <apex:inputText value="{!ProductorLastName}" id="ProductorLastName" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Vereda" for="Community"/>
+                    <apex:inputText value="{!Community}" id="Community" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Teléfono" for="PhoneNumber"/>
+                    <apex:inputText value="{!PhoneNumber}" id="PhoneNumber" /> 
+                </apex:pageBlockSectionItem>
+        	</apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+            	<apex:commandButton action="{!save}" value="Guardar" reRender="MsgSample"/>
+                <apex:commandButton action="{!cancel}" value="Cancelar" />
+        	</apex:pageBlockButtons>  
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

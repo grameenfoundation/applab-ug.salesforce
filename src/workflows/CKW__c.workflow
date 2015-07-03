@@ -4,7 +4,6 @@
         <fullName>SetCkwActive</fullName>
         <field>Status__c</field>
         <literalValue>Active</literalValue>
-        <name>SetCkwActive</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>

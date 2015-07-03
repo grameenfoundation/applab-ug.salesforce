@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>BSS_Monthly_Bill_Header__c</fullName>
+        <label>BSS_Monthly_Bill_Header</label>
+        <referenceTo>BSS_Monthly_Bill_Header__c</referenceTo>
+        <relationshipLabel>BSS_Monthly_Bill_Details_Header</relationshipLabel>
+        <relationshipName>BSS_Monthly_Bill_Details_Header</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <label>Notes</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <label>Quantity</label>
+        <precision>16</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Survey_Name__c</fullName>
+        <formula>Survey__r.Survey__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Name</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Survey__c</fullName>
+        <label>Survey</label>
+        <referenceTo>BSS_Survey_Value__c</referenceTo>
+        <relationshipLabel>BSS Monthly Bill Details</relationshipLabel>
+        <relationshipName>BSS_Monthly_Bill_Details</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <label>Value</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Number</type>
+    </fields>
+    <label>BSS Monthly Bill Detail</label>
+    <nameField>
+        <displayFormat>BSSMBD-{000000}</displayFormat>
+        <label>BSS_Monthly_Bill_Detail Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>BSS Monthly Bill Details</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

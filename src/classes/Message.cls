@@ -1,7 +1,8 @@
-public with sharing class Message {
+global with sharing class Message {
 
     /**
      * Encapsulates the information that is needed to send an SMS to a given gateway for a given list of recipients
+     * Is made global because its passed to a batcheable class for instances 
      */
     public String subject;
     public String body;
@@ -12,6 +13,8 @@ public with sharing class Message {
     public DateTime sentTime;
     public String medium;
     public String catgory;
+    public Boolean isGroupMessage;
+    public String groupId;
 
     public Message(
             String subject,

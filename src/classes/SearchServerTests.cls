@@ -4,14 +4,14 @@
  *
  *  This class is a part of the CKW Search 3.0 Bundle
  *  Has tests for SearchGetImagesHelper, SearchGetFarmersHelpers, SearchCreateLogs, SearchController, ScheduledSearchLogsGAPSKnowledgeMining,
- *	SearchLogsGAPSKnowledgeMining
+ *  SearchLogsGAPSKnowledgeMining
+ *  ChangeSearchLogsOwnerShip 
  **/
 @isTest
 public class SearchServerTests {
 
     static testMethod void testGetImagesHelper() {
-        
-	//Crete test data
+        //Crete test data
         Menu__c menu = new Menu__c();
         menu.Label__c = 'Test menu label';
         insert(menu);
@@ -117,6 +117,11 @@ public class SearchServerTests {
         mFarmer.Focus_Farmer__c = testFocusFarmer.Id;
         mFarmer.Registered_By__c = contact.Id;
         insert mFarmer;
+        
+        OBUL_Coffee_Farmer__c oFarmer = new OBUL_Coffee_Farmer__c();
+        oFarmer.Focus_Farmer__c = testFocusFarmer.Id;
+        oFarmer.Registered_By__c = contact.Id;
+        insert oFarmer;
         
         //unknown imei
         jsonRequest = '{"request":"getFarmers", "imei":"imei", "farmersVersion":"2014-01-01 00:00:00:00"}';
@@ -329,189 +334,47 @@ public class SearchServerTests {
         
         jsonRequest = '{"request":"createLogs", "imei":"' + testHandset.IMEI__c + 
             '", "searchLogs":[{"id":"1", "menuItemId":"' + menuItem.Id + '", "clientId":"' + 
-            testFocusFarmer.Id + '", "gpsLocation":"", "submissionLocation":"", "testLog":false , "dateCreated":"2015-01-22T18:29:11" }]}';
+            testFocusFarmer.Id + '", "gpsLocation":"", "submissionLocation":"", "testLog":false , "dateCreated":"2015-01-22T18:29:11" , ' +
+            '"content": "3. Maize GAPs Gap 6:maize harvesting and post harvest handling Post-harvest handling (Drying, shelling, storage, sorting and grading) Common insect pests of stored grain General Storage Pest control methods How to mix insecticide powder with threshed grain:"}]}';
         //Test for unknown device
         response = SearchCreateLogs.createSearchLogs(jsonRequest);
         System.assert(response.contains('Request Successful'));
+        List<Search_Log__c> logs = [SELECT Id, Interviewee__c FROM Search_Log__c];
+        System.assert(logs.size() == 1);
+        System.assert(logs.get(0).Interviewee__c.equals(testPerson2.Id));
         Test.stopTest();
     }
     
-    //
-    // test methods for SearchLogsGAPSKnowledgeMining and related actions
-    //
     public static String CRON_EXP = '0 0 1 * * ?'; // run every day at 1am
     
-    static testMethod void testScheduleLogsKnowlegeMining() {
-    	    			
-    	Country__c c = new Country__c();
-    	c.Name = 'Uganda';
-    	insert c;
-    	
-        // Create some searches for data mining
-        List<String> queries = new List<String>{
-        	// banana search logs queries
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 1:Type of fertilizers used',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 2:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 3:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 4:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 5:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 6:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 7:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 8:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 9:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 10:',
-        	// banana search logs queries
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 1:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 2:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 3:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 4:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 5:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 6:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 7:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 8:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 9:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_COFFEE_MENUITEM + 'GAP 10:',
-        	// banana search logs queries
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 1:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 2:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 3:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 4:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 5:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 6:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 7:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 8:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 9:',
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_MAIZE_MENUITEM + 'GAP 10:',
-        	//will be from unprofiled farmer
-        	'CKW 3.0 Search ' + SearchLogsGAPSKnowledgeMining.KNOWLEDGE_BANANA_MENUITEM + 'GAP 1:'
-        };
-        Person__c testPerson = new Person__c();
-        testPerson.First_Name__c = 'FirstName';
-        testPerson.Last_Name__c = 'LastName';
-        testPerson.Gender__c = 'Male';
-        database.insert(testPerson);
+    static testMethod void testChangeSearchLogOwner() {
+    
         Person__c testPerson2 = new Person__c();
         testPerson2.First_Name__c = 'FirstName';
         testPerson2.Last_Name__c = 'LastName';
         testPerson2.Gender__c = 'Male';
         database.insert(testPerson2);
+                
+        Search_Log__c log = new Search_Log__c();
+        log.Interviewer__c = testPerson2.id;
+        log.Interviewee__c = testPerson2.Id;
+        log.Server_Entry_Time__c = Datetime.now();
+        log.Handset_Submit_Time__c = Datetime.now();
+        log.Submission_GPS_Timestamp__c = Datetime.now();
+        insert log;
         
-        //focus famers
-        List<Focus_Farmer__c> ffs = new List<Focus_Farmer__c>();
-    	Focus_Farmer__c ff = new Focus_Farmer__c();
-    	ff.Person__c = testPerson2.Id;
-    	ff.Farmer_Type__c = 'Banana';
-    	ffs.add(ff);
-    	Focus_Farmer__c ff1 = new Focus_Farmer__c();
-    	ff1.Person__c = testPerson2.Id;
-    	ff1.Farmer_Type__c = 'Coffee';
-    	ffs.add(ff1);
-    	Focus_Farmer__c ff11 = new Focus_Farmer__c();
-    	ff11.Person__c = testPerson2.Id;
-    	ff11.Farmer_Type__c = 'Maize';
-    	ffs.add(ff11);
-    	insert ffs;
-    	
-        Contact contact = new Contact();
-        contact.FirstName = 'pedrito';
-        contact.LastName = 'perez';
-        insert contact;
+        User user = [select id from user where name = 'Information Services'];
+        testPerson2.OwnerId = user.Id;
+        update testPerson2;
         
-    	Banana_Farmer__c bf = new Banana_Farmer__c();
-    	bf.Focus_Farmer__c = ff.Id;
-    	bf.Registered_By__c = contact.Id;
-    	insert bf;
-    	Coffee_Farmer__c bf1 = new Coffee_Farmer__c();
-    	bf1.Focus_Farmer__c = ff1.Id;
-    	bf1.Registered_By__c = contact.Id;
-    	insert bf1;
-    	Maize_Farmer__c bf11 = new Maize_Farmer__c();
-    	bf11.Focus_Farmer__c = ff11.Id;
-    	bf11.Registered_By__c = contact.Id;
-    	insert bf11;
-    	
-    	Banana_Farmer_GAPs_Selection__c gs = new Banana_Farmer_GAPs_Selection__c();
-    	gs.CKW_Contact__c = contact.Id;
-    	gs.Banana_Farmer__c = bf.Id;
-    	gs.Location__Latitude__s = 3.000;
-    	gs.Location__Longitude__s = 0.0000;
-    	insert gs;
-    	
-    	Coffee_Farmer_GAPs_Selection__c gs1 = new Coffee_Farmer_GAPs_Selection__c();
-    	gs1.CKW_Contact__c = contact.Id;
-    	gs1.Coffee_Farmer__c = bf1.Id;
-    	gs1.Location__Latitude__s = 3.000;
-    	gs1.Location__Longitude__s = 0.0000;
-    	insert gs1;
-    	
-    	Maize_Farmer_GAPs_Selection__c gs11 = new Maize_Farmer_GAPs_Selection__c();
-    	gs11.CKW_Contact__c = contact.Id;
-    	gs11.Maize_Farmer__c = bf11.Id;
-    	gs11.Location__Latitude__s = 3.000;
-    	gs11.Location__Longitude__s = 0.0000;
-    	insert gs11;
+        System.assert(log.OwnerId != user.Id);
         
-        List<Search_Log__c> logs = new List<Search_Log__c>();
-        for (Integer i = 0; i < 31; i++) {
-            Search_Log__c log = new Search_Log__c();
-            log.Interviewer__c = testPerson2.id;
-            log.Interviewee__c = testPerson2.Id;
-            log.Server_Entry_Time__c = Datetime.now().addDays(-1);
-            log.Handset_Submit_Time__c = Datetime.now().addDays(-1);
-            log.Submission_GPS_Timestamp__c = Datetime.now().addDays(-1);
-            log.Latitude__c = 0.00;
-            log.Longitude__c = 0.00;
-            log.Altitude__c = 0.00;
-            log.Accuracy__c = 0.00;
-            log.Category__c = 'Category';
-            log.Query__c = queries.get(i);
-            log.Response__c = 'Content';
-            if(i == 30) {
-            	log.Interviewer__c = testPerson.id;
-            	log.Interviewee__c = testPerson.Id;            	
-            }
-            logs.add(log);
-        }
-        database.insert(logs);
-		  
-		Test.startTest();	
-  		// Schedule the test job
-  		String jobId = System.schedule('ScheduleApexClassTest', CRON_EXP,  new ScheduledSearchLogsGAPSKnowledgeMining());         
-		// Verify the scheduled job hasn't run yet.
-		Banana_GAPs_Knowledge__c[] bgk = [SELECT Id FROM Banana_GAPs_Knowledge__c WHERE Source__c = 'Search'];
-		System.assertEquals(bgk.size(), 0);
-		
-        String query = 
-		'SELECT '								+
-			'Id, '								+
-			'Interviewer__c, '					+
-			'Interviewee__c, '					+
-			'Submission_GPS_Timestamp__c, '		+
-			'Interviewee__r.Name, '				+
-			'Query__c '							+
-		'FROM '									+
-			'Search_Log__c '					+
-		'WHERE '								+
-			'Server_Entry_Time__c = YESTERDAY';
-
-		System.assert(Database.query(query).size() > 0);
-		ID batchprocessid = Database.executeBatch(new SearchLogsGAPSKnowledgeMining(query), 50);//only one batch in a test method
-		
-		Test.stopTest();
-
-		Banana_GAPs_Knowledge__c[] bgka = [SELECT Id FROM Banana_GAPs_Knowledge__c WHERE Source__c = 'Search'];
-      	System.assert(bgka.size() == 10);
-      	
-      	Banana_GAPs_Knowledge__c[] knowledgeDtails = [
-      		SELECT 
-      			Id 
-  			FROM 
-  				Banana_GAPs_Knowledge__c 
-  			WHERE 
-  				Discussed_Soil_Fertility_Management__c = 'Yes' AND 
-  				Soil_Fertility_Management_Topics__c = 'Type of fertilizers used' AND
-  				Source__c = 'Search'
-  		];
-      	System.assert(knowledgeDtails.size() == 1);
+        Test.startTest();
+        String query = 'SELECT Id, OwnerId FROM Person__c';
+        Database.executeBatch(new ChangeSearchLogsOwnerShip(query), 7);
+        String jobId = System.schedule('ChangeSearchLogsOwnerShip', CRON_EXP, new ScheduledChangeSearchLogsOwnerShip());   
+        Test.stopTest();           
+        
+        //System.assert(log.OwnerId == user.Id);
     }
 }

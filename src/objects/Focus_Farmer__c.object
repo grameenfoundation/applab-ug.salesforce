@@ -1,45 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Age__c</fullName>
-        <externalId>false</externalId>
         <label>Age</label>
         <picklist>
             <picklistValues>
@@ -68,16 +33,12 @@
     </fields>
     <fields>
         <fullName>District__c</fullName>
-        <externalId>false</externalId>
         <label>District</label>
         <length>50</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Farmer_Type__c</fullName>
-        <externalId>false</externalId>
         <label>Farmer Type</label>
         <picklist>
             <picklistValues>
@@ -92,33 +53,30 @@
                 <fullName>Maize</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>OBUL Coffee</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>First_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.First_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>First Name</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Full_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>First_Name__c + &apos; &apos; +  Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Full Name</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Highest_Education_Level_Attained__c</fullName>
-        <externalId>false</externalId>
         <label>Highest Education Level Attained</label>
         <picklist>
             <picklistValues>
@@ -163,17 +121,13 @@
     </fields>
     <fields>
         <fullName>Last_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Last Name</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Marital_Status__c</fullName>
-        <externalId>false</externalId>
         <label>Marital Status</label>
         <picklist>
             <picklistValues>
@@ -206,38 +160,28 @@
     </fields>
     <fields>
         <fullName>PPI_Score__c</fullName>
-        <externalId>false</externalId>
         <label>PPI Score</label>
         <precision>3</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Parish__c</fullName>
-        <externalId>false</externalId>
         <label>Parish</label>
         <length>200</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>Focus Farmers</relationshipLabel>
         <relationshipName>Focus_Farmers</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>true</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Position_in_Household__c</fullName>
-        <externalId>false</externalId>
         <label>Position in Household</label>
         <picklist>
             <picklistValues>
@@ -262,23 +206,89 @@
     </fields>
     <fields>
         <fullName>Subcounty__c</fullName>
-        <externalId>false</externalId>
         <label>Subcounty</label>
         <length>200</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Village_LC1__c</fullName>
-        <externalId>false</externalId>
         <label>Village/LC1</label>
         <length>200</length>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <label>Focus Farmer</label>
+    <listViews>
+        <fullName>Banana</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Full_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>District__c</columns>
+        <columns>Farmer_Type__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Parish__c</columns>
+        <columns>Person__c</columns>
+        <columns>Subcounty__c</columns>
+        <columns>Village_LC1__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Farmer_Type__c</field>
+            <operation>equals</operation>
+            <value>Banana</value>
+        </filters>
+        <label>Banana</label>
+    </listViews>
+    <listViews>
+        <fullName>Coffee</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Full_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>District__c</columns>
+        <columns>Farmer_Type__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Parish__c</columns>
+        <columns>Person__c</columns>
+        <columns>Subcounty__c</columns>
+        <columns>Village_LC1__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Farmer_Type__c</field>
+            <operation>equals</operation>
+            <value>Coffee</value>
+        </filters>
+        <label>Coffee</label>
+    </listViews>
+    <listViews>
+        <fullName>Maize</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Full_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>District__c</columns>
+        <columns>Farmer_Type__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Parish__c</columns>
+        <columns>Person__c</columns>
+        <columns>Subcounty__c</columns>
+        <columns>Village_LC1__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Farmer_Type__c</field>
+            <operation>equals</operation>
+            <value>Maize</value>
+        </filters>
+        <label>Maize</label>
+    </listViews>
     <nameField>
         <displayFormat>FFN{YYYY}{MM}{DD}{0}</displayFormat>
         <label>Focus Farmer Name</label>

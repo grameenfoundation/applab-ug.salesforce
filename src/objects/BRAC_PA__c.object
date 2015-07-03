@@ -1,47 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A programme assistant for BRAC</description>
-    <enableActivities>false</enableActivities>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Area__c</fullName>
         <description>The area that the PA works in</description>
-        <externalId>false</externalId>
         <inlineHelpText>Please select the area that the PA is to work in</inlineHelpText>
         <label>Area</label>
         <picklist>
@@ -82,9 +46,7 @@
     </fields>
     <fields>
         <fullName>Client_Location__c</fullName>
-        <deleteConstraint>Restrict</deleteConstraint>
         <description>The branch for the PA</description>
-        <externalId>false</externalId>
         <label>Client Location</label>
         <referenceTo>Client_Location__c</referenceTo>
         <relationshipLabel>BRAC PAs</relationshipLabel>
@@ -94,31 +56,24 @@
     </fields>
     <fields>
         <fullName>Full_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>Person__r.First_Name__c  &amp; &quot;, &quot; &amp;  Person__r.Last_Name__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Full Name</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Person__c</fullName>
         <description>The person object for this PA</description>
-        <externalId>false</externalId>
         <label>Person</label>
         <referenceTo>Person__c</referenceTo>
         <relationshipLabel>BRAC PAs</relationshipLabel>
         <relationshipName>BRAC_PAs</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
         <fullName>Region__c</fullName>
         <description>The region that the PA works in</description>
-        <externalId>false</externalId>
         <inlineHelpText>Please select the region for this PA</inlineHelpText>
         <label>Region</label>
         <picklist>

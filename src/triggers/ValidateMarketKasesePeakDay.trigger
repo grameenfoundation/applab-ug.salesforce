@@ -7,7 +7,10 @@ trigger ValidateMarketKasesePeakDay on Market_Kasese__c (before insert) {
         if(MISPeakDay.applyPeakDayValidationKasese(cMarkt,mrktKas)){
             
         }else{
-            mrktKas.addError('Market Peak Day is Wrong! Correct Peak Day is '+cMarkt.Peak__c);
+            Date capture= mrktKas.Date_of_capture__c;
+            Datetime dt = (DateTime)capture;
+            String dayOfWeek = dt.format('EEEE'); //This returns - Monday, Tuesday, Wednesday, etc..
+            mrktKas.addError('Market Peak Day is Wrong! Correct Peak Day is '+cMarkt.Peak__c + ' but got '+ dayOfWeek);
         }
     }
 }

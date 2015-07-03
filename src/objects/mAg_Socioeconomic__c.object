@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>HouseHoldMainActivity__c</fullName>
+        <label>HouseHoldMainActivity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>NumberOfParcels__c</fullName>
+        <label>NumberOfParcels</label>
+        <picklist>
+            <picklistValues>
+                <fullName>yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>mAg_Household__c</fullName>
+        <label>mAg_Household</label>
+        <referenceTo>mAg_Household__c</referenceTo>
+        <relationshipLabel>mAg_Socioeconomics</relationshipLabel>
+        <relationshipName>mAg_Socioeconomics</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <label>mAg_Socioeconomic</label>
+    <nameField>
+        <displayFormat>MAGSOCEC{0000}</displayFormat>
+        <label>mAg_Socioeconomic Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>mAg_Socioeconomics</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

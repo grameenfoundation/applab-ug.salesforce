@@ -1,17 +1,17 @@
 public with sharing class LacFarmerProfilePageController {
-    private LAC_Farmer_Details__c lacFarmer;
-    private CBL_CoffeeBaseline__c coffeeBaseline;
-    private CBL_SocioEconomic__c socioEconomic; 
-    private CBL_Commercialization__c cblCommercialization;
-    private CBL_Farm__c[] cblFarms = new CBL_Farm__c[]{};
-    private CBL_Farm__c signatureFarm;
-    private CBL_Lot__c[] cblLots = new List<CBL_Lot__c>();
-    private CBL_FoodSecurity__c[] foodSecs = new List<CBL_FoodSecurity__c>();
-    private ApexPages.StandardController stdController;
-    private boolean showSignaturePage = false;
-    private String certifications = '';
-    private CBL_Farm__c certificationFarm = new CBL_Farm__c();
-    private String coffeeVarieties = '';
+    public LAC_Farmer_Details__c lacFarmer;
+    public CBL_CoffeeBaseline__c coffeeBaseline;
+    public CBL_SocioEconomic__c socioEconomic; 
+    public CBL_Commercialization__c cblCommercialization;
+    public CBL_Farm__c[] cblFarms = new CBL_Farm__c[]{};
+    public CBL_Farm__c signatureFarm;
+    public CBL_Lot__c[] cblLots = new List<CBL_Lot__c>();
+    public CBL_FoodSecurity__c[] foodSecs = new List<CBL_FoodSecurity__c>();
+    public ApexPages.StandardController stdController;
+    public boolean showSignaturePage = false;
+    public String certifications = '';
+    public CBL_Farm__c certificationFarm = new CBL_Farm__c();
+    public String coffeeVarieties = '';
         
     public String getPageLanguage() {
         return UserInfo.getLanguage();
@@ -168,147 +168,17 @@ public with sharing class LacFarmerProfilePageController {
         return foodSecs;
     } 
     
- 
-    public List<FMP_Farm_Scores__c> getFMPFarmScores() {
-        List<FMP_Farm_Scores__c> scores = new List<FMP_Farm_Scores__c>();
+    public List<FMP_Diagnostic__c> getFamManagementPlansResults() {
         List<String> farmIds = new List<string>();
         CBL_Farm__c[] cblFms = [Select Id from CBL_Farm__c where Farmer__c=:lacFarmer.id];
         for (CBL_Farm__c farm : cblFms) {
             farmIds.add(farm.Id);
         }
-        Farm_Management_Plan__c[] fmps = [Select Id, Farm_Name__c, Year__c from Farm_Management_Plan__c where Farm__c in :farmIds];
-        for (Farm_Management_Plan__c fmp : fmps) {
-            FMP_Farm_Scores__c score = new FMP_Farm_Scores__c();
-            PMF_Finca_Categoria_1__c registriesCat = [Select Nivel_categor_a__c, Tipo__c from PMF_Finca_Categoria_1__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_2__c millCat = [Select Nivel_categor_a__c from PMF_Finca_Categoria_2__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_3__c soilConservationCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_3__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_4__c shadowMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_4__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_5_MIPE__c MIPECat = [Select Nivel_categoria__c from PMF_Finca_Categoria_5_MIPE__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_6_Control_malezas__c undergrowthCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_6_Control_malezas__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_7_Manejo_plaguicid__c pesticideMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_7_Manejo_plaguicid__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_8_Gestion_ambienta__c envMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_8_Gestion_ambienta__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categ_9_Cosecha_PostCosecha__c harvestPostHarvestCat = [Select Nivel_categoria__c from PMF_Finca_Categ_9_Cosecha_PostCosecha__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_10_Lotes__c lotsCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_10_Lotes__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_11_Alm_cigo__c seedbedCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_11_Alm_cigo__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            score.Farm_Name__c = fmp.Farm_Name__c;
-            score.Registries_Score__c = registriesCat.Nivel_categor_a__c.substring(3).trim();
-            score.Mill_Score__c = millCat.Nivel_categor_a__c.substring(3).trim();
-            score.Soil_Conservation_Score__c = soilConservationCat.Nivel_categoria__c.substring(3).trim();
-            score.Shadow_Management_Score__c = shadowMgmtCat.Nivel_categoria__c.substring(3).trim();
-            score.MIPE_Score__c = MIPECat.Nivel_categoria__c.substring(3).trim();
-            score.Undergrowth_Control_Score__c = undergrowthCat.Nivel_categoria__c.substring(3).trim();
-            score.Pesticide_Management_Score__c = pesticideMgmtCat.Nivel_categoria__c.substring(3).trim();
-            score.Enviromental_Management_Score__c = envMgmtCat.Nivel_categoria__c.substring(3).trim();
-            score.Harvest_and_Post_Harvest_Score__c = harvestPostHarvestCat.Nivel_categoria__c.substring(3).trim();
-            score.Lots_Score__c = lotsCat.Nivel_categoria__c.substring(3).trim();
-            score.Seedbed_Score__c = seedbedCat.Nivel_categoria__c.substring(3).trim();
-            score.Year__c = fmp.Year__c; 
-            score.Type__c = registriesCat.Tipo__c;
-            scores.add(score);
-        } 
-        return scores;
-    }
-    
-    public List<FMP_Farm_Scores__c> getFamManagementPlansResults() {
-        List<FMP_Farm_Scores__c> scores = new List<FMP_Farm_Scores__c>();
-        List<String> farmIds = new List<string>();
-        CBL_Farm__c[] cblFms = [Select Id from CBL_Farm__c where Farmer__c=:lacFarmer.id];
-        for (CBL_Farm__c farm : cblFms) {
-            farmIds.add(farm.Id);
-        }
-        Farm_Management_Plan__c[] fmps = [Select Id, Farm_Name__c from Farm_Management_Plan__c where Farm__c in :farmIds];
-        for (Farm_Management_Plan__c fmp : fmps) {
-            FMP_Farm_Scores__c score = new FMP_Farm_Scores__c();
-            PMF_Finca_Categoria_1__c registriesCat = [Select Nivel_categor_a__c, Fecha__c from PMF_Finca_Categoria_1__c where Plan_de_Manejo_de_Finca__c = :fmp.Id order by Fecha__c];
-            PMF_Finca_Categoria_2__c millCat = [Select Nivel_categor_a__c from PMF_Finca_Categoria_2__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_3__c soilConservationCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_3__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_4__c shadowMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_4__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_5_MIPE__c MIPECat = [Select Nivel_categoria__c from PMF_Finca_Categoria_5_MIPE__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_6_Control_malezas__c undergrowthCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_6_Control_malezas__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_7_Manejo_plaguicid__c pesticideMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_7_Manejo_plaguicid__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_8_Gestion_ambienta__c envMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_8_Gestion_ambienta__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categ_9_Cosecha_PostCosecha__c harvestPostHarvestCat = [Select Nivel_categoria__c from PMF_Finca_Categ_9_Cosecha_PostCosecha__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_10_Lotes__c lotsCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_10_Lotes__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_11_Alm_cigo__c seedbedCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_11_Alm_cigo__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            score.Farm_Name__c = fmp.Farm_Name__c;
-            score.Registries_Score__c = registriesCat.Nivel_categor_a__c;
-            score.Mill_Score__c = millCat.Nivel_categor_a__c;
-            score.Soil_Conservation_Score__c = soilConservationCat.Nivel_categoria__c;
-            score.Shadow_Management_Score__c = shadowMgmtCat.Nivel_categoria__c;
-            score.MIPE_Score__c = MIPECat.Nivel_categoria__c;
-            score.Undergrowth_Control_Score__c = undergrowthCat.Nivel_categoria__c;
-            score.Pesticide_Management_Score__c = pesticideMgmtCat.Nivel_categoria__c;
-            score.Enviromental_Management_Score__c = envMgmtCat.Nivel_categoria__c;
-            score.Harvest_and_Post_Harvest_Score__c = harvestPostHarvestCat.Nivel_categoria__c;
-            score.Lots_Score__c = lotsCat.Nivel_categoria__c;
-            score.Seedbed_Score__c = seedbedCat.Nivel_categoria__c; 
-            scores.add(score);
-        }       
-        return scores;
+       
+       List<FMP_Diagnostic__c> fmpDg = [Select Id, PMF_Farm__r.farmName__c, fmp_Agrochemicals_Score__c, fmp_Environment_Score__c, fmp_Harvest_Score__c, fmp_Lot_Score__c, fmp_MIPE_Score__c, fmp_Record_score__c, fmp_Seedbed_Score__c, fmp_Shadow_Score__c, fmp_Soil_Score__c, fmp_Weeds_Score__c, fmp_Wetmill_Score__c, fmp_Total_Score__c from FMP_Diagnostic__c where PMF_Farm__c in :farmIds];
+        return fmpDg;
     }
  
-    public List<FMPCategoryResultsGroup> getFMPCategoryResultsGroup() {
-        List<FMPCategoryResultsGroup> results = new List<FMPCategoryResultsGroup>();
-        List<FMP_Farm_Scores__c> scores = new List<FMP_Farm_Scores__c>();
-        List<String> farmIds = new List<string>();
-        CBL_Farm__c[] cblFms = [Select Id from CBL_Farm__c where Farmer__c=:lacFarmer.id];
-        for (CBL_Farm__c farm : cblFms) {
-            farmIds.add(farm.Id);
-        }
-        Farm_Management_Plan__c[] fmps = [Select Id, Farm_Name__c from Farm_Management_Plan__c where Farm__c in :farmIds];
-        for (Farm_Management_Plan__c fmp : fmps) {
-            FMPCategoryResultsGroup resultsGroup = new FMPCategoryResultsGroup();
-                    
-            PMF_Finca_Categoria_1__c registriesCat = [Select Nivel_categor_a__c, Fecha__c, Tipo__c, Nombre_categoria__c from PMF_Finca_Categoria_1__c where Plan_de_Manejo_de_Finca__c = :fmp.Id order by Fecha__c];
-            FMPCategoryResult res1 = new FMPCategoryResult();
-            res1.setLevel(registriesCat.Nivel_categor_a__c);
-            res1.setResultDate(registriesCat.Fecha__c);
-            res1.setResultType(registriesCat.Tipo__c);
-            
-            resultsGroup.resultsDate = registriesCat.Fecha__c;
-            resultsGroup.categoryName = registriesCat.Nombre_categoria__c;
-                        
-            PMF_Finca_Categoria_2__c millCat = [Select Nivel_categor_a__c, Tipo__c, Fecha__c from PMF_Finca_Categoria_2__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            FMPCategoryResult res2 = new FMPCategoryResult();
-            res2.setLevel(millCat.Nivel_categor_a__c);
-            res2.setResultDate(millCat.Fecha__c);
-            res2.setResultType(millCat.Tipo__c);
-             
-            resultsGroup.addResultGroup(res1);
-            resultsGroup.addResultGroup(res2);
-            /*                      
-            PMF_Finca_Categoria_3__c soilConservationCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_3__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_4__c shadowMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_4__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_5_MIPE__c MIPECat = [Select Nivel_categoria__c from PMF_Finca_Categoria_5_MIPE__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_6_Control_malezas__c undergrowthCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_6_Control_malezas__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_7_Manejo_plaguicid__c pesticideMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_7_Manejo_plaguicid__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_8_Gestion_ambienta__c envMgmtCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_8_Gestion_ambienta__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categ_9_Cosecha_PostCosecha__c harvestPostHarvestCat = [Select Nivel_categoria__c from PMF_Finca_Categ_9_Cosecha_PostCosecha__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_10_Lotes__c lotsCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_10_Lotes__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            PMF_Finca_Categoria_11_Alm_cigo__c seedbedCat = [Select Nivel_categoria__c from PMF_Finca_Categoria_11_Alm_cigo__c where Plan_de_Manejo_de_Finca__c = :fmp.Id];
-            */
-            results.add(resultsGroup);
-        } 
-        return results;     
-    }
-    /*
-    public String getCoffeeVarieties( ) {
-        if (coffeeVarieties == null || coffeeVarieties.equals('')) {
-            coffeeVarieties = '';
-            List<CBL_Lot__c> lots = getCblLots();
-            for (CBL_Lot__c lot : lots) {
-                if (lot.lotCoffeeVariety__c != null && !lot.lotCoffeeVariety__c.equals('')) {
-                    if (coffeeVarieties.equals('')) {
-                        coffeeVarieties = coffeeVarieties + lot.lotCoffeeVariety__c; 
-                    } else {
-                        coffeeVarieties = coffeeVarieties + ', ' + lot.lotCoffeeVariety__c;
-                    }
-                }                                   
-            }               
-        }
-        return coffeeVarieties;
-    }
-    */
     
     public String getCoffeeVarieties( ) {
         String vars = '';

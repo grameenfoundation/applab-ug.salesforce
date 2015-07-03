@@ -1,251 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>AddToCampaign</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>EnableCustomerPortal</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>EnablePartnerPortalUser</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>EnableSelfService</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>ListClean</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Merge</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>NewContact</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>RequestUpdate</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>ViewCustomerPortal</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>ViewPartnerPortalUser</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>ViewSelfService</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <enableEnhancedLookup>true</enableEnhancedLookup>
-    <enableFeeds>true</enableFeeds>
-    <fields>
-        <fullName>AccountId</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
-        <type>Lookup</type>
-    </fields>
     <fields>
         <fullName>Addressee__c</fullName>
-        <externalId>false</externalId>
         <label>Addressee</label>
         <length>200</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Age__c</fullName>
-        <externalId>false</externalId>
         <formula>FLOOR((TODAY() - Birthdate)/365)</formula>
         <label>Age</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Banana_Farmer_Count__c</fullName>
+        <label>Banana Farmer Count</label>
+        <summaryForeignKey>Banana_Farmer__c.Registered_By__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
     </fields>
     <fields>
         <fullName>Certified__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Certified?</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Coffee_Farmer_Count__c</fullName>
+        <label>Coffee Farmer Count</label>
+        <summaryForeignKey>Coffee_Farmer__c.Registered_By__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
         <fullName>Contact_Full_Name__c</fullName>
-        <externalId>false</externalId>
         <formula>hyperlink (&quot;/&quot; &amp;Id, LastName &amp; &quot;, &quot; &amp; FirstName)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Contact Full Name</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Contact_Name_Dashboard__c</fullName>
-        <externalId>false</externalId>
         <formula>LastName &amp; &quot;, &quot; &amp; FirstName</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Contact Name - Dashboard</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Country__c</fullName>
-        <deleteConstraint>Restrict</deleteConstraint>
-        <externalId>false</externalId>
         <label>Country</label>
         <referenceTo>Country__c</referenceTo>
         <relationshipLabel>Contacts</relationshipLabel>
         <relationshipName>Contacts</relationshipName>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Deceased__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Deceased?</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Do_Not_Mail__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Do Not Mail?</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Head_Of_Household__c</fullName>
         <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Head Of Household?</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Household_Links__c</fullName>
-        <externalId>false</externalId>
         <formula>HYPERLINK(&quot;/servlet/servlet.Integration?lid=01N700000000oxk&amp;eid=&quot; &amp; Id, IMAGE( &quot;servlet/servlet.FileDownload?file=01570000000LVBi&quot;, &quot;image from Documents tab&quot;)) &amp; HYPERLINK(&quot;/servlet/servlet.Integration?lid=01N700000000oxV&amp;eid=&quot;&amp;Id&amp;&quot;&amp;direction=toHousehold&quot;, IMAGE( &quot;servlet/servlet.FileDownload?file=01570000000LVBj&quot;, &quot;image from Documents tab&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Household Links</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Interest__c</fullName>
         <description>Reporter beat, specfic interests of contact</description>
-        <externalId>false</externalId>
         <label>Interest</label>
         <length>255</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Lac_Farmer_Count__c</fullName>
         <defaultValue>0</defaultValue>
-        <externalId>false</externalId>
         <label>Lac Farmer Count</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
-        <fullName>LeadSource</fullName>
-        <picklist>
-            <picklistValues>
-                <fullName>Employee Referral</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>External Referral</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Partner</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Public Relations</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Trade Show</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Web</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Word of mouth</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Other</fullName>
-                <default>false</default>
-            </picklistValues>
-            <sorted>false</sorted>
-        </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Picklist</type>
+        <fullName>Maize_Farmer_Count__c</fullName>
+        <label>Maize Farmer Count</label>
+        <summaryForeignKey>Maize_Farmer__c.Registered_By__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
     </fields>
     <fields>
         <fullName>Map__c</fullName>
-        <externalId>false</externalId>
         <formula>hyperlink (&quot;/servlet/servlet.Integration?lid=00b70000000mQmi&amp;eid=&quot; &amp;Id, IMAGE( &quot;servlet/servlet.FileDownload?file=01570000000LVBl&quot;, &quot;image from Documents tab&quot;))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Map</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Marital_Status__c</fullName>
-        <externalId>false</externalId>
         <label>Marital Status</label>
         <picklist>
             <picklistValues>
@@ -262,29 +128,18 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>ONEN_Household__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
         <label>Household</label>
         <referenceTo>ONEN_Household__c</referenceTo>
         <relationshipLabel>Contacts</relationshipLabel>
         <relationshipName>R00N70000001ay0ZEAQ</relationshipName>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>OwnerId</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Philanthropic_Interests__c</fullName>
-        <externalId>false</externalId>
         <label>Philanthropic Interests</label>
         <picklist>
             <picklistValues>
@@ -329,69 +184,54 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Picture_Attachment_Id__c</fullName>
-        <caseSensitive>false</caseSensitive>
         <description>Stores the Id of the attachment that is used for the profile picture for this contact</description>
-        <externalId>false</externalId>
         <inlineHelpText>Stores the Id of the attachment that is used for the profile picture for this contact</inlineHelpText>
         <label>Picture Attachment Id</label>
         <length>255</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
         <unique>true</unique>
     </fields>
     <fields>
         <fullName>Picture_Url__c</fullName>
         <description>URL for picture uploaded from a survey</description>
-        <externalId>false</externalId>
         <label>Picture Url</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Picture__c</fullName>
-        <externalId>false</externalId>
         <formula>IF( ISBLANK(Picture_Attachment_Id__c) || ISNULL(Picture_Attachment_Id__c), (IF(ISBLANK( Picture_Url__c ) || ISNULL( Picture_Url__c ), &quot;&quot;, IMAGE( Picture_Url__c, &quot;Profile Picture&quot;, 300, 300))), IMAGE(&quot;/servlet/servlet.FileDownload?file=&quot; &amp; Picture_Attachment_Id__c ,&quot;Profile Picture&quot;, 300, 300))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Picture</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>ReportsToId</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Signature__c</fullName>
         <description>Signature URL</description>
-        <externalId>false</externalId>
         <label>Signature</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Spouse_Name__c</fullName>
-        <externalId>false</externalId>
         <label>Spouse Name</label>
         <length>80</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Farmers_Registered__c</fullName>
+        <formula>Banana_Farmer_Count__c +  Coffee_Farmer_Count__c +  Maize_Farmer_Count__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Farmers Registered</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
     </fields>
     <fields>
         <fullName>Volunteer_Interests__c</fullName>
-        <externalId>false</externalId>
         <label>Volunteer Interests</label>
         <picklist>
             <picklistValues>
@@ -416,107 +256,72 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>MultiselectPicklist</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Zendesk__Result__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Zendesk Result</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Zendesk__Tags__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Tags</label>
         <length>32768</length>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>LongTextArea</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Zendesk__Zendesk_OutofSync__c</fullName>
         <defaultValue>false</defaultValue>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Zendesk_OutofSync</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Zendesk__Zendesk_oldTags__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Zendesk_oldTags</label>
         <length>32768</length>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>LongTextArea</type>
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
         <fullName>Zendesk__isCreatedUpdatedFlag__c</fullName>
         <defaultValue>false</defaultValue>
-        <deprecated>false</deprecated>
         <description>Used in trigger to prevent looping of after insert and update. This flag is used to stop the contact that came for creation to get updated again thereby preventing the loop</description>
-        <externalId>false</externalId>
         <label>isCreatedUpdatedFlag</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Zendesk__notes__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Notes</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Zendesk__zendesk_id__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Zendesk User Id</label>
         <length>70</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gfsurveys__Age__c</fullName>
-        <deprecated>false</deprecated>
         <description>The age of the contact</description>
-        <externalId>false</externalId>
         <formula>IF(ISNULL(Birthdate),0,FLOOR((TODAY()-Birthdate)/365.2425))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Age</label>
         <precision>18</precision>
-        <required>false</required>
         <scale>0</scale>
         <type>Number</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gfsurveys__IsClient__c</fullName>
         <defaultValue>false</defaultValue>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Is Client</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>gfsurveys__IsMobileUser__c</fullName>
-        <deprecated>false</deprecated>
         <description>Returns the number of Active Mobile User objects associated with this contact. The contact is considered to be a Mobile User if it has one (or more) related Mobile User objects.
 In this context 0 means false, and 1 or more means true.</description>
-        <externalId>false</externalId>
         <label>Is Mobile User</label>
         <summaryForeignKey>gfsurveys__Mobile_User__c.gfsurveys__Contact__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
@@ -524,8 +329,6 @@ In this context 0 means false, and 1 or more means true.</description>
     </fields>
     <fields>
         <fullName>gfsurveys__Mobile_User__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <formula>IF( gfsurveys__IsMobileUser__c &gt; 0
 ,
 IMAGE(&apos;/img/checkbox_checked.gif&apos;, &apos;Checked&apos;)
@@ -534,59 +337,37 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Mobile User Count</label>
-        <required>false</required>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gfsurveys__mobilesurveys_Id__c</fullName>
-        <caseSensitive>false</caseSensitive>
-        <deprecated>false</deprecated>
         <externalId>true</externalId>
         <label>Respondent ID</label>
         <length>15</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
         <unique>true</unique>
     </fields>
     <fields>
         <fullName>gfsurveys__mobilesurveys_LastCheckInDate__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Last Check In Date</label>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>gfsurveys__mobilesurveys_LastCheckInDevice__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>mobilesurveys Last Check In Device</label>
         <referenceTo>gfsurveys__Device__c</referenceTo>
         <relationshipLabel>Contacts</relationshipLabel>
         <relationshipName>Contacts</relationshipName>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>gfsurveys__mobilesurveys_Password__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Surveyor Password</label>
         <length>64</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>gfsurveys__mobilesurveys_Status__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Surveyor Status</label>
         <picklist>
             <picklistValues>
@@ -603,286 +384,14 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Picklist</type>
     </fields>
     <fields>
         <fullName>gfsurveys__mobilesurveys_Username__c</fullName>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Surveyor Username</label>
         <length>64</length>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>false</unique>
     </fields>
-    <listViews>
-        <fullName>Africa</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Mine</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>contains</operation>
-            <value>Africa</value>
-        </filters>
-        <label>Africa</label>
-    </listViews>
-    <listViews>
-        <fullName>Americas</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>contains</operation>
-            <value>Americas</value>
-        </filters>
-        <label>Americas</label>
-    </listViews>
-    <listViews>
-        <fullName>Asia</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>contains</operation>
-            <value>Asia</value>
-        </filters>
-        <label>Asia</label>
-    </listViews>
-    <listViews>
-        <fullName>Business</fullName>
-        <columns>CONTACT.LAST_NAME</columns>
-        <columns>CONTACT.FIRST_NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.PHONE3</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>contains</operation>
-            <value>business</value>
-        </filters>
-        <label>Business</label>
-    </listViews>
-    <listViews>
-        <fullName>Colombia_Contacts</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <columns>Country__c</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CORE.USERS.ALIAS</field>
-            <operation>equals</operation>
-            <value>LAC</value>
-        </filters>
-        <label>Colombia Contacts</label>
-        <language>en_US</language>
-    </listViews>
-    <listViews>
-        <fullName>General</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Mine</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>equals</operation>
-            <value>general</value>
-        </filters>
-        <label>General</label>
-    </listViews>
-    <listViews>
-        <fullName>MENA</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Mine</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>equals</operation>
-            <value>MENA</value>
-        </filters>
-        <label>MENA</label>
-    </listViews>
-    <listViews>
-        <fullName>NewThisWeek</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CONTACT.CREATED_DATE</field>
-            <operation>equals</operation>
-            <value>THIS_WEEK</value>
-        </filters>
-        <label>New This Week</label>
-    </listViews>
-    <listViews>
-        <fullName>Philanthropy</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Mine</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>equals</operation>
-            <value>philanthropy</value>
-        </filters>
-        <label>Philanthropy</label>
-    </listViews>
-    <listViews>
-        <fullName>Salgar_Contacts</fullName>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.FIRST_NAME</columns>
-        <columns>CONTACT.LAST_NAME</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CORE.USERS.ALIAS</field>
-            <operation>equals</operation>
-            <value>salgar</value>
-        </filters>
-        <label>Salgar Contacts</label>
-        <language>en_US</language>
-        <sharedTo>
-            <role>LAC_Admin_User</role>
-        </sharedTo>
-    </listViews>
-    <listViews>
-        <fullName>Technology</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>contains</operation>
-            <value>technology</value>
-        </filters>
-        <label>Technology</label>
-    </listViews>
-    <listViews>
-        <fullName>Telecom</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Mine</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>equals</operation>
-            <value>telecom</value>
-        </filters>
-        <label>Telecom</label>
-    </listViews>
-    <listViews>
-        <fullName>USA</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>ACCOUNT.NAME</columns>
-        <columns>CONTACT.TITLE</columns>
-        <columns>CONTACT.PHONE1</columns>
-        <columns>CONTACT.EMAIL</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <filterScope>Mine</filterScope>
-        <filters>
-            <field>CONTACT.DEPARTMENT</field>
-            <operation>equals</operation>
-            <value>USA</value>
-        </filters>
-        <label>USA</label>
-    </listViews>
-    <listViews>
-        <fullName>gfsurveys__Surveyors</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>gfsurveys__mobilesurveys_Username__c</columns>
-        <columns>gfsurveys__mobilesurveys_Password__c</columns>
-        <columns>gfsurveys__mobilesurveys_Status__c</columns>
-        <columns>gfsurveys__mobilesurveys_LastCheckInDate__c</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>gfsurveys__mobilesurveys_Username__c</field>
-            <operation>notEqual</operation>
-        </filters>
-        <label>Surveyors</label>
-    </listViews>
-    <namedFilters>
-        <fullName>gfsurveys__nf_01IE0000000kHoZMAU_00NE0000004AO1bMAG</fullName>
-        <active>false</active>
-        <field>gfsurveys__Client_Assignation__c.gfsurveys__Client__c</field>
-        <filterItems>
-            <field>Contact.gfsurveys__IsClient__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Client Assignation_Client</name>
-    </namedFilters>
-    <searchLayouts>
-        <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>CONTACT.PHONE1</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
-        <lookupFilterFields>FULL_NAME</lookupFilterFields>
-        <lookupFilterFields>ACCOUNT.NAME</lookupFilterFields>
-        <lookupFilterFields>ACCOUNT.SITE</lookupFilterFields>
-        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE1</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE3</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE4</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE5</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE6</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CONTACT.PHONE1</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CONTACT.EMAIL</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
-    </searchLayouts>
     <webLinks>
         <fullName>Contact_Pledge</fullName>
         <availability>online</availability>
@@ -912,7 +421,6 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <availability>online</availability>
         <description>generates report of all contacts within the organization</description>
         <displayType>massActionButton</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
         <linkType>url</linkType>
         <masterLabel>All Contacts in this Organization</masterLabel>
@@ -962,10 +470,7 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <availability>online</availability>
         <description>used to view connections between contacts and orgainzations</description>
         <displayType>button</displayType>
-        <encodingKey>UTF-8</encodingKey>
-        <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
-        <hasToolbar>false</hasToolbar>
         <height>600</height>
         <isResizable>true</isResizable>
         <linkType>url</linkType>
@@ -973,8 +478,6 @@ IMAGE(&apos;/img/checkbox_unchecked.gif&apos;, &apos;Not Checked&apos;)
         <openType>newWindow</openType>
         <position>none</position>
         <protected>false</protected>
-        <showsLocation>false</showsLocation>
-        <showsStatus>false</showsStatus>
         <url>/00O70000001KiYi?pv0={!Contact.Id}&amp;pv1={!Contact.FirstName} {!Contact.LastName}</url>
     </webLinks>
     <webLinks>
@@ -1071,10 +574,7 @@ alert(&quot;Please select at least one record to delete.&quot;); //alert the use
         <fullName>map</fullName>
         <availability>online</availability>
         <displayType>link</displayType>
-        <encodingKey>UTF-8</encodingKey>
-        <hasMenubar>false</hasMenubar>
         <hasScrollbars>true</hasScrollbars>
-        <hasToolbar>false</hasToolbar>
         <height>600</height>
         <isResizable>true</isResizable>
         <linkType>url</linkType>
@@ -1082,8 +582,6 @@ alert(&quot;Please select at least one record to delete.&quot;); //alert the use
         <openType>newWindow</openType>
         <position>none</position>
         <protected>false</protected>
-        <showsLocation>false</showsLocation>
-        <showsStatus>false</showsStatus>
         <url>http://maps.google.com/?q={!Contact.MailingStreet}+{!Contact.MailingCity}+{!Contact.MailingState}+{!Contact.MailingPostalCode}+{!Contact.MailingCountry}</url>
     </webLinks>
 </CustomObject>
